@@ -1,0 +1,39 @@
+﻿@model DDDEastAnglia.Models.Session
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Session</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Speaker.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Speaker.Name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Title)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Title)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Abstract)
+    </div>
+    <div class="display-field">
+        @Html.MarkdownFor(model => model.Abstract)
+    </div>
+</fieldset>
+<p>
+    @if (User.Identity.Name == Model.Speaker.UserName)
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.SessionId })  @Html.Raw(" |")
+    }
+    @Html.ActionLink("Back to List", "Index")
+</p>

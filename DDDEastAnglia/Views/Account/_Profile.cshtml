@@ -1,0 +1,30 @@
+﻿@model DDDEastAnglia.Models.UserProfile
+
+@using (Html.BeginForm("Profile", "Account"))
+{
+    <fieldset>
+        <legend>Your Profile</legend>
+        <div class="editor-label">
+            @Html.LabelFor(m => Model.Name)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(m => Model.Name)
+        </div>
+        <div class="editor-label">@Html.LabelFor(m => Model.TwitterHandle)</div>
+        <div class="editor-field">@Html.TextBoxFor(m => Model.TwitterHandle)</div>
+        <div class="editor-label">@Html.LabelFor(m => Model.Profile)</div>
+        <div class="editor-field">
+            <div id="wmd-button-bar"></div>
+            <div>
+                @Html.TextAreaFor(m => Model.Profile, 10, 50, new { id = "wmd-input" })
+            </div>
+            <div id="wmd-preview"></div>
+        </div>
+    </fieldset>
+    <input type="submit" value="Save profile" />
+<script type="text/javascript">
+    var converter = new Markdown.Converter();
+    var editor = new Markdown.Editor(converter);
+    editor.run();
+</script>
+}

@@ -1,0 +1,39 @@
+﻿@model DDDEastAnglia.Models.Session
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Session</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Speaker.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Speaker.Name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Title)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Title)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Abstract)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Abstract)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

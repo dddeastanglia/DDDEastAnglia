@@ -1,0 +1,54 @@
+﻿@model DDDEastAnglia.Models.Session
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Session</legend>
+
+        @Html.HiddenFor(model => model.SessionId)
+@Html.HiddenFor(model => model.Speaker.Name)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Title)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Title)
+            @Html.ValidationMessageFor(model => model.Title)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Abstract)
+        </div>
+        <div id="wmd-button-bar"></div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Abstract, 10,50, new { id = "wmd-input" })
+            @Html.ValidationMessageFor(model => model.Abstract)
+        </div>
+        <div id="wmd-preview"></div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+<script type="text/javascript">
+    var converter = new Markdown.Converter();
+    var editor = new Markdown.Editor(converter);
+    editor.run();
+</script>
