@@ -26,4 +26,9 @@ public static class HTMLExtensions
 
         return new MvcHtmlString(converter.Transform(rawText));
     }
+
+    public static MvcHtmlString DDDEastAnglia(this HtmlHelper helper)
+    {
+        return new MvcHtmlString(@"<strong class=""dddea"">DDD East Anglia</strong>");
+    }
 }

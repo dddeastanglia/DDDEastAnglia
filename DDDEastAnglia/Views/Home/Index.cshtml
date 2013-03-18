@@ -1,21 +1,22 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
+
 <p>
-    <span class="dddea">DDD East Anglia</span> is coming to Cambridge on 29<sup>th</sup> June 2013.                     
+    @Html.DDDEastAnglia() is coming to Cambridge on 29<sup>th</sup> June 2013.                     
 </p>
 
 <p>
-    <span class="dddea">DDD East Anglia</span> will be free to attend. Registration will open nearer to the date of the conference.
+    @Html.DDDEastAnglia() will be free to attend. Registration will open nearer to the date of the conference.
 </p>
 
 <p>
-    Follow <a href="http://www.twitter.com/DDDEastAnglia">@@DDDEastAnglia</a> on Twitter for the latest information and updates.
+    Follow <a href="http://www.twitter.com/DDDEastAnglia">@Html.DDDEastAnglia()</a> on Twitter for the latest information and updates.
 </p>
 
 <p>
-    As <span class="dddea">DDD East Anglia</span> is a free event, we rely exclusively on sponsorship.
-                    If you would like to sponsor <span class="dddea">DDD East Anglia</span>, please <a href="@Url.Action(MVC.Home.Contact())">get in touch</a>.
+    As @Html.DDDEastAnglia() is a free event, we rely exclusively on sponsorship.
+                    If you would like to sponsor @Html.DDDEastAnglia(), please <a href="@Url.Action(MVC.Home.Contact())">get in touch</a>.
 </p>
 <div>
     @Microsoft.Web.Helpers.Twitter.Profile("dddeastanglia")
