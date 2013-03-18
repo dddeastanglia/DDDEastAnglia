@@ -296,7 +296,7 @@
     <Content Include="Images\philpursglove.png" />
     <Content Include="Images\simonstevens.jpg" />
     <Content Include="Images\wmd-buttons.png" />
-    <Content Include="appSettings.config" />
+    <Content Include="appSettingsSecret.config" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\html5shiv-printshiv.js" />
