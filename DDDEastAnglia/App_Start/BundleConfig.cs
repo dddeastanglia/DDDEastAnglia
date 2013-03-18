@@ -30,8 +30,11 @@ namespace DDDEastAnglia
 
             bundles.Add(new StyleBundle("~/Content/css").Include(new[]
                                                          {
-                                                             "~/Content/bootstrap.css", "~/Content/Site.css",
-                                                             "~/Content/media-queries.css"
+                                                             "~/Content/bootstrap.css", 
+                                                             "~/Content/Site.css",
+                                                             "~/Content/media-queries.css",
+                                                             "~/Content/font-awesome.css",
+                                                             "~/Content/font-awesome-ie7.min.css",
                                                          }));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
