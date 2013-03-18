@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Web.Configuration;
+
 using Microsoft.Web.WebPages.OAuth;
 using DDDEastAnglia.Models;
 
@@ -19,8 +21,8 @@ namespace DDDEastAnglia
             //    clientSecret: "");
 
             OAuthWebSecurity.RegisterTwitterClient(
-                consumerKey: "JpQmLsmQzJ0xIURjBsqw",
-                consumerSecret: "KwQA8ykPAofehNfn70Lo4ou49XgwZ6li11WGup9NA");
+                consumerKey: WebConfigurationManager.AppSettings["TwitterKey"],
+                consumerSecret: WebConfigurationManager.AppSettings["TwitterSecret"]);
 
             //OAuthWebSecurity.RegisterFacebookClient(
             //    appId: "",

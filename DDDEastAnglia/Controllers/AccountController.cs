@@ -141,6 +141,7 @@ namespace DDDEastAnglia.Controllers
 
             UsersContext context = new UsersContext();
             UserProfile profile = context.UserProfiles.First(p => p.UserName == User.Identity.Name);
+
             ViewBag.Profile = profile;
 
             return View();

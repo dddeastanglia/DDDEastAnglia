@@ -1,3 +1,10 @@
+#appSettingsSecret - shared on Dropbox, contains Twitter shared secret stuff so not to be pushed to Github
+appSettingsSecret.config
+
+#App_ReadMe
+[Aa]pp_[Rr]ead[Mm]e/
+
+
 # Build Folders (you can keep bin if you'd like, to store dlls and pdbs)
 [Bb]in/
 [Oo]bj/

@@ -4,6 +4,7 @@
 {
     <fieldset>
         <legend>Your Profile</legend>
+        @Html.HiddenFor(m => m.UserId)
         <div class="editor-label">
             @Html.LabelFor(m => Model.Name)
         </div>
@@ -22,9 +23,9 @@
         </div>
     </fieldset>
     <input type="submit" value="Save profile" />
-<script type="text/javascript">
-    var converter = new Markdown.Converter();
-    var editor = new Markdown.Editor(converter);
-    editor.run();
-</script>
+    <script type="text/javascript">
+        var converter = new Markdown.Converter();
+        var editor = new Markdown.Editor(converter);
+        editor.run();
+    </script>
 }
