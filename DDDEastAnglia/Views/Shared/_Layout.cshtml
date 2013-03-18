@@ -2,60 +2,97 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>@ViewBag.Title - My ASP.NET MVC Application</title>
+    <title>DDD East Anglia @ViewBag.Title</title>
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="DDD East Anglia conference website 29 June 2013">
+    <meta name="author" content="DDD East Anglia">
     @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/Markdown")
-    @Styles.Render("~/Content/Markdown")
+    @Scripts.Render("~/bundles/modernizr")
 
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="~/Scripts/html5shiv.js"></script>
+      <script src="~/Scripts/html5shiv-printshiv.js"></script>
+    <![endif]-->
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
+    <link rel="shortcut icon" href="~/favicon.ico">
 </head>
-<body>
-    <header>
-        <div class="content-wrapper">
-            <div class="float-left">
-                <span class="site-title"><a href="@Url.Action(MVC.Home.Index())">
-                    <img src="/Images/logo-small.png" alt="DDD East Anglia logo" /></a></span>
-
-            </div>
-            <div class="float-right">
-                <div>DDD East Anglia</div>
-                <div>Cambridge, UK</div>
-                <div>Saturday 29<sup>th</sup> June 2013</div>
-            <section id="login">
-                @Html.Partial("_LoginPartial")
-            </section>
-            <nav>
-                <ul id="menu">
-                    <li>@Html.ActionLink("Home", MVC.Home.Index())</li>
-                    <li>@Html.ActionLink("Venue", MVC.Home.Venue())</li>
-                    <li>@Html.ActionLink("Sponsors", MVC.Home.Sponsors())</li>
-                    <li>@Html.ActionLink("Team", MVC.Home.Team())</li>
-                    <li>@Html.ActionLink("Sessions", MVC.Session.Index())</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
-            </nav>
-        </div>
-        </div>
-    </header>
-    <div id="body">
-        @RenderSection("featured", required: false)
-        <section class="content-wrapper main-content clear-fix">
-            @RenderBody()
-        </section>
-    </div>
-    <footer>
-        <div class="content-wrapper">
-            <div class="float-left">
-                <p>&copy; @DateTime.Now.Year - DDD Community</p>
+    <body>
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container-fluid">
+                    <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="brand" href="@Url.Action(MVC.Home.Index())">Project name</a>
+                    <div class="nav-collapse collapse">
+                        <p class="btn-group pull-right">
+                            @Html.Partial("_LoginPartial")
+                        </p>
+                        <ul class="nav">
+                            <li class="active">@Html.ActionLink("Home", MVC.Home.Index())</li>
+                            <li>@Html.ActionLink("Venue", MVC.Home.Venue())</li>
+                            <li>@Html.ActionLink("Sponsors", MVC.Home.Sponsors())</li>
+                            <li>@Html.ActionLink("Team", MVC.Home.Team())</li>
+                            <li>@Html.ActionLink("Sessions", MVC.Session.Index())</li>
+                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                        </ul>
+                    </div><!--/.nav-collapse -->
+                </div>
             </div>
         </div>
-    </footer>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span3">
+                    <div class="well sidebar-nav">
+                        <ul class="nav nav-list">
+                            <li class="nav-header">Sidebar</li>
+                            <li class="active"><a href="#">Link</a></li>
+                            <li><a href="#">Link</a></li>
+                            <li><a href="#">Link</a></li>
+                            <li><a href="#">Link</a></li>
+                            <li class="nav-header">Sidebar</li>
+                            <li><a href="#">Link</a></li>
+                            <li><a href="#">Link</a></li>
+                            <li><a href="#">Link</a></li>
+                            <li><a href="#">Link</a></li>
+                            <li><a href="#">Link</a></li>
+                            <li><a href="#">Link</a></li>
+                            <li class="nav-header">Sidebar</li>
+                            <li><a href="#">Link</a></li>
+                            <li><a href="#">Link</a></li>
+                            <li><a href="#">Link</a></li>
+                        </ul>
+                    </div><!--/.well -->
+                </div><!--/span-->
+          
+                <div class="span9">
+                    @RenderSection("featured", required: false)
+                    <section class="content-wrapper main-content clear-fix">
+                        @RenderBody()
+                    </section>
+                </div>
+            </div>
+            <hr>
 
-    @Scripts.Render("~/bundles/jquery")
-    @RenderSection("scripts", required: false)
+            <footer>
+            <p>&copy; @DateTime.Now.Year - DDD Community</p>
+            </footer>
+        </div><!--/.fluid-container-->
 
-    @{Html.RenderPartial(MVC.Shared.Views._GoogleAnalytics);}
-</body>
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @Styles.Render("~/Content/Markdown")
+        @RenderSection("scripts", required: false)
+
+        @{Html.RenderPartial(MVC.Shared.Views._GoogleAnalytics);}
+    </body>
 </html>
