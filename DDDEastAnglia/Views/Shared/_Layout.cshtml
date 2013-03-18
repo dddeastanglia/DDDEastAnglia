@@ -24,26 +24,26 @@
     <link rel="shortcut icon" href="~/favicon.ico">
 </head>
     <body>
-        <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar navbar-fixed-top">
             <div class="navbar-inner">
                 <div class="container-fluid">
-                    <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
-                    </button>
+                    </a>
                     <a class="brand" href="@Url.Action(MVC.Home.Index())">DDD East Anglia</a>
-                    <div class="nav-collapse collapse">
-                        <p class="btn-group pull-right">
-                            @Html.Partial("_LoginPartial")
-                        </p>
+                    <div class="btn-group pull-right">
+                        @Html.Partial("_LoginPartial")
+                    </div>
+                    <div class="nav-collapse">
                         <ul class="nav">
-                            <li class="active">@Html.ActionLink("Home", MVC.Home.Index())</li>
-                            <li>@Html.ActionLink("Venue", MVC.Home.Venue())</li>
-                            <li>@Html.ActionLink("Sponsors", MVC.Home.Sponsors())</li>
-                            <li>@Html.ActionLink("Team", MVC.Home.Team())</li>
-                            <li>@Html.ActionLink("Sessions", MVC.Session.Index())</li>
-                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                            <li class="dropdown active">@Html.ActionLink("Home", MVC.Home.Index())</li>
+                            <li class="dropdown">@Html.ActionLink("Venue", MVC.Home.Venue())</li>
+                            <li class="dropdown">@Html.ActionLink("Sponsors", MVC.Home.Sponsors())</li>
+                            <li class="dropdown">@Html.ActionLink("Team", MVC.Home.Team())</li>
+                            <li class="dropdown">@Html.ActionLink("Sessions", MVC.Session.Index())</li>
+                            <li class="dropdown">@Html.ActionLink("Contact", "Contact", "Home")</li>
                         </ul>
                     </div><!--/.nav-collapse -->
                 </div>
@@ -51,40 +51,21 @@
         </div>
         <div class="container-fluid">
             <div class="row-fluid">
-                <div class="span3">
-                    <div class="well sidebar-nav">
-                        <ul class="nav nav-list">
-                            <li class="nav-header">Sidebar</li>
-                            <li class="active"><a href="#">Link</a></li>
-                            <li><a href="#">Link</a></li>
-                            <li><a href="#">Link</a></li>
-                            <li><a href="#">Link</a></li>
-                            <li class="nav-header">Sidebar</li>
-                            <li><a href="#">Link</a></li>
-                            <li><a href="#">Link</a></li>
-                            <li><a href="#">Link</a></li>
-                            <li><a href="#">Link</a></li>
-                            <li><a href="#">Link</a></li>
-                            <li><a href="#">Link</a></li>
-                            <li class="nav-header">Sidebar</li>
-                            <li><a href="#">Link</a></li>
-                            <li><a href="#">Link</a></li>
-                            <li><a href="#">Link</a></li>
-                        </ul>
-                    </div><!--/.well -->
-                </div><!--/span-->
-          
                 <div class="span9">
                     @RenderSection("featured", required: false)
                     <section class="content-wrapper main-content clear-fix">
                         @RenderBody()
                     </section>
-                </div>
+                </div><!--/span9-->
+                <div class="span3">
+                    <div class="well">
+                        
+                    </div><!--/.well -->
+                </div><!--/span3-->
             </div>
             <hr>
-
             <footer>
-            <p>&copy; @DateTime.Now.Year - DDD Community</p>
+                <p>&copy; @DateTime.Now.Year - DDD Community</p>
             </footer>
         </div><!--/.fluid-container-->
 
