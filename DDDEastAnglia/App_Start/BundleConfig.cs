@@ -18,6 +18,9 @@ namespace DDDEastAnglia
                         "~/Scripts/jquery.unobtrusive*",
                         "~/Scripts/jquery.validate*"));
 
+            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
+                        "~/Scripts/bootstrap.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/Markdown").Include("~/Scripts/Markdown*"));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
@@ -25,7 +28,7 @@ namespace DDDEastAnglia
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(new[]{"~/Content/style.css", "~/Content/site.css"}));
+            bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/bootstrap.css"));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
                         "~/Content/themes/base/jquery.ui.core.css",
