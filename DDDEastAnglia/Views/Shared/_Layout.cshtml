@@ -24,7 +24,15 @@
     <link rel="shortcut icon" href="~/favicon.ico">
 </head>
     <body>
-        <div class="navbar navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="masthead">
+                <img src="~/Images/logo-small.png" class="pull-left" />
+                <h3 class="muted">DDD East Anglia</h3>
+                <p>Cambridge, UK<br />
+                Saturday 29 June 2013</p>
+            </div>
+        </div>
+        <div class="navbar navbar-static-top">
             <div class="navbar-inner">
                 <div class="container-fluid">
                     <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -32,7 +40,6 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </a>
-                    <a class="brand" href="@Url.Action(MVC.Home.Index())">DDD East Anglia</a>
                     <div class="btn-group pull-right">
                         @Html.Partial("_LoginPartial")
                     </div>
@@ -50,23 +57,30 @@
             </div>
         </div>
         <div class="container-fluid">
-            <div class="row-fluid">
-                <div class="span9">
-                    @RenderSection("featured", required: false)
-                    <section class="content-wrapper main-content clear-fix">
-                        @RenderBody()
-                    </section>
-                </div><!--/span9-->
-                <div class="span3">
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    @*<div class="span3">
                     <div class="well">
                         
                     </div><!--/.well -->
-                </div><!--/span3-->
+                </div><!--/span3-->*@
+                    <div class="span9">
+                        @RenderSection("featured", required: false)
+                        <div class="row-fluid">
+                            @RenderBody()
+                        </div>
+                    </div><!--/span9-->
+                    <div class="span3" id="sponsors">
+                        <div class="sponsor">
+                            <!-- Sponsors go here -->
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <footer>
+                    <p>&copy; @DateTime.Now.Year - DDD Community</p>
+                </footer>
             </div>
-            <hr>
-            <footer>
-                <p>&copy; @DateTime.Now.Year - DDD Community</p>
-            </footer>
         </div><!--/.fluid-container-->
 
         @Scripts.Render("~/bundles/jquery")

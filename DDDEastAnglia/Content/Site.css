@@ -1,6 +1,15 @@
 ﻿body {
-    padding-top: 60px;
+    padding-top: 0;
     padding-bottom: 40px;
 }
 
 .sidebar-nav { padding: 9px 0; }
+
+.masthead {
+    margin: 10px 20px;
+    min-height: 115px;
+}
+
+.masthead img { margin-right: 10px; }
+
+.navbar { margin-bottom: 10px; }
