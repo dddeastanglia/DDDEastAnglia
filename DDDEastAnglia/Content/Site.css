@@ -38,3 +38,15 @@
     border: 0;
     margin: 0 auto;
 }
+
+.teammember {
+    overflow: hidden;
+    padding: 15px;
+    margin-bottom: 10px;
+}
+
+.teammember img {
+    float: left;
+    margin-right: 15px;
+    border: 1px solid #013c01;
+}
