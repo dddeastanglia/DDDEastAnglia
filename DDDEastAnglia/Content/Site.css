@@ -18,3 +18,23 @@
     font-weight: bold;
     color: #013c01;
 }
+
+.sponsor { margin-bottom: 20px; }
+
+.sponsor a {
+    border: 1px solid #e7e7e7;
+    display: block;
+    padding: 15px;
+}
+
+.sponsor a:hover { border: 1px solid #013c01 }
+
+#sponsors .sponsor {
+    display: inline-block;
+    overflow: hidden;
+}
+
+.sponsor a img {
+    border: 0;
+    margin: 0 auto;
+}
