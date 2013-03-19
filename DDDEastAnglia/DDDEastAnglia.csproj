@@ -402,10 +402,20 @@
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <ItemGroup>
+    <!-- This works for packaging web applications from Visual Studio -->
     <ExcludeFromPackageFiles Include="App_Readme\*.*;appSettingsSecret.config">
       <FromTarget>Project</FromTarget>
     </ExcludeFromPackageFiles>
   </ItemGroup>
+  <PropertyGroup>
+    <!--This works for publishing web applications through Web Deploy 3.0 -->
+    <ExcludeFilesFromDeployment>
+      appSettingsSecret.config
+    </ExcludeFilesFromDeployment>
+    <ExcludeFoldersFromDeployment>
+      App_Readme
+    </ExcludeFoldersFromDeployment>
+  </PropertyGroup>
   <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
     <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
   </Target>
