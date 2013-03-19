@@ -25,6 +25,7 @@
     border: 1px solid #e7e7e7;
     display: block;
     padding: 15px;
+    text-align: center;
 }
 
 .sponsor a:hover { border: 1px solid #013c01 }
