@@ -13,6 +13,7 @@
 .masthead img { margin-right: 10px; }
 
 .navbar { margin-bottom: 10px; }
+.btn.btn-navbar { float: left; }
 
 .dddea {
     font-weight: bold;
