@@ -20,6 +20,8 @@
     color: #013c01;
 }
 
+#sidebar { min-width: 200px; }
+
 .sponsor { margin-bottom: 20px; }
 
 .sponsor a {
