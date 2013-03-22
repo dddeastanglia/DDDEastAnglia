@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Transactions;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using DotNetOpenAuth.AspNet;
@@ -11,7 +10,6 @@ using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
 using DDDEastAnglia.Filters;
 using DDDEastAnglia.Models;
-using System.Data.Entity;
 
 using IsolationLevel = System.Transactions.IsolationLevel;
 
