@@ -339,7 +339,7 @@ namespace DDDEastAnglia.Controllers
         }
 
         [HttpPost]
-        public ActionResult Profile(UserProfile profile)
+        public ActionResult UserProfile(UserProfile profile)
         {
             if (ModelState.IsValid)
             {
