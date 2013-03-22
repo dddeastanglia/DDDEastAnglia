@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <title>DDD East Anglia @ViewBag.Title</title>
-    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="http://www.dddeastanglia.com/favicon.ico")" rel="shortcut icon" type="image/x-icon" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="DDD East Anglia conference website 29 June 2013">
     <meta name="author" content="DDD East Anglia">
@@ -21,13 +21,13 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
-    <link rel="shortcut icon" href="~/favicon.ico">
+    <link rel="image_src" href="@Url.Content("~/Images/logo-small.png")" /> @*this apparently works with embed.ly for Twitter Cards*@
 </head>
     <body>
         <div class="container-fluid">
             <div class="masthead">
-                <img src="~/Images/logo-small.png" class="pull-left" />
-                <h3 class="muted">DDD East Anglia</h3>
+                <img src="@Url.Content("~/Images/logo-small.png")" class="pull-left" />
+                <h3>DDD East Anglia</h3>
                 <p>Cambridge, UK<br />
                 Saturday 29 June 2013</p>
             </div>
@@ -46,10 +46,11 @@
                     <div class="nav-collapse">
                         <ul class="nav">
                             <li class="dropdown active">@Html.ActionLink("Home", MVC.Home.Index())</li>
+                            <li class="dropdown">@Html.ActionLink("Sessions", MVC.Session.Index())</li>
+                            @*<li class="dropdown">@Html.ActionLink("Agenda", MVC.Agenda.Index())</li>*@
                             <li class="dropdown">@Html.ActionLink("Venue", MVC.Home.Venue())</li>
                             <li class="dropdown">@Html.ActionLink("Sponsors", MVC.Home.Sponsors())</li>
                             <li class="dropdown">@Html.ActionLink("Team", MVC.Home.Team())</li>
-                            <li class="dropdown">@Html.ActionLink("Sessions", MVC.Session.Index())</li>
                             <li class="dropdown">@Html.ActionLink("Contact", "Contact", "Home")</li>
                         </ul>
                     </div><!--/.nav-collapse -->
@@ -86,29 +87,28 @@
                         </section>
                         <section>
                             <h3>Timeline</h3>
-                            <ul>
-                                <li><strong>Monday 1 April 2013:</strong> Call for speakers</li>
-                                <li><strong>Sunday 28 April 2013:</strong> Call for speakers closes</li>
-                                <li><strong>Wednesday 1 May 2013:</strong> Session voting opens</li>
-                                <li><strong>Friday 24 May 2013:</strong> Session voting closes</li>
-                                <li><strong>Wednesday 29 May 2013:</strong> Agenda announced</li>
-                                <li><strong>Monday 3 June 2013:</strong> <strong>Registration opens</strong></li>
-                                <li><strong>Saturday 29 June 2013:</strong> DDD East Anglia!</li>
-                            </ul>
+                            <dl>
+                                <dt><strong>Monday 1 April 2013:</strong></dt><dd>Call for speakers</dd>
+                                <dt><strong>Sunday 28 April 2013:</strong></dt><dd>Call for speakers closes</dd>
+                                <dt><strong>Wednesday 1 May 2013:</strong></dt><dd>Session voting opens</dd>
+                                <dt><strong>Friday 24 May 2013:</strong></dt><dd>Session voting closes</dd>
+                                <dt><strong>Wednesday 29 May 2013:</strong></dt><dd>Agenda announced</dd>
+                                <dt><strong>Monday 3 June 2013:</strong></dt><dd><strong>Registration opens</strong></dd>
+                            </dl>
                         </section>
                         <section id="sponsors">
                             <h3>Sponsors</h3>
                             <div class="sponsor">
-                                <a href="http://www.pluralsight.com/training"><img src="~/Images/sponsors/pluralsight.png" /></a>
+                                <a href="http://www.pluralsight.com/training"><img src="@Url.Content("~/Images/sponsors/pluralsight.png")" /></a>
                             </div>
                             <div class="sponsor">
-                                <a href="http://www.ideaspace.cam.ac.uk"><img src="~/Images/sponsors/ideaspace.jpg" /></a>
+                                <a href="http://www.ideaspace.cam.ac.uk"><img src="@Url.Content("~/Images/sponsors/ideaspace.jpg")" /></a>
                             </div>
                             <div class="sponsor">
-                                <a href="http://www.tinamous.com"><img src="~/Images/sponsors/tinamous.png" /></a>
+                                <a href="http://www.tinamous.com"><img src="@Url.Content("~/Images/sponsors/tinamous.png")" /></a>
                             </div>
                             <div class="sponsor">
-                                <a href="http://www.iammagpie.co.uk"><img src="~/Images/sponsors/iammagpie.jpg" /></a>
+                                <a href="http://www.iammagpie.co.uk"><img src="@Url.Content("~/Images/sponsors/iammagpie.jpg")" /></a>
                             </div>
                         </section>
                     </div>

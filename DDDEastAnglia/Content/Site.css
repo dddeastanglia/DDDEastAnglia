@@ -13,11 +13,14 @@
 .masthead img { margin-right: 10px; }
 
 .navbar { margin-bottom: 10px; }
+.btn.btn-navbar { float: left; }
 
 .dddea {
     font-weight: bold;
     color: #013c01;
 }
+
+#sidebar { min-width: 200px; }
 
 .sponsor { margin-bottom: 20px; }
 
