@@ -1,26 +1,43 @@
 ﻿@model DDDEastAnglia.Models.UserProfile
 
-@using (Html.BeginForm("Profile", "Account"))
+@using (Html.BeginForm("UserProfile", "Account"))
 {
+    @Html.ValidationSummary(true)
     <fieldset>
         <legend>Your Profile</legend>
         @Html.HiddenFor(m => m.UserId)
-        <div class="editor-label">
+        <div>
             @Html.LabelFor(m => Model.Name)
         </div>
-        <div class="editor-field">
+        <div>
             @Html.TextBoxFor(m => Model.Name)
+            @Html.ValidationMessageFor(m => Model.Name)
         </div>
-        <div class="editor-label">@Html.LabelFor(m => Model.TwitterHandle)</div>
-        <div class="editor-field">@Html.TextBoxFor(m => Model.TwitterHandle)</div>
-        <div class="editor-label">@Html.LabelFor(m => Model.Profile)</div>
-        <div class="editor-field">
+
+        <div>
+            Contact Details
+        </div>
+        <div>@Html.LabelFor(m => Model.EmailAddress)</div>
+        <div>@Html.TextBoxFor(m => Model.EmailAddress)
+            @Html.ValidationMessageFor(m => Model.EmailAddress)
+        </div>
+        <div>@Html.LabelFor(m => Model.MobilePhone)</div>
+        <div>@Html.TextBoxFor(m => Model.MobilePhone)</div>
+
+        <div>@Html.LabelFor(m => Model.TwitterHandle)</div>
+        <div>@@@Html.TextBoxFor(m => Model.TwitterHandle)</div>
+        <div>@Html.LabelFor(m => Model.WebsiteUrl)</div>
+        <div>@Html.TextBoxFor(m => Model.WebsiteUrl)</div>
+        <div>@Html.LabelFor(m => Model.Profile)</div>
+        <div>
             <div id="wmd-button-bar"></div>
             <div>
                 @Html.TextAreaFor(m => Model.Profile, 10, 50, new { id = "wmd-input" })
             </div>
             <div id="wmd-preview"></div>
         </div>
+        <div>@Html.LabelFor(m => Model.NewSpeaker)</div>
+        <div>@Html.CheckBoxFor(m => Model.NewSpeaker)</div>
     </fieldset>
     <input type="submit" value="Save profile" />
     <script type="text/javascript">

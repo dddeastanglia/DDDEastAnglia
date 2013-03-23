@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
-using System.Globalization;
 using System.Web.Mvc;
-using System.Web.Security;
 
 namespace DDDEastAnglia.Models
 {
@@ -32,9 +28,9 @@ namespace DDDEastAnglia.Models
         public string Name { get; set; }
         [Required(ErrorMessage = "We have to have your email address or we can't contact you!")]
         [DisplayName("Email Address (not for public use, just so we can contact you")]
-        [DataType(DataType.EmailAddress)]
+        [DataType(DataType.EmailAddress, ErrorMessage = "This doesn't appear to be a valid email address")]
         public string EmailAddress { get; set; }
-        [DataType(DataType.Url)]
+        [DataType(DataType.Url, ErrorMessage = "This doesn't appear to be a valid url")]
         [DisplayName("Website")]
         public string WebsiteUrl { get; set; }
         [DisplayName("Twitter Handle")]
