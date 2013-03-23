@@ -92,7 +92,7 @@ namespace DDDEastAnglia
             using (var responseStream = response.GetResponseStream())
             using (var streamReader = new StreamReader(responseStream))
             {
-                return System.Web.Helpers.Json.Decode<Dictionary<string,string>>(streamReader.ReadToEnd();
+                return System.Web.Helpers.Json.Decode<Dictionary<string, string>>(streamReader.ReadToEnd());
             }
         }
 
