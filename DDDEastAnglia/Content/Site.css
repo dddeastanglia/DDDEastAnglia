@@ -25,6 +25,8 @@
 
 #sidebar { min-width: 200px; }
 
+#sidebar h1 { font-size: 18px; }
+
 .sponsor { margin-bottom: 20px; }
 
 .sponsor a {
