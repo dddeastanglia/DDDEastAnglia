@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
@@ -27,10 +28,22 @@ namespace DDDEastAnglia.Models
         public int UserId { get; set; }
         public string UserName { get; set; }
 
+        [Required]
         public string Name { get; set; }
-        public string Profile { get; set; }
+        [Required(ErrorMessage = "We have to have your email address or we can't contact you!")]
+        [DisplayName("Email Address (not for public use, just so we can contact you")]
+        [DataType(DataType.EmailAddress)]
+        public string EmailAddress { get; set; }
+        [DataType(DataType.Url)]
+        [DisplayName("Website")]
+        public string WebsiteUrl { get; set; }
+        [DisplayName("Twitter Handle")]
         public string TwitterHandle { get; set; }
-
+        public string Profile { get; set; }
+        [DisplayName("Mobile Phone (not for public use, so we can contact you)")]
+        public string MobilePhone { get; set; }
+        [DisplayName("Are you a new speaker? (haven't spoken at a DDD before)")]
+        public bool NewSpeaker { get; set; }
 
     }
 
