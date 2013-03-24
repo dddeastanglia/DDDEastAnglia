@@ -3,6 +3,10 @@
     padding-bottom: 40px;
 }
 
+dd {
+    margin-left: 20px;
+}
+
 .sidebar-nav { padding: 9px 0; }
 
 .masthead {
