@@ -35,7 +35,7 @@
             }
         </li>
         <li>
-            @using (Html.BeginForm(MVC.Account.ExternalLogin("GitHub", Url.ActionAbsolute(MVC.Home.Index())), FormMethod.Post, new { id = "githubLoginform" }))
+            @using (Html.BeginForm(MVC.Account.ExternalLogin("GitHub", Url.Action(MVC.Home.Index())), FormMethod.Post, new { id = "githubLoginform" }))
             {
                 @Html.AntiForgeryToken()
                 <a href="javascript:document.getElementById('githubLoginform').submit();" id="githubLoginLink">Log in with GitHub</a>
