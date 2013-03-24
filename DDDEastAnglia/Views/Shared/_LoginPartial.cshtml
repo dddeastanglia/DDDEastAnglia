@@ -20,20 +20,8 @@
         <span class="caret"></span>
     </a>
     <ul class="dropdown-menu">
-        <li>
-            @using (Html.BeginForm(MVC.Account.ExternalLogin("Google", Url.Action(MVC.Home.Index())), FormMethod.Post, new { id = "googleLoginForm" }))
-            {
-                @Html.AntiForgeryToken()
-                <a href="javascript:document.getElementById('googleLoginForm').submit();" id="googleLoginLink">Log in with Google</a>
-            }
-        </li>
-        <li>
-            @using (Html.BeginForm(MVC.Account.ExternalLogin("Twitter", Url.Action(MVC.Home.Index())), FormMethod.Post, new { id = "twitterLoginForm" }))
-            {
-                @Html.AntiForgeryToken()
-                <a href="javascript:document.getElementById('twitterLoginForm').submit();" id="twitterLoginLink">Log in with Twitter</a>
-            }
-        </li>
+        <li><a href="javascript:document.getElementById('googleLoginForm').submit();" id="googleLoginLink">Log in with Google</a></li>
+        <li><a href="javascript:document.getElementById('twitterLoginForm').submit();" id="twitterLoginLink">Log in with Twitter</a></li>
         @*<li><a href="#" id="githubLoginLink">Log in with GitHub</a></li>*@
         @*<li><a data-toggle="modal" href="#openIdLogin">Log in with an OpenID</a></li>*@
         <li class="divider"></li>
