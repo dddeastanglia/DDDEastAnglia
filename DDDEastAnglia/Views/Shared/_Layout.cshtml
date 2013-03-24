@@ -25,11 +25,13 @@
 </head>
     <body>
         <div class="container-fluid">
-            <div class="masthead">
-                <img src="@Url.Content("~/Images/logo-small.png")" class="pull-left" />
-                <h3>DDD East Anglia</h3>
-                <p>Cambridge, UK<br />
-                Saturday 29 June 2013</p>
+            <div class="row-fluid">
+                <div class="masthead">
+                    <a href="@Url.Action(MVC.Home.Index())"><img src="@Url.Content("~/Images/logo-small.png")" class="pull-left" alt="Developer! Developer! Developer! East Anglia" /></a>
+                    <h2>DDD East Anglia</h2>
+                    <p>Cambridge, UK<br />
+                        Saturday 29 June 2013</p>
+                </div>
             </div>
         </div>
         <div class="navbar navbar-static-top">
@@ -60,11 +62,6 @@
         <div class="container-fluid">
             <div class="container-fluid">
                 <div class="row-fluid">
-                    @*<div class="span3">
-                    <div class="well">
-                        
-                    </div><!--/.well -->
-                </div><!--/span3-->*@
                     <div class="span9">
                         @RenderSection("featured", required: false)
                         <div class="row-fluid">
@@ -115,7 +112,7 @@
                 </div>
                 <hr>
                 <footer>
-                    <p>&copy; @DateTime.Now.Year - DDD Community</p>
+                    <p>&copy; @DateTime.Now.Year - DDD East Anglia</p>
                 </footer>
             </div>
         </div><!--/.fluid-container-->

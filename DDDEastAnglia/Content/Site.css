@@ -3,6 +3,16 @@
     padding-bottom: 40px;
 }
 
+dd {
+    margin-left: 20px;
+}
+
+.span1 a, .span2 a, .span3 a, .span4 a,
+.span5 a, .span6 a, .span7 a, .span8 a,
+.span9 a, .span10 a, .span11 a, .span12 a {
+    text-decoration: underline;
+}
+
 .sidebar-nav { padding: 9px 0; }
 
 .masthead {
