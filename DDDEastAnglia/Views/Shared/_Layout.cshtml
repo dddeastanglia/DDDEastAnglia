@@ -62,52 +62,54 @@
         <div class="container-fluid">
             <div class="container-fluid">
                 <div class="row-fluid">
-                    <div class="span9">
+                    <div class="span8">
                         @RenderSection("featured", required: false)
                         <div class="row-fluid">
                             @RenderBody()
                         </div>
                     </div><!--/span9-->
-                    <div class="span3" id="sidebar">
-                        <section class="row-fluid">
-                            <h1>When and Where?</h1>
-                            <p>
-                                Saturday 29th June 2013<br />
-                                8:30 to 17:00
-                            </p>
-                            <p>
-                                The Hauser Forum<br />
-                                3 Charles Babbage Road<br />
-                                Cambridge<br />
-                                CB3 0GT
-                            </p>
-                        </section>
-                        <section>
-                            <h1>Timeline</h1>
-                            <dl>
-                                <dt><strong>Monday 1 April 2013:</strong></dt><dd>Call for speakers</dd>
-                                <dt><strong>Sunday 28 April 2013:</strong></dt><dd>Call for speakers closes</dd>
-                                <dt><strong>Wednesday 1 May 2013:</strong></dt><dd>Session voting opens</dd>
-                                <dt><strong>Friday 24 May 2013:</strong></dt><dd>Session voting closes</dd>
-                                <dt><strong>Wednesday 29 May 2013:</strong></dt><dd>Agenda announced</dd>
-                                <dt><strong>Monday 3 June 2013:</strong></dt><dd><strong>Registration opens</strong></dd>
-                            </dl>
-                        </section>
-                        <section id="sponsors">
-                            <h1>Sponsors</h1>
-                            <div class="sponsor">
-                                <a href="http://www.pluralsight.com/training"><img src="@Url.Content("~/Images/sponsors/pluralsight.png")" /></a>
-                            </div>
-                            <div class="sponsor">
-                                <a href="http://www.ideaspace.cam.ac.uk"><img src="@Url.Content("~/Images/sponsors/ideaspace.jpg")" /></a>
-                            </div>
-                            <div class="sponsor">
-                                <a href="http://www.tinamous.com"><img src="@Url.Content("~/Images/sponsors/tinamous.png")" /></a>
-                            </div>
-                            <div class="sponsor">
-                                <a href="http://www.iammagpie.co.uk"><img src="@Url.Content("~/Images/sponsors/iammagpie.jpg")" /></a>
-                            </div>
-                        </section>
+                    <div class="span4" id="sidebar">
+                        <div class="well">
+                            <section class="row-fluid">
+                                <h1>When and Where?</h1>
+                                <p>
+                                    Saturday 29th June 2013<br />
+                                    8:30 to 17:00
+                                </p>
+                                <p>
+                                    The Hauser Forum<br />
+                                    3 Charles Babbage Road<br />
+                                    Cambridge<br />
+                                    CB3 0GT
+                                </p>
+                            </section>
+                            <section>
+                                <h1>Timeline</h1>
+                                <dl>
+                                    <dt><strong>Monday 1 April 2013:</strong></dt><dd>Call for speakers</dd>
+                                    <dt><strong>Sunday 28 April 2013:</strong></dt><dd>Call for speakers closes</dd>
+                                    <dt><strong>Wednesday 1 May 2013:</strong></dt><dd>Session voting opens</dd>
+                                    <dt><strong>Friday 24 May 2013:</strong></dt><dd>Session voting closes</dd>
+                                    <dt><strong>Wednesday 29 May 2013:</strong></dt><dd>Agenda announced</dd>
+                                    <dt><strong>Monday 3 June 2013:</strong></dt><dd><strong>Registration opens</strong></dd>
+                                </dl>
+                            </section>
+                            <section id="sponsors">
+                                <h1>Sponsors</h1>
+                                <div class="sponsor">
+                                    <a href="http://www.pluralsight.com/training"><img src="@Url.Content("~/Images/sponsors/pluralsight.png")" /></a>
+                                </div>
+                                <div class="sponsor">
+                                    <a href="http://www.ideaspace.cam.ac.uk"><img src="@Url.Content("~/Images/sponsors/ideaspace.jpg")" /></a>
+                                </div>
+                                <div class="sponsor">
+                                    <a href="http://www.tinamous.com"><img src="@Url.Content("~/Images/sponsors/tinamous.png")" /></a>
+                                </div>
+                                <div class="sponsor">
+                                    <a href="http://www.iammagpie.co.uk"><img src="@Url.Content("~/Images/sponsors/iammagpie.jpg")" /></a>
+                                </div>
+                            </section>
+                        </div>
                     </div>
                 </div>
                 <hr>

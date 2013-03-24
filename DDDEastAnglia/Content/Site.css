@@ -33,13 +33,15 @@ dd {
     color: #013c01;
 }
 
-#sidebar { min-width: 180px; }
+#sidebar { min-width: 220px; }
 
 #sidebar h1 { font-size: 18px; }
+#sidebar h1:first-of-type { margin-top: 0; }
 
 .sponsor { margin-bottom: 20px; }
 
 .sponsor a {
+    background-color: white;
     border: 1px solid #e7e7e7;
     display: block;
     padding: 15px;
