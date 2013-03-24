@@ -29,6 +29,10 @@ namespace DDDEastAnglia
             //    appSecret: "");
 
             OAuthWebSecurity.RegisterGoogleClient();
+
+            OAuthWebSecurity.RegisterClient(new GitHubOAuthClient(
+                WebConfigurationManager.AppSettings["GitHubAppId"],
+                WebConfigurationManager.AppSettings["GitHubSecret"]), "GitHub", null);
         }
     }
 }

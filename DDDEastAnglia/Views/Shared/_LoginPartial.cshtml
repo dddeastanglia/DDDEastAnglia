@@ -34,7 +34,13 @@
                 <a href="javascript:document.getElementById('twitterLoginForm').submit();" id="twitterLoginLink">Log in with Twitter</a>
             }
         </li>
-        @*<li><a href="#" id="githubLoginLink">Log in with GitHub</a></li>*@
+        <li>
+            @using (Html.BeginForm(MVC.Account.ExternalLogin("GitHub", Url.ActionAbsolute(MVC.Home.Index())), FormMethod.Post, new { id = "githubloginform" }))
+            {
+                @Html.AntiForgeryToken()
+                <a href="javascript:document.getElementById('githubloginform').submit();" id="githubLoginLink">Log in with GitHub</a>
+            }
+        </li>
         @*<li><a data-toggle="modal" href="#openIdLogin">Log in with an OpenID</a></li>*@
         <li class="divider"></li>
         <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
