@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Web;
 
@@ -38,7 +37,7 @@ namespace DDDEastAnglia
         private readonly string _appSecret;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="GitHubOAuth2Client"/> class.
+        /// Initializes a new instance of the <see cref="GitHubOAuthClient"/> class.
         /// </summary>
         /// <param name="appId">
         /// The app id.
@@ -86,7 +85,6 @@ namespace DDDEastAnglia
         protected override IDictionary<string, string> GetUserData(string accessToken)
         {
             var request = WebRequest.Create(_userEndpoint + "?access_token=" + accessToken);
-            Dictionary<string, string> authData;
 
             using (var response = request.GetResponse())
             using (var responseStream = response.GetResponseStream())

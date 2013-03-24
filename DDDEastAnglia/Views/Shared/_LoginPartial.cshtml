@@ -35,10 +35,10 @@
             }
         </li>
         <li>
-            @using (Html.BeginForm(MVC.Account.ExternalLogin("GitHub", Url.ActionAbsolute(MVC.Home.Index())), FormMethod.Post, new { id = "githubloginform" }))
+            @using (Html.BeginForm(MVC.Account.ExternalLogin("GitHub", Url.ActionAbsolute(MVC.Home.Index())), FormMethod.Post, new { id = "githubLoginform" }))
             {
                 @Html.AntiForgeryToken()
-                <a href="javascript:document.getElementById('githubloginform').submit();" id="githubLoginLink">Log in with GitHub</a>
+                <a href="javascript:document.getElementById('githubLoginform').submit();" id="githubLoginLink">Log in with GitHub</a>
             }
         </li>
         @*<li><a data-toggle="modal" href="#openIdLogin">Log in with an OpenID</a></li>*@
