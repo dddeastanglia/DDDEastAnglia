@@ -7,14 +7,10 @@ dd {
     margin-left: 20px;
 }
 
-.span1 a, .span2 a, .span3 a, .span4 a,
-.span5 a, .span6 a, .span7 a, .span8 a,
-.span9 a, .span10 a, .span11 a, .span12 a {
+.span1 > p > a, .span2 > p > a, .span3 > p > a, .span4 > p > a,
+.span5 > p > a, .span6 > p > a, .span7 > p > a, .span8 > p > a,
+.span9 > p > a, .span10 > p > a, .span11 > p > a, .span12 > p > a {
     text-decoration: underline;
-}
-
-a.btn, a.carousel-control {
-    text-decoration: none;
 }
 
 .carousel-caption a { color: white; }
