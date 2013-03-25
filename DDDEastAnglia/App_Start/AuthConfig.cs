@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Web.Configuration;
+﻿using System.Web.Configuration;
 
 using Microsoft.Web.WebPages.OAuth;
-using DDDEastAnglia.Models;
 
 namespace DDDEastAnglia
 {

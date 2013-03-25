@@ -27,6 +27,7 @@ public static class MVC
     public static DDDEastAnglia.Controllers.AccountController Account = new DDDEastAnglia.Controllers.T4MVC_AccountController();
     public static DDDEastAnglia.Controllers.HomeController Home = new DDDEastAnglia.Controllers.T4MVC_HomeController();
     public static DDDEastAnglia.Controllers.SessionController Session = new DDDEastAnglia.Controllers.T4MVC_SessionController();
+    public static DDDEastAnglia.Controllers.SpeakerController Speaker = new DDDEastAnglia.Controllers.T4MVC_SpeakerController();
     public static T4MVC.SharedController Shared = new T4MVC.SharedController();
 }
 
@@ -71,6 +72,12 @@ namespace Links
         public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
         public static readonly string _references_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/_references.min.js") ? Url("_references.min.js") : Url("_references.js");
                       
+        public static readonly string bootstrap_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap.min.js") ? Url("bootstrap.min.js") : Url("bootstrap.js");
+                      
+        public static readonly string html5shiv_printshiv_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/html5shiv-printshiv.min.js") ? Url("html5shiv-printshiv.min.js") : Url("html5shiv-printshiv.js");
+                      
+        public static readonly string html5shiv_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/html5shiv.min.js") ? Url("html5shiv.min.js") : Url("html5shiv.js");
+                      
         public static readonly string jquery_1_9_1_intellisense_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-1.9.1.intellisense.min.js") ? Url("jquery-1.9.1.intellisense.min.js") : Url("jquery-1.9.1.intellisense.js");
                       
         public static readonly string jquery_1_9_1_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-1.9.1.min.js") ? Url("jquery-1.9.1.min.js") : Url("jquery-1.9.1.js");
@@ -108,11 +115,28 @@ namespace Links
         private const string URLPATH = "~/Content";
         public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
         public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+        public static readonly string bootstrap_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap.min.css") ? Url("bootstrap.min.css") : Url("bootstrap.css");
+             
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public static class font {
+            private const string URLPATH = "~/Content/font";
+            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+            public static readonly string fontawesome_webfont_eot = Url("fontawesome-webfont.eot");
+            public static readonly string fontawesome_webfont_svg = Url("fontawesome-webfont.svg");
+            public static readonly string fontawesome_webfont_ttf = Url("fontawesome-webfont.ttf");
+            public static readonly string fontawesome_webfont_woff = Url("fontawesome-webfont.woff");
+            public static readonly string FontAwesome_otf = Url("FontAwesome.otf");
+        }
+    
+        public static readonly string font_awesome_ie7_min_css = Url("font-awesome-ie7.min.css");
+        public static readonly string font_awesome_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/font-awesome.min.css") ? Url("font-awesome.min.css") : Url("font-awesome.css");
+             
         public static readonly string Markdown_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Markdown.min.css") ? Url("Markdown.min.css") : Url("Markdown.css");
              
-        public static readonly string Site_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Site.min.css") ? Url("Site.min.css") : Url("Site.css");
+        public static readonly string media_queries_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/media-queries.min.css") ? Url("media-queries.min.css") : Url("media-queries.css");
              
-        public static readonly string style_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/style.min.css") ? Url("style.min.css") : Url("style.css");
+        public static readonly string Site_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Site.min.css") ? Url("Site.min.css") : Url("Site.css");
              
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public static class themes {
