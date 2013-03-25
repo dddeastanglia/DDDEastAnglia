@@ -1,4 +1,4 @@
-﻿body {
+body {
     padding-top: 0;
     padding-bottom: 40px;
 }
@@ -13,9 +13,11 @@ dd {
     text-decoration: underline;
 }
 
-a.btn {
+a.btn, a.carousel-control {
     text-decoration: none;
 }
+
+#photos { max-width: 850px; }
 
 .sidebar-nav { padding: 9px 0; }
 
