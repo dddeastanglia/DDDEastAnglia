@@ -13,6 +13,10 @@ dd {
     text-decoration: underline;
 }
 
+a.btn {
+    text-decoration: none;
+}
+
 .sidebar-nav { padding: 9px 0; }
 
 .masthead {
