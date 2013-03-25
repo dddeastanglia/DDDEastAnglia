@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace DDDEastAnglia.Models
 {
@@ -15,6 +11,8 @@ namespace DDDEastAnglia.Models
         [Required]
         public string Abstract { get; set; }
 
-        public UserProfile Speaker { get; set; }
+        public string SpeakerUserName { get; set; }
+
+        public int Votes { get; set; }
     }
 }

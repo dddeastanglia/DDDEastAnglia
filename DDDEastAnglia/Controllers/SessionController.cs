@@ -20,7 +20,27 @@ namespace DDDEastAnglia.Controllers
         [AllowAnonymous]
         public virtual ActionResult Index()
         {
-            return View(db.Sessions.ToList());
+            List<SessionDisplayModel> displaySessions = new List<SessionDisplayModel>();
+
+            List<Session> sessions = db.Sessions.ToList();
+
+            foreach (Session session in sessions)
+            {
+                SessionDisplayModel displaySession = new SessionDisplayModel()
+                    {
+                        SessionId = session.SessionId,
+                        SessionTitle = session.Title,
+                        SpeakerUserName = session.SpeakerUserName,
+                        SessionAbstract = session.Abstract
+                    };
+                using (UsersContext context = new UsersContext())
+                {
+                    displaySession.SpeakerName = context.UserProfiles.First(s => s.UserName == session.SpeakerUserName).Name;
+                }
+                displaySessions.Add(displaySession);
+            }
+
+            return View(displaySessions);
         }
 
         //
@@ -34,7 +54,19 @@ namespace DDDEastAnglia.Controllers
             {
                 return HttpNotFound();
             }
-            return View(session);
+            SessionDisplayModel sessionDisplay = new SessionDisplayModel()
+                {
+                    SessionAbstract = session.Abstract,
+                    SessionId = session.SessionId,
+                    SessionTitle = session.Title,
+                    SpeakerUserName = session.SpeakerUserName
+                };
+
+            using (UsersContext context = new UsersContext())
+            {
+                sessionDisplay.SpeakerName = context.UserProfiles.First(s => s.UserName == session.SpeakerUserName).Name;
+            }
+            return View(sessionDisplay);
         }
 
         //
@@ -42,14 +74,14 @@ namespace DDDEastAnglia.Controllers
 
         public virtual ActionResult Create()
         {
-            return View(new Session { Speaker = new UsersContext().UserProfiles.FirstOrDefault(u => u.UserName == User.Identity.Name) });
+            return View(new Session { SpeakerUserName = new UsersContext().UserProfiles.FirstOrDefault(u => u.UserName == User.Identity.Name).UserName });
         }
 
         //
         // POST: /Session/Create
 
         [HttpPost]
-        public virtual ActionResult Create(Session session)
+        public virtual ActionResult Create([Bind(Exclude = "Votes")]Session session)
         {
             if (ModelState.IsValid)
             {
@@ -78,7 +110,7 @@ namespace DDDEastAnglia.Controllers
         // POST: /Session/Edit/5
 
         [HttpPost]
-        public virtual ActionResult Edit(Session session)
+        public virtual ActionResult Edit([Bind(Exclude = "Votes")]Session session)
         {
             if (ModelState.IsValid)
             {

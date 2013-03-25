@@ -1,4 +1,4 @@
-﻿@model IEnumerable<DDDEastAnglia.Models.Session>
+﻿@model IEnumerable<DDDEastAnglia.Models.SessionDisplayModel>
 
 @{
     ViewBag.Title = "Sessions";
@@ -9,10 +9,10 @@
 <table>
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Speaker.Name)
+            Speaker
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Title)
+            Title
         </th>
         <th></th>
     </tr>
@@ -21,16 +21,17 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Speaker.Name)
+                @Html.DisplayFor(modelItem => item.SpeakerName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Title)
+                @Html.DisplayFor(modelItem => item.SessionTitle)
             </td>
             <td>
-                @Html.ActionLink("Details", "Details", new { id = item.SessionId }) |
-                @if (User.Identity.Name == item.Speaker.UserName)
+                @Html.ActionLink("Details", "Details", new { id = item.SessionId })
+                @if (User.Identity.Name == item.SpeakerUserName)
                 {
-                    @Html.ActionLink("Edit", "Edit", new { id = item.SessionId }) @Html.Raw(" |")
+                    @Html.Raw(" | ")
+                    @Html.ActionLink("Edit", "Edit", new { id = item.SessionId }) @Html.Raw(" | ")
                     @Html.ActionLink("Delete", "Delete", new { id = item.SessionId })
                 }
             </td>
