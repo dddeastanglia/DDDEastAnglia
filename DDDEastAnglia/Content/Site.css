@@ -13,7 +13,7 @@ dd {
     text-decoration: underline;
 }
 
-.carousel-caption a { color: white; }
+.carousel-caption a { color: white; text-decoration: underline; }
 
 #photos { max-width: 850px; }
 
