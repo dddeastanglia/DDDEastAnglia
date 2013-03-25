@@ -37,7 +37,7 @@ a.btn {
     color: #013c01;
 }
 
-#sidebar { min-width: 220px; }
+#sidebar { max-width: 250px; }
 
 #sidebar h1 { font-size: 18px; }
 #sidebar h1:first-of-type { margin-top: 0; }
