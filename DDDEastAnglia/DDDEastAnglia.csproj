@@ -302,7 +302,6 @@
     <Content Include="Images\sponsors\pluralsight.png" />
     <Content Include="Images\sponsors\tinamous.png" />
     <Content Include="Images\wmd-buttons.png" />
-    <Content Include="appSettingsSecret.config" />
     <Content Include="Content\font\fontawesome-webfont.woff" />
     <Content Include="Content\font\fontawesome-webfont.ttf" />
     <Content Include="Content\font\fontawesome-webfont.eot" />
