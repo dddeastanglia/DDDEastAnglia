@@ -21,10 +21,10 @@
     </a>
     <ul class="dropdown-menu">
         <li>
-            @using (Html.BeginForm(MVC.Account.ExternalLogin("Google", Url.Action(MVC.Home.Index())), FormMethod.Post, new { id = "googleLoginForm" }))
+            @using (Html.BeginForm(MVC.Account.ExternalLogin("GitHub", Url.Action(MVC.Home.Index())), FormMethod.Post, new { id = "githubLoginform" }))
             {
                 @Html.AntiForgeryToken()
-                <a href="javascript:document.getElementById('googleLoginForm').submit();" id="googleLoginLink"><i class="icon-google-plus"></i> Log in with Google</a>
+                <a href="javascript:document.getElementById('githubLoginform').submit();" id="githubLoginLink"><i class="icon-github"></i> Log in with GitHub</a>
             }
         </li>
         <li>
@@ -35,10 +35,10 @@
             }
         </li>
         <li>
-            @using (Html.BeginForm(MVC.Account.ExternalLogin("GitHub", Url.Action(MVC.Home.Index())), FormMethod.Post, new { id = "githubLoginform" }))
+            @using (Html.BeginForm(MVC.Account.ExternalLogin("Google", Url.Action(MVC.Home.Index())), FormMethod.Post, new { id = "googleLoginForm" }))
             {
                 @Html.AntiForgeryToken()
-                <a href="javascript:document.getElementById('githubLoginform').submit();" id="githubLoginLink"><i class="icon-github"></i> Log in with GitHub</a>
+                <a href="javascript:document.getElementById('googleLoginForm').submit();" id="googleLoginLink"><i class="icon-google-plus"></i> Log in with Google</a>
             }
         </li>
         @*<li><a data-toggle="modal" href="#openIdLogin">Log in with an OpenID</a></li>*@
