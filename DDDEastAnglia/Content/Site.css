@@ -17,6 +17,8 @@ a.btn, a.carousel-control {
     text-decoration: none;
 }
 
+.carousel-caption a { color: white; }
+
 #photos { max-width: 850px; }
 
 .sidebar-nav { padding: 9px 0; }
