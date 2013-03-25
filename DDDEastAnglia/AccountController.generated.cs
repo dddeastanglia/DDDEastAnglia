@@ -86,6 +86,12 @@ namespace DDDEastAnglia.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ExternalLoginsList);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult UserProfile()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UserProfile);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public AccountController Actions { get { return MVC.Account; } }
@@ -113,6 +119,7 @@ namespace DDDEastAnglia.Controllers
             public readonly string ExternalLoginFailure = "ExternalLoginFailure";
             public readonly string ExternalLoginsList = "ExternalLoginsList";
             public readonly string RemoveExternalLogins = "RemoveExternalLogins";
+            public readonly string UserProfile = "UserProfile";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -129,6 +136,7 @@ namespace DDDEastAnglia.Controllers
             public const string ExternalLoginFailure = "ExternalLoginFailure";
             public const string ExternalLoginsList = "ExternalLoginsList";
             public const string RemoveExternalLogins = "RemoveExternalLogins";
+            public const string UserProfile = "UserProfile";
         }
 
 
@@ -201,6 +209,14 @@ namespace DDDEastAnglia.Controllers
         {
             public readonly string returnUrl = "returnUrl";
         }
+        static readonly ActionParamsClass_UserProfile s_params_UserProfile = new ActionParamsClass_UserProfile();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_UserProfile UserProfileParams { get { return s_params_UserProfile; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_UserProfile
+        {
+            public readonly string profile = "profile";
+        }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewsClass Views { get { return s_views; } }
@@ -213,6 +229,7 @@ namespace DDDEastAnglia.Controllers
             {
                 public readonly string _ChangePasswordPartial = "_ChangePasswordPartial";
                 public readonly string _ExternalLoginsListPartial = "_ExternalLoginsListPartial";
+                public readonly string _Profile = "_Profile";
                 public readonly string _RemoveExternalLoginsPartial = "_RemoveExternalLoginsPartial";
                 public readonly string _SetPasswordPartial = "_SetPasswordPartial";
                 public readonly string ExternalLoginConfirmation = "ExternalLoginConfirmation";
@@ -223,6 +240,7 @@ namespace DDDEastAnglia.Controllers
             }
             public readonly string _ChangePasswordPartial = "~/Views/Account/_ChangePasswordPartial.cshtml";
             public readonly string _ExternalLoginsListPartial = "~/Views/Account/_ExternalLoginsListPartial.cshtml";
+            public readonly string _Profile = "~/Views/Account/_Profile.cshtml";
             public readonly string _RemoveExternalLoginsPartial = "~/Views/Account/_RemoveExternalLoginsPartial.cshtml";
             public readonly string _SetPasswordPartial = "~/Views/Account/_SetPasswordPartial.cshtml";
             public readonly string ExternalLoginConfirmation = "~/Views/Account/ExternalLoginConfirmation.cshtml";
@@ -375,6 +393,16 @@ namespace DDDEastAnglia.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.RemoveExternalLogins);
             RemoveExternalLoginsOverride(callInfo);
+            return callInfo;
+        }
+
+        partial void UserProfileOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DDDEastAnglia.Models.UserProfile profile);
+
+        public override System.Web.Mvc.ActionResult UserProfile(DDDEastAnglia.Models.UserProfile profile)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UserProfile);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "profile", profile);
+            UserProfileOverride(callInfo, profile);
             return callInfo;
         }
 

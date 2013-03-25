@@ -278,7 +278,7 @@ namespace DDDEastAnglia.Controllers
                     if (user == null)
                     {
                         // Insert name into the profile table
-                        db.UserProfiles.Add(new UserProfile { UserName = model.UserName });
+                        db.UserProfiles.Add(new UserProfile { UserName = model.UserName, Name = "Your Name", EmailAddress = "youremail@yourisp.com" });
                         db.SaveChanges();
 
                         OAuthWebSecurity.CreateOrUpdateAccount(provider, providerUserId, model.UserName);
@@ -337,7 +337,7 @@ namespace DDDEastAnglia.Controllers
         }
 
         [HttpPost]
-        public ActionResult UserProfile(UserProfile profile)
+        public virtual ActionResult UserProfile(UserProfile profile)
         {
             if (ModelState.IsValid)
             {

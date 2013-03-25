@@ -6,6 +6,7 @@
     <fieldset>
         <legend>Your Profile</legend>
         @Html.HiddenFor(m => m.UserId)
+        @Html.HiddenFor(m => m.UserName)
         <div>
             @Html.LabelFor(m => Model.Name)
         </div>
@@ -28,11 +29,11 @@
         <div>@@@Html.TextBoxFor(m => Model.TwitterHandle)</div>
         <div>@Html.LabelFor(m => Model.WebsiteUrl)</div>
         <div>@Html.TextBoxFor(m => Model.WebsiteUrl)</div>
-        <div>@Html.LabelFor(m => Model.Profile)</div>
+        <div>@Html.LabelFor(m => Model.Bio)</div>
         <div>
             <div id="wmd-button-bar"></div>
             <div>
-                @Html.TextAreaFor(m => Model.Profile, 10, 50, new { id = "wmd-input" })
+                @Html.TextAreaFor(m => Model.Bio, 10, 80, new { id = "wmd-input" })
             </div>
             <div id="wmd-preview"></div>
         </div>

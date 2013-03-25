@@ -35,7 +35,7 @@ namespace DDDEastAnglia.Models
         public string WebsiteUrl { get; set; }
         [DisplayName("Twitter Handle")]
         public string TwitterHandle { get; set; }
-        public string Profile { get; set; }
+        public string Bio { get; set; }
         [DisplayName("Mobile Phone (not for public use, so we can contact you)")]
         public string MobilePhone { get; set; }
         [DisplayName("Are you a new speaker? (haven't spoken at a DDD before)")]
