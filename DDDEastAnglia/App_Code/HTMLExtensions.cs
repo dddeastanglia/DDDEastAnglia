@@ -18,7 +18,7 @@ public static class HTMLExtensions
 
     public static MvcHtmlString MarkdownFor<TModel, TValue>(
         this HtmlHelper<TModel> helper, Expression<Func<TModel, TValue>> expression)
-        where TModel : class, new()
+        where TModel : class
     {
         string rawText = (string)ModelMetadata.FromLambdaExpression(expression, helper.ViewData).Model;
 
