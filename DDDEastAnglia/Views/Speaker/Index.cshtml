@@ -1,5 +1,38 @@
-﻿@{
-    ViewBag.Title = "Index";
+﻿@using DDDEastAnglia.Models
+@model IEnumerable<SpeakerDisplayModel>
+
+@{
+    ViewBag.Title = "Speakers";
 }
 
-<h2>Index</h2>
+<h2>Speakers</h2>
+<table>
+
+
+@foreach (SpeakerDisplayModel speaker in Model)
+{
+    <tr>
+        <td style="width:160px"></td>
+        <td><strong>@Html.LabelFor(m => speaker.Name)</strong></td>
+    </tr>
+    <tr>
+        <td style="width:160px; height: 160px">
+            <img src="@Html.Raw(speaker.GravatarUrl)" alt="@Html.Raw(speaker.Name)" />
+        </td>
+        <td>
+            @Html.MarkdownFor(m => speaker.Bio)
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <strong>Submitted Sessions:</strong><br/>
+            @foreach (var session in speaker.Sessions)
+            {
+                <a href="@Url.Action(MVC.Session.Details(session.Key))" title="View the details for this session">@session.Value</a><br/>
+            }
+        </td>
+    </tr>
+}
+    
+</table>
+
