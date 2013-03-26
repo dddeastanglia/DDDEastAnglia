@@ -1,6 +1,5 @@
 #appSettingsSecret - shared on Dropbox, contains Twitter shared secret stuff so not to be pushed to Github
 appSettingsSecret.config
-connectionStrings.config
 
 #App_ReadMe
 [Aa]pp_[Rr]ead[Mm]e/
