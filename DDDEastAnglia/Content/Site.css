@@ -85,6 +85,7 @@ dd {
 #sponsors .sponsor {
     display: inline-block;
     overflow: hidden;
+    max-width: 210px;
 }
 
 .sponsor a img {
