@@ -1,0 +1,12 @@
+﻿@model Dictionary<string, string>
+@{
+    ViewBag.Title = "Connection Strings Index";
+}
+
+<h2>Connection Strings</h2>
+<ul>
+@foreach (var entry in Model)
+{
+    <li>Name: @entry.Key ConnectionString: @entry.Value</li>
+}
+</ul>
