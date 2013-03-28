@@ -24,6 +24,8 @@ using T4MVC;
 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
 public static class MVC
 {
+    static readonly AdminClass s_Admin = new AdminClass();
+    public static AdminClass Admin { get { return s_Admin; } }
     public static DDDEastAnglia.Controllers.AccountController Account = new DDDEastAnglia.Controllers.T4MVC_AccountController();
     public static DDDEastAnglia.Controllers.HomeController Home = new DDDEastAnglia.Controllers.T4MVC_HomeController();
     public static DDDEastAnglia.Controllers.SessionController Session = new DDDEastAnglia.Controllers.T4MVC_SessionController();
@@ -33,6 +35,16 @@ public static class MVC
 
 namespace T4MVC
 {
+    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+    public class AdminClass
+    {
+        public readonly string Name = "Admin";
+        public DDDEastAnglia.Areas.Admin.Controllers.AdminHomeController AdminHome = new DDDEastAnglia.Areas.Admin.Controllers.T4MVC_AdminHomeController();
+        public DDDEastAnglia.Areas.Admin.Controllers.RoleController Role = new DDDEastAnglia.Areas.Admin.Controllers.T4MVC_RoleController();
+        public DDDEastAnglia.Areas.Admin.Controllers.SessionController Session = new DDDEastAnglia.Areas.Admin.Controllers.T4MVC_SessionController();
+        public DDDEastAnglia.Areas.Admin.Controllers.UserController User = new DDDEastAnglia.Areas.Admin.Controllers.T4MVC_UserController();
+        public T4MVC.Admin.SharedController Shared = new T4MVC.Admin.SharedController();
+    }
 }
 
 namespace T4MVC
