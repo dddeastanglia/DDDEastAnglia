@@ -104,3 +104,15 @@ dd {
     margin-right: 15px;
     border: 1px solid #013c01;
 }
+
+.speaker-image
+, .speaker-bio
+, .speaker-sessions {
+    display: inline-block;
+}
+
+.speaker-bio 
+, .speaker-sessions{
+    min-width: 20%;
+}
+

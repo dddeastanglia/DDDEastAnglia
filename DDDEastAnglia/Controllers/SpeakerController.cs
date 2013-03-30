@@ -33,7 +33,7 @@ namespace DDDEastAnglia.Controllers
                             Bio = speakerProfile.Bio,
                             TwitterHandle = speakerProfile.TwitterHandle,
                             WebsiteUrl = speakerProfile.WebsiteUrl,
-                            GravatarUrl = string.Format("http://www.gravatar.com/avatar/{0}?s=160&d=identicon&r=pg",
+                            GravatarUrl = string.Format("http://www.gravatar.com/avatar/{0}?s=50&d=identicon&r=pg",
                                 this.calculateGravatarUrl(speakerProfile.EmailAddress))
                         };
 

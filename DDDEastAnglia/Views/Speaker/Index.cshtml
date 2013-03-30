@@ -6,33 +6,33 @@
 }
 
 <h2>Speakers</h2>
-<table>
 
 
 @foreach (SpeakerDisplayModel speaker in Model)
 {
-    <tr>
-        <td style="width:160px"></td>
-        <td><strong>@Html.LabelFor(m => speaker.Name)</strong></td>
-    </tr>
-    <tr>
-        <td style="width:160px; height: 160px">
-            <img src="@Html.Raw(speaker.GravatarUrl)" alt="@Html.Raw(speaker.Name)" />
-        </td>
-        <td>
-            @Html.MarkdownFor(m => speaker.Bio)
-        </td>
-    </tr>
-    <tr>
-        <td colspan="2">
-            <strong>Submitted Sessions:</strong><br/>
-            @foreach (var session in speaker.Sessions)
-            {
-                <a href="@Url.Action(MVC.Session.Details(session.Key))" title="View the details for this session">@session.Value</a><br/>
-            }
-        </td>
-    </tr>
-}
+    <h3><img src="@Html.Raw(speaker.GravatarUrl)" alt="@Html.Raw(speaker.Name)"/> @speaker.Name</h3>
+    <div>
+        @if (!string.IsNullOrWhiteSpace(speaker.WebsiteUrl))
+        {
+            <p><strong>Website:</strong> <a href="@speaker.WebsiteUrl">@speaker.WebsiteUrl</a></p>
+        }
+        @if (!string.IsNullOrWhiteSpace(speaker.TwitterHandle) )
+        {
+            <p><strong>Twitter:</strong> <a href="http://twitter.com/@speaker.TwitterHandle">@("@"+speaker.TwitterHandle)</a></p>
+        }
+    </div>
     
-</table>
+    <div class="speaker-bio">
+        @Html.MarkdownFor(m => speaker.Bio)
+    </div>
+    <div class="speaker-sessions">
+        <strong>Submitted Sessions:</strong><br />
+        @foreach (var session in speaker.Sessions)
+        {
+            <a href="@Url.Action(MVC.Session.Details(session.Key))" title="View the details for this session">@session.Value</a><br/>
+        }
+    </div>
+
+}
+ 
 
