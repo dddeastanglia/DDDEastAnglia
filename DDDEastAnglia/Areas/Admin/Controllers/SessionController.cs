@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using System.Data;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
+using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.Models;
 
 namespace DDDEastAnglia.Areas.Admin.Controllers
 {
     public partial class SessionController : Controller
     {
-        private Context db = new Context();
+        private DDDEAContext db = new DDDEAContext();
 
         //
         // GET: /Admin/Session/

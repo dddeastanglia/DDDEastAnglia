@@ -5,6 +5,7 @@ using System.Linq;
 using System.Transactions;
 using System.Web.Mvc;
 using System.Web.Security;
+using DDDEastAnglia.DataAccess;
 using DotNetOpenAuth.AspNet;
 using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
@@ -137,7 +138,7 @@ namespace DDDEastAnglia.Controllers
             ViewBag.HasLocalPassword = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
             ViewBag.ReturnUrl = Url.Action(MVC.Account.Manage());
 
-            UsersContext context = new UsersContext();
+            DDDEAContext context = new DDDEAContext();
             UserProfile profile = context.UserProfiles.First(p => p.UserName == User.Identity.Name);
 
             ViewBag.Profile = profile;
@@ -271,7 +272,7 @@ namespace DDDEastAnglia.Controllers
             if (ModelState.IsValid)
             {
                 // Insert a new user into the database
-                using (UsersContext db = new UsersContext())
+                using (DDDEAContext db = new DDDEAContext())
                 {
                     UserProfile user = db.UserProfiles.FirstOrDefault(u => u.UserName.ToLower() == model.UserName.ToLower());
                     // Check if user already exists
@@ -341,7 +342,7 @@ namespace DDDEastAnglia.Controllers
         {
             if (ModelState.IsValid)
             {
-                UsersContext context = new UsersContext();
+                DDDEAContext context = new DDDEAContext();
                 context.Entry(profile).State = EntityState.Modified;
                 context.SaveChanges();
 

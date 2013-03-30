@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
-using System.Data.Entity;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
+using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.Models;
 
 namespace DDDEastAnglia.Controllers
@@ -12,7 +10,7 @@ namespace DDDEastAnglia.Controllers
     [Authorize]
     public partial class SessionController : Controller
     {
-        private Context db = new Context();
+        private DDDEAContext db = new DDDEAContext();
 
         //
         // GET: /Session/
@@ -33,10 +31,7 @@ namespace DDDEastAnglia.Controllers
                         SpeakerUserName = session.SpeakerUserName,
                         SessionAbstract = session.Abstract
                     };
-                using (UsersContext context = new UsersContext())
-                {
-                    displaySession.SpeakerName = context.UserProfiles.First(s => s.UserName == session.SpeakerUserName).Name;
-                }
+                    displaySession.SpeakerName = db.UserProfiles.First(s => s.UserName == session.SpeakerUserName).Name;
                 displaySessions.Add(displaySession);
             }
 
@@ -62,10 +57,8 @@ namespace DDDEastAnglia.Controllers
                     SpeakerUserName = session.SpeakerUserName
                 };
 
-            using (UsersContext context = new UsersContext())
-            {
-                sessionDisplay.SpeakerName = context.UserProfiles.First(s => s.UserName == session.SpeakerUserName).Name;
-            }
+            sessionDisplay.SpeakerName = db.UserProfiles.First(s => s.UserName == session.SpeakerUserName).Name;
+      
             return View(sessionDisplay);
         }
 
@@ -74,7 +67,7 @@ namespace DDDEastAnglia.Controllers
 
         public virtual ActionResult Create()
         {
-            return View(new Session { SpeakerUserName = new UsersContext().UserProfiles.FirstOrDefault(u => u.UserName == User.Identity.Name).UserName });
+            return View(new Session { SpeakerUserName = db.UserProfiles.FirstOrDefault(u => u.UserName == User.Identity.Name).UserName });
         }
 
         //

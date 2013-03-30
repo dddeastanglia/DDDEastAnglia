@@ -4,15 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Web.Mvc;
 using System.Security.Cryptography;
-
+using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.Models;
 
 namespace DDDEastAnglia.Controllers
 {
     public partial class SpeakerController : Controller
     {
-        private Context db = new Context();
-        private UsersContext users = new UsersContext();
+        private DDDEAContext db = new DDDEAContext();
         //
         // GET: /Speaker/
 
@@ -20,7 +19,7 @@ namespace DDDEastAnglia.Controllers
         {
             List<SpeakerDisplayModel> speakers = new List<SpeakerDisplayModel>();
 
-            List<UserProfile> speakerProfiles = users.UserProfiles.ToList();
+            List<UserProfile> speakerProfiles = db.UserProfiles.ToList();
 
             foreach (UserProfile speakerProfile in speakerProfiles)
             {

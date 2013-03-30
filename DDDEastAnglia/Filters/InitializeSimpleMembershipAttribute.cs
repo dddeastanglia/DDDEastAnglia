@@ -3,8 +3,8 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Threading;
 using System.Web.Mvc;
+using DDDEastAnglia.DataAccess;
 using WebMatrix.WebData;
-using DDDEastAnglia.Models;
 
 namespace DDDEastAnglia.Filters
 {
@@ -25,11 +25,11 @@ namespace DDDEastAnglia.Filters
         {
             public SimpleMembershipInitializer()
             {
-                Database.SetInitializer<UsersContext>(null);
+                Database.SetInitializer<DDDEAContext>(null);
 
                 try
                 {
-                    using (var context = new UsersContext())
+                    using (var context = new DDDEAContext())
                     {
                         if (!context.Database.Exists())
                         {

@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-
+using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.Models;
-
-using WebMatrix.WebData;
 
 namespace DDDEastAnglia.Areas.Admin.Controllers
 {
     public partial class UserController : Controller
     {
-        private UsersContext db = new UsersContext();
+        private DDDEAContext db = new DDDEAContext();
         //
         // GET: /Admin/User/
 

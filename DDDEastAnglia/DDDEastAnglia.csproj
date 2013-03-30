@@ -214,6 +214,7 @@
     <Compile Include="Admin.UserController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataAccess\DDDEAContext.cs" />
     <Compile Include="App_Code\GitHubOAuthClient.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminHomeController.cs" />
@@ -257,7 +258,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
-    <Compile Include="Models\Context.cs" />
     <Compile Include="Models\Session.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
