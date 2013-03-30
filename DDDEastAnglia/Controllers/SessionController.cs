@@ -77,7 +77,16 @@ namespace DDDEastAnglia.Controllers
             {
                 return RedirectToAction("Index");
             }
-            return View(new Session { SpeakerUserName = db.UserProfiles.FirstOrDefault(u => u.UserName == User.Identity.Name).UserName });
+            if (User == null || User.Identity == null)
+            {
+                return RedirectToAction("Index");
+            }
+            var userProfile = db.UserProfiles.FirstOrDefault(u => u.UserName == User.Identity.Name);
+            if (userProfile == null)
+            {
+                return RedirectToAction("Index");
+            }
+            return View(new Session { SpeakerUserName = userProfile.UserName });
         }
 
         //
