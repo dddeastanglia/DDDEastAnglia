@@ -6,6 +6,8 @@ using DDDEastAnglia.Models;
 
 namespace DDDEastAnglia.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Administrator")]
+    [RequireHttps]
     public partial class SessionController : Controller
     {
         private DDDEAContext db = new DDDEAContext();

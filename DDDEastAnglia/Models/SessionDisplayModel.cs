@@ -15,13 +15,7 @@ namespace DDDEastAnglia.Models
 
     public class SessionIndexModel
     {
-        public bool IsOpenForSubmission
-        {
-            //HACK: Yes I know this is terrible but my first concern is to get something working
-            get { return DateTime.Today >= new DateTime(2013, 4, 1) 
-                         && DateTime.Today <= new DateTime(2013, 4, 28); }
-        }
-
+        public bool IsOpenForSubmission { get; set; }
         public IEnumerable<SessionDisplayModel> Sessions { get; set; }
     }
 }

@@ -214,6 +214,7 @@
     <Compile Include="Admin.UserController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataAccess\DataModel\Event.cs" />
     <Compile Include="DataAccess\DDDEAContext.cs" />
     <Compile Include="App_Code\GitHubOAuthClient.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
@@ -222,6 +223,7 @@
     <Compile Include="Areas\Admin\Controllers\SessionController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
     <Compile Include="Controllers\SpeakerController.cs" />
+    <Compile Include="DataAccess\EventRepository.cs" />
     <Compile Include="GlimpseSecurityPolicy.cs" />
     <Compile Include="HomeController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>

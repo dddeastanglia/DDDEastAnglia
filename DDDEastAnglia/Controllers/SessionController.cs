@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web.Mvc;
@@ -10,8 +11,9 @@ namespace DDDEastAnglia.Controllers
     [Authorize]
     public partial class SessionController : Controller
     {
+        private const string DefaultEventName = "DDDEA2013";
         private DDDEAContext db = new DDDEAContext();
-
+        private EventRepository eventRepository = new EventRepository();
         //
         // GET: /Session/
 
@@ -35,7 +37,11 @@ namespace DDDEastAnglia.Controllers
                 displaySessions.Add(displaySession);
             }
 
-            return View(new SessionIndexModel{ Sessions = displaySessions});
+            return View(new SessionIndexModel
+                {
+                    Sessions = displaySessions, 
+                    IsOpenForSubmission = eventRepository.Get(DefaultEventName).CanSubmit(),
+                });
         }
 
         //
@@ -67,6 +73,10 @@ namespace DDDEastAnglia.Controllers
 
         public virtual ActionResult Create()
         {
+            if (!eventRepository.Get(DefaultEventName).CanSubmit())
+            {
+                return RedirectToAction("Index");
+            }
             return View(new Session { SpeakerUserName = db.UserProfiles.FirstOrDefault(u => u.UserName == User.Identity.Name).UserName });
         }
 
@@ -76,6 +86,10 @@ namespace DDDEastAnglia.Controllers
         [HttpPost]
         public virtual ActionResult Create([Bind(Exclude = "Votes")]Session session)
         {
+            if (!eventRepository.Get(DefaultEventName).CanSubmit())
+            {
+                return RedirectToAction("Index");
+            }
             if (ModelState.IsValid)
             {
                 db.Sessions.Add(session);
