@@ -34,7 +34,7 @@ namespace DDDEastAnglia.Controllers
                             TwitterHandle = speakerProfile.TwitterHandle,
                             WebsiteUrl = speakerProfile.WebsiteUrl,
                             GravatarUrl = string.Format("http://www.gravatar.com/avatar/{0}?s=50&d=identicon&r=pg",
-                                this.calculateGravatarUrl(speakerProfile.EmailAddress))
+                                CalculateGravatarUrl(speakerProfile.EmailAddress))
                         };
 
                     List<Session> speakerSessions = db.Sessions.Where(s => s.SpeakerUserName == speakerProfile.UserName).ToList();
@@ -48,12 +48,26 @@ namespace DDDEastAnglia.Controllers
             return View(speakers);
         }
 
-        private string calculateGravatarUrl(string emailAddress)
+        private static string CalculateGravatarUrl(string emailAddress)
         {
-            byte[] emailBytes = Encoding.UTF8.GetBytes(emailAddress);
-            MD5CryptoServiceProvider provider = new MD5CryptoServiceProvider();
-            byte[] hashedBytes = provider.ComputeHash(emailBytes);
-            return Convert.ToBase64String(hashedBytes);
+            using( MD5 md5Hasher = MD5.Create())
+            {
+                // Convert the input string to a byte array and compute the hash.  
+                byte[] data = md5Hasher.ComputeHash(Encoding.Default.GetBytes(emailAddress));
+
+                // Create a new Stringbuilder to collect the bytes  
+                // and create a string.  
+                var builder = new StringBuilder();
+
+                // Loop through each byte of the hashed data  
+                // and format each one as a hexadecimal string.  
+                for (int i = 0; i < data.Length; i++)
+                {
+                    builder.Append(data[i].ToString("x2"));
+                }
+
+                return builder.ToString();
+            }
         }
 
     }
