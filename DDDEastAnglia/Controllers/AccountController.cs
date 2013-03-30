@@ -9,7 +9,6 @@ using DDDEastAnglia.DataAccess;
 using DotNetOpenAuth.AspNet;
 using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
-using DDDEastAnglia.Filters;
 using DDDEastAnglia.Models;
 
 using IsolationLevel = System.Transactions.IsolationLevel;
@@ -17,7 +16,6 @@ using IsolationLevel = System.Transactions.IsolationLevel;
 namespace DDDEastAnglia.Controllers
 {
     [Authorize]
-    [InitializeSimpleMembership]
     public partial class AccountController : Controller
     {
         //

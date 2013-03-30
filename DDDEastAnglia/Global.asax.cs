@@ -3,7 +3,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-
+using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.Models;
 
 using WebMatrix.WebData;
@@ -25,7 +25,20 @@ namespace DDDEastAnglia
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AuthConfig.RegisterAuth();
 
+            CreateDatabaseIfNecessary();
+        }
+
+        private static void CreateDatabaseIfNecessary()
+        {
             Database.SetInitializer(new Initialiser());
+            using (var context = new DDDEAContext())
+            {
+                if (!context.Database.Exists())
+                {
+                    context.Database.Initialize(false);
+                }
+            }
+            WebSecurity.InitializeDatabaseConnection("DDDEastAnglia", "UserProfile", "UserId", "UserName", autoCreateTables: true);
         }
     }
 }
