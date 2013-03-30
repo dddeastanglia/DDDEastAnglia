@@ -22,10 +22,11 @@
         }
     </div>
     
-    <div class="speaker-bio">
+    <div>
+        <strong>Bio:</strong><br />
         @Html.MarkdownFor(m => speaker.Bio)
     </div>
-    <div class="speaker-sessions">
+    <div>
         <strong>Submitted Sessions:</strong><br />
         @foreach (var session in speaker.Sessions)
         {
