@@ -31,4 +31,25 @@ public static class HTMLExtensions
     {
         return new MvcHtmlString(@"<strong class=""dddea"">DDD East Anglia</strong>");
     }
+
+    public static string MenuState(this HtmlHelper htmlHelper, string controllerName)
+    {
+        var currentController = htmlHelper.ViewContext.RouteData.GetRequiredString("controller");
+        if (controllerName == currentController)
+        {
+            return "active";
+        }
+        return "";
+    }
+
+    public static string MenuState(this HtmlHelper htmlHelper, string controllerName, string actionName)
+    {
+        var currentAction = htmlHelper.ViewContext.RouteData.GetRequiredString("action");
+        var currentController = htmlHelper.ViewContext.RouteData.GetRequiredString("controller");
+        if (actionName == currentAction && controllerName == currentController)
+        {
+            return "active";
+        }
+        return "";
+    }
 }

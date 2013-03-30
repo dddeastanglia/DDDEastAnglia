@@ -47,14 +47,14 @@
                     </div>
                     <div class="nav-collapse">
                         <ul class="nav">
-                            <li class="dropdown active">@Html.ActionLink("Home", MVC.Home.Index())</li>
-                            <li class="dropdown">@Html.ActionLink("Sessions", MVC.Session.Index())</li>
-                            <li class="dropdown">@Html.ActionLink("Speakers", MVC.Speaker.Index())</li>
+                            <li class="dropdown @Html.MenuState("Home", "Index")">@Html.ActionLink("Home", MVC.Home.Index())</li>
+                            <li class="dropdown @Html.MenuState("Session")">@Html.ActionLink("Sessions", MVC.Session.Index())</li>
+                            <li class="dropdown @Html.MenuState("Speaker", "Index")">@Html.ActionLink("Speakers", MVC.Speaker.Index())</li>
                             @*<li class="dropdown">@Html.ActionLink("Agenda", MVC.Agenda.Index())</li>*@
-                            <li class="dropdown">@Html.ActionLink("Venue", MVC.Home.Venue())</li>
-                            <li class="dropdown">@Html.ActionLink("Sponsors", MVC.Home.Sponsors())</li>
-                            <li class="dropdown">@Html.ActionLink("Team", MVC.Home.Team())</li>
-                            <li class="dropdown">@Html.ActionLink("Contact", "Contact", "Home")</li>
+                            <li class="dropdown @Html.MenuState("Home", "Venue")">@Html.ActionLink("Venue", MVC.Home.Venue())</li>
+                            <li class="dropdown @Html.MenuState("Home", "Sponsors")">@Html.ActionLink("Sponsors", MVC.Home.Sponsors())</li>
+                            <li class="dropdown @Html.MenuState("Home", "Team")">@Html.ActionLink("Team", MVC.Home.Team())</li>
+                            <li class="dropdown @Html.MenuState("Home", "Contact")">@Html.ActionLink("Contact", "Contact", "Home")</li>
                         </ul>
                     </div><!--/.nav-collapse -->
                 </div>
