@@ -4,21 +4,18 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
-<fieldset>
-    <legend>Session</legend>
+<h2>@Html.DisplayFor(model => model.SessionTitle)</h2>
+<div>
+    @if (Model.SpeakerGravitarUrl != null)
+    {
+        <img src="@Model.SpeakerGravitarUrl" alt="@Model.SpeakerName"  />
+    }
+    @Html.DisplayFor(m => m.SpeakerName)
+</div>
+<div>
+    @Html.MarkdownFor(model => model.SessionAbstract)
+</div>
 
-    <div>
-        @Html.DisplayFor(m => m.SpeakerName)
-    </div>
-
-    <div>
-        <strong>@Html.DisplayFor(model => model.SessionTitle)</strong>
-    </div>
-    <div>
-        @Html.MarkdownFor(model => model.SessionAbstract)
-    </div>
-</fieldset>
 <p>
     @if (User.Identity.Name == Model.SpeakerUserName)
     {
@@ -26,3 +23,8 @@
     }
     @Html.ActionLink("Back to List", "Index")
 </p>
+@if (User.Identity.Name == Model.SpeakerUserName)
+{
+<a href="https://twitter.com/share" class="twitter-share-button" data-url="@Request.Url" data-text="Check out my session for #dddea @Model.SessionTitle @Request.Url" data-count="none">Tweet</a>
+<script>!function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = "//platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs); } }(document, "script", "twitter-wjs");</script>
+}

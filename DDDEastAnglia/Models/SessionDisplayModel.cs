@@ -1,6 +1,4 @@
-﻿
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace DDDEastAnglia.Models
 {
@@ -11,6 +9,8 @@ namespace DDDEastAnglia.Models
         public string SessionTitle { get; set; }
         public string SpeakerName { get; set; }
         public string SpeakerUserName { get; set; }
+        public string SpeakerGravitarUrl { get; set; }
+        public string TweetLink { get; set; }
     }
 
     public class SessionIndexModel

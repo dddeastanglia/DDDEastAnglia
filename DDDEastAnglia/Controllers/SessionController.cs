@@ -60,11 +60,13 @@ namespace DDDEastAnglia.Controllers
                     SessionAbstract = session.Abstract,
                     SessionId = session.SessionId,
                     SessionTitle = session.Title,
-                    SpeakerUserName = session.SpeakerUserName
+                    SpeakerUserName = session.SpeakerUserName,
+                    TweetLink = GetTweetLink(session.Title, Request.Url.ToString())
                 };
 
-            sessionDisplay.SpeakerName = db.UserProfiles.First(s => s.UserName == session.SpeakerUserName).Name;
-      
+            var userProfile = db.UserProfiles.First(s => s.UserName == session.SpeakerUserName);
+            sessionDisplay.SpeakerName = userProfile.Name;
+            sessionDisplay.SpeakerGravitarUrl = userProfile.GravitarUrl();
             return View(sessionDisplay);
         }
 
@@ -101,9 +103,9 @@ namespace DDDEastAnglia.Controllers
             }
             if (ModelState.IsValid)
             {
-                db.Sessions.Add(session);
+                var addedSession = db.Sessions.Add(session);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", new { id = addedSession.SessionId });
             }
 
             return View(session);
@@ -167,5 +169,14 @@ namespace DDDEastAnglia.Controllers
             db.Dispose();
             base.Dispose(disposing);
         }
+
+        private string GetTweetLink(string title, string sessionDetailsUrl)
+        {
+            var encodedUrl = Url.Encode(sessionDetailsUrl);
+            var text = Url.Encode(string.Format("Posted a session for #dddea - {0} - {1} ", title, sessionDetailsUrl));
+            return string.Format("https://twitter.com/intent/tweet?original_referer={0};text={1}", encodedUrl, text);
+        }
     }
+
+    
 }
