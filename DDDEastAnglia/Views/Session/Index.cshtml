@@ -1,11 +1,22 @@
-﻿@model IEnumerable<DDDEastAnglia.Models.SessionDisplayModel>
+﻿@model DDDEastAnglia.Models.SessionIndexModel
 
 @{
     ViewBag.Title = "Sessions";
 }
 
 <h2>Sessions</h2>
-
+@if (Model.IsOpenForSubmission)
+{
+<p>
+    DDD East Anglia is open for session submission, if you are a new or experienced speaker and have something to say please @Html.ActionLink("Submit a session", "Create").
+</P>
+}
+else
+{
+<p>
+    Session submission is now closed.
+</p>
+}
 <table>
     <tr>
         <th>
@@ -17,7 +28,7 @@
         <th></th>
     </tr>
 
-    @foreach (var item in Model)
+    @foreach (var item in Model.Sessions)
     {
         <tr>
             <td>

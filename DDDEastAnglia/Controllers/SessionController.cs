@@ -35,7 +35,7 @@ namespace DDDEastAnglia.Controllers
                 displaySessions.Add(displaySession);
             }
 
-            return View(displaySessions);
+            return View(new SessionIndexModel{ Sessions = displaySessions});
         }
 
         //
