@@ -105,3 +105,16 @@ dd {
     border: 1px solid #013c01;
 }
 
+.abstract {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-top: 1px solid #cccccc;
+    border-bottom: 1px solid #cccccc;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.tweet-session {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
