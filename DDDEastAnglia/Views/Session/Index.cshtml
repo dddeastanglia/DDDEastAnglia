@@ -17,12 +17,7 @@ else
     Session submission is closed.
 </p>
 }
-@if (Model.IsOpenForVoting)
-{
-    <p>
-        You have @Model.RemainingVotes remaining.
-    </p>
-}
+
 <table>
     <tr>
         <th>
@@ -31,12 +26,6 @@ else
         <th>
             Title
         </th>
-        @if (Model.IsOpenForVoting)
-        {
-            <th>
-                Vote
-            </th>
-        }
         <th></th>
     </tr>
 
@@ -49,33 +38,7 @@ else
             <td>
                 @Html.DisplayFor(modelItem => item.SessionTitle)
             </td>
-            @if (Model.IsOpenForVoting)
-            {
-                if (item.HasBeenVotedForByUser)
-                {
-                     <td>
-                         @using (Html.BeginForm("ReleaseVote"))
-                         {
-                             <button type="submit">Release</button>
-                         }
-                     </td>
-                }
-                else if (Model.UserHasVotesLeft)
-                {
-                     <td>
-                         @using (Html.BeginForm("Vote"))
-                         {
-                             <button type="submit">Vote</button>
-                         }
-                     </td>
-                }
-                else
-                {
-                     <td>
-                        No votes left
-                     </td>
-                }
-            }
+        
             <td>
                 @Html.ActionLink("Details", "Details", new { id = item.SessionId })
                 @if (User.Identity.Name == item.SpeakerUserName)
