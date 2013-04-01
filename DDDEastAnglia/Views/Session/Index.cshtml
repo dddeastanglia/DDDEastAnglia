@@ -8,7 +8,7 @@
 @if (Model.IsOpenForSubmission)
 {
 <p>
-    DDD East Anglia is open for session submission, if you are a new or experienced speaker and have something to say please @Html.ActionLink("Submit a session", "Create").
+    DDD East Anglia is open for session submission, if you are a new or experienced speaker and have something to say please @Html.ActionLink("submit a session", "Create", "Session", null, new { @class = "submit-session"}).
 </P>
 }
 else
