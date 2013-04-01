@@ -137,10 +137,10 @@ a.submit-session {
     color: green;
 }
 
-a.submit-session:hover {
-    color: lawngreen;
-}
-
 a.submit-session:visited {
     color: darkgreen;
+}
+
+a.submit-session:hover {
+    color: lawngreen;
 }
