@@ -1,4 +1,5 @@
-﻿@model DDDEastAnglia.Models.SessionIndexModel
+﻿@using DDDEastAnglia.Models
+@model SessionIndexModel
 
 @{
     ViewBag.Title = "Sessions";
@@ -7,17 +8,43 @@
 <h2>Sessions</h2>
 @if (Model.IsOpenForSubmission)
 {
-<p>
-    DDD East Anglia is open for session submission, if you are a new or experienced speaker and have something to say please @Html.ActionLink("Submit a session", "Create").
-</P>
+    <p>
+        DDD East Anglia is open for session submission, if you are a new or experienced speaker and have something to say please @Html.ActionLink("Submit a session", "Create").
+    </p>
+    
+    if (Request.IsAuthenticated)
+    {
+        List<SessionDisplayModel> userSessions = Model.Sessions.Where(s => s.SpeakerUserName == User.Identity.Name).ToList();
+
+        if (userSessions.Count > 0)
+        {
+            <p><strong>My Sessions</strong></p>
+
+                @Html.Raw("<table>")
+                foreach (SessionDisplayModel userSession in userSessions)
+                {
+                @Html.Raw("<tr><td style='width: 400px'><strong>") @userSession.SessionTitle @Html.Raw("</strong></td><td>") 
+                    @Html.ActionLink("Edit",MVC.Session.Edit(userSession.SessionId)) @Html.Raw(" | ") 
+                    @Html.ActionLink("Delete",MVC.Session.Delete(userSession.SessionId)) @Html.Raw("</td></tr>")
+
+                @Html.Raw("<tr><td colspan='2'>") @Html.MarkdownFor(s => userSession.SessionAbstract) @Html.Raw("</td></tr>")
+                }
+            @Html.Raw("</table>")
+    
+        }
+        
+    }
 }
 else
 {
-<p>
-    Session submission is closed.
-</p>
+    <p>
+        Session submission is closed.
+    </p>
 }
-<table>
+
+@if (Model.IsOpenForVoting)
+{
+    <table>
     <tr>
         <th>
             Speaker
@@ -39,14 +66,16 @@ else
             </td>
             <td>
                 @Html.ActionLink("Details", "Details", new { id = item.SessionId })
-                @if (User.Identity.Name == item.SpeakerUserName)
-                {
-                    @Html.Raw(" | ")
-                    @Html.ActionLink("Edit", "Edit", new { id = item.SessionId }) @Html.Raw(" | ")
-                    @Html.ActionLink("Delete", "Delete", new { id = item.SessionId })
-                }
             </td>
         </tr>
     }
 
 </table>
+
+}
+else
+{
+    <p>
+        Submitted sessions will appear here when voting opens.
+    </p>
+}
