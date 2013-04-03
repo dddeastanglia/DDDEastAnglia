@@ -9,7 +9,7 @@
 @if (Model.IsOpenForSubmission)
 {
     <p>
-        DDD East Anglia is open for session submission, if you are a new or experienced speaker and have something to say please @Html.ActionLink("Submit a session", "Create").
+        DDD East Anglia is open for session submission, @Html.ActionLink("click here to submit a session", "Create", "Session", null, new { @class = "submit-session" }).
     </p>
     
     if (Request.IsAuthenticated)
@@ -18,21 +18,21 @@
 
         if (userSessions.Count > 0)
         {
-            <p><strong>My Sessions</strong></p>
+    <p><strong>My Sessions</strong></p>
 
-                @Html.Raw("<table>")
-                foreach (SessionDisplayModel userSession in userSessions)
-                {
-                @Html.Raw("<tr><td style='width: 400px'><strong>") @userSession.SessionTitle @Html.Raw("</strong></td><td>") 
-                    @Html.ActionLink("Edit",MVC.Session.Edit(userSession.SessionId)) @Html.Raw(" | ") 
-                    @Html.ActionLink("Delete",MVC.Session.Delete(userSession.SessionId)) @Html.Raw("</td></tr>")
+    @Html.Raw("<table>")
+            foreach (SessionDisplayModel userSession in userSessions)
+            {
+    @Html.Raw("<tr><td style='width: 400px'><strong>") @userSession.SessionTitle @Html.Raw("</strong></td><td>") 
+    @Html.ActionLink("Edit", MVC.Session.Edit(userSession.SessionId)) @Html.Raw(" | ") 
+    @Html.ActionLink("Delete", MVC.Session.Delete(userSession.SessionId)) @Html.Raw("</td></tr>")
 
-                @Html.Raw("<tr><td colspan='2'>") @Html.MarkdownFor(s => userSession.SessionAbstract) @Html.Raw("</td></tr>")
-                }
-            @Html.Raw("</table>")
+    @Html.Raw("<tr><td colspan='2'>") @Html.MarkdownFor(s => userSession.SessionAbstract) @Html.Raw("</td></tr>")
+            }
+    @Html.Raw("</table>")
     
         }
-        
+
     }
 }
 else
@@ -45,32 +45,33 @@ else
 @if (Model.IsOpenForVoting)
 {
     <table>
-    <tr>
-        <th>
-            Speaker
-        </th>
-        <th>
-            Title
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model.Sessions)
-    {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.SpeakerName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SessionTitle)
-            </td>
-            <td>
-                @Html.ActionLink("Details", "Details", new { id = item.SessionId })
-            </td>
+            <th>
+                Speaker
+            </th>
+            <th>
+                Title
+            </th>
+            <th></th>
         </tr>
-    }
 
-</table>
+        @foreach (var item in Model.Sessions)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SpeakerName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SessionTitle)
+                </td>
+
+                <td>
+                    @Html.ActionLink("Details", "Details", new { id = item.SessionId })
+                </td>
+            </tr>
+        }
+
+    </table>
 
 }
 else

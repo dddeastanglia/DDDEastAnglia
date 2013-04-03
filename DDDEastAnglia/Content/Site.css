@@ -118,3 +118,29 @@ dd {
     margin-top: 10px;
     margin-bottom: 10px;
 }
+
+/**************************************
+  Overriding the bootstrap.css for the
+  submit session link, for now, until
+  we can generate a better one or deal
+  with it better
+***************************************/
+a.submit-session
+, a.submit-session:hover
+, a.submit-session:visited
+, a.submit-session:active {
+    font-style: italic;
+    text-decoration: underline;
+}
+
+a.submit-session {
+    color: green;
+}
+
+a.submit-session:visited {
+    color: darkgreen;
+}
+
+a.submit-session:hover {
+    color: lawngreen;
+}
