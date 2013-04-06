@@ -7,11 +7,9 @@ dd {
     margin-left: 20px;
 }
 
-.span1 > p > a, .span2 > p > a, .span3 > p > a, .span4 > p > a,
-.span5 > p > a, .span6 > p > a, .span7 > p > a, .span8 > p > a,
-.span9 > p > a, .span10 > p > a, .span11 > p > a, .span12 > p > a {
-    text-decoration: underline;
-}
+a { text-decoration: underline; }
+
+a.btn, .dropdown-menu a { text-decoration: none; }
 
 .carousel-caption a { color: white; text-decoration: underline; }
 
@@ -119,28 +117,3 @@ dd {
     margin-bottom: 10px;
 }
 
-/**************************************
-  Overriding the bootstrap.css for the
-  submit session link, for now, until
-  we can generate a better one or deal
-  with it better
-***************************************/
-a.submit-session
-, a.submit-session:hover
-, a.submit-session:visited
-, a.submit-session:active {
-    font-style: italic;
-    text-decoration: underline;
-}
-
-a.submit-session {
-    color: green;
-}
-
-a.submit-session:visited {
-    color: darkgreen;
-}
-
-a.submit-session:hover {
-    color: lawngreen;
-}
