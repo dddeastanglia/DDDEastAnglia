@@ -1,7 +1,5 @@
-. .\helpers.ps1
-
 properties {
-	$root = Join-Path (Get-ScriptDirectory) ".."
+	$root = $null
 }
 
 Task default -Depends Compile
