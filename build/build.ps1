@@ -4,7 +4,7 @@ properties {
 
 Include .\teamcity.ps1
 TaskSetup {
-    TeamCity-ReportBuildProgress "Running task $($psake.context.Peek().currentTaskName)"
+    TeamCity-ReportBuildProgress "Running task '$($psake.context.Peek().currentTaskName)'"
 }
 
 Task default -Depends Compile
