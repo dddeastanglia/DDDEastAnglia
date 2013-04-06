@@ -41,6 +41,9 @@
                 <a href="javascript:document.getElementById('googleLoginForm').submit();" id="googleLoginLink"><i class="icon-google-plus"></i> Log in with Google</a>
             }
         </li>
+        <li>
+            <a href="@Url.Action(MVC.Account.Login())">Login</a>
+        </li>
         @*<li><a data-toggle="modal" href="#openIdLogin">Log in with an OpenID</a></li>*@
         <li class="divider"></li>
         <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
