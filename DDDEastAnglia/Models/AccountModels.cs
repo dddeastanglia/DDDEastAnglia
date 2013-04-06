@@ -18,7 +18,7 @@ namespace DDDEastAnglia.Models
         [Required]
         public string Name { get; set; }
         [Required(ErrorMessage = "We have to have your email address or we can't contact you!")]
-        [DisplayName("Email Address (not for public use, just so we can contact you")]
+        [DisplayName("Email Address (not for public use, just so we can contact you)")]
         [DataType(DataType.EmailAddress, ErrorMessage = "This doesn't appear to be a valid email address")]
         public string EmailAddress { get; set; }
         [DataType(DataType.Url, ErrorMessage = "This doesn't appear to be a valid url")]
