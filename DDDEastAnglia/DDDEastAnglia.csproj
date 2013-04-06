@@ -348,6 +348,7 @@
     <Content Include="Images\logo-small.png" />
     <Content Include="Images\philpursglove.png" />
     <Content Include="Images\simonstevens.jpg" />
+    <Content Include="Images\sponsors\Aspose.png" />
     <Content Include="Images\sponsors\iammagpie.jpg" />
     <Content Include="Images\sponsors\ideaspace.jpg" />
     <Content Include="Images\sponsors\pluralsight.png" />
