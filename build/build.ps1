@@ -2,7 +2,7 @@ properties {
 	$root = $null
 }
 
-Include "teamcity.psm1"
+Include .\teamcity.psm1
 TaskSetup {
     TeamCity-ReportBuildProgress "Running task $($psake.context.Peek().currentTaskName)"
 }
