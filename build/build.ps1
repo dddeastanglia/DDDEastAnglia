@@ -2,6 +2,11 @@ properties {
 	$root = $null
 }
 
+Include "teamcity.psm1"
+TaskSetup {
+    TeamCity-ReportBuildProgress "Running task $($psake.context.Peek().currentTaskName)"
+}
+
 Task default -Depends Compile
 
 Task Compile -Depends Clean {
