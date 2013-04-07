@@ -119,3 +119,12 @@ a.btn, .dropdown-menu a { text-decoration: none; }
     margin-bottom: 10px;
 }
 
+.speaker {
+    margin-bottom: 30px;
+}
+
+.inline-large-icon {
+    display: inline-block;
+    width: 20px;
+    text-align: center;
+}
