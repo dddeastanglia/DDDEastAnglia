@@ -8,32 +8,33 @@
 <h2>Speakers</h2>
 
 
-@foreach (SpeakerDisplayModel speaker in Model)
+@foreach (var speaker in Model)
 {
-    <h3><img src="@Html.Raw(speaker.GravatarUrl)" alt="@Html.Raw(speaker.Name)"/> @speaker.Name</h3>
-    <div>
-        @if (!string.IsNullOrWhiteSpace(speaker.WebsiteUrl))
-        {
-            <p><strong>Website:</strong> <a href="@speaker.WebsiteUrl">@speaker.WebsiteUrl</a></p>
-        }
-        @if (!string.IsNullOrWhiteSpace(speaker.TwitterHandle) )
-        {
-            <p><strong>Twitter:</strong> <a href="http://twitter.com/@speaker.TwitterHandle">@("@"+speaker.TwitterHandle)</a></p>
-        }
-    </div>
+    <div class="row-fluid">
+        <div class="span12 speaker">
+            <h3><img src="@Html.Raw(speaker.GravatarUrl)" alt="@Html.Raw(speaker.Name)"/> @speaker.Name</h3>
+            <section class="links">
+                @if (!string.IsNullOrWhiteSpace(speaker.WebsiteUrl))
+                {
+                    <p><span class="inline-large-icon"><i class="icon-globe icon-large" style="color: green"></i></span> <a href="@speaker.WebsiteUrl">@speaker.WebsiteUrl</a></p>
+                }
+                @if (!string.IsNullOrWhiteSpace(speaker.TwitterHandle) )
+                {
+                    <p><span class="inline-large-icon"><i class="icon-twitter icon-large" style="color: cornflowerblue"></i></span> <a href="http://twitter.com/@speaker.TwitterHandle">@("@"+speaker.TwitterHandle)</a></p>
+                }
+            </section>
     
-    <div>
-        <strong>Bio:</strong><br />
-        @Html.MarkdownFor(m => speaker.Bio)
+            <p>@Html.MarkdownFor(m => speaker.Bio)</p>
+            
+            <h4>Submitted Sessions</h4>
+            <ul>
+            @foreach (var session in speaker.Sessions)
+            {
+                <li><a href="@Url.Action(MVC.Session.Details(session.Key))" title="View the details for this session">@session.Value</a></li>
+            }
+            </ul>
+        </div>
     </div>
-    <div>
-        <strong>Submitted Sessions:</strong><br />
-        @foreach (var session in speaker.Sessions)
-        {
-            <a href="@Url.Action(MVC.Session.Details(session.Key))" title="View the details for this session">@session.Value</a><br/>
-        }
-    </div>
-
 }
  
 
