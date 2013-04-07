@@ -15,10 +15,9 @@ else
     <fieldset id="socialLoginList">
         <legend>Log in using another service</legend>
         <p>
-        @foreach (AuthenticationClientData p in Model)
-        {
-            <button type="submit" name="provider" value="@p.AuthenticationClient.ProviderName" title="Log in using your @p.DisplayName account">@p.DisplayName</button>
-        }
+            <button type="submit" name="provider" value="github" title="Log in using your GitHub account"><i class="icon-github"></i> GitHub</button>
+            <button type="submit" name="provider" value="twitter" title="Log in using your Twitter account"><i class="icon-twitter"></i> Twitter</button>
+            <button type="submit" name="provider" value="google" title="Log in using your Google account"><i class="icon-google-plus"></i> Google</button>
         </p>
     </fieldset>
     }
