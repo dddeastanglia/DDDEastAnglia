@@ -99,9 +99,7 @@
     <WarningLevel>4</WarningLevel>
     <TreatTSqlWarningsAsErrors>True</TreatTSqlWarningsAsErrors>
   </PropertyGroup>
-  <!-- VS10 without SP1 will not have VisualStudioVersion set, so do that here -->
-  <PropertyGroup />
-  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Project="$(ProjectDir)..\build\targets\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <ItemGroup>
     <Folder Include="Properties" />
     <Folder Include="dbo\" />
