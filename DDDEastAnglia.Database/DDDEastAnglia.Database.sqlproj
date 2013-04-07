@@ -112,5 +112,9 @@
     <Build Include="dbo\Tables\webpages_Membership.sql" />
     <Build Include="dbo\Tables\webpages_Roles.sql" />
     <Build Include="dbo\Tables\webpages_UsersInRoles.sql" />
+    <Build Include="dbo\Tables\Sessions.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
   </ItemGroup>
 </Project>
