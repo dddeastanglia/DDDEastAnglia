@@ -351,6 +351,7 @@
     <Content Include="Images\sponsors\iammagpie.jpg" />
     <Content Include="Images\sponsors\ideaspace.jpg" />
     <Content Include="Images\sponsors\pluralsight.png" />
+    <Content Include="Images\sponsors\Red-Gate.png" />
     <Content Include="Images\sponsors\tinamous.png" />
     <Content Include="Images\wmd-buttons.png" />
     <Content Include="Content\font\fontawesome-webfont.woff" />
