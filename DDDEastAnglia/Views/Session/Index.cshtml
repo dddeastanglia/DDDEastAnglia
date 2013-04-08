@@ -8,9 +8,9 @@
 <h2>Sessions</h2>
 @if (Model.IsOpenForSubmission)
 {
-    <p>
-        DDD East Anglia is open for session submission, @Html.ActionLink("click here to submit a session", "Create", "Session", null, new { @class = "submit-session" }).
-    </p>
+    <p>Session submission is now open.</p>
+    
+    <p>If you would like to speak at <span class="dddea">DDD East Anglia</span>, please @Html.ActionLink("submit a session", "Create", "Session", null, new { @class = "submit-session" }).</p>
     
     if (Request.IsAuthenticated)
     {
