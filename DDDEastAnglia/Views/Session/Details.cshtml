@@ -5,6 +5,7 @@
 }
 
 <h2>@Html.DisplayFor(model => model.SessionTitle)</h2>
+
 <div>
     @if (Model.SpeakerGravitarUrl != null)
     {
@@ -12,25 +13,28 @@
     }
     @Html.DisplayFor(m => m.SpeakerName)
 </div>
+
 <div class="tweet-session">
-@if (User.Identity.Name == Model.SpeakerUserName)
-{
-    <a href="https://twitter.com/intent/tweet?text=@Html.Encode("Check out my session for #dddea -") @Model.SessionTitle @Request.Url" class="twitter-share-button" data-url="@Request.Url" data-count="none">Tweet</a>
-}
-else
-{ 
-    <a href="https://twitter.com/intent/tweet?text=@Html.Encode("Check out this session for #dddea -") @Model.SessionTitle @Request.Url" class="twitter-share-button" data-url="@Request.Url" data-count="none">Tweet</a>
-}
-<script>!function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = "//platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs); } }(document, "script", "twitter-wjs");</script>
+    @if (User.Identity.Name == Model.SpeakerUserName)
+    {
+        <a href="https://twitter.com/intent/tweet?text=@Html.Encode("Check out my session for #dddea -") @Model.SessionTitle @Request.Url" class="twitter-share-button" data-url="@Request.Url" data-count="none">Tweet</a>
+    }
+    else
+    { 
+        <a href="https://twitter.com/intent/tweet?text=@Html.Encode("Check out this session for #dddea -") @Model.SessionTitle @Request.Url" class="twitter-share-button" data-url="@Request.Url" data-count="none">Tweet</a>
+    }
+    <script>!function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = "//platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs); } }(document, "script", "twitter-wjs");</script>
 </div>
+
 <div class="abstract">
     @Html.MarkdownFor(model => model.SessionAbstract)
 </div>
 
-<p>
-    @if (User.Identity.Name == Model.SpeakerUserName)
-    {
-        @Html.ActionLink("Edit", "Edit", new { id = Model.SessionId })  @Html.Raw(" | ")
-    }
-    @Html.ActionLink("Back to List", "Index")
-</p>
+@if (User.Identity.Name == Model.SpeakerUserName)
+{
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.SessionId })
+        |
+        @Html.ActionLink("Delete", MVC.Session.Delete(Model.SessionId))
+    </p>
+}
