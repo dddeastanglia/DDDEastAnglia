@@ -34,6 +34,12 @@ namespace DDDEastAnglia.Models
 
         public string GravitarUrl(int size = 50)
         {
+            if (string.IsNullOrWhiteSpace(EmailAddress))
+            {
+                // deal with missing email addresses
+                return string.Format("http://www.gravatar.com/avatar/0000?s={0}&d=mm&r=pg", size);
+            }
+
             using (MD5 md5Hasher = MD5.Create())
             {
                 // Convert the input string to a byte array and compute the hash.  
@@ -50,7 +56,7 @@ namespace DDDEastAnglia.Models
                     builder.Append(data[i].ToString("x2"));
                 }
 
-                return string.Format("http://www.gravatar.com/avatar/{0}?s={1}&d=identicon&r=pg", builder, size);
+                return string.Format("http://www.gravatar.com/avatar/{0}?s={1}&d=mm&r=pg", builder, size);
             }
         }
     }
