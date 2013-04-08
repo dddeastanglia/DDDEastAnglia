@@ -167,3 +167,15 @@ fieldset {
 #registerLink {
     margin-top: 10px;
 }
+
+.editor-field input[type="text"],
+.editor-field textarea {
+    width: 80%;
+}
+
+#wmd-preview {
+    width: 80%;
+    border: 2px dotted #ccc;
+    padding: 5px;
+    margin-bottom: 15px;
+}
