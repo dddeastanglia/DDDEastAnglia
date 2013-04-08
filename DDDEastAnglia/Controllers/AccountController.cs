@@ -18,9 +18,7 @@ namespace DDDEastAnglia.Controllers
     [Authorize]
     public partial class AccountController : Controller
     {
-        //
         // GET: /Account/Login
-
         [AllowAnonymous]
         public virtual ActionResult Login(string returnUrl)
         {
@@ -28,9 +26,7 @@ namespace DDDEastAnglia.Controllers
             return View();
         }
 
-        //
         // POST: /Account/Login
-
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -42,13 +38,11 @@ namespace DDDEastAnglia.Controllers
             }
 
             // If we got this far, something failed, redisplay form
-            ModelState.AddModelError("", "The user name or password provided is incorrect.");
+            ModelState.AddModelError("", "The username or password provided is incorrect.");
             return View(model);
         }
 
-        //
         // POST: /Account/LogOff
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public virtual ActionResult LogOff()
@@ -58,18 +52,14 @@ namespace DDDEastAnglia.Controllers
             return RedirectToAction(MVC.Home.Index());
         }
 
-        //
         // GET: /Account/Register
-
         [AllowAnonymous]
         public virtual ActionResult Register()
         {
             return View();
         }
 
-        //
         // POST: /Account/Register
-
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -94,9 +84,7 @@ namespace DDDEastAnglia.Controllers
             return View(model);
         }
 
-        //
         // POST: /Account/Disassociate
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public virtual ActionResult Disassociate(string provider, string providerUserId)
@@ -123,9 +111,7 @@ namespace DDDEastAnglia.Controllers
             return RedirectToAction(MVC.Account.Manage(message));
         }
 
-        //
         // GET: /Account/Manage
-
         public virtual ActionResult Manage(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
@@ -144,9 +130,7 @@ namespace DDDEastAnglia.Controllers
             return View();
         }
 
-        //
         // POST: /Account/Manage
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public virtual ActionResult Manage(LocalPasswordModel model)
@@ -207,9 +191,7 @@ namespace DDDEastAnglia.Controllers
             return View(model);
         }
 
-        //
         // POST: /Account/ExternalLogin
-
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -218,9 +200,7 @@ namespace DDDEastAnglia.Controllers
             return new ExternalLoginResult(provider, Url.Action("ExternalLoginCallback", new { ReturnUrl = returnUrl }));
         }
 
-        //
         // GET: /Account/ExternalLoginCallback
-
         [AllowAnonymous]
         public virtual ActionResult ExternalLoginCallback(string returnUrl)
         {
@@ -251,9 +231,7 @@ namespace DDDEastAnglia.Controllers
             }
         }
 
-        //
         // POST: /Account/ExternalLoginConfirmation
-
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -287,7 +265,7 @@ namespace DDDEastAnglia.Controllers
                     }
                     else
                     {
-                        ModelState.AddModelError("UserName", "User name already exists. Please enter a different user name.");
+                        ModelState.AddModelError("UserName", "Username already exists. Please enter a different username.");
                     }
                 }
             }
@@ -297,9 +275,7 @@ namespace DDDEastAnglia.Controllers
             return View(model);
         }
 
-        //
         // GET: /Account/ExternalLoginFailure
-
         [AllowAnonymous]
         public virtual ActionResult ExternalLoginFailure()
         {
@@ -392,10 +368,10 @@ namespace DDDEastAnglia.Controllers
             switch (createStatus)
             {
                 case MembershipCreateStatus.DuplicateUserName:
-                    return "User name already exists. Please enter a different user name.";
+                    return "Username already exists. Please enter a different username.";
 
                 case MembershipCreateStatus.DuplicateEmail:
-                    return "A user name for that e-mail address already exists. Please enter a different e-mail address.";
+                    return "A username for that e-mail address already exists. Please enter a different e-mail address.";
 
                 case MembershipCreateStatus.InvalidPassword:
                     return "The password provided is invalid. Please enter a valid password value.";
@@ -410,7 +386,7 @@ namespace DDDEastAnglia.Controllers
                     return "The password retrieval question provided is invalid. Please check the value and try again.";
 
                 case MembershipCreateStatus.InvalidUserName:
-                    return "The user name provided is invalid. Please check the value and try again.";
+                    return "The username provided is invalid. Please check the value and try again.";
 
                 case MembershipCreateStatus.ProviderError:
                     return "The authentication provider returned an error. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
