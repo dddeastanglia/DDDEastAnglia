@@ -8,8 +8,6 @@
 
 @using (Html.BeginForm())
 {
-    @Html.ValidationSummary(true)
-
     <fieldset>
         <legend>Please provide the details of your session below</legend>
         @Html.HiddenFor(model => model.SpeakerUserName)
@@ -31,6 +29,7 @@
         </div>
         <div id="wmd-preview"></div>
 
+        @Html.ValidationSummary(true)
         <p>
             <input type="submit" value="Submit session" />
             @Html.ActionLink("Cancel", "Index")
@@ -40,8 +39,8 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-
 }
+
 <script type="text/javascript">
     var converter = new Markdown.Converter();
     var editor = new Markdown.Editor(converter);

@@ -4,18 +4,14 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
+<h2>Edit a submitted session</h2>
 
 @using (Html.BeginForm())
 {
-    @Html.ValidationSummary(true)
-
     <fieldset>
-        <legend>Session</legend>
-
+        <legend>Please provide the details of your session below</legend>
         @Html.HiddenFor(model => model.SessionId)
-@Html.HiddenFor(model => model.SpeakerUserName)
-
+        @Html.HiddenFor(model => model.SpeakerUserName)
         <div class="editor-label">
             @Html.LabelFor(model => model.Title)
         </div>
@@ -34,19 +30,18 @@
         </div>
         <div id="wmd-preview"></div>
 
+        @Html.ValidationSummary(true)
         <p>
-            <input type="submit" value="Save" />
+            <input type="submit" value="Save changes" />
+            @Html.ActionLink("Cancel", "Index")
         </p>
     </fieldset>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+
 <script type="text/javascript">
     var converter = new Markdown.Converter();
     var editor = new Markdown.Editor(converter);

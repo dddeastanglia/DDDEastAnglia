@@ -179,3 +179,19 @@ fieldset {
     padding: 5px;
     margin-bottom: 15px;
 }
+
+.session-title {
+    font-weight: bold;
+    font-size: 31.5px;    
+}
+
+.session-details {
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 30px;
+}
+
+.session-details .abstract {
+    border-bottom: 0;
+}
