@@ -6,6 +6,14 @@ namespace DDDEastAnglia.Models
     public class RegisterModel
     {
         [Required]
+        [Display(Name = "full name")]
+        public string FullName { get; set; }
+
+        [Required]
+        [Display(Name = "email address")]
+        public string EmailAddress { get; set; }
+
+        [Required]
         [Display(Name = "username")]
         public string UserName { get; set; }
 

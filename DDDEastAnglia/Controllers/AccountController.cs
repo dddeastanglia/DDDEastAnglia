@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Transactions;
 using System.Web.Mvc;
@@ -71,7 +72,15 @@ namespace DDDEastAnglia.Controllers
                 {
                     WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
                     WebSecurity.Login(model.UserName, model.Password);
-                    //TODO: ensure the name and email address are set
+
+                    // ensure the name and email address are set
+                    DDDEAContext context = new DDDEAContext();
+                    var profile = context.UserProfiles.First(p => p.UserName == model.UserName);
+                    profile.Name = model.FullName;
+                    profile.EmailAddress = model.EmailAddress;
+                    context.Entry(profile).State = EntityState.Modified;
+                    context.SaveChanges();
+
                     return View("Registered", model);
                 }
                 catch (MembershipCreateUserException e)
@@ -83,8 +92,6 @@ namespace DDDEastAnglia.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
-
-
 
         [HttpGet]
         public ActionResult ChangePassword(string message = null)
@@ -123,8 +130,6 @@ namespace DDDEastAnglia.Controllers
             // If we got this far, something failed so redisplay the form
             return View(model);
         }
-
-
 
         [HttpGet]
         public ActionResult ManageLogins(string message = null)
@@ -280,10 +285,6 @@ namespace DDDEastAnglia.Controllers
         {
             return View();
         }
-
-
-
-
 
         #region Helpers
         private ActionResult RedirectToLocal(string returnUrl)
