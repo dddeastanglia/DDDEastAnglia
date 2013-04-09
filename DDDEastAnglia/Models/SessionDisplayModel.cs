@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace DDDEastAnglia.Models
+﻿namespace DDDEastAnglia.Models
 {
     public class SessionDisplayModel
     {
@@ -11,13 +9,5 @@ namespace DDDEastAnglia.Models
         public string SpeakerUserName { get; set; }
         public string SpeakerGravitarUrl { get; set; }
         public string TweetLink { get; set; }
-    }
-
-    public class SessionIndexModel
-    {
-        public bool IsOpenForSubmission { get; set; }
-        public bool IsOpenForVoting { get; set; }
-
-        public IEnumerable<SessionDisplayModel> Sessions { get; set; }
     }
 }
