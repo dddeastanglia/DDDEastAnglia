@@ -144,7 +144,7 @@ a.btn, .dropdown-menu a { text-decoration: none; }
     list-style-type: none;
 }
 
-label {
+label:first-letter {
     text-transform: capitalize;
 }
 
