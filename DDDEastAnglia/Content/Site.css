@@ -180,9 +180,8 @@ fieldset {
     margin-bottom: 15px;
 }
 
-.session-title {
-    font-weight: bold;
-    font-size: 31.5px;    
+.session-details-own {
+    background-color: #f9f9f9;
 }
 
 .session-details {
@@ -192,6 +191,46 @@ fieldset {
     margin-bottom: 30px;
 }
 
-.session-details .abstract {
+.session-title {
+    font-weight: bold;
+    font-size: 26px;
+    margin-bottom: 5px;
+    padding-bottom: 2px;
+}
+
+.session-speaker {
+    margin-bottom: 10px;
+    border-bottom: 1px solid lightgray;
+}
+
+.session-abstract {
     border-bottom: 0;
+}
+
+.session-actions {
+    text-align: right;    
+}
+
+.banner {
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    background-color: #006000;
+    background-image: linear-gradient(to bottom, #00b000, #006000);
+    border-radius: 10px;
+    border: 2px solid darkgreen;
+    padding: 15px;
+    margin: 30px 0 30px 0;
+}
+
+.banner .dddea {
+    color: greenyellow;
+}
+
+.banner a {
+    color: white;
+}
+
+.banner a:hover {
+    color: greenyellow;
 }

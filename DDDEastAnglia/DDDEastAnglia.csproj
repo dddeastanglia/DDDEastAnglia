@@ -237,7 +237,6 @@
     <Compile Include="Models\RegisterExternalLoginModel.cs" />
     <Compile Include="Models\RegisterModel.cs" />
     <Compile Include="Models\SessionDisplayModel.cs" />
-    <Compile Include="Models\SessionIndexModel.cs" />
     <Compile Include="Models\SpeakerDisplayModel.cs" />
     <Compile Include="SessionController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
@@ -454,6 +453,8 @@
     <Content Include="Views\Speaker\Index.cshtml" />
     <Content Include="Views\Account\Registered.cshtml" />
     <Content Include="Views\Profile\Edit.cshtml" />
+    <Content Include="Views\Session\_SessionDetailsPartial.cshtml" />
+    <Content Include="Views\Shared\_Banner.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

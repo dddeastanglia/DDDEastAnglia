@@ -9,5 +9,6 @@
         public string SpeakerUserName { get; set; }
         public string SpeakerGravitarUrl { get; set; }
         public string TweetLink { get; set; }
+        public bool IsUsersSession { get; set; }
     }
 }

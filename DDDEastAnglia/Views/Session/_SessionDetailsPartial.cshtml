@@ -1,0 +1,20 @@
+﻿@model DDDEastAnglia.Models.SessionDisplayModel
+
+<div class="session-details @(Model.IsUsersSession ? "session-details-own" : "")">
+    <div class="session-title">
+        @Model.SessionTitle
+    </div>
+    <div class="session-speaker">
+        @Model.SpeakerName
+    </div>
+    <div class="session-abstract">
+        @Html.MarkdownFor(s => Model.SessionAbstract)
+    </div>
+    @if (Request.IsAuthenticated && User.Identity.Name == Model.SpeakerUserName)
+    {
+        <div class="session-actions">
+            @Html.ActionLink("Edit", MVC.Session.Edit(Model.SessionId))
+            @Html.ActionLink("Delete", MVC.Session.Delete(Model.SessionId))
+        </div>
+    }
+</div>

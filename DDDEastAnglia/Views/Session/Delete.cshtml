@@ -1,4 +1,4 @@
-﻿@model DDDEastAnglia.Models.Session
+﻿@model DDDEastAnglia.Models.SessionDisplayModel
 
 @{
     ViewBag.Title = "Delete";
@@ -11,15 +11,7 @@
     <fieldset>
         <legend>Please confirm that you want to delete the following session</legend>
         
-        <div class="session-details">
-            <div class="session-title">
-                @Html.DisplayFor(model => model.Title)
-            </div>
-
-            <div class="abstract">
-                @Html.MarkdownFor(model => model.Abstract)
-            </div>
-        </div>
+        @Html.Partial("_SessionDetailsPartial", Model)
     </fieldset>
 
     <p>

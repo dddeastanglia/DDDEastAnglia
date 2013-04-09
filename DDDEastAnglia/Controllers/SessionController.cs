@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web.Mvc;
@@ -12,50 +11,41 @@ namespace DDDEastAnglia.Controllers
     public partial class SessionController : Controller
     {
         private const string DefaultEventName = "DDDEA2013";
-        private DDDEAContext db = new DDDEAContext();
-        private EventRepository eventRepository = new EventRepository();
-        //
-        // GET: /Session/
+        private readonly DDDEAContext db = new DDDEAContext();
+        private readonly EventRepository eventRepository = new EventRepository();
 
+        // GET: /Session/
         [AllowAnonymous]
         public virtual ActionResult Index()
         {
-            List<SessionDisplayModel> displaySessions = new List<SessionDisplayModel>();
+            var speakersLookup = db.UserProfiles.ToDictionary(p => p.UserName, p => p.Name);
+            var sessions = db.Sessions;
 
-            List<Session> sessions = db.Sessions.ToList();
+            var allSessions = new List<SessionDisplayModel>();
 
-            foreach (Session session in sessions)
+            foreach (var session in sessions)
             {
-                SessionDisplayModel displaySession = new SessionDisplayModel()
-                    {
-                        SessionId = session.SessionId,
-                        SessionTitle = session.Title,
-                        SpeakerUserName = session.SpeakerUserName,
-                        SessionAbstract = session.Abstract
-                    };
-                    displaySession.SpeakerName = db.UserProfiles.First(s => s.UserName == session.SpeakerUserName).Name;
-                displaySessions.Add(displaySession);
+                var speakerName = speakersLookup[session.SpeakerUserName];
+                var displayModel = CreateDisplayModel(session, speakerName);
+                allSessions.Add(displayModel);
             }
 
-            return View(new SessionIndexModel
-                {
-                    Sessions = displaySessions, 
-                    IsOpenForSubmission = eventRepository.Get(DefaultEventName).CanSubmit(),
-                });
+            allSessions.Sort(new SessionDisplayModelComparer());
+            return View(allSessions);
         }
 
-        //
         // GET: /Session/Details/5
-
         [AllowAnonymous]
         public virtual ActionResult Details(int id = 0)
         {
             Session session = db.Sessions.Find(id);
+        
             if (session == null)
             {
                 return HttpNotFound();
             }
-            SessionDisplayModel sessionDisplay = new SessionDisplayModel()
+            
+            SessionDisplayModel sessionDisplay = new SessionDisplayModel
                 {
                     SessionAbstract = session.Abstract,
                     SessionId = session.SessionId,
@@ -70,37 +60,38 @@ namespace DDDEastAnglia.Controllers
             return View(sessionDisplay);
         }
 
-        //
         // GET: /Session/Create
-
         public virtual ActionResult Create()
         {
             if (!eventRepository.Get(DefaultEventName).CanSubmit())
             {
                 return RedirectToAction("Index");
             }
-            if (User == null || User.Identity == null)
+        
+            if (User == null)
             {
                 return RedirectToAction("Index");
             }
+            
             var userProfile = db.UserProfiles.FirstOrDefault(u => u.UserName == User.Identity.Name);
+            
             if (userProfile == null)
             {
                 return RedirectToAction("Index");
             }
+
             return View(new Session { SpeakerUserName = userProfile.UserName });
         }
 
-        //
         // POST: /Session/Create
-
         [HttpPost]
-        public virtual ActionResult Create([Bind(Exclude = "Votes")]Session session)
+        public virtual ActionResult Create([Bind(Exclude = "Votes")] Session session)
         {
             if (!eventRepository.Get(DefaultEventName).CanSubmit())
             {
                 return RedirectToAction("Index");
             }
+        
             if (ModelState.IsValid)
             {
                 var addedSession = db.Sessions.Add(session);
@@ -111,24 +102,22 @@ namespace DDDEastAnglia.Controllers
             return View(session);
         }
 
-        //
         // GET: /Session/Edit/5
-
         public virtual ActionResult Edit(int id = 0)
         {
             Session session = db.Sessions.Find(id);
+        
             if (session == null)
             {
                 return HttpNotFound();
             }
+            
             return View(session);
         }
 
-        //
         // POST: /Session/Edit/5
-
         [HttpPost]
-        public virtual ActionResult Edit([Bind(Exclude = "Votes")]Session session)
+        public virtual ActionResult Edit([Bind(Exclude = "Votes")] Session session)
         {
             if (ModelState.IsValid)
             {
@@ -136,25 +125,25 @@ namespace DDDEastAnglia.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
             return View(session);
         }
 
-        //
         // GET: /Session/Delete/5
-
         public virtual ActionResult Delete(int id = 0)
         {
             Session session = db.Sessions.Find(id);
+        
             if (session == null)
             {
                 return HttpNotFound();
             }
-            return View(session);
+
+            var displayModel = CreateDisplayModel(session, User.Identity.Name);
+            return View(displayModel);
         }
 
-        //
         // POST: /Session/Delete/5
-
         [HttpPost, ActionName("Delete")]
         public virtual ActionResult DeleteConfirmed(int id)
         {
@@ -176,7 +165,38 @@ namespace DDDEastAnglia.Controllers
             var text = Url.Encode(string.Format("Posted a session for #dddea - {0} - {1} ", title, sessionDetailsUrl));
             return string.Format("https://twitter.com/intent/tweet?original_referer={0};text={1}", encodedUrl, text);
         }
+
+        private SessionDisplayModel CreateDisplayModel(Session session, string speakerName)
+        {
+            var isUsersSession = Request.IsAuthenticated && session.SpeakerUserName == User.Identity.Name;
+            var displayModel = new SessionDisplayModel
+                {
+                            SessionId = session.SessionId,
+                            SessionTitle = session.Title,
+                            SessionAbstract = session.Abstract,
+                            SpeakerUserName = session.SpeakerUserName,
+                            SpeakerName = speakerName,
+                            IsUsersSession = isUsersSession
+                };
+            return displayModel;
+        }
     }
 
-    
+    public class SessionDisplayModelComparer : IComparer<SessionDisplayModel>
+    {
+        public int Compare(SessionDisplayModel x, SessionDisplayModel y)
+        {
+            if (x.IsUsersSession && !y.IsUsersSession)
+            {
+                return -1;
+            }
+
+            if (!x.IsUsersSession && y.IsUsersSession)
+            {
+                return 1;
+            }
+
+            return string.Compare(x.SessionTitle, y.SessionTitle);
+        }
+    }
 }
