@@ -36,7 +36,7 @@ namespace DDDEastAnglia.Models
         [DisplayName("Mobile Phone Number (will not be displayed publicly)")]
         public string MobilePhone { get; set; }
         
-        [DisplayName("Are you a new speaker? (have not spoken at a DDD event before)")]
+        [DisplayName("I am a new speaker? (have not spoken at a DDD event before)")]
         public bool NewSpeaker { get; set; }
 
         public string GravitarUrl(int size = 50)

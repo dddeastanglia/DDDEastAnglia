@@ -307,34 +307,34 @@ namespace DDDEastAnglia.Controllers
 
         partial void DisassociateOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string provider, string providerUserId);
 
-        public override System.Web.Mvc.ActionResult Disassociate(string provider, string providerUserId)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Disassociate);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "provider", provider);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "providerUserId", providerUserId);
-            DisassociateOverride(callInfo, provider, providerUserId);
-            return callInfo;
-        }
+//        public override System.Web.Mvc.ActionResult Disassociate(string provider, string providerUserId)
+//        {
+//            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Disassociate);
+//            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "provider", provider);
+//            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "providerUserId", providerUserId);
+//            DisassociateOverride(callInfo, provider, providerUserId);
+//            return callInfo;
+//        }
 
-        partial void ManageOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DDDEastAnglia.Controllers.AccountController.ManageMessageId? message);
+//        partial void ManageOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DDDEastAnglia.Controllers.AccountController.ManageMessageId? message);
 
-        public override System.Web.Mvc.ActionResult Manage(DDDEastAnglia.Controllers.AccountController.ManageMessageId? message)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Manage);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "message", message);
-            ManageOverride(callInfo, message);
-            return callInfo;
-        }
+//        public override System.Web.Mvc.ActionResult Manage(DDDEastAnglia.Controllers.AccountController.ManageMessageId? message)
+//        {
+//            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Manage);
+//            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "message", message);
+//            ManageOverride(callInfo, message);
+//            return callInfo;
+//        }
 
         partial void ManageOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DDDEastAnglia.Models.LocalPasswordModel model);
-
-        public override System.Web.Mvc.ActionResult Manage(DDDEastAnglia.Models.LocalPasswordModel model)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Manage);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
-            ManageOverride(callInfo, model);
-            return callInfo;
-        }
+//
+//        public override System.Web.Mvc.ActionResult Manage(DDDEastAnglia.Models.LocalPasswordModel model)
+//        {
+//            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Manage);
+//            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+//            ManageOverride(callInfo, model);
+//            return callInfo;
+//        }
 
         partial void ExternalLoginOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string provider, string returnUrl);
 
@@ -397,14 +397,14 @@ namespace DDDEastAnglia.Controllers
         }
 
         partial void UserProfileOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DDDEastAnglia.Models.UserProfile profile);
-
-        public override System.Web.Mvc.ActionResult UserProfile(DDDEastAnglia.Models.UserProfile profile)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UserProfile);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "profile", profile);
-            UserProfileOverride(callInfo, profile);
-            return callInfo;
-        }
+//
+//        public override System.Web.Mvc.ActionResult UserProfile(DDDEastAnglia.Models.UserProfile profile)
+//        {
+//            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UserProfile);
+//            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "profile", profile);
+//            UserProfileOverride(callInfo, profile);
+//            return callInfo;
+//        }
 
     }
 }

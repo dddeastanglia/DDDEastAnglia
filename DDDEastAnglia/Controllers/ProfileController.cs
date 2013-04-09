@@ -28,7 +28,7 @@ namespace DDDEastAnglia.Controllers
                 DDDEAContext context = new DDDEAContext();
                 context.Entry(profile).State = EntityState.Modified;
                 context.SaveChanges();
-                message = "Profile updated successfully";
+                message = "Your profile has been updated successfully.";
             }
 
             return RedirectToAction("Edit", new { Message = message });

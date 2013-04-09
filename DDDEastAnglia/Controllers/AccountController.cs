@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Transactions;
 using System.Web.Mvc;
@@ -32,7 +31,7 @@ namespace DDDEastAnglia.Controllers
         [ValidateAntiForgeryToken]
         public virtual ActionResult Login(LoginModel model, string returnUrl)
         {
-            if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
+            if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, model.RememberMe))
             {
                 return RedirectToLocal(returnUrl);
             }
@@ -72,7 +71,7 @@ namespace DDDEastAnglia.Controllers
                 {
                     WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
                     WebSecurity.Login(model.UserName, model.Password);
-                    //TODO:
+                    //TODO: ensure the name and email address are set
                     return View("Registered", model);
                 }
                 catch (MembershipCreateUserException e)
@@ -85,13 +84,93 @@ namespace DDDEastAnglia.Controllers
             return View(model);
         }
 
-        // POST: /Account/Disassociate
+
+
+        [HttpGet]
+        public ActionResult ChangePassword(string message = null)
+        {
+            ViewBag.HasLocalAccount = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
+            ViewBag.Message = message;
+            return View("ChangePassword");
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public virtual ActionResult Disassociate(string provider, string providerUserId)
+        public ActionResult ChangePassword(LocalPasswordModel model)
+        {
+            bool hasLocalAccount = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
+            ViewBag.HasLocalAccount = hasLocalAccount;
+
+            if (hasLocalAccount)
+            {
+                if (ModelState.IsValid)
+                {
+                    // ChangePassword will throw an exception rather than return false in certain failure scenarios.
+                    try
+                    {
+                        if (WebSecurity.ChangePassword(User.Identity.Name, model.OldPassword, model.NewPassword))
+                        {
+                            return RedirectToAction("ChangePassword", new { Message = "Your password has been changed successfully." });
+                        }
+                    }
+                    catch (Exception)
+                    {}
+
+                    ModelState.AddModelError("", "The current password is incorrect or the new password is invalid.");
+                }
+            }
+
+            // If we got this far, something failed so redisplay the form
+            return View(model);
+        }
+
+
+
+        [HttpGet]
+        public ActionResult ManageLogins(string message = null)
+        {
+            ViewBag.HasLocalAccount = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
+            ViewBag.Message = message;
+            ViewBag.ReturnUrl = Url.Action("ManageLogins");
+            return View("ManageLogins");
+        }
+
+        [ChildActionOnly]
+        public virtual ActionResult RemoveExternalLogins()
+        {
+            var accounts = OAuthWebSecurity.GetAccountsFromUserName(User.Identity.Name);
+            var externalLogins = new List<ExternalLogin>();
+
+            foreach (OAuthAccount account in accounts)
+            {
+                var clientData = OAuthWebSecurity.GetOAuthClientData(account.Provider);
+
+                externalLogins.Add(new ExternalLogin
+                    {
+                        Provider = account.Provider,
+                        ProviderDisplayName = clientData.DisplayName,
+                        ProviderUserId = account.ProviderUserId,
+                    });
+            }
+
+            ViewBag.ShowRemoveButton = externalLogins.Count > 1 || OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
+            return PartialView("_RemoveExternalLoginsPartial", externalLogins);
+        }
+
+        [AllowAnonymous]
+        [ChildActionOnly]
+        public virtual ActionResult ExternalLoginsList(string returnUrl)
+        {
+            ViewBag.ReturnUrl = returnUrl;
+            return PartialView("_ExternalLoginsListPartial", OAuthWebSecurity.RegisteredClientData);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DisassociateLogin(string provider, string providerUserId)
         {
             string ownerAccount = OAuthWebSecurity.GetUserName(provider, providerUserId);
-            ManageMessageId? message = null;
+            string message = null;
 
             // Only disassociate the account if the currently logged in user is the owner
             if (ownerAccount == User.Identity.Name)
@@ -100,94 +179,17 @@ namespace DDDEastAnglia.Controllers
                 using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.Serializable }))
                 {
                     bool hasLocalAccount = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
+
                     if (hasLocalAccount || OAuthWebSecurity.GetAccountsFromUserName(User.Identity.Name).Count > 1)
                     {
                         OAuthWebSecurity.DeleteAccount(provider, providerUserId);
                         scope.Complete();
-                        message = ManageMessageId.RemoveLoginSuccess;
+                        message = "The external login has been removed successfully.";
                     }
                 }
             }
 
-            return RedirectToAction(MVC.Account.Manage(message));
-        }
-
-        // GET: /Account/Manage
-        public virtual ActionResult Manage(ManageMessageId? message)
-        {
-            ViewBag.StatusMessage =
-                message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
-                : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
-                : message == ManageMessageId.RemoveLoginSuccess ? "The external login was removed."
-                : "";
-            ViewBag.HasLocalPassword = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
-            ViewBag.ReturnUrl = Url.Action(MVC.Account.Manage());
-
-            DDDEAContext context = new DDDEAContext();
-            UserProfile profile = context.UserProfiles.First(p => p.UserName == User.Identity.Name);
-
-            ViewBag.Profile = profile;
-
-            return View();
-        }
-
-        // POST: /Account/Manage
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public virtual ActionResult Manage(LocalPasswordModel model)
-        {
-            bool hasLocalAccount = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
-            ViewBag.HasLocalPassword = hasLocalAccount;
-            ViewBag.ReturnUrl = Url.Action(MVC.Account.Manage());
-            if (hasLocalAccount)
-            {
-                if (ModelState.IsValid)
-                {
-                    // ChangePassword will throw an exception rather than return false in certain failure scenarios.
-                    bool changePasswordSucceeded;
-                    try
-                    {
-                        changePasswordSucceeded = WebSecurity.ChangePassword(User.Identity.Name, model.OldPassword, model.NewPassword);
-                    }
-                    catch (Exception)
-                    {
-                        changePasswordSucceeded = false;
-                    }
-
-                    if (changePasswordSucceeded)
-                    {
-                        return RedirectToAction(MVC.Account.Manage(ManageMessageId.ChangePasswordSuccess));
-                    }
-                    
-                    ModelState.AddModelError("", "The current password is incorrect or the new password is invalid.");
-                }
-            }
-            else
-            {
-                // User does not have a local password so remove any validation errors caused by a missing
-                // OldPassword field
-                ModelState state = ModelState["OldPassword"];
-                if (state != null)
-                {
-                    state.Errors.Clear();
-                }
-
-                if (ModelState.IsValid)
-                {
-                    try
-                    {
-                        WebSecurity.CreateAccount(User.Identity.Name, model.NewPassword);
-                        return RedirectToAction(MVC.Account.Manage(ManageMessageId.SetPasswordSuccess));
-                    }
-                    catch (Exception e)
-                    {
-                        ModelState.AddModelError("", e);
-                    }
-                }
-            }
-
-            // If we got this far, something failed, redisplay form
-            return View(model);
+            return RedirectToAction("ManageLogins", new { Message = message});
         }
 
         // POST: /Account/ExternalLogin
@@ -204,6 +206,7 @@ namespace DDDEastAnglia.Controllers
         public virtual ActionResult ExternalLoginCallback(string returnUrl)
         {
             AuthenticationResult result = OAuthWebSecurity.VerifyAuthentication(Url.Action("ExternalLoginCallback", new { ReturnUrl = returnUrl }));
+         
             if (!result.IsSuccessful)
             {
                 return RedirectToAction("ExternalLoginFailure");
@@ -278,47 +281,9 @@ namespace DDDEastAnglia.Controllers
             return View();
         }
 
-        [AllowAnonymous]
-        [ChildActionOnly]
-        public virtual ActionResult ExternalLoginsList(string returnUrl)
-        {
-            ViewBag.ReturnUrl = returnUrl;
-            return PartialView("_ExternalLoginsListPartial", OAuthWebSecurity.RegisteredClientData);
-        }
 
-        [ChildActionOnly]
-        public virtual ActionResult RemoveExternalLogins()
-        {
-            ICollection<OAuthAccount> accounts = OAuthWebSecurity.GetAccountsFromUserName(User.Identity.Name);
-            List<ExternalLogin> externalLogins = new List<ExternalLogin>();
-            foreach (OAuthAccount account in accounts)
-            {
-                AuthenticationClientData clientData = OAuthWebSecurity.GetOAuthClientData(account.Provider);
 
-                externalLogins.Add(new ExternalLogin
-                {
-                    Provider = account.Provider,
-                    ProviderDisplayName = clientData.DisplayName,
-                    ProviderUserId = account.ProviderUserId,
-                });
-            }
 
-            ViewBag.ShowRemoveButton = externalLogins.Count > 1 || OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
-            return PartialView("_RemoveExternalLoginsPartial", externalLogins);
-        }
-
-        [HttpPost]
-        public virtual ActionResult UserProfile(UserProfile profile)
-        {
-            if (ModelState.IsValid)
-            {
-                DDDEAContext context = new DDDEAContext();
-                context.Entry(profile).State = EntityState.Modified;
-                context.SaveChanges();
-
-            }
-            return RedirectToAction(MVC.Account.Manage());
-        }
 
         #region Helpers
         private ActionResult RedirectToLocal(string returnUrl)
@@ -329,13 +294,6 @@ namespace DDDEastAnglia.Controllers
             }
             
             return RedirectToAction("Index", "Home");
-        }
-
-        public enum ManageMessageId
-        {
-            ChangePasswordSuccess,
-            SetPasswordSuccess,
-            RemoveLoginSuccess,
         }
 
         internal class ExternalLoginResult : ActionResult

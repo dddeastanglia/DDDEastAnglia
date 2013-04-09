@@ -5,8 +5,8 @@
     </a>
     <ul class="dropdown-menu">
         <li>@Html.ActionLink("Edit Profile", "Edit", "Profile")</li>
-        <li>@Html.ActionLink("Change Password", "Manage", "Account", routeValues: null, htmlAttributes: new { @class = "username", title = "Manage" })</li>
-        <li>@Html.ActionLink("Manage Logins", "Manage", "Account", routeValues: null, htmlAttributes: new { @class = "username", title = "Manage" })</li>
+        <li>@Html.ActionLink("Change Password", "ChangePassword", "Account")</li>
+        <li>@Html.ActionLink("Manage Logins", "ManageLogins", "Account")</li>
 
         <li class="divider"></li>
         <li>
@@ -51,6 +51,6 @@ else
         </li>
         @*<li><a data-toggle="modal" href="#openIdLogin">Log in with an OpenID</a></li>*@
         <li class="divider"></li>
-        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink("Register", "Register", "Account", null, new { id = "registerLink" })</li>
     </ul>
 }
