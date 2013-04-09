@@ -168,8 +168,8 @@ fieldset {
     margin-top: 10px;
 }
 
-.editor-field input[type="text"],
-.editor-field textarea {
+.editor-field input[type="text"][id="Title"],
+#wmd-input {
     width: 80%;
 }
 

@@ -13,23 +13,31 @@ namespace DDDEastAnglia.Models
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }
+        
         public string UserName { get; set; }
 
         [Required]
+        [DisplayName("name")]
         public string Name { get; set; }
-        [Required(ErrorMessage = "We have to have your email address or we can't contact you!")]
-        [DisplayName("Email Address (not for public use, just so we can contact you)")]
-        [DataType(DataType.EmailAddress, ErrorMessage = "This doesn't appear to be a valid email address")]
+        
+        [Required(ErrorMessage = "We have to have your email address or we cannot contact you!")]
+        [DisplayName("Email Address (will not be displayed publicly)")]
+        [DataType(DataType.EmailAddress, ErrorMessage = "This does not appear to be a valid email address")]
         public string EmailAddress { get; set; }
-        [DataType(DataType.Url, ErrorMessage = "This doesn't appear to be a valid url")]
+        
+        [DataType(DataType.Url, ErrorMessage = "This does not appear to be a valid url")]
         [DisplayName("Website")]
         public string WebsiteUrl { get; set; }
+        
         [DisplayName("Twitter Handle")]
         public string TwitterHandle { get; set; }
+        
         public string Bio { get; set; }
-        [DisplayName("Mobile Phone (not for public use, so we can contact you)")]
+        
+        [DisplayName("Mobile Phone Number (will not be displayed publicly)")]
         public string MobilePhone { get; set; }
-        [DisplayName("Are you a new speaker? (haven't spoken at a DDD before)")]
+        
+        [DisplayName("Are you a new speaker? (have not spoken at a DDD event before)")]
         public bool NewSpeaker { get; set; }
 
         public string GravitarUrl(int size = 50)

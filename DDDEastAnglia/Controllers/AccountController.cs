@@ -72,6 +72,7 @@ namespace DDDEastAnglia.Controllers
                 {
                     WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
                     WebSecurity.Login(model.UserName, model.Password);
+                    //TODO:
                     return View("Registered", model);
                 }
                 catch (MembershipCreateUserException e)

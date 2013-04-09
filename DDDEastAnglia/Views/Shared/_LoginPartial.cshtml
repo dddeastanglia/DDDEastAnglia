@@ -4,7 +4,10 @@
         <span class="caret"></span>
     </a>
     <ul class="dropdown-menu">
-        <li>@Html.ActionLink("Account Settings", "Manage", "Account", routeValues: null, htmlAttributes: new { @class = "username", title = "Manage" })</li>
+        <li>@Html.ActionLink("Edit Profile", "Edit", "Profile")</li>
+        <li>@Html.ActionLink("Change Password", "Manage", "Account", routeValues: null, htmlAttributes: new { @class = "username", title = "Manage" })</li>
+        <li>@Html.ActionLink("Manage Logins", "Manage", "Account", routeValues: null, htmlAttributes: new { @class = "username", title = "Manage" })</li>
+
         <li class="divider"></li>
         <li>
             @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
@@ -14,7 +17,9 @@
             }
         </li>
     </ul>
-} else {
+} 
+else 
+{
     <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
         <i class="icon-user"></i> Log In
         <span class="caret"></span>
