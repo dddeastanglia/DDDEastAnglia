@@ -4,18 +4,19 @@
     ViewBag.Title = "Log in";
 }
 
-<hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
-</hgroup>
+<h2>Please log in to continue</h2>
+
+<section class="social" id="socialLoginForm">
+    @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
+</section>
 
 <section id="loginForm">
-<h2>Use a local account to log in.</h2>
-@using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl })) {
+@using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl })) 
+{
     @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>Log in Form</legend>
+        <legend>Use a local account to log in</legend>
         <ol>
             <li>
                 @Html.LabelFor(m => m.UserName)
@@ -29,20 +30,17 @@
             </li>
             <li>
                 @Html.CheckBoxFor(m => m.RememberMe)
-                @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })
+                @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox inline" })
             </li>
         </ol>
-        <input type="submit" value="Log in" />
+        @Html.ValidationSummary(true)
+        <input type="submit" class="btn" value="Log in" />
     </fieldset>
-    <p>
-        @Html.ActionLink("Register", "Register") if you don't have an account.
-    </p>
-}
-</section>
 
-<section class="social" id="socialLoginForm">
-    <h2>Use another service to log in.</h2>
-    @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
+    <div id="registerLink">
+        <p>If you do not already have one, please @Html.ActionLink("register for an account", "Register").</p>
+    </div>
+}
 </section>
 
 @section Scripts {

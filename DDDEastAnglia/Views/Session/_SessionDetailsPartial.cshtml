@@ -1,0 +1,28 @@
+﻿@model DDDEastAnglia.Models.SessionDisplayModel
+
+<div class="session-details @(Model.IsUsersSession ? "session-details-own" : "")">
+    <div class="session-title">
+        @Model.SessionTitle
+    </div>
+    <div class="session-speaker">
+        <img src="@Model.SpeakerGravitarUrl" width="16" height="16" alt="@Model.SpeakerName">
+        @Model.SpeakerName
+    </div>
+    <div class="session-tweet">
+        <a href="https://twitter.com/intent/tweet?text=@Model.TweetLink.Title" class="twitter-share-button" data-url="@Model.TweetLink.Url" data-count="none">Tweet</a>
+    </div>
+    <div class="session-abstract">
+        @Html.MarkdownFor(s => Model.SessionAbstract)
+    </div>
+    @if (Request.IsAuthenticated && User.Identity.Name == Model.SpeakerUserName)
+    {
+        <div class="session-actions">
+            <span class="action">
+                <i class="icon-edit"></i> @Html.ActionLink("Edit", MVC.Session.Edit(Model.SessionId))
+            </span>
+            <span class="action">
+                <i class="icon-trash"></i> @Html.ActionLink("Delete", MVC.Session.Delete(Model.SessionId))
+            </span>
+        </div>
+    }
+</div>

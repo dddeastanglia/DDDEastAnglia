@@ -18,9 +18,7 @@ namespace DDDEastAnglia.Controllers
     [Authorize]
     public partial class AccountController : Controller
     {
-        //
         // GET: /Account/Login
-
         [AllowAnonymous]
         public virtual ActionResult Login(string returnUrl)
         {
@@ -28,27 +26,23 @@ namespace DDDEastAnglia.Controllers
             return View();
         }
 
-        //
         // POST: /Account/Login
-
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public virtual ActionResult Login(LoginModel model, string returnUrl)
         {
-            if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
+            if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, model.RememberMe))
             {
                 return RedirectToLocal(returnUrl);
             }
 
             // If we got this far, something failed, redisplay form
-            ModelState.AddModelError("", "The user name or password provided is incorrect.");
+            ModelState.AddModelError("", "The username or password provided is incorrect.");
             return View(model);
         }
 
-        //
         // POST: /Account/LogOff
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public virtual ActionResult LogOff()
@@ -58,18 +52,14 @@ namespace DDDEastAnglia.Controllers
             return RedirectToAction(MVC.Home.Index());
         }
 
-        //
         // GET: /Account/Register
-
         [AllowAnonymous]
         public virtual ActionResult Register()
         {
             return View();
         }
 
-        //
         // POST: /Account/Register
-
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -82,7 +72,16 @@ namespace DDDEastAnglia.Controllers
                 {
                     WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
                     WebSecurity.Login(model.UserName, model.Password);
-                    return RedirectToAction(MVC.Home.Index());
+
+                    // ensure the name and email address are set
+                    DDDEAContext context = new DDDEAContext();
+                    var profile = context.UserProfiles.First(p => p.UserName == model.UserName);
+                    profile.Name = model.FullName;
+                    profile.EmailAddress = model.EmailAddress;
+                    context.Entry(profile).State = EntityState.Modified;
+                    context.SaveChanges();
+
+                    return View("Registered", model);
                 }
                 catch (MembershipCreateUserException e)
                 {
@@ -94,15 +93,89 @@ namespace DDDEastAnglia.Controllers
             return View(model);
         }
 
-        //
-        // POST: /Account/Disassociate
+        [HttpGet]
+        public virtual ActionResult ChangePassword(string message = null)
+        {
+            ViewBag.HasLocalAccount = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
+            ViewBag.Message = message;
+            return View("ChangePassword");
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public virtual ActionResult Disassociate(string provider, string providerUserId)
+        public virtual ActionResult ChangePassword(LocalPasswordModel model)
+        {
+            bool hasLocalAccount = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
+            ViewBag.HasLocalAccount = hasLocalAccount;
+
+            if (hasLocalAccount)
+            {
+                if (ModelState.IsValid)
+                {
+                    // ChangePassword will throw an exception rather than return false in certain failure scenarios.
+                    try
+                    {
+                        if (WebSecurity.ChangePassword(User.Identity.Name, model.OldPassword, model.NewPassword))
+                        {
+                            return RedirectToAction("ChangePassword", new { Message = "Your password has been changed successfully." });
+                        }
+                    }
+                    catch (Exception)
+                    {}
+
+                    ModelState.AddModelError("", "The current password is incorrect or the new password is invalid.");
+                }
+            }
+
+            // If we got this far, something failed so redisplay the form
+            return View(model);
+        }
+
+        [HttpGet]
+        public virtual ActionResult ManageLogins(string message = null)
+        {
+            ViewBag.HasLocalAccount = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
+            ViewBag.Message = message;
+            ViewBag.ReturnUrl = Url.Action("ManageLogins");
+            return View("ManageLogins");
+        }
+
+        [ChildActionOnly]
+        public virtual ActionResult RemoveExternalLogins()
+        {
+            var accounts = OAuthWebSecurity.GetAccountsFromUserName(User.Identity.Name);
+            var externalLogins = new List<ExternalLogin>();
+
+            foreach (OAuthAccount account in accounts)
+            {
+                var clientData = OAuthWebSecurity.GetOAuthClientData(account.Provider);
+
+                externalLogins.Add(new ExternalLogin
+                    {
+                        Provider = account.Provider,
+                        ProviderDisplayName = clientData.DisplayName,
+                        ProviderUserId = account.ProviderUserId,
+                    });
+            }
+
+            ViewBag.ShowRemoveButton = externalLogins.Count > 1 || OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
+            return PartialView("_RemoveExternalLoginsPartial", externalLogins);
+        }
+
+        [AllowAnonymous]
+        [ChildActionOnly]
+        public virtual ActionResult ExternalLoginsList(string returnUrl)
+        {
+            ViewBag.ReturnUrl = returnUrl;
+            return PartialView("_ExternalLoginsListPartial", OAuthWebSecurity.RegisteredClientData);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public virtual ActionResult DisassociateLogin(string provider, string providerUserId)
         {
             string ownerAccount = OAuthWebSecurity.GetUserName(provider, providerUserId);
-            ManageMessageId? message = null;
+            string message = null;
 
             // Only disassociate the account if the currently logged in user is the owner
             if (ownerAccount == User.Identity.Name)
@@ -111,105 +184,20 @@ namespace DDDEastAnglia.Controllers
                 using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.Serializable }))
                 {
                     bool hasLocalAccount = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
+
                     if (hasLocalAccount || OAuthWebSecurity.GetAccountsFromUserName(User.Identity.Name).Count > 1)
                     {
                         OAuthWebSecurity.DeleteAccount(provider, providerUserId);
                         scope.Complete();
-                        message = ManageMessageId.RemoveLoginSuccess;
+                        message = "The external login has been removed successfully.";
                     }
                 }
             }
 
-            return RedirectToAction(MVC.Account.Manage(message));
+            return RedirectToAction("ManageLogins", new { Message = message});
         }
 
-        //
-        // GET: /Account/Manage
-
-        public virtual ActionResult Manage(ManageMessageId? message)
-        {
-            ViewBag.StatusMessage =
-                message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
-                : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
-                : message == ManageMessageId.RemoveLoginSuccess ? "The external login was removed."
-                : "";
-            ViewBag.HasLocalPassword = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
-            ViewBag.ReturnUrl = Url.Action(MVC.Account.Manage());
-
-            DDDEAContext context = new DDDEAContext();
-            UserProfile profile = context.UserProfiles.First(p => p.UserName == User.Identity.Name);
-
-            ViewBag.Profile = profile;
-
-            return View();
-        }
-
-        //
-        // POST: /Account/Manage
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public virtual ActionResult Manage(LocalPasswordModel model)
-        {
-            bool hasLocalAccount = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
-            ViewBag.HasLocalPassword = hasLocalAccount;
-            ViewBag.ReturnUrl = Url.Action(MVC.Account.Manage());
-            if (hasLocalAccount)
-            {
-                if (ModelState.IsValid)
-                {
-                    // ChangePassword will throw an exception rather than return false in certain failure scenarios.
-                    bool changePasswordSucceeded;
-                    try
-                    {
-                        changePasswordSucceeded = WebSecurity.ChangePassword(User.Identity.Name, model.OldPassword, model.NewPassword);
-                    }
-                    catch (Exception)
-                    {
-                        changePasswordSucceeded = false;
-                    }
-
-                    if (changePasswordSucceeded)
-                    {
-                        return RedirectToAction(MVC.Account.Manage(ManageMessageId.ChangePasswordSuccess));
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("", "The current password is incorrect or the new password is invalid.");
-                    }
-                }
-            }
-            else
-            {
-                // User does not have a local password so remove any validation errors caused by a missing
-                // OldPassword field
-                ModelState state = ModelState["OldPassword"];
-                if (state != null)
-                {
-                    state.Errors.Clear();
-                }
-
-                if (ModelState.IsValid)
-                {
-                    try
-                    {
-                        WebSecurity.CreateAccount(User.Identity.Name, model.NewPassword);
-                        return RedirectToAction(MVC.Account.Manage(ManageMessageId.SetPasswordSuccess));
-                    }
-                    catch (Exception e)
-                    {
-                        ModelState.AddModelError("", e);
-                    }
-                }
-            }
-
-            // If we got this far, something failed, redisplay form
-            return View(model);
-        }
-
-        //
         // POST: /Account/ExternalLogin
-
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -218,13 +206,12 @@ namespace DDDEastAnglia.Controllers
             return new ExternalLoginResult(provider, Url.Action("ExternalLoginCallback", new { ReturnUrl = returnUrl }));
         }
 
-        //
         // GET: /Account/ExternalLoginCallback
-
         [AllowAnonymous]
         public virtual ActionResult ExternalLoginCallback(string returnUrl)
         {
             AuthenticationResult result = OAuthWebSecurity.VerifyAuthentication(Url.Action("ExternalLoginCallback", new { ReturnUrl = returnUrl }));
+         
             if (!result.IsSuccessful)
             {
                 return RedirectToAction("ExternalLoginFailure");
@@ -241,30 +228,26 @@ namespace DDDEastAnglia.Controllers
                 OAuthWebSecurity.CreateOrUpdateAccount(result.Provider, result.ProviderUserId, User.Identity.Name);
                 return RedirectToLocal(returnUrl);
             }
-            else
-            {
-                // User is new, ask for their desired membership name
-                string loginData = OAuthWebSecurity.SerializeProviderUserId(result.Provider, result.ProviderUserId);
-                ViewBag.ProviderDisplayName = OAuthWebSecurity.GetOAuthClientData(result.Provider).DisplayName;
-                ViewBag.ReturnUrl = returnUrl;
-                return View("ExternalLoginConfirmation", new RegisterExternalLoginModel { UserName = result.UserName, ExternalLoginData = loginData });
-            }
+            
+            // User is new, ask for their desired membership name
+            string loginData = OAuthWebSecurity.SerializeProviderUserId(result.Provider, result.ProviderUserId);
+            ViewBag.ProviderDisplayName = OAuthWebSecurity.GetOAuthClientData(result.Provider).DisplayName;
+            ViewBag.ReturnUrl = returnUrl;
+            return View("ExternalLoginConfirmation", new RegisterExternalLoginModel { UserName = result.UserName, ExternalLoginData = loginData });
         }
 
-        //
         // POST: /Account/ExternalLoginConfirmation
-
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public virtual ActionResult ExternalLoginConfirmation(RegisterExternalLoginModel model, string returnUrl)
         {
-            string provider = null;
-            string providerUserId = null;
+            string provider;
+            string providerUserId;
 
             if (User.Identity.IsAuthenticated || !OAuthWebSecurity.TryDeserializeProviderUserId(model.ExternalLoginData, out provider, out providerUserId))
             {
-                return RedirectToAction("Manage");
+                return RedirectToAction("ManageLogins");
             }
 
             if (ModelState.IsValid)
@@ -273,11 +256,12 @@ namespace DDDEastAnglia.Controllers
                 using (DDDEAContext db = new DDDEAContext())
                 {
                     UserProfile user = db.UserProfiles.FirstOrDefault(u => u.UserName.ToLower() == model.UserName.ToLower());
+                    
                     // Check if user already exists
                     if (user == null)
                     {
                         // Insert name into the profile table
-                        db.UserProfiles.Add(new UserProfile { UserName = model.UserName, Name = "Your Name", EmailAddress = "youremail@yourisp.com" });
+                        db.UserProfiles.Add(new UserProfile { UserName = model.UserName, Name = model.Name, EmailAddress = model.EmailAddress });
                         db.SaveChanges();
 
                         OAuthWebSecurity.CreateOrUpdateAccount(provider, providerUserId, model.UserName);
@@ -285,10 +269,8 @@ namespace DDDEastAnglia.Controllers
 
                         return RedirectToLocal(returnUrl);
                     }
-                    else
-                    {
-                        ModelState.AddModelError("UserName", "User name already exists. Please enter a different user name.");
-                    }
+                    
+                    ModelState.AddModelError("UserName", ErrorCodeToString(MembershipCreateStatus.DuplicateUserName));
                 }
             }
 
@@ -297,55 +279,11 @@ namespace DDDEastAnglia.Controllers
             return View(model);
         }
 
-        //
         // GET: /Account/ExternalLoginFailure
-
         [AllowAnonymous]
         public virtual ActionResult ExternalLoginFailure()
         {
             return View();
-        }
-
-        [AllowAnonymous]
-        [ChildActionOnly]
-        public virtual ActionResult ExternalLoginsList(string returnUrl)
-        {
-            ViewBag.ReturnUrl = returnUrl;
-            return PartialView("_ExternalLoginsListPartial", OAuthWebSecurity.RegisteredClientData);
-        }
-
-        [ChildActionOnly]
-        public virtual ActionResult RemoveExternalLogins()
-        {
-            ICollection<OAuthAccount> accounts = OAuthWebSecurity.GetAccountsFromUserName(User.Identity.Name);
-            List<ExternalLogin> externalLogins = new List<ExternalLogin>();
-            foreach (OAuthAccount account in accounts)
-            {
-                AuthenticationClientData clientData = OAuthWebSecurity.GetOAuthClientData(account.Provider);
-
-                externalLogins.Add(new ExternalLogin
-                {
-                    Provider = account.Provider,
-                    ProviderDisplayName = clientData.DisplayName,
-                    ProviderUserId = account.ProviderUserId,
-                });
-            }
-
-            ViewBag.ShowRemoveButton = externalLogins.Count > 1 || OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
-            return PartialView("_RemoveExternalLoginsPartial", externalLogins);
-        }
-
-        [HttpPost]
-        public virtual ActionResult UserProfile(UserProfile profile)
-        {
-            if (ModelState.IsValid)
-            {
-                DDDEAContext context = new DDDEAContext();
-                context.Entry(profile).State = EntityState.Modified;
-                context.SaveChanges();
-
-            }
-            return RedirectToAction(MVC.Account.Manage());
         }
 
         #region Helpers
@@ -355,17 +293,8 @@ namespace DDDEastAnglia.Controllers
             {
                 return Redirect(returnUrl);
             }
-            else
-            {
-                return RedirectToAction("Index", "Home");
-            }
-        }
-
-        public enum ManageMessageId
-        {
-            ChangePasswordSuccess,
-            SetPasswordSuccess,
-            RemoveLoginSuccess,
+            
+            return RedirectToAction("Index", "Home");
         }
 
         internal class ExternalLoginResult : ActionResult
@@ -392,10 +321,10 @@ namespace DDDEastAnglia.Controllers
             switch (createStatus)
             {
                 case MembershipCreateStatus.DuplicateUserName:
-                    return "User name already exists. Please enter a different user name.";
+                    return "The username you have chosen already exists. Please choose a different username.";
 
                 case MembershipCreateStatus.DuplicateEmail:
-                    return "A user name for that e-mail address already exists. Please enter a different e-mail address.";
+                    return "A username for that e-mail address already exists. Please enter a different e-mail address.";
 
                 case MembershipCreateStatus.InvalidPassword:
                     return "The password provided is invalid. Please enter a valid password value.";
@@ -410,7 +339,7 @@ namespace DDDEastAnglia.Controllers
                     return "The password retrieval question provided is invalid. Please check the value and try again.";
 
                 case MembershipCreateStatus.InvalidUserName:
-                    return "The user name provided is invalid. Please check the value and try again.";
+                    return "The username provided is invalid. Please check the value and try again.";
 
                 case MembershipCreateStatus.ProviderError:
                     return "The authentication provider returned an error. Please verify your entry and try again. If the problem persists, please contact your system administrator.";

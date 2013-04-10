@@ -1,5 +1,4 @@
-﻿using System.Web;
-using System.Web.Optimization;
+﻿using System.Web.Optimization;
 
 namespace DDDEastAnglia
 {
@@ -52,6 +51,8 @@ namespace DDDEastAnglia
                         "~/Content/themes/base/jquery.ui.theme.css"));
 
             bundles.Add(new StyleBundle("~/Content/Markdown").Include("~/Content/Markdown.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/tweetbutton").Include("~/Scripts/tweetbutton.js"));
         }
     }
 }
