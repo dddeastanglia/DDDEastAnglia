@@ -32,7 +32,13 @@ namespace DDDEastAnglia.Controllers
             }
 
             allSessions.Sort(new SessionDisplayModelComparer());
-            return View(allSessions);
+            var defaultEvent = eventRepository.Get(DefaultEventName);
+            return View(new SessionIndexModel
+                {
+                    Sessions = allSessions, 
+                    IsOpenForSubmission = defaultEvent.CanSubmit(),
+                    IsOpenForVoting = defaultEvent.CanVote()
+                });
         }
 
         // GET: /Session/Details/5
@@ -146,6 +152,16 @@ namespace DDDEastAnglia.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult RegisterVote(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ActionResult RemoveVote(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         private SessionDisplayModel CreateDisplayModel(Session session, UserProfile profile)
         {
             var isUsersSession = Request.IsAuthenticated && session.SpeakerUserName == User.Identity.Name;
@@ -185,15 +201,7 @@ namespace DDDEastAnglia.Controllers
             base.Dispose(disposing);
         }
 
-        public ActionResult RegisterVote(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public ActionResult RemoveVote(int id)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 
 }

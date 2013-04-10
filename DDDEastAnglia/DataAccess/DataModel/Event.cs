@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 
 namespace DDDEastAnglia.DataAccess.DataModel
@@ -19,7 +20,12 @@ namespace DDDEastAnglia.DataAccess.DataModel
 
         public bool CanVote()
         {
-            return PreConferenceAgenda.CanVote();
+            bool overrideAgenda;
+            if (!bool.TryParse(ConfigurationManager.AppSettings["DeveloperOverrideVoting"], out overrideAgenda))
+            {
+                overrideAgenda = false;
+            }
+            return overrideAgenda || PreConferenceAgenda.CanVote();
         }
     }
 
