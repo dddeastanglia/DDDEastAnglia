@@ -19,14 +19,14 @@
     }
     else if (session.HasAlreadyBeenVotedFor)
     {
-        using (@Html.BeginForm("RemoveVote", "Session", new {id = item.SessionId}))
+        using (@Html.BeginForm("RemoveVote", "Session", new {id = session.SessionId}))
         {
         <button type="submit">Remove vote</button>
         }
     }
     else
     {
-        using (@Html.BeginForm("RegisterVote", "Session", new { id = item.SessionId }))
+        using (@Html.BeginForm("RegisterVote", "Session", new { id = session.SessionId }))
         {
         <button type="submit">Vote</button>
         }

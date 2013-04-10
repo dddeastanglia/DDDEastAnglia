@@ -31,14 +31,27 @@ namespace DDDEastAnglia.Models
 
         public IEnumerable<int> SessionsVotedFor { get { return _sessionsVotedFor.AsReadOnly(); } }
 
- 
+
+        public bool Contains(int sessionId)
+        {
+            return _sessionsVotedFor.Contains(sessionId);
+        }
+
         public void Add(int sessionId)
         {
+            if (_sessionsVotedFor.Contains(sessionId))
+            {
+                return;
+            }
             _sessionsVotedFor.Add(sessionId);
         }
 
         public void Remove(int sessionId)
         {
+            if (!_sessionsVotedFor.Contains(sessionId))
+            {
+                return;
+            }
             _sessionsVotedFor.Remove(sessionId);
         }
 
