@@ -27,22 +27,22 @@ namespace DDDEastAnglia.Controllers
 
         public ActionResult RegisterVote(int id)
         {
-            var cookie = _votingCookieRepository.Get(Request, VotingCookie.CookieName);
+            var cookie = _votingCookieRepository.Get(VotingCookie.CookieName);
             if (!_sessionRepository.Exists(id))
             {
                 return RedirectToAction("Index", "Session");
             }
             cookie.Add(id);
             _voteRepository.Save(new Vote());
-            _votingCookieRepository.Save(Response, cookie);
+            _votingCookieRepository.Save(cookie);
             return RedirectToAction("Index", "Session");
         }
 
         public ActionResult RemoveVote(int id)
         {
-            var cookie = _votingCookieRepository.Get(Request, VotingCookie.CookieName);
+            var cookie = _votingCookieRepository.Get(VotingCookie.CookieName);
             cookie.Remove(id);
-            _votingCookieRepository.Save(Response, cookie);
+            _votingCookieRepository.Save(cookie);
             return RedirectToAction("Index", "Session");
         }
     }
