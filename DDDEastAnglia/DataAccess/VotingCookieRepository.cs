@@ -7,15 +7,15 @@ namespace DDDEastAnglia.DataAccess
 {
     public interface IVotingCookieRepository
     {
-        VotingCookie Get(HttpRequestBase request, string cookieName);
-        void Save(HttpResponseBase response, VotingCookie cookie);
+        VotingCookie Get(string cookieName);
+        void Save(VotingCookie cookie);
     }
 
     public class VotingCookieRepository : IVotingCookieRepository
     {
-        public VotingCookie Get(HttpRequestBase request, string cookieName)
+        public VotingCookie Get(string cookieName)
         {
-            var cookie = request.Cookies[VotingCookie.CookieName];
+            var cookie = HttpContext.Current.Request.Cookies[VotingCookie.CookieName];
             if (cookie == null)
             {
                 return new VotingCookie(cookieName);
@@ -33,11 +33,12 @@ namespace DDDEastAnglia.DataAccess
             return new VotingCookie(cookieName, sessionIds, cookie.Expires);
         }
 
-        public void Save(HttpResponseBase response, VotingCookie cookie)
+        public void Save(VotingCookie cookie)
         {
             var listOfSessions = string.Join(",", cookie.SessionsVotedFor.ToArray());
             var httpCookie = new HttpCookie(cookie.Name, listOfSessions);
             httpCookie.Expires = cookie.Expires;
+            var response = HttpContext.Current.Response;
             if (response.Cookies[httpCookie.Name] != null)
             {
                 response.Cookies.Set(httpCookie);
