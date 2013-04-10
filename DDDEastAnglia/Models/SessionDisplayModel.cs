@@ -1,4 +1,6 @@
-﻿namespace DDDEastAnglia.Models
+﻿using System.Collections.Generic;
+
+namespace DDDEastAnglia.Models
 {
     public class SessionDisplayModel
     {
@@ -13,5 +15,14 @@
         
         public SessionTweetLink TweetLink { get; set; }
         public bool IsUsersSession { get; set; }
+        public bool HasAlreadyBeenVotedFor { get; set; }
+    }
+
+    public class SessionIndexModel
+    {
+        public bool IsOpenForSubmission { get; set; }
+        public bool IsOpenForVoting { get; set; }
+
+        public IEnumerable<SessionDisplayModel> Sessions { get; set; }
     }
 }

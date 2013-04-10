@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web.Mvc;
@@ -183,5 +184,16 @@ namespace DDDEastAnglia.Controllers
             db.Dispose();
             base.Dispose(disposing);
         }
+
+        public ActionResult RegisterVote(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ActionResult RemoveVote(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
+
 }
