@@ -28,6 +28,7 @@ public static class MVC
     public static AdminClass Admin { get { return s_Admin; } }
     public static DDDEastAnglia.Controllers.AccountController Account = new DDDEastAnglia.Controllers.T4MVC_AccountController();
     public static DDDEastAnglia.Controllers.HomeController Home = new DDDEastAnglia.Controllers.T4MVC_HomeController();
+    public static DDDEastAnglia.Controllers.ProfileController Profile = new DDDEastAnglia.Controllers.T4MVC_ProfileController();
     public static DDDEastAnglia.Controllers.SessionController Session = new DDDEastAnglia.Controllers.T4MVC_SessionController();
     public static DDDEastAnglia.Controllers.SpeakerController Speaker = new DDDEastAnglia.Controllers.T4MVC_SpeakerController();
     public static T4MVC.SharedController Shared = new T4MVC.SharedController();
@@ -96,9 +97,9 @@ namespace Links
                       
         public static readonly string jquery_1_9_1_min_js = Url("jquery-1.9.1.min.js");
         public static readonly string jquery_1_9_1_min_map = Url("jquery-1.9.1.min.map");
-        public static readonly string jquery_ui_1_8_20_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-ui-1.8.20.min.js") ? Url("jquery-ui-1.8.20.min.js") : Url("jquery-ui-1.8.20.js");
+        public static readonly string jquery_ui_1_10_2_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-ui-1.10.2.min.js") ? Url("jquery-ui-1.10.2.min.js") : Url("jquery-ui-1.10.2.js");
                       
-        public static readonly string jquery_ui_1_8_20_min_js = Url("jquery-ui-1.8.20.min.js");
+        public static readonly string jquery_ui_1_10_2_min_js = Url("jquery-ui-1.10.2.min.js");
         public static readonly string jquery_unobtrusive_ajax_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.unobtrusive-ajax.min.js") ? Url("jquery.unobtrusive-ajax.min.js") : Url("jquery.unobtrusive-ajax.js");
                       
         public static readonly string jquery_unobtrusive_ajax_min_js = Url("jquery.unobtrusive-ajax.min.js");
@@ -119,6 +120,10 @@ namespace Links
         public static readonly string Markdown_Editor_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Markdown.Editor.min.js") ? Url("Markdown.Editor.min.js") : Url("Markdown.Editor.js");
                       
         public static readonly string modernizr_2_5_3_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/modernizr-2.5.3.min.js") ? Url("modernizr-2.5.3.min.js") : Url("modernizr-2.5.3.js");
+                      
+        public static readonly string modernizr_2_6_2_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/modernizr-2.6.2.min.js") ? Url("modernizr-2.6.2.min.js") : Url("modernizr-2.6.2.js");
+                      
+        public static readonly string tweetbutton_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/tweetbutton.min.js") ? Url("tweetbutton.min.js") : Url("tweetbutton.js");
                       
     }
 
@@ -165,6 +170,7 @@ namespace Links
                     private const string URLPATH = "~/Content/themes/base/images";
                     public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                     public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                    public static readonly string animated_overlay_gif = Url("animated-overlay.gif");
                     public static readonly string ui_bg_flat_0_aaaaaa_40x100_png = Url("ui-bg_flat_0_aaaaaa_40x100.png");
                     public static readonly string ui_bg_flat_75_ffffff_40x100_png = Url("ui-bg_flat_75_ffffff_40x100.png");
                     public static readonly string ui_bg_glass_55_fbf9ee_1x400_png = Url("ui-bg_glass_55_fbf9ee_1x400.png");
@@ -198,6 +204,8 @@ namespace Links
                      
                 public static readonly string jquery_ui_dialog_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.ui.dialog.min.css") ? Url("jquery.ui.dialog.min.css") : Url("jquery.ui.dialog.css");
                      
+                public static readonly string jquery_ui_menu_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.ui.menu.min.css") ? Url("jquery.ui.menu.min.css") : Url("jquery.ui.menu.css");
+                     
                 public static readonly string jquery_ui_progressbar_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.ui.progressbar.min.css") ? Url("jquery.ui.progressbar.min.css") : Url("jquery.ui.progressbar.css");
                      
                 public static readonly string jquery_ui_resizable_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.ui.resizable.min.css") ? Url("jquery.ui.resizable.min.css") : Url("jquery.ui.resizable.css");
@@ -206,9 +214,13 @@ namespace Links
                      
                 public static readonly string jquery_ui_slider_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.ui.slider.min.css") ? Url("jquery.ui.slider.min.css") : Url("jquery.ui.slider.css");
                      
+                public static readonly string jquery_ui_spinner_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.ui.spinner.min.css") ? Url("jquery.ui.spinner.min.css") : Url("jquery.ui.spinner.css");
+                     
                 public static readonly string jquery_ui_tabs_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.ui.tabs.min.css") ? Url("jquery.ui.tabs.min.css") : Url("jquery.ui.tabs.css");
                      
                 public static readonly string jquery_ui_theme_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.ui.theme.min.css") ? Url("jquery.ui.theme.min.css") : Url("jquery.ui.theme.css");
+                     
+                public static readonly string jquery_ui_tooltip_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.ui.tooltip.min.css") ? Url("jquery.ui.tooltip.min.css") : Url("jquery.ui.tooltip.css");
                      
                 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
                 public static class minified {
@@ -220,6 +232,7 @@ namespace Links
                         private const string URLPATH = "~/Content/themes/base/minified/images";
                         public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                         public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                        public static readonly string animated_overlay_gif = Url("animated-overlay.gif");
                         public static readonly string ui_bg_flat_0_aaaaaa_40x100_png = Url("ui-bg_flat_0_aaaaaa_40x100.png");
                         public static readonly string ui_bg_flat_75_ffffff_40x100_png = Url("ui-bg_flat_75_ffffff_40x100.png");
                         public static readonly string ui_bg_glass_55_fbf9ee_1x400_png = Url("ui-bg_glass_55_fbf9ee_1x400.png");
@@ -242,12 +255,15 @@ namespace Links
                     public static readonly string jquery_ui_core_min_css = Url("jquery.ui.core.min.css");
                     public static readonly string jquery_ui_datepicker_min_css = Url("jquery.ui.datepicker.min.css");
                     public static readonly string jquery_ui_dialog_min_css = Url("jquery.ui.dialog.min.css");
+                    public static readonly string jquery_ui_menu_min_css = Url("jquery.ui.menu.min.css");
                     public static readonly string jquery_ui_progressbar_min_css = Url("jquery.ui.progressbar.min.css");
                     public static readonly string jquery_ui_resizable_min_css = Url("jquery.ui.resizable.min.css");
                     public static readonly string jquery_ui_selectable_min_css = Url("jquery.ui.selectable.min.css");
                     public static readonly string jquery_ui_slider_min_css = Url("jquery.ui.slider.min.css");
+                    public static readonly string jquery_ui_spinner_min_css = Url("jquery.ui.spinner.min.css");
                     public static readonly string jquery_ui_tabs_min_css = Url("jquery.ui.tabs.min.css");
                     public static readonly string jquery_ui_theme_min_css = Url("jquery.ui.theme.min.css");
+                    public static readonly string jquery_ui_tooltip_min_css = Url("jquery.ui.tooltip.min.css");
                 }
             
             }

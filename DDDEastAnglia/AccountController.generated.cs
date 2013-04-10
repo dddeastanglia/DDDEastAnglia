@@ -52,15 +52,15 @@ namespace DDDEastAnglia.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult Disassociate()
+        public virtual System.Web.Mvc.ActionResult ExternalLoginsList()
         {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Disassociate);
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ExternalLoginsList);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult Manage()
+        public virtual System.Web.Mvc.ActionResult DisassociateLogin()
         {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Manage);
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.DisassociateLogin);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -79,18 +79,6 @@ namespace DDDEastAnglia.Controllers
         public virtual System.Web.Mvc.ActionResult ExternalLoginConfirmation()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ExternalLoginConfirmation);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult ExternalLoginsList()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ExternalLoginsList);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult UserProfile()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UserProfile);
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -111,15 +99,15 @@ namespace DDDEastAnglia.Controllers
             public readonly string Login = "Login";
             public readonly string LogOff = "LogOff";
             public readonly string Register = "Register";
-            public readonly string Disassociate = "Disassociate";
-            public readonly string Manage = "Manage";
+            public readonly string ChangePassword = "ChangePassword";
+            public readonly string ManageLogins = "ManageLogins";
+            public readonly string RemoveExternalLogins = "RemoveExternalLogins";
+            public readonly string ExternalLoginsList = "ExternalLoginsList";
+            public readonly string DisassociateLogin = "DisassociateLogin";
             public readonly string ExternalLogin = "ExternalLogin";
             public readonly string ExternalLoginCallback = "ExternalLoginCallback";
             public readonly string ExternalLoginConfirmation = "ExternalLoginConfirmation";
             public readonly string ExternalLoginFailure = "ExternalLoginFailure";
-            public readonly string ExternalLoginsList = "ExternalLoginsList";
-            public readonly string RemoveExternalLogins = "RemoveExternalLogins";
-            public readonly string UserProfile = "UserProfile";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -128,15 +116,15 @@ namespace DDDEastAnglia.Controllers
             public const string Login = "Login";
             public const string LogOff = "LogOff";
             public const string Register = "Register";
-            public const string Disassociate = "Disassociate";
-            public const string Manage = "Manage";
+            public const string ChangePassword = "ChangePassword";
+            public const string ManageLogins = "ManageLogins";
+            public const string RemoveExternalLogins = "RemoveExternalLogins";
+            public const string ExternalLoginsList = "ExternalLoginsList";
+            public const string DisassociateLogin = "DisassociateLogin";
             public const string ExternalLogin = "ExternalLogin";
             public const string ExternalLoginCallback = "ExternalLoginCallback";
             public const string ExternalLoginConfirmation = "ExternalLoginConfirmation";
             public const string ExternalLoginFailure = "ExternalLoginFailure";
-            public const string ExternalLoginsList = "ExternalLoginsList";
-            public const string RemoveExternalLogins = "RemoveExternalLogins";
-            public const string UserProfile = "UserProfile";
         }
 
 
@@ -157,23 +145,39 @@ namespace DDDEastAnglia.Controllers
         {
             public readonly string model = "model";
         }
-        static readonly ActionParamsClass_Disassociate s_params_Disassociate = new ActionParamsClass_Disassociate();
+        static readonly ActionParamsClass_ChangePassword s_params_ChangePassword = new ActionParamsClass_ChangePassword();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_Disassociate DisassociateParams { get { return s_params_Disassociate; } }
+        public ActionParamsClass_ChangePassword ChangePasswordParams { get { return s_params_ChangePassword; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_Disassociate
-        {
-            public readonly string provider = "provider";
-            public readonly string providerUserId = "providerUserId";
-        }
-        static readonly ActionParamsClass_Manage s_params_Manage = new ActionParamsClass_Manage();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_Manage ManageParams { get { return s_params_Manage; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_Manage
+        public class ActionParamsClass_ChangePassword
         {
             public readonly string message = "message";
             public readonly string model = "model";
+        }
+        static readonly ActionParamsClass_ManageLogins s_params_ManageLogins = new ActionParamsClass_ManageLogins();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_ManageLogins ManageLoginsParams { get { return s_params_ManageLogins; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_ManageLogins
+        {
+            public readonly string message = "message";
+        }
+        static readonly ActionParamsClass_ExternalLoginsList s_params_ExternalLoginsList = new ActionParamsClass_ExternalLoginsList();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_ExternalLoginsList ExternalLoginsListParams { get { return s_params_ExternalLoginsList; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_ExternalLoginsList
+        {
+            public readonly string returnUrl = "returnUrl";
+        }
+        static readonly ActionParamsClass_DisassociateLogin s_params_DisassociateLogin = new ActionParamsClass_DisassociateLogin();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_DisassociateLogin DisassociateLoginParams { get { return s_params_DisassociateLogin; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_DisassociateLogin
+        {
+            public readonly string provider = "provider";
+            public readonly string providerUserId = "providerUserId";
         }
         static readonly ActionParamsClass_ExternalLogin s_params_ExternalLogin = new ActionParamsClass_ExternalLogin();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -201,22 +205,6 @@ namespace DDDEastAnglia.Controllers
             public readonly string model = "model";
             public readonly string returnUrl = "returnUrl";
         }
-        static readonly ActionParamsClass_ExternalLoginsList s_params_ExternalLoginsList = new ActionParamsClass_ExternalLoginsList();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_ExternalLoginsList ExternalLoginsListParams { get { return s_params_ExternalLoginsList; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_ExternalLoginsList
-        {
-            public readonly string returnUrl = "returnUrl";
-        }
-        static readonly ActionParamsClass_UserProfile s_params_UserProfile = new ActionParamsClass_UserProfile();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_UserProfile UserProfileParams { get { return s_params_UserProfile; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_UserProfile
-        {
-            public readonly string profile = "profile";
-        }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewsClass Views { get { return s_views; } }
@@ -227,27 +215,25 @@ namespace DDDEastAnglia.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
-                public readonly string _ChangePasswordPartial = "_ChangePasswordPartial";
                 public readonly string _ExternalLoginsListPartial = "_ExternalLoginsListPartial";
-                public readonly string _Profile = "_Profile";
                 public readonly string _RemoveExternalLoginsPartial = "_RemoveExternalLoginsPartial";
-                public readonly string _SetPasswordPartial = "_SetPasswordPartial";
+                public readonly string ChangePassword = "ChangePassword";
                 public readonly string ExternalLoginConfirmation = "ExternalLoginConfirmation";
                 public readonly string ExternalLoginFailure = "ExternalLoginFailure";
                 public readonly string Login = "Login";
-                public readonly string Manage = "Manage";
+                public readonly string ManageLogins = "ManageLogins";
                 public readonly string Register = "Register";
+                public readonly string Registered = "Registered";
             }
-            public readonly string _ChangePasswordPartial = "~/Views/Account/_ChangePasswordPartial.cshtml";
             public readonly string _ExternalLoginsListPartial = "~/Views/Account/_ExternalLoginsListPartial.cshtml";
-            public readonly string _Profile = "~/Views/Account/_Profile.cshtml";
             public readonly string _RemoveExternalLoginsPartial = "~/Views/Account/_RemoveExternalLoginsPartial.cshtml";
-            public readonly string _SetPasswordPartial = "~/Views/Account/_SetPasswordPartial.cshtml";
+            public readonly string ChangePassword = "~/Views/Account/ChangePassword.cshtml";
             public readonly string ExternalLoginConfirmation = "~/Views/Account/ExternalLoginConfirmation.cshtml";
             public readonly string ExternalLoginFailure = "~/Views/Account/ExternalLoginFailure.cshtml";
             public readonly string Login = "~/Views/Account/Login.cshtml";
-            public readonly string Manage = "~/Views/Account/Manage.cshtml";
+            public readonly string ManageLogins = "~/Views/Account/ManageLogins.cshtml";
             public readonly string Register = "~/Views/Account/Register.cshtml";
+            public readonly string Registered = "~/Views/Account/Registered.cshtml";
         }
     }
 
@@ -305,36 +291,65 @@ namespace DDDEastAnglia.Controllers
             return callInfo;
         }
 
-        partial void DisassociateOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string provider, string providerUserId);
+        partial void ChangePasswordOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string message);
 
-//        public override System.Web.Mvc.ActionResult Disassociate(string provider, string providerUserId)
-//        {
-//            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Disassociate);
-//            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "provider", provider);
-//            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "providerUserId", providerUserId);
-//            DisassociateOverride(callInfo, provider, providerUserId);
-//            return callInfo;
-//        }
+        public override System.Web.Mvc.ActionResult ChangePassword(string message)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ChangePassword);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "message", message);
+            ChangePasswordOverride(callInfo, message);
+            return callInfo;
+        }
 
-//        partial void ManageOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DDDEastAnglia.Controllers.AccountController.ManageMessageId? message);
+        partial void ChangePasswordOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DDDEastAnglia.Models.LocalPasswordModel model);
 
-//        public override System.Web.Mvc.ActionResult Manage(DDDEastAnglia.Controllers.AccountController.ManageMessageId? message)
-//        {
-//            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Manage);
-//            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "message", message);
-//            ManageOverride(callInfo, message);
-//            return callInfo;
-//        }
+        public override System.Web.Mvc.ActionResult ChangePassword(DDDEastAnglia.Models.LocalPasswordModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ChangePassword);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            ChangePasswordOverride(callInfo, model);
+            return callInfo;
+        }
 
-        partial void ManageOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DDDEastAnglia.Models.LocalPasswordModel model);
-//
-//        public override System.Web.Mvc.ActionResult Manage(DDDEastAnglia.Models.LocalPasswordModel model)
-//        {
-//            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Manage);
-//            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
-//            ManageOverride(callInfo, model);
-//            return callInfo;
-//        }
+        partial void ManageLoginsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string message);
+
+        public override System.Web.Mvc.ActionResult ManageLogins(string message)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ManageLogins);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "message", message);
+            ManageLoginsOverride(callInfo, message);
+            return callInfo;
+        }
+
+        partial void RemoveExternalLoginsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        public override System.Web.Mvc.ActionResult RemoveExternalLogins()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.RemoveExternalLogins);
+            RemoveExternalLoginsOverride(callInfo);
+            return callInfo;
+        }
+
+        partial void ExternalLoginsListOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string returnUrl);
+
+        public override System.Web.Mvc.ActionResult ExternalLoginsList(string returnUrl)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ExternalLoginsList);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "returnUrl", returnUrl);
+            ExternalLoginsListOverride(callInfo, returnUrl);
+            return callInfo;
+        }
+
+        partial void DisassociateLoginOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string provider, string providerUserId);
+
+        public override System.Web.Mvc.ActionResult DisassociateLogin(string provider, string providerUserId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.DisassociateLogin);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "provider", provider);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "providerUserId", providerUserId);
+            DisassociateLoginOverride(callInfo, provider, providerUserId);
+            return callInfo;
+        }
 
         partial void ExternalLoginOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string provider, string returnUrl);
 
@@ -376,35 +391,6 @@ namespace DDDEastAnglia.Controllers
             ExternalLoginFailureOverride(callInfo);
             return callInfo;
         }
-
-        partial void ExternalLoginsListOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string returnUrl);
-
-        public override System.Web.Mvc.ActionResult ExternalLoginsList(string returnUrl)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ExternalLoginsList);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "returnUrl", returnUrl);
-            ExternalLoginsListOverride(callInfo, returnUrl);
-            return callInfo;
-        }
-
-        partial void RemoveExternalLoginsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
-
-        public override System.Web.Mvc.ActionResult RemoveExternalLogins()
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.RemoveExternalLogins);
-            RemoveExternalLoginsOverride(callInfo);
-            return callInfo;
-        }
-
-        partial void UserProfileOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DDDEastAnglia.Models.UserProfile profile);
-//
-//        public override System.Web.Mvc.ActionResult UserProfile(DDDEastAnglia.Models.UserProfile profile)
-//        {
-//            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UserProfile);
-//            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "profile", profile);
-//            UserProfileOverride(callInfo, profile);
-//            return callInfo;
-//        }
 
     }
 }

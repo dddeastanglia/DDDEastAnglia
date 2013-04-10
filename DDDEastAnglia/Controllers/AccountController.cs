@@ -94,7 +94,7 @@ namespace DDDEastAnglia.Controllers
         }
 
         [HttpGet]
-        public ActionResult ChangePassword(string message = null)
+        public virtual ActionResult ChangePassword(string message = null)
         {
             ViewBag.HasLocalAccount = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
             ViewBag.Message = message;
@@ -103,7 +103,7 @@ namespace DDDEastAnglia.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ChangePassword(LocalPasswordModel model)
+        public virtual ActionResult ChangePassword(LocalPasswordModel model)
         {
             bool hasLocalAccount = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
             ViewBag.HasLocalAccount = hasLocalAccount;
@@ -132,7 +132,7 @@ namespace DDDEastAnglia.Controllers
         }
 
         [HttpGet]
-        public ActionResult ManageLogins(string message = null)
+        public virtual ActionResult ManageLogins(string message = null)
         {
             ViewBag.HasLocalAccount = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
             ViewBag.Message = message;
@@ -172,7 +172,7 @@ namespace DDDEastAnglia.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult DisassociateLogin(string provider, string providerUserId)
+        public virtual ActionResult DisassociateLogin(string provider, string providerUserId)
         {
             string ownerAccount = OAuthWebSecurity.GetUserName(provider, providerUserId);
             string message = null;
@@ -247,7 +247,7 @@ namespace DDDEastAnglia.Controllers
 
             if (User.Identity.IsAuthenticated || !OAuthWebSecurity.TryDeserializeProviderUserId(model.ExternalLoginData, out provider, out providerUserId))
             {
-                return RedirectToAction("Manage");
+                return RedirectToAction("ManageLogins");
             }
 
             if (ModelState.IsValid)

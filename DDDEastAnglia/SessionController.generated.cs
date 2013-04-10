@@ -137,12 +137,14 @@ namespace DDDEastAnglia.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
+                public readonly string _SessionDetailsPartial = "_SessionDetailsPartial";
                 public readonly string Create = "Create";
                 public readonly string Delete = "Delete";
                 public readonly string Details = "Details";
                 public readonly string Edit = "Edit";
                 public readonly string Index = "Index";
             }
+            public readonly string _SessionDetailsPartial = "~/Views/Session/_SessionDetailsPartial.cshtml";
             public readonly string Create = "~/Views/Session/Create.cshtml";
             public readonly string Delete = "~/Views/Session/Delete.cshtml";
             public readonly string Details = "~/Views/Session/Details.cshtml";

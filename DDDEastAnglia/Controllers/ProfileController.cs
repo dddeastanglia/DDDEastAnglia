@@ -7,10 +7,10 @@ using DDDEastAnglia.Models;
 namespace DDDEastAnglia.Controllers
 {
     [Authorize]
-    public class ProfileController : Controller
+    public partial class ProfileController : Controller
     {
         [HttpGet]
-        public ActionResult Edit(string message = null)
+        public virtual ActionResult Edit(string message = null)
         {
             DDDEAContext context = new DDDEAContext();
             UserProfile profile = context.UserProfiles.First(p => p.UserName == User.Identity.Name);
