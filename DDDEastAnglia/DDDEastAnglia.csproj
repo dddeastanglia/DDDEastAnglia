@@ -226,6 +226,7 @@
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
     <Compile Include="Controllers\SpeakerController.cs" />
     <Compile Include="DataAccess\EventRepository.cs" />
+    <Compile Include="DataAccess\VotingCookieRepository.cs" />
     <Compile Include="GlimpseSecurityPolicy.cs" />
     <Compile Include="HomeController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
