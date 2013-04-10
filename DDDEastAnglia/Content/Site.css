@@ -181,12 +181,13 @@ fieldset {
 }
 
 .session-details-own {
-    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #e9e9e9;
 }
 
 .session-details {
-    border: 2px solid #ccc;
-    border-radius: 10px;
+    border-bottom: 1px solid #ccc;
     padding: 10px;
     margin-bottom: 30px;
 }
@@ -200,7 +201,6 @@ fieldset {
 
 .session-speaker {
     margin-bottom: 10px;
-    border-bottom: 1px solid lightgray;
 }
 
 .session-abstract {
