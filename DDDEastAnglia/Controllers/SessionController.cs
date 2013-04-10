@@ -37,7 +37,7 @@ namespace DDDEastAnglia.Controllers
             cookie.Save(Response);
             return View(new SessionIndexModel
                 {
-                    Sessions = allSessions, 
+                    Sessions = allSessions,
                     IsOpenForSubmission = defaultEvent.CanSubmit(),
                     IsOpenForVoting = defaultEvent.CanVote()
                 });
@@ -48,7 +48,7 @@ namespace DDDEastAnglia.Controllers
         public virtual ActionResult Details(int id = 0)
         {
             Session session = db.Sessions.Find(id);
-        
+
             if (session == null)
             {
                 return HttpNotFound();
@@ -67,20 +67,20 @@ namespace DDDEastAnglia.Controllers
             {
                 return RedirectToAction("Index");
             }
-        
+
             if (User == null)
             {
                 return RedirectToAction("Index");
             }
-            
+
             var userProfile = db.UserProfiles.FirstOrDefault(u => u.UserName == User.Identity.Name);
-            
+
             if (userProfile == null)
             {
                 return RedirectToAction("Index");
             }
 
-            return View(new Session { SpeakerUserName = userProfile.UserName });
+            return View(new Session {SpeakerUserName = userProfile.UserName});
         }
 
         // POST: /Session/Create
@@ -91,12 +91,12 @@ namespace DDDEastAnglia.Controllers
             {
                 return RedirectToAction("Index");
             }
-        
+
             if (ModelState.IsValid)
             {
                 var addedSession = db.Sessions.Add(session);
                 db.SaveChanges();
-                return RedirectToAction("Details", new { id = addedSession.SessionId });
+                return RedirectToAction("Details", new {id = addedSession.SessionId});
             }
 
             return View(session);
@@ -106,12 +106,12 @@ namespace DDDEastAnglia.Controllers
         public virtual ActionResult Edit(int id = 0)
         {
             Session session = db.Sessions.Find(id);
-        
+
             if (session == null)
             {
                 return HttpNotFound();
             }
-            
+
             return View(session);
         }
 
@@ -133,7 +133,7 @@ namespace DDDEastAnglia.Controllers
         public virtual ActionResult Delete(int id = 0)
         {
             Session session = db.Sessions.Find(id);
-        
+
             if (session == null)
             {
                 return HttpNotFound();
@@ -167,7 +167,9 @@ namespace DDDEastAnglia.Controllers
         private SessionDisplayModel CreateDisplayModel(Session session, UserProfile profile)
         {
             var isUsersSession = Request.IsAuthenticated && session.SpeakerUserName == User.Identity.Name;
-            var tweetLink = CreateTweetLink(isUsersSession, session.Title, Url.Action("Details", "Session", new {id = session.SessionId}, Request.Url.Scheme));
+            var tweetLink = CreateTweetLink(isUsersSession, session.Title,
+                                            Url.Action("Details", "Session", new {id = session.SessionId},
+                                                       Request.Url.Scheme));
 
             var displayModel = new SessionDisplayModel
                 {
@@ -186,9 +188,9 @@ namespace DDDEastAnglia.Controllers
 
         private SessionTweetLink CreateTweetLink(bool isUsersSession, string sessionTitle, string sessionUrl)
         {
-            var title = string.Format("Check out {0} session for #dddea - {1} {2}", 
-                                        isUsersSession ? "my" : "this",
-                                        sessionTitle, sessionUrl);
+            var title = string.Format("Check out {0} session for #dddea - {1} {2}",
+                                      isUsersSession ? "my" : "this",
+                                      sessionTitle, sessionUrl);
             var tweetLink = new SessionTweetLink
                 {
                     Title = title,
@@ -196,14 +198,13 @@ namespace DDDEastAnglia.Controllers
                 };
             return tweetLink;
         }
-     
+
         protected override void Dispose(bool disposing)
         {
             db.Dispose();
             base.Dispose(disposing);
         }
 
-        
-    }
 
+    }
 }

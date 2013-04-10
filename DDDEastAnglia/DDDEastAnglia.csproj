@@ -219,6 +219,7 @@
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\SessionDisplayModelComparer.cs" />
     <Compile Include="Controllers\SpeakerDisplayModelComparer.cs" />
+    <Compile Include="Controllers\VoteController.cs" />
     <Compile Include="DataAccess\DataModel\Event.cs" />
     <Compile Include="DataAccess\DDDEAContext.cs" />
     <Compile Include="App_Code\GitHubOAuthClient.cs" />
