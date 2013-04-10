@@ -29,7 +29,7 @@ else
             @using (Html.BeginForm(MVC.Account.ExternalLogin("GitHub", Url.Action(MVC.Home.Index())), FormMethod.Post, new { id = "githubLoginform" }))
             {
                 @Html.AntiForgeryToken()
-                <a href="javascript:document.getElementById('githubLoginform').submit();" id="githubLoginLink"><i class="icon-github"></i> Log in with GitHub</a>
+                <a href="javascript:document.getElementById('githubLoginform').submit();" id="githubLoginLink"><i class="icon-github-alt"></i> Log in with GitHub</a>
             }
         </li>
         <li>
