@@ -129,12 +129,6 @@ a.btn, .dropdown-menu a { text-decoration: none; }
     text-align: center;
 }
 
-
-
-
-
-
-
 .field-validation-error, .validation-summary-errors {
     color: red;
     font-weight: bold;
