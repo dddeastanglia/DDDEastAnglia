@@ -31,7 +31,7 @@ namespace DDDEastAnglia.Tests
         {
             cookieRepository = Substitute.For<IVotingCookieRepository>();
             cookieWithNoVotes = new VotingCookie(VotingCookie.CookieName);
-            cookieRepository.Get(Arg.Any<HttpRequestBase>(), Arg.Is(cookieWithNoVotes.Name))
+            cookieRepository.Get(Arg.Is(cookieWithNoVotes.Name))
                 .Returns(cookieWithNoVotes);
 
             voteRepository = Substitute.For<IVoteRepository>();
@@ -49,8 +49,7 @@ namespace DDDEastAnglia.Tests
            controller.RegisterVote(KnownSessionId);
 
            cookieRepository.Received()
-                      .Save(Arg.Any<HttpResponseBase>(),
-                            Arg.Do<VotingCookie>(cookie => AssertCookieIsCorrect(cookie, VotingCookie.CookieName, SessionIdsVotedFor)));
+                      .Save(Arg.Do<VotingCookie>(cookie => AssertCookieIsCorrect(cookie, VotingCookie.CookieName, SessionIdsVotedFor)));
         }
 
         [Test]
@@ -58,8 +57,7 @@ namespace DDDEastAnglia.Tests
         {
             controller.RemoveVote(KnownSessionId);
             cookieRepository.Received()
-                    .Save(Arg.Any<HttpResponseBase>(),
-                          Arg.Do<VotingCookie>(cookie => AssertCookieIsCorrect(cookie, VotingCookie.CookieName, NoSessionIdsVotedFor)));
+                    .Save(Arg.Do<VotingCookie>(cookie => AssertCookieIsCorrect(cookie, VotingCookie.CookieName, NoSessionIdsVotedFor)));
         }
 
         [Test]
@@ -67,7 +65,7 @@ namespace DDDEastAnglia.Tests
         {
             controller.RegisterVote(UnknownSessionId);
             cookieRepository.DidNotReceiveWithAnyArgs()
-                    .Save(null, null);
+                    .Save(null);
         }
 
         [Test]
