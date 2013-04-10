@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web.Mvc;
@@ -18,15 +19,15 @@ namespace DDDEastAnglia.Controllers
         [AllowAnonymous]
         public virtual ActionResult Index()
         {
-            var speakersLookup = db.UserProfiles.ToDictionary(p => p.UserName, p => p.Name);
+            var speakersLookup = db.UserProfiles.ToDictionary(p => p.UserName, p => p);
             var sessions = db.Sessions;
 
             var allSessions = new List<SessionDisplayModel>();
 
             foreach (var session in sessions)
             {
-                var speakerName = speakersLookup[session.SpeakerUserName];
-                var displayModel = CreateDisplayModel(session, speakerName);
+                var profile = speakersLookup[session.SpeakerUserName];
+                var displayModel = CreateDisplayModel(session, profile);
                 allSessions.Add(displayModel);
             }
 
@@ -44,20 +45,11 @@ namespace DDDEastAnglia.Controllers
             {
                 return HttpNotFound();
             }
-            
-            SessionDisplayModel sessionDisplay = new SessionDisplayModel
-                {
-                    SessionAbstract = session.Abstract,
-                    SessionId = session.SessionId,
-                    SessionTitle = session.Title,
-                    SpeakerUserName = session.SpeakerUserName,
-                    TweetLink = GetTweetLink(session.Title, Request.Url.ToString())
-                };
 
             var userProfile = db.UserProfiles.First(s => s.UserName == session.SpeakerUserName);
-            sessionDisplay.SpeakerName = userProfile.Name;
-            sessionDisplay.SpeakerGravitarUrl = userProfile.GravitarUrl();
-            return View(sessionDisplay);
+            var displayModel = CreateDisplayModel(session, userProfile);
+            displayModel.SpeakerGravitarUrl = userProfile.GravitarUrl();
+            return View(displayModel);
         }
 
         // GET: /Session/Create
@@ -139,7 +131,8 @@ namespace DDDEastAnglia.Controllers
                 return HttpNotFound();
             }
 
-            var displayModel = CreateDisplayModel(session, User.Identity.Name);
+            var userProfile = db.UserProfiles.First(s => s.UserName == session.SpeakerUserName);
+            var displayModel = CreateDisplayModel(session, userProfile);
             return View(displayModel);
         }
 
@@ -153,32 +146,42 @@ namespace DDDEastAnglia.Controllers
             return RedirectToAction("Index");
         }
 
+        private SessionDisplayModel CreateDisplayModel(Session session, UserProfile profile)
+        {
+            var isUsersSession = Request.IsAuthenticated && session.SpeakerUserName == User.Identity.Name;
+            var tweetLink = CreateTweetLink(isUsersSession, session.Title, Url.Action("Details", "Session", new {id = session.SessionId}, Request.Url.Scheme));
+
+            var displayModel = new SessionDisplayModel
+                {
+                    SessionId = session.SessionId,
+                    SessionTitle = session.Title,
+                    SessionAbstract = session.Abstract,
+                    SpeakerName = profile.Name,
+                    SpeakerUserName = session.SpeakerUserName,
+                    SpeakerGravitarUrl = profile.GravitarUrl(),
+                    TweetLink = tweetLink,
+                    IsUsersSession = isUsersSession
+                };
+            return displayModel;
+        }
+
+        private SessionTweetLink CreateTweetLink(bool isUsersSession, string sessionTitle, string sessionUrl)
+        {
+            var title = string.Format("Check out {0} session for #dddea - {1} {2}", 
+                                        isUsersSession ? "my" : "this",
+                                        sessionTitle, sessionUrl);
+            var tweetLink = new SessionTweetLink
+                {
+                    Title = title,
+                    Url = sessionUrl
+                };
+            return tweetLink;
+        }
+     
         protected override void Dispose(bool disposing)
         {
             db.Dispose();
             base.Dispose(disposing);
-        }
-
-        private string GetTweetLink(string title, string sessionDetailsUrl)
-        {
-            var encodedUrl = Url.Encode(sessionDetailsUrl);
-            var text = Url.Encode(string.Format("Posted a session for #dddea - {0} - {1} ", title, sessionDetailsUrl));
-            return string.Format("https://twitter.com/intent/tweet?original_referer={0};text={1}", encodedUrl, text);
-        }
-
-        private SessionDisplayModel CreateDisplayModel(Session session, string speakerName)
-        {
-            var isUsersSession = Request.IsAuthenticated && session.SpeakerUserName == User.Identity.Name;
-            var displayModel = new SessionDisplayModel
-                {
-                            SessionId = session.SessionId,
-                            SessionTitle = session.Title,
-                            SessionAbstract = session.Abstract,
-                            SpeakerUserName = session.SpeakerUserName,
-                            SpeakerName = speakerName,
-                            IsUsersSession = isUsersSession
-                };
-            return displayModel;
         }
     }
 
@@ -196,7 +199,7 @@ namespace DDDEastAnglia.Controllers
                 return 1;
             }
 
-            return string.Compare(x.SessionTitle, y.SessionTitle);
+            return string.Compare(x.SessionTitle, y.SessionTitle, StringComparison.InvariantCultureIgnoreCase);
         }
     }
 }

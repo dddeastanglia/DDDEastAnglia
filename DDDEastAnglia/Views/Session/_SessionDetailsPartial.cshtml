@@ -1,10 +1,15 @@
 ﻿@model DDDEastAnglia.Models.SessionDisplayModel
 
 <div class="session-details @(Model.IsUsersSession ? "session-details-own" : "")">
+    <div class="session-tweet">
+        <a href="https://twitter.com/intent/tweet?text=@Model.TweetLink.Title" class="twitter-share-button" data-url="@Model.TweetLink.Url" data-count="none">Tweet</a>
+    </div>
+
     <div class="session-title">
         @Model.SessionTitle
     </div>
     <div class="session-speaker">
+        <i class="icon-user"></i>
         @Model.SpeakerName
     </div>
     <div class="session-abstract">
@@ -13,8 +18,12 @@
     @if (Request.IsAuthenticated && User.Identity.Name == Model.SpeakerUserName)
     {
         <div class="session-actions">
-            @Html.ActionLink("Edit", MVC.Session.Edit(Model.SessionId))
-            @Html.ActionLink("Delete", MVC.Session.Delete(Model.SessionId))
+            <span class="action">
+                <i class="icon-edit"></i> @Html.ActionLink("Edit", MVC.Session.Edit(Model.SessionId))
+            </span>
+            <span class="action">
+                <i class="icon-trash"></i> @Html.ActionLink("Delete", MVC.Session.Delete(Model.SessionId))
+            </span>
         </div>
     }
 </div>

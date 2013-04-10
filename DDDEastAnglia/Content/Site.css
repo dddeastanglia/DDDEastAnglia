@@ -211,10 +211,19 @@ fieldset {
     text-align: right;    
 }
 
+.session-actions .action {
+    padding-right: 10px;
+}
+
+.session-tweet {
+    float: right;
+}
+
 .banner {
     color: white;
     font-weight: bold;
     font-size: 18px;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.75);
     background-color: #006000;
     background-image: linear-gradient(to bottom, #00b000, #006000);
     border-radius: 10px;
@@ -233,4 +242,8 @@ fieldset {
 
 .banner a:hover {
     color: greenyellow;
+}
+
+a i {
+    text-decoration: none;
 }

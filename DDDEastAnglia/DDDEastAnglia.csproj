@@ -238,6 +238,7 @@
     <Compile Include="Models\RegisterModel.cs" />
     <Compile Include="Models\SessionDisplayModel.cs" />
     <Compile Include="Models\SpeakerDisplayModel.cs" />
+    <Content Include="Scripts\tweetbutton.js" />
     <Compile Include="SessionController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
