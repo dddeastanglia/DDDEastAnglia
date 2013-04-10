@@ -216,7 +216,9 @@
     </Compile>
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\VoteController.cs" />
-    <Compile Include="DataAccess\DataModel\Event.cs" />
+    <Compile Include="DataAccess\EntityFramework\EntityFrameworkVoteRepository.cs" />
+    <Compile Include="DataAccess\IVoteRepository.cs" />
+    <Compile Include="DataModel\Event.cs" />
     <Compile Include="DataAccess\DDDEAContext.cs" />
     <Compile Include="App_Code\GitHubOAuthClient.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
@@ -227,6 +229,7 @@
     <Compile Include="Controllers\SpeakerController.cs" />
     <Compile Include="DataAccess\EventRepository.cs" />
     <Compile Include="DataAccess\VotingCookieRepository.cs" />
+    <Compile Include="DataModel\Vote.cs" />
     <Compile Include="GlimpseSecurityPolicy.cs" />
     <Compile Include="HomeController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
