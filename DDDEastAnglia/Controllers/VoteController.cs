@@ -11,21 +11,27 @@ namespace DDDEastAnglia.Controllers
     {
         private readonly IVotingCookieRepository _votingCookieRepository;
         private readonly IVoteRepository _voteRepository;
+        private readonly ISessionRepository _sessionRepository;
 
-        public VoteController() : this(new VotingCookieRepository(), new EntityFrameworkVoteRepository())
+        public VoteController() : this(new VotingCookieRepository(), new EntityFrameworkVoteRepository(), new EntityFrameworkSessionRepository())
         {
             
         }
 
-        public VoteController(IVotingCookieRepository votingCookieRepository, IVoteRepository voteRepository)
+        public VoteController(IVotingCookieRepository votingCookieRepository, IVoteRepository voteRepository, ISessionRepository sessionRepository)
         {
             _votingCookieRepository = votingCookieRepository;
             _voteRepository = voteRepository;
+            _sessionRepository = sessionRepository;
         }
 
         public ActionResult RegisterVote(int id)
         {
             var cookie = _votingCookieRepository.Get(Request, VotingCookie.CookieName);
+            if (!_sessionRepository.Exists(id))
+            {
+                return RedirectToAction("Index", "Session");
+            }
             cookie.Add(id);
             _voteRepository.Save(new Vote());
             _votingCookieRepository.Save(Response, cookie);
