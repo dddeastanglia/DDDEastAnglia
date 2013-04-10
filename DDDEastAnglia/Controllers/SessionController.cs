@@ -21,6 +21,7 @@ namespace DDDEastAnglia.Controllers
         {
             var speakersLookup = db.UserProfiles.ToDictionary(p => p.UserName, p => p);
             var sessions = db.Sessions;
+            var cookie = VotingCookie.Get(Request);
 
             var allSessions = new List<SessionDisplayModel>();
 
@@ -33,6 +34,7 @@ namespace DDDEastAnglia.Controllers
 
             allSessions.Sort(new SessionDisplayModelComparer());
             var defaultEvent = eventRepository.Get(DefaultEventName);
+            cookie.Save(Response);
             return View(new SessionIndexModel
                 {
                     Sessions = allSessions, 
