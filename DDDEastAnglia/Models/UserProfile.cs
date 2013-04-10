@@ -20,20 +20,20 @@ namespace DDDEastAnglia.Models
         public string Name { get; set; }
         
         [Required(ErrorMessage = "We have to have your email address or we cannot contact you!")]
-        [DisplayName("Email address (will not be displayed publicly)")]
+        [DisplayName("email address (will not be displayed publicly)")]
         [DataType(DataType.EmailAddress, ErrorMessage = "This does not appear to be a valid email address")]
         public string EmailAddress { get; set; }
         
         [DataType(DataType.Url, ErrorMessage = "This does not appear to be a valid url")]
-        [DisplayName("Website")]
+        [DisplayName("website")]
         public string WebsiteUrl { get; set; }
         
-        [DisplayName("Twitter handle")]
+        [DisplayName("twitter handle")]
         public string TwitterHandle { get; set; }
         
         public string Bio { get; set; }
         
-        [DisplayName("Mobile phone number (will not be displayed publicly)")]
+        [DisplayName("mobile phone number (will not be displayed publicly)")]
         public string MobilePhone { get; set; }
         
         [DisplayName("I am a new speaker (have not spoken at a DDD event before)")]

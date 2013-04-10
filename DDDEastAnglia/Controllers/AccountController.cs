@@ -261,7 +261,7 @@ namespace DDDEastAnglia.Controllers
                     if (user == null)
                     {
                         // Insert name into the profile table
-                        db.UserProfiles.Add(new UserProfile { UserName = model.UserName, Name = "Your Name", EmailAddress = "youremail@yourisp.com" });
+                        db.UserProfiles.Add(new UserProfile { UserName = model.UserName, Name = model.Name, EmailAddress = model.EmailAddress });
                         db.SaveChanges();
 
                         OAuthWebSecurity.CreateOrUpdateAccount(provider, providerUserId, model.UserName);

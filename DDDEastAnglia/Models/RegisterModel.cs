@@ -10,7 +10,7 @@ namespace DDDEastAnglia.Models
         public string FullName { get; set; }
 
         [Required]
-        [Display(Name = "email address")]
+        [Display(Name = "email address (will not be displayed publicly)")]
         public string EmailAddress { get; set; }
 
         [Required]
