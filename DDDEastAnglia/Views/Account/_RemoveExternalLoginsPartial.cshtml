@@ -5,11 +5,11 @@
     foreach (DDDEastAnglia.Models.ExternalLogin externalLogin in Model)
     {
         <div>
-            @externalLogin.ProviderDisplayName
-
-            @if (ViewBag.ShowRemoveButton)
+            @using (Html.BeginForm("DisassociateLogin", "Account"))
             {
-                using (Html.BeginForm("DisassociateLogin", "Account"))
+                @externalLogin.ProviderDisplayName
+
+                if (ViewBag.ShowRemoveButton)
                 {
                     @Html.AntiForgeryToken()
                     @Html.Hidden("provider", externalLogin.Provider)
