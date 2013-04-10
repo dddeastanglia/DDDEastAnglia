@@ -14,6 +14,7 @@ namespace DDDEastAnglia.Controllers
         private const string DefaultEventName = "DDDEA2013";
         private readonly DDDEAContext db = new DDDEAContext();
         private readonly EventRepository eventRepository = new EventRepository();
+        private readonly VotingCookieRepository votingCookieRepository = new VotingCookieRepository();
 
         // GET: /Session/
         [AllowAnonymous]
@@ -21,7 +22,7 @@ namespace DDDEastAnglia.Controllers
         {
             var speakersLookup = db.UserProfiles.ToDictionary(p => p.UserName, p => p);
             var sessions = db.Sessions;
-            var cookie = VotingCookie.Get(Request);
+            var cookie = votingCookieRepository.Get(Request, VotingCookie.CookieName);
 
             var allSessions = new List<SessionDisplayModel>();
 
@@ -34,7 +35,7 @@ namespace DDDEastAnglia.Controllers
 
             allSessions.Sort(new SessionDisplayModelComparer());
             var defaultEvent = eventRepository.Get(DefaultEventName);
-            cookie.Save(Response);
+            votingCookieRepository.Save(Response, cookie);
             return View(new SessionIndexModel
                 {
                     Sessions = allSessions,
@@ -152,16 +153,6 @@ namespace DDDEastAnglia.Controllers
             db.Sessions.Remove(session);
             db.SaveChanges();
             return RedirectToAction("Index");
-        }
-
-        public ActionResult RegisterVote(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public ActionResult RemoveVote(int id)
-        {
-            throw new NotImplementedException();
         }
 
         private SessionDisplayModel CreateDisplayModel(Session session, UserProfile profile)
