@@ -1,82 +1,18 @@
 ﻿@using DDDEastAnglia.Models
-@model SessionIndexModel
+@model IEnumerable<SessionDisplayModel>
 
 @{
     ViewBag.Title = "Sessions";
 }
 
+@section featured
+{
+    @Html.Partial("_Banner")
+}
+
 <h2>Sessions</h2>
-@if (Model.IsOpenForSubmission)
+
+@foreach (var session in Model)
 {
-    <p>
-        DDD East Anglia is open for session submission, @Html.ActionLink("click here to submit a session", "Create", "Session", null, new { @class = "submit-session" }).
-    </p>
-    
-    if (Request.IsAuthenticated)
-    {
-        List<SessionDisplayModel> userSessions = Model.Sessions.Where(s => s.SpeakerUserName == User.Identity.Name).ToList();
-
-        if (userSessions.Count > 0)
-        {
-    <p><strong>My Sessions</strong></p>
-
-    @Html.Raw("<table>")
-            foreach (SessionDisplayModel userSession in userSessions)
-            {
-    @Html.Raw("<tr><td style='width: 400px'><strong>") @userSession.SessionTitle @Html.Raw("</strong></td><td>") 
-    @Html.ActionLink("Edit", MVC.Session.Edit(userSession.SessionId)) @Html.Raw(" | ") 
-    @Html.ActionLink("Delete", MVC.Session.Delete(userSession.SessionId)) @Html.Raw("</td></tr>")
-
-    @Html.Raw("<tr><td colspan='2'>") @Html.MarkdownFor(s => userSession.SessionAbstract) @Html.Raw("</td></tr>")
-            }
-    @Html.Raw("</table>")
-    
-        }
-
-    }
-}
-else
-{
-    <p>
-        Session submission is closed.
-    </p>
-}
-
-@if (Model.IsOpenForVoting)
-{
-    <table>
-        <tr>
-            <th>
-                Speaker
-            </th>
-            <th>
-                Title
-            </th>
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model.Sessions)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SpeakerName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SessionTitle)
-                </td>
-
-                <td>
-                    @Html.ActionLink("Details", "Details", new { id = item.SessionId })
-                </td>
-            </tr>
-        }
-
-    </table>
-
-}
-else
-{
-    <p>
-        Submitted sessions will appear here when voting opens.
-    </p>
+    @Html.Partial("_SessionDetailsPartial", session)
 }

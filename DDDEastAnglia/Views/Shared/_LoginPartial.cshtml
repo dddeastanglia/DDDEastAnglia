@@ -4,7 +4,10 @@
         <span class="caret"></span>
     </a>
     <ul class="dropdown-menu">
-        <li>@Html.ActionLink("Account Settings", "Manage", "Account", routeValues: null, htmlAttributes: new { @class = "username", title = "Manage" })</li>
+        <li>@Html.ActionLink("Edit Profile", "Edit", "Profile")</li>
+        <li>@Html.ActionLink("Change Password", "ChangePassword", "Account")</li>
+        <li>@Html.ActionLink("Manage Logins", "ManageLogins", "Account")</li>
+
         <li class="divider"></li>
         <li>
             @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
@@ -14,7 +17,9 @@
             }
         </li>
     </ul>
-} else {
+} 
+else 
+{
     <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
         <i class="icon-user"></i> Log In
         <span class="caret"></span>
@@ -24,7 +29,7 @@
             @using (Html.BeginForm(MVC.Account.ExternalLogin("GitHub", Url.Action(MVC.Home.Index())), FormMethod.Post, new { id = "githubLoginform" }))
             {
                 @Html.AntiForgeryToken()
-                <a href="javascript:document.getElementById('githubLoginform').submit();" id="githubLoginLink"><i class="icon-github"></i> Log in with GitHub</a>
+                <a href="javascript:document.getElementById('githubLoginform').submit();" id="githubLoginLink"><i class="icon-github-alt"></i> Log in with GitHub</a>
             }
         </li>
         <li>
@@ -42,10 +47,10 @@
             }
         </li>
         <li>
-            <a href="@Url.Action(MVC.Account.Login())">Log in</a>
+            <a href="@Url.Action(MVC.Account.Login())"><i class="icon-user"></i> Log in with DDDEA account</a>
         </li>
         @*<li><a data-toggle="modal" href="#openIdLogin">Log in with an OpenID</a></li>*@
         <li class="divider"></li>
-        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink("Register", "Register", "Account", null, new { id = "registerLink" })</li>
     </ul>
 }

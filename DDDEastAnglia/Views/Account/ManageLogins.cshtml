@@ -1,0 +1,23 @@
+﻿@model DDDEastAnglia.Models.LocalPasswordModel
+
+@{
+    ViewBag.Title = "Manage your external logins";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@if (ViewBag.Message != null)
+{
+    <div class="alert alert-success">@ViewBag.Message</div>
+}    
+
+<section id="externalLogins">
+    @Html.Action("RemoveExternalLogins")
+
+    @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
+</section>
+
+@section Scripts 
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}

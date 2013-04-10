@@ -214,6 +214,7 @@
     <Compile Include="Admin.UserController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="DataAccess\DataModel\Event.cs" />
     <Compile Include="DataAccess\DDDEAContext.cs" />
     <Compile Include="App_Code\GitHubOAuthClient.cs" />
@@ -228,10 +229,20 @@
     <Compile Include="HomeController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ExternalLogin.cs" />
     <Compile Include="Models\GrokTalk.cs" />
     <Compile Include="Models\Initialiser.cs" />
+    <Compile Include="Models\LocalPasswordModel.cs" />
+    <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\RegisterExternalLoginModel.cs" />
+    <Compile Include="Models\RegisterModel.cs" />
     <Compile Include="Models\SessionDisplayModel.cs" />
+    <Compile Include="Models\SessionTweetLink.cs" />
     <Compile Include="Models\SpeakerDisplayModel.cs" />
+    <Content Include="Scripts\tweetbutton.js" />
+    <Compile Include="ProfileController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
     <Compile Include="SessionController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
@@ -258,7 +269,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\UserProfile.cs" />
     <Compile Include="Models\Session.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -415,16 +426,14 @@
     <Content Include="Images\orderedList8.png" />
     <Content Include="Images\orderedList9.png" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
+    <Content Include="Views\Account\ChangePassword.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\_RemoveExternalLoginsPartial.cshtml" />
-    <Content Include="Views\Account\_SetPasswordPartial.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Account\Manage.cshtml" />
+    <Content Include="Views\Account\ManageLogins.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
@@ -445,8 +454,11 @@
     <Content Include="Views\Home\Team.cshtml" />
     <Content Include="Views\Home\Sponsors.cshtml" />
     <Content Include="Views\Shared\_GoogleAnalytics.cshtml" />
-    <Content Include="Views\Account\_Profile.cshtml" />
     <Content Include="Views\Speaker\Index.cshtml" />
+    <Content Include="Views\Account\Registered.cshtml" />
+    <Content Include="Views\Profile\Edit.cshtml" />
+    <Content Include="Views\Session\_SessionDetailsPartial.cshtml" />
+    <Content Include="Views\Shared\_Banner.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

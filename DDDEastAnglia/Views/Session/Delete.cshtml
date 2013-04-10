@@ -1,39 +1,25 @@
-﻿@model DDDEastAnglia.Models.Session
+﻿@model DDDEastAnglia.Models.SessionDisplayModel
 
 @{
     ViewBag.Title = "Delete";
 }
 
-<h2>Delete</h2>
+<h2>Delete a submitted session</h2>
 
-<h3>Are you sure you want to delete this?</h3>
-<fieldset>
-    <legend>Session</legend>
+@using (Html.BeginForm())
+{
+    <fieldset id="delete-session">
+        <legend>Please confirm that you want to delete the following session</legend>
+        
+        @Html.Partial("_SessionDetailsPartial", Model)
+    </fieldset>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.SpeakerUserName)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.SpeakerUserName)
-    </div>
+    <p class="alert alert-danger">
+        Deleting a session cannot be undone. Please be sure that you wish to delete this session before continuing.
+    </p>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Title)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Title)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Abstract)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Abstract)
-    </div>
-</fieldset>
-@using (Html.BeginForm()) {
     <p>
-        <input type="submit" value="Delete" /> |
-        @Html.ActionLink("Back to List", "Index")
+        <input type="submit" class="btn btn-danger" value="Delete this session" />
+        @Html.ActionLink("Cancel", "Index")
     </p>
 }

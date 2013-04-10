@@ -128,3 +128,117 @@ a.btn, .dropdown-menu a { text-decoration: none; }
     width: 20px;
     text-align: center;
 }
+
+.field-validation-error, .validation-summary-errors {
+    color: red;
+    font-weight: bold;
+}
+
+.validation-summary-errors li {
+    list-style-type: none;
+}
+
+label:first-letter {
+    text-transform: capitalize;
+}
+
+label.checkbox {
+    display: inline;
+}
+
+fieldset ol li {
+    list-style-type: none;
+}
+
+.checkbox {
+    padding-left: 5px;
+}
+
+fieldset {
+    padding: 5px;
+}
+
+#registerLink {
+    margin-top: 10px;
+}
+
+.editor-field input[type="text"][id="Title"],
+#wmd-input {
+    width: 80%;
+}
+
+#wmd-preview {
+    width: 80%;
+    border: 2px dotted #ccc;
+    padding: 5px;
+    margin-bottom: 15px;
+}
+
+.session-details-own {
+    border: 1px solid #e3e3e3;
+    border-radius: 5px;
+    background-color: #f5f5f5;
+}
+
+.session-details {
+    border-bottom: 1px solid #e3e3e3;
+    padding: 10px;
+    margin-bottom: 30px;
+}
+
+.session-title {
+    font-weight: bold;
+    font-size: 26px;
+    margin-bottom: 5px;
+    padding-bottom: 2px;
+}
+
+.session-speaker {
+    margin-bottom: 10px;
+}
+
+.session-abstract {
+    margin-top: 10px;
+    border-bottom: 0;
+}
+
+#delete-session .session-actions,
+#delete-session .session-tweet {
+    display: none;
+}
+
+.session-actions {
+    text-align: right;    
+}
+
+.session-actions .action {
+    padding-right: 10px;
+}
+
+.banner {
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.75);
+    background-color: #006000;
+    background-image: linear-gradient(to bottom, #00b000, #006000);
+    border-radius: 10px;
+    padding: 15px;
+    margin: 30px 0 30px 0;
+}
+
+.banner a {
+    color: white;
+}
+
+.banner a:hover {
+    color: greenyellow;
+}
+
+a i {
+    text-decoration: none;
+}
+
+.speaker {
+    border-bottom: 1px solid lightgray;
+}

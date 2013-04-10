@@ -8,17 +8,14 @@ namespace DDDEastAnglia.Controllers
 {
     public partial class SpeakerController : Controller
     {
-        private DDDEAContext db = new DDDEAContext();
-        //
-        // GET: /Speaker/
+        private readonly DDDEAContext db = new DDDEAContext();
 
         public virtual ActionResult Index()
         {
-            List<SpeakerDisplayModel> speakers = new List<SpeakerDisplayModel>();
+            var speakers = new List<SpeakerDisplayModel>();
+            var speakerProfiles = db.UserProfiles.ToList();
 
-            List<UserProfile> speakerProfiles = db.UserProfiles.ToList();
-
-            foreach (UserProfile speakerProfile in speakerProfiles)
+            foreach (var speakerProfile in speakerProfiles)
             {
                 int sessionCount = db.Sessions.Count(s => s.SpeakerUserName == speakerProfile.UserName);
 
@@ -33,16 +30,18 @@ namespace DDDEastAnglia.Controllers
                             GravatarUrl = speakerProfile.GravitarUrl()
                         };
 
-                    List<Session> speakerSessions = db.Sessions.Where(s => s.SpeakerUserName == speakerProfile.UserName).ToList();
+                    var speakerSessions = db.Sessions.Where(s => s.SpeakerUserName == speakerProfile.UserName).ToList();
+                    
                     foreach (var speakerSession in speakerSessions)
                     {
                         speaker.Sessions.Add(speakerSession.SessionId, speakerSession.Title);
                     }
+                    
                     speakers.Add(speaker);
                 }
             }
+
             return View(speakers);
         }
-
     }
 }
