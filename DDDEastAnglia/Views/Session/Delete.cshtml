@@ -14,6 +14,10 @@
         @Html.Partial("_SessionDetailsPartial", Model)
     </fieldset>
 
+    <p class="alert alert-danger">
+        Deleting a session cannot be undone. Please be sure that you wish to delete this session before continuing.
+    </p>
+
     <p>
         <input type="submit" class="btn" value="Delete this session" />
         @Html.ActionLink("Cancel", "Index")
