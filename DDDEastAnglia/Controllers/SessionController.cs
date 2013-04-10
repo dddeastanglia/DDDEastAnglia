@@ -202,5 +202,15 @@ namespace DDDEastAnglia.Controllers
 
             return string.Compare(x.SessionTitle, y.SessionTitle, StringComparison.InvariantCultureIgnoreCase);
         }
+
+        public ActionResult RegisterVote(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ActionResult RemoveVote(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
