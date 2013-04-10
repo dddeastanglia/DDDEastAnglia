@@ -202,7 +202,8 @@ fieldset {
     border-bottom: 0;
 }
 
-#delete-session .session-actions {
+#delete-session .session-actions,
+#delete-session .session-tweet {
     display: none;
 }
 
@@ -212,10 +213,6 @@ fieldset {
 
 .session-actions .action {
     padding-right: 10px;
-}
-
-#delete-session .session-tweet {
-    display: none;
 }
 
 .banner {
