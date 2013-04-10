@@ -1,5 +1,5 @@
 ﻿@using DDDEastAnglia.Models
-@model IEnumerable<SessionDisplayModel>
+@model SessionIndexModel
 
 @{
     ViewBag.Title = "Sessions";
@@ -10,7 +10,26 @@
     @Html.Partial("_Banner")
 }
 
-@foreach (var session in Model)
+@foreach (var session in Model.Sessions)
 {
-    @Html.Partial("_SessionDetailsPartial", session)
+    Html.Partial("_SessionDetailsPartial", session);
+    if (session.SpeakerName == User.Identity.Name)
+    {
+        <span>You cannot vote for your own sessions</span>
+    }
+    else if (session.HasAlreadyBeenVotedFor)
+    {
+        using (@Html.BeginForm("RemoveVote", "Session", new {id = item.SessionId}))
+        {
+        <button type="submit">Remove vote</button>
+        }
+    }
+    else
+    {
+        using (@Html.BeginForm("RegisterVote", "Session", new { id = item.SessionId }))
+        {
+        <button type="submit">Vote</button>
+        }
+
+    }
 }
