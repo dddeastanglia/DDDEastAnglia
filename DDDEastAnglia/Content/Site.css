@@ -207,12 +207,20 @@ fieldset {
     border-bottom: 0;
 }
 
+#delete-session .session-actions {
+    display: none;
+}
+
 .session-actions {
     text-align: right;    
 }
 
 .session-actions .action {
     padding-right: 10px;
+}
+
+#delete-session .session-tweet {
+    display: none;
 }
 
 .session-tweet {
