@@ -6,7 +6,7 @@
         <div class="banner">
             <p>Session submission is now open.</p>
     
-            <p>If you would like to speak at <span class="dddea">DDD East Anglia</span>, please @Html.ActionLink("submit a session", "Create", "Session", null, new { @class = "submit-session" }).</p>
+            <p>If you would like to speak at DDD East Anglia, please @Html.ActionLink("submit a session", "Create", "Session", null, new { @class = "submit-session" }).</p>
         </div>                                
     }
     else if (new EventRepository().Get("DDDEA2013").CanVote())
