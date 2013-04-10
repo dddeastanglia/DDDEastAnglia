@@ -5,7 +5,13 @@ using DDDEastAnglia.Models;
 
 namespace DDDEastAnglia.DataAccess
 {
-    public class VotingCookieRepository
+    public interface IVotingCookieRepository
+    {
+        VotingCookie Get(HttpRequestBase request, string cookieName);
+        void Save(HttpResponseBase response, VotingCookie cookie);
+    }
+
+    public class VotingCookieRepository : IVotingCookieRepository
     {
         public VotingCookie Get(HttpRequestBase request, string cookieName)
         {
