@@ -1,45 +1,103 @@
 ﻿@model IEnumerable<DDDEastAnglia.Models.Session>
 
 @{
-    ViewBag.Title = "Sessions Admin Index";
+    ViewBag.Title = "Sessions";
 }
 
-<h2>Sessions Admin Index</h2>
+<style>
+.admin-table {
+    width: 100%;
+}    
+
+th {
+    border-bottom: 1px solid black;
+    text-align: left;
+    text-transform: capitalize;
+}
+
+th.header {
+    cursor: pointer;
+}
+
+th.header .icon {
+    font-family: FontAwesome;
+}
+
+th.headerSortUp .icon:before {
+    content: "\f0dd";
+}
+
+th.headerSortDown .icon:before {
+    content: "\f0de";
+}
+
+tr:nth-child(even) {
+    background-color: #f5f5f5;
+}
+
+tr:hover {
+    background-color: #eee;
+}
+
+td:last-child {
+    text-align: right;
+}
+
+.admin-table i {
+    padding-left: 10px;
+}
+</style>
+
+
+
+<h2>@ViewBag.Title</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New Session", "Create")
 </p>
-<table>
-    <tr>
-        <th>
+
+<table id="sessionsTable" class="admin-table">
+    <thead>
+        <tr><th>
             @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
+            <span class="icon"></span>
+        </th><th>
             @Html.DisplayNameFor(model => model.SpeakerUserName)
-        </th>
-        <th>
+            <span class="icon"></span>
+        </th><th>
             @Html.DisplayNameFor(model => model.Votes)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
+            <span class="icon"></span>
+        </th><th>
+            &nbsp;
+        </th></tr>
+    </thead>
+    
+    <tbody>
+    @foreach (var item in Model) 
+    {
+        <tr><td>
             @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
+        </td><td>
             @Html.DisplayFor(modelItem => item.SpeakerUserName)
-        </td>
-        <td>
+         </td><td>
             @Html.DisplayFor(modelItem => item.Votes)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.SessionId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.SessionId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.SessionId })
-        </td>
-    </tr>
-}
-
+        </td><td>
+            <i class="icon-list-alt"></i> @Html.ActionLink("Details", "Details", new { id=item.SessionId })
+            <i class="icon-edit"></i> @Html.ActionLink("Edit", "Edit", new { id=item.SessionId }) 
+            <i class="icon-trash"></i> @Html.ActionLink("Delete", "Delete", new { id=item.SessionId })
+        </td></tr>
+    }
+    </tbody>
 </table>
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/tablesorter")
+    <script src="/Scripts/jquery.tablesorter.min.js"></script>
+    <script language="javascript">
+        $(document).ready(function() {
+            $("#sessionsTable").tablesorter({ headers: { 3: { sorter: false } } });
+        });
+    </script>
+    ); 
+}
