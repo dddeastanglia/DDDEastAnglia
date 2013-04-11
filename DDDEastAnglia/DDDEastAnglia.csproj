@@ -222,6 +222,7 @@
     <Compile Include="Controllers\VoteController.cs" />
     <Compile Include="DataAccess\EntityFramework\EntityFrameworkSessionRepository.cs" />
     <Compile Include="DataAccess\EntityFramework\EntityFrameworkVoteRepository.cs" />
+    <Compile Include="DataAccess\IRepository.cs" />
     <Compile Include="DataAccess\ISessionRepository.cs" />
     <Compile Include="DataAccess\IVoteRepository.cs" />
     <Compile Include="DataModel\Event.cs" />

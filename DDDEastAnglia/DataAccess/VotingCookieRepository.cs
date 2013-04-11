@@ -5,10 +5,8 @@ using DDDEastAnglia.Models;
 
 namespace DDDEastAnglia.DataAccess
 {
-    public interface IVotingCookieRepository
+    public interface IVotingCookieRepository : IRepository<VotingCookie, string>
     {
-        VotingCookie Get(string cookieName);
-        void Save(VotingCookie cookie);
     }
 
     public class VotingCookieRepository : IVotingCookieRepository
@@ -33,6 +31,11 @@ namespace DDDEastAnglia.DataAccess
             return new VotingCookie(cookieName, sessionIds, cookie.Expires);
         }
 
+        public void Update(VotingCookie entity)
+        {
+            Save(entity);
+        }
+
         public void Save(VotingCookie cookie)
         {
             var listOfSessions = string.Join(",", cookie.SessionsVotedFor.ToArray());
@@ -47,6 +50,25 @@ namespace DDDEastAnglia.DataAccess
             {
                 response.Cookies.Add(httpCookie);
             }
+        }
+
+        public void Delete(VotingCookie entity)
+        {
+            if (!Exists(entity.Name))
+            {
+                return;
+            }
+            Save(new VotingCookie(VotingCookie.CookieName, DateTime.Now.AddDays(-1)));
+        }
+
+        public void Delete(string identifier)
+        {
+            Delete(Get(identifier));
+        }
+
+        public bool Exists(string identifier)
+        {
+            return HttpContext.Current.Request.Cookies[identifier] != null;
         }
 
         private static int? TryParse(string value)
