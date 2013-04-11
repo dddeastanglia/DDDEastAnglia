@@ -152,7 +152,7 @@
                     var setEventChangeDate = new Date(setEventChangeDateStr);
 
                     if (setEventChangeDate < eventChangeDate) {
-                        @{/* if the date in the cookie is less than the date on the banner, the user dismissed an older banner */}
+                        @* if the date in the cookie is less than the date on the banner, the user dismissed an older banner *@
                         $.removeCookie('notification-dismissed');
                     }
 
