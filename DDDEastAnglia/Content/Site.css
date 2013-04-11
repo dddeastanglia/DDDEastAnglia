@@ -239,6 +239,21 @@ fieldset {
     color: greenyellow;
 }
 
+#notifications-banner .dismiss {
+    border: 2px solid white;
+    padding: 0 6px;
+    cursor: pointer;
+    float: right;
+}
+
+#notifications-banner .dismiss a,
+#notifications-banner .dismiss a:hover {
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    border: 0;
+}
+
 a i {
     text-decoration: none;
 }
