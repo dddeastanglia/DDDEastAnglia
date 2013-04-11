@@ -144,25 +144,27 @@
         
         <script language="javascript">
             $(document).ready(function () {
-                if ($("#notifications-banner").length) {
-                    var eventChangeDateStr = $("#notifications-banner").attr("data-expires");
-                    var eventChangeDate = new Date(eventChangeDateStr);
-                    var setEventChangeDate = new Date($.cookie("notification-dismissed"));
+                if ($("#notifications-banner").length <= 0) {
+                    return;
+                }
+                
+                var eventChangeDateStr = $("#notifications-banner").attr("data-expires");
+                var eventChangeDate = new Date(eventChangeDateStr);
+                var setEventChangeDate = new Date($.cookie("notification-dismissed"));
 
-                    if (setEventChangeDate < eventChangeDate) {
-                        @* if the date in the cookie is less than the date on the banner, the user dismissed an older banner *@
-                        $.removeCookie('notification-dismissed');
-                    }
+                if (setEventChangeDate < eventChangeDate) {
+                    @* if the date in the cookie is less than the date on the banner, the user dismissed an older banner *@
+                    $.removeCookie('notification-dismissed');
+                }
 
-                    var keepHidden = $.cookie('notification-dismissed');
+                var keepHidden = $.cookie('notification-dismissed');
 
-                    if (!keepHidden) {
-                        $("#notifications-banner").slideDown("slow");
-                        $(".dismiss").click(function() {
-                            $("#notifications-banner").slideUp("fast");
-                            $.cookie("notification-dismissed", eventChangeDateStr, { expires: 90 });
-                        });
-                    }
+                if (!keepHidden) {
+                    $("#notifications-banner").slideDown("slow");
+                    $(".dismiss").click(function() {
+                        $("#notifications-banner").slideUp("fast");
+                        $.cookie("notification-dismissed", eventChangeDateStr, { expires: 90 });
+                    });
                 }
             });
         </script>     
