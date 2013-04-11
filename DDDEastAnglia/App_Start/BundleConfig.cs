@@ -8,25 +8,30 @@ namespace DDDEastAnglia
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js", 
-                        "~/Scripts/jquery.cookie.js"));
+                                                                     "~/Scripts/jquery-{version}.js",
+                                                                     "~/Scripts/jquery.cookie.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
-                        "~/Scripts/jquery-ui-{version}.js"));
+                                                                       "~/Scripts/jquery-ui-{version}.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                        "~/Scripts/jquery.unobtrusive*",
-                        "~/Scripts/jquery.validate*"));
+                                                                        "~/Scripts/jquery.unobtrusive*",
+                                                                        "~/Scripts/jquery.validate*"));
+
+            bundles.Add(new ScriptBundle("~/bundles/tablesorter").Include(
+                                                                          "~/Scripts/jquery.tablesorter.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                        "~/Scripts/bootstrap.js"));
+                                                                        "~/Scripts/bootstrap.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/Markdown").Include("~/Scripts/Markdown*"));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
-                        "~/Scripts/modernizr-*"));
+                                                                        "~/Scripts/modernizr-*"));
+
+            bundles.Add(new StyleBundle("~/Content/admin").Include(new[] {"~/Content/admin.css"}));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(new[]
                                                          {

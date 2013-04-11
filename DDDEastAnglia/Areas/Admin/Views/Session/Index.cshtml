@@ -4,51 +4,10 @@
     ViewBag.Title = "Sessions";
 }
 
-<style>
-.admin-table {
-    width: 100%;
-}    
-
-th {
-    border-bottom: 1px solid black;
-    text-align: left;
-    text-transform: capitalize;
+@section header
+{
+    @Styles.Render("~/Content/admin")
 }
-
-th.header {
-    cursor: pointer;
-}
-
-th.header .icon {
-    font-family: FontAwesome;
-}
-
-th.headerSortUp .icon:before {
-    content: "\f0dd";
-}
-
-th.headerSortDown .icon:before {
-    content: "\f0de";
-}
-
-tr:nth-child(even) {
-    background-color: #f5f5f5;
-}
-
-tr:hover {
-    background-color: #eee;
-}
-
-td:last-child {
-    text-align: right;
-}
-
-.admin-table i {
-    padding-left: 10px;
-}
-</style>
-
-
 
 <h2>@ViewBag.Title</h2>
 
@@ -93,7 +52,7 @@ td:last-child {
 @section scripts
 {
     @Scripts.Render("~/bundles/tablesorter")
-    <script src="/Scripts/jquery.tablesorter.min.js"></script>
+
     <script language="javascript">
         $(document).ready(function() {
             $("#sessionsTable").tablesorter({ headers: { 3: { sorter: false } } });

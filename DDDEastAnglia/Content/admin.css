@@ -1,0 +1,41 @@
+﻿.admin-table {
+    width: 100%;
+}    
+
+.admin-table th {
+    border-bottom: 1px solid black;
+    text-align: left;
+    text-transform: capitalize;
+}
+
+.admin-table th.header {
+    cursor: pointer;
+}
+
+.admin-table th.header .icon {
+    font-family: FontAwesome;
+}
+
+.admin-table th.headerSortUp .icon:before {
+    content: "\f0dd";
+}
+
+.admin-table th.headerSortDown .icon:before {
+    content: "\f0de";
+}
+
+.admin-table tr:nth-child(even) {
+    background-color: #f5f5f5;
+}
+
+.admin-table tr:hover {
+    background-color: #eee;
+}
+
+.admin-table td:last-child {
+    text-align: right;
+}
+
+.admin-table i {
+    padding-left: 10px;
+}

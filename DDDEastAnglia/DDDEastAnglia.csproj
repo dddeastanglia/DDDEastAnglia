@@ -208,12 +208,10 @@
     <Compile Include="Admin.SessionController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="Admin.SharedController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
     <Compile Include="Admin.UserController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Content Include="Content\admin.css" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="DataAccess\DataModel\Event.cs" />
     <Compile Include="DataAccess\DDDEAContext.cs" />
@@ -246,6 +244,7 @@
     <Content Include="Images\sponsors\jetbrains.png" />
     <Content Include="Images\sponsors\software-east.png" />
     <Content Include="Scripts\jquery.cookie.js" />
+    <Content Include="Scripts\jquery.tablesorter.js" />
     <Content Include="Scripts\jquery.tablesorter.min.js" />
     <Content Include="Scripts\tweetbutton.js" />
     <Compile Include="ProfileController.generated.cs">
@@ -381,11 +380,11 @@
     <Content Include="Content\font\FontAwesome.otf" />
     <Content Include="Areas\Admin\Views\Web.config" />
     <Content Include="Areas\Admin\Views\AdminHome\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Admin\Views\Session\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Session\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Session\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Session\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\html5shiv-printshiv.js" />
@@ -478,7 +477,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Areas\Admin\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

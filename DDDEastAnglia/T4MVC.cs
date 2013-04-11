@@ -44,7 +44,6 @@ namespace T4MVC
         public DDDEastAnglia.Areas.Admin.Controllers.RoleController Role = new DDDEastAnglia.Areas.Admin.Controllers.T4MVC_RoleController();
         public DDDEastAnglia.Areas.Admin.Controllers.SessionController Session = new DDDEastAnglia.Areas.Admin.Controllers.T4MVC_SessionController();
         public DDDEastAnglia.Areas.Admin.Controllers.UserController User = new DDDEastAnglia.Areas.Admin.Controllers.T4MVC_UserController();
-        public T4MVC.Admin.SharedController Shared = new T4MVC.Admin.SharedController();
     }
 }
 
@@ -102,6 +101,8 @@ namespace Links
         public static readonly string jquery_ui_1_10_2_min_js = Url("jquery-ui-1.10.2.min.js");
         public static readonly string jquery_cookie_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.cookie.min.js") ? Url("jquery.cookie.min.js") : Url("jquery.cookie.js");
                       
+        public static readonly string jquery_tablesorter_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.tablesorter.min.js") ? Url("jquery.tablesorter.min.js") : Url("jquery.tablesorter.js");
+                      
         public static readonly string jquery_tablesorter_min_js = Url("jquery.tablesorter.min.js");
         public static readonly string jquery_unobtrusive_ajax_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.unobtrusive-ajax.min.js") ? Url("jquery.unobtrusive-ajax.min.js") : Url("jquery.unobtrusive-ajax.js");
                       
@@ -135,6 +136,8 @@ namespace Links
         private const string URLPATH = "~/Content";
         public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
         public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+        public static readonly string admin_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/admin.min.css") ? Url("admin.min.css") : Url("admin.css");
+             
         public static readonly string bootstrap_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap.min.css") ? Url("bootstrap.min.css") : Url("bootstrap.css");
              
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
