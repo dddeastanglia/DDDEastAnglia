@@ -10,7 +10,7 @@
 
 @if (new EventRepository().Get("DDDEA2013").CanSubmit())
 {
-    <p>Session submission is now open. If you would like to speak at <span class="dddea">DDD East Anglia</span>, please @Html.ActionLink("submit a session", "Create", "Session", null, new { @class = "submit-session" }).</p>
+    <p>Session submission is now open. If you would like to speak at @Html.DDDEastAnglia(), please @Html.ActionLink("submit a session", "Create", "Session", null, new { @class = "submit-session" }).</p>
 }
 
 @foreach (var session in Model)
