@@ -11,7 +11,7 @@ a { text-decoration: underline; }
 
 a:hover { color: #008600; }
 
-a.btn, .dropdown-menu a { text-decoration: none; }
+a.btn, .dropdown-menu a, a.carousel-control { text-decoration: none; }
 
 .carousel-caption a { color: white; }
 
