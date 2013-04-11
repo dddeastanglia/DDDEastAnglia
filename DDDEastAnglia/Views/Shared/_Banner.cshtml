@@ -12,14 +12,14 @@
 @if (@dddevent.CanSubmit())
 {
     <div id="notifications-banner" expires-on="@submissionEnds.Date.ToString("R")">
-        <span class="dismiss"><a title="Dismiss this notification">X</a></span>
+        <span class="dismiss"><a href="#" title="Dismiss this notification">X</a></span>
         <p>Session submission is now open. If you would like to speak at DDD East Anglia, please @Html.ActionLink("submit a session", "Create", "Session", null, new { @class = "submit-session" }).</p>
     </div>                                
 }
 else if (@dddevent.CanVote())
 {
     <div id="notifications-banner" expires-on="@votingEnds.Date.ToString("R")">
-        <span class="dismiss"><a title="Dismiss this notification">X</a></span>
+        <span class="dismiss"><a href="#" title="Dismiss this notification">X</a></span>
         <p>Session voting is now open. Please @Html.ActionLink("vote on the sessions", "Vote", "Session") you would like to see at DDD East Anglia.</p>
     </div>                                
 }
