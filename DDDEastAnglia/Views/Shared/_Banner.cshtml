@@ -1,20 +1,14 @@
 ﻿@using DDDEastAnglia.DataAccess
 
-<div class="row-fluid">
-    @if (new EventRepository().Get("DDDEA2013").CanSubmit())
-    {
-        <div class="banner">
-            <p>Session submission is now open.</p>
-    
-            <p>If you would like to speak at DDD East Anglia, please @Html.ActionLink("submit a session", "Create", "Session", null, new { @class = "submit-session" }).</p>
-        </div>                                
-    }
-    else if (new EventRepository().Get("DDDEA2013").CanVote())
-    {
-        <div class="banner">
-            <p>Session voting is now open.</p>
-    
-            <p>Please @Html.ActionLink("vote on the sessions", "Vote", "Session") you would like to see at <span class="dddea">DDD East Anglia</span>.</p>
-        </div>                                
-    }
-</div>
+@if (new EventRepository().Get("DDDEA2013").CanSubmit())
+{
+    <div id="notifications-banner">
+        <p>Session submission is now open. If you would like to speak at DDD East Anglia, please @Html.ActionLink("submit a session", "Create", "Session", null, new { @class = "submit-session" }).</p>
+    </div>                                
+}
+else if (new EventRepository().Get("DDDEA2013").CanVote())
+{
+    <div id="notifications-banner">
+        <p>Session voting is now open. Please @Html.ActionLink("vote on the sessions", "Vote", "Session") you would like to see at <span class="dddea">DDD East Anglia</span>.</p>
+    </div>                                
+}
