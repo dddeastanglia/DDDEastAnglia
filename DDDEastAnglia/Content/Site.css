@@ -236,11 +236,11 @@ fieldset {
 }
 
 #notifications-banner a:hover {
-    color: greenyellow;
+    color: #eee;
 }
 
 #notifications-banner .dismiss {
-    border: 2px solid white;
+    border: 2px solid #ccc;
     padding: 0 6px;
     cursor: pointer;
     float: right;
