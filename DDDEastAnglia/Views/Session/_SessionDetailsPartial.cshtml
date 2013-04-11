@@ -1,13 +1,13 @@
 ﻿@model DDDEastAnglia.Models.SessionDisplayModel
 
 <div class="session-details @(Model.IsUsersSession ? "session-details-own" : "")">
-    <div class="session-title">
+    <h3>
         @Model.SessionTitle
-    </div>
-    <div class="session-speaker">
-        <img src="@Model.SpeakerGravitarUrl" width="16" height="16" alt="@Model.SpeakerName">
+    </h3>
+    <h4>
+        <img src="@Model.SpeakerGravitarUrl" width="32" height="32" alt="@Model.SpeakerName">
         @Model.SpeakerName
-    </div>
+    </h4>
     <div class="session-tweet">
         <a href="https://twitter.com/intent/tweet?text=@Model.TweetLink.Title" class="twitter-share-button" data-url="@Model.TweetLink.Url" data-count="none">Tweet</a>
     </div>
