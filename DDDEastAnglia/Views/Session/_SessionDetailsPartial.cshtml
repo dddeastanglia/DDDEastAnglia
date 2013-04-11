@@ -1,10 +1,10 @@
 ﻿@model DDDEastAnglia.Models.SessionDisplayModel
 
 <div class="session-details @(Model.IsUsersSession ? "session-details-own" : "")">
-    <h3 class="session-title">
+    <h3>
         @Model.SessionTitle
     </h3>
-    <h4 class="session-speaker">
+    <h4>
         <img src="@Model.SpeakerGravitarUrl" width="32" height="32" alt="@Model.SpeakerName">
         @Model.SpeakerName
     </h4>
