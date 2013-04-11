@@ -340,6 +340,10 @@ namespace DDDEastAnglia.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (!profile.WebsiteUrl.StartsWith("http://") & !profile.WebsiteUrl.StartsWith("https://"))
+                {
+                    profile.WebsiteUrl = string.Format("http://{0}", profile.WebsiteUrl);
+                }
                 DDDEAContext context = new DDDEAContext();
                 context.Entry(profile).State = EntityState.Modified;
                 context.SaveChanges();
