@@ -18,6 +18,7 @@ namespace DDDEastAnglia.Tests
         private IVotingCookieRepository cookieRepository;
         private IVoteRepository voteRepository;
         private ISessionRepository sessionRepository;
+        private IEventRepository eventRepository;
         private VotingCookie cookieWithNoVotes;
         private VoteController controller;
 
@@ -31,11 +32,14 @@ namespace DDDEastAnglia.Tests
 
             voteRepository = Substitute.For<IVoteRepository>();
 
+            eventRepository = Substitute.For<IEventRepository>();
+            eventRepository.Get(Arg.Is("DDDEA2013")).Returns(EventHelper.BuildEvent(true, true));
+
             sessionRepository = Substitute.For<ISessionRepository>();
             sessionRepository.Exists(Arg.Is(KnownSessionId)).Returns(true);
             sessionRepository.Exists(Arg.Is(UnknownSessionId)).Returns(false);
 
-            controller = new VoteController(cookieRepository, voteRepository, sessionRepository);
+            controller = new VoteController(cookieRepository, voteRepository, sessionRepository, eventRepository);
         }
 
         [Test]
@@ -44,15 +48,15 @@ namespace DDDEastAnglia.Tests
            controller.RegisterVote(KnownSessionId);
 
            cookieRepository.Received()
-                      .Save(Arg.Do<VotingCookie>(cookie => AssertCookieIsCorrect(cookie, VotingCookie.CookieName, SessionIdsVotedFor)));
+                      .Save(Arg.Is<VotingCookie>(cookie => cookie.IsCorrect(VotingCookie.CookieName, SessionIdsVotedFor)));
         }
 
         [Test]
         public void Not_Set_A_Cookie_When_Trying_To_Remove_A_Session()
         {
             controller.RemoveVote(KnownSessionId);
-            cookieRepository.Received()
-                    .Save(Arg.Do<VotingCookie>(cookie => AssertCookieIsCorrect(cookie, VotingCookie.CookieName, NoSessionIdsVotedFor)));
+            cookieRepository.DidNotReceive()
+                    .Save(Arg.Is<VotingCookie>(cookie => cookie.IsCorrect(VotingCookie.CookieName, NoSessionIdsVotedFor)));
         }
 
         [Test]
@@ -68,7 +72,7 @@ namespace DDDEastAnglia.Tests
         {
             controller.RegisterVote(KnownSessionId);
             voteRepository.Received()
-                          .Save(Arg.Do<Vote>(vote => AssertVoteIsCorrect(vote, "DDDEA2013", KnownSessionId)));
+                          .Save(Arg.Is<Vote>(vote => vote.IsVoteFor("DDDEA2013", KnownSessionId)));
         }
 
         [Test]
@@ -76,18 +80,6 @@ namespace DDDEastAnglia.Tests
         {
             controller.RegisterVote(UnknownSessionId);
             voteRepository.DidNotReceiveWithAnyArgs().Save(null);
-        }
-
-        private void AssertCookieIsCorrect(VotingCookie cookie, string expectedCookieName, IEnumerable<int> sessionIdsToExpect)
-        {
-            Assert.That(cookie.Name, Is.EqualTo(expectedCookieName));
-            Assert.That(cookie.SessionsVotedFor, Is.EquivalentTo(sessionIdsToExpect));
-        }
-
-        private void AssertVoteIsCorrect(Vote vote, string eventId, int expectedSessionId)
-        {
-            Assert.That(vote.Event, Is.EqualTo(eventId));
-            Assert.That(vote.SessionId, Is.EqualTo(expectedSessionId));
         }
     }
 }

@@ -12,24 +12,5 @@
 
 @foreach (var session in Model.Sessions)
 {
-    Html.Partial("_SessionDetailsPartial", session);
-    if (session.SpeakerName == User.Identity.Name)
-    {
-        <span>You cannot vote for your own sessions</span>
-    }
-    else if (session.HasAlreadyBeenVotedFor)
-    {
-        using (@Html.BeginForm("RemoveVote", "Vote", new {id = session.SessionId}))
-        {
-        <button type="submit">Remove vote</button>
-        }
-    }
-    else
-    {
-        using (@Html.BeginForm("RegisterVote", "Vote", new { id = session.SessionId }))
-        {
-        <button type="submit">Vote</button>
-        }
-
-    }
+    Html.RenderPartial("_SessionDetailsPartial", session);
 }
