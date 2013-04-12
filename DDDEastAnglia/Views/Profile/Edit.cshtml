@@ -47,8 +47,9 @@
         <div>
             @Html.LabelFor(m => Model.TwitterHandle)
         </div>
-        <div>
-            @@@Html.TextBoxFor(m => Model.TwitterHandle)
+        <div class="input-prepend">
+            <span class="add-on">@@</span>
+            @Html.TextBoxFor(m => Model.TwitterHandle)
         </div>
 
         <div>
