@@ -9,5 +9,6 @@
         public double Longitude { get; set; }
         public long WebSessionId { get; set; }
         public string UserAgent { get; set; }
+        public bool IsVote { get; set; }
     }
 }

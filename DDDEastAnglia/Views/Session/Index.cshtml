@@ -16,5 +16,5 @@
 
 @foreach (var session in Model)
 {
-    Html.Partial("_SessionDetailsPartial", session);
+    Html.RenderPartial("_SessionDetailsPartial", session);
 }
