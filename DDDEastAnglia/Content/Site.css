@@ -214,24 +214,43 @@ fieldset {
     padding-right: 10px;
 }
 
-.banner {
+#notifications-banner {
+    color: white;
+    background-color: #008600;
+    text-shadow: 0 1px 1px black;
+    padding: 10px 20px 10px 20px;
+    margin: 0;
+    display: none;
+    border-bottom: 1px solid #777777;
+}
+
+#notifications-banner p {
+    margin: 0;
+}
+
+#notifications-banner a {
+    color: white;
+    text-decoration: none;
+    border-bottom: 1px solid white;
+}
+
+#notifications-banner a:hover {
+    color: #eee;
+}
+
+#notifications-banner .dismiss {
+    border: 2px solid #ccc;
+    padding: 0 6px;
+    cursor: pointer;
+    float: right;
+}
+
+#notifications-banner .dismiss a,
+#notifications-banner .dismiss a:hover {
     color: white;
     font-weight: bold;
-    font-size: 18px;
-    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.75);
-    background-color: #006000;
-    background-image: linear-gradient(to bottom, #00b000, #006000);
-    border-radius: 10px;
-    padding: 15px;
-    margin: 30px 0 30px 0;
-}
-
-.banner a {
-    color: white;
-}
-
-.banner a:hover {
-    color: greenyellow;
+    text-decoration: none;
+    border: 0;
 }
 
 a i {
