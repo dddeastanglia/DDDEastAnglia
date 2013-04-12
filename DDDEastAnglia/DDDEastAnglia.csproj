@@ -239,6 +239,7 @@
     <Compile Include="Models\SessionDisplayModel.cs" />
     <Compile Include="Models\SessionTweetLink.cs" />
     <Compile Include="Models\SpeakerDisplayModel.cs" />
+    <Content Include="Images\sponsors\jetbrains.png" />
     <Content Include="Scripts\tweetbutton.js" />
     <Compile Include="ProfileController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
