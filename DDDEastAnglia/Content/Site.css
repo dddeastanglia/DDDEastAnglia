@@ -9,7 +9,7 @@ dd {
 
 a { text-decoration: underline; }
 
-a.btn, .dropdown-menu a, a.carousel-control { text-decoration: none; }
+a.btn, .dropdown-menu a, a.carousel-control, .sidenav a { text-decoration: none; }
 
 .carousel-caption a { color: white; }
 
@@ -277,4 +277,24 @@ a i {
 .speaker {
     border-bottom: 1px solid lightgray;
     padding: 10px;
+}
+
+.sidenav {
+    width: 228px;
+    margin: 30px 0 0;
+    padding: 0;
+    background-color: white;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, .065);
+    -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, .065);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .065);
+}
+
+.sidenav .icon-chevron-right {
+    float: right;
+    margin-top: 2px;
+    margin-right: -6px;
+    opacity: .25;
 }
