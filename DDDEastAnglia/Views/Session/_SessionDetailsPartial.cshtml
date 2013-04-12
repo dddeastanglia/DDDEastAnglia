@@ -14,6 +14,7 @@
     }
     <h3>
         @Model.SessionTitle
+        @Html.Action("Status", "Vote", new { sessionId = @Model.SessionId })
     </h3>
     <h4>
         <img src="@Model.SpeakerGravitarUrl" width="32" height="32" alt="@Model.SpeakerName">
