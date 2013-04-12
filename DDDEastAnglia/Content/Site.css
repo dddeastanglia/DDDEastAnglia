@@ -263,3 +263,21 @@ a i {
     border-bottom: 1px solid lightgray;
     padding: 10px;
 }
+
+.voting {
+    float: right;
+}
+
+.voting button.remove-vote {
+    color: white;
+    background-color: #600000;
+    background-image: linear-gradient(to bottom, #b00000, #600000);
+    font-weight: bold;
+}
+
+.voting button.add-vote {
+    color: white;
+    background-color: #006000;
+    background-image: linear-gradient(to bottom, #00b000, #006000);
+    font-weight: bold;
+}
