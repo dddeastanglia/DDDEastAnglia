@@ -218,11 +218,12 @@
     <Compile Include="Controllers\VoteController.cs" />
     <Compile Include="DataAccess\EntityFramework\EntityFrameworkSessionRepository.cs" />
     <Compile Include="DataAccess\EntityFramework\EntityFrameworkVoteRepository.cs" />
+    <Compile Include="DataAccess\EntityFramework\Initialiser.cs" />
     <Compile Include="DataAccess\IRepository.cs" />
     <Compile Include="DataAccess\ISessionRepository.cs" />
     <Compile Include="DataAccess\IVoteRepository.cs" />
     <Compile Include="DataModel\Event.cs" />
-    <Compile Include="DataAccess\DDDEAContext.cs" />
+    <Compile Include="DataAccess\EntityFramework\DDDEAContext.cs" />
     <Compile Include="App_Code\GitHubOAuthClient.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminHomeController.cs" />
@@ -249,9 +250,16 @@
     <Compile Include="DataAccess\EntityFramework\Migrations\201304131227118_CreateVoteTable.Designer.cs">
       <DependentUpon>201304131227118_CreateVoteTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="DataAccess\EntityFramework\Migrations\201304132037285_UpdateVoteTable.cs" />
+    <Compile Include="DataAccess\EntityFramework\Migrations\201304132037285_UpdateVoteTable.Designer.cs">
+      <DependentUpon>201304132037285_UpdateVoteTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\EntityFramework\Migrations\201304132127266_RemoveIsVoteColumn.cs" />
+    <Compile Include="DataAccess\EntityFramework\Migrations\201304132127266_RemoveIsVoteColumn.Designer.cs">
+      <DependentUpon>201304132127266_RemoveIsVoteColumn.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\ExternalLogin.cs" />
     <Compile Include="Models\GrokTalk.cs" />
-    <Compile Include="Models\Initialiser.cs" />
     <Compile Include="Models\LocalPasswordModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\RegisterExternalLoginModel.cs" />
@@ -496,6 +504,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -528,6 +537,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DataAccess\EntityFramework\Migrations\201304131227118_CreateVoteTable.resx">
       <DependentUpon>201304131227118_CreateVoteTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataAccess\EntityFramework\Migrations\201304132037285_UpdateVoteTable.resx">
+      <DependentUpon>201304132037285_UpdateVoteTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataAccess\EntityFramework\Migrations\201304132127266_RemoveIsVoteColumn.resx">
+      <DependentUpon>201304132127266_RemoveIsVoteColumn.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

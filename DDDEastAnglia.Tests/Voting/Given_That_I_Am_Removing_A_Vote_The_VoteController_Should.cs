@@ -29,43 +29,12 @@ namespace DDDEastAnglia.Tests.Voting
         }
 
         [Test]
-        public void Record_The_EventID()
+        public void Delete_The_Appropriate_Vote()
         {
             Controller.RemoveVote(KnownSessionId);
 
-            VoteRepository.Received().Save(Arg.Is<Vote>(vote => vote.Event == "DDDEA2013"));
+            VoteRepository.Received().Delete(Arg.Is<int>(KnownSessionId), Arg.Is<Guid>(cookieWithNoVotes.Id));
         }
 
-        [Test]
-        public void Record_The_SessionId()
-        {
-            Controller.RemoveVote(KnownSessionId);
-
-            VoteRepository.Received().Save(Arg.Is<Vote>(vote => vote.SessionId == KnownSessionId));
-        }
-
-        [Test]
-        public void Record_The_Cookie_Guid()
-        {
-            Controller.RemoveVote(KnownSessionId);
-
-            VoteRepository.Received().Save(Arg.Is<Vote>(vote => vote.CookieId.Equals(cookieWithNoVotes.Id)));
-        }
-
-        [Test]
-        public void Record_The_Time_Of_The_Vote()
-        {
-            Controller.RemoveVote(KnownSessionId);
-
-            VoteRepository.Received().Save(Arg.Is<Vote>(vote => vote.TimeRecorded == SimulatedNow));
-        }
-
-        [Test]
-        public void Record_That_The_Vote_Is_Actually_A_Vote()
-        {
-            Controller.RemoveVote(KnownSessionId);
-
-            VoteRepository.Received().Save(Arg.Is<Vote>(vote => !vote.IsVote));
-        }
     }
 }

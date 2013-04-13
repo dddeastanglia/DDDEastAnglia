@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using DDDEastAnglia.DataAccess;
+using DDDEastAnglia.DataAccess.EntityFramework;
 using DDDEastAnglia.Models;
 
 using WebMatrix.WebData;

@@ -3,6 +3,7 @@ using System.Net;
 using System.Text.RegularExpressions;
 using System.Web;
 using DDDEastAnglia.DataAccess;
+using DDDEastAnglia.DataAccess.EntityFramework;
 using DDDEastAnglia.Models;
 
 namespace DDDEastAnglia.Helpers.Context
@@ -19,6 +20,11 @@ namespace DDDEastAnglia.Helpers.Context
             {
                 return HttpContext.Current.Request.UrlReferrer == null ? null : HttpContext.Current.Request.UrlReferrer.ToString();
             }
+        }
+
+        public string SessionId
+        {
+            get { return HttpContext.Current.Session.SessionID; }
         }
 
         public string GetIPAddress()

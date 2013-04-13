@@ -53,12 +53,5 @@ namespace DDDEastAnglia.Tests.Voting
             Controller.RegisterVote(SessionIdToVoteFor);
             VoteRepository.Received().Save(Arg.Is<Vote>(vote => vote.UserId == myUserProfile.UserId));
         }
-
-        [Test]
-        public void Save_My_UserId_When_I_Remove_My_Vote()
-        {
-            Controller.RemoveVote(SessionIdToRemove);
-            VoteRepository.Received().Save(Arg.Is<Vote>(vote => vote.UserId == myUserProfile.UserId));
-        }
     }
 }

@@ -30,7 +30,6 @@ namespace DDDEastAnglia.Tests.Voting
         {
             base.SetSessionRepositoryExpectations(sessionRepository);
             sessionRepository.Exists(Arg.Is(SessionIdToVoteFor)).Returns(true);
-            sessionRepository.Exists(Arg.Is(SessionIdToRemove)).Returns(true);
         }
 
         protected override void SetRequestInformationProviderExpectations(IRequestInformationProvider requestInformationProvider)
@@ -48,24 +47,10 @@ namespace DDDEastAnglia.Tests.Voting
         }
 
         [Test]
-        public void Save_The_UserAgent_When_I_Remove_My_Vote()
-        {
-            Controller.RemoveVote(SessionIdToRemove);
-            VoteRepository.Received().Save(Arg.Is<Vote>(vote => vote.UserAgent == UserAgent));
-        }
-
-        [Test]
         public void Save_The_Referer_With_The_Vote()
         {
             Controller.RegisterVote(SessionIdToVoteFor);
-            VoteRepository.Received().Save(Arg.Is<Vote>(vote => vote.Referer == Referer));
-        }
-
-        [Test]
-        public void Save_The_Referer_When_I_Remove_My_Vote()
-        {
-            Controller.RemoveVote(SessionIdToRemove);
-            VoteRepository.Received().Save(Arg.Is<Vote>(vote => vote.Referer == Referer));
+            VoteRepository.Received().Save(Arg.Is<Vote>(vote => vote.Referrer == Referer));
         }
     }
 }

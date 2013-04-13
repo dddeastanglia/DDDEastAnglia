@@ -2,7 +2,7 @@
 using DDDEastAnglia.DataModel;
 using DDDEastAnglia.Models;
 
-namespace DDDEastAnglia.DataAccess
+namespace DDDEastAnglia.DataAccess.EntityFramework
 {
     public class DDDEAContext : DbContext
     {

@@ -10,6 +10,7 @@ namespace DDDEastAnglia.Tests.Voting
 {
     public class VotingTestBase
     {
+        protected const string DefaultSessionID = "THIS IS A SESSION ID";
         protected IVotingCookieRepository CookieRepository;
         protected IVoteRepository VoteRepository;
         protected ISessionRepository SessionRepository;
@@ -73,7 +74,7 @@ namespace DDDEastAnglia.Tests.Voting
 
         protected virtual void SetRequestInformationProviderExpectations(IRequestInformationProvider requestInformationProvider)
         {
-            
+            requestInformationProvider.SessionId.Returns(DefaultSessionID);
         }
     }
 }

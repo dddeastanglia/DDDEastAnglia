@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.Mvc;
 using DDDEastAnglia.DataAccess;
+using DDDEastAnglia.DataAccess.EntityFramework;
 using DDDEastAnglia.Models;
 
 namespace DDDEastAnglia.Areas.Admin.Controllers

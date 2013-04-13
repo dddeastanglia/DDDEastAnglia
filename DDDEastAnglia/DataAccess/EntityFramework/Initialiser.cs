@@ -1,8 +1,7 @@
 ﻿using System.Data.Entity;
-using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.DataAccess.EntityFramework.Migrations;
 
-namespace DDDEastAnglia.Models
+namespace DDDEastAnglia.DataAccess.EntityFramework
 {
     internal class Initialiser : MigrateDatabaseToLatestVersion<DDDEAContext, Configuration>
     {
