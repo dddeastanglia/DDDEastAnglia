@@ -78,7 +78,9 @@ namespace DDDEastAnglia.Controllers
                     SessionId = id,
                     CookieId = cookie.Id,
                     TimeRecorded = _timeProvider.UtcNow,
-                    IPAddress = _requestInformationProvider.GetIPAddress()
+                    IPAddress = _requestInformationProvider.GetIPAddress(),
+                    UserAgent = _requestInformationProvider.UserAgent,
+                    Referer = _requestInformationProvider.Referrer
                 };
             if (_requestInformationProvider.IsLoggedIn())
             {
@@ -104,7 +106,9 @@ namespace DDDEastAnglia.Controllers
                     SessionId = id,
                     CookieId = cookie.Id,
                     TimeRecorded = _timeProvider.UtcNow,
-                    IPAddress = _requestInformationProvider.GetIPAddress()
+                    IPAddress = _requestInformationProvider.GetIPAddress(),
+                    UserAgent = _requestInformationProvider.UserAgent,
+                    Referer = _requestInformationProvider.Referrer
                 };
             if (_requestInformationProvider.IsLoggedIn())
             {
