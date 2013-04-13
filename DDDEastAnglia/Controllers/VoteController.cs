@@ -15,8 +15,15 @@ namespace DDDEastAnglia.Controllers
         private readonly ISessionRepository _sessionRepository;
         private readonly IEventRepository _eventRepository;
         private readonly ITimeProvider _timeProvider;
+        private readonly IRequestInformationProvider _requestInformationProvider;
 
-        public VoteController() : this(new VotingCookieRepository(), new EntityFrameworkVoteRepository(), new EntityFrameworkSessionRepository(), new EventRepository(), new TimeProvider())
+        public VoteController() 
+            : this(new VotingCookieRepository(), 
+                   new EntityFrameworkVoteRepository(), 
+                   new EntityFrameworkSessionRepository(), 
+                   new EventRepository(), 
+                   new TimeProvider(),
+                   new HttpContextRequestInformationProvider())
         {
             
         }
@@ -25,13 +32,15 @@ namespace DDDEastAnglia.Controllers
             IVoteRepository voteRepository, 
             ISessionRepository sessionRepository, 
             IEventRepository eventRepository, 
-            ITimeProvider timeProvider)
+            ITimeProvider timeProvider,
+            IRequestInformationProvider requestInformationProvider)
         {
             _votingCookieRepository = votingCookieRepository;
             _voteRepository = voteRepository;
             _sessionRepository = sessionRepository;
             _eventRepository = eventRepository;
             _timeProvider = timeProvider;
+            _requestInformationProvider = requestInformationProvider;
         }
 
         public ActionResult Status(int sessionId)
@@ -67,7 +76,8 @@ namespace DDDEastAnglia.Controllers
                                 IsVote = true,
                                 SessionId = id,
                                 CookieId = cookie.Id, 
-                                TimeRecorded = _timeProvider.UtcNow
+                                TimeRecorded = _timeProvider.UtcNow,
+                                IPAddress = _requestInformationProvider.GetIPAddress()
                             });
             _votingCookieRepository.Save(cookie);
             return RedirectToAction("Index", "Session");
@@ -87,7 +97,8 @@ namespace DDDEastAnglia.Controllers
                     IsVote = false,
                     SessionId = id,
                     CookieId = cookie.Id,
-                    TimeRecorded = _timeProvider.UtcNow
+                    TimeRecorded = _timeProvider.UtcNow,
+                    IPAddress = _requestInformationProvider.GetIPAddress()
                 });
             _votingCookieRepository.Save(cookie);
             return RedirectToAction("Index", "Session");

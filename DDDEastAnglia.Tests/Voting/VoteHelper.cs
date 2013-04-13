@@ -1,7 +1,6 @@
 ﻿using DDDEastAnglia.DataModel;
-using NUnit.Framework;
 
-namespace DDDEastAnglia.Tests
+namespace DDDEastAnglia.Tests.Voting
 {
     public static class VoteHelper
     {
