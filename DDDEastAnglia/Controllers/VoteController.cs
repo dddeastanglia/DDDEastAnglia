@@ -86,6 +86,8 @@ namespace DDDEastAnglia.Controllers
                     Event = "DDDEA2013",
                     IsVote = false,
                     SessionId = id,
+                    CookieId = cookie.Id,
+                    TimeRecorded = _timeProvider.UtcNow
                 });
             _votingCookieRepository.Save(cookie);
             return RedirectToAction("Index", "Session");
