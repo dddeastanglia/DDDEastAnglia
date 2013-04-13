@@ -234,8 +234,18 @@
     <Compile Include="DataAccess\VotingCookieRepository.cs" />
     <Compile Include="DataModel\Vote.cs" />
     <Compile Include="GlimpseSecurityPolicy.cs" />
+    <Compile Include="Helpers\TimeProvider.cs" />
     <Compile Include="HomeController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\EntityFramework\Migrations\201303302150305_InitialCreate.cs" />
+    <Compile Include="DataAccess\EntityFramework\Migrations\201303302150305_InitialCreate.Designer.cs">
+      <DependentUpon>201303302150305_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\EntityFramework\Migrations\Configuration.cs" />
+    <Compile Include="DataAccess\EntityFramework\Migrations\201304131227118_CreateVoteTable.cs" />
+    <Compile Include="DataAccess\EntityFramework\Migrations\201304131227118_CreateVoteTable.Designer.cs">
+      <DependentUpon>201304131227118_CreateVoteTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\ExternalLogin.cs" />
     <Compile Include="Models\GrokTalk.cs" />
@@ -509,6 +519,14 @@
     <ExcludeFromPackageFiles Include="appSettingsSecret.config">
       <FromTarget>Project</FromTarget>
     </ExcludeFromPackageFiles>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DataAccess\EntityFramework\Migrations\201303302150305_InitialCreate.resx">
+      <DependentUpon>201303302150305_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataAccess\EntityFramework\Migrations\201304131227118_CreateVoteTable.resx">
+      <DependentUpon>201304131227118_CreateVoteTable.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <!--This works for publishing web applications through Web Deploy 3.0 -->

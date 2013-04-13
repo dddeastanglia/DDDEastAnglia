@@ -12,26 +12,35 @@ namespace DDDEastAnglia.Models
         private readonly List<int> _sessionsVotedFor = new List<int>();
 
         public VotingCookie(string name)
-            : this(name, DefaultExpiry)
+            : this(Guid.NewGuid(), name)
         {
             
         }
 
-        public VotingCookie(string name, DateTime expires)
+        public VotingCookie(Guid id, string name)
+            : this(id, name, DefaultExpiry)
         {
-            Name = name;
-            Expires = expires;
+            
         }
 
-        public VotingCookie(string name, IEnumerable<int> sessionsVotedFor, DateTime expires) 
-            : this(name, expires)
+        public VotingCookie(Guid id, string name, DateTime expires)
+            : this(id, name, Enumerable.Empty<int>(), expires)
         {
+            
+        }
+
+        public VotingCookie(Guid id, string name, IEnumerable<int> sessionsVotedFor, DateTime expires)
+        {
+            Id = id;
+            Name = name;
+            Expires = expires;
             _sessionsVotedFor.AddRange(sessionsVotedFor);
         }
 
         public string Name { get; set; }
         public DateTime Expires { get; set; }
         public IEnumerable<int> SessionsVotedFor { get { return _sessionsVotedFor.AsReadOnly(); } }
+        public Guid Id { get; private set; }
 
 
         public bool Contains(int sessionId)

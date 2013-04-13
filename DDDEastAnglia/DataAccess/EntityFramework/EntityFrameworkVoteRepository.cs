@@ -4,9 +4,12 @@ namespace DDDEastAnglia.DataAccess.EntityFramework
 {
     public class EntityFrameworkVoteRepository : IVoteRepository
     {
+        private DDDEAContext context = new DDDEAContext();
+
         public void Save(Vote vote)
         {
-            throw new System.NotImplementedException();
+            context.Vote.Add(vote);
+            context.SaveChanges();
         }
     }
 }
