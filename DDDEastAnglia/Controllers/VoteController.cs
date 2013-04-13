@@ -4,7 +4,7 @@ using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.DataAccess.EntityFramework;
 using DDDEastAnglia.DataModel;
 using DDDEastAnglia.Helpers;
-using DDDEastAnglia.Helpers.HttpContext;
+using DDDEastAnglia.Helpers.Context;
 using DDDEastAnglia.Models;
 
 namespace DDDEastAnglia.Controllers
@@ -17,6 +17,7 @@ namespace DDDEastAnglia.Controllers
         private readonly IEventRepository _eventRepository;
         private readonly ITimeProvider _timeProvider;
         private readonly IRequestInformationProvider _requestInformationProvider;
+        private readonly IUserProvider _userProvider;
 
         public VoteController() 
             : this(new VotingCookieRepository(), 
@@ -24,7 +25,8 @@ namespace DDDEastAnglia.Controllers
                    new EntityFrameworkSessionRepository(), 
                    new EventRepository(), 
                    new TimeProvider(),
-                   new HttpContextRequestInformationProvider())
+                   new HttpContextRequestInformationProvider(),
+                   new HttpContextUserProvider())
         {
             
         }
@@ -34,7 +36,8 @@ namespace DDDEastAnglia.Controllers
             ISessionRepository sessionRepository, 
             IEventRepository eventRepository, 
             ITimeProvider timeProvider,
-            IRequestInformationProvider requestInformationProvider)
+            IRequestInformationProvider requestInformationProvider,
+            IUserProvider userProvider)
         {
             _votingCookieRepository = votingCookieRepository;
             _voteRepository = voteRepository;
@@ -42,6 +45,7 @@ namespace DDDEastAnglia.Controllers
             _eventRepository = eventRepository;
             _timeProvider = timeProvider;
             _requestInformationProvider = requestInformationProvider;
+            _userProvider = userProvider;
         }
 
         public ActionResult Status(int sessionId)
@@ -71,15 +75,20 @@ namespace DDDEastAnglia.Controllers
                 return RedirectToAction("Index", "Session");
             }
             cookie.Add(id);
-            _voteRepository.Save(new Vote
-                            {
-                                Event = "DDDEA2013",
-                                IsVote = true,
-                                SessionId = id,
-                                CookieId = cookie.Id, 
-                                TimeRecorded = _timeProvider.UtcNow,
-                                IPAddress = _requestInformationProvider.GetIPAddress()
-                            });
+            var vote = new Vote
+                {
+                    Event = "DDDEA2013",
+                    IsVote = true,
+                    SessionId = id,
+                    CookieId = cookie.Id,
+                    TimeRecorded = _timeProvider.UtcNow,
+                    IPAddress = _requestInformationProvider.GetIPAddress()
+                };
+            if (_userProvider.IsLoggedIn())
+            {
+                vote.UserId = _userProvider.GetCurrentUser().UserId;
+            }
+            _voteRepository.Save(vote);
             _votingCookieRepository.Save(cookie);
             return RedirectToAction("Index", "Session");
         }
@@ -92,7 +101,7 @@ namespace DDDEastAnglia.Controllers
                 return RedirectToAction("Index", "Session");
             }
             cookie.Remove(id);
-            _voteRepository.Save(new Vote
+            var vote = new Vote
                 {
                     Event = "DDDEA2013",
                     IsVote = false,
@@ -100,7 +109,12 @@ namespace DDDEastAnglia.Controllers
                     CookieId = cookie.Id,
                     TimeRecorded = _timeProvider.UtcNow,
                     IPAddress = _requestInformationProvider.GetIPAddress()
-                });
+                };
+            if (_userProvider.IsLoggedIn())
+            {
+                vote.UserId = _userProvider.GetCurrentUser().UserId;
+            }
+            _voteRepository.Save(vote);
             _votingCookieRepository.Save(cookie);
             return RedirectToAction("Index", "Session");
         }
