@@ -2,6 +2,7 @@
 using DDDEastAnglia.Controllers;
 using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.DataModel;
+using DDDEastAnglia.Helpers;
 using DDDEastAnglia.Models;
 using NSubstitute;
 using NUnit.Framework;
@@ -39,7 +40,7 @@ namespace DDDEastAnglia.Tests
             sessionRepository.Exists(Arg.Is(KnownSessionId)).Returns(true);
             sessionRepository.Exists(Arg.Is(UnknownSessionId)).Returns(false);
 
-            controller = new VoteController(cookieRepository, voteRepository, sessionRepository, eventRepository);
+            controller = new VoteController(cookieRepository, voteRepository, sessionRepository, eventRepository, new TimeProvider());
         }
 
         [Test]

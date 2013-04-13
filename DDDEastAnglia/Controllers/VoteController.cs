@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.DataAccess.EntityFramework;
 using DDDEastAnglia.DataModel;
+using DDDEastAnglia.Helpers;
 using DDDEastAnglia.Models;
 
 namespace DDDEastAnglia.Controllers
@@ -13,18 +14,24 @@ namespace DDDEastAnglia.Controllers
         private readonly IVoteRepository _voteRepository;
         private readonly ISessionRepository _sessionRepository;
         private readonly IEventRepository _eventRepository;
+        private readonly ITimeProvider _timeProvider;
 
-        public VoteController() : this(new VotingCookieRepository(), new EntityFrameworkVoteRepository(), new EntityFrameworkSessionRepository(), new EventRepository())
+        public VoteController() : this(new VotingCookieRepository(), new EntityFrameworkVoteRepository(), new EntityFrameworkSessionRepository(), new EventRepository(), new TimeProvider())
         {
             
         }
 
-        public VoteController(IVotingCookieRepository votingCookieRepository, IVoteRepository voteRepository, ISessionRepository sessionRepository, IEventRepository eventRepository)
+        public VoteController(IVotingCookieRepository votingCookieRepository, 
+            IVoteRepository voteRepository, 
+            ISessionRepository sessionRepository, 
+            IEventRepository eventRepository, 
+            ITimeProvider timeProvider)
         {
             _votingCookieRepository = votingCookieRepository;
             _voteRepository = voteRepository;
             _sessionRepository = sessionRepository;
             _eventRepository = eventRepository;
+            _timeProvider = timeProvider;
         }
 
         public ActionResult Status(int sessionId)
@@ -58,7 +65,9 @@ namespace DDDEastAnglia.Controllers
                             {
                                 Event = "DDDEA2013",
                                 IsVote = true,
-                                SessionId = id
+                                SessionId = id,
+                                CookieId = cookie.Id, 
+                                TimeRecorded = _timeProvider.UtcNow
                             });
             _votingCookieRepository.Save(cookie);
             return RedirectToAction("Index", "Session");
@@ -76,7 +85,7 @@ namespace DDDEastAnglia.Controllers
                 {
                     Event = "DDDEA2013",
                     IsVote = false,
-                    SessionId = id
+                    SessionId = id,
                 });
             _votingCookieRepository.Save(cookie);
             return RedirectToAction("Index", "Session");

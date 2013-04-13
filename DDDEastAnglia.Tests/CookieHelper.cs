@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using DDDEastAnglia.Models;
 using NUnit.Framework;
@@ -19,6 +20,6 @@ namespace DDDEastAnglia.Tests
                 return false;
             }
             return true;
-        } 
+        }
     }
 }
