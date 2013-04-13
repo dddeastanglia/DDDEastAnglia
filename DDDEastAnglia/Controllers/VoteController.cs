@@ -4,6 +4,7 @@ using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.DataAccess.EntityFramework;
 using DDDEastAnglia.DataModel;
 using DDDEastAnglia.Helpers;
+using DDDEastAnglia.Helpers.HttpContext;
 using DDDEastAnglia.Models;
 
 namespace DDDEastAnglia.Controllers

@@ -234,6 +234,7 @@
     <Compile Include="DataAccess\VotingCookieRepository.cs" />
     <Compile Include="DataModel\Vote.cs" />
     <Compile Include="GlimpseSecurityPolicy.cs" />
+    <Compile Include="Helpers\HttpContext\HttpContextRequestInformationProvider.cs" />
     <Compile Include="Helpers\IRequestInformationProvider.cs" />
     <Compile Include="Helpers\TimeProvider.cs" />
     <Compile Include="HomeController.generated.cs">
