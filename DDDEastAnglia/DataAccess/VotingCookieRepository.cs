@@ -11,6 +11,9 @@ namespace DDDEastAnglia.DataAccess
 
     public class VotingCookieRepository : IVotingCookieRepository
     {
+        private const string SessionListKey = "SessionVotes";
+        private const string IdKey = "Id";
+
         public VotingCookie Get(string cookieName)
         {
             var cookie = HttpContext.Current.Request.Cookies[VotingCookie.CookieName];
@@ -19,11 +22,11 @@ namespace DDDEastAnglia.DataAccess
                 return new VotingCookie(cookieName);
             }
             Guid cookieId;
-            if (!string.IsNullOrWhiteSpace(cookie["Id"]) || !Guid.TryParse(cookie["Id"], out cookieId))
+            if (string.IsNullOrWhiteSpace(cookie[IdKey]) || !Guid.TryParse(cookie[IdKey], out cookieId))
             {
                 cookieId = Guid.NewGuid();
             }
-            var sessionList = cookie.Value;
+            var sessionList = cookie[SessionListKey];
             if (string.IsNullOrWhiteSpace(sessionList))
             {
                 return new VotingCookie(cookieId, cookieName, cookie.Expires);
@@ -44,18 +47,11 @@ namespace DDDEastAnglia.DataAccess
         public void Save(VotingCookie cookie)
         {
             var listOfSessions = string.Join(",", cookie.SessionsVotedFor.ToArray());
-            var httpCookie = new HttpCookie(cookie.Name, listOfSessions);
+            var httpCookie = new HttpCookie(cookie.Name);
             httpCookie.Expires = cookie.Expires;
-            httpCookie["Id"] = cookie.Id.ToString();
-            var response = HttpContext.Current.Response;
-            if (response.Cookies[httpCookie.Name] != null)
-            {
-                response.Cookies.Set(httpCookie);
-            }
-            else
-            {
-                response.Cookies.Add(httpCookie);
-            }
+            httpCookie[IdKey] = cookie.Id.ToString();
+            httpCookie[SessionListKey] = listOfSessions;
+            HttpContext.Current.Response.Cookies.Set(httpCookie);
         }
 
         public void Delete(VotingCookie entity)
