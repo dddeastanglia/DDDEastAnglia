@@ -10,9 +10,10 @@ using NUnit.Framework;
 namespace DDDEastAnglia.Tests
 {
     [TestFixture]
-    public class Given_That_I_Am_Registering_A_Vote_The_VoteController_Should
+    public class Given_That_I_Am_Removing_A_Vote_The_VoteController_Should
     {
         private const int KnownSessionId = 1;
+        private static readonly int[] SessionsVotedFor = new[] {KnownSessionId};
         private IVotingCookieRepository cookieRepository;
         private IVoteRepository voteRepository;
         private ISessionRepository sessionRepository;
@@ -26,9 +27,9 @@ namespace DDDEastAnglia.Tests
         public void BeforeEachTest()
         {
             cookieRepository = Substitute.For<IVotingCookieRepository>();
-            cookieWithNoVotes = new VotingCookie(VotingCookie.CookieName);
+            cookieWithNoVotes = new VotingCookie(Guid.NewGuid(), VotingCookie.CookieName, SessionsVotedFor, new DateTime(2013, 4, 30));
             cookieRepository.Get(Arg.Is(cookieWithNoVotes.Name))
-                .Returns(cookieWithNoVotes);
+                            .Returns(cookieWithNoVotes);
 
             voteRepository = Substitute.For<IVoteRepository>();
 
@@ -48,7 +49,7 @@ namespace DDDEastAnglia.Tests
         [Test]
         public void Record_The_EventID()
         {
-            controller.RegisterVote(KnownSessionId);
+            controller.RemoveVote(KnownSessionId);
 
             voteRepository.Received().Save(Arg.Is<Vote>(vote => vote.Event == "DDDEA2013"));
         }
@@ -56,7 +57,7 @@ namespace DDDEastAnglia.Tests
         [Test]
         public void Record_The_SessionId()
         {
-            controller.RegisterVote(KnownSessionId);
+            controller.RemoveVote(KnownSessionId);
 
             voteRepository.Received().Save(Arg.Is<Vote>(vote => vote.SessionId == KnownSessionId));
         }
@@ -64,7 +65,7 @@ namespace DDDEastAnglia.Tests
         [Test]
         public void Record_The_Cookie_Guid()
         {
-            controller.RegisterVote(KnownSessionId);
+            controller.RemoveVote(KnownSessionId);
 
             voteRepository.Received().Save(Arg.Is<Vote>(vote => vote.CookieId.Equals(cookieWithNoVotes.Id)));
         }
@@ -72,7 +73,7 @@ namespace DDDEastAnglia.Tests
         [Test]
         public void Record_The_Time_Of_The_Vote()
         {
-            controller.RegisterVote(1);
+            controller.RemoveVote(1);
 
             voteRepository.Received().Save(Arg.Is<Vote>(vote => vote.TimeRecorded == simulatedNow));
         }
@@ -80,9 +81,9 @@ namespace DDDEastAnglia.Tests
         [Test]
         public void Record_That_The_Vote_Is_Actually_A_Vote()
         {
-            controller.RegisterVote(1);
+            controller.RemoveVote(1);
 
-            voteRepository.Received().Save(Arg.Is<Vote>(vote => vote.IsVote));
+            voteRepository.Received().Save(Arg.Is<Vote>(vote => !vote.IsVote));
         }
     }
 }
