@@ -12,6 +12,15 @@ namespace DDDEastAnglia.Helpers.Context
         private DDDEAContext context = new DDDEAContext();
         private static readonly Regex IPV4AddressMatch = new Regex(@"\b(?<IPAddress>((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))\b", RegexOptions.Compiled);
 
+        public string UserAgent { get { return HttpContext.Current.Request.UserAgent; } }
+        public string Referrer 
+        { 
+            get
+            {
+                return HttpContext.Current.Request.UrlReferrer == null ? null : HttpContext.Current.Request.UrlReferrer.ToString();
+            }
+        }
+
         public string GetIPAddress()
         {
             var request = HttpContext.Current.Request;

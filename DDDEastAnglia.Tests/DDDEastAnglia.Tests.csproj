@@ -59,6 +59,7 @@
     <Compile Include="Voting\Given_That_I_Have_Voted_For_Several_Sessions_The_VoteController_Should.cs" />
     <Compile Include="Voting\Given_That_The_IPAddress_Is_Available_The_VoteController_Should.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Voting\Given_That_The_UserAgent_And_Referer_Are_Set_The_Vote_Controller_Should.cs" />
     <Compile Include="Voting\VoteHelper.cs" />
     <Compile Include="Voting\VotingTestBase.cs" />
   </ItemGroup>
