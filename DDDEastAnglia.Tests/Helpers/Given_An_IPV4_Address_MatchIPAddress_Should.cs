@@ -1,5 +1,5 @@
 ﻿using DDDEastAnglia.Helpers;
-using DDDEastAnglia.Helpers.HttpContext;
+using DDDEastAnglia.Helpers.Context;
 using NUnit.Framework;
 
 namespace DDDEastAnglia.Tests.Helpers
