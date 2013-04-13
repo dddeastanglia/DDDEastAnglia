@@ -1,6 +1,8 @@
 ﻿using System;
+using DDDEastAnglia.Controllers;
 using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.DataModel;
+using DDDEastAnglia.Helpers;
 using DDDEastAnglia.Models;
 using NSubstitute;
 using NUnit.Framework;
@@ -73,7 +75,7 @@ namespace DDDEastAnglia.Tests.Voting
             Controller.RemoveVote(SecondSessionVotedFor);
 
             VoteRepository.Received()
-                .Save(Arg.Is<Vote>(vote => vote.VoteHasBeenRemoved("DDDEA2013", SecondSessionVotedFor)));
+                .Delete(Arg.Is<int>(SecondSessionVotedFor), Arg.Is<Guid>(cookieWithTwoVotes.Id));
         }
     }
 }

@@ -60,12 +60,5 @@ namespace DDDEastAnglia.Tests.Voting
             VoteRepository.Received().Save(Arg.Is<Vote>(vote => vote.TimeRecorded == SimulatedNow));
         }
 
-        [Test]
-        public void Record_That_The_Vote_Is_Actually_A_Vote()
-        {
-            Controller.RegisterVote(1);
-
-            VoteRepository.Received().Save(Arg.Is<Vote>(vote => vote.IsVote));
-        }
     }
 }

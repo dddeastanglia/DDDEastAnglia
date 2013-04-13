@@ -1,7 +1,6 @@
 ﻿using System;
 using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.DataModel;
-using DDDEastAnglia.Helpers;
 using DDDEastAnglia.Models;
 using NSubstitute;
 using NUnit.Framework;
@@ -9,12 +8,13 @@ using NUnit.Framework;
 namespace DDDEastAnglia.Tests.Voting
 {
     [TestFixture]
-    public class Given_That_The_IPAddress_Is_Available_The_VoteController_Should : VotingTestBase
+    public class Given_A_SessionId_The_Vote_Controller_Should : VotingTestBase
     {
         private const int SessionIdToVoteFor = 1;
         private const int SessionIdToRemove = 2;
-        private const string LocalIpAddress = "127.0.0.1";
-        private static readonly int[] CurrentSessionIds = new[] {SessionIdToRemove};
+        private const string UserAgent = "A Browser";
+        private const string Referer = "http://www.referer.com";
+        private static readonly int[] CurrentSessionIds = new[] { SessionIdToRemove };
         private VotingCookie cookieWithOneVote;
 
         protected override void SetCookieRepositoryExpectations(IVotingCookieRepository repository)
@@ -22,7 +22,7 @@ namespace DDDEastAnglia.Tests.Voting
             base.SetCookieRepositoryExpectations(repository);
             cookieWithOneVote = new VotingCookie(Guid.NewGuid(), VotingCookie.CookieName, CurrentSessionIds, new DateTime(2013, 4, 30));
             repository.Get(Arg.Is(cookieWithOneVote.Name))
-                .Returns(cookieWithOneVote);
+                      .Returns(cookieWithOneVote);
         }
 
         protected override void SetSessionRepositoryExpectations(ISessionRepository sessionRepository)
@@ -32,18 +32,11 @@ namespace DDDEastAnglia.Tests.Voting
             sessionRepository.Exists(Arg.Is(SessionIdToRemove)).Returns(true);
         }
 
-        protected override void SetRequestInformationProviderExpectations(IRequestInformationProvider requestInformationProvider)
-        {
-            base.SetRequestInformationProviderExpectations(requestInformationProvider);
-            requestInformationProvider.GetIPAddress().Returns(LocalIpAddress);
-        }
-
         [Test]
-        public void Record_The_IPAddress_With_When_Creating_A_Vote()
+        public void Save_The_SessionId_With_The_Vote()
         {
             Controller.RegisterVote(SessionIdToVoteFor);
-
-            VoteRepository.Received().Save(Arg.Is<Vote>(vote => vote.IPAddress == LocalIpAddress));
+            VoteRepository.Received().Save(Arg.Is<Vote>(vote => vote.WebSessionId == DefaultSessionID));
         }
     }
 }

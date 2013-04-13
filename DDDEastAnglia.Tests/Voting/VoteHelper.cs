@@ -14,10 +14,6 @@ namespace DDDEastAnglia.Tests.Voting
             {
                 return false;
             }
-            if (!vote.IsVote)
-            {
-                return false;
-            }
             return true;
         }
 
@@ -28,10 +24,6 @@ namespace DDDEastAnglia.Tests.Voting
                 return false;
             }
             if (vote.SessionId != sessionRemoved)
-            {
-                return false;
-            }
-            if (vote.IsVote)
             {
                 return false;
             }
