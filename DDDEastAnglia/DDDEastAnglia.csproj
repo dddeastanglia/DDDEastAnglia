@@ -215,7 +215,13 @@
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\ProfileController.cs" />
-    <Compile Include="DataAccess\DataModel\Event.cs" />
+    <Compile Include="Controllers\VoteController.cs" />
+    <Compile Include="DataAccess\EntityFramework\EntityFrameworkSessionRepository.cs" />
+    <Compile Include="DataAccess\EntityFramework\EntityFrameworkVoteRepository.cs" />
+    <Compile Include="DataAccess\IRepository.cs" />
+    <Compile Include="DataAccess\ISessionRepository.cs" />
+    <Compile Include="DataAccess\IVoteRepository.cs" />
+    <Compile Include="DataModel\Event.cs" />
     <Compile Include="DataAccess\DDDEAContext.cs" />
     <Compile Include="App_Code\GitHubOAuthClient.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
@@ -225,9 +231,21 @@
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
     <Compile Include="Controllers\SpeakerController.cs" />
     <Compile Include="DataAccess\EventRepository.cs" />
+    <Compile Include="DataAccess\VotingCookieRepository.cs" />
+    <Compile Include="DataModel\Vote.cs" />
     <Compile Include="GlimpseSecurityPolicy.cs" />
+    <Compile Include="Helpers\TimeProvider.cs" />
     <Compile Include="HomeController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\EntityFramework\Migrations\201303302150305_InitialCreate.cs" />
+    <Compile Include="DataAccess\EntityFramework\Migrations\201303302150305_InitialCreate.Designer.cs">
+      <DependentUpon>201303302150305_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\EntityFramework\Migrations\Configuration.cs" />
+    <Compile Include="DataAccess\EntityFramework\Migrations\201304131227118_CreateVoteTable.cs" />
+    <Compile Include="DataAccess\EntityFramework\Migrations\201304131227118_CreateVoteTable.Designer.cs">
+      <DependentUpon>201304131227118_CreateVoteTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\ExternalLogin.cs" />
     <Compile Include="Models\GrokTalk.cs" />
@@ -238,12 +256,14 @@
     <Compile Include="Models\RegisterModel.cs" />
     <Compile Include="Models\SessionDisplayModel.cs" />
     <Compile Include="Models\SessionTweetLink.cs" />
+    <Compile Include="Models\SessionVoteModel.cs" />
     <Compile Include="Models\SpeakerDisplayModel.cs" />
     <Content Include="Images\sponsors\jetbrains.png" />
     <Content Include="Scripts\tweetbutton.js" />
     <Compile Include="ProfileController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\VotingCookie.cs" />
     <Compile Include="SessionController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
@@ -460,6 +480,7 @@
     <Content Include="Views\Profile\Edit.cshtml" />
     <Content Include="Views\Session\_SessionDetailsPartial.cshtml" />
     <Content Include="Views\Shared\_Banner.cshtml" />
+    <Content Include="Views\Vote\Status.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -490,6 +511,14 @@
     <ExcludeFromPackageFiles Include="appSettingsSecret.config">
       <FromTarget>Project</FromTarget>
     </ExcludeFromPackageFiles>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DataAccess\EntityFramework\Migrations\201303302150305_InitialCreate.resx">
+      <DependentUpon>201303302150305_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataAccess\EntityFramework\Migrations\201304131227118_CreateVoteTable.resx">
+      <DependentUpon>201304131227118_CreateVoteTable.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <!--This works for publishing web applications through Web Deploy 3.0 -->

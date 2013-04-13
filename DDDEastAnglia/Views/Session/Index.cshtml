@@ -1,5 +1,5 @@
 ﻿@using DDDEastAnglia.Models
-@model IEnumerable<SessionDisplayModel>
+@model SessionIndexModel
 
 @{
     ViewBag.Title = "Sessions";
@@ -10,9 +10,7 @@
     @Html.Partial("_Banner")
 }
 
-<h2>Sessions</h2>
-
-@foreach (var session in Model)
+@foreach (var session in Model.Sessions)
 {
-    @Html.Partial("_SessionDetailsPartial", session)
+    Html.RenderPartial("_SessionDetailsPartial", session);
 }

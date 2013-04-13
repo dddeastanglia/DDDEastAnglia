@@ -14,6 +14,7 @@ namespace DDDEastAnglia.Controllers
         private const string DefaultEventName = "DDDEA2013";
         private readonly DDDEAContext db = new DDDEAContext();
         private readonly EventRepository eventRepository = new EventRepository();
+        private readonly VotingCookieRepository votingCookieRepository = new VotingCookieRepository();
 
         // GET: /Session/
         [AllowAnonymous]
@@ -21,6 +22,7 @@ namespace DDDEastAnglia.Controllers
         {
             var speakersLookup = db.UserProfiles.ToDictionary(p => p.UserName, p => p);
             var sessions = db.Sessions;
+            var cookie = votingCookieRepository.Get(VotingCookie.CookieName);
 
             var allSessions = new List<SessionDisplayModel>();
 
@@ -32,7 +34,14 @@ namespace DDDEastAnglia.Controllers
             }
 
             allSessions.Sort(new SessionDisplayModelComparer());
-            return View(allSessions);
+            var defaultEvent = eventRepository.Get(DefaultEventName);
+            votingCookieRepository.Save(cookie);
+            return View(new SessionIndexModel
+                {
+                    Sessions = allSessions, 
+                    IsOpenForSubmission = defaultEvent.CanSubmit(),
+                    IsOpenForVoting = defaultEvent.CanVote()
+                });
         }
 
         // GET: /Session/Details/5
@@ -201,5 +210,7 @@ namespace DDDEastAnglia.Controllers
 
             return string.Compare(x.SessionTitle, y.SessionTitle, StringComparison.InvariantCultureIgnoreCase);
         }
+
+        
     }
 }

@@ -1,11 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using DDDEastAnglia.DataAccess.DataModel;
+using DDDEastAnglia.DataModel;
 
 namespace DDDEastAnglia.DataAccess
 {
-    public class EventRepository
+    public interface IEventRepository
+    {
+        IEnumerable<Event> GetAll();
+        Event Get(string shortName);
+    }
+
+    public class EventRepository : IEventRepository
     {
         public IEnumerable<Event> GetAll()
         {
