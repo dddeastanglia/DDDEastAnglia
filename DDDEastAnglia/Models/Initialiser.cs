@@ -1,9 +1,10 @@
 ﻿using System.Data.Entity;
 using DDDEastAnglia.DataAccess;
+using DDDEastAnglia.DataAccess.EntityFramework.Migrations;
 
 namespace DDDEastAnglia.Models
 {
-    public class Initialiser : CreateDatabaseIfNotExists<DDDEAContext>
+    internal class Initialiser : MigrateDatabaseToLatestVersion<DDDEAContext, Configuration>
     {
 
     }
