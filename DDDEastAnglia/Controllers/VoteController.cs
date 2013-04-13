@@ -1,5 +1,4 @@
-﻿using System;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.DataAccess.EntityFramework;
 using DDDEastAnglia.DataModel;
@@ -71,23 +70,8 @@ namespace DDDEastAnglia.Controllers
                 return RedirectToAction("Index", "Session");
             }
             cookie.Add(id);
-            var vote = new Vote
-                {
-                    Event = "DDDEA2013",
-                    IsVote = true,
-                    SessionId = id,
-                    CookieId = cookie.Id,
-                    TimeRecorded = _timeProvider.UtcNow,
-                    IPAddress = _requestInformationProvider.GetIPAddress(),
-                    UserAgent = _requestInformationProvider.UserAgent,
-                    Referer = _requestInformationProvider.Referrer
-                };
-            if (_requestInformationProvider.IsLoggedIn())
-            {
-                vote.UserId = _requestInformationProvider.GetCurrentUser().UserId;
-            }
+            var vote = ProcessVote(id, cookie, true);
             _voteRepository.Save(vote);
-            _votingCookieRepository.Save(cookie);
             return RedirectToAction("Index", "Session");
         }
 
@@ -99,24 +83,31 @@ namespace DDDEastAnglia.Controllers
                 return RedirectToAction("Index", "Session");
             }
             cookie.Remove(id);
+            _voteRepository.Delete(id, cookie.Id);
+            _votingCookieRepository.Save(cookie);
+            return RedirectToAction("Index", "Session");
+        }
+
+        private Vote ProcessVote(int id, VotingCookie cookie, bool isVote)
+        {
             var vote = new Vote
                 {
                     Event = "DDDEA2013",
-                    IsVote = false,
                     SessionId = id,
                     CookieId = cookie.Id,
                     TimeRecorded = _timeProvider.UtcNow,
                     IPAddress = _requestInformationProvider.GetIPAddress(),
                     UserAgent = _requestInformationProvider.UserAgent,
-                    Referer = _requestInformationProvider.Referrer
+                    Referrer = _requestInformationProvider.Referrer,
+                    WebSessionId = _requestInformationProvider.SessionId
                 };
             if (_requestInformationProvider.IsLoggedIn())
             {
                 vote.UserId = _requestInformationProvider.GetCurrentUser().UserId;
             }
-            _voteRepository.Save(vote);
+            
             _votingCookieRepository.Save(cookie);
-            return RedirectToAction("Index", "Session");
+            return vote;
         }
     }
 }

@@ -6,6 +6,7 @@ namespace DDDEastAnglia.Helpers
     {
         string UserAgent { get; }
         string Referrer { get; }
+        string SessionId { get; }
         string GetIPAddress();
         bool IsLoggedIn();
         UserProfile GetCurrentUser();

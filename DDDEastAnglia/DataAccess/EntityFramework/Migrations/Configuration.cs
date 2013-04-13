@@ -2,14 +2,14 @@ using System.Data.Entity.Migrations;
 
 namespace DDDEastAnglia.DataAccess.EntityFramework.Migrations
 {
-    internal sealed class Configuration : DbMigrationsConfiguration<DDDEastAnglia.DataAccess.DDDEAContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<DDDEAContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(DDDEastAnglia.DataAccess.DDDEAContext context)
+        protected override void Seed(DDDEAContext context)
         {
             //  This method will be called after migrating to the latest version.
 
