@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DDDEastAnglia.Controllers;
 using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.DataModel;
+using DDDEastAnglia.Helpers;
 using DDDEastAnglia.Models;
 using NSubstitute;
 using NUnit.Framework;
@@ -31,7 +32,7 @@ namespace DDDEastAnglia.Tests
         public void SetUp()
         {
             cookieRepository = Substitute.For<IVotingCookieRepository>();
-            cookieWithTwoVotes = new VotingCookie(VotingCookie.CookieName, SessionIdsVotedFor, new DateTime(2013, 4, 30));
+            cookieWithTwoVotes = new VotingCookie(Guid.NewGuid(), VotingCookie.CookieName, SessionIdsVotedFor, new DateTime(2013, 4, 30));
             cookieRepository.Get(Arg.Is(cookieWithTwoVotes.Name))
                 .Returns(cookieWithTwoVotes);
 
@@ -46,7 +47,7 @@ namespace DDDEastAnglia.Tests
             sessionRepository.Exists(Arg.Is(SessionNotVotedFor)).Returns(true);
             sessionRepository.Exists(Arg.Is(UnknownSessionId)).Returns(false);
 
-            controller = new VoteController(cookieRepository, voteRepository, sessionRepository, eventRepository);
+            controller = new VoteController(cookieRepository, voteRepository, sessionRepository, eventRepository, new TimeProvider());
         }
 
         [Test]

@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using DDDEastAnglia.DataModel;
 using DDDEastAnglia.Models;
 
 namespace DDDEastAnglia.DataAccess
@@ -12,5 +13,6 @@ namespace DDDEastAnglia.DataAccess
 
         public DbSet<UserProfile> UserProfiles { get; set; }
         public DbSet<Session> Sessions { get; set; }
+        public DbSet<Vote> Vote { get; set; }
     }
 }
