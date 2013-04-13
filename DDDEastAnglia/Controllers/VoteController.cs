@@ -58,7 +58,7 @@ namespace DDDEastAnglia.Controllers
             return PartialView(result);
         }
 
-        public ActionResult RegisterVote(int id)
+        public ActionResult RegisterVote(int id, int width = 0, int height = 0)
         {
             var cookie = _votingCookieRepository.Get(VotingCookie.CookieName);
             if (!_sessionRepository.Exists(id))
@@ -70,7 +70,7 @@ namespace DDDEastAnglia.Controllers
                 return RedirectToAction("Index", "Session");
             }
             cookie.Add(id);
-            var vote = ProcessVote(id, cookie, true);
+            var vote = ProcessVote(id, cookie, width, height);
             _voteRepository.Save(vote);
             return RedirectToAction("Index", "Session");
         }
@@ -88,7 +88,7 @@ namespace DDDEastAnglia.Controllers
             return RedirectToAction("Index", "Session");
         }
 
-        private Vote ProcessVote(int id, VotingCookie cookie, bool isVote)
+        private Vote ProcessVote(int id, VotingCookie cookie, int width, int height)
         {
             var vote = new Vote
                 {
@@ -105,7 +105,10 @@ namespace DDDEastAnglia.Controllers
             {
                 vote.UserId = _requestInformationProvider.GetCurrentUser().UserId;
             }
-            
+            if (width != 0 || height != 0)
+            {
+                vote.ScreenResolution = string.Format("{0}x{1}", width, height);
+            }
             _votingCookieRepository.Save(cookie);
             return vote;
         }
