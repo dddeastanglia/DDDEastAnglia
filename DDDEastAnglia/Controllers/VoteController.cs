@@ -17,7 +17,6 @@ namespace DDDEastAnglia.Controllers
         private readonly IEventRepository _eventRepository;
         private readonly ITimeProvider _timeProvider;
         private readonly IRequestInformationProvider _requestInformationProvider;
-        private readonly IUserProvider _userProvider;
 
         public VoteController() 
             : this(new VotingCookieRepository(), 
@@ -25,8 +24,7 @@ namespace DDDEastAnglia.Controllers
                    new EntityFrameworkSessionRepository(), 
                    new EventRepository(), 
                    new TimeProvider(),
-                   new HttpContextRequestInformationProvider(),
-                   new HttpContextUserProvider())
+                   new HttpContextRequestInformationProvider())
         {
             
         }
@@ -36,8 +34,7 @@ namespace DDDEastAnglia.Controllers
             ISessionRepository sessionRepository, 
             IEventRepository eventRepository, 
             ITimeProvider timeProvider,
-            IRequestInformationProvider requestInformationProvider,
-            IUserProvider userProvider)
+            IRequestInformationProvider requestInformationProvider)
         {
             _votingCookieRepository = votingCookieRepository;
             _voteRepository = voteRepository;
@@ -45,7 +42,6 @@ namespace DDDEastAnglia.Controllers
             _eventRepository = eventRepository;
             _timeProvider = timeProvider;
             _requestInformationProvider = requestInformationProvider;
-            _userProvider = userProvider;
         }
 
         public ActionResult Status(int sessionId)
@@ -84,9 +80,9 @@ namespace DDDEastAnglia.Controllers
                     TimeRecorded = _timeProvider.UtcNow,
                     IPAddress = _requestInformationProvider.GetIPAddress()
                 };
-            if (_userProvider.IsLoggedIn())
+            if (_requestInformationProvider.IsLoggedIn())
             {
-                vote.UserId = _userProvider.GetCurrentUser().UserId;
+                vote.UserId = _requestInformationProvider.GetCurrentUser().UserId;
             }
             _voteRepository.Save(vote);
             _votingCookieRepository.Save(cookie);
@@ -110,9 +106,9 @@ namespace DDDEastAnglia.Controllers
                     TimeRecorded = _timeProvider.UtcNow,
                     IPAddress = _requestInformationProvider.GetIPAddress()
                 };
-            if (_userProvider.IsLoggedIn())
+            if (_requestInformationProvider.IsLoggedIn())
             {
-                vote.UserId = _userProvider.GetCurrentUser().UserId;
+                vote.UserId = _requestInformationProvider.GetCurrentUser().UserId;
             }
             _voteRepository.Save(vote);
             _votingCookieRepository.Save(cookie);
