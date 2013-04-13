@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\Given_An_IPV4_Address_MatchIPAddress_Should.cs" />
     <Compile Include="Voting\CookieHelper.cs" />
     <Compile Include="EventHelper.cs" />
     <Compile Include="Voting\Given_That_I_Am_Registering_A_Vote_The_VoteController_Should.cs" />
