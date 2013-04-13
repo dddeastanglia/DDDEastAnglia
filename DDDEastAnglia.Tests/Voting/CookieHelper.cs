@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using DDDEastAnglia.Models;
-using NUnit.Framework;
 
-namespace DDDEastAnglia.Tests
+namespace DDDEastAnglia.Tests.Voting
 {
     public static class CookieHelper
     {

@@ -49,14 +49,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CookieHelper.cs" />
+    <Compile Include="Voting\CookieHelper.cs" />
     <Compile Include="EventHelper.cs" />
-    <Compile Include="Given_That_I_Am_Registering_A_Vote_The_VoteController_Should.cs" />
-    <Compile Include="Given_That_I_Am_Removing_A_Vote_The_VoteController_Should.cs" />
-    <Compile Include="Given_That_I_Have_Not_Voted_The_VoteController_Should.cs" />
-    <Compile Include="Given_That_I_Have_Voted_For_Several_Sessions_The_VoteController_Should.cs" />
+    <Compile Include="Voting\Given_That_I_Am_Registering_A_Vote_The_VoteController_Should.cs" />
+    <Compile Include="Voting\Given_That_I_Am_Removing_A_Vote_The_VoteController_Should.cs" />
+    <Compile Include="Voting\Given_That_I_Have_Not_Voted_The_VoteController_Should.cs" />
+    <Compile Include="Voting\Given_That_I_Have_Voted_For_Several_Sessions_The_VoteController_Should.cs" />
+    <Compile Include="Voting\Given_That_The_IPAddress_Is_Available_The_VoteController_Should.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="VoteHelper.cs" />
+    <Compile Include="Voting\VoteHelper.cs" />
+    <Compile Include="Voting\VotingTestBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
