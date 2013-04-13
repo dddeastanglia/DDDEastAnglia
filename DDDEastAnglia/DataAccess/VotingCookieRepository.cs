@@ -29,14 +29,14 @@ namespace DDDEastAnglia.DataAccess
             var sessionList = cookie[SessionListKey];
             if (string.IsNullOrWhiteSpace(sessionList))
             {
-                return new VotingCookie(cookieId, cookieName, cookie.Expires);
+                return new VotingCookie(cookieId, cookieName, VotingCookie.DefaultExpiry);
             }
             var sessionIds = sessionList
                                 .Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
                                 .Select(TryParse)
                                 .Where(val => val.HasValue)
                                 .Select(val => val.Value);
-            return new VotingCookie(cookieId, cookieName, sessionIds, cookie.Expires);
+            return new VotingCookie(cookieId, cookieName, sessionIds, VotingCookie.DefaultExpiry);
         }
 
         public void Update(VotingCookie entity)
@@ -46,12 +46,16 @@ namespace DDDEastAnglia.DataAccess
 
         public void Save(VotingCookie cookie)
         {
+            if (!HttpContext.Current.Request.Browser.Cookies)
+            {
+                return;
+            }
             var listOfSessions = string.Join(",", cookie.SessionsVotedFor.ToArray());
             var httpCookie = new HttpCookie(cookie.Name);
             httpCookie.Expires = cookie.Expires;
             httpCookie[IdKey] = cookie.Id.ToString();
             httpCookie[SessionListKey] = listOfSessions;
-            HttpContext.Current.Response.Cookies.Set(httpCookie);
+            HttpContext.Current.Response.SetCookie(httpCookie);
         }
 
         public void Delete(VotingCookie entity)
