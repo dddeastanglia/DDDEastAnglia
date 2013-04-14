@@ -59,13 +59,18 @@ namespace DDDEastAnglia.Controllers
         public ActionResult RegisterVote(int id, VoteModel voteModel = null)
         {
             var cookie = _votingCookieRepository.Get(VotingCookie.CookieName);
+            var currentEvent = _eventRepository.Get("DDDEA2013");
             if (!_sessionRepository.Exists(id))
             {
-                return RedirectToAction("Index", "Session");
+                return RedirectOrReturnPartialView(id, cookie);
             }
             if (cookie.Contains(id))
             {
-                return RedirectToAction("Index", "Session");
+                return RedirectOrReturnPartialView(id, cookie);
+            }
+            if (currentEvent == null || !currentEvent.CanVote())
+            {
+                return RedirectOrReturnPartialView(id, cookie);
             }
             var width = voteModel.Width;
             var height = voteModel.Height;
@@ -80,9 +85,14 @@ namespace DDDEastAnglia.Controllers
         public ActionResult RemoveVote(int id, VoteModel voteModel = null)
         {
             var cookie = _votingCookieRepository.Get(VotingCookie.CookieName);
+            var currentEvent = _eventRepository.Get("DDDEA2013");
             if (!cookie.Contains(id))
             {
-                return RedirectToAction("Index", "Session");
+                return RedirectOrReturnPartialView(id, cookie);
+            }
+            if (currentEvent == null || !currentEvent.CanVote())
+            {
+                return RedirectOrReturnPartialView(id, cookie);
             }
             cookie.Remove(id);
             _voteRepository.Delete(id, cookie.Id);
