@@ -1,6 +1,8 @@
 ﻿
 $(function () {
-    $('.voting').replaceSubmit($(this), onVoteComplete($(this)));
+    $('.voting').each(function(index) {
+        replaceSubmit($(this), onVoteComplete($(this)));
+    });
     
     function replaceSubmit(voteSpan, handler) {
         voteSpan.find('form').submit(function (e) {
@@ -11,14 +13,17 @@ $(function () {
             $.post(
                 this.action,
                 data,
-                onVoteComplete(voteSpan)
+                handler
             );
         });
     }
     
     function onVoteComplete(voteSpan) {
-        return function(response) {
+        return function (response) {
+            var id = voteSpan.attr('id');
             voteSpan.replaceWith(response);
+            var newItem = $('#' + id);
+            replaceSubmit(newItem, onVoteComplete(newItem));
         };
     }
 });
