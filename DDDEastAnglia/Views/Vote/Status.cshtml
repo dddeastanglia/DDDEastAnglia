@@ -1,9 +1,8 @@
 ﻿@model DDDEastAnglia.Models.SessionVoteModel
 
-
 @if (Model.UserCanVote && Model.VotedForByUser)
 {
-    <span class="voting">
+    <span id="@("Vote" + Model.SessionId)" class="voting">
     @using (Html.BeginForm("RemoveVote", "Vote", new { id = Model.SessionId}))
     {
         <button type="submit" class="remove-vote">Remove vote</button>
@@ -12,7 +11,7 @@
 }
 else if (Model.UserCanVote && !Model.VotedForByUser)
 {
-    <span class="voting">
+    <span id="@("Vote" + Model.SessionId)" class="voting">
     @using (Html.BeginForm("RegisterVote", "Vote", new {id = Model.SessionId}))
     {
         <button type="submit" class="add-vote">Vote</button>

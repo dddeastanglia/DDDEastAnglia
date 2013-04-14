@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.DataAccess.EntityFramework;
 using DDDEastAnglia.Models;
+using DDDEastAnglia.Mvc.Attributes;
 
 namespace DDDEastAnglia.Controllers
 {
@@ -19,6 +20,7 @@ namespace DDDEastAnglia.Controllers
 
         // GET: /Session/
         [AllowAnonymous]
+        [AllowCrossSiteJson]
         public virtual ActionResult Index()
         {
             var speakersLookup = db.UserProfiles.ToDictionary(p => p.UserName, p => p);
@@ -37,6 +39,7 @@ namespace DDDEastAnglia.Controllers
             allSessions.Sort(new SessionDisplayModelComparer());
             var defaultEvent = eventRepository.Get(DefaultEventName);
             votingCookieRepository.Save(cookie);
+            Response.AppendHeader("Access-Control-Allow-Origin", "http://www.dddeastanglia.com, http://www.dddeastanglia.co.uk, http://dddeastanglia.com, http://dddeastanglia.co.uk");
             return View(new SessionIndexModel
                 {
                     Sessions = allSessions, 
