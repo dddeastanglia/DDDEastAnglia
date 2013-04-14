@@ -61,6 +61,8 @@ namespace DDDEastAnglia
 
             AddStyleBundle(bundles, "~/bundles/tweetbutton",
                            "~/Scripts/tweetbutton.js");
+
+            AddScriptBundle(bundles, "~/bundles/on-page-voting", "~/Scripts/on-page-voting.js");
         }
 
         private static void AddScriptBundle(BundleCollection bundles, string virtualPath, params string[] scriptFiles)
