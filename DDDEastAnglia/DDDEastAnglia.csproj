@@ -239,6 +239,10 @@
     <Compile Include="Models\SessionDisplayModel.cs" />
     <Compile Include="Models\SessionTweetLink.cs" />
     <Compile Include="Models\SpeakerDisplayModel.cs" />
+    <Content Include="Images\logo-icon-114.png" />
+    <Content Include="Images\logo-icon-144.png" />
+    <Content Include="Images\logo-icon-57.png" />
+    <Content Include="Images\logo-icon-72.png" />
     <Content Include="Images\sponsors\jetbrains.png" />
     <Content Include="Scripts\tweetbutton.js" />
     <Compile Include="ProfileController.generated.cs">
