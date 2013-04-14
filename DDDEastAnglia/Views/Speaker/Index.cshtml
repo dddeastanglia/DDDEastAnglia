@@ -5,6 +5,11 @@
     ViewBag.Title = "Speakers";
 }
 
+@section featured
+{
+    @Html.Partial("_Banner")
+}
+
 <h2>Speakers</h2>
 
 @foreach (var speaker in Model)
@@ -15,7 +20,13 @@
             <section class="links">
                 @if (!string.IsNullOrWhiteSpace(speaker.WebsiteUrl))
                 {
-                    <p><i class="icon-globe" style="color:green"></i> <a href="@speaker.WebsiteUrl">@speaker.WebsiteUrl</a></p>
+                    string websiteUrl = speaker.WebsiteUrl;
+
+                    if (!websiteUrl.StartsWith("http"))
+                    {
+                        websiteUrl = string.Format("http://{0}", websiteUrl);
+                    }
+                    <p><i class="icon-globe" style="color:green"></i> <a href="@websiteUrl">@websiteUrl</a></p>
                 }
 
                 @if (!string.IsNullOrWhiteSpace(speaker.TwitterHandle))
