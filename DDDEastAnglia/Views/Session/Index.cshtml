@@ -1,16 +1,17 @@
-﻿@using DDDEastAnglia.Models
+﻿@using DDDEastAnglia.DataAccess
+@using DDDEastAnglia.Models
 @model IEnumerable<SessionDisplayModel>
 
 @{
     ViewBag.Title = "Sessions";
 }
 
-@section featured
-{
-    @Html.Partial("_Banner")
-}
-
 <h2>Sessions</h2>
+
+@if (new EventRepository().Get("DDDEA2013").CanSubmit())
+{
+    <p>Session submission is now open. If you would like to speak at @Html.DDDEastAnglia(), please @Html.ActionLink("submit a session", "Create", "Session", null, new { @class = "submit-session" }).</p>
+}
 
 @foreach (var session in Model)
 {
