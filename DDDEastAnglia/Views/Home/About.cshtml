@@ -3,23 +3,78 @@
 }
 
 <div class="row-fluid">
-    <div class="span3">
+    @*<div class="span3">
         <ul class="nav nav-list affix sidenav">
             <li><a href="#sessions"><i class="icon-chevron-right"></i> Session Submissions</a></li>
             <li><a href="#voting"><i class="icon-chevron-right"></i> Session Voting</a></li>
         </ul>
-    </div>
+    </div>*@
     
-    <div class="span6">
+    <div class="span9">
         <div class="page-header">
             <h1>About DDD East Anglia</h1>
         </div>
+
+        <p>
+            Developer! Developer! Developer! (DDD) East Anglia is the newest event in the popular series of Developer Days events for the UK .NET Community that
+            have run since
+            <strong>SOME TIME AGO</strong>.
+            Although each DDD event has its own particular "flavour", they remain immensely popular and enjoyable, regularly attracting 200-300 attendees and often
+            selling out within minutes.
+        </p>
+
+        <p>
+            DDD events were started on the following five principles, which we intend to adhere to in their spirit:
+        </p>
+        <ol>
+            <li>For the community by the community</li>
+            <li>Free to attend</li>
+            <li>Held on a Saturday or non-work day</li>
+            <li>No Microsoft speakers (with some exceptions)</li>
+            <li>Grow the local speaker community</li>
+        </ol>
+
+        <p>
+            <a href="#sessions">Sessions</a> are @Html.ActionLink("submitted", "Create", "Session") by members of the community and <a href="#voting">selected</a>
+            by attendees. With some exceptions, Microsoft speakers are not permitted to speak at DDD events; the exceptions to this rule are Microsoft employees who
+            are active members of the UK .NET community. In short, these are sessions crafted <em>by</em> developers <em>for</em> developers, with no sales pitches
+            allowed!
+        </p>
 
         <h2 id="sessions">Session Submission FAQs</h2>
         <h3 id="submissions-open">When do submissions open?</h3>
         <p>
             Session submissions usually opens a couple of months in advance of the DDD event. This allows us time to collate all the submissions,
-            vote on the submissions, and create an agenda for the day from the results of the voting process.  
+            <a href="#voting">vote</a> on the submissions, and create an agenda for the day from the results of the voting process.
+        </p>
+
+        <h3 id="session-length">How long should my session be?</h3>
+        <p>
+            Sessions at DDD events last for one hour.
+        </p>
+
+        <h3 id="session-topics">What topics do you accept sessions on?</h3>
+        <p>
+            Anything relevant to a .NET developer! Other DDD events have seen submissions on the Raspberry Pi and Gadgeteer, Unit Testing and Test-Driven Development, NoSQL
+            databases like RavenDB and Redis, JavaScript, mobile devices; and softer topics such as best practices, agile software development, and taking your side project
+            to a prime time business.
+        </p>
+        
+        <h3 id="session-format">What format do sessions at DDD events take?</h3>
+        <p>
+            DDD sessions are usually single-speaker talks on a specific subject, although some have featured multiple speakers. Technical sessions, particularly those
+            featuring hardware elements (e.g., Raspberry Pi) 
+        </p>
+        <p>
+            Some DDD events have run panel discussions and <a href="http://en.wikipedia.org/wiki/Balloon_debate">balloon debates</a>. These are usually at the inception of
+            the event organisers rather than through submissions.
+        </p>
+        
+        <h3 id="session-expertise">Do I need to be an expert in my topic?</h3>
+        <p>
+            <strong>No.</strong> One of the aims of DDD events is to grow the local speaker community, which means favouring new speakers as well as local speakers. DDD
+            audiences are interested in hearing about what you've learned about the topic that you are speaking on; being introduced to a new topic, idea, or technology;
+            or hearing about your experiences with a project you have been working on.  
         </p>
 
         <h2 id="voting">Voting FAQs</h2>
