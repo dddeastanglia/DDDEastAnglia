@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Web.Mvc;
 using DDDEastAnglia.DataAccess;
-using DDDEastAnglia.DataAccess.DataModel;
+using DDDEastAnglia.DataModel;
 using DDDEastAnglia.Models;
 
 namespace DDDEastAnglia.Controllers

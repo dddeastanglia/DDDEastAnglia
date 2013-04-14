@@ -37,9 +37,8 @@ namespace DDDEastAnglia.Controllers
             }
 
             allSessions.Sort(new SessionDisplayModelComparer());
-            var defaultEvent = eventRepository.Get(DefaultEventName);
             votingCookieRepository.Save(cookie);
-            Response.AppendHeader("Access-Control-Allow-Origin", "http://www.dddeastanglia.com, http://www.dddeastanglia.co.uk, http://dddeastanglia.com, http://dddeastanglia.co.uk");
+            var defaultEvent = eventRepository.Get(DefaultEventName);
             return View(new SessionIndexModel
                 {
                     Sessions = allSessions,
