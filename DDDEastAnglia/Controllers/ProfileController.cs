@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.Linq;
 using System.Web.Mvc;
 using DDDEastAnglia.DataAccess;
@@ -17,11 +18,20 @@ namespace DDDEastAnglia.Controllers
             ViewBag.Message = message;
             return View(profile);
         }
-        
+
         [HttpPost]
         public virtual ActionResult UserProfile(UserProfile profile)
         {
             string message = string.Empty;
+
+            if (!string.IsNullOrWhiteSpace(profile.WebsiteUrl))
+            {
+                if (!Uri.IsWellFormedUriString(string.Format("http://{0}", profile.WebsiteUrl), UriKind.Absolute))
+                {
+                    ModelState.AddModelError(key: "WebsiteUrl", errorMessage: "The website url doesn't appear to be a valid URL!");
+                    message = "The website url doesn't appear to be a valid URL!";
+                }
+            }
 
             if (ModelState.IsValid)
             {
