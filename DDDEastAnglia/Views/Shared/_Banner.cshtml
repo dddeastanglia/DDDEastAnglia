@@ -1,5 +1,5 @@
 ﻿@using DDDEastAnglia.DataAccess
-@using DDDEastAnglia.DataAccess.DataModel
+@using DDDEastAnglia.DataModel
 
 @{
     var eventRepository = new EventRepository();
@@ -20,6 +20,6 @@ else if (@dddevent.CanVote())
 {
     <div id="notifications-banner" data-expires="@votingEnds.Date.ToString("R")">
         <span class="dismiss"><a href="#" title="Dismiss this notification">&times;</a></span>
-        <p>Session voting is now open. Please @Html.ActionLink("vote on the sessions", "Vote", "Session") you would like to see at DDD East Anglia.</p>
+        <p>Session voting is now open. Please @Html.ActionLink("vote on the sessions", "Index", "Session") you would like to see at DDD East Anglia.</p>
     </div>                                
 }
