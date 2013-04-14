@@ -5,6 +5,7 @@ using DDDEastAnglia.DataModel;
 using DDDEastAnglia.Helpers;
 using DDDEastAnglia.Helpers.Context;
 using DDDEastAnglia.Models;
+using DDDEastAnglia.Mvc.Attributes;
 
 namespace DDDEastAnglia.Controllers
 {
@@ -43,22 +44,19 @@ namespace DDDEastAnglia.Controllers
             _requestInformationProvider = requestInformationProvider;
         }
 
-        public ActionResult Status(int sessionId)
+        public ActionResult Status(int id)
         {
-            if (!_sessionRepository.Exists(sessionId))
+            if (!_sessionRepository.Exists(id))
             {
-                return PartialView(new SessionVoteModel {SessionId = sessionId, UserCanVote = false, VotedForByUser = false});
+                return PartialView(new SessionVoteModel {SessionId = id, UserCanVote = false, VotedForByUser = false});
             }
             var cookie = _votingCookieRepository.Get(VotingCookie.CookieName);
-            var currentEvent = _eventRepository.Get("DDDEA2013");
-            var result = new SessionVoteModel();
-            result.SessionId = sessionId;
-            result.UserCanVote = currentEvent != null && currentEvent.CanVote();
-            result.VotedForByUser = cookie.Contains(sessionId);
-            return PartialView(result);
+            return GetVotePartialView(id, cookie);
         }
 
-        public ActionResult RegisterVote(int id, int width = 0, int height = 0)
+        [HttpPost]
+        [AllowCrossSiteJson]
+        public ActionResult RegisterVote(int id, VoteModel voteModel = null)
         {
             var cookie = _votingCookieRepository.Get(VotingCookie.CookieName);
             if (!_sessionRepository.Exists(id))
@@ -69,13 +67,17 @@ namespace DDDEastAnglia.Controllers
             {
                 return RedirectToAction("Index", "Session");
             }
+            var width = voteModel.Width;
+            var height = voteModel.Height;
             cookie.Add(id);
             var vote = ProcessVote(id, cookie, width, height);
             _voteRepository.Save(vote);
-            return RedirectToAction("Index", "Session");
+            return RedirectOrReturnPartialView(id, cookie);
         }
 
-        public ActionResult RemoveVote(int id)
+        [HttpPost]
+        [AllowCrossSiteJson]
+        public ActionResult RemoveVote(int id, VoteModel voteModel = null)
         {
             var cookie = _votingCookieRepository.Get(VotingCookie.CookieName);
             if (!cookie.Contains(id))
@@ -85,7 +87,14 @@ namespace DDDEastAnglia.Controllers
             cookie.Remove(id);
             _voteRepository.Delete(id, cookie.Id);
             _votingCookieRepository.Save(cookie);
-            return RedirectToAction("Index", "Session");
+            return RedirectOrReturnPartialView(id, cookie);
+        }
+
+        private ActionResult RedirectOrReturnPartialView(int sessionId, VotingCookie cookie)
+        {
+            return Request.IsAjaxRequest()
+                       ? RedirectToAction("Status", new { id = sessionId})
+                       : RedirectToAction("Index", "Session");
         }
 
         private Vote ProcessVote(int id, VotingCookie cookie, int width, int height)
@@ -112,5 +121,22 @@ namespace DDDEastAnglia.Controllers
             _votingCookieRepository.Save(cookie);
             return vote;
         }
+
+        private ActionResult GetVotePartialView(int sessionId, VotingCookie cookie)
+        {
+            var currentEvent = _eventRepository.Get("DDDEA2013");
+            var result = new SessionVoteModel();
+            result.SessionId = sessionId;
+            result.UserCanVote = currentEvent != null && currentEvent.CanVote();
+            result.VotedForByUser = cookie.Contains(sessionId);
+            return PartialView(result);
+        }
+    }
+
+    public class VoteModel
+    {
+        public int Height { get; set; }
+        public int Width { get; set; }
+        public string From { get; set; }
     }
 }

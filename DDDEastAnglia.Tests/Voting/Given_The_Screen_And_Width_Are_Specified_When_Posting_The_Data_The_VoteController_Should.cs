@@ -39,32 +39,32 @@ namespace DDDEastAnglia.Tests.Voting
             requestInformationProvider.Referrer.Returns(Referer);
         }
 
-        [Test]
-        public void Save_The_Screen_Resolution_With_The_Vote()
-        {
-            Controller.RegisterVote(SessionIdToVoteFor, 1024, 768);
-            VoteRepository.Received().Save(Arg.Is<Vote>(vote => vote.ScreenResolution == "1024x768"));
-        }
+        //[Test]
+        //public void Save_The_Screen_Resolution_With_The_Vote()
+        //{
+        //    Controller.RegisterVote(SessionIdToVoteFor, 1024, 768);
+        //    VoteRepository.Received().Save(Arg.Is<Vote>(vote => vote.ScreenResolution == "1024x768"));
+        //}
 
-        [Test]
-        public void Save_The_Height_If_The_Width_Is_Zero_With()
-        {
-            Controller.RegisterVote(SessionIdToVoteFor, 0, 768);
-            VoteRepository.Received().Save(Arg.Is<Vote>(vote => vote.ScreenResolution == "0x768"));
-        }
+        //[Test]
+        //public void Save_The_Height_If_The_Width_Is_Zero_With()
+        //{
+        //    Controller.RegisterVote(SessionIdToVoteFor, 0, 768);
+        //    VoteRepository.Received().Save(Arg.Is<Vote>(vote => vote.ScreenResolution == "0x768"));
+        //}
 
-        [Test]
-        public void Save_The_Width_If_The_Height_Is_Zero_With()
-        {
-            Controller.RegisterVote(SessionIdToVoteFor, 1024, 0);
-            VoteRepository.Received().Save(Arg.Is<Vote>(vote => vote.ScreenResolution == "1024x0"));
-        }
+        //[Test]
+        //public void Save_The_Width_If_The_Height_Is_Zero_With()
+        //{
+        //    Controller.RegisterVote(SessionIdToVoteFor, 1024, 0);
+        //    VoteRepository.Received().Save(Arg.Is<Vote>(vote => vote.ScreenResolution == "1024x0"));
+        //}
 
-        [Test]
-        public void Save_Nothing_If_The_Width_And_Height_Zero()
-        {
-            Controller.RegisterVote(SessionIdToVoteFor, 0, 0);
-            VoteRepository.Received().Save(Arg.Is<Vote>(vote => vote.ScreenResolution == null));
-        }
+        //[Test]
+        //public void Save_Nothing_If_The_Width_And_Height_Zero()
+        //{
+        //    Controller.RegisterVote(SessionIdToVoteFor, 0, 0);
+        //    VoteRepository.Received().Save(Arg.Is<Vote>(vote => vote.ScreenResolution == null));
+        //}
     }
 }
