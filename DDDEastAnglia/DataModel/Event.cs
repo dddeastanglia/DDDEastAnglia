@@ -70,8 +70,8 @@ namespace DDDEastAnglia.DataModel
         {
             PreConferenceAgendaItem votingStart;
             PreConferenceAgendaItem votingEnd;
-            if (_items.TryGetValue(DateType.SubmissionStarts, out votingStart)
-                && _items.TryGetValue(DateType.SubmissionEnds, out votingEnd))
+            if (_items.TryGetValue(DateType.VotingStarts, out votingStart)
+                && _items.TryGetValue(DateType.VotingEnds, out votingEnd))
             {
                 return votingStart.Date <= date
                        && date <= votingEnd.Date;
