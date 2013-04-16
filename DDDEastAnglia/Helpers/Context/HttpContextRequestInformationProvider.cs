@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
@@ -47,6 +48,8 @@ namespace DDDEastAnglia.Helpers.Context
         {
             return context.UserProfiles.FirstOrDefault(profile => profile.UserName == HttpContext.Current.User.Identity.Name);
         }
+
+        public DateTime UtcNow { get { return DateTime.UtcNow; } }
 
         public static string MatchIPAddress(string potentialIPAddress)
         {
