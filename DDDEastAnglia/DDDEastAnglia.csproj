@@ -238,7 +238,6 @@
     <Compile Include="Helpers\Context\HttpCookieVoteRepository.cs" />
     <Compile Include="Helpers\ICurrentUserVoteRepository.cs" />
     <Compile Include="Helpers\IRequestInformationProvider.cs" />
-    <Compile Include="Helpers\TimeProvider.cs" />
     <Compile Include="HomeController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>

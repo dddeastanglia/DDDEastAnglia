@@ -14,14 +14,12 @@ namespace DDDEastAnglia.Controllers
         private readonly ICurrentUserVoteRepository _currentUserVoteRepository;
         private readonly ISessionRepository _sessionRepository;
         private readonly IEventRepository _eventRepository;
-        private readonly ITimeProvider _timeProvider;
         private readonly IRequestInformationProvider _requestInformationProvider;
 
         public VoteController() 
             : this(new HttpCookieVoteRepository(new EntityFrameworkVoteRepository()), 
                    new EntityFrameworkSessionRepository(), 
                    new EventRepository(), 
-                   new TimeProvider(),
                    new HttpContextRequestInformationProvider())
         {
             
@@ -30,13 +28,11 @@ namespace DDDEastAnglia.Controllers
         public VoteController(ICurrentUserVoteRepository currentUserVoteRepository, 
             ISessionRepository sessionRepository, 
             IEventRepository eventRepository, 
-            ITimeProvider timeProvider,
             IRequestInformationProvider requestInformationProvider)
         {
             _currentUserVoteRepository = currentUserVoteRepository;
             _sessionRepository = sessionRepository;
             _eventRepository = eventRepository;
-            _timeProvider = timeProvider;
             _requestInformationProvider = requestInformationProvider;
         }
 
@@ -76,7 +72,7 @@ namespace DDDEastAnglia.Controllers
                         {
                             Event = "DDDEA2013",
                             SessionId = id,
-                            TimeRecorded = _timeProvider.UtcNow,
+                            TimeRecorded = _requestInformationProvider.UtcNow,
                             IPAddress = _requestInformationProvider.GetIPAddress(),
                             UserAgent = _requestInformationProvider.UserAgent,
                             Referrer = _requestInformationProvider.Referrer,

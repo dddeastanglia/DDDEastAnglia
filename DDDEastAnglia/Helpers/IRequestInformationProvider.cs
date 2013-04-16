@@ -1,4 +1,4 @@
-﻿using System.Web.Mvc;
+﻿using System;
 using DDDEastAnglia.Models;
 
 namespace DDDEastAnglia.Helpers
@@ -12,5 +12,6 @@ namespace DDDEastAnglia.Helpers
         string GetIPAddress();
         bool IsLoggedIn();
         UserProfile GetCurrentUser();
+        DateTime UtcNow { get; }
     }
 }
