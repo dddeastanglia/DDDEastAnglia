@@ -48,15 +48,14 @@ namespace DDDEastAnglia.Controllers
         {
             if (!_sessionRepository.Exists(id))
             {
-                return PartialView(new SessionVoteModel {SessionId = id, UserCanVote = false, VotedForByUser = false});
+                return new EmptyResult();
             }
             var cookie = _votingCookieRepository.Get(VotingCookie.CookieName);
             var currentEvent = _eventRepository.Get("DDDEA2013");
             var result = new SessionVoteModel();
             result.SessionId = id;
-            result.UserCanVote = currentEvent != null && currentEvent.CanVote();
             result.VotedForByUser = cookie.Contains(id);
-            return PartialView(result);
+            return currentEvent.CanVote() ? PartialView(result) as ActionResult : new EmptyResult();
         }
 
         [HttpPost]
