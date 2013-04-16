@@ -8,29 +8,29 @@ namespace DDDEastAnglia.DataAccess.EntityFramework.Migrations
         {
             CreateTable(
                 "dbo.UserProfile",
-                c => new
+                columnBuilder => new
                     {
-                        UserId = c.Int(nullable: false, identity: true),
-                        UserName = c.String(),
-                        Name = c.String(nullable: false),
-                        EmailAddress = c.String(nullable: false),
-                        WebsiteUrl = c.String(),
-                        TwitterHandle = c.String(),
-                        Bio = c.String(),
-                        MobilePhone = c.String(),
-                        NewSpeaker = c.Boolean(nullable: false),
+                        UserId = columnBuilder.Int(nullable: false, identity: true),
+                        UserName = columnBuilder.String(),
+                        Name = columnBuilder.String(nullable: false),
+                        EmailAddress = columnBuilder.String(nullable: false),
+                        WebsiteUrl = columnBuilder.String(),
+                        TwitterHandle = columnBuilder.String(),
+                        Bio = columnBuilder.String(),
+                        MobilePhone = columnBuilder.String(),
+                        NewSpeaker = columnBuilder.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.UserId);
             
             CreateTable(
                 "dbo.Sessions",
-                c => new
+                columnBuilder => new
                     {
-                        SessionId = c.Int(nullable: false, identity: true),
-                        Title = c.String(nullable: false),
-                        Abstract = c.String(nullable: false),
-                        SpeakerUserName = c.String(),
-                        Votes = c.Int(nullable: false),
+                        SessionId = columnBuilder.Int(nullable: false, identity: true),
+                        Title = columnBuilder.String(nullable: false),
+                        Abstract = columnBuilder.String(nullable: false),
+                        SpeakerUserName = columnBuilder.String(),
+                        Votes = columnBuilder.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.SessionId);
             

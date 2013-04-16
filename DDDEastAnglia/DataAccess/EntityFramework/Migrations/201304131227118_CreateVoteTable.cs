@@ -8,20 +8,20 @@ namespace DDDEastAnglia.DataAccess.EntityFramework.Migrations
         {
             CreateTable(
                 "dbo.Votes",
-                c => new
+                columnBuilder => new
                     {
-                        VoteId = c.Int(nullable: false, identity: true),
-                        Event = c.String(nullable: false),
-                        SessionId = c.Int(nullable: false),
-                        CookieId = c.Guid(nullable: false),
-                        IsVote = c.Boolean(nullable: false),
-                        TimeRecorded = c.DateTime(nullable: false),
-                        UserId = c.Int(nullable: false),
-                        IPAddress = c.String(),
-                        WebSessionId = c.Long(nullable: false),
-                        UserAgent = c.String(),
-                        Referer = c.String(),
-                        ScreenResolution = c.String(),
+                        VoteId = columnBuilder.Int(nullable: false, identity: true),
+                        Event = columnBuilder.String(nullable: false),
+                        SessionId = columnBuilder.Int(nullable: false),
+                        CookieId = columnBuilder.Guid(nullable: false),
+                        IsVote = columnBuilder.Boolean(nullable: false),
+                        TimeRecorded = columnBuilder.DateTime(nullable: false),
+                        UserId = columnBuilder.Int(nullable: false),
+                        IPAddress = columnBuilder.String(),
+                        WebSessionId = columnBuilder.Long(nullable: false),
+                        UserAgent = columnBuilder.String(),
+                        Referer = columnBuilder.String(),
+                        ScreenResolution = columnBuilder.String(),
                     })
                 .PrimaryKey(t => t.VoteId);
             
