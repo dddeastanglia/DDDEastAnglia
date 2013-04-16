@@ -24,23 +24,28 @@
         <div>
             @Html.LabelFor(m => Model.Name)
         </div>
-        <div>
+        <div class="input-prepend input-append">
+            <span class="add-on"><i class="icon-user"></i></span>
             @Html.TextBoxFor(m => Model.Name)
             @Html.ValidationMessageFor(m => Model.Name)
+            <span class="add-on">required</span>
         </div>
 
         <div>
             @Html.LabelFor(m => Model.EmailAddress)
         </div>
-        <div>
+        <div class="input-prepend input-append">
+            <span class="add-on"><i class="icon-envelope"></i></span>
             @Html.TextBoxFor(m => Model.EmailAddress)
             @Html.ValidationMessageFor(m => Model.EmailAddress)
+            <span class="add-on">required</span>
         </div>
 
         <div>
             @Html.LabelFor(m => Model.MobilePhone)
         </div>
-        <div>
+        <div class="input-prepend">
+            <span class="add-on"><i class="icon-mobile-phone"></i></span>
             @Html.TextBoxFor(m => Model.MobilePhone)
         </div>
 
@@ -55,7 +60,8 @@
         <div>
             @Html.LabelFor(m => Model.WebsiteUrl)
         </div>
-        <div>
+        <div class="input-prepend">
+            <span class="add-on">http://</span>
             @Html.TextBoxFor(m => Model.WebsiteUrl)
         </div>
 
