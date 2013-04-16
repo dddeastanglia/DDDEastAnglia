@@ -15,8 +15,6 @@ namespace DDDEastAnglia.Tests.Voting
         private const int SessionIdToRemove = 2;
         private const int MyUserId = 100;
         private const string MyUserName = "Bob";
-        private static readonly int[] CurrentSessionIds = new[] { SessionIdToRemove };
-        private VotingCookie cookieWithOneVote;
 
         private readonly UserProfile myUserProfile = new UserProfile
             {
@@ -25,12 +23,10 @@ namespace DDDEastAnglia.Tests.Voting
             };
 
 
-        protected override void SetCookieRepositoryExpectations(IVotingCookieRepository repository)
+        protected override void SetCookieRepositoryExpectations(ICurrentUserVoteRepository repository)
         {
             base.SetCookieRepositoryExpectations(repository);
-            cookieWithOneVote = new VotingCookie(Guid.NewGuid(), VotingCookie.CookieName, CurrentSessionIds, new DateTime(2013, 4, 30));
-            repository.Get(Arg.Is(cookieWithOneVote.Name))
-                .Returns(cookieWithOneVote);
+            repository.HasVotedFor(SessionIdToRemove).Returns(true);
         }
 
         protected override void SetSessionRepositoryExpectations(ISessionRepository sessionRepository)
@@ -51,7 +47,7 @@ namespace DDDEastAnglia.Tests.Voting
         public void Save_My_UserId_With_The_Vote()
         {
             Controller.RegisterVote(SessionIdToVoteFor);
-            VoteRepository.Received().Save(Arg.Is<Vote>(vote => vote.UserId == myUserProfile.UserId));
+            CurrentUserVoteRepository.Received().Save(Arg.Is<Vote>(vote => vote.UserId == myUserProfile.UserId));
         }
     }
 }

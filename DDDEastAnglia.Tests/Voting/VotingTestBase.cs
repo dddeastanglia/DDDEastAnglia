@@ -10,9 +10,7 @@ namespace DDDEastAnglia.Tests.Voting
 {
     public class VotingTestBase
     {
-        protected const string DefaultSessionID = "THIS IS A SESSION ID";
-        protected IVotingCookieRepository CookieRepository;
-        protected IVoteRepository VoteRepository;
+        protected ICurrentUserVoteRepository CurrentUserVoteRepository;
         protected ISessionRepository SessionRepository;
         protected IEventRepository EventRepository;
         protected VotingCookie CookieWithNoVotes;
@@ -24,11 +22,8 @@ namespace DDDEastAnglia.Tests.Voting
         [SetUp]
         public void BeforeEachTest()
         {
-            CookieRepository = Substitute.For<IVotingCookieRepository>();
-            SetCookieRepositoryExpectations(CookieRepository);
-
-            VoteRepository = Substitute.For<IVoteRepository>();
-            SetVoteRepositoryExpectations(VoteRepository);
+            CurrentUserVoteRepository = Substitute.For<ICurrentUserVoteRepository>();
+            SetCookieRepositoryExpectations(CurrentUserVoteRepository);
 
             EventRepository = Substitute.For<IEventRepository>();
             SetEventRepositoryExpectations(EventRepository);
@@ -44,10 +39,10 @@ namespace DDDEastAnglia.Tests.Voting
             SetRequestInformationProviderExpectations(RequestInformationProvider);
 
 
-            Controller = new VoteController(CookieRepository, VoteRepository, SessionRepository, EventRepository, TimeProvider, RequestInformationProvider);
+            Controller = new VoteController(CurrentUserVoteRepository, SessionRepository, EventRepository, TimeProvider, RequestInformationProvider);
         }
 
-        protected virtual void SetCookieRepositoryExpectations(IVotingCookieRepository repository)
+        protected virtual void SetCookieRepositoryExpectations(ICurrentUserVoteRepository repository)
         {
         }
 
@@ -74,7 +69,6 @@ namespace DDDEastAnglia.Tests.Voting
 
         protected virtual void SetRequestInformationProviderExpectations(IRequestInformationProvider requestInformationProvider)
         {
-            requestInformationProvider.SessionId.Returns(DefaultSessionID);
         }
     }
 }

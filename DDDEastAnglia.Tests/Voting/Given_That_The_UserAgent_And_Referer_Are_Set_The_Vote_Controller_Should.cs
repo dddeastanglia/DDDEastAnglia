@@ -1,8 +1,6 @@
-﻿using System;
-using DDDEastAnglia.DataAccess;
+﻿using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.DataModel;
 using DDDEastAnglia.Helpers;
-using DDDEastAnglia.Models;
 using NSubstitute;
 using NUnit.Framework;
 
@@ -15,15 +13,12 @@ namespace DDDEastAnglia.Tests.Voting
         private const int SessionIdToRemove = 2;
         private const string UserAgent = "A Browser";
         private const string Referer = "http://www.referer.com";
-        private static readonly int[] CurrentSessionIds = new[] { SessionIdToRemove };
-        private VotingCookie cookieWithOneVote;
 
-        protected override void SetCookieRepositoryExpectations(IVotingCookieRepository repository)
+        protected override void SetCookieRepositoryExpectations(ICurrentUserVoteRepository repository)
         {
             base.SetCookieRepositoryExpectations(repository);
-            cookieWithOneVote = new VotingCookie(Guid.NewGuid(), VotingCookie.CookieName, CurrentSessionIds, new DateTime(2013, 4, 30));
-            repository.Get(Arg.Is(cookieWithOneVote.Name))
-                .Returns(cookieWithOneVote);
+            repository.HasVotedFor(SessionIdToVoteFor)
+                .Returns(false);
         }
 
         protected override void SetSessionRepositoryExpectations(ISessionRepository sessionRepository)
@@ -43,14 +38,14 @@ namespace DDDEastAnglia.Tests.Voting
         public void Save_The_UserAgent_With_The_Vote()
         {
             Controller.RegisterVote(SessionIdToVoteFor);
-            VoteRepository.Received().Save(Arg.Is<Vote>(vote => vote.UserAgent == UserAgent));
+            CurrentUserVoteRepository.Received().Save(Arg.Is<Vote>(vote => vote.UserAgent == UserAgent));
         }
 
         [Test]
         public void Save_The_Referer_With_The_Vote()
         {
             Controller.RegisterVote(SessionIdToVoteFor);
-            VoteRepository.Received().Save(Arg.Is<Vote>(vote => vote.Referrer == Referer));
+            CurrentUserVoteRepository.Received().Save(Arg.Is<Vote>(vote => vote.Referrer == Referer));
         }
     }
 }

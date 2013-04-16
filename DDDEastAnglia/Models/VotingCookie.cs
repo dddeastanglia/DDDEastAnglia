@@ -11,29 +11,11 @@ namespace DDDEastAnglia.Models
         public static readonly DateTime DefaultExpiry = new DateTime(2013, 4, 30);
         private readonly List<int> _sessionsVotedFor = new List<int>();
 
-        public VotingCookie(string name)
-            : this(Guid.NewGuid(), name)
-        {
-            
-        }
-
-        public VotingCookie(Guid id, string name)
-            : this(id, name, DefaultExpiry)
-        {
-            
-        }
-
-        public VotingCookie(Guid id, string name, DateTime expires)
-            : this(id, name, Enumerable.Empty<int>(), expires)
-        {
-            
-        }
-
-        public VotingCookie(Guid id, string name, IEnumerable<int> sessionsVotedFor, DateTime expires)
+        public VotingCookie(Guid id, IEnumerable<int> sessionsVotedFor)
         {
             Id = id;
-            Name = name;
-            Expires = expires;
+            Name = CookieName;
+            Expires = DefaultExpiry;
             _sessionsVotedFor.AddRange(sessionsVotedFor);
         }
 
