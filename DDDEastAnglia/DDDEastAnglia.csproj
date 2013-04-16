@@ -244,6 +244,7 @@
     <Content Include="Images\logo-icon-57.png" />
     <Content Include="Images\logo-icon-72.png" />
     <Content Include="Images\sponsors\jetbrains.png" />
+    <Content Include="Images\sponsors\software-east.png" />
     <Content Include="Scripts\jquery.cookie.js" />
     <Content Include="Scripts\tweetbutton.js" />
     <Compile Include="ProfileController.generated.cs">
