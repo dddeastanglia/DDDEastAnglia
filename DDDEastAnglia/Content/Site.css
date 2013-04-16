@@ -176,7 +176,7 @@ fieldset {
     margin-bottom: 15px;
 }
 
-.session-details-own {
+.session-details-own, .speaker-own {
     border: 1px solid #e3e3e3;
     border-radius: 5px;
     background-color: #f5f5f5;
@@ -261,4 +261,5 @@ a i {
 
 .speaker {
     border-bottom: 1px solid lightgray;
+    padding: 10px;
 }
