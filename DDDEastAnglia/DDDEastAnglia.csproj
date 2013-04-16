@@ -286,6 +286,7 @@
     <Content Include="Scripts\on-page-voting.js" />
     <Content Include="Scripts\voting.js" />
     <Content Include="Scripts\tweetbutton.js" />
+    <Compile Include="Models\VoteModel.cs" />
     <Compile Include="Mvc\Attributes\AllowCrossSiteJsonAttribute.cs" />
     <Compile Include="ProfileController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
