@@ -29,6 +29,7 @@ namespace DDDEastAnglia
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
+
             AddScriptBundle(bundles, "~/bundles/modernizr",
                             "~/Scripts/modernizr-*");
 
@@ -62,7 +63,7 @@ namespace DDDEastAnglia
             AddStyleBundle(bundles, "~/bundles/tweetbutton",
                            "~/Scripts/tweetbutton.js");
 
-            AddScriptBundle(bundles, "~/bundles/on-page-voting", "~/Scripts/on-page-voting.js");
+            AddScriptBundle(bundles, "~/bundles/voting", "~/Scripts/voting.js");
         }
 
         private static void AddScriptBundle(BundleCollection bundles, string virtualPath, params string[] scriptFiles)

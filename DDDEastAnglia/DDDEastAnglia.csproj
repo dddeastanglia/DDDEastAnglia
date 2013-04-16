@@ -283,6 +283,7 @@
     <Content Include="Scripts\jquery.tablesorter.js" />
     <Content Include="Scripts\jquery.tablesorter.min.js" />
     <Content Include="Scripts\on-page-voting.js" />
+    <Content Include="Scripts\voting.js" />
     <Content Include="Scripts\tweetbutton.js" />
     <Compile Include="Mvc\Attributes\AllowCrossSiteJsonAttribute.cs" />
     <Compile Include="ProfileController.generated.cs">
