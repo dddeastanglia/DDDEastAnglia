@@ -51,7 +51,12 @@ namespace DDDEastAnglia.Controllers
                 return PartialView(new SessionVoteModel {SessionId = id, UserCanVote = false, VotedForByUser = false});
             }
             var cookie = _votingCookieRepository.Get(VotingCookie.CookieName);
-            return GetVotePartialView(id, cookie);
+            var currentEvent = _eventRepository.Get("DDDEA2013");
+            var result = new SessionVoteModel();
+            result.SessionId = id;
+            result.UserCanVote = currentEvent != null && currentEvent.CanVote();
+            result.VotedForByUser = cookie.Contains(id);
+            return PartialView(result);
         }
 
         [HttpPost]
@@ -130,16 +135,6 @@ namespace DDDEastAnglia.Controllers
             }
             _votingCookieRepository.Save(cookie);
             return vote;
-        }
-
-        private ActionResult GetVotePartialView(int sessionId, VotingCookie cookie)
-        {
-            var currentEvent = _eventRepository.Get("DDDEA2013");
-            var result = new SessionVoteModel();
-            result.SessionId = sessionId;
-            result.UserCanVote = currentEvent != null && currentEvent.CanVote();
-            result.VotedForByUser = cookie.Contains(sessionId);
-            return PartialView(result);
         }
     }
 
