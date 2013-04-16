@@ -2,7 +2,7 @@ using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Web;
-using DDDEastAnglia.DataAccess;
+using System.Web.Mvc;
 using DDDEastAnglia.DataAccess.EntityFramework;
 using DDDEastAnglia.Models;
 
@@ -26,6 +26,8 @@ namespace DDDEastAnglia.Helpers.Context
         {
             get { return HttpContext.Current.Session.SessionID; }
         }
+
+        public bool IsAjaxRequest { get { return new HttpRequestWrapper(HttpContext.Current.Request).IsAjaxRequest(); } }
 
         public string GetIPAddress()
         {

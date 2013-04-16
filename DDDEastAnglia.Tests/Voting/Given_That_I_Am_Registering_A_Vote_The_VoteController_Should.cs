@@ -13,13 +13,11 @@ namespace DDDEastAnglia.Tests.Voting
     public class Given_That_I_Am_Registering_A_Vote_The_VoteController_Should : VotingTestBase
     {
         private const int KnownSessionId = 1;
-        private VotingCookie cookieWithNoVotes;
 
-        protected override void SetCookieRepositoryExpectations(IVotingCookieRepository repository)
+        protected override void SetCookieRepositoryExpectations(ICurrentUserVoteRepository repository)
         {
             base.SetCookieRepositoryExpectations(repository);
-            cookieWithNoVotes = new VotingCookie(VotingCookie.CookieName);
-            repository.Get(Arg.Is(cookieWithNoVotes.Name)).Returns(cookieWithNoVotes);
+            repository.HasVotedFor(KnownSessionId).Returns(false);
         }
 
         protected override void SetSessionRepositoryExpectations(ISessionRepository sessionRepository)
@@ -33,7 +31,7 @@ namespace DDDEastAnglia.Tests.Voting
         {
             Controller.RegisterVote(KnownSessionId);
 
-            VoteRepository.Received().Save(Arg.Is<Vote>(vote => vote.Event == "DDDEA2013"));
+            CurrentUserVoteRepository.Received().Save(Arg.Is<Vote>(vote => vote.Event == "DDDEA2013"));
         }
 
         [Test]
@@ -41,15 +39,7 @@ namespace DDDEastAnglia.Tests.Voting
         {
             Controller.RegisterVote(KnownSessionId);
 
-            VoteRepository.Received().Save(Arg.Is<Vote>(vote => vote.SessionId == KnownSessionId));
-        }
-
-        [Test]
-        public void Record_The_Cookie_Guid()
-        {
-            Controller.RegisterVote(KnownSessionId);
-
-            VoteRepository.Received().Save(Arg.Is<Vote>(vote => vote.CookieId.Equals(cookieWithNoVotes.Id)));
+            CurrentUserVoteRepository.Received().Save(Arg.Is<Vote>(vote => vote.SessionId == KnownSessionId));
         }
 
         [Test]
@@ -57,7 +47,7 @@ namespace DDDEastAnglia.Tests.Voting
         {
             Controller.RegisterVote(1);
 
-            VoteRepository.Received().Save(Arg.Is<Vote>(vote => vote.TimeRecorded == SimulatedNow));
+            CurrentUserVoteRepository.Received().Save(Arg.Is<Vote>(vote => vote.TimeRecorded == SimulatedNow));
         }
 
     }

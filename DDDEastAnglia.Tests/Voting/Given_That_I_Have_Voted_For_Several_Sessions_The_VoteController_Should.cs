@@ -17,16 +17,16 @@ namespace DDDEastAnglia.Tests.Voting
         private const int SessionNotVotedFor = 3;
         private const int UnknownSessionId = 10;
         private static readonly int[] OnlySessionOne = new[] {FirstSessionVotedFor};
-        private static readonly int[] SessionIdsVotedFor = new[] { FirstSessionVotedFor, SecondSessionVotedFor };
         private static readonly int[] SessionsExpectedAfterReceivingVote = new[] { FirstSessionVotedFor, SecondSessionVotedFor, SessionNotVotedFor };
         private VotingCookie cookieWithTwoVotes;
 
-        protected override void SetCookieRepositoryExpectations(IVotingCookieRepository repository)
+        protected override void SetCookieRepositoryExpectations(ICurrentUserVoteRepository repository)
         {
             base.SetCookieRepositoryExpectations(repository);
-            cookieWithTwoVotes = new VotingCookie(Guid.NewGuid(), VotingCookie.CookieName, SessionIdsVotedFor, new DateTime(2013, 4, 30));
-            repository.Get(Arg.Is(cookieWithTwoVotes.Name))
-                .Returns(cookieWithTwoVotes);
+            repository.HasVotedFor(FirstSessionVotedFor).Returns(true);
+            repository.HasVotedFor(SecondSessionVotedFor).Returns(true);
+            repository.HasVotedFor(SessionNotVotedFor).Returns(false);
+            repository.HasVotedFor(UnknownSessionId).Returns(false);
         }
 
         protected override void SetSessionRepositoryExpectations(ISessionRepository sessionRepository)
@@ -43,10 +43,8 @@ namespace DDDEastAnglia.Tests.Voting
         {
             Controller.RegisterVote(SessionNotVotedFor);
 
-            CookieRepository.Received()
-                      .Save(Arg.Is<VotingCookie>(cookie => cookie.IsCorrect(VotingCookie.CookieName, SessionsExpectedAfterReceivingVote)));
-            VoteRepository.Received()
-                      .Save(Arg.Is<Vote>(vote => vote.IsVoteFor("DDDEA2013", SessionNotVotedFor)));
+            CurrentUserVoteRepository.Received()
+                      .Save(Arg.Is<Vote>(vote => vote.SessionId == SessionNotVotedFor));
         }
 
         [Test]
@@ -54,10 +52,8 @@ namespace DDDEastAnglia.Tests.Voting
         {
             Controller.RegisterVote(SecondSessionVotedFor);
 
-            CookieRepository.DidNotReceive()
-                      .Save(Arg.Is<VotingCookie>(cookie => cookie.IsCorrect(VotingCookie.CookieName, SessionsExpectedAfterReceivingVote)));
-            VoteRepository.DidNotReceive()
-                      .Save(Arg.Is<Vote>(vote => vote.IsVoteFor("DDDEA2013", SessionNotVotedFor)));
+            CurrentUserVoteRepository.DidNotReceive()
+                      .Save(Arg.Is<Vote>(vote => vote.SessionId == SecondSessionVotedFor));
         }
 
         [Test]
@@ -65,17 +61,8 @@ namespace DDDEastAnglia.Tests.Voting
         {
             Controller.RemoveVote(SecondSessionVotedFor);
 
-            CookieRepository.Received()
-                .Save(Arg.Is<VotingCookie>(cookie => cookie.IsCorrect(VotingCookie.CookieName, OnlySessionOne)));
-        }
-
-        [Test]
-        public void Record_That_A_Vote_Has_Been_Removed()
-        {
-            Controller.RemoveVote(SecondSessionVotedFor);
-
-            VoteRepository.Received()
-                .Delete(Arg.Is<int>(SecondSessionVotedFor), Arg.Is<Guid>(cookieWithTwoVotes.Id));
+            CurrentUserVoteRepository.Received()
+                .Delete(Arg.Is<int>(SecondSessionVotedFor));
         }
     }
 }

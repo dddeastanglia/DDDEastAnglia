@@ -1,6 +1,7 @@
 ﻿using System;
 using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.DataModel;
+using DDDEastAnglia.Helpers;
 using DDDEastAnglia.Models;
 using NSubstitute;
 using NUnit.Framework;
@@ -11,15 +12,11 @@ namespace DDDEastAnglia.Tests.Voting
     public class Given_That_I_Am_Removing_A_Vote_The_VoteController_Should : VotingTestBase
     {
         private const int KnownSessionId = 1;
-        private static readonly int[] SessionsVotedFor = new[] {KnownSessionId};
-        private VotingCookie cookieWithNoVotes;
 
-        protected override void SetCookieRepositoryExpectations(IVotingCookieRepository repository)
+        protected override void SetCookieRepositoryExpectations(ICurrentUserVoteRepository repository)
         {
             base.SetCookieRepositoryExpectations(repository);
-            cookieWithNoVotes = new VotingCookie(Guid.NewGuid(), VotingCookie.CookieName, SessionsVotedFor, new DateTime(2013, 4, 30));
-            repository.Get(Arg.Is(cookieWithNoVotes.Name))
-                            .Returns(cookieWithNoVotes);
+            repository.HasVotedFor(KnownSessionId).Returns(true);
         }
 
         protected override void SetSessionRepositoryExpectations(ISessionRepository sessionRepository)
@@ -33,7 +30,7 @@ namespace DDDEastAnglia.Tests.Voting
         {
             Controller.RemoveVote(KnownSessionId);
 
-            VoteRepository.Received().Delete(Arg.Is<int>(KnownSessionId), Arg.Is<Guid>(cookieWithNoVotes.Id));
+            CurrentUserVoteRepository.Received().Delete(Arg.Is<int>(KnownSessionId));
         }
 
     }

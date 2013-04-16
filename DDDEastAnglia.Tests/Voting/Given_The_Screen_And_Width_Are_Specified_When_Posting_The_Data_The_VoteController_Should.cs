@@ -1,8 +1,7 @@
-﻿using System;
+﻿using DDDEastAnglia.Controllers;
 using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.DataModel;
 using DDDEastAnglia.Helpers;
-using DDDEastAnglia.Models;
 using NSubstitute;
 using NUnit.Framework;
 
@@ -15,15 +14,11 @@ namespace DDDEastAnglia.Tests.Voting
         private const int SessionIdToRemove = 2;
         private const string UserAgent = "A Browser";
         private const string Referer = "http://www.referer.com";
-        private static readonly int[] CurrentSessionIds = new[] { SessionIdToRemove };
-        private VotingCookie cookieWithOneVote;
 
-        protected override void SetCookieRepositoryExpectations(IVotingCookieRepository repository)
+        protected override void SetCookieRepositoryExpectations(ICurrentUserVoteRepository repository)
         {
             base.SetCookieRepositoryExpectations(repository);
-            cookieWithOneVote = new VotingCookie(Guid.NewGuid(), VotingCookie.CookieName, CurrentSessionIds, new DateTime(2013, 4, 30));
-            repository.Get(Arg.Is(cookieWithOneVote.Name))
-                .Returns(cookieWithOneVote);
+            repository.HasVotedFor(SessionIdToRemove).Returns(true);
         }
 
         protected override void SetSessionRepositoryExpectations(ISessionRepository sessionRepository)
@@ -39,32 +34,32 @@ namespace DDDEastAnglia.Tests.Voting
             requestInformationProvider.Referrer.Returns(Referer);
         }
 
-        //[Test]
-        //public void Save_The_Screen_Resolution_With_The_Vote()
-        //{
-        //    Controller.RegisterVote(SessionIdToVoteFor, 1024, 768);
-        //    VoteRepository.Received().Save(Arg.Is<Vote>(vote => vote.ScreenResolution == "1024x768"));
-        //}
+        [Test]
+        public void Save_The_Screen_Resolution_With_The_Vote()
+        {
+            Controller.RegisterVote(SessionIdToVoteFor, new VoteModel {Width = 1024, Height = 768});
+            CurrentUserVoteRepository.Received().Save(Arg.Is<Vote>(vote => vote.ScreenResolution == "1024x768"));
+        }
 
-        //[Test]
-        //public void Save_The_Height_If_The_Width_Is_Zero_With()
-        //{
-        //    Controller.RegisterVote(SessionIdToVoteFor, 0, 768);
-        //    VoteRepository.Received().Save(Arg.Is<Vote>(vote => vote.ScreenResolution == "0x768"));
-        //}
+        [Test]
+        public void Save_The_Height_If_The_Width_Is_Zero_With()
+        {
+            Controller.RegisterVote(SessionIdToVoteFor, new VoteModel {Width = 0, Height = 768});
+            CurrentUserVoteRepository.Received().Save(Arg.Is<Vote>(vote => vote.ScreenResolution == "0x768"));
+        }
 
-        //[Test]
-        //public void Save_The_Width_If_The_Height_Is_Zero_With()
-        //{
-        //    Controller.RegisterVote(SessionIdToVoteFor, 1024, 0);
-        //    VoteRepository.Received().Save(Arg.Is<Vote>(vote => vote.ScreenResolution == "1024x0"));
-        //}
+        [Test]
+        public void Save_The_Width_If_The_Height_Is_Zero_With()
+        {
+            Controller.RegisterVote(SessionIdToVoteFor, new VoteModel { Width = 1024, Height = 0 });
+            CurrentUserVoteRepository.Received().Save(Arg.Is<Vote>(vote => vote.ScreenResolution == "1024x0"));
+        }
 
-        //[Test]
-        //public void Save_Nothing_If_The_Width_And_Height_Zero()
-        //{
-        //    Controller.RegisterVote(SessionIdToVoteFor, 0, 0);
-        //    VoteRepository.Received().Save(Arg.Is<Vote>(vote => vote.ScreenResolution == null));
-        //}
+        [Test]
+        public void Save_Nothing_If_The_Width_And_Height_Zero()
+        {
+            Controller.RegisterVote(SessionIdToVoteFor, new VoteModel {Width = 0, Height = 0});
+            CurrentUserVoteRepository.Received().Save(Arg.Is<Vote>(vote => vote.ScreenResolution == null));
+        }
     }
 }

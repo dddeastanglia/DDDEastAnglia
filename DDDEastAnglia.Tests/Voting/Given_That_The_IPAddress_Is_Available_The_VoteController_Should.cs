@@ -14,15 +14,12 @@ namespace DDDEastAnglia.Tests.Voting
         private const int SessionIdToVoteFor = 1;
         private const int SessionIdToRemove = 2;
         private const string LocalIpAddress = "127.0.0.1";
-        private static readonly int[] CurrentSessionIds = new[] {SessionIdToRemove};
-        private VotingCookie cookieWithOneVote;
 
-        protected override void SetCookieRepositoryExpectations(IVotingCookieRepository repository)
+        protected override void SetCookieRepositoryExpectations(ICurrentUserVoteRepository repository)
         {
             base.SetCookieRepositoryExpectations(repository);
-            cookieWithOneVote = new VotingCookie(Guid.NewGuid(), VotingCookie.CookieName, CurrentSessionIds, new DateTime(2013, 4, 30));
-            repository.Get(Arg.Is(cookieWithOneVote.Name))
-                .Returns(cookieWithOneVote);
+            repository.HasVotedFor(SessionIdToRemove).Returns(true);
+            repository.HasVotedFor(SessionIdToVoteFor).Returns(false);
         }
 
         protected override void SetSessionRepositoryExpectations(ISessionRepository sessionRepository)
@@ -43,7 +40,7 @@ namespace DDDEastAnglia.Tests.Voting
         {
             Controller.RegisterVote(SessionIdToVoteFor);
 
-            VoteRepository.Received().Save(Arg.Is<Vote>(vote => vote.IPAddress == LocalIpAddress));
+            CurrentUserVoteRepository.Received().Save(Arg.Is<Vote>(vote => vote.IPAddress == LocalIpAddress));
         }
     }
 }

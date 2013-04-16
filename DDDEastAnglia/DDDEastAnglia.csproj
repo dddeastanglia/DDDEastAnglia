@@ -232,10 +232,11 @@
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
     <Compile Include="Controllers\SpeakerController.cs" />
     <Compile Include="DataAccess\EventRepository.cs" />
-    <Compile Include="DataAccess\VotingCookieRepository.cs" />
     <Compile Include="DataModel\Vote.cs" />
     <Compile Include="GlimpseSecurityPolicy.cs" />
     <Compile Include="Helpers\Context\HttpContextRequestInformationProvider.cs" />
+    <Compile Include="Helpers\Context\HttpCookieVoteRepository.cs" />
+    <Compile Include="Helpers\ICurrentUserVoteRepository.cs" />
     <Compile Include="Helpers\IRequestInformationProvider.cs" />
     <Compile Include="Helpers\TimeProvider.cs" />
     <Compile Include="HomeController.generated.cs">
