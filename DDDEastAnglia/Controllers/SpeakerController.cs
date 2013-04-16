@@ -43,5 +43,32 @@ namespace DDDEastAnglia.Controllers
 
             return View(speakers);
         }
+
+        public virtual ActionResult Details(int id = 0)
+        {
+            var userProfile = db.UserProfiles.Find(id);
+        
+            if (userProfile == null)
+            {
+                return HttpNotFound();
+            }
+
+            var sessions = db.Sessions.Where(s => s.SpeakerUserName == userProfile.UserName);
+            var displayModel = CreateDisplayModel(userProfile, sessions);
+            return View(displayModel);
+        }
+
+        private SpeakerDisplayModel CreateDisplayModel(UserProfile userProfile, IEnumerable<Session> sessions)
+        {
+            return new SpeakerDisplayModel
+                {
+                    Name = userProfile.Name,
+                    GravatarUrl = userProfile.GravitarUrl(),
+                    Bio = userProfile.Bio,
+                    TwitterHandle = userProfile.TwitterHandle,
+                    WebsiteUrl = userProfile.WebsiteUrl,
+                    Sessions = sessions.ToDictionary(s => s.SessionId, s => s.Title)
+                };
+        }
     }
 }

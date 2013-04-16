@@ -466,6 +466,8 @@
     <Content Include="Views\Profile\Edit.cshtml" />
     <Content Include="Views\Session\_SessionDetailsPartial.cshtml" />
     <Content Include="Views\Shared\_Banner.cshtml" />
+    <Content Include="Views\Speaker\Details.cshtml" />
+    <Content Include="Views\Speaker\_SpeakerDetailsPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

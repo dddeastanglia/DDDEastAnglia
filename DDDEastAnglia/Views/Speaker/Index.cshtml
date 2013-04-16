@@ -10,31 +10,6 @@
 @foreach (var speaker in Model)
 {
     <div class="row-fluid">
-        <div class="span12 speaker">
-            <h3><img src="@Html.Raw(speaker.GravatarUrl)" alt="@Html.Raw(speaker.Name)"/> @speaker.Name</h3>
-            <section class="links">
-                @if (!string.IsNullOrWhiteSpace(speaker.WebsiteUrl))
-                {
-                    <p><i class="icon-globe" style="color:green"></i> <a href="@speaker.WebsiteUrl">@speaker.WebsiteUrl</a></p>
-                }
-
-                @if (!string.IsNullOrWhiteSpace(speaker.TwitterHandle))
-                {
-                    <p><i class="icon-twitter" style="color:cornflowerblue"></i> <a href="http://twitter.com/@speaker.TwitterHandle">@("@" + speaker.TwitterHandle)</a></p>
-                }
-            </section>
-    
-            <p>@Html.MarkdownFor(m => speaker.Bio)</p>
-
-            <h4>Submitted Sessions</h4>
-            <ul>
-            @foreach (var session in speaker.Sessions)
-            {
-                <li><a href="@Url.Action(MVC.Session.Details(session.Key))" title="View the details for this session">@session.Value</a></li>
-            }
-            </ul>
-        </div>
+        @Html.Partial("_SpeakerDetailsPartial", speaker)
     </div>
 }
- 
-
