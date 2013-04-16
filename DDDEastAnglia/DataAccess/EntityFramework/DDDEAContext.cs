@@ -13,6 +13,6 @@ namespace DDDEastAnglia.DataAccess.EntityFramework
 
         public DbSet<UserProfile> UserProfiles { get; set; }
         public DbSet<Session> Sessions { get; set; }
-        public DbSet<Vote> Vote { get; set; }
+        public DbSet<Vote> Votes { get; set; }
     }
 }
