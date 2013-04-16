@@ -16,7 +16,7 @@ namespace DDDEastAnglia.Tests.Helpers
         [TestCase("127.0.0.1, 127.0.0.2, 127.0.0.3", "127.0.0.1")]
         public void Return_The_Valid_Address(string inputString, string expectedOutput)
         {
-            var result = HttpContextRequestInformationProvider.MatchIPAddress(inputString);
+            var result = HttpContextControllerInformationProvider.MatchIPAddress(inputString);
 
             Assert.That(result, Is.EqualTo(expectedOutput));
         }
@@ -30,7 +30,7 @@ namespace DDDEastAnglia.Tests.Helpers
         [TestCase("400.400.400.400")]
         public void Return_Null_If_The_Address_Is_Invalid(string input)
         {
-            Assert.That(HttpContextRequestInformationProvider.MatchIPAddress(input), Is.Null);
+            Assert.That(HttpContextControllerInformationProvider.MatchIPAddress(input), Is.Null);
         }
     }
 }

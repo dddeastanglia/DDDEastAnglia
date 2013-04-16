@@ -27,11 +27,11 @@ namespace DDDEastAnglia.Tests.Voting
             sessionRepository.Exists(Arg.Is(SessionIdToVoteFor)).Returns(true);
         }
 
-        protected override void SetRequestInformationProviderExpectations(IRequestInformationProvider requestInformationProvider)
+        protected override void SetRequestInformationProviderExpectations(IControllerInformationProvider controllerInformationProvider)
         {
-            base.SetRequestInformationProviderExpectations(requestInformationProvider);
-            requestInformationProvider.UserAgent.Returns(UserAgent);
-            requestInformationProvider.Referrer.Returns(Referer);
+            base.SetRequestInformationProviderExpectations(controllerInformationProvider);
+            controllerInformationProvider.UserAgent.Returns(UserAgent);
+            controllerInformationProvider.Referrer.Returns(Referer);
         }
 
         [Test]

@@ -36,11 +36,11 @@ namespace DDDEastAnglia.Tests.Voting
             sessionRepository.Exists(Arg.Is(SessionIdToRemove)).Returns(true);
         }
 
-        protected override void SetRequestInformationProviderExpectations(IRequestInformationProvider requestInformationProvider)
+        protected override void SetRequestInformationProviderExpectations(IControllerInformationProvider controllerInformationProvider)
         {
-            base.SetRequestInformationProviderExpectations(requestInformationProvider);
-            requestInformationProvider.IsLoggedIn().Returns(true);
-            requestInformationProvider.GetCurrentUser().Returns(myUserProfile);
+            base.SetRequestInformationProviderExpectations(controllerInformationProvider);
+            controllerInformationProvider.IsLoggedIn().Returns(true);
+            controllerInformationProvider.GetCurrentUser().Returns(myUserProfile);
         }
 
         [Test]

@@ -3,7 +3,7 @@ using DDDEastAnglia.Models;
 
 namespace DDDEastAnglia.Helpers
 {
-    public interface IRequestInformationProvider
+    public interface IControllerInformationProvider
     {
         string UserAgent { get; }
         string Referrer { get; }

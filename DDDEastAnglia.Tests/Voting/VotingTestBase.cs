@@ -15,7 +15,7 @@ namespace DDDEastAnglia.Tests.Voting
         protected IEventRepository EventRepository;
         protected VotingCookie CookieWithNoVotes;
         protected VoteController Controller;
-        protected IRequestInformationProvider RequestInformationProvider;
+        protected IControllerInformationProvider ControllerInformationProvider;
         protected DateTime SimulatedNow;
 
         [SetUp]
@@ -30,11 +30,11 @@ namespace DDDEastAnglia.Tests.Voting
             SessionRepository = Substitute.For<ISessionRepository>();
             SetSessionRepositoryExpectations(SessionRepository);
 
-            RequestInformationProvider = Substitute.For<IRequestInformationProvider>();
-            SetRequestInformationProviderExpectations(RequestInformationProvider);
+            ControllerInformationProvider = Substitute.For<IControllerInformationProvider>();
+            SetRequestInformationProviderExpectations(ControllerInformationProvider);
 
 
-            Controller = new VoteController(CurrentUserVoteRepository, SessionRepository, EventRepository, RequestInformationProvider);
+            Controller = new VoteController(CurrentUserVoteRepository, SessionRepository, EventRepository, ControllerInformationProvider);
         }
 
         protected virtual void SetCookieRepositoryExpectations(ICurrentUserVoteRepository repository)
@@ -56,10 +56,10 @@ namespace DDDEastAnglia.Tests.Voting
         
         }
 
-        protected virtual void SetRequestInformationProviderExpectations(IRequestInformationProvider requestInformationProvider)
+        protected virtual void SetRequestInformationProviderExpectations(IControllerInformationProvider controllerInformationProvider)
         {
             SimulatedNow = DateTime.UtcNow;
-            requestInformationProvider.UtcNow.Returns(SimulatedNow);
+            controllerInformationProvider.UtcNow.Returns(SimulatedNow);
         }
     }
 }

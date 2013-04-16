@@ -26,10 +26,10 @@ namespace DDDEastAnglia.Tests.Voting
             sessionRepository.Exists(Arg.Is(SessionIdToRemove)).Returns(true);
         }
 
-        protected override void SetRequestInformationProviderExpectations(IRequestInformationProvider requestInformationProvider)
+        protected override void SetRequestInformationProviderExpectations(IControllerInformationProvider controllerInformationProvider)
         {
-            base.SetRequestInformationProviderExpectations(requestInformationProvider);
-            requestInformationProvider.SessionId.Returns(DefaultSessionID);
+            base.SetRequestInformationProviderExpectations(controllerInformationProvider);
+            controllerInformationProvider.SessionId.Returns(DefaultSessionID);
         }
 
         [Test]

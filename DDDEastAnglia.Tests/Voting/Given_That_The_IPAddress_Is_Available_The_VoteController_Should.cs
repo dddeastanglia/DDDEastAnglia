@@ -29,10 +29,10 @@ namespace DDDEastAnglia.Tests.Voting
             sessionRepository.Exists(Arg.Is(SessionIdToRemove)).Returns(true);
         }
 
-        protected override void SetRequestInformationProviderExpectations(IRequestInformationProvider requestInformationProvider)
+        protected override void SetRequestInformationProviderExpectations(IControllerInformationProvider controllerInformationProvider)
         {
-            base.SetRequestInformationProviderExpectations(requestInformationProvider);
-            requestInformationProvider.GetIPAddress().Returns(LocalIpAddress);
+            base.SetRequestInformationProviderExpectations(controllerInformationProvider);
+            controllerInformationProvider.GetIPAddress().Returns(LocalIpAddress);
         }
 
         [Test]
