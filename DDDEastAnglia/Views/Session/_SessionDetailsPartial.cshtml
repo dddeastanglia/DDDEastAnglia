@@ -14,7 +14,7 @@
     <div class="session-abstract">
         @Html.MarkdownFor(s => Model.SessionAbstract)
     </div>
-    @if (Request.IsAuthenticated && User.Identity.Name == Model.SpeakerUserName)
+    @if (Model.IsUsersSession)
     {
         <div class="session-actions">
             <span class="action">
