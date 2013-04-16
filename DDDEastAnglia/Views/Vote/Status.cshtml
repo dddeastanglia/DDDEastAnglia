@@ -5,7 +5,7 @@
     <span id="@("Vote" + Model.SessionId)" class="voting">
     @using (Html.BeginForm("RemoveVote", "Vote", new { id = Model.SessionId}))
     {
-        <button type="submit" class="remove-vote">Remove vote</button>
+        <button type="submit" class="btn btn-danger">Remove vote</button>
     }
     </span>
 }
@@ -14,7 +14,7 @@ else if (Model.UserCanVote && !Model.VotedForByUser)
     <span id="@("Vote" + Model.SessionId)" class="voting">
     @using (Html.BeginForm("RegisterVote", "Vote", new {id = Model.SessionId}))
     {
-        <button type="submit" class="add-vote">Vote</button>
+        <button type="submit" class="btn btn-success">Vote</button>
     }
     </span>
 }
