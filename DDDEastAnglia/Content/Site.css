@@ -208,11 +208,11 @@ fieldset {
     display: none;
 }
 
-.session-actions {
-    text-align: right;    
+.actions {
+    float: right;    
 }
 
-.session-actions .action {
+.actions .action {
     padding-right: 10px;
 }
 

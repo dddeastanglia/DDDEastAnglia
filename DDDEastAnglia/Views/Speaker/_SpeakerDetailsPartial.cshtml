@@ -2,6 +2,14 @@
 @model SpeakerDisplayModel
 
 <div class="span12 speaker @(Model.IsCurrentUser ? "speaker-own" : "")">
+    @if (Model.IsCurrentUser)
+    {
+        <div class="actions">
+            <span class="action">
+                <i class="icon-edit"></i> @Html.ActionLink("Edit Profile", "Edit", "Profile")
+            </span>
+        </div>
+    }
     <h3><img src="@Html.Raw(@Model.GravatarUrl)" alt="@Html.Raw(@Model.Name)"/> @Model.Name</h3>
     <section class="links">
         @if (!string.IsNullOrWhiteSpace(@Model.WebsiteUrl))

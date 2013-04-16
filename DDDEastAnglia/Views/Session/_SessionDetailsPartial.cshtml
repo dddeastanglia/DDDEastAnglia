@@ -1,6 +1,17 @@
 ﻿@model DDDEastAnglia.Models.SessionDisplayModel
 
 <div class="session-details @(Model.IsUsersSession ? "session-details-own" : "")">
+    @if (Model.IsUsersSession)
+    {
+        <div class="actions">
+            <span class="action">
+                <i class="icon-edit"></i> @Html.ActionLink("Edit", MVC.Session.Edit(Model.SessionId))
+            </span>
+            <span class="action">
+                <i class="icon-trash"></i> @Html.ActionLink("Delete", MVC.Session.Delete(Model.SessionId))
+            </span>
+        </div>
+    }
     <h3>
         @Model.SessionTitle
     </h3>
@@ -14,15 +25,4 @@
     <div class="session-abstract">
         @Html.MarkdownFor(s => Model.SessionAbstract)
     </div>
-    @if (Model.IsUsersSession)
-    {
-        <div class="session-actions">
-            <span class="action">
-                <i class="icon-edit"></i> @Html.ActionLink("Edit", MVC.Session.Edit(Model.SessionId))
-            </span>
-            <span class="action">
-                <i class="icon-trash"></i> @Html.ActionLink("Delete", MVC.Session.Delete(Model.SessionId))
-            </span>
-        </div>
-    }
 </div>
