@@ -55,7 +55,8 @@
         <div>
             @Html.LabelFor(m => Model.WebsiteUrl)
         </div>
-        <div>
+        <div class="input-prepend">
+            <span class="add-on">http://</span>
             @Html.TextBoxFor(m => Model.WebsiteUrl)
         </div>
 
