@@ -2,6 +2,7 @@
 using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.DataModel;
 using DDDEastAnglia.Helpers;
+using DDDEastAnglia.Models;
 using NSubstitute;
 using NUnit.Framework;
 

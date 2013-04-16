@@ -118,11 +118,4 @@ namespace DDDEastAnglia.Controllers
                        : RedirectToAction("Index", "Session");
         }
     }
-
-    public class VoteModel
-    {
-        public int Height { get; set; }
-        public int Width { get; set; }
-        public string From { get; set; }
-    }
 }
