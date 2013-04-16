@@ -55,7 +55,7 @@ namespace DDDEastAnglia
 
             bundles.Add(new ScriptBundle("~/bundles/tweetbutton").Include("~/Scripts/tweetbutton.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/on-page-voting").Include("~/Scripts/on-page-voting.js"));
+            bundles.Add(new ScriptBundle("~/bundles/voting").Include("~/Scripts/voting.js"));
         }
     }
 }
