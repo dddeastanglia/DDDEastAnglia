@@ -9,8 +9,6 @@ dd {
 
 a { text-decoration: underline; }
 
-a:hover { color: #008600; }
-
 a.btn, .dropdown-menu a, a.carousel-control { text-decoration: none; }
 
 .carousel-caption a { color: white; }
@@ -30,6 +28,10 @@ a.btn, .dropdown-menu a, a.carousel-control { text-decoration: none; }
 .btn.btn-navbar {
     float: left;
     margin-left: 0;
+}
+
+.navbar .nav > li > a {
+    text-shadow: 0 1px 0 #666666;
 }
 
 .dropdown-menu > li > form {
