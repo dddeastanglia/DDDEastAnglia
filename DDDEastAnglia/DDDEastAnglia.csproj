@@ -238,10 +238,10 @@
     <Compile Include="DataAccess\EventRepository.cs" />
     <Compile Include="DataModel\Vote.cs" />
     <Compile Include="GlimpseSecurityPolicy.cs" />
-    <Compile Include="Helpers\Context\HttpContextRequestInformationProvider.cs" />
+    <Compile Include="Helpers\Context\HttpContextControllerInformationProvider.cs" />
     <Compile Include="Helpers\Context\HttpCookieVoteRepository.cs" />
     <Compile Include="Helpers\ICurrentUserVoteRepository.cs" />
-    <Compile Include="Helpers\IRequestInformationProvider.cs" />
+    <Compile Include="Helpers\IControllerInformationProvider.cs" />
     <Compile Include="HomeController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>

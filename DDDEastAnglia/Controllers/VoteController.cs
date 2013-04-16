@@ -14,13 +14,13 @@ namespace DDDEastAnglia.Controllers
         private readonly ICurrentUserVoteRepository _currentUserVoteRepository;
         private readonly ISessionRepository _sessionRepository;
         private readonly IEventRepository _eventRepository;
-        private readonly IRequestInformationProvider _requestInformationProvider;
+        private readonly IControllerInformationProvider _controllerInformationProvider;
 
         public VoteController() 
             : this(new HttpCookieVoteRepository(new EntityFrameworkVoteRepository()), 
                    new EntityFrameworkSessionRepository(), 
                    new EventRepository(), 
-                   new HttpContextRequestInformationProvider())
+                   new HttpContextControllerInformationProvider())
         {
             
         }
@@ -28,12 +28,12 @@ namespace DDDEastAnglia.Controllers
         public VoteController(ICurrentUserVoteRepository currentUserVoteRepository, 
             ISessionRepository sessionRepository, 
             IEventRepository eventRepository, 
-            IRequestInformationProvider requestInformationProvider)
+            IControllerInformationProvider controllerInformationProvider)
         {
             _currentUserVoteRepository = currentUserVoteRepository;
             _sessionRepository = sessionRepository;
             _eventRepository = eventRepository;
-            _requestInformationProvider = requestInformationProvider;
+            _controllerInformationProvider = controllerInformationProvider;
         }
 
         public ActionResult Status(int id)
@@ -72,15 +72,15 @@ namespace DDDEastAnglia.Controllers
                         {
                             Event = "DDDEA2013",
                             SessionId = id,
-                            TimeRecorded = _requestInformationProvider.UtcNow,
-                            IPAddress = _requestInformationProvider.GetIPAddress(),
-                            UserAgent = _requestInformationProvider.UserAgent,
-                            Referrer = _requestInformationProvider.Referrer,
-                            WebSessionId = _requestInformationProvider.SessionId
+                            TimeRecorded = _controllerInformationProvider.UtcNow,
+                            IPAddress = _controllerInformationProvider.GetIPAddress(),
+                            UserAgent = _controllerInformationProvider.UserAgent,
+                            Referrer = _controllerInformationProvider.Referrer,
+                            WebSessionId = _controllerInformationProvider.SessionId
                         };
-            if (_requestInformationProvider.IsLoggedIn())
+            if (_controllerInformationProvider.IsLoggedIn())
             {
-                vote.UserId = _requestInformationProvider.GetCurrentUser().UserId;
+                vote.UserId = _controllerInformationProvider.GetCurrentUser().UserId;
             }
             if (width != 0 || height != 0)
             {
@@ -109,7 +109,7 @@ namespace DDDEastAnglia.Controllers
 
         private ActionResult RedirectOrReturnPartialView(int sessionId)
         {
-            return _requestInformationProvider.IsAjaxRequest
+            return _controllerInformationProvider.IsAjaxRequest
                        ? RedirectToAction("Status", new { id = sessionId})
                        : RedirectToAction("Index", "Session");
         }
