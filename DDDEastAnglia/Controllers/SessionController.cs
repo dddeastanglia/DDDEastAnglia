@@ -156,6 +156,7 @@ namespace DDDEastAnglia.Controllers
                     SessionId = session.SessionId,
                     SessionTitle = session.Title,
                     SessionAbstract = session.Abstract,
+                    SpeakerId = profile.UserId,
                     SpeakerName = profile.Name,
                     SpeakerUserName = session.SpeakerUserName,
                     SpeakerGravitarUrl = profile.GravitarUrl(),
