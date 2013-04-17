@@ -14,42 +14,37 @@
         <div>
             @Html.LabelFor(m => m.FullName)
         </div>
-        <div class="input-append">
+        <div>
             @Html.TextBoxFor(m => m.FullName)
             @Html.ValidationMessageFor(m => m.FullName)
-            <span class="add-on">required</span>
         </div>
         <div>
             @Html.LabelFor(m => m.EmailAddress)
         </div>
-        <div class="input-append">
+        <div>
             @Html.TextBoxFor(m => m.EmailAddress)
             @Html.ValidationMessageFor(m => m.EmailAddress)
-            <span class="add-on">required</span>
         </div>
         <div>
             @Html.LabelFor(m => m.UserName)
         </div>
-        <div class="input-append">
+        <div>
             @Html.TextBoxFor(m => m.UserName)
             @Html.ValidationMessageFor(m => m.UserName)
-            <span class="add-on">required</span>
         </div>
         <div>
             @Html.LabelFor(m => m.Password)
         </div>
-        <div class="input-append">
+        <div>
             @Html.PasswordFor(m => m.Password)
             @Html.ValidationMessageFor(m => m.Password)
-            <span class="add-on">required</span>
         </div>
         <div>
             @Html.LabelFor(m => m.ConfirmPassword)
         </div>
-        <div class="input-append">
+        <div>
             @Html.PasswordFor(m => m.ConfirmPassword)
             @Html.ValidationMessageFor(m => m.ConfirmPassword)
-            <span class="add-on">required</span>
         </div>
         
         <p>
