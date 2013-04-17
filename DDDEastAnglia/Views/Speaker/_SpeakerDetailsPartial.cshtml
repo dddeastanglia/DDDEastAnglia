@@ -4,7 +4,7 @@
 <div class="span12 speaker @(Model.IsCurrentUser ? "speaker-own" : "")">
     @if (Model.IsCurrentUser)
     {
-        <div class="actions">
+        <div class="pull-right">
             <span class="action">
                 <i class="icon-edit"></i> @Html.ActionLink("Edit Profile", "Edit", "Profile")
             </span>

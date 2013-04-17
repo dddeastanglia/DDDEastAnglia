@@ -3,7 +3,7 @@
 <div class="session-details @(Model.IsUsersSession ? "session-details-own" : "")">
     @if (Model.IsUsersSession)
     {
-        <div class="actions">
+        <div class="pull-right">
             <span class="action">
                 <i class="icon-edit"></i> @Html.ActionLink("Edit", MVC.Session.Edit(Model.SessionId))
             </span>

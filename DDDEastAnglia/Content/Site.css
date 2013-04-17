@@ -208,11 +208,7 @@ fieldset {
     display: none;
 }
 
-.actions {
-    float: right;    
-}
-
-.actions .action {
+.action {
     padding-right: 10px;
 }
 
