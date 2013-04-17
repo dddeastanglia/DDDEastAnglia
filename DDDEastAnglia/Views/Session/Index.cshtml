@@ -1,6 +1,7 @@
-﻿@using DDDEastAnglia.DataAccess
+@using DDDEastAnglia.DataAccess
 @using DDDEastAnglia.Models
 @model IEnumerable<SessionDisplayModel>
+
 
 @{
     ViewBag.Title = "Sessions";
@@ -15,5 +16,10 @@
 
 @foreach (var session in Model)
 {
-    @Html.Partial("_SessionDetailsPartial", session)
+    Html.RenderPartial("_SessionDetailsPartial", session);
+}
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/on-page-voting")
 }

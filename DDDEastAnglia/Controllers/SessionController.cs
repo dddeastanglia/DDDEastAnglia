@@ -4,7 +4,9 @@ using System.Data;
 using System.Linq;
 using System.Web.Mvc;
 using DDDEastAnglia.DataAccess;
+using DDDEastAnglia.DataAccess.EntityFramework;
 using DDDEastAnglia.Models;
+using DDDEastAnglia.Mvc.Attributes;
 
 namespace DDDEastAnglia.Controllers
 {
@@ -14,13 +16,16 @@ namespace DDDEastAnglia.Controllers
         private const string DefaultEventName = "DDDEA2013";
         private readonly DDDEAContext db = new DDDEAContext();
         private readonly EventRepository eventRepository = new EventRepository();
+        private readonly VotingCookieRepository votingCookieRepository = new VotingCookieRepository();
 
         // GET: /Session/
         [AllowAnonymous]
+        [AllowCrossSiteJson]
         public virtual ActionResult Index()
         {
             var speakersLookup = db.UserProfiles.ToDictionary(p => p.UserName, p => p);
             var sessions = db.Sessions;
+            var cookie = votingCookieRepository.Get(VotingCookie.CookieName);
 
             var allSessions = new List<SessionDisplayModel>();
 
@@ -32,7 +37,8 @@ namespace DDDEastAnglia.Controllers
             }
 
             allSessions.Sort(new SessionDisplayModelComparer());
-            return View(allSessions);
+            votingCookieRepository.Save(cookie);
+           return View(allSessions);
         }
 
         // GET: /Session/Details/5
@@ -201,5 +207,7 @@ namespace DDDEastAnglia.Controllers
 
             return string.Compare(x.SessionTitle, y.SessionTitle, StringComparison.InvariantCultureIgnoreCase);
         }
+
+        
     }
 }

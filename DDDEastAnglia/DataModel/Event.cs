@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 
-namespace DDDEastAnglia.DataAccess.DataModel
+namespace DDDEastAnglia.DataModel
 {
     public class Event
     {
@@ -19,7 +20,12 @@ namespace DDDEastAnglia.DataAccess.DataModel
 
         public bool CanVote()
         {
-            return PreConferenceAgenda.CanVote();
+            bool overrideAgenda;
+            if (!bool.TryParse(ConfigurationManager.AppSettings["DeveloperOverrideVoting"], out overrideAgenda))
+            {
+                overrideAgenda = false;
+            }
+            return overrideAgenda || PreConferenceAgenda.CanVote();
         }
     }
 
@@ -64,8 +70,8 @@ namespace DDDEastAnglia.DataAccess.DataModel
         {
             PreConferenceAgendaItem votingStart;
             PreConferenceAgendaItem votingEnd;
-            if (_items.TryGetValue(DateType.SubmissionStarts, out votingStart)
-                && _items.TryGetValue(DateType.SubmissionEnds, out votingEnd))
+            if (_items.TryGetValue(DateType.VotingStarts, out votingStart)
+                && _items.TryGetValue(DateType.VotingEnds, out votingEnd))
             {
                 return votingStart.Date <= date
                        && date <= votingEnd.Date;
