@@ -22,6 +22,10 @@ a.btn, .dropdown-menu a, a.carousel-control { text-decoration: none; }
     min-height: 115px;
 }
 
+.masthead h2 {
+    padding-top: 10px;
+}
+
 .masthead img { margin-right: 10px; }
 
 .navbar { margin-bottom: 10px; }
