@@ -7,8 +7,6 @@ namespace DDDEastAnglia.DataModel
     {
         public int VoteId { get; set; }
         [Required]
-        public string Event { get; set; }
-        [Required]
         public int SessionId { get; set; }
         [Required]
         public Guid CookieId { get; set; }

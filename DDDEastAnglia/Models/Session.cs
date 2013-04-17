@@ -19,5 +19,7 @@ namespace DDDEastAnglia.Models
         public string SpeakerUserName { get; set; }
 
         public int Votes { get; set; }
+
+        public int ConferenceId { get; set; }
     }
 }

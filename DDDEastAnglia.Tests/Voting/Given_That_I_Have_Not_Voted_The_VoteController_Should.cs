@@ -56,7 +56,7 @@ namespace DDDEastAnglia.Tests.Voting
         {
             Controller.RegisterVote(KnownSessionId);
             CurrentUserVoteRepository.Received()
-                          .Save(Arg.Is<Vote>(vote => vote.IsVoteFor("DDDEA2013", KnownSessionId)));
+                          .Save(Arg.Is<Vote>(vote => vote.IsVoteFor(KnownSessionId)));
         }
 
         [Test]
