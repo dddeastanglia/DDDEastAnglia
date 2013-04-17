@@ -5,36 +5,50 @@
 
 <h2>Log in</h2>
 
-@using (Html.BeginForm("ExternalLoginConfirmation", "Account", new { ReturnUrl = ViewBag.ReturnUrl })) 
+@using (Html.BeginForm("ExternalLoginConfirmation", "Account", FormMethod.Post, new { @class = "form-horizontal", ViewBag.ReturnUrl }))
 {
     @Html.AntiForgeryToken()
 
     <fieldset>
         <legend>Associate your @ViewBag.ProviderDisplayName account</legend>
+
         <p>
             You have successfully authenticated with <strong>@ViewBag.ProviderDisplayName</strong>.
             Please enter the following required information and click the Register button to finish logging in.
         </p>
-        <ol>
-            <li>
-                @Html.LabelFor(m => m.UserName)
+
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(m => m.ExternalLoginData)
+
+        <div class="control-group">
+            @Html.LabelFor(m => m.UserName, new { @class = "control-label"})
+            <div class="controls">
                 @Html.TextBoxFor(m => m.UserName)
                 @Html.ValidationMessageFor(m => m.UserName)
-            </li>
-            <li>
-                @Html.LabelFor(m => m.Name)
+            </div>
+        </div>
+
+        <div class="control-group">
+            @Html.LabelFor(m => m.Name, new { @class = "control-label"})
+            <div class="controls">
                 @Html.TextBoxFor(m => m.Name)
                 @Html.ValidationMessageFor(m => m.Name)
-            </li>
-            <li>
-                @Html.LabelFor(m => m.EmailAddress)
+            </div>
+        </div>
+
+        <div class="control-group">
+            @Html.LabelFor(m => m.EmailAddress, new { @class = "control-label"})
+            <div class="controls">
                 @Html.TextBoxFor(m => m.EmailAddress)
                 @Html.ValidationMessageFor(m => m.EmailAddress)
-            </li>
-        </ol>
-        @Html.HiddenFor(m => m.ExternalLoginData)
-        @Html.ValidationSummary(true)
-        <input type="submit" class="btn" value="Register" />
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="controls">
+                <input type="submit" class="btn" value="Register" />
+            </div>
+        </div>
     </fieldset>
 }
 

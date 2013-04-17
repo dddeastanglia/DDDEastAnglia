@@ -9,7 +9,7 @@ namespace DDDEastAnglia.Models
         [Display(Name = "full name")]
         public string FullName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "The email address field is required.")]
         [Display(Name = "email address (will not be displayed publicly)")]
         public string EmailAddress { get; set; }
 

@@ -132,8 +132,23 @@ a.btn, .dropdown-menu a, a.carousel-control { text-decoration: none; }
 }
 
 .field-validation-error, .validation-summary-errors {
-    color: red;
+    color: #b94a48;
     font-weight: bold;
+}
+
+.validation-summary-errors {
+    background-color: #f2dede;
+    border-color: #eed3d7;    
+    padding: 8px 14px;
+    margin-bottom: 20px;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+
+.validation-summary-errors ul {
+    margin: 0;
 }
 
 .validation-summary-errors li {

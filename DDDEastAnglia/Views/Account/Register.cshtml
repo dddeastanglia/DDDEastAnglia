@@ -5,40 +5,60 @@
 
 <h2>Create a local account</h2>
 
-@using (Html.BeginForm()) {
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal"})) 
+{
     @Html.AntiForgeryToken()
 
     <fieldset>
         <legend>Please fill in the required information below</legend>
-        <ol>
-            <li>
-                @Html.LabelFor(m => m.FullName)
+
+        @Html.ValidationSummary(true)
+
+        <div class="control-group">
+            @Html.LabelFor(m => m.FullName, new { @class = "control-label"})
+            <div class="controls">
                 @Html.TextBoxFor(m => m.FullName)
                 @Html.ValidationMessageFor(m => m.FullName)
-            </li>
-            <li>
-                @Html.LabelFor(m => m.EmailAddress)
+            </div>
+        </div>
+
+        <div class="control-group">
+            @Html.LabelFor(m => m.EmailAddress, new { @class = "control-label"})
+            <div class="controls">
                 @Html.TextBoxFor(m => m.EmailAddress)
                 @Html.ValidationMessageFor(m => m.EmailAddress)
-            </li>
-            <li>
-                @Html.LabelFor(m => m.UserName)
+            </div>
+        </div>
+
+        <div class="control-group">
+            @Html.LabelFor(m => m.UserName, new { @class = "control-label"})
+            <div class="controls">
                 @Html.TextBoxFor(m => m.UserName)
                 @Html.ValidationMessageFor(m => m.UserName)
-            </li>
-            <li>
-                @Html.LabelFor(m => m.Password)
+            </div>
+        </div>
+
+        <div class="control-group">
+            @Html.LabelFor(m => m.Password, new { @class = "control-label"})
+            <div class="controls">
                 @Html.PasswordFor(m => m.Password)
                 @Html.ValidationMessageFor(m => m.Password)
-            </li>
-            <li>
-                @Html.LabelFor(m => m.ConfirmPassword)
+            </div>
+        </div>
+
+        <div class="control-group">
+            @Html.LabelFor(m => m.ConfirmPassword, new { @class = "control-label"})
+            <div class="controls">
                 @Html.PasswordFor(m => m.ConfirmPassword)
                 @Html.ValidationMessageFor(m => m.ConfirmPassword)
-            </li>
-        </ol>
-        @Html.ValidationSummary(true)
-        <input type="submit" class="btn" value="Register" />
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="controls">
+            <input type="submit" class="btn" value="Register" />
+        </div>
+        </div>
     </fieldset>
 }
 
