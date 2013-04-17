@@ -17,24 +17,33 @@
 
     <fieldset>
         <legend>Use a local account to log in</legend>
-        <ol>
-            <li>
-                @Html.LabelFor(m => m.UserName)
-                @Html.TextBoxFor(m => m.UserName)
-                @Html.ValidationMessageFor(m => m.UserName)
-            </li>
-            <li>
-                @Html.LabelFor(m => m.Password)
-                @Html.PasswordFor(m => m.Password)
-                @Html.ValidationMessageFor(m => m.Password)
-            </li>
-            <li>
-                @Html.CheckBoxFor(m => m.RememberMe)
-                @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox inline" })
-            </li>
-        </ol>
-        @Html.ValidationSummary(true)
-        <input type="submit" class="btn" value="Log in" />
+
+        <div>
+            @Html.LabelFor(m => m.UserName)
+        </div>
+        <div class="input-append">
+            @Html.TextBoxFor(m => m.UserName)
+            @Html.ValidationMessageFor(m => m.UserName)
+            <span class="add-on">required</span>
+        </div>
+        <div>
+            @Html.LabelFor(m => m.Password)
+        </div>
+        <div class="input-append">
+            @Html.PasswordFor(m => m.Password)
+            @Html.ValidationMessageFor(m => m.Password)
+            <span class="add-on">required</span>
+        </div>
+        <div>
+            @Html.CheckBoxFor(m => m.RememberMe)
+            @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox inline" })
+        </div>
+        
+        <p>
+            @Html.ValidationSummary(true)
+        </p>
+
+        <input type="submit" class="btn btn-primary" value="Log in" />
     </fieldset>
 
     <div id="registerLink">

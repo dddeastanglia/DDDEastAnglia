@@ -11,7 +11,7 @@
     <fieldset>
         <legend>Please provide the details of your session below</legend>
         @Html.HiddenFor(model => model.SpeakerUserName)
-        <div class="editor-label">
+        <div>
             @Html.LabelFor(model => model.Title)
         </div>
         <div class="editor-field">
@@ -19,7 +19,7 @@
             @Html.ValidationMessageFor(model => model.Title)
         </div>
 
-        <div class="editor-label">
+        <div>
             @Html.LabelFor(model => model.Abstract)
         </div>
         <div id="wmd-button-bar"></div>
@@ -29,11 +29,12 @@
         </div>
         <div id="wmd-preview"></div>
 
-        @Html.ValidationSummary(true)
         <p>
-            <input type="submit" class="btn" value="Submit session" />
-            @Html.ActionLink("Cancel", "Index")
+            @Html.ValidationSummary(true)
         </p>
+    
+        <input type="submit" class="btn btn-primary" value="Submit session" />
+        @Html.ActionLink("Cancel", "Index")
     </fieldset>
 }
 
