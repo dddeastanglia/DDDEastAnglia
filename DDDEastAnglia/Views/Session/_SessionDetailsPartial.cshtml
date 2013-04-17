@@ -1,22 +1,9 @@
 ﻿@model DDDEastAnglia.Models.SessionDisplayModel
 
 <div class="session-details @(Model.IsUsersSession ? "session-details-own" : "")">
-    <h3>
-        @Model.SessionTitle
-    </h3>
-    <h4>
-        <img src="@Model.SpeakerGravitarUrl" width="32" height="32" alt="@Model.SpeakerName">
-        @Model.SpeakerName
-    </h4>
-    <div class="session-tweet">
-        <a href="https://twitter.com/intent/tweet?text=@Model.TweetLink.Title" class="twitter-share-button" data-url="@Model.TweetLink.Url" data-count="none">Tweet</a>
-    </div>
-    <div class="session-abstract">
-        @Html.MarkdownFor(s => Model.SessionAbstract)
-    </div>
-    @if (Request.IsAuthenticated && User.Identity.Name == Model.SpeakerUserName)
+    @if (Model.IsUsersSession)
     {
-        <div class="session-actions">
+        <div class="pull-right">
             <span class="action">
                 <i class="icon-edit"></i> @Html.ActionLink("Edit", MVC.Session.Edit(Model.SessionId))
             </span>
@@ -25,4 +12,17 @@
             </span>
         </div>
     }
+    <h3>
+        @Model.SessionTitle
+    </h3>
+    <h4>
+        <img src="@Model.SpeakerGravitarUrl" width="32" height="32" alt="@Model.SpeakerName">
+        <a href="@Url.Action("Details", "Speaker", new { id = Model.SpeakerId })">@(string.IsNullOrWhiteSpace(Model.SpeakerName) ? Model.SpeakerUserName : Model.SpeakerName)</a>
+    </h4>
+    <div class="session-tweet">
+        <a href="https://twitter.com/intent/tweet?text=@Model.TweetLink.Title" class="twitter-share-button" data-url="@Model.TweetLink.Url" data-count="none">Tweet</a>
+    </div>
+    <div class="session-abstract">
+        @Html.MarkdownFor(s => Model.SessionAbstract)
+    </div>
 </div>

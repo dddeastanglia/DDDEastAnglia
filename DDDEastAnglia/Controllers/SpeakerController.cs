@@ -17,31 +17,53 @@ namespace DDDEastAnglia.Controllers
 
             foreach (var speakerProfile in speakerProfiles)
             {
-                int sessionCount = db.Sessions.Count(s => s.SpeakerUserName == speakerProfile.UserName);
+                var speakersSessions = GetSessionsForSpeaker(speakerProfile);
 
-                if (sessionCount > 0)
+                // exclude speakers that haven't submitted any sessions
+                if (speakersSessions.Any())
                 {
-                    SpeakerDisplayModel speaker = new SpeakerDisplayModel
-                        {
-                            Name = speakerProfile.Name,
-                            Bio = speakerProfile.Bio,
-                            TwitterHandle = speakerProfile.TwitterHandle,
-                            WebsiteUrl = speakerProfile.WebsiteUrl,
-                            GravatarUrl = speakerProfile.GravitarUrl()
-                        };
-
-                    var speakerSessions = db.Sessions.Where(s => s.SpeakerUserName == speakerProfile.UserName).ToList();
-                    
-                    foreach (var speakerSession in speakerSessions)
-                    {
-                        speaker.Sessions.Add(speakerSession.SessionId, speakerSession.Title);
-                    }
-                    
+                    var speaker = CreateDisplayModel(speakerProfile, speakersSessions);
                     speakers.Add(speaker);
                 }
             }
 
             return View(speakers);
+        }
+
+        public virtual ActionResult Details(int id = 0)
+        {
+            var speakerProfile = db.UserProfiles.Find(id);
+        
+            if (speakerProfile == null)
+            {
+                return HttpNotFound();
+            }
+
+            var sessions = GetSessionsForSpeaker(speakerProfile);
+            var displayModel = CreateDisplayModel(speakerProfile, sessions);
+            return View(displayModel);
+        }
+
+        private List<Session> GetSessionsForSpeaker(UserProfile speakerProfile)
+        {
+            return db.Sessions.Where(s => s.SpeakerUserName == speakerProfile.UserName).ToList();
+        }
+
+        private SpeakerDisplayModel CreateDisplayModel(UserProfile userProfile, IEnumerable<Session> sessions)
+        {
+            var isCurrentUser = Request.IsAuthenticated && userProfile.UserName == User.Identity.Name;
+            var userSessions = sessions.ToDictionary(s => s.SessionId, s => s.Title);
+
+            return new SpeakerDisplayModel
+                {
+                    IsCurrentUser = isCurrentUser,
+                    Name = userProfile.Name,
+                    GravatarUrl = userProfile.GravitarUrl(),
+                    Bio = userProfile.Bio,
+                    TwitterHandle = userProfile.TwitterHandle,
+                    WebsiteUrl = userProfile.WebsiteUrl,
+                    Sessions = userSessions
+                };
         }
     }
 }
