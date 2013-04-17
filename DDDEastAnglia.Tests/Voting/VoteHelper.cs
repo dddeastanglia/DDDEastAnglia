@@ -4,12 +4,8 @@ namespace DDDEastAnglia.Tests.Voting
 {
     public static class VoteHelper
     {
-        public static bool IsVoteFor(this Vote vote, string eventId, int expectedSessionId)
+        public static bool IsVoteFor(this Vote vote, int expectedSessionId)
         {
-            if (!vote.Event.Equals(eventId))
-            {
-                return false;
-            }
             if (vote.SessionId != expectedSessionId)
             {
                 return false;
@@ -17,12 +13,8 @@ namespace DDDEastAnglia.Tests.Voting
             return true;
         }
 
-        public static bool VoteHasBeenRemoved(this Vote vote, string eventId, int sessionRemoved)
+        public static bool VoteHasBeenRemoved(this Vote vote, int sessionRemoved)
         {
-            if (!vote.Event.Equals(eventId))
-            {
-                return false;
-            }
             if (vote.SessionId != sessionRemoved)
             {
                 return false;

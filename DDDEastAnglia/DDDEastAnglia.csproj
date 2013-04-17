@@ -218,6 +218,11 @@
     <Compile Include="Controllers\VoteController.cs" />
     <Compile Include="DataAccess\EntityFramework\EntityFrameworkSessionRepository.cs" />
     <Compile Include="DataAccess\EntityFramework\EntityFrameworkVoteRepository.cs" />
+    <Compile Include="DataAccess\EntityFramework\Migrations\201304170655041_LinkSessionToConference.cs" />
+    <Compile Include="DataAccess\EntityFramework\Migrations\201304170655041_LinkSessionToConference.Designer.cs">
+      <DependentUpon>201304170655041_LinkSessionToConference.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\EntityFramework\Models\Conference.cs" />
     <Compile Include="DataAccess\EntityFramework\Initialiser.cs" />
     <Compile Include="DataAccess\IRepository.cs" />
     <Compile Include="DataAccess\ISessionRepository.cs" />
@@ -236,8 +241,11 @@
     <Compile Include="GlimpseSecurityPolicy.cs" />
     <Compile Include="Helpers\Context\HttpContextControllerInformationProvider.cs" />
     <Compile Include="Helpers\Context\HttpCookieVoteRepository.cs" />
+    <Compile Include="Helpers\Context\HttpContextWrapper.cs" />
+    <Compile Include="Helpers\Context\HttpWebRequestFactory.cs" />
     <Compile Include="Helpers\ICurrentUserVoteRepository.cs" />
     <Compile Include="Helpers\IControllerInformationProvider.cs" />
+    <Compile Include="Helpers\IRequestFactory.cs" />
     <Compile Include="HomeController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
@@ -507,6 +515,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -545,6 +554,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DataAccess\EntityFramework\Migrations\201304132127266_RemoveIsVoteColumn.resx">
       <DependentUpon>201304132127266_RemoveIsVoteColumn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataAccess\EntityFramework\Migrations\201304170655041_LinkSessionToConference.resx">
+      <DependentUpon>201304170655041_LinkSessionToConference.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

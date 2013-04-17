@@ -70,7 +70,6 @@ namespace DDDEastAnglia.Controllers
             var height = voteModel != null ? voteModel.Height : 0;
             var vote = new Vote
                         {
-                            Event = "DDDEA2013",
                             SessionId = id,
                             TimeRecorded = _controllerInformationProvider.UtcNow,
                             IPAddress = _controllerInformationProvider.GetIPAddress(),

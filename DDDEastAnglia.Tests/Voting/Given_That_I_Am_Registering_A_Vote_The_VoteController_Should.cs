@@ -26,13 +26,6 @@ namespace DDDEastAnglia.Tests.Voting
             sessionRepository.Exists(Arg.Is(KnownSessionId)).Returns(true);
         }
 
-        [Test]
-        public void Record_The_EventID()
-        {
-            Controller.RegisterVote(KnownSessionId);
-
-            CurrentUserVoteRepository.Received().Save(Arg.Is<Vote>(vote => vote.Event == "DDDEA2013"));
-        }
 
         [Test]
         public void Record_The_SessionId()
