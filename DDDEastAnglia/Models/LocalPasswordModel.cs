@@ -16,6 +16,7 @@ namespace DDDEastAnglia.Models
         [Display(Name = "new password")]
         public string NewPassword { get; set; }
 
+        [Required]
         [DataType(DataType.Password)]
         [Display(Name = "confirm new password")]
         [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
