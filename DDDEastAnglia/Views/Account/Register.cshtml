@@ -10,35 +10,53 @@
 
     <fieldset>
         <legend>Please fill in the required information below</legend>
-        <ol>
-            <li>
-                @Html.LabelFor(m => m.FullName)
-                @Html.TextBoxFor(m => m.FullName)
-                @Html.ValidationMessageFor(m => m.FullName)
-            </li>
-            <li>
-                @Html.LabelFor(m => m.EmailAddress)
-                @Html.TextBoxFor(m => m.EmailAddress)
-                @Html.ValidationMessageFor(m => m.EmailAddress)
-            </li>
-            <li>
-                @Html.LabelFor(m => m.UserName)
-                @Html.TextBoxFor(m => m.UserName)
-                @Html.ValidationMessageFor(m => m.UserName)
-            </li>
-            <li>
-                @Html.LabelFor(m => m.Password)
-                @Html.PasswordFor(m => m.Password)
-                @Html.ValidationMessageFor(m => m.Password)
-            </li>
-            <li>
-                @Html.LabelFor(m => m.ConfirmPassword)
-                @Html.PasswordFor(m => m.ConfirmPassword)
-                @Html.ValidationMessageFor(m => m.ConfirmPassword)
-            </li>
-        </ol>
-        @Html.ValidationSummary(true)
-        <input type="submit" class="btn" value="Register" />
+        
+        <div>
+            @Html.LabelFor(m => m.FullName)
+        </div>
+        <div class="input-append">
+            @Html.TextBoxFor(m => m.FullName)
+            @Html.ValidationMessageFor(m => m.FullName)
+            <span class="add-on">required</span>
+        </div>
+        <div>
+            @Html.LabelFor(m => m.EmailAddress)
+        </div>
+        <div class="input-append">
+            @Html.TextBoxFor(m => m.EmailAddress)
+            @Html.ValidationMessageFor(m => m.EmailAddress)
+            <span class="add-on">required</span>
+        </div>
+        <div>
+            @Html.LabelFor(m => m.UserName)
+        </div>
+        <div class="input-append">
+            @Html.TextBoxFor(m => m.UserName)
+            @Html.ValidationMessageFor(m => m.UserName)
+            <span class="add-on">required</span>
+        </div>
+        <div>
+            @Html.LabelFor(m => m.Password)
+        </div>
+        <div class="input-append">
+            @Html.PasswordFor(m => m.Password)
+            @Html.ValidationMessageFor(m => m.Password)
+            <span class="add-on">required</span>
+        </div>
+        <div>
+            @Html.LabelFor(m => m.ConfirmPassword)
+        </div>
+        <div class="input-append">
+            @Html.PasswordFor(m => m.ConfirmPassword)
+            @Html.ValidationMessageFor(m => m.ConfirmPassword)
+            <span class="add-on">required</span>
+        </div>
+        
+        <p>
+            @Html.ValidationSummary(true)
+        </p>
+    
+        <input type="submit" class="btn btn-primary" value="Register" />
     </fieldset>
 }
 
