@@ -7,5 +7,6 @@ namespace DDDEastAnglia.DataAccess
     {
         void Save(Vote vote);
         void Delete(int sessionId, Guid cookieId);
+        bool HasVotedFor(int sessionId, Guid cookieId);
     }
 }

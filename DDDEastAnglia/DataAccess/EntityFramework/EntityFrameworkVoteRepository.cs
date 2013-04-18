@@ -6,23 +6,28 @@ namespace DDDEastAnglia.DataAccess.EntityFramework
 {
     public class EntityFrameworkVoteRepository : IVoteRepository
     {
-        private DDDEAContext context = new DDDEAContext();
+        private readonly DDDEAContext _context = new DDDEAContext();
 
         public void Save(Vote vote)
         {
-            context.Votes.Add(vote);
-            context.SaveChanges();
+            _context.Votes.Add(vote);
+            _context.SaveChanges();
         }
 
         public void Delete(int sessionId, Guid cookieId)
         {
-            var toDelete = context.Votes.FirstOrDefault(vote => vote.SessionId == sessionId && vote.CookieId == cookieId);
+            var toDelete = _context.Votes.FirstOrDefault(vote => vote.SessionId == sessionId && vote.CookieId == cookieId);
             if (toDelete == null)
             {
                 return;
             }
-            context.Votes.Remove(toDelete);
-            context.SaveChanges();
+            _context.Votes.Remove(toDelete);
+            _context.SaveChanges();
+        }
+
+        public bool HasVotedFor(int sessionId, Guid cookieId)
+        {
+            return _context.Votes.Any(vote => vote.CookieId == cookieId && vote.SessionId == sessionId);
         }
     }
 }

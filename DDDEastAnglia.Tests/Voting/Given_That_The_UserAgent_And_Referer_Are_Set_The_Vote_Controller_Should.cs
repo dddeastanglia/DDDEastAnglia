@@ -1,6 +1,8 @@
-﻿using DDDEastAnglia.DataAccess;
-using DDDEastAnglia.DataModel;
+﻿using System;
+using System.Web;
+using DDDEastAnglia.DataAccess.Commands.Vote;
 using DDDEastAnglia.Helpers;
+using DDDEastAnglia.Models;
 using NSubstitute;
 using NUnit.Framework;
 
@@ -12,40 +14,31 @@ namespace DDDEastAnglia.Tests.Voting
         private const int SessionIdToVoteFor = 1;
         private const int SessionIdToRemove = 2;
         private const string UserAgent = "A Browser";
-        private const string Referer = "http://www.referer.com";
+        private const string Referrer = "http://www.referer.com";
 
-        protected override void SetCookieRepositoryExpectations(ICurrentUserVoteRepository repository)
-        {
-            base.SetCookieRepositoryExpectations(repository);
-            repository.HasVotedFor(SessionIdToVoteFor)
-                .Returns(false);
-        }
+        private readonly HttpCookie _httpCookie = new HttpCookie(VotingCookie.CookieName, CookieId.ToString());
+        private static readonly Guid CookieId = Guid.NewGuid();
 
-        protected override void SetSessionRepositoryExpectations(ISessionRepository sessionRepository)
+        protected override void SetExpectations(IControllerInformationProvider controllerInformationProvider)
         {
-            base.SetSessionRepositoryExpectations(sessionRepository);
-            sessionRepository.Exists(Arg.Is(SessionIdToVoteFor)).Returns(true);
-        }
-
-        protected override void SetRequestInformationProviderExpectations(IControllerInformationProvider controllerInformationProvider)
-        {
-            base.SetRequestInformationProviderExpectations(controllerInformationProvider);
+            base.SetExpectations(controllerInformationProvider);
+            controllerInformationProvider.GetCookie(Arg.Any<string>()).Returns(_httpCookie);
             controllerInformationProvider.UserAgent.Returns(UserAgent);
-            controllerInformationProvider.Referrer.Returns(Referer);
+            controllerInformationProvider.Referrer.Returns(Referrer);
         }
 
         [Test]
         public void Save_The_UserAgent_With_The_Vote()
         {
             Controller.RegisterVote(SessionIdToVoteFor);
-            CurrentUserVoteRepository.Received().Save(Arg.Is<Vote>(vote => vote.UserAgent == UserAgent));
+            MessageBus.Received().Send(Arg.Is<RegisterVoteCommand>(command => command.UserAgent == UserAgent));
         }
 
         [Test]
         public void Save_The_Referer_With_The_Vote()
         {
             Controller.RegisterVote(SessionIdToVoteFor);
-            CurrentUserVoteRepository.Received().Save(Arg.Is<Vote>(vote => vote.Referrer == Referer));
+            MessageBus.Received().Send(Arg.Is<RegisterVoteCommand>(command => command.Referrer == Referrer));
         }
     }
 }

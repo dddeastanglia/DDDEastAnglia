@@ -51,6 +51,19 @@ namespace DDDEastAnglia.Helpers.Context
 
         public DateTime UtcNow { get { return DateTime.UtcNow; } }
 
+        public HttpCookie GetCookie(string cookieName)
+        {
+            var httpCookie = HttpContext.Current.Request.Cookies[cookieName] ??
+                             new HttpCookie(cookieName, Guid.NewGuid().ToString());
+            httpCookie.Expires = VotingCookie.DefaultExpiry;
+            return httpCookie;
+        }
+
+        public void SaveCookie(HttpCookie httpCookie)
+        {
+            HttpContext.Current.Response.SetCookie(httpCookie);
+        }
+
         public static string MatchIPAddress(string potentialIPAddress)
         {
             if (string.IsNullOrEmpty(potentialIPAddress))
