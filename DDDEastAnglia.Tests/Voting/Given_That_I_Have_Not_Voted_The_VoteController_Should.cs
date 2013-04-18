@@ -1,6 +1,8 @@
-﻿using DDDEastAnglia.DataAccess;
-using DDDEastAnglia.DataModel;
+﻿using System;
+using System.Web;
+using DDDEastAnglia.DataAccess.Commands.Vote;
 using DDDEastAnglia.Helpers;
+using DDDEastAnglia.Models;
 using NSubstitute;
 using NUnit.Framework;
 
@@ -11,59 +13,50 @@ namespace DDDEastAnglia.Tests.Voting
     {
         private const int KnownSessionId = 1;
         private const int UnknownSessionId = 10;
+        private IControllerInformationProvider _controllerInformationProvider;
+        private static readonly Guid _cookieGuid = Guid.NewGuid();
+        private static readonly HttpCookie _cookie = new HttpCookie(VotingCookie.CookieName, _cookieGuid.ToString());
 
-        protected override void SetCookieRepositoryExpectations(ICurrentUserVoteRepository repository)
+        protected override void SetExpectations(IControllerInformationProvider controllerInformationProvider)
         {
-            base.SetCookieRepositoryExpectations(repository);
-            repository.HasVotedFor(KnownSessionId)
-                .Returns(false);
+            base.SetExpectations(controllerInformationProvider);
+            _controllerInformationProvider = controllerInformationProvider;
+            _controllerInformationProvider.GetCookie(Arg.Is<string>(s => s== VotingCookie.CookieName)).Returns(_cookie);
         }
 
-        protected override void SetSessionRepositoryExpectations(ISessionRepository sessionRepository)
-        {
-            base.SetSessionRepositoryExpectations(sessionRepository);
-            sessionRepository.Exists(Arg.Is(KnownSessionId)).Returns(true);
-            sessionRepository.Exists(Arg.Is(UnknownSessionId)).Returns(false);
-        }
 
         [Test]
         public void Register_A_Vote_For_A_Session()
         {
            Controller.RegisterVote(KnownSessionId);
 
-           CurrentUserVoteRepository.Received()
-                      .Save(Arg.Is<Vote>(vote => vote.SessionId == KnownSessionId));
+           MessageBus.Received()
+                      .Send(Arg.Is<RegisterVoteCommand>(command => command.SessionId == KnownSessionId));
         }
 
         [Test]
-        public void Not_Set_A_Cookie_When_Trying_To_Remove_A_Session()
+        public void Set_A_Cookie_When_Trying_To_Remove_A_Session()
         {
             Controller.RemoveVote(KnownSessionId);
-            CurrentUserVoteRepository.DidNotReceive()
-                    .Save(Arg.Any<Vote>());
+            _controllerInformationProvider.Received()
+                    .SaveCookie(Arg.Is<HttpCookie>(cookie => cookie.Value == _cookieGuid.ToString()));
         }
 
         [Test]
         public void Set_An_Empty_Cookie_When_Trying_To_Add_An_Unknown_Session()
         {
             Controller.RegisterVote(UnknownSessionId);
-            CurrentUserVoteRepository.DidNotReceiveWithAnyArgs()
-                    .Save(null);
+            _controllerInformationProvider.Received()
+                    .SaveCookie(Arg.Is<HttpCookie>(cookie => cookie.Value == _cookieGuid.ToString()));
         }
 
         [Test]
         public void Save_The_Vote_To_The_Database()
         {
             Controller.RegisterVote(KnownSessionId);
-            CurrentUserVoteRepository.Received()
-                          .Save(Arg.Is<Vote>(vote => vote.IsVoteFor(KnownSessionId)));
+            MessageBus.Received()
+                          .Send(Arg.Is<RegisterVoteCommand>(command => command.SessionId == KnownSessionId));
         }
 
-        [Test]
-        public void Fail_To_Register_A_Vote_In_The_Database_If_Session_Is_Not_Known()
-        {
-            Controller.RegisterVote(UnknownSessionId);
-            CurrentUserVoteRepository.DidNotReceiveWithAnyArgs().Save(null);
-        }
     }
 }

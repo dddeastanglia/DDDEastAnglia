@@ -1,76 +1,56 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using DDDEastAnglia.DataAccess;
-using DDDEastAnglia.DataAccess.EntityFramework;
-using DDDEastAnglia.DataModel;
+using DDDEastAnglia.DataAccess.Commands.Vote;
 using DDDEastAnglia.Helpers;
-using DDDEastAnglia.Helpers.Context;
 using DDDEastAnglia.Models;
 using DDDEastAnglia.Mvc.Attributes;
 
 namespace DDDEastAnglia.Controllers
 {
-    public class VoteController : Controller
+    public class VoteController : Controller, IRequestProvider
     {
-        private readonly ICurrentUserVoteRepository _currentUserVoteRepository;
-        private readonly ISessionRepository _sessionRepository;
-        private readonly IEventRepository _eventRepository;
-        private readonly IControllerInformationProvider _controllerInformationProvider;
+        private readonly IBuild<SessionVoteModel> _builder;
+        private readonly IMessageBus _messageBus;
+        private readonly IControllerInformationProvider _controllerInformationProvider; 
 
         public VoteController() 
-            : this(new HttpCookieVoteRepository(new EntityFrameworkVoteRepository()), 
-                   new EntityFrameworkSessionRepository(), 
-                   new EventRepository(), 
-                   new HttpContextControllerInformationProvider())
+            : this(Factory.GetSessionVoteModelBuilder(),
+                   Factory.GetMessageBus(),
+                   Factory.GetControllerInformationProvider())
         {
             
         }
 
-        public VoteController(ICurrentUserVoteRepository currentUserVoteRepository, 
-            ISessionRepository sessionRepository, 
-            IEventRepository eventRepository, 
-            IControllerInformationProvider controllerInformationProvider)
+        public VoteController(IBuild<SessionVoteModel> builder,
+            IMessageBus messageBus,
+            IControllerInformationProvider informationProvider)
         {
-            _currentUserVoteRepository = currentUserVoteRepository;
-            _sessionRepository = sessionRepository;
-            _eventRepository = eventRepository;
-            _controllerInformationProvider = controllerInformationProvider;
+            _builder = builder;
+            _messageBus = messageBus;
+            _controllerInformationProvider = informationProvider;
         }
 
         public ActionResult Status(int id)
         {
-            if (!_sessionRepository.Exists(id))
-            {
-                return new EmptyResult();
-            }
-            var currentEvent = _eventRepository.Get("DDDEA2013");
-            var result = new SessionVoteModel();
-            result.SessionId = id;
-            result.VotedForByUser = _currentUserVoteRepository.HasVotedFor(id);
-            return currentEvent.CanVote() ? PartialView(result) as ActionResult : new EmptyResult();
+            var result = _builder.Get(id);
+            _controllerInformationProvider.SaveCookie(_controllerInformationProvider.GetCookie(VotingCookie.CookieName));
+            return result.CanVote ? PartialView(result) as ActionResult : new EmptyResult();
         }
 
         [HttpPost]
         [AllowCrossSiteJson]
-        public ActionResult RegisterVote(int id, VoteModel voteModel = null)
+        public ActionResult RegisterVote(int id, VoteModel sessionVoteModel = null)
         {
-            var currentEvent = _eventRepository.Get("DDDEA2013");
-            if (!_sessionRepository.Exists(id))
-            {
-                return RedirectOrReturnPartialView(id);
-            }
-            if (_currentUserVoteRepository.HasVotedFor(id))
-            {
-                return RedirectOrReturnPartialView(id);
-            }
-            if (currentEvent == null || !currentEvent.CanVote())
-            {
-                return RedirectOrReturnPartialView(id);
-            }
-            var width = voteModel != null ? voteModel.Width : 0;
-            var height = voteModel != null ? voteModel.Height : 0;
-            var vote = new Vote
+            var cookie = _controllerInformationProvider.GetCookie(VotingCookie.CookieName);
+
+            var width = sessionVoteModel != null ? sessionVoteModel.Width : 0;
+            var height = sessionVoteModel != null ? sessionVoteModel.Height : 0;
+            
+            var vote = new RegisterVoteCommand
                         {
                             SessionId = id,
+                            CookieId = GetCookieId(cookie.Value),
                             TimeRecorded = _controllerInformationProvider.UtcNow,
                             IPAddress = _controllerInformationProvider.GetIPAddress(),
                             UserAgent = _controllerInformationProvider.UserAgent,
@@ -85,25 +65,34 @@ namespace DDDEastAnglia.Controllers
             {
                 vote.ScreenResolution = string.Format("{0}x{1}", width, height);
             }
-            _currentUserVoteRepository.Save(vote);
+            _messageBus.Send(vote);
+            _controllerInformationProvider.SaveCookie(cookie);
             return RedirectOrReturnPartialView(id);
         }
 
         [HttpPost]
         [AllowCrossSiteJson]
-        public ActionResult RemoveVote(int id, VoteModel voteModel = null)
+        public ActionResult RemoveVote(int id, VoteModel sessionVoteModel = null)
         {
-            var currentEvent = _eventRepository.Get("DDDEA2013");
-            if (!_currentUserVoteRepository.HasVotedFor(id))
-            {
-                return RedirectOrReturnPartialView(id);
-            }
-            if (currentEvent == null || !currentEvent.CanVote())
-            {
-                return RedirectOrReturnPartialView(id);
-            }
-            _currentUserVoteRepository.Delete(id);
+            var cookie = _controllerInformationProvider.GetCookie(VotingCookie.CookieName);
+            var cookieId = GetCookieId(cookie.Value);
+            _messageBus.Send(new DeleteVoteCommand
+                {
+                    SessionId = id,
+                    CookieId = cookieId
+                });
+            _controllerInformationProvider.SaveCookie(cookie);
             return RedirectOrReturnPartialView(id);
+        }
+
+        private Guid GetCookieId(string value)
+        {
+            Guid guid;
+            if (Guid.TryParse(value, out guid))
+            {
+                return guid;
+            }
+            return Guid.Empty;
         }
 
         private ActionResult RedirectOrReturnPartialView(int sessionId)

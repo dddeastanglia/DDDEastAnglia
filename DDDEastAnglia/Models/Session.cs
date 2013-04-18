@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using DDDEastAnglia.DataAccess.EntityFramework.Models;
 
 namespace DDDEastAnglia.Models
 {
@@ -21,5 +22,7 @@ namespace DDDEastAnglia.Models
         public int Votes { get; set; }
 
         public int ConferenceId { get; set; }
+
+        public virtual Conference Conference { get; set; }
     }
 }

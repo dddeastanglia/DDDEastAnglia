@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Web;
 using DDDEastAnglia.DataAccess;
+using DDDEastAnglia.DataAccess.Commands.Vote;
 using DDDEastAnglia.DataModel;
 using DDDEastAnglia.Helpers;
 using DDDEastAnglia.Models;
@@ -14,24 +16,13 @@ namespace DDDEastAnglia.Tests.Voting
         private const int SessionIdToVoteFor = 1;
         private const int SessionIdToRemove = 2;
         private const string LocalIpAddress = "127.0.0.1";
+        private readonly HttpCookie _httpCookie = new HttpCookie(VotingCookie.CookieName, CookieId.ToString());
+        private static readonly Guid CookieId = Guid.NewGuid();
 
-        protected override void SetCookieRepositoryExpectations(ICurrentUserVoteRepository repository)
+        protected override void SetExpectations(IControllerInformationProvider controllerInformationProvider)
         {
-            base.SetCookieRepositoryExpectations(repository);
-            repository.HasVotedFor(SessionIdToRemove).Returns(true);
-            repository.HasVotedFor(SessionIdToVoteFor).Returns(false);
-        }
-
-        protected override void SetSessionRepositoryExpectations(ISessionRepository sessionRepository)
-        {
-            base.SetSessionRepositoryExpectations(sessionRepository);
-            sessionRepository.Exists(Arg.Is(SessionIdToVoteFor)).Returns(true);
-            sessionRepository.Exists(Arg.Is(SessionIdToRemove)).Returns(true);
-        }
-
-        protected override void SetRequestInformationProviderExpectations(IControllerInformationProvider controllerInformationProvider)
-        {
-            base.SetRequestInformationProviderExpectations(controllerInformationProvider);
+            base.SetExpectations(controllerInformationProvider);
+            controllerInformationProvider.GetCookie(Arg.Any<string>()).Returns(_httpCookie);
             controllerInformationProvider.GetIPAddress().Returns(LocalIpAddress);
         }
 
@@ -40,7 +31,7 @@ namespace DDDEastAnglia.Tests.Voting
         {
             Controller.RegisterVote(SessionIdToVoteFor);
 
-            CurrentUserVoteRepository.Received().Save(Arg.Is<Vote>(vote => vote.IPAddress == LocalIpAddress));
+            MessageBus.Received().Send(Arg.Is<RegisterVoteCommand>(command => command.IPAddress == LocalIpAddress));
         }
     }
 }

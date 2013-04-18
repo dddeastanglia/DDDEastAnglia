@@ -1,6 +1,6 @@
 ﻿using System;
-using DDDEastAnglia.DataAccess;
-using DDDEastAnglia.DataModel;
+using System.Web;
+using DDDEastAnglia.DataAccess.Commands.Vote;
 using DDDEastAnglia.Helpers;
 using DDDEastAnglia.Models;
 using NSubstitute;
@@ -12,42 +12,32 @@ namespace DDDEastAnglia.Tests.Voting
     public class Given_That_I_Am_Logged_In_The_Vote_Controller_Should : VotingTestBase
     {
         private const int SessionIdToVoteFor = 1;
-        private const int SessionIdToRemove = 2;
         private const int MyUserId = 100;
         private const string MyUserName = "Bob";
 
-        private readonly UserProfile myUserProfile = new UserProfile
+        private readonly HttpCookie _httpCookie = new HttpCookie(VotingCookie.CookieName, CookieId.ToString());
+        private static readonly Guid CookieId = Guid.NewGuid();
+
+        private readonly UserProfile _myUserProfile = new UserProfile
             {
                 UserId = MyUserId,
                 UserName = MyUserName
             };
 
 
-        protected override void SetCookieRepositoryExpectations(ICurrentUserVoteRepository repository)
+        protected override void SetExpectations(IControllerInformationProvider controllerInformationProvider)
         {
-            base.SetCookieRepositoryExpectations(repository);
-            repository.HasVotedFor(SessionIdToRemove).Returns(true);
-        }
-
-        protected override void SetSessionRepositoryExpectations(ISessionRepository sessionRepository)
-        {
-            base.SetSessionRepositoryExpectations(sessionRepository);
-            sessionRepository.Exists(Arg.Is(SessionIdToVoteFor)).Returns(true);
-            sessionRepository.Exists(Arg.Is(SessionIdToRemove)).Returns(true);
-        }
-
-        protected override void SetRequestInformationProviderExpectations(IControllerInformationProvider controllerInformationProvider)
-        {
-            base.SetRequestInformationProviderExpectations(controllerInformationProvider);
+            base.SetExpectations(controllerInformationProvider);
+            controllerInformationProvider.GetCookie(Arg.Any<string>()).Returns(_httpCookie);
             controllerInformationProvider.IsLoggedIn().Returns(true);
-            controllerInformationProvider.GetCurrentUser().Returns(myUserProfile);
+            controllerInformationProvider.GetCurrentUser().Returns(_myUserProfile);
         }
 
         [Test]
         public void Save_My_UserId_With_The_Vote()
         {
             Controller.RegisterVote(SessionIdToVoteFor);
-            CurrentUserVoteRepository.Received().Save(Arg.Is<Vote>(vote => vote.UserId == myUserProfile.UserId));
+            MessageBus.Received().Send(Arg.Is<RegisterVoteCommand>(command => command.UserId == _myUserProfile.UserId));
         }
     }
 }
