@@ -7,9 +7,17 @@
 
 <h2>Speakers</h2>
 
+<ul>
+@foreach (SpeakerDisplayModel speaker in Model)
+{
+    <li><a href="#@speaker.Username">@speaker.Name</a></li>
+}   
+</ul>
+
 @foreach (var speaker in Model)
 {
     <div class="row-fluid">
+        <a id="@speaker.Username" />
         @Html.Partial("_SpeakerDetailsPartial", speaker)
     </div>
 }
