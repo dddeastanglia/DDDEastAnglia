@@ -1,5 +1,7 @@
 ﻿.admin-table {
     width: 100%;
+    margin-bottom: 10px;
+    border-bottom: 1px solid lightgray;
 }    
 
 .admin-table th {
