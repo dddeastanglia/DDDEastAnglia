@@ -1,5 +1,6 @@
 ﻿using DDDEastAnglia.DataAccess.EntityFramework;
 using DDDEastAnglia.DataAccess.Handlers.Voting;
+using DDDEastAnglia.DataAccess.MessageBus;
 using DDDEastAnglia.Helpers;
 using DDDEastAnglia.Helpers.Context;
 using DDDEastAnglia.Models;

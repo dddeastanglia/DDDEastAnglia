@@ -241,7 +241,7 @@
     <Compile Include="DataAccess\ISessionRepository.cs" />
     <Compile Include="DataAccess\IBuild.cs" />
     <Compile Include="DataAccess\IVoteRepository.cs" />
-    <Compile Include="DataAccess\SimpleMessageBus.cs" />
+    <Compile Include="DataAccess\MessageBus\SimpleMessageBus.cs" />
     <Compile Include="DataModel\Event.cs" />
     <Compile Include="DataAccess\EntityFramework\DDDEAContext.cs" />
     <Compile Include="App_Code\GitHubOAuthClient.cs" />
