@@ -11,8 +11,12 @@
 
 <h2>@ViewBag.Title</h2>
 
+<div class="pull-right">
+    <strong>@Model.Count() total sessions</strong>
+</div>
+
 <p>
-    @Html.ActionLink("Create New Session", "Create")
+    <i class="icon-edit"></i> @Html.ActionLink("Create New Session", "Create")
 </p>
 
 <table id="sessionsTable" class="admin-table">
@@ -58,5 +62,4 @@
             $("#sessionsTable").tablesorter({ headers: { 3: { sorter: false } } });
         });
     </script>
-    ); 
 }
