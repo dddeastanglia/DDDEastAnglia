@@ -17,7 +17,7 @@
         <div class="control-group">
             @Html.LabelFor(m => m.FullName, new { @class = "control-label" })
             <div class="controls">
-                @Html.TextBoxFor(m => m.FullName)
+                @Html.TextBoxFor(m => m.FullName, new { autofocus = true })
                 @Html.ValidationMessageFor(m => m.FullName)
             </div>
         </div>
@@ -25,7 +25,7 @@
         <div class="control-group">
             @Html.LabelFor(m => m.EmailAddress, new { @class = "control-label" })
             <div class="controls">
-                @Html.TextBoxFor(m => m.EmailAddress)
+                @Html.TextBoxFor(m => m.EmailAddress, new { type = "email" })
                 @Html.ValidationMessageFor(m => m.EmailAddress)
             </div>
         </div>
