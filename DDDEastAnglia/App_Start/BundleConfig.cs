@@ -7,58 +7,70 @@ namespace DDDEastAnglia
         // For more information on Bundling, visit http://go.microsoft.com/fwlink/?LinkId=254725
         public static void RegisterBundles(BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                                                                     "~/Scripts/jquery-{version}.js",
-                                                                     "~/Scripts/jquery.cookie.js"));
+            AddScriptBundle(bundles, "~/bundles/jquery",
+                            "~/Scripts/jquery-{version}.js",
+                            "~/Scripts/jquery.cookie.js");
 
-            bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
-                                                                       "~/Scripts/jquery-ui-{version}.js"));
+            AddScriptBundle(bundles, "~/bundles/jqueryui",
+                            "~/Scripts/jquery-ui-{version}.js");
 
-            bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                                                                        "~/Scripts/jquery.unobtrusive*",
-                                                                        "~/Scripts/jquery.validate*"));
+            AddScriptBundle(bundles, "~/bundles/jqueryval",
+                            "~/Scripts/jquery.unobtrusive*",
+                            "~/Scripts/jquery.validate*");
 
-            bundles.Add(new ScriptBundle("~/bundles/tablesorter").Include(
-                                                                          "~/Scripts/jquery.tablesorter.js"));
+            AddScriptBundle(bundles, "~/bundles/tablesorter", 
+                            "~/Scripts/jquery.tablesorter.js");
 
-            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                                                                        "~/Scripts/bootstrap.js"));
+            AddScriptBundle(bundles, "~/bundles/bootstrap",
+                            "~/Scripts/bootstrap.js");
 
-            bundles.Add(new ScriptBundle("~/bundles/Markdown").Include("~/Scripts/Markdown*"));
+            AddScriptBundle(bundles, "~/bundles/Markdown",
+                            "~/Scripts/Markdown*");
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
-            bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
-                                                                        "~/Scripts/modernizr-*"));
+            AddScriptBundle(bundles, "~/bundles/modernizr",
+                            "~/Scripts/modernizr-*");
 
-            bundles.Add(new StyleBundle("~/Content/admin").Include(new[] {"~/Content/admin.css"}));
+            AddStyleBundle(bundles, "~/Content/admin",
+                           "~/Content/admin.css");
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(new[]
-                                                         {
-                                                             "~/Content/bootstrap.css", 
-                                                             "~/Content/Site.css",
-                                                             "~/Content/media-queries.css",
-                                                             "~/Content/font-awesome.css",
-                                                             "~/Content/font-awesome-ie7.min.css",
-                                                         }));
+            AddStyleBundle(bundles, "~/Content/css",
+                           "~/Content/bootstrap.css",
+                           "~/Content/Site.css",
+                           "~/Content/media-queries.css",
+                           "~/Content/font-awesome.css",
+                           "~/Content/font-awesome-ie7.min.css");
 
-            bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
-                        "~/Content/themes/base/jquery.ui.core.css",
-                        "~/Content/themes/base/jquery.ui.resizable.css",
-                        "~/Content/themes/base/jquery.ui.selectable.css",
-                        "~/Content/themes/base/jquery.ui.accordion.css",
-                        "~/Content/themes/base/jquery.ui.autocomplete.css",
-                        "~/Content/themes/base/jquery.ui.button.css",
-                        "~/Content/themes/base/jquery.ui.dialog.css",
-                        "~/Content/themes/base/jquery.ui.slider.css",
-                        "~/Content/themes/base/jquery.ui.tabs.css",
-                        "~/Content/themes/base/jquery.ui.datepicker.css",
-                        "~/Content/themes/base/jquery.ui.progressbar.css",
-                        "~/Content/themes/base/jquery.ui.theme.css"));
+            AddStyleBundle(bundles, "~/Content/themes/base/css",
+                           "~/Content/themes/base/jquery.ui.core.css",
+                           "~/Content/themes/base/jquery.ui.resizable.css",
+                           "~/Content/themes/base/jquery.ui.selectable.css",
+                           "~/Content/themes/base/jquery.ui.accordion.css",
+                           "~/Content/themes/base/jquery.ui.autocomplete.css",
+                           "~/Content/themes/base/jquery.ui.button.css",
+                           "~/Content/themes/base/jquery.ui.dialog.css",
+                           "~/Content/themes/base/jquery.ui.slider.css",
+                           "~/Content/themes/base/jquery.ui.tabs.css",
+                           "~/Content/themes/base/jquery.ui.datepicker.css",
+                           "~/Content/themes/base/jquery.ui.progressbar.css",
+                           "~/Content/themes/base/jquery.ui.theme.css");
 
-            bundles.Add(new StyleBundle("~/Content/Markdown").Include("~/Content/Markdown.css"));
+            AddStyleBundle(bundles, "~/Content/Markdown",
+                           "~/Content/Markdown.css");
 
-            bundles.Add(new ScriptBundle("~/bundles/tweetbutton").Include("~/Scripts/tweetbutton.js"));
+            AddStyleBundle(bundles, "~/bundles/tweetbutton",
+                           "~/Scripts/tweetbutton.js");
+        }
+
+        private static void AddScriptBundle(BundleCollection bundles, string virtualPath, params string[] scriptFiles)
+        {
+            bundles.Add(new ScriptBundle(virtualPath).Include(scriptFiles));
+        }
+
+        private static void AddStyleBundle(BundleCollection bundles, string virtualPath, params string[] styleFiles)
+        {
+            bundles.Add(new StyleBundle(virtualPath).Include(styleFiles));
         }
     }
 }
