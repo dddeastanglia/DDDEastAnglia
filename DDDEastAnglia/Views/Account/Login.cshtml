@@ -21,7 +21,7 @@
         @Html.ValidationSummary(true)
 
         <div class="control-group">
-            @Html.LabelFor(m => m.UserName, new { @class = "control-label"})
+            @Html.LabelFor(m => m.UserName, new { @class = "control-label", autofocus = true })
             <div class="controls">
                 @Html.TextBoxFor(m => m.UserName)
                 @Html.ValidationMessageFor(m => m.UserName)
