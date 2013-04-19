@@ -10,8 +10,10 @@
 {
     <fieldset>
         <legend>Please provide the details of your session below</legend>
+        @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model.SpeakerUserName)
-        <div>
+
+        <div class="editor-label">
             @Html.LabelFor(model => model.Title)
         </div>
         <div class="editor-field">
@@ -19,7 +21,7 @@
             @Html.ValidationMessageFor(model => model.Title)
         </div>
 
-        <div>
+        <div class="editor-label">
             @Html.LabelFor(model => model.Abstract)
         </div>
         <div id="wmd-button-bar"></div>
@@ -29,21 +31,20 @@
         </div>
         <div id="wmd-preview"></div>
 
-        <p>
-            @Html.ValidationSummary(true)
-        </p>
-    
-        <input type="submit" class="btn btn-primary" value="Submit session" />
-        @Html.ActionLink("Cancel", "Index")
+        <div>
+            <input type="submit" class="btn btn-primary" value="Submit session" />
+            @Html.ActionLink("Cancel", "Index")
+        </div>
     </fieldset>
 }
 
-@section Scripts {
+@section Scripts
+{
     @Scripts.Render("~/bundles/jqueryval")
-}
 
-<script type="text/javascript">
-    var converter = new Markdown.Converter();
-    var editor = new Markdown.Editor(converter);
-    editor.run();
-</script>
+    <script type="text/javascript">
+        var converter = new Markdown.Converter();
+        var editor = new Markdown.Editor(converter);
+        editor.run();
+    </script>
+}

@@ -6,42 +6,49 @@
 
 <h2>Please log in to continue</h2>
 
-<section class="social" id="socialLoginForm">
-    @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
+<section id="socialLoginForm">
+    @Html.Action("ExternalLoginsList", new { ViewBag.ReturnUrl })
 </section>
 
 <section id="loginForm">
-@using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl })) 
+@using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "form-horizontal"})) 
 {
     @Html.AntiForgeryToken()
 
     <fieldset>
         <legend>Use a local account to log in</legend>
 
-        <div>
-            @Html.LabelFor(m => m.UserName)
-        </div>
-        <div>
+        @Html.ValidationSummary(true)
+
+        <div class="control-group">
+            @Html.LabelFor(m => m.UserName, new { @class = "control-label"})
+            <div class="controls">
             @Html.TextBoxFor(m => m.UserName)
             @Html.ValidationMessageFor(m => m.UserName)
+            </div>
         </div>
-        <div>
-            @Html.LabelFor(m => m.Password)
-        </div>
-        <div>
+
+        <div class="control-group">
+            @Html.LabelFor(m => m.Password, new { @class = "control-label"})
+            <div class="controls">
             @Html.PasswordFor(m => m.Password)
             @Html.ValidationMessageFor(m => m.Password)
+            </div>
         </div>
-        <div>
+
+        <div class="control-group">
+            <div class="controls">
             @Html.CheckBoxFor(m => m.RememberMe)
             @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox inline" })
-        </div>
+            </div>
         
-        <p>
-            @Html.ValidationSummary(true)
-        </p>
+        </div>
 
-        <input type="submit" class="btn btn-primary" value="Log in" />
+        <div class="control-group">
+            <div class="controls">
+                <input type="submit" class="btn btn-primary" value="Log in" />
+            </div>
+        </div>
     </fieldset>
 
     <div id="registerLink">
@@ -50,6 +57,13 @@
 }
 </section>
 
-@section Scripts {
+@section Scripts 
+{
     @Scripts.Render("~/bundles/jqueryval")
+
+    <script language="javascript">
+        $(document).ready(function() {
+            $('#UserName').focus();
+        });
+    </script>
 }
