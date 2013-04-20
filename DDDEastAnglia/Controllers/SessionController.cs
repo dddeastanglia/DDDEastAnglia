@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web.Mvc;
+
+using AutoMapper;
+
 using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.Models;
 
@@ -40,7 +43,7 @@ namespace DDDEastAnglia.Controllers
         public virtual ActionResult Details(int id = 0)
         {
             Session session = db.Sessions.Find(id);
-        
+
             if (session == null)
             {
                 return HttpNotFound();
@@ -48,7 +51,7 @@ namespace DDDEastAnglia.Controllers
 
             var userProfile = db.UserProfiles.First(s => s.UserName == session.SpeakerUserName);
             var displayModel = CreateDisplayModel(session, userProfile);
-            displayModel.SpeakerGravitarUrl = userProfile.GravitarUrl();
+
             return View(displayModel);
         }
 
@@ -59,14 +62,14 @@ namespace DDDEastAnglia.Controllers
             {
                 return RedirectToAction("Index");
             }
-        
+
             if (User == null)
             {
                 return RedirectToAction("Index");
             }
-            
+
             var userProfile = db.UserProfiles.FirstOrDefault(u => u.UserName == User.Identity.Name);
-            
+
             if (userProfile == null)
             {
                 return RedirectToAction("Index");
@@ -83,7 +86,7 @@ namespace DDDEastAnglia.Controllers
             {
                 return RedirectToAction("Index");
             }
-        
+
             if (ModelState.IsValid)
             {
                 var addedSession = db.Sessions.Add(session);
@@ -98,12 +101,12 @@ namespace DDDEastAnglia.Controllers
         public virtual ActionResult Edit(int id = 0)
         {
             Session session = db.Sessions.Find(id);
-        
+
             if (session == null)
             {
                 return HttpNotFound();
             }
-            
+
             return View(session);
         }
 
@@ -125,7 +128,7 @@ namespace DDDEastAnglia.Controllers
         public virtual ActionResult Delete(int id = 0)
         {
             Session session = db.Sessions.Find(id);
-        
+
             if (session == null)
             {
                 return HttpNotFound();
@@ -149,26 +152,21 @@ namespace DDDEastAnglia.Controllers
         private SessionDisplayModel CreateDisplayModel(Session session, UserProfile profile)
         {
             var isUsersSession = Request.IsAuthenticated && session.SpeakerUserName == User.Identity.Name;
-            var tweetLink = CreateTweetLink(isUsersSession, session.Title, Url.Action("Details", "Session", new {id = session.SessionId}, Request.Url.Scheme));
+            var tweetLink = CreateTweetLink(isUsersSession, session.Title, Url.Action("Details", "Session", new { id = session.SessionId }, Request.Url.Scheme));
 
-            var displayModel = new SessionDisplayModel
-                {
-                    SessionId = session.SessionId,
-                    SessionTitle = session.Title,
-                    SessionAbstract = session.Abstract,
-                    SpeakerId = profile.UserId,
-                    SpeakerName = profile.Name,
-                    SpeakerUserName = session.SpeakerUserName,
-                    SpeakerGravitarUrl = profile.GravitarUrl(),
-                    TweetLink = tweetLink,
-                    IsUsersSession = isUsersSession
-                };
+            SessionDisplayModel displayModel = Mapper.Map<Session, SessionDisplayModel>(session);
+            displayModel.SpeakerId = profile.UserId;
+            displayModel.SpeakerName = profile.Name;
+            displayModel.SpeakerGravitarUrl = profile.GravitarUrl();
+            displayModel.TweetLink = tweetLink;
+            displayModel.IsUsersSession = isUsersSession;
+
             return displayModel;
         }
 
         private SessionTweetLink CreateTweetLink(bool isUsersSession, string sessionTitle, string sessionUrl)
         {
-            var title = string.Format("Check out {0} session for #dddea - {1} {2}", 
+            var title = string.Format("Check out {0} session for #dddea - {1} {2}",
                                         isUsersSession ? "my" : "this",
                                         sessionTitle, sessionUrl);
             var tweetLink = new SessionTweetLink
@@ -178,7 +176,7 @@ namespace DDDEastAnglia.Controllers
                 };
             return tweetLink;
         }
-     
+
         protected override void Dispose(bool disposing)
         {
             db.Dispose();
