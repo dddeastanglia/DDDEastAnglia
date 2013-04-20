@@ -121,7 +121,7 @@ namespace DDDEastAnglia.Controllers
                         }
                     }
                     catch (Exception)
-                    {}
+                    { }
 
                     ModelState.AddModelError("", "The current password is incorrect or the new password is invalid.");
                 }
@@ -151,11 +151,11 @@ namespace DDDEastAnglia.Controllers
                 var clientData = OAuthWebSecurity.GetOAuthClientData(account.Provider);
 
                 externalLogins.Add(new ExternalLogin
-                    {
-                        Provider = account.Provider,
-                        ProviderDisplayName = clientData.DisplayName,
-                        ProviderUserId = account.ProviderUserId,
-                    });
+                {
+                    Provider = account.Provider,
+                    ProviderDisplayName = clientData.DisplayName,
+                    ProviderUserId = account.ProviderUserId,
+                });
             }
 
             ViewBag.ShowRemoveButton = externalLogins.Count > 1 || OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
@@ -194,7 +194,7 @@ namespace DDDEastAnglia.Controllers
                 }
             }
 
-            return RedirectToAction("ManageLogins", new { Message = message});
+            return RedirectToAction("ManageLogins", new { Message = message });
         }
 
         // POST: /Account/ExternalLogin
@@ -211,7 +211,7 @@ namespace DDDEastAnglia.Controllers
         public virtual ActionResult ExternalLoginCallback(string returnUrl)
         {
             AuthenticationResult result = OAuthWebSecurity.VerifyAuthentication(Url.Action("ExternalLoginCallback", new { ReturnUrl = returnUrl }));
-         
+
             if (!result.IsSuccessful)
             {
                 return RedirectToAction("ExternalLoginFailure");
@@ -228,7 +228,7 @@ namespace DDDEastAnglia.Controllers
                 OAuthWebSecurity.CreateOrUpdateAccount(result.Provider, result.ProviderUserId, User.Identity.Name);
                 return RedirectToLocal(returnUrl);
             }
-            
+
             // User is new, ask for their desired membership name
             string loginData = OAuthWebSecurity.SerializeProviderUserId(result.Provider, result.ProviderUserId);
             ViewBag.ProviderDisplayName = OAuthWebSecurity.GetOAuthClientData(result.Provider).DisplayName;
@@ -256,7 +256,7 @@ namespace DDDEastAnglia.Controllers
                 using (DDDEAContext db = new DDDEAContext())
                 {
                     UserProfile user = db.UserProfiles.FirstOrDefault(u => u.UserName.ToLower() == model.UserName.ToLower());
-                    
+
                     // Check if user already exists
                     if (user == null)
                     {
@@ -269,7 +269,7 @@ namespace DDDEastAnglia.Controllers
 
                         return RedirectToLocal(returnUrl);
                     }
-                    
+
                     ModelState.AddModelError("UserName", ErrorCodeToString(MembershipCreateStatus.DuplicateUserName));
                 }
             }
@@ -293,7 +293,7 @@ namespace DDDEastAnglia.Controllers
             {
                 return Redirect(returnUrl);
             }
-            
+
             return RedirectToAction("Index", "Home");
         }
 
