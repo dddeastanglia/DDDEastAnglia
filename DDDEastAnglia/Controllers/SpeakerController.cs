@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+
+using AutoMapper;
+
 using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.Models;
 
@@ -33,7 +36,7 @@ namespace DDDEastAnglia.Controllers
         public virtual ActionResult Details(int id = 0)
         {
             var speakerProfile = db.UserProfiles.Find(id);
-        
+
             if (speakerProfile == null)
             {
                 return HttpNotFound();
@@ -54,16 +57,11 @@ namespace DDDEastAnglia.Controllers
             var isCurrentUser = Request.IsAuthenticated && userProfile.UserName == User.Identity.Name;
             var userSessions = sessions.ToDictionary(s => s.SessionId, s => s.Title);
 
-            return new SpeakerDisplayModel
-                {
-                    IsCurrentUser = isCurrentUser,
-                    Name = userProfile.Name,
-                    GravatarUrl = userProfile.GravitarUrl(),
-                    Bio = userProfile.Bio,
-                    TwitterHandle = userProfile.TwitterHandle,
-                    WebsiteUrl = userProfile.WebsiteUrl,
-                    Sessions = userSessions
-                };
+            SpeakerDisplayModel displayModel = Mapper.Map<UserProfile, SpeakerDisplayModel>(userProfile);
+            displayModel.IsCurrentUser = isCurrentUser;
+            displayModel.Sessions = userSessions;
+
+            return displayModel;
         }
     }
 }
