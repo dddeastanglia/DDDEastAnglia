@@ -1,4 +1,5 @@
-﻿@if (Request.IsAuthenticated) {
+﻿@if (Request.IsAuthenticated)
+{
     <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
         <i class="icon-user"></i> @User.Identity.Name
         <span class="caret"></span>
@@ -49,7 +50,6 @@ else
         <li>
             <a href="@Url.Action(MVC.Account.Login())"><i class="icon-user"></i> Log in with DDDEA account</a>
         </li>
-        @*<li><a data-toggle="modal" href="#openIdLogin">Log in with an OpenID</a></li>*@
         <li class="divider"></li>
         <li>@Html.ActionLink("Register", "Register", "Account", null, new { id = "registerLink" })</li>
     </ul>
