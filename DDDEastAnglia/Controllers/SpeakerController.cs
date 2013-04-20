@@ -34,7 +34,7 @@ namespace DDDEastAnglia.Controllers
         public virtual ActionResult Details(int id = 0)
         {
             var speakerProfile = db.UserProfiles.Find(id);
-        
+
             if (speakerProfile == null)
             {
                 return HttpNotFound();
@@ -63,7 +63,8 @@ namespace DDDEastAnglia.Controllers
                     Bio = userProfile.Bio,
                     TwitterHandle = userProfile.TwitterHandle,
                     WebsiteUrl = userProfile.WebsiteUrl,
-                    Sessions = userSessions
+                    Sessions = userSessions,
+                    Username = userProfile.UserName
                 };
         }
     }
