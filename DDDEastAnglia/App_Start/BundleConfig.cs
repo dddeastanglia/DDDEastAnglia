@@ -19,7 +19,7 @@ namespace DDDEastAnglia
                             "~/Scripts/jquery.validate*");
 
             AddScriptBundle(bundles, "~/bundles/tablesorter", 
-                            "~/Scripts/jquery.tablesorter.js");
+                            "~/Scripts/jquery.tablesorter*");
 
             AddScriptBundle(bundles, "~/bundles/bootstrap",
                             "~/Scripts/bootstrap.js");
