@@ -39,7 +39,7 @@
         <div class="control-group">
             @Html.LabelFor(m => m.EmailAddress, new { @class = "control-label"})
             <div class="controls">
-                @Html.TextBoxFor(m => m.EmailAddress)
+                @Html.TextBoxFor(m => m.EmailAddress, new { type = "email" })
                 @Html.ValidationMessageFor(m => m.EmailAddress)
             </div>
         </div>

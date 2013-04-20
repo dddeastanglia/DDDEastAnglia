@@ -12,7 +12,7 @@
 }
 
 <section id="profile">
-@using (Html.BeginForm("UserProfile", "Profile", FormMethod.Post, new { @class = "form-horizontal"}))
+@using (Html.BeginForm("UserProfile", "Profile", FormMethod.Post, new { @class = "form-horizontal" }))
 {
     <fieldset>
         <legend>Please provide as much information as possible</legend>
@@ -22,30 +22,30 @@
         @Html.HiddenFor(m => m.UserName)
         
         <div class="control-group">
-            @Html.LabelFor(m => Model.Name, new { @class = "control-label"})
+            @Html.LabelFor(m => Model.Name, new { @class = "control-label" })
             <div class="controls">
-                @Html.TextBoxFor(m => Model.Name)
+                @Html.TextBoxFor(m => Model.Name, new { autofocus = true })
                 @Html.ValidationMessageFor(m => Model.Name)
             </div>
         </div>
 
         <div class="control-group">
-            @Html.LabelFor(m => Model.EmailAddress, new { @class = "control-label"})
+            @Html.LabelFor(m => Model.EmailAddress, new { @class = "control-label" })
             <div class="controls">
-                @Html.TextBoxFor(m => Model.EmailAddress)
+                @Html.TextBoxFor(m => Model.EmailAddress, new { type = "email" })
                 @Html.ValidationMessageFor(m => Model.EmailAddress)
             </div>
         </div>
 
         <div class="control-group">
-            @Html.LabelFor(m => Model.MobilePhone, new { @class = "control-label"})
+            @Html.LabelFor(m => Model.MobilePhone, new { @class = "control-label" })
             <div class="controls">
-                @Html.TextBoxFor(m => Model.MobilePhone)
+                @Html.TextBoxFor(m => Model.MobilePhone, new { type = "tel" })
             </div>
         </div>
 
         <div class="control-group">
-            @Html.LabelFor(m => Model.TwitterHandle, new { @class = "control-label"})
+            @Html.LabelFor(m => Model.TwitterHandle, new { @class = "control-label" })
             <div class="controls">
                 <div class="input-prepend">
                     <span class="add-on">@@</span>
@@ -55,14 +55,14 @@
         </div>
 
         <div class="control-group">
-            @Html.LabelFor(m => Model.WebsiteUrl, new { @class = "control-label"})
+            @Html.LabelFor(m => Model.WebsiteUrl, new { @class = "control-label" })
             <div class="controls">
-                @Html.TextBoxFor(m => Model.WebsiteUrl)
+                @Html.TextBoxFor(m => Model.WebsiteUrl, new { type = "url" })
             </div>
         </div>
 
         <div class="control-group">
-            @Html.LabelFor(m => Model.Bio, new { @class = "control-label"})
+            @Html.LabelFor(m => Model.Bio, new { @class = "control-label" })
             <div class="controls">
                 <div id="wmd-button-bar"></div>
                 <div>
