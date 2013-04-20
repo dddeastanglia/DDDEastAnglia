@@ -1,6 +1,6 @@
-﻿using System;
+using System;
 
-namespace DDDEastAnglia.DataAccess
+namespace DDDEastAnglia.DataAccess.MessageBus
 {
     public interface IMessage
     {

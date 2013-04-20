@@ -1,10 +1,12 @@
-﻿using DDDEastAnglia.DataAccess.EntityFramework;
+﻿using DDDEastAnglia.DataAccess.Builders;
+using DDDEastAnglia.DataAccess.EntityFramework;
+using DDDEastAnglia.DataAccess.EntityFramework.Builders;
+using DDDEastAnglia.DataAccess.EntityFramework.Builders.Calendar;
+using DDDEastAnglia.DataAccess.EntityFramework.Models;
 using DDDEastAnglia.DataAccess.Handlers.Voting;
 using DDDEastAnglia.DataAccess.MessageBus;
 using DDDEastAnglia.Helpers;
 using DDDEastAnglia.Helpers.Context;
-using DDDEastAnglia.Models;
-using DDDEastAnglia.Models.Builders;
 
 namespace DDDEastAnglia.DataAccess
 {
@@ -15,9 +17,9 @@ namespace DDDEastAnglia.DataAccess
         private static IVoteRepository _voteRepository;
         private static SimpleMessageBus _simpleMessageBus;
 
-        public static IBuild<SessionVoteModel> GetSessionVoteModelBuilder()
+        public static ISessionVoteModelProvider GetSessionVoteModelProvider()
         {
-            return new SessionVoteModelBuilder(GetControllerInformationProvider(), GetVoteRepository(), GetConferenceRepository());
+            return new SessionVoteModelProvider(GetVoteRepository(), GetConferenceRepository());
         }
 
         public static IMessageBus GetMessageBus()
@@ -55,7 +57,10 @@ namespace DDDEastAnglia.DataAccess
             {
                 lock (Mutex)
                 {
-                    _conferenceRepository = _conferenceRepository ?? new EntityFrameworkConferenceRepository();
+                    var builder = new ConferenceBuilder(
+                                        new CalendarEntryBuilder(new CalendarItemToSingleTimeEntryConverter(),
+                                                                 new CalendarItemToTimeRangeEntryConverter()));
+                    _conferenceRepository = _conferenceRepository ?? new EntityFrameworkConferenceRepository(builder);
                 }
             }
             return _conferenceRepository;

@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.DataAccess.Commands.Vote;
+using DDDEastAnglia.DataAccess.MessageBus;
 using DDDEastAnglia.Helpers;
 using DDDEastAnglia.Models;
 using DDDEastAnglia.Mvc.Attributes;
@@ -10,31 +11,33 @@ namespace DDDEastAnglia.Controllers
 {
     public class VoteController : Controller, IRequestProvider
     {
-        private readonly IBuild<SessionVoteModel> _builder;
+        private readonly ISessionVoteModelProvider _sessionVoteModelProvider;
         private readonly IMessageBus _messageBus;
         private readonly IControllerInformationProvider _controllerInformationProvider; 
 
         public VoteController() 
-            : this(Factory.GetSessionVoteModelBuilder(),
+            : this(Factory.GetSessionVoteModelProvider(),
                    Factory.GetMessageBus(),
                    Factory.GetControllerInformationProvider())
         {
             
         }
 
-        public VoteController(IBuild<SessionVoteModel> builder,
+        public VoteController(ISessionVoteModelProvider sessionVoteModelProvider,
             IMessageBus messageBus,
             IControllerInformationProvider informationProvider)
         {
-            _builder = builder;
+            _sessionVoteModelProvider = sessionVoteModelProvider;
             _messageBus = messageBus;
             _controllerInformationProvider = informationProvider;
         }
 
         public ActionResult Status(int id)
         {
-            var result = _builder.Get(id);
+            var cookie = _controllerInformationProvider.GetCookie(VotingCookie.CookieName);
+            var result = _sessionVoteModelProvider.Get(id, GetCookieId(cookie.Value));
             _controllerInformationProvider.SaveCookie(_controllerInformationProvider.GetCookie(VotingCookie.CookieName));
+            _controllerInformationProvider.SaveCookie(cookie);
             return result.CanVote ? PartialView(result) as ActionResult : new EmptyResult();
         }
 

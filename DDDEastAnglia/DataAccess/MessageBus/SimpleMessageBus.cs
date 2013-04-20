@@ -45,9 +45,9 @@ namespace DDDEastAnglia.DataAccess.MessageBus
         public NoHandlerException(IMessage message)
             : base("Could not find a handler for '" + message.GetType().Name + "'")
         {
-            Message = message;
+            MessageReceived = message;
         }
 
-        public IMessage Message { get; private set; }
+        public IMessage MessageReceived { get; private set; }
     }
 }

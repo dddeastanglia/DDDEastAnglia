@@ -1,4 +1,5 @@
 ﻿using System;
+using DDDEastAnglia.DataAccess.EntityFramework.Models;
 using DDDEastAnglia.DataModel;
 
 namespace DDDEastAnglia.DataAccess

@@ -1,7 +1,7 @@
-﻿using System;
+using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace DDDEastAnglia.DataModel
+namespace DDDEastAnglia.DataAccess.EntityFramework.Models
 {
     public class Vote
     {

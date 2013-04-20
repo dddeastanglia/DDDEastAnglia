@@ -220,6 +220,11 @@
     <Compile Include="Controllers\SessionDisplayModelComparer.cs" />
     <Compile Include="Controllers\SpeakerDisplayModelComparer.cs" />
     <Compile Include="Controllers\VoteController.cs" />
+    <Compile Include="DataAccess\EntityFramework\Builders\Calendar\CalendarEntryBuilder.cs" />
+    <Compile Include="DataAccess\EntityFramework\Builders\Calendar\CalendarItemToSingleTimeEntryConverter.cs" />
+    <Compile Include="DataAccess\EntityFramework\Builders\Calendar\CalendarItemToTimeRangeEntryConverter.cs" />
+    <Compile Include="DataAccess\EntityFramework\Builders\ConferenceBuilder.cs" />
+    <Compile Include="DataAccess\Builders\IBuild.cs" />
     <Compile Include="DataAccess\Commands\Vote\DeleteVoteCommand.cs" />
     <Compile Include="DataAccess\Commands\Vote\RegisterVoteCommand.cs" />
     <Compile Include="DataAccess\EntityFramework\EntityFrameworkConferenceRepository.cs" />
@@ -231,16 +236,17 @@
     </Compile>
     <Compile Include="DataAccess\EntityFramework\Models\Conference.cs" />
     <Compile Include="DataAccess\EntityFramework\Initialiser.cs" />
+    <Compile Include="DataAccess\EntityFramework\Models\Vote.cs" />
     <Compile Include="DataAccess\Factory.cs" />
     <Compile Include="DataAccess\Handlers\Voting\DeleteVoteCommandHandler.cs" />
     <Compile Include="DataAccess\Handlers\Voting\RegisterVoteCommandHandler.cs" />
     <Compile Include="DataAccess\IConferenceRepository.cs" />
-    <Compile Include="DataAccess\IMessage.cs" />
-    <Compile Include="DataAccess\IMessageBus.cs" />
     <Compile Include="DataAccess\IRepository.cs" />
     <Compile Include="DataAccess\ISessionRepository.cs" />
-    <Compile Include="DataAccess\IBuild.cs" />
+    <Compile Include="DataAccess\ISessionVoteModelProvider.cs" />
     <Compile Include="DataAccess\IVoteRepository.cs" />
+    <Compile Include="DataAccess\MessageBus\IMessage.cs" />
+    <Compile Include="DataAccess\MessageBus\IMessageBus.cs" />
     <Compile Include="DataAccess\MessageBus\SimpleMessageBus.cs" />
     <Compile Include="DataModel\Event.cs" />
     <Compile Include="DataAccess\EntityFramework\DDDEAContext.cs" />
@@ -252,7 +258,11 @@
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
     <Compile Include="Controllers\SpeakerController.cs" />
     <Compile Include="DataAccess\EventRepository.cs" />
-    <Compile Include="DataModel\Vote.cs" />
+    <Compile Include="Domain\Calendar\CalendarEntry.cs" />
+    <Compile Include="Domain\Calendar\CalendarEntryType.cs" />
+    <Compile Include="Domain\Calendar\NullCalendarEntry.cs" />
+    <Compile Include="Domain\Calendar\SingleTimeEntry.cs" />
+    <Compile Include="Domain\Calendar\TimeRangeEntry.cs" />
     <Compile Include="Domain\Conference.cs" />
     <Compile Include="GlimpseSecurityPolicy.cs" />
     <Compile Include="Helpers\Context\HttpContextControllerInformationProvider.cs" />
@@ -285,7 +295,18 @@
     <Compile Include="DataAccess\EntityFramework\Migrations\201304132127266_RemoveIsVoteColumn.Designer.cs">
       <DependentUpon>201304132127266_RemoveIsVoteColumn.cs</DependentUpon>
     </Compile>
-    <Compile Include="Models\Builders\SessionVoteModelBuilder.cs" />
+    <Compile Include="DataAccess\EntityFramework\Migrations\201304192315404_ConferenceCalendar.cs" />
+    <Compile Include="DataAccess\EntityFramework\Migrations\201304192315404_ConferenceCalendar.Designer.cs">
+      <DependentUpon>201304192315404_ConferenceCalendar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\EntityFramework\Migrations\201304201333566_MoreConferenceChanges.cs" />
+    <Compile Include="DataAccess\EntityFramework\Migrations\201304201333566_MoreConferenceChanges.Designer.cs">
+      <DependentUpon>201304201333566_MoreConferenceChanges.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\EntityFramework\Migrations\201304201405453_CalendarItemTypeEnumWorkAround.cs" />
+    <Compile Include="DataAccess\EntityFramework\Migrations\201304201405453_CalendarItemTypeEnumWorkAround.Designer.cs">
+      <DependentUpon>201304201405453_CalendarItemTypeEnumWorkAround.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\ExternalLogin.cs" />
     <Compile Include="Models\GrokTalk.cs" />
     <Compile Include="Models\LocalPasswordModel.cs" />
@@ -538,7 +559,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
-    <Folder Include="Migrations\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -580,6 +600,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DataAccess\EntityFramework\Migrations\201304170655041_LinkSessionToConference.resx">
       <DependentUpon>201304170655041_LinkSessionToConference.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataAccess\EntityFramework\Migrations\201304192315404_ConferenceCalendar.resx">
+      <DependentUpon>201304192315404_ConferenceCalendar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataAccess\EntityFramework\Migrations\201304201333566_MoreConferenceChanges.resx">
+      <DependentUpon>201304201333566_MoreConferenceChanges.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataAccess\EntityFramework\Migrations\201304201405453_CalendarItemTypeEnumWorkAround.resx">
+      <DependentUpon>201304201405453_CalendarItemTypeEnumWorkAround.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

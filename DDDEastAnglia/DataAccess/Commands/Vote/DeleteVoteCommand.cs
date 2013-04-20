@@ -1,4 +1,5 @@
 ﻿using System;
+using DDDEastAnglia.DataAccess.MessageBus;
 
 namespace DDDEastAnglia.DataAccess.Commands.Vote
 {

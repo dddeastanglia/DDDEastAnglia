@@ -26,7 +26,7 @@ namespace DDDEastAnglia.Tests.DataAccess.Handlers.Voting.DeleteVote
 
             _conferenceRepository = Substitute.For<IConferenceRepository>();
             var conference = new Conference(SessionId, "", "");
-            conference.ReadyForVoting();
+            conference.AddToCalendar(ConferenceHelper.GetOpenVotingPeriod());
             _conferenceRepository.ForSession(Arg.Is(1)).Returns(conference);
 
             _handler = new DeleteVoteCommandHandler(_voteRepository, _conferenceRepository);

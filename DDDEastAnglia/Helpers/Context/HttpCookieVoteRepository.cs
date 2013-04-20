@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web;
 using DDDEastAnglia.DataAccess;
+using DDDEastAnglia.DataAccess.EntityFramework.Models;
 using DDDEastAnglia.DataModel;
 using DDDEastAnglia.Models;
 
