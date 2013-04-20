@@ -215,6 +215,8 @@
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\ProfileController.cs" />
+    <Compile Include="Controllers\SessionDisplayModelComparer.cs" />
+    <Compile Include="Controllers\SpeakerDisplayModelComparer.cs" />
     <Compile Include="DataAccess\DataModel\Event.cs" />
     <Compile Include="DataAccess\DDDEAContext.cs" />
     <Compile Include="App_Code\GitHubOAuthClient.cs" />

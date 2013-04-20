@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web.Mvc;
@@ -183,24 +182,6 @@ namespace DDDEastAnglia.Controllers
         {
             db.Dispose();
             base.Dispose(disposing);
-        }
-    }
-
-    public class SessionDisplayModelComparer : IComparer<SessionDisplayModel>
-    {
-        public int Compare(SessionDisplayModel x, SessionDisplayModel y)
-        {
-            if (x.IsUsersSession && !y.IsUsersSession)
-            {
-                return -1;
-            }
-
-            if (!x.IsUsersSession && y.IsUsersSession)
-            {
-                return 1;
-            }
-
-            return string.Compare(x.SessionTitle, y.SessionTitle, StringComparison.InvariantCultureIgnoreCase);
         }
     }
 }
