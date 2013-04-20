@@ -1,11 +1,12 @@
 ﻿using System;
 using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.DataAccess.Commands.Vote;
+using DDDEastAnglia.DataAccess.EntityFramework.Models;
 using DDDEastAnglia.DataAccess.Handlers.Voting;
 using DDDEastAnglia.DataModel;
-using DDDEastAnglia.Domain;
 using NSubstitute;
 using NUnit.Framework;
+using Conference = DDDEastAnglia.Domain.Conference;
 
 namespace DDDEastAnglia.Tests.DataAccess.Handlers.Voting.RegisterVote
 {
@@ -27,7 +28,7 @@ namespace DDDEastAnglia.Tests.DataAccess.Handlers.Voting.RegisterVote
 
             _conferenceRepository = Substitute.For<IConferenceRepository>();
             var conference = new Conference(SessionId, "", "");
-            conference.ReadyForVoting();
+            conference.AddToCalendar(ConferenceHelper.GetOpenVotingPeriod());
             _conferenceRepository.ForSession(Arg.Is(1)).Returns(conference);
 
             _handler = new RegisterVoteCommandHandler(_voteRepository, _conferenceRepository);

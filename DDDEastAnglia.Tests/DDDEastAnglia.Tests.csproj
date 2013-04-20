@@ -49,6 +49,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConferenceHelper.cs" />
+    <Compile Include="DataAccess\Builders\The_Conference_Builder_Should.cs" />
     <Compile Include="DataAccess\Handlers\Voting\DeleteVote\Given_The_Conference_Is_Not_Open_For_Voting_The_DeleteVotingCommandHandler_Should.cs" />
     <Compile Include="DataAccess\Handlers\Voting\DeleteVote\Given_The_User_Did_Not_Vote_For_The_Session_The_DeleteVotingCommandHandler_Should.cs" />
     <Compile Include="DataAccess\Handlers\Voting\DeleteVote\Given_The_User_Has_Already_Voted_For_The_Session_The_DeleteVotingCommandHandler_Should.cs" />
@@ -58,6 +60,13 @@
     <Compile Include="DataAccess\MessageBus\Given_That_No_Handlers_Have_Been_Registered_The_SimpleMessageBus_Should.cs" />
     <Compile Include="DataAccess\MessageBus\Given_That_The_TestMessageHandler_Has_Been_Registered_The_SimpleMessageBus_Should.cs" />
     <Compile Include="DataAccess\MessageBus\TestMessage.cs" />
+    <Compile Include="Domain\Conferences\Calendar\The_TimeRangeEntry_Should.cs" />
+    <Compile Include="Domain\Conferences\Calendar\The_Single_Time_Entry_Should.cs" />
+    <Compile Include="Domain\Conferences\Given_Only_The_Submission_Is_Open_The_Conference_Should.cs" />
+    <Compile Include="Domain\Conferences\Given_Only_The_Voting_Is_Open_The_Conference_Should.cs" />
+    <Compile Include="Domain\Conferences\Given_That_No_CalendarEntries_Have_Been_Recorded_The_Conference_Should.cs" />
+    <Compile Include="Domain\Conferences\Given_The_Agenda_Is_Published_And_Registration_Is_Open_The_Conference_Should.cs" />
+    <Compile Include="Domain\Conferences\Given_The_Agenda_Is_Published_The_Conference_Should.cs" />
     <Compile Include="Helpers\Given_An_IPV4_Address_MatchIPAddress_Should.cs" />
     <Compile Include="Voting\CookieHelper.cs" />
     <Compile Include="EventHelper.cs" />

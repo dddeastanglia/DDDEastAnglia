@@ -1,4 +1,4 @@
-﻿namespace DDDEastAnglia.DataAccess
+namespace DDDEastAnglia.DataAccess.MessageBus
 {
     public interface IMessageBus
     {

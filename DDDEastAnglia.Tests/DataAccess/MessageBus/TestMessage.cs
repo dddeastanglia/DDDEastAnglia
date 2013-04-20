@@ -1,4 +1,5 @@
 ﻿using DDDEastAnglia.DataAccess;
+using DDDEastAnglia.DataAccess.MessageBus;
 
 namespace DDDEastAnglia.Tests.DataAccess.MessageBus
 {

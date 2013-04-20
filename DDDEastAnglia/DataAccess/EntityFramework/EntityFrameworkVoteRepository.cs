@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using DDDEastAnglia.DataAccess.EntityFramework.Models;
 using DDDEastAnglia.DataModel;
 
 namespace DDDEastAnglia.DataAccess.EntityFramework

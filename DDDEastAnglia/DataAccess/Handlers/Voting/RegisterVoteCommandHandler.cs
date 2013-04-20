@@ -1,4 +1,6 @@
 ﻿using DDDEastAnglia.DataAccess.Commands.Vote;
+using DDDEastAnglia.DataAccess.EntityFramework.Models;
+using DDDEastAnglia.DataAccess.MessageBus;
 using DDDEastAnglia.DataModel;
 
 namespace DDDEastAnglia.DataAccess.Handlers.Voting

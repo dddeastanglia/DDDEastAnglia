@@ -1,8 +1,8 @@
 ﻿using System;
 using DDDEastAnglia.Controllers;
 using DDDEastAnglia.DataAccess;
+using DDDEastAnglia.DataAccess.MessageBus;
 using DDDEastAnglia.Helpers;
-using DDDEastAnglia.Models;
 using NSubstitute;
 using NUnit.Framework;
 
@@ -12,7 +12,7 @@ namespace DDDEastAnglia.Tests.Voting
     {
         protected VoteController Controller;
         private IControllerInformationProvider _controllerInformationProvider;
-        private IBuild<SessionVoteModel> _sessionVoteModelBuilder;
+        private ISessionVoteModelProvider _sessionVoteModelProvider;
         private IMessageBus _messageBus;
         protected DateTime SimulatedNow;
 
@@ -22,13 +22,13 @@ namespace DDDEastAnglia.Tests.Voting
             _controllerInformationProvider = Substitute.For<IControllerInformationProvider>();
             SetExpectations(_controllerInformationProvider);
 
-            _sessionVoteModelBuilder = Substitute.For<IBuild<SessionVoteModel>>();
-            SetExpectations(_sessionVoteModelBuilder);
+            _sessionVoteModelProvider = Substitute.For<ISessionVoteModelProvider>();
+            SetExpectations(_sessionVoteModelProvider);
 
             _messageBus = Substitute.For<IMessageBus>();
             SetExpectations(_messageBus);
 
-            Controller = new VoteController(_sessionVoteModelBuilder, _messageBus, _controllerInformationProvider);
+            Controller = new VoteController(_sessionVoteModelProvider, _messageBus, _controllerInformationProvider);
         }
 
         protected IMessageBus MessageBus { get { return _messageBus; } }
@@ -39,7 +39,7 @@ namespace DDDEastAnglia.Tests.Voting
             controllerInformationProvider.UtcNow.Returns(SimulatedNow);
         }
 
-        protected virtual void SetExpectations(IBuild<SessionVoteModel> sessionVoteModelBuilder)
+        protected virtual void SetExpectations(ISessionVoteModelProvider sessionVoteModelProvider)
         {
             
         }
