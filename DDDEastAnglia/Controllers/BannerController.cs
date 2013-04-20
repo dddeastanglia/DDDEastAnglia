@@ -1,41 +1,27 @@
-﻿using System;
-using System.Linq;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using DDDEastAnglia.DataAccess;
-using DDDEastAnglia.DataModel;
-using DDDEastAnglia.Models;
+using DDDEastAnglia.Models.Query;
 
 namespace DDDEastAnglia.Controllers
 {
-    public partial class BannerController : Controller
+    public class BannerController : Controller
     {
-         [ChildActionOnly]
-         public virtual ActionResult Default()
-         {
-             var eventRepository = new EventRepository();
-             var dddEvent = eventRepository.Get("DDDEA2013");
-             var model = new BannerViewModel();
+        private readonly IBannerModelQuery _bannerQuery;
 
-             if (dddEvent.CanSubmit())
-             {
-                 model.IsDuringSessionSubmission = true;
-                 var submissionEnds = dddEvent.PreConferenceAgenda.First(i => i.DateType == DateType.SubmissionEnds);
-                 model.CurrentEventExpirationDate = FormatExpiration(submissionEnds.Date);
-             }
-             else if (dddEvent.CanVote())
-             {
-                 model.IsDuringSessionVoting = true;
-                 var votingEnds = dddEvent.PreConferenceAgenda.First(i => i.DateType == DateType.VotingEnds);
-                 model.CurrentEventExpirationDate = FormatExpiration(votingEnds.Date);
-             }
-             
-             return PartialView(model);
-         }
-
-        private string FormatExpiration(DateTime dateTime)
+        public BannerController()
+            : this(Factory.GetBannerModelQuery())
         {
-            // has to be this format so that javascript can parse it back to a date later
-            return dateTime.ToString("R");
+            
+        }
+
+        public BannerController(IBannerModelQuery bannerQuery)
+        {
+            _bannerQuery = bannerQuery;
+        }
+
+        public ActionResult Details(string id)
+        {
+            return PartialView("_Banner", _bannerQuery.Get(id));
         }
     }
 }

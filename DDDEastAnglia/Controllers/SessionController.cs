@@ -15,8 +15,7 @@ namespace DDDEastAnglia.Controllers
     {
         private const string DefaultEventName = "DDDEA2013";
         private readonly DDDEAContext db = new DDDEAContext();
-        private readonly EventRepository eventRepository = new EventRepository();
-
+        private readonly IConferenceRepository _conferenceRepository = Factory.GetConferenceRepository();
         // GET: /Session/
         [AllowAnonymous]
         [AllowCrossSiteJson]
@@ -35,14 +34,11 @@ namespace DDDEastAnglia.Controllers
             }
 
             allSessions.Sort(new SessionDisplayModelComparer());
-            
-            var defaultEvent = eventRepository.Get(DefaultEventName);
             return View(new SessionIndexModel
-                {
-                    Sessions = allSessions,
-                    IsOpenForSubmission = defaultEvent.CanSubmit(),
-                    IsOpenForVoting = defaultEvent.CanVote()
-                });
+                        {
+                            Sessions = allSessions,
+                            IsOpenForSubmission = _conferenceRepository.GetByEventShortName(DefaultEventName).CanSubmit()
+                        });
         }
 
         // GET: /Session/Details/5
@@ -65,7 +61,7 @@ namespace DDDEastAnglia.Controllers
         // GET: /Session/Create
         public virtual ActionResult Create()
         {
-            if (!eventRepository.Get(DefaultEventName).CanSubmit())
+            if (!_conferenceRepository.GetByEventShortName(DefaultEventName).CanSubmit())
             {
                 return RedirectToAction("Index");
             }
@@ -89,7 +85,7 @@ namespace DDDEastAnglia.Controllers
         [HttpPost]
         public virtual ActionResult Create([Bind(Exclude = "Votes")] Session session)
         {
-            if (!eventRepository.Get(DefaultEventName).CanSubmit())
+            if (!_conferenceRepository.GetByEventShortName(DefaultEventName).CanSubmit())
             {
                 return RedirectToAction("Index");
             }

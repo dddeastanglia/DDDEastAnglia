@@ -3,10 +3,12 @@ using DDDEastAnglia.DataAccess.EntityFramework;
 using DDDEastAnglia.DataAccess.EntityFramework.Builders;
 using DDDEastAnglia.DataAccess.EntityFramework.Builders.Calendar;
 using DDDEastAnglia.DataAccess.EntityFramework.Models;
+using DDDEastAnglia.DataAccess.EntityFramework.Queries;
 using DDDEastAnglia.DataAccess.Handlers.Voting;
 using DDDEastAnglia.DataAccess.MessageBus;
 using DDDEastAnglia.Helpers;
 using DDDEastAnglia.Helpers.Context;
+using DDDEastAnglia.Models.Query;
 
 namespace DDDEastAnglia.DataAccess
 {
@@ -16,7 +18,7 @@ namespace DDDEastAnglia.DataAccess
         private static IConferenceRepository _conferenceRepository;
         private static IVoteRepository _voteRepository;
         private static SimpleMessageBus _simpleMessageBus;
-
+        private static IBannerModelQuery _bannerModelQuery;
         public static ISessionVoteModelProvider GetSessionVoteModelProvider()
         {
             return new SessionVoteModelProvider(GetVoteRepository(), GetConferenceRepository());
@@ -57,13 +59,31 @@ namespace DDDEastAnglia.DataAccess
             {
                 lock (Mutex)
                 {
-                    var builder = new ConferenceBuilder(
-                                        new CalendarEntryBuilder(new CalendarItemToSingleTimeEntryConverter(),
-                                                                 new CalendarItemToTimeRangeEntryConverter()));
+                    var builder = GetConferenceBuilder();
                     _conferenceRepository = _conferenceRepository ?? new EntityFrameworkConferenceRepository(builder);
                 }
             }
             return _conferenceRepository;
+        }
+
+        public static IBannerModelQuery GetBannerModelQuery()
+        {
+            if (_bannerModelQuery == null)
+            {
+                lock (Mutex)
+                {
+                    _bannerModelQuery = _bannerModelQuery ?? new EntityFrameworkBannerModelQuery(GetConferenceBuilder());
+                }
+            }
+            return _bannerModelQuery;
+        }
+
+        private static ConferenceBuilder GetConferenceBuilder()
+        {
+            var builder = new ConferenceBuilder(
+                new CalendarEntryBuilder(new CalendarItemToSingleTimeEntryConverter(),
+                                         new CalendarItemToTimeRangeEntryConverter()));
+            return builder;
         }
 
         private static SimpleMessageBus CreateNewSimpleMessageBus()

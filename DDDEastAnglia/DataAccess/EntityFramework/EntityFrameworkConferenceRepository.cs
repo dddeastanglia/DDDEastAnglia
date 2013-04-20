@@ -20,6 +20,14 @@ namespace DDDEastAnglia.DataAccess.EntityFramework
             return Get(session.ConferenceId);
         }
 
+        public Conference GetByEventShortName(string shortName)
+        {
+            var currentConference = _context.Conferences
+                                            .Include("CalendarItems")
+                                            .SingleOrDefault(conf => conf.ShortName == shortName);
+            return _conferenceBuilder.Build(currentConference);
+        }
+
         private Conference Get(int conferenceId)
         {
             var currentConference = _context.Conferences
