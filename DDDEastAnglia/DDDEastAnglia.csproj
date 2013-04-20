@@ -219,6 +219,8 @@
     </Compile>
     <Compile Include="Controllers\BannerController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
+    <Compile Include="Controllers\SessionDisplayModelComparer.cs" />
+    <Compile Include="Controllers\SpeakerDisplayModelComparer.cs" />
     <Compile Include="DataAccess\DataModel\Event.cs" />
     <Compile Include="DataAccess\DDDEAContext.cs" />
     <Compile Include="App_Code\GitHubOAuthClient.cs" />
