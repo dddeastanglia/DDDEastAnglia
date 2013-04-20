@@ -10,7 +10,7 @@
             </span>
         </div>
     }
-    <h3><img src="@Html.Raw(@Model.GravatarUrl)" alt="@Html.Raw(@Model.Name)"/> @Model.Name</h3>
+    <h3 id="@Model.Username"><img src="@Html.Raw(@Model.GravatarUrl)" alt="@Html.Raw(@Model.Name)"/> @Model.Name</h3>
     <section class="links">
         @if (!string.IsNullOrWhiteSpace(@Model.WebsiteUrl))
         {
