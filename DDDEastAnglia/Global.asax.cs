@@ -25,6 +25,8 @@ namespace DDDEastAnglia
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AuthConfig.RegisterAuth();
 
+            MappingConfig.RegisterMaps();
+
             CreateDatabaseIfNecessary();
         }
 
