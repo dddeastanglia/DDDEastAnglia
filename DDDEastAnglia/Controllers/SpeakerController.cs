@@ -27,6 +27,7 @@ namespace DDDEastAnglia.Controllers
                 }
             }
 
+            speakers.Sort(new SpeakerDisplayModelComparer());
             return View(speakers);
         }
 
