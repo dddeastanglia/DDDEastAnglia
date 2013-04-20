@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Web;
-using DDDEastAnglia.Controllers;
-using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.DataAccess.Commands.Vote;
-using DDDEastAnglia.DataModel;
 using DDDEastAnglia.Helpers;
 using DDDEastAnglia.Models;
 using NSubstitute;

@@ -1,6 +1,7 @@
 @using DDDEastAnglia.DataAccess
+@using DDDEastAnglia.DataAccess.EntityFramework
 @using DDDEastAnglia.Models
-@model IEnumerable<SessionDisplayModel>
+@model SessionIndexModel
 
 
 @{
@@ -9,12 +10,12 @@
 
 <h2>Sessions</h2>
 
-@if (new EventRepository().Get("DDDEA2013").CanSubmit())
+@if (Model.IsOpenForSubmission)
 {
     <p>Session submission is now open. If you would like to speak at @Html.DDDEastAnglia(), please @Html.ActionLink("submit a session", "Create", "Session", null, new { @class = "submit-session" }).</p>
 }
 
-@foreach (var session in Model)
+@foreach (var session in Model.Sessions)
 {
     Html.RenderPartial("_SessionDetailsPartial", session);
 }

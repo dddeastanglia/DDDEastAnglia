@@ -3,7 +3,6 @@ using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.DataAccess.Commands.Vote;
 using DDDEastAnglia.DataAccess.EntityFramework.Models;
 using DDDEastAnglia.DataAccess.Handlers.Voting;
-using DDDEastAnglia.DataModel;
 using NSubstitute;
 using NUnit.Framework;
 using Conference = DDDEastAnglia.Domain.Conference;

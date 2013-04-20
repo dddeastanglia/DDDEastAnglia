@@ -214,6 +214,7 @@
     <Compile Include="Admin.UserController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\BannerController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\VoteController.cs" />
     <Compile Include="DataAccess\EntityFramework\Builders\Calendar\CalendarEntryBuilder.cs" />
@@ -230,9 +231,11 @@
     <Compile Include="DataAccess\EntityFramework\Migrations\201304170655041_LinkSessionToConference.Designer.cs">
       <DependentUpon>201304170655041_LinkSessionToConference.cs</DependentUpon>
     </Compile>
+    <Compile Include="DataAccess\EntityFramework\Models\CalendarItem.cs" />
     <Compile Include="DataAccess\EntityFramework\Models\Conference.cs" />
     <Compile Include="DataAccess\EntityFramework\Initialiser.cs" />
     <Compile Include="DataAccess\EntityFramework\Models\Vote.cs" />
+    <Compile Include="DataAccess\EntityFramework\Queries\EntityFrameworkBannerModelQuery.cs" />
     <Compile Include="DataAccess\Factory.cs" />
     <Compile Include="DataAccess\Handlers\Voting\DeleteVoteCommandHandler.cs" />
     <Compile Include="DataAccess\Handlers\Voting\RegisterVoteCommandHandler.cs" />
@@ -244,7 +247,6 @@
     <Compile Include="DataAccess\MessageBus\IMessage.cs" />
     <Compile Include="DataAccess\MessageBus\IMessageBus.cs" />
     <Compile Include="DataAccess\MessageBus\SimpleMessageBus.cs" />
-    <Compile Include="DataModel\Event.cs" />
     <Compile Include="DataAccess\EntityFramework\DDDEAContext.cs" />
     <Compile Include="App_Code\GitHubOAuthClient.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
@@ -253,7 +255,6 @@
     <Compile Include="Areas\Admin\Controllers\SessionController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
     <Compile Include="Controllers\SpeakerController.cs" />
-    <Compile Include="DataAccess\EventRepository.cs" />
     <Compile Include="Domain\Calendar\CalendarEntry.cs" />
     <Compile Include="Domain\Calendar\CalendarEntryType.cs" />
     <Compile Include="Domain\Calendar\NullCalendarEntry.cs" />
@@ -262,7 +263,6 @@
     <Compile Include="Domain\Conference.cs" />
     <Compile Include="GlimpseSecurityPolicy.cs" />
     <Compile Include="Helpers\Context\HttpContextControllerInformationProvider.cs" />
-    <Compile Include="Helpers\Context\HttpCookieVoteRepository.cs" />
     <Compile Include="Helpers\Context\HttpContextWrapper.cs" />
     <Compile Include="Helpers\Context\HttpWebRequestFactory.cs" />
     <Compile Include="Helpers\CookieExtensions.cs" />
@@ -302,13 +302,16 @@
     <Compile Include="DataAccess\EntityFramework\Migrations\201304201405453_CalendarItemTypeEnumWorkAround.Designer.cs">
       <DependentUpon>201304201405453_CalendarItemTypeEnumWorkAround.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\BannerModel.cs" />
     <Compile Include="Models\ExternalLogin.cs" />
     <Compile Include="Models\GrokTalk.cs" />
     <Compile Include="Models\LocalPasswordModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\Query\IBannerModelQuery.cs" />
     <Compile Include="Models\RegisterExternalLoginModel.cs" />
     <Compile Include="Models\RegisterModel.cs" />
     <Compile Include="Models\SessionDisplayModel.cs" />
+    <Compile Include="Models\SessionIndexModel.cs" />
     <Compile Include="Models\SessionTweetLink.cs" />
     <Compile Include="Models\SessionVoteModel.cs" />
     <Compile Include="Models\SpeakerDisplayModel.cs" />
@@ -545,6 +548,7 @@
     <Content Include="Views\Shared\_Banner.cshtml" />
     <Content Include="Views\Speaker\Details.cshtml" />
     <Content Include="Views\Speaker\_SpeakerDetailsPartial.cshtml" />
+    <Content Include="Views\Banner\_Banner.cshtml" />
     <Content Include="Views\Vote\Status.cshtml" />
   </ItemGroup>
   <ItemGroup>

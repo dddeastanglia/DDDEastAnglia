@@ -25,7 +25,7 @@
     <link rel="image_src" href="@Url.Content("~/Images/logo-small.png")" /> @*this apparently works with embed.ly for Twitter Cards*@
 </head>
     <body>
-        @Html.Partial("_Banner")
+        @Html.Action("Details", "Banner", new { id = "DDDEA2013" });
         <div class="container-fluid">
             <div class="row-fluid">
                 <div class="masthead">

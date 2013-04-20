@@ -1,5 +1,4 @@
 ﻿using DDDEastAnglia.DataAccess.EntityFramework.Models;
-using DDDEastAnglia.DataModel;
 
 namespace DDDEastAnglia.Tests.Voting
 {
