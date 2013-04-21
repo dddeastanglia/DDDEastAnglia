@@ -1,8 +1,8 @@
-﻿function filter(containerClass, element) {
-    var value = $(element).val();
+﻿function filter(containerClass, searchBox) {
+    var searchText = $(searchBox).val();
 
     $(containerClass).each(function () {
-        if ($(this).children("h3").text().search(value) > -1) {
+        if ($(this).children("h3").text().search(searchText) > -1) {
             $(this).show();
         }
         else {
