@@ -13,5 +13,6 @@
         
         public SessionTweetLink TweetLink { get; set; }
         public bool IsUsersSession { get; set; }
+        public bool HasAlreadyBeenVotedFor { get; set; }
     }
 }

@@ -1,0 +1,17 @@
+﻿@model DDDEastAnglia.Models.SessionVoteModel
+<span id="@("Vote" + Model.SessionId)" class="voting">
+@if (Model.HasBeenVotedForByUser)
+{
+    using (Html.BeginForm("RemoveVote", "Vote", new { id = Model.SessionId}))
+    {
+    <button type="submit" class="btn btn-danger">Remove vote</button>
+    }
+}
+else
+{
+    using (Html.BeginForm("RegisterVote", "Vote", new {id = Model.SessionId}))
+    {
+    <button type="submit" class="btn btn-success">Vote</button>
+    }
+}
+</span>

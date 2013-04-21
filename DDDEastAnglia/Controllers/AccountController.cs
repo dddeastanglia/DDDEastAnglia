@@ -6,6 +6,7 @@ using System.Transactions;
 using System.Web.Mvc;
 using System.Web.Security;
 using DDDEastAnglia.DataAccess;
+using DDDEastAnglia.DataAccess.EntityFramework;
 using DotNetOpenAuth.AspNet;
 using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;

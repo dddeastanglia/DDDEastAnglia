@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using DDDEastAnglia.DataAccess;
+using DDDEastAnglia.DataAccess.EntityFramework;
 using WebMatrix.WebData;
 
 namespace DDDEastAnglia.Areas.Admin.Controllers

@@ -27,7 +27,6 @@ public static class MVC
     static readonly AdminClass s_Admin = new AdminClass();
     public static AdminClass Admin { get { return s_Admin; } }
     public static DDDEastAnglia.Controllers.AccountController Account = new DDDEastAnglia.Controllers.T4MVC_AccountController();
-    public static DDDEastAnglia.Controllers.BannerController Banner = new DDDEastAnglia.Controllers.T4MVC_BannerController();
     public static DDDEastAnglia.Controllers.HomeController Home = new DDDEastAnglia.Controllers.T4MVC_HomeController();
     public static DDDEastAnglia.Controllers.ProfileController Profile = new DDDEastAnglia.Controllers.T4MVC_ProfileController();
     public static DDDEastAnglia.Controllers.SessionController Session = new DDDEastAnglia.Controllers.T4MVC_SessionController();

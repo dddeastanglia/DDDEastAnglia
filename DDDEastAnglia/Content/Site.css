@@ -275,3 +275,8 @@ fieldset {
 a i {
     text-decoration: none;
 }
+
+.voting {
+    float: right;
+}
+

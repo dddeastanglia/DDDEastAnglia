@@ -1,9 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web.Mvc;
 using DDDEastAnglia.DataAccess;
+using DDDEastAnglia.DataAccess.EntityFramework;
 using DDDEastAnglia.Models;
+using DDDEastAnglia.Mvc.Attributes;
 
 namespace DDDEastAnglia.Controllers
 {
@@ -12,10 +15,10 @@ namespace DDDEastAnglia.Controllers
     {
         private const string DefaultEventName = "DDDEA2013";
         private readonly DDDEAContext db = new DDDEAContext();
-        private readonly EventRepository eventRepository = new EventRepository();
-
+        private readonly IConferenceRepository _conferenceRepository = Factory.GetConferenceRepository();
         // GET: /Session/
         [AllowAnonymous]
+        [AllowCrossSiteJson]
         public virtual ActionResult Index()
         {
             var speakersLookup = db.UserProfiles.ToDictionary(p => p.UserName, p => p);
@@ -31,7 +34,11 @@ namespace DDDEastAnglia.Controllers
             }
 
             allSessions.Sort(new SessionDisplayModelComparer());
-            return View(allSessions);
+            return View(new SessionIndexModel
+                        {
+                            Sessions = allSessions,
+                            IsOpenForSubmission = _conferenceRepository.GetByEventShortName(DefaultEventName).CanSubmit()
+                        });
         }
 
         // GET: /Session/Details/5
@@ -39,7 +46,7 @@ namespace DDDEastAnglia.Controllers
         public virtual ActionResult Details(int id = 0)
         {
             Session session = db.Sessions.Find(id);
-        
+
             if (session == null)
             {
                 return HttpNotFound();
@@ -54,40 +61,40 @@ namespace DDDEastAnglia.Controllers
         // GET: /Session/Create
         public virtual ActionResult Create()
         {
-            if (!eventRepository.Get(DefaultEventName).CanSubmit())
+            if (!_conferenceRepository.GetByEventShortName(DefaultEventName).CanSubmit())
             {
                 return RedirectToAction("Index");
             }
-        
+
             if (User == null)
             {
                 return RedirectToAction("Index");
             }
-            
+
             var userProfile = db.UserProfiles.FirstOrDefault(u => u.UserName == User.Identity.Name);
-            
+
             if (userProfile == null)
             {
                 return RedirectToAction("Index");
             }
 
-            return View(new Session { SpeakerUserName = userProfile.UserName });
+            return View(new Session {SpeakerUserName = userProfile.UserName});
         }
 
         // POST: /Session/Create
         [HttpPost]
         public virtual ActionResult Create([Bind(Exclude = "Votes")] Session session)
         {
-            if (!eventRepository.Get(DefaultEventName).CanSubmit())
+            if (!_conferenceRepository.GetByEventShortName(DefaultEventName).CanSubmit())
             {
                 return RedirectToAction("Index");
             }
-        
+
             if (ModelState.IsValid)
             {
                 var addedSession = db.Sessions.Add(session);
                 db.SaveChanges();
-                return RedirectToAction("Details", new { id = addedSession.SessionId });
+                return RedirectToAction("Details", new {id = addedSession.SessionId});
             }
 
             return View(session);
@@ -97,12 +104,12 @@ namespace DDDEastAnglia.Controllers
         public virtual ActionResult Edit(int id = 0)
         {
             Session session = db.Sessions.Find(id);
-        
+
             if (session == null)
             {
                 return HttpNotFound();
             }
-            
+
             return View(session);
         }
 
@@ -124,7 +131,7 @@ namespace DDDEastAnglia.Controllers
         public virtual ActionResult Delete(int id = 0)
         {
             Session session = db.Sessions.Find(id);
-        
+
             if (session == null)
             {
                 return HttpNotFound();
@@ -148,7 +155,9 @@ namespace DDDEastAnglia.Controllers
         private SessionDisplayModel CreateDisplayModel(Session session, UserProfile profile)
         {
             var isUsersSession = Request.IsAuthenticated && session.SpeakerUserName == User.Identity.Name;
-            var tweetLink = CreateTweetLink(isUsersSession, session.Title, Url.Action("Details", "Session", new {id = session.SessionId}, Request.Url.Scheme));
+            var tweetLink = CreateTweetLink(isUsersSession, session.Title,
+                                            Url.Action("Details", "Session", new {id = session.SessionId},
+                                                       Request.Url.Scheme));
 
             var displayModel = new SessionDisplayModel
                 {
@@ -167,9 +176,9 @@ namespace DDDEastAnglia.Controllers
 
         private SessionTweetLink CreateTweetLink(bool isUsersSession, string sessionTitle, string sessionUrl)
         {
-            var title = string.Format("Check out {0} session for #dddea - {1} {2}", 
-                                        isUsersSession ? "my" : "this",
-                                        sessionTitle, sessionUrl);
+            var title = string.Format("Check out {0} session for #dddea - {1} {2}",
+                                      isUsersSession ? "my" : "this",
+                                      sessionTitle, sessionUrl);
             var tweetLink = new SessionTweetLink
                 {
                     Title = title,
@@ -177,11 +186,13 @@ namespace DDDEastAnglia.Controllers
                 };
             return tweetLink;
         }
-     
+
         protected override void Dispose(bool disposing)
         {
             db.Dispose();
             base.Dispose(disposing);
         }
+
+
     }
 }
