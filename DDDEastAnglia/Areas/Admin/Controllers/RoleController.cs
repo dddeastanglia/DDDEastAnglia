@@ -1,23 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using DDDEastAnglia.DataAccess;
 using WebMatrix.WebData;
 
 namespace DDDEastAnglia.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public partial class RoleController : Controller
     {
-        //
+        private readonly DDDEAContext db = new DDDEAContext();
+        
         // GET: /Admin/Role/
-
         public virtual ActionResult Index()
         {
             SimpleRoleProvider provider = new SimpleRoleProvider();
             return null;
-            // return View();
         }
-
     }
 }
