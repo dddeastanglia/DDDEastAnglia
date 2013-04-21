@@ -275,3 +275,7 @@ fieldset {
 a i {
     text-decoration: none;
 }
+
+.form-search {
+    margin-bottom: 30px;
+}
