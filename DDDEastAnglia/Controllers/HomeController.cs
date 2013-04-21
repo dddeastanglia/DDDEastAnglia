@@ -36,5 +36,10 @@ namespace DDDEastAnglia.Controllers
         {
             return this.View();
         }
+
+        public virtual ActionResult About()
+        {
+            return this.View();
+        }
     }
 }

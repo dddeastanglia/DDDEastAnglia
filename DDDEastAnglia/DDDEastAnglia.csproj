@@ -475,6 +475,7 @@
     <Content Include="Views\Speaker\Details.cshtml" />
     <Content Include="Views\Speaker\_SpeakerDetailsPartial.cshtml" />
     <Content Include="Views\Banner\Default.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
