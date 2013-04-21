@@ -154,12 +154,18 @@ namespace DDDEastAnglia.Controllers
             var isUsersSession = Request.IsAuthenticated && session.SpeakerUserName == User.Identity.Name;
             var tweetLink = CreateTweetLink(isUsersSession, session.Title, Url.Action("Details", "Session", new { id = session.SessionId }, Request.Url.Scheme));
 
-            SessionDisplayModel displayModel = Mapper.Map<Session, SessionDisplayModel>(session);
-            displayModel.SpeakerId = profile.UserId;
-            displayModel.SpeakerName = profile.Name;
-            displayModel.SpeakerGravitarUrl = profile.GravitarUrl();
-            displayModel.TweetLink = tweetLink;
-            displayModel.IsUsersSession = isUsersSession;
+            var displayModel = new SessionDisplayModel()
+                {
+                    SessionId = session.SessionId,
+                    SessionTitle = session.Title,
+                    SessionAbstract = session.Abstract,
+                    SpeakerId = profile.UserId,
+                    SpeakerName = profile.Name,
+                    SpeakerUserName = session.SpeakerUserName,
+                    SpeakerGravitarUrl = profile.GravitarUrl(),
+                    TweetLink = tweetLink,
+                    IsUsersSession = isUsersSession
+                };
 
             return displayModel;
         }
