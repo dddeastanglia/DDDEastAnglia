@@ -253,7 +253,6 @@
     <Content Include="Scripts\jquery.cookie.js" />
     <Content Include="Scripts\jquery.tablesorter.js" />
     <Content Include="Scripts\jquery.tablesorter.min.js" />
-    <Content Include="Scripts\tweetbutton.js" />
     <Compile Include="ProfileController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
