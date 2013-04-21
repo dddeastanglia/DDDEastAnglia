@@ -52,4 +52,20 @@ public static class HTMLExtensions
         }
         return "";
     }
+
+    public static MvcHtmlString TweetButton(this HtmlHelper htmlHelper, string tweetText, Uri url = null)
+    {
+        var encodedTweetText = Uri.EscapeDataString(tweetText); // escape anything URI-unfriendly in the tweet body (e.g., hash-tags)
+        
+        if (url != null)
+        {
+            encodedTweetText += " " + Uri.EscapeUriString(url.ToString()); // escape the URL
+        }
+
+        encodedTweetText = htmlHelper.Encode(encodedTweetText); // HTML-encode the resulting string
+        return new MvcHtmlString(
+            string.Format(
+                @"<a href=""https://twitter.com/intent/tweet?text={0}"" class=""btn btn-mini""><i class=""icon-twitter""></i> Tweet</a>",
+                encodedTweetText));
+    }
 }
