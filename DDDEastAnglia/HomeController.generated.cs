@@ -65,6 +65,7 @@ namespace DDDEastAnglia.Controllers
             public readonly string Venue = "Venue";
             public readonly string Team = "Team";
             public readonly string Sponsors = "Sponsors";
+            public readonly string About = "About";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -75,6 +76,7 @@ namespace DDDEastAnglia.Controllers
             public const string Venue = "Venue";
             public const string Team = "Team";
             public const string Sponsors = "Sponsors";
+            public const string About = "About";
         }
 
 
@@ -88,12 +90,14 @@ namespace DDDEastAnglia.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
+                public readonly string About = "About";
                 public readonly string Contact = "Contact";
                 public readonly string Index = "Index";
                 public readonly string Sponsors = "Sponsors";
                 public readonly string Team = "Team";
                 public readonly string Venue = "Venue";
             }
+            public readonly string About = "~/Views/Home/About.cshtml";
             public readonly string Contact = "~/Views/Home/Contact.cshtml";
             public readonly string Index = "~/Views/Home/Index.cshtml";
             public readonly string Sponsors = "~/Views/Home/Sponsors.cshtml";
@@ -149,6 +153,15 @@ namespace DDDEastAnglia.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Sponsors);
             SponsorsOverride(callInfo);
+            return callInfo;
+        }
+
+        partial void AboutOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        public override System.Web.Mvc.ActionResult About()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.About);
+            AboutOverride(callInfo);
             return callInfo;
         }
 
