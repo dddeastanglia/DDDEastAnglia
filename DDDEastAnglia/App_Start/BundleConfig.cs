@@ -58,9 +58,6 @@ namespace DDDEastAnglia
 
             AddStyleBundle(bundles, "~/Content/Markdown",
                            "~/Content/Markdown.css");
-
-            AddStyleBundle(bundles, "~/bundles/tweetbutton",
-                           "~/Scripts/tweetbutton.js");
         }
 
         private static void AddScriptBundle(BundleCollection bundles, string virtualPath, params string[] scriptFiles)
