@@ -407,12 +407,7 @@
     <Content Include="Scripts\Markdown.Editor.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="sorter\asc.gif" />
-    <Content Include="sorter\bg.gif" />
-    <Content Include="sorter\desc.gif" />
-    <Content Include="sorter\style.css" />
     <Content Include="T4MVC.tt.settings.xml" />
-    <Content Include="tablesorter.txt" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
