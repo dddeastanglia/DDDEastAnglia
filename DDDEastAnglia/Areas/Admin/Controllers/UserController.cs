@@ -6,18 +6,16 @@ using DDDEastAnglia.Models;
 
 namespace DDDEastAnglia.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public partial class UserController : Controller
     {
-        private DDDEAContext db = new DDDEAContext();
-        //
+        private readonly DDDEAContext db = new DDDEAContext();
+        
         // GET: /Admin/User/
-
         public virtual ActionResult Index()
         {
             List<UserProfile> profiles = db.UserProfiles.ToList();
             return null;
-            // return View();
         }
-
     }
 }

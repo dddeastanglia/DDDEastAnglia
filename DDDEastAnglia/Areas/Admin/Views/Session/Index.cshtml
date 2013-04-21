@@ -1,45 +1,65 @@
 ﻿@model IEnumerable<DDDEastAnglia.Models.Session>
 
 @{
-    ViewBag.Title = "Sessions Admin Index";
+    ViewBag.Title = "Sessions";
 }
 
-<h2>Sessions Admin Index</h2>
+@section header
+{
+    @Styles.Render("~/Content/admin")
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div class="pull-right">
+    <strong>@Model.Count() total sessions</strong>
+</div>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <i class="icon-edit"></i> @Html.ActionLink("Create New Session", "Create")
 </p>
-<table>
-    <tr>
-        <th>
+
+<table id="sessionsTable" class="table table-striped table-hover table-condensed">
+    <thead>
+        <tr><th>
             @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
+            <span class="icon"></span>
+        </th><th>
             @Html.DisplayNameFor(model => model.SpeakerUserName)
-        </th>
-        <th>
+            <span class="icon"></span>
+        </th><th>
             @Html.DisplayNameFor(model => model.Votes)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
+            <span class="icon"></span>
+        </th><th>
+            &nbsp;
+        </th></tr>
+    </thead>
+    
+    <tbody>
+    @foreach (var item in Model) 
+    {
+        <tr><td>
             @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
+        </td><td>
             @Html.DisplayFor(modelItem => item.SpeakerUserName)
-        </td>
-        <td>
+         </td><td>
             @Html.DisplayFor(modelItem => item.Votes)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.SessionId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.SessionId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.SessionId })
-        </td>
-    </tr>
-}
-
+        </td><td>
+            <i class="icon-list-alt"></i> @Html.ActionLink("Details", "Details", new { id=item.SessionId })
+            <i class="icon-edit"></i> @Html.ActionLink("Edit", "Edit", new { id=item.SessionId }) 
+            <i class="icon-trash"></i> @Html.ActionLink("Delete", "Delete", new { id=item.SessionId })
+        </td></tr>
+    }
+    </tbody>
 </table>
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/tablesorter")
+
+    <script language="javascript">
+        $(document).ready(function() {
+            $("#sessionsTable").tablesorter({ headers: { 3: { sorter: false } } });
+        });
+    </script>
+}

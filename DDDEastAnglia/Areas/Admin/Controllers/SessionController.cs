@@ -7,22 +7,17 @@ using DDDEastAnglia.Models;
 namespace DDDEastAnglia.Areas.Admin.Controllers
 {
     [Authorize(Roles = "Administrator")]
-    [RequireHttps]
     public partial class SessionController : Controller
     {
-        private DDDEAContext db = new DDDEAContext();
+        private readonly DDDEAContext db = new DDDEAContext();
 
-        //
         // GET: /Admin/Session/
-
         public virtual ActionResult Index()
         {
             return View(db.Sessions.OrderByDescending(s => s.Votes).ToList());
         }
 
-        //
         // GET: /Admin/Session/Details/5
-
         public virtual ActionResult Details(int id = 0)
         {
             Session session = db.Sessions.Find(id);
@@ -33,9 +28,7 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
             return View(session);
         }
 
-        //
         // GET: /Admin/Session/Edit/5
-
         public virtual ActionResult Edit(int id = 0)
         {
             Session session = db.Sessions.Find(id);
@@ -46,9 +39,7 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
             return View(session);
         }
 
-        //
         // POST: /Admin/Session/Edit/5
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public virtual ActionResult Edit(Session session)
@@ -62,9 +53,7 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
             return View(session);
         }
 
-        //
         // GET: /Admin/Session/Delete/5
-
         public virtual ActionResult Delete(int id = 0)
         {
             Session session = db.Sessions.Find(id);
@@ -75,9 +64,7 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
             return View(session);
         }
 
-        //
         // POST: /Admin/Session/Delete/5
-
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public virtual ActionResult DeleteConfirmed(int id)
