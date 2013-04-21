@@ -128,6 +128,8 @@ namespace Links
                       
         public static readonly string modernizr_2_6_2_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/modernizr-2.6.2.min.js") ? Url("modernizr-2.6.2.min.js") : Url("modernizr-2.6.2.js");
                       
+        public static readonly string searchfilter_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/searchfilter.min.js") ? Url("searchfilter.min.js") : Url("searchfilter.js");
+                      
         public static readonly string tweetbutton_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/tweetbutton.min.js") ? Url("tweetbutton.min.js") : Url("tweetbutton.js");
                       
     }

@@ -6,6 +6,8 @@
     ViewBag.Title = "Sessions";
 }
 
+@Html.Partial("_SearchBox", new ViewDataDictionary {{"containerClass", ".session-details"}})
+
 <h2>Sessions</h2>
 
 @if (new EventRepository().Get("DDDEA2013").CanSubmit())
@@ -16,4 +18,9 @@
 @foreach (var session in Model)
 {
     @Html.Partial("_SessionDetailsPartial", session)
+}
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/searchfilter")
 }

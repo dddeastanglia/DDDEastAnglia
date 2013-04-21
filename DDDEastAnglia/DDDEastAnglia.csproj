@@ -257,6 +257,7 @@
     <Compile Include="ProfileController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Content Include="Scripts\searchfilter.js" />
     <Compile Include="SessionController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
@@ -476,6 +477,7 @@
     <Content Include="Views\Speaker\_SpeakerDetailsPartial.cshtml" />
     <Content Include="Views\Banner\Default.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Shared\_SearchBox.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
