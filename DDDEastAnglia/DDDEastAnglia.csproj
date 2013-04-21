@@ -470,7 +470,6 @@
     <Content Include="Views\Account\Registered.cshtml" />
     <Content Include="Views\Profile\Edit.cshtml" />
     <Content Include="Views\Session\_SessionDetailsPartial.cshtml" />
-    <Content Include="Views\Shared\_Banner.cshtml" />
     <Content Include="Views\Speaker\Details.cshtml" />
     <Content Include="Views\Speaker\_SpeakerDetailsPartial.cshtml" />
     <Content Include="Views\Banner\Default.cshtml" />
