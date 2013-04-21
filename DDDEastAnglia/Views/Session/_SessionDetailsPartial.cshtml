@@ -20,7 +20,7 @@
         <a href="@Url.Action("Details", "Speaker", new { id = Model.SpeakerId })">@(string.IsNullOrWhiteSpace(Model.SpeakerName) ? Model.SpeakerUserName : Model.SpeakerName)</a>
     </h4>
     <div class="session-tweet">
-        <a href="https://twitter.com/intent/tweet?text=@Model.TweetLink.Title" class="twitter-share-button" data-url="@Model.TweetLink.Url" data-count="none">Tweet</a>
+        @Html.TweetButton(Model.TweetLink.Title)
     </div>
     <div class="session-abstract">
         @Html.MarkdownFor(s => Model.SessionAbstract)
