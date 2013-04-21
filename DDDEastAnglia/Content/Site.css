@@ -125,10 +125,6 @@ a.btn, .dropdown-menu a, a.carousel-control { text-decoration: none; }
     margin-bottom: 10px;
 }
 
-.speaker {
-    margin-bottom: 30px;
-}
-
 .inline-large-icon {
     display: inline-block;
     width: 20px;
@@ -201,10 +197,16 @@ fieldset {
     background-color: #f5f5f5;
 }
 
+.speaker {
+    margin-bottom: 10px;
+    border-bottom: 1px solid lightgray;
+    padding: 10px;
+}
+
 .session-details {
     border-bottom: 1px solid #e3e3e3;
     padding: 10px;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
 }
 
 .session-details h3 {
@@ -272,9 +274,4 @@ fieldset {
 
 a i {
     text-decoration: none;
-}
-
-.speaker {
-    border-bottom: 1px solid lightgray;
-    padding: 10px;
 }
