@@ -36,7 +36,11 @@ namespace DDDEastAnglia
             AddScriptBundle(bundles, "~/bundles/voting", "~/Scripts/voting.js");
 
             AddStyleBundle(bundles, "~/Content/admin",
-                           "~/Content/admin.css");
+                           "~/Content/bootstrap.css",
+                           "~/Areas/Admin/Content/admin.css",
+                           "~/Content/media-queries.css",
+                           "~/Content/font-awesome.css",
+                           "~/Content/font-awesome-ie7.min.css");
 
             AddStyleBundle(bundles, "~/Content/css",
                            "~/Content/bootstrap.css",

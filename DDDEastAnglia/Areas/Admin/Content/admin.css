@@ -1,4 +1,8 @@
-﻿.table th {
+﻿.brand a {
+    text-decoration: none;
+}
+
+.table th {
     text-transform: capitalize;
 }
 

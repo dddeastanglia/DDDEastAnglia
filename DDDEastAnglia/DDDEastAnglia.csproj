@@ -193,7 +193,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\admin.css" />
+    <Content Include="Areas\Admin\Content\admin.css" />
     <Compile Include="Controllers\BannerController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\SessionDisplayModelComparer.cs" />
@@ -430,6 +430,7 @@
     <Content Include="Areas\Admin\Views\Session\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Session\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\html5shiv-printshiv.js" />
