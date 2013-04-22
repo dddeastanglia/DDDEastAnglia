@@ -5,7 +5,6 @@ using System.Linq;
 using System.Transactions;
 using System.Web.Mvc;
 using System.Web.Security;
-using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.DataAccess.EntityFramework;
 using DotNetOpenAuth.AspNet;
 using Microsoft.Web.WebPages.OAuth;
@@ -17,11 +16,11 @@ using IsolationLevel = System.Transactions.IsolationLevel;
 namespace DDDEastAnglia.Controllers
 {
     [Authorize]
-    public partial class AccountController : Controller
+    public class AccountController : Controller
     {
         // GET: /Account/Login
         [AllowAnonymous]
-        public virtual ActionResult Login(string returnUrl)
+        public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
             return View();
@@ -31,7 +30,7 @@ namespace DDDEastAnglia.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public virtual ActionResult Login(LoginModel model, string returnUrl)
+        public ActionResult Login(LoginModel model, string returnUrl)
         {
             if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, model.RememberMe))
             {
@@ -46,7 +45,7 @@ namespace DDDEastAnglia.Controllers
         // POST: /Account/LogOff
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public virtual ActionResult LogOff()
+        public ActionResult LogOff()
         {
             WebSecurity.Logout();
 
@@ -55,7 +54,7 @@ namespace DDDEastAnglia.Controllers
 
         // GET: /Account/Register
         [AllowAnonymous]
-        public virtual ActionResult Register()
+        public ActionResult Register()
         {
             return View();
         }
@@ -64,7 +63,7 @@ namespace DDDEastAnglia.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public virtual ActionResult Register(RegisterModel model)
+        public ActionResult Register(RegisterModel model)
         {
             if (ModelState.IsValid)
             {
@@ -95,7 +94,7 @@ namespace DDDEastAnglia.Controllers
         }
 
         [HttpGet]
-        public virtual ActionResult ChangePassword(string message = null)
+        public ActionResult ChangePassword(string message = null)
         {
             ViewBag.HasLocalAccount = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
             ViewBag.Message = message;
@@ -104,7 +103,7 @@ namespace DDDEastAnglia.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public virtual ActionResult ChangePassword(LocalPasswordModel model)
+        public ActionResult ChangePassword(LocalPasswordModel model)
         {
             bool hasLocalAccount = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
             ViewBag.HasLocalAccount = hasLocalAccount;
@@ -133,7 +132,7 @@ namespace DDDEastAnglia.Controllers
         }
 
         [HttpGet]
-        public virtual ActionResult ManageLogins(string message = null)
+        public ActionResult ManageLogins(string message = null)
         {
             ViewBag.HasLocalAccount = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
             ViewBag.Message = message;
@@ -142,7 +141,7 @@ namespace DDDEastAnglia.Controllers
         }
 
         [ChildActionOnly]
-        public virtual ActionResult RemoveExternalLogins()
+        public ActionResult RemoveExternalLogins()
         {
             var accounts = OAuthWebSecurity.GetAccountsFromUserName(User.Identity.Name);
             var externalLogins = new List<ExternalLogin>();
@@ -165,7 +164,7 @@ namespace DDDEastAnglia.Controllers
 
         [AllowAnonymous]
         [ChildActionOnly]
-        public virtual ActionResult ExternalLoginsList(string returnUrl)
+        public ActionResult ExternalLoginsList(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
             return PartialView("_ExternalLoginsListPartial", OAuthWebSecurity.RegisteredClientData);
@@ -173,7 +172,7 @@ namespace DDDEastAnglia.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public virtual ActionResult DisassociateLogin(string provider, string providerUserId)
+        public ActionResult DisassociateLogin(string provider, string providerUserId)
         {
             string ownerAccount = OAuthWebSecurity.GetUserName(provider, providerUserId);
             string message = null;
@@ -202,14 +201,14 @@ namespace DDDEastAnglia.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public virtual ActionResult ExternalLogin(string provider, string returnUrl)
+        public ActionResult ExternalLogin(string provider, string returnUrl)
         {
             return new ExternalLoginResult(provider, Url.Action("ExternalLoginCallback", new { ReturnUrl = returnUrl }));
         }
 
         // GET: /Account/ExternalLoginCallback
         [AllowAnonymous]
-        public virtual ActionResult ExternalLoginCallback(string returnUrl)
+        public ActionResult ExternalLoginCallback(string returnUrl)
         {
             AuthenticationResult result = OAuthWebSecurity.VerifyAuthentication(Url.Action("ExternalLoginCallback", new { ReturnUrl = returnUrl }));
 
@@ -241,7 +240,7 @@ namespace DDDEastAnglia.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public virtual ActionResult ExternalLoginConfirmation(RegisterExternalLoginModel model, string returnUrl)
+        public ActionResult ExternalLoginConfirmation(RegisterExternalLoginModel model, string returnUrl)
         {
             string provider;
             string providerUserId;
@@ -282,7 +281,7 @@ namespace DDDEastAnglia.Controllers
 
         // GET: /Account/ExternalLoginFailure
         [AllowAnonymous]
-        public virtual ActionResult ExternalLoginFailure()
+        public ActionResult ExternalLoginFailure()
         {
             return View();
         }
