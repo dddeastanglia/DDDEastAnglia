@@ -29,7 +29,7 @@
     <ul>
     @foreach (var session in @Model.Sessions)
     {
-        <li><a href="@Url.Action(MVC.Session.Details(session.Key))" title="View the details for this session">@session.Value</a></li>
+        <li><a href="@Url.Action("Details", "Session", new { id = session.Key })" title="View the details for this session">@session.Value</a></li>
     }
     </ul>
 </div>
