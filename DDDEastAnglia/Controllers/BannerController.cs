@@ -4,7 +4,7 @@ using DDDEastAnglia.Models.Query;
 
 namespace DDDEastAnglia.Controllers
 {
-    public class BannerController : Controller
+    public partial class BannerController : Controller
     {
         private readonly IBannerModelQuery _bannerQuery;
 
@@ -19,7 +19,7 @@ namespace DDDEastAnglia.Controllers
             _bannerQuery = bannerQuery;
         }
 
-        public ActionResult Details(string id)
+        public virtual ActionResult Details(string id)
         {
             return PartialView("_Banner", _bannerQuery.Get(id));
         }
