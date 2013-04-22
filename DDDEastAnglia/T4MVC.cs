@@ -27,10 +27,12 @@ public static class MVC
     static readonly AdminClass s_Admin = new AdminClass();
     public static AdminClass Admin { get { return s_Admin; } }
     public static DDDEastAnglia.Controllers.AccountController Account = new DDDEastAnglia.Controllers.T4MVC_AccountController();
+    public static DDDEastAnglia.Controllers.BannerController Banner = new DDDEastAnglia.Controllers.T4MVC_BannerController();
     public static DDDEastAnglia.Controllers.HomeController Home = new DDDEastAnglia.Controllers.T4MVC_HomeController();
     public static DDDEastAnglia.Controllers.ProfileController Profile = new DDDEastAnglia.Controllers.T4MVC_ProfileController();
     public static DDDEastAnglia.Controllers.SessionController Session = new DDDEastAnglia.Controllers.T4MVC_SessionController();
     public static DDDEastAnglia.Controllers.SpeakerController Speaker = new DDDEastAnglia.Controllers.T4MVC_SpeakerController();
+    public static DDDEastAnglia.Controllers.VoteController Vote = new DDDEastAnglia.Controllers.T4MVC_VoteController();
     public static T4MVC.SharedController Shared = new T4MVC.SharedController();
 }
 
@@ -44,6 +46,7 @@ namespace T4MVC
         public DDDEastAnglia.Areas.Admin.Controllers.RoleController Role = new DDDEastAnglia.Areas.Admin.Controllers.T4MVC_RoleController();
         public DDDEastAnglia.Areas.Admin.Controllers.SessionController Session = new DDDEastAnglia.Areas.Admin.Controllers.T4MVC_SessionController();
         public DDDEastAnglia.Areas.Admin.Controllers.UserController User = new DDDEastAnglia.Areas.Admin.Controllers.T4MVC_UserController();
+        public T4MVC.Admin.SharedController Shared = new T4MVC.Admin.SharedController();
     }
 }
 
@@ -127,7 +130,7 @@ namespace Links
                       
         public static readonly string modernizr_2_6_2_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/modernizr-2.6.2.min.js") ? Url("modernizr-2.6.2.min.js") : Url("modernizr-2.6.2.js");
                       
-        public static readonly string tweetbutton_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/tweetbutton.min.js") ? Url("tweetbutton.min.js") : Url("tweetbutton.js");
+        public static readonly string voting_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/voting.min.js") ? Url("voting.min.js") : Url("voting.js");
                       
     }
 
