@@ -35,6 +35,6 @@
     <p>
         @Html.ActionLink("Edit", "Edit", new { id = Model.SessionId })
         |
-        @Html.ActionLink("Delete", MVC.Session.Delete(Model.SessionId))
+        @Html.ActionLink("Delete", "Delete", new { id = Model.SessionId })
     </p>
 }
