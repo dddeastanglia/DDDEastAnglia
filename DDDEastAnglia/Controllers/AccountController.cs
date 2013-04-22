@@ -143,6 +143,11 @@ namespace DDDEastAnglia.Controllers
         [ValidateAntiForgeryToken]
         public virtual ActionResult ResetPassword(ResetPasswordStepOneModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return View("ResetPasswordStep1", model);
+            }
+
             string passwordResetToken;
 
             if (!string.IsNullOrWhiteSpace(model.UserName))
@@ -193,6 +198,11 @@ namespace DDDEastAnglia.Controllers
         [AllowAnonymous]
         public virtual ActionResult ResetPasswordConfirmation(ResetPasswordStepThreeModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return View("ResetPasswordStep3", model);
+            }
+
             bool passwordWasReset = WebSecurity.ResetPassword(model.ResetToken, model.Password);
 
             if (passwordWasReset)
