@@ -208,7 +208,16 @@
     <Compile Include="Admin.SessionController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="Admin.SharedController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
     <Compile Include="Admin.UserController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BannerController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VoteController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Content Include="Content\admin.css" />

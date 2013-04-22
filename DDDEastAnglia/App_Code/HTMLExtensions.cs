@@ -65,7 +65,7 @@ public static class HTMLExtensions
         encodedTweetText = htmlHelper.Encode(encodedTweetText); // HTML-encode the resulting string
         return new MvcHtmlString(
             string.Format(
-                @"<a href=""https://twitter.com/intent/tweet?text={0}"" class=""btn btn-mini""><i class=""icon-twitter""></i> Tweet</a>",
+                @"<a href=""https://twitter.com/intent/tweet?text={0}"" class=""btn btn-mini"" target=""_blank""><i class=""icon-twitter""></i> Tweet</a>",
                 encodedTweetText));
     }
 }
