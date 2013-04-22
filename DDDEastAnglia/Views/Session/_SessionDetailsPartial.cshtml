@@ -5,10 +5,10 @@
     {
         <div class="pull-right">
             <span class="action">
-                <i class="icon-edit"></i> @Html.ActionLink("Edit", MVC.Session.Edit(Model.SessionId))
+                <i class="icon-edit"></i> @Html.ActionLink("Edit", "Edit", "Session", new { id = Model.SessionId })
             </span>
             <span class="action">
-                <i class="icon-trash"></i> @Html.ActionLink("Delete", MVC.Session.Delete(Model.SessionId))
+                <i class="icon-trash"></i> @Html.ActionLink("Delete", "Delete", "Session", new { id = Model.SessionId })
             </span>
         </div>
     }
