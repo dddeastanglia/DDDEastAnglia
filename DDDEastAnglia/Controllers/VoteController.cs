@@ -9,7 +9,7 @@ using DDDEastAnglia.Mvc.Attributes;
 
 namespace DDDEastAnglia.Controllers
 {
-    public class VoteController : Controller, IRequestProvider
+    public partial class VoteController : Controller, IRequestProvider
     {
         private readonly ISessionVoteModelProvider _sessionVoteModelProvider;
         private readonly IMessageBus _messageBus;
@@ -32,7 +32,7 @@ namespace DDDEastAnglia.Controllers
             _controllerInformationProvider = informationProvider;
         }
 
-        public ActionResult Status(int id)
+        public virtual ActionResult Status(int id)
         {
             var cookie = _controllerInformationProvider.GetCookie(VotingCookie.CookieName);
             var result = _sessionVoteModelProvider.Get(id, GetCookieId(cookie.Value));
@@ -43,7 +43,7 @@ namespace DDDEastAnglia.Controllers
 
         [HttpPost]
         [AllowCrossSiteJson]
-        public ActionResult RegisterVote(int id, VoteModel sessionVoteModel = null)
+        public virtual ActionResult RegisterVote(int id, VoteModel sessionVoteModel = null)
         {
             var cookie = _controllerInformationProvider.GetCookie(VotingCookie.CookieName);
 
@@ -75,7 +75,7 @@ namespace DDDEastAnglia.Controllers
 
         [HttpPost]
         [AllowCrossSiteJson]
-        public ActionResult RemoveVote(int id, VoteModel sessionVoteModel = null)
+        public virtual ActionResult RemoveVote(int id, VoteModel sessionVoteModel = null)
         {
             var cookie = _controllerInformationProvider.GetCookie(VotingCookie.CookieName);
             var cookieId = GetCookieId(cookie.Value);
