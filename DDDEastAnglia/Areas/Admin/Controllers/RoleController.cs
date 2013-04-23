@@ -1,17 +1,16 @@
 ﻿using System.Web.Mvc;
-using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.DataAccess.EntityFramework;
 using WebMatrix.WebData;
 
 namespace DDDEastAnglia.Areas.Admin.Controllers
 {
     [Authorize(Roles = "Administrator")]
-    public partial class RoleController : Controller
+    public class RoleController : Controller
     {
         private readonly DDDEAContext db = new DDDEAContext();
         
         // GET: /Admin/Role/
-        public virtual ActionResult Index()
+        public ActionResult Index()
         {
             SimpleRoleProvider provider = new SimpleRoleProvider();
             return null;

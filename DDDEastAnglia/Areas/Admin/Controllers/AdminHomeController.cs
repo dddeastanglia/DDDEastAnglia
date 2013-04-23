@@ -3,10 +3,10 @@
 namespace DDDEastAnglia.Areas.Admin.Controllers
 {
     [Authorize(Roles = "Administrator")]
-    public partial class AdminHomeController : Controller
+    public class AdminHomeController : Controller
     {
         // GET: /Admin/AdminHome/
-        public virtual ActionResult Index()
+        public ActionResult Index()
         {
             return View();
         }
