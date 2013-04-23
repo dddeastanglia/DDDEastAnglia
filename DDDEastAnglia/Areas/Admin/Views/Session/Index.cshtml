@@ -12,7 +12,7 @@
 <h2>@ViewBag.Title</h2>
 
 <div class="pull-right">
-    <strong>@Model.Count() total sessions</strong>
+    <strong>@Model.Count() sessions</strong>
 </div>
 
 <p>
@@ -45,9 +45,9 @@
          </td><td>
             @Html.DisplayFor(modelItem => item.Votes)
         </td><td>
-            <i class="icon-list-alt"></i> @Html.ActionLink("Details", "Details", new { id=item.SessionId })
-            <i class="icon-edit"></i> @Html.ActionLink("Edit", "Edit", new { id=item.SessionId }) 
-            <i class="icon-trash"></i> @Html.ActionLink("Delete", "Delete", new { id=item.SessionId })
+            <i class="icon-list-alt"></i> @Html.ActionLink("Details", "Details", new { id = item.SessionId })
+            <i class="icon-edit"></i> @Html.ActionLink("Edit", "Edit", new { id = item.SessionId }) 
+            <i class="icon-trash"></i> @Html.ActionLink("Delete", "Delete", new { id = item.SessionId })
         </td></tr>
     }
     </tbody>
