@@ -1,6 +1,8 @@
 ﻿a { text-decoration: underline; }
 
-.brand a {
+a.btn, .dropdown-menu a { text-decoration: none; }
+
+a.brand {
     text-decoration: none;
 }
 
