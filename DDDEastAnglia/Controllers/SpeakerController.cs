@@ -1,17 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.DataAccess.EntityFramework;
 using DDDEastAnglia.Models;
 
 namespace DDDEastAnglia.Controllers
 {
-    public partial class SpeakerController : Controller
+    public class SpeakerController : Controller
     {
         private readonly DDDEAContext db = new DDDEAContext();
 
-        public virtual ActionResult Index()
+        public ActionResult Index()
         {
             var speakers = new List<SpeakerDisplayModel>();
             var speakerProfiles = db.UserProfiles.ToList();
@@ -32,7 +31,7 @@ namespace DDDEastAnglia.Controllers
             return View(speakers);
         }
 
-        public virtual ActionResult Details(int id = 0)
+        public ActionResult Details(int id = 0)
         {
             var speakerProfile = db.UserProfiles.Find(id);
 

@@ -21,7 +21,7 @@
     <link rel="apple-touch-icon" sizes="144x144" href="@Url.Content("~/Images/logo-icon-144.png")">
     <link rel="apple-touch-icon" sizes="114x114" href="@Url.Content("~/Images/logo-icon-114.png")">
     <link rel="apple-touch-icon" sizes="72x72" href="@Url.Content("~/Images/logo-icon-72.png")">
-    <link rel="apple-touch-icon" href="@Url.Content("~/Images/logo-icon-57.png")>
+    <link rel="apple-touch-icon" href="@Url.Content("~/Images/logo-icon-57.png")">
     <link rel="image_src" href="@Url.Content("~/Images/logo-small.png")" /> @*this apparently works with embed.ly for Twitter Cards*@
 </head>
     <body>
@@ -29,7 +29,7 @@
         <div class="container-fluid">
             <div class="row-fluid">
                 <div class="masthead">
-                    <a href="@Url.Action(MVC.Home.Index())"><img src="@Url.Content("~/Images/logo-small.png")" class="pull-left" alt="Developer! Developer! Developer! East Anglia" /></a>
+                    <a href="@Url.Action("Index", "Home")"><img src="@Url.Content("~/Images/logo-small.png")" class="pull-left" alt="Developer! Developer! Developer! East Anglia" /></a>
                     <h2>DDD East Anglia</h2>
                     <p>Cambridge, UK<br />
                         Saturday 29 June 2013</p>
@@ -49,14 +49,14 @@
                     </div>
                     <div class="nav-collapse">
                         <ul class="nav">
-                            <li class="dropdown @Html.MenuState("Home", "Index")">@Html.ActionLink("Home", MVC.Home.Index())</li>
-                            <li class="dropdown @Html.MenuState("Session")">@Html.ActionLink("Sessions", MVC.Session.Index())</li>
-                            <li class="dropdown @Html.MenuState("Speaker", "Index")">@Html.ActionLink("Speakers", MVC.Speaker.Index())</li>
+                            <li class="dropdown @Html.MenuState("Home", "Index")">@Html.ActionLink("Home", "Index", "Home")</li>
+                            <li class="dropdown @Html.MenuState("Session")">@Html.ActionLink("Sessions", "Index", "Session")</li>
+                            <li class="dropdown @Html.MenuState("Speaker", "Index")">@Html.ActionLink("Speakers", "Index", "Speaker")</li>
                             @*<li class="dropdown">@Html.ActionLink("Agenda", MVC.Agenda.Index())</li>*@
-                            <li class="dropdown @Html.MenuState("Home", "About")">@Html.ActionLink("New to DDD?", MVC.Home.About())</li>
-                            <li class="dropdown @Html.MenuState("Home", "Venue")">@Html.ActionLink("Venue", MVC.Home.Venue())</li>
-                            <li class="dropdown @Html.MenuState("Home", "Sponsors")">@Html.ActionLink("Sponsors", MVC.Home.Sponsors())</li>
-                            <li class="dropdown @Html.MenuState("Home", "Team")">@Html.ActionLink("Team", MVC.Home.Team())</li>
+                            <li class="dropdown @Html.MenuState("Home", "About")">@Html.ActionLink("New to DDD?", "About", "Home")</li>
+                            <li class="dropdown @Html.MenuState("Home", "Venue")">@Html.ActionLink("Venue", "Venue", "Home")</li>
+                            <li class="dropdown @Html.MenuState("Home", "Sponsors")">@Html.ActionLink("Sponsors", "Sponsors", "Home")</li>
+                            <li class="dropdown @Html.MenuState("Home", "Team")">@Html.ActionLink("Team", "Team", "Home")</li>
                             <li class="dropdown @Html.MenuState("Home", "Contact")">@Html.ActionLink("Contact", "Contact", "Home")</li>
                         </ul>
                     </div><!--/.nav-collapse -->
@@ -177,6 +177,6 @@
                 }
             });
         </script>
-        @{Html.RenderPartial(MVC.Shared.Views._GoogleAnalytics);}
+        @{Html.RenderPartial("_GoogleAnalytics");}
     </body>
 </html>

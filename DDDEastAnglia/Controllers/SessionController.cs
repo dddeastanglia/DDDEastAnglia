@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web.Mvc;
@@ -11,7 +10,7 @@ using DDDEastAnglia.Mvc.Attributes;
 namespace DDDEastAnglia.Controllers
 {
     [Authorize]
-    public partial class SessionController : Controller
+    public class SessionController : Controller
     {
         private const string DefaultEventName = "DDDEA2013";
         private readonly DDDEAContext db = new DDDEAContext();
@@ -19,7 +18,7 @@ namespace DDDEastAnglia.Controllers
         // GET: /Session/
         [AllowAnonymous]
         [AllowCrossSiteJson]
-        public virtual ActionResult Index()
+        public ActionResult Index()
         {
             var speakersLookup = db.UserProfiles.ToDictionary(p => p.UserName, p => p);
             var sessions = db.Sessions;
@@ -43,7 +42,7 @@ namespace DDDEastAnglia.Controllers
 
         // GET: /Session/Details/5
         [AllowAnonymous]
-        public virtual ActionResult Details(int id = 0)
+        public ActionResult Details(int id = 0)
         {
             Session session = db.Sessions.Find(id);
 
@@ -59,7 +58,7 @@ namespace DDDEastAnglia.Controllers
         }
 
         // GET: /Session/Create
-        public virtual ActionResult Create()
+        public ActionResult Create()
         {
             if (!_conferenceRepository.GetByEventShortName(DefaultEventName).CanSubmit())
             {
@@ -83,7 +82,7 @@ namespace DDDEastAnglia.Controllers
 
         // POST: /Session/Create
         [HttpPost]
-        public virtual ActionResult Create([Bind(Exclude = "Votes")] Session session)
+        public ActionResult Create([Bind(Exclude = "Votes")] Session session)
         {
             if (!_conferenceRepository.GetByEventShortName(DefaultEventName).CanSubmit())
             {
@@ -101,7 +100,7 @@ namespace DDDEastAnglia.Controllers
         }
 
         // GET: /Session/Edit/5
-        public virtual ActionResult Edit(int id = 0)
+        public ActionResult Edit(int id = 0)
         {
             Session session = db.Sessions.Find(id);
 
@@ -115,7 +114,7 @@ namespace DDDEastAnglia.Controllers
 
         // POST: /Session/Edit/5
         [HttpPost]
-        public virtual ActionResult Edit([Bind(Exclude = "Votes")] Session session)
+        public ActionResult Edit([Bind(Exclude = "Votes")] Session session)
         {
             if (ModelState.IsValid)
             {
@@ -128,7 +127,7 @@ namespace DDDEastAnglia.Controllers
         }
 
         // GET: /Session/Delete/5
-        public virtual ActionResult Delete(int id = 0)
+        public ActionResult Delete(int id = 0)
         {
             Session session = db.Sessions.Find(id);
 
@@ -144,7 +143,7 @@ namespace DDDEastAnglia.Controllers
 
         // POST: /Session/Delete/5
         [HttpPost, ActionName("Delete")]
-        public virtual ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int id)
         {
             Session session = db.Sessions.Find(id);
             db.Sessions.Remove(session);
