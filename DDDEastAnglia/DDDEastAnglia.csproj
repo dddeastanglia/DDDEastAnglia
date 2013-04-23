@@ -193,7 +193,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\admin.css" />
     <Content Include="Areas\Admin\Content\admin.css" />
     <Compile Include="Areas\Admin\Models\UserModel.cs" />
     <Compile Include="Controllers\BannerController.cs" />
