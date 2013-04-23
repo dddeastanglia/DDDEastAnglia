@@ -1,4 +1,6 @@
-﻿.brand a {
+﻿a { text-decoration: underline; }
+
+.brand a {
     text-decoration: none;
 }
 
