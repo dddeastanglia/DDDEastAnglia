@@ -13,7 +13,8 @@ Task Test -Depends Compile {
     $nunitDir = Join-Path ((ls "${root}\packages\*" -Filter NUnit.Runners*) | select -last 1) "tools"
     $env:Path = $nunitDir + ";" + $env:Path
 
-    $testAssemblies = ls -Recurse "${root}\DDDEastAnglia*\bin" -Filter "DDDEastAnglia*Tests.dll"
+    $testAssemblies = @(ls -Recurse "${root}\DDDEastAnglia*\bin" -Filter "DDDEastAnglia*Tests.dll")
+    Write-Host ("Found {0} test assemblies: {1}" -f $testAssemblies.Length, ($testAssemblies -join ", "))
 
     Write-Host "Running tests" -ForegroundColor Green
     Exec { nunit-console $testAssemblies /framework="4.0" /nologo /nodots /result="${root}\TestResult.xml" /process="Separate" }
