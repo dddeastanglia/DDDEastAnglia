@@ -5,6 +5,8 @@
     ViewBag.Title = "Speakers";
 }
 
+@Html.Partial("_SearchBox", new ViewDataDictionary {{"containerClass", ".speaker"}})
+
 <h2>Speakers</h2>
 
 @foreach (var speaker in Model)
@@ -12,4 +14,9 @@
     <div class="row-fluid">
         @Html.Partial("_SpeakerDetailsPartial", speaker)
     </div>
+}
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/searchfilter")
 }

@@ -21,6 +21,9 @@ namespace DDDEastAnglia
             AddScriptBundle(bundles, "~/bundles/tablesorter", 
                             "~/Scripts/jquery.tablesorter*");
 
+            AddScriptBundle(bundles, "~/bundles/searchfilter", 
+                            "~/Scripts/searchfilter.js");
+
             AddScriptBundle(bundles, "~/bundles/bootstrap",
                             "~/Scripts/bootstrap.js");
 
