@@ -13,6 +13,7 @@ namespace DDDEastAnglia.Models
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }
         
+        [DisplayName("username")]
         public string UserName { get; set; }
 
         [Required]
