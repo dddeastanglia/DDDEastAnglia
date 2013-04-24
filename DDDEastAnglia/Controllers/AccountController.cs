@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -129,6 +129,87 @@ namespace DDDEastAnglia.Controllers
 
             // If we got this far, something failed so redisplay the form
             return View(model);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public virtual ActionResult ResetPassword()
+        {
+            return View("ResetPasswordStep1");
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public virtual ActionResult ResetPassword(ResetPasswordStepOneModel model)
+        {
+            string passwordResetToken;
+
+            if (!string.IsNullOrWhiteSpace(model.UserName))
+            {
+                DDDEAContext context = new DDDEAContext();
+                var profile = context.UserProfiles.FirstOrDefault(p => p.UserName == model.UserName);
+
+                if (profile == null)
+                {
+                    ModelState.AddModelError("", "Could not reset password.");
+                    return View("ResetPasswordStep1");
+                }
+
+                passwordResetToken = WebSecurity.GeneratePasswordResetToken(model.UserName);
+            }
+            else if (!string.IsNullOrWhiteSpace(model.EmailAddress))
+            {
+                DDDEAContext context = new DDDEAContext();
+                var profile = context.UserProfiles.FirstOrDefault(p => p.EmailAddress == model.EmailAddress);
+
+                if (profile == null)
+                {
+                    ModelState.AddModelError("", "Could not reset password.");
+                    return View("ResetPasswordStep1");
+                }
+                
+                passwordResetToken = WebSecurity.GeneratePasswordResetToken(profile.UserName);
+            }
+            else
+            {
+                ModelState.AddModelError("", "A user name or email address must be specified.");
+                return View("ResetPasswordStep1");
+            }
+
+            //TODO: send email
+
+            return View("ResetPasswordStep2", new ResetPasswordStepTwoModel { Token = passwordResetToken });
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public virtual ActionResult ResetPasswordConfirmation(string token)
+        {
+            return View("ResetPasswordStep3", new ResetPasswordStepThreeModel { ResetToken = token });
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public virtual ActionResult ResetPasswordConfirmation(ResetPasswordStepThreeModel model)
+        {
+            bool passwordWasReset = WebSecurity.ResetPassword(model.ResetToken, model.Password);
+
+            if (passwordWasReset)
+            {
+                return RedirectToAction("ResetPasswordComplete", new { Message = "Your password has been changed successfully. Please log in using your new password." });
+            }
+            
+            ModelState.AddModelError("", "There was an error resetting your password.");
+            return View("ResetPasswordStep3", model);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public virtual ActionResult ResetPasswordComplete(string message = null)
+        {
+            ViewBag.Message = message;
+            return View("ResetPasswordStep4");
         }
 
         [HttpGet]

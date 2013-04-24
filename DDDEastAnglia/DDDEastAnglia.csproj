@@ -290,6 +290,7 @@
       <DependentUpon>201304201405453_CalendarItemTypeEnumWorkAround.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\BannerModel.cs" />
+    <Compile Include="Models\ResetPasswordStepTwoModel.cs" />
     <Compile Include="Models\ExternalLogin.cs" />
     <Compile Include="Models\GrokTalk.cs" />
     <Compile Include="Models\LocalPasswordModel.cs" />
@@ -297,6 +298,8 @@
     <Compile Include="Models\Query\IBannerModelQuery.cs" />
     <Compile Include="Models\RegisterExternalLoginModel.cs" />
     <Compile Include="Models\RegisterModel.cs" />
+    <Compile Include="Models\ResetPasswordStepOneModel.cs" />
+    <Compile Include="Models\ResetPasswordStepThreeModel.cs" />
     <Compile Include="Models\SessionDisplayModel.cs" />
     <Compile Include="Models\SessionIndexModel.cs" />
     <Compile Include="Models\SessionTweetLink.cs" />
@@ -524,6 +527,10 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="Views\Shared\_SearchBox.cshtml" />
+    <Content Include="Views\Account\ResetPasswordStep1.cshtml" />
+    <Content Include="Views\Account\ResetPasswordStep2.cshtml" />
+    <Content Include="Views\Account\ResetPasswordStep3.cshtml" />
+    <Content Include="Views\Account\ResetPasswordStep4.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
