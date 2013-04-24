@@ -2,12 +2,17 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Transactions;
+using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Web.Security;
 using DDDEastAnglia.DataAccess.EntityFramework;
 using DotNetOpenAuth.AspNet;
 using Microsoft.Web.WebPages.OAuth;
+using SendGridMail;
+using SendGridMail.Transport;
 using WebMatrix.WebData;
 using DDDEastAnglia.Models;
 
@@ -183,8 +188,29 @@ namespace DDDEastAnglia.Controllers
             }
 
             //TODO: send email
+            SendEmail(passwordResetToken);
 
             return View("ResetPasswordStep2", new ResetPasswordStepTwoModel { Token = passwordResetToken });
+        }
+
+        private void SendEmail(string passwordResetToken)
+        {
+            string resetUrl = Url.Action("ResetPasswordConfirmation", "Account", new { token = passwordResetToken }, Request.Url.Scheme);
+            
+            var from = new MailAddress("site@dddeastanglia.com");
+            var to = new[] { new MailAddress("test@adrianbanks.co.uk") };
+            var subject = "DDD East Anglia Password Reset";
+            var html = string.Format("<a href=\"{0}\">Reset password</a>", resetUrl);
+            var text = resetUrl;
+
+            var smtpUsername = WebConfigurationManager.AppSettings["SMTPUsername"];
+            var smtpPassword = WebConfigurationManager.AppSettings["SMTPPassword"];
+            var smtpHost = WebConfigurationManager.AppSettings["SMTPHost"];
+            var smtpPort = int.Parse(WebConfigurationManager.AppSettings["SMTPPort"]);
+
+            SendGrid message = SendGrid.GetInstance(from, to, new MailAddress[0], new MailAddress[0], subject, html, text);
+            var credentials = new NetworkCredential(smtpUsername, smtpPassword);
+            SMTP.GetInstance(credentials, smtpHost, smtpPort).Deliver(message);
         }
 
         [HttpGet]
