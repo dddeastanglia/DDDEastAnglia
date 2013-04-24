@@ -12,7 +12,7 @@
         <legend>Please provide the details of your session below</legend>
         @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model.SpeakerUserName)
-
+        @Html.HiddenFor(model => model.ConferenceId)
         <div class="editor-label">
             @Html.LabelFor(model => model.Title)
         </div>
