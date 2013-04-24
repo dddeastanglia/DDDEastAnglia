@@ -8,6 +8,8 @@
     ViewBag.Title = "Sessions";
 }
 
+@Html.Partial("_SearchBox", new ViewDataDictionary {{"containerClass", ".session-details"}})
+
 <h2>Sessions</h2>
 
 @if (Model.IsOpenForSubmission)
@@ -23,4 +25,9 @@
 @section scripts
 {
     @Scripts.Render("~/bundles/voting")
+}
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/searchfilter")
 }
