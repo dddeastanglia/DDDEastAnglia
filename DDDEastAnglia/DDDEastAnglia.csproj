@@ -308,6 +308,25 @@
     <Compile Include="Models\VoteModel.cs" />
     <Compile Include="Mvc\Attributes\AllowCrossSiteJsonAttribute.cs" />
     <Compile Include="Models\VotingCookie.cs" />
+    <Content Include="Scripts\tweetbutton.js" />
+    <Compile Include="ProfileController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Content Include="Scripts\searchfilter.js" />
+    <Compile Include="SessionController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SharedController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SpeakerController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="T4MVC.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
     <Content Include="App_Code\HTMLExtensions.cs" />
     <Compile Include="App_Start\AuthConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -416,6 +435,7 @@
     <Content Include="Images\sponsors\pluralsight.png" />
     <Content Include="Images\sponsors\skillsmatter.png" />
     <Content Include="Images\sponsors\Red-Gate.png" />
+    <Content Include="Images\sponsors\tekpub.png" />
     <Content Include="Images\sponsors\tinamous.png" />
     <Content Include="Images\wmd-buttons.png" />
     <Content Include="Content\font\fontawesome-webfont.woff" />
@@ -508,6 +528,10 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Banner\_Banner.cshtml" />
     <Content Include="Views\Vote\Status.cshtml" />
+    <Content Include="Views\Shared\_SearchBox.cshtml" />
+    <Content Include="Views\Shared\_Sponsors.cshtml">
+      <SubType>Code</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
