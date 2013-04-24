@@ -13,6 +13,7 @@
         @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model.SessionId)
         @Html.HiddenFor(model => model.SpeakerUserName)
+        @Html.HiddenFor(model => model.ConferenceId)
 
         <div class="editor-label">
             @Html.LabelFor(model => model.Title)

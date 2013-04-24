@@ -22,6 +22,11 @@ namespace DDDEastAnglia.Domain
             _calendarEntries.Add(CalendarEntryType.Conference, new NullCalendarEntry());
         }
 
+        public int Id
+        {
+            get { return _id; }
+        }
+
         public bool CanSubmit()
         {
             return _calendarEntries[CalendarEntryType.SessionSubmission].IsOpen();

@@ -60,7 +60,8 @@ namespace DDDEastAnglia.Controllers
         // GET: /Session/Create
         public ActionResult Create()
         {
-            if (!_conferenceRepository.GetByEventShortName(DefaultEventName).CanSubmit())
+            var conference = _conferenceRepository.GetByEventShortName(DefaultEventName);
+            if (!conference.CanSubmit())
             {
                 return RedirectToAction("Index");
             }
@@ -77,7 +78,7 @@ namespace DDDEastAnglia.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View(new Session {SpeakerUserName = userProfile.UserName});
+            return View(new Session {SpeakerUserName = userProfile.UserName, ConferenceId = conference.Id});
         }
 
         // POST: /Session/Create
