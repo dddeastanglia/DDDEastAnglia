@@ -29,3 +29,31 @@
 .table i {
     padding-left: 10px;
 }
+
+.dropdown-menu > li > form {
+    margin-bottom: 0;
+}
+
+.dropdown-menu > li > form > a {
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: normal;
+    line-height: 20px;
+    color: #333333;
+    white-space: nowrap;
+}
+
+.dropdown-menu > li > form > a:hover,
+.dropdown-menu > li > form > a:focus {
+    text-decoration: none;
+    color: #ffffff;
+    background-color: #013201;
+    background-image: -moz-linear-gradient(top, #013c01, #012301);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#013c01), to(#012301));
+    background-image: -webkit-linear-gradient(top, #013c01, #012301);
+    background-image: -o-linear-gradient(top, #013c01, #012301);
+    background-image: linear-gradient(to bottom, #013c01, #012301);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff013c01', endColorstr='#ff012301', GradientType=0);
+}
