@@ -1,10 +1,6 @@
 ﻿a { text-decoration: underline; }
 
-a.btn, .dropdown-menu a { text-decoration: none; }
-
-a.brand {
-    text-decoration: none;
-}
+a.btn, .dropdown-menu a, a.brand { text-decoration: none; }
 
 .table th {
     text-transform: capitalize;
