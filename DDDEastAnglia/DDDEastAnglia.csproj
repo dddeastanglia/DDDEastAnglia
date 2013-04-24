@@ -308,6 +308,7 @@
     <Compile Include="Models\VoteModel.cs" />
     <Compile Include="Mvc\Attributes\AllowCrossSiteJsonAttribute.cs" />
     <Compile Include="Models\VotingCookie.cs" />
+    <Content Include="Scripts\searchfilter.js" />
     <Content Include="App_Code\HTMLExtensions.cs" />
     <Compile Include="App_Start\AuthConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -512,6 +513,7 @@
     <Content Include="Views\Shared\_Sponsors.cshtml">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="Views\Shared\_SearchBox.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
