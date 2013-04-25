@@ -5,6 +5,8 @@ properties {
 Include .\teamcity.ps1
 TaskSetup {
     TeamCity-ReportBuildProgress "Running task '$($psake.context.Peek().currentTaskName)'"
+
+    Format-Table -InputObject $properties
 }
 
 Task default -Depends Test
