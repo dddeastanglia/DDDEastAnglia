@@ -260,6 +260,7 @@
     <Compile Include="Helpers\ISessionSorter.cs" />
     <Compile Include="Helpers\ISortAlgorithm.cs" />
     <Compile Include="Helpers\ListExtensions.cs" />
+    <Compile Include="Helpers\EmailSender.cs" />
     <Compile Include="Helpers\ICurrentUserVoteRepository.cs" />
     <Compile Include="Helpers\IControllerInformationProvider.cs" />
     <Compile Include="Helpers\IRequestFactory.cs" />
@@ -297,7 +298,6 @@
       <DependentUpon>201304201405453_CalendarItemTypeEnumWorkAround.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\BannerModel.cs" />
-    <Compile Include="Models\ResetPasswordStepTwoModel.cs" />
     <Compile Include="Models\ExternalLogin.cs" />
     <Compile Include="Models\GrokTalk.cs" />
     <Compile Include="Models\LocalPasswordModel.cs" />
@@ -312,6 +312,7 @@
     <Compile Include="Models\SessionTweetLink.cs" />
     <Compile Include="Models\SessionVoteModel.cs" />
     <Compile Include="Models\SpeakerDisplayModel.cs" />
+    <Content Include="ForgottenPasswordTemplate.html" />
     <Content Include="Images\logo-icon-114.png" />
     <Content Include="Images\logo-icon-144.png" />
     <Content Include="Images\logo-icon-57.png" />
