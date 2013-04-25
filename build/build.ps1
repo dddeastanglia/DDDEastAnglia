@@ -11,6 +11,7 @@ Task default -Depends Test
 
 Task Test -Depends Compile {
     $nunitDir = Join-Path ((ls "${root}\packages\*" -Filter NUnit.Runners*) | select -last 1) "tools"
+    Write-Host "NUnit Console Runner found at $nunitDir"
     $env:Path = $nunitDir + ";" + $env:Path
 
     $testAssemblies = @(ls -Recurse "${root}\DDDEastAnglia*\bin" -Filter "DDDEastAnglia*Tests.dll")
