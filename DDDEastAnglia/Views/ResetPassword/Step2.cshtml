@@ -4,4 +4,4 @@
 
 <p>A link to reset your password has been emailed to you.</p>
 
-@Html.ActionLink("Reset password", "ResetPasswordConfirmation", new { token = @Model.Token })
+@Html.ActionLink("Reset password", "EmailConfirmation", new { token = @Model.Token })

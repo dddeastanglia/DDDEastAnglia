@@ -2,7 +2,7 @@
 
 <h2>Reset your password</h2>
 
-@using (Html.BeginForm("ResetPassword", "Account", FormMethod.Post, new {@class = "form-horizontal"}))
+@using (Html.BeginForm("ResetPassword", "ResetPassword", FormMethod.Post, new {@class = "form-horizontal"}))
 {
     @Html.AntiForgeryToken()
 
@@ -18,7 +18,7 @@
                 @Html.ValidationMessageFor(m => m.UserName)
             </div>
         </div>
-
+        
         <div class="control-group">
             @Html.LabelFor(m => m.EmailAddress, new { @class = "control-label"})
             <div class="controls">
