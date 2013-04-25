@@ -203,6 +203,7 @@
     <Compile Include="Areas\Admin\Models\UserModel.cs" />
     <Compile Include="Controllers\BannerController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
+    <Compile Include="Controllers\ResetPasswordController.cs" />
     <Compile Include="Controllers\SessionDisplayModelComparer.cs" />
     <Compile Include="Controllers\SpeakerDisplayModelComparer.cs" />
     <Compile Include="Controllers\VoteController.cs" />
@@ -537,6 +538,10 @@
     <Content Include="Views\Account\ResetPasswordStep2.cshtml" />
     <Content Include="Views\Account\ResetPasswordStep3.cshtml" />
     <Content Include="Views\Account\ResetPasswordStep4.cshtml" />
+    <Content Include="Views\ResetPassword\Step1.cshtml" />
+    <Content Include="Views\ResetPassword\Step2.cshtml" />
+    <Content Include="Views\ResetPassword\Step3.cshtml" />
+    <Content Include="Views\ResetPassword\Step4.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -564,6 +569,7 @@
     </ExcludeFromPackageFiles>
     <ExcludeFromPackageFiles Include="appSettingsSecret.config">
       <FromTarget>Project</FromTarget>
+      <SubType>Designer</SubType>
     </ExcludeFromPackageFiles>
   </ItemGroup>
   <ItemGroup>
