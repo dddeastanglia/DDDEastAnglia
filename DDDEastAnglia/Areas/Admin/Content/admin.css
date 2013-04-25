@@ -1,6 +1,6 @@
-﻿.brand a {
-    text-decoration: none;
-}
+﻿a { text-decoration: underline; }
+
+a.btn, .dropdown-menu a, a.brand { text-decoration: none; }
 
 .table th {
     text-transform: capitalize;
