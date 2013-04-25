@@ -277,7 +277,7 @@ a i {
 }
 
 .voting {
-    float: right;
+    display: inline-block;
 }
 
 .form-search {
