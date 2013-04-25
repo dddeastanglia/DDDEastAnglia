@@ -1,20 +1,21 @@
 ﻿@model DDDEastAnglia.Models.SessionDisplayModel
 
 <div class="session-details @(Model.IsUsersSession ? "session-details-own" : "")">
+    <div class="pull-right">
     @if (Model.IsUsersSession)
     {
-        <div class="pull-right">
-            <span class="action">
-                <i class="icon-edit"></i> @Html.ActionLink("Edit", "Edit", "Session", new { id = Model.SessionId })
-            </span>
-            <span class="action">
-                <i class="icon-trash"></i> @Html.ActionLink("Delete", "Delete", "Session", new { id = Model.SessionId })
-            </span>
-        </div>
+        <span class="action">
+            <i class="icon-edit"></i> @Html.ActionLink("Edit", "Edit", "Session", new { id = Model.SessionId })
+        </span>
+        <span class="action">
+            <i class="icon-trash"></i> @Html.ActionLink("Delete", "Delete", "Session", new { id = Model.SessionId })
+        </span>
+        
     }
-    <h3>
-        @Model.SessionTitle
         @Html.Action("Status", "Vote", new { id = @Model.SessionId })
+    </div>
+    <h3>
+        @Model.SessionTitle    
     </h3>
     <h4>
         <img src="@Model.SpeakerGravitarUrl" width="32" height="32" alt="@Model.SpeakerName">
