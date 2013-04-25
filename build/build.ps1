@@ -16,7 +16,7 @@ Task Test -Depends Compile {
     Write-Host "NUnit Console Runner found at $nunitDir"
     $env:Path = $nunitDir + ";" + $env:Path
 
-    $testAssemblies = @(ls -Recurse "${root}\DDDEastAnglia*\bin" -Filter "DDDEastAnglia*Tests.dll")
+    $testAssemblies = @(ls -Recurse "${root}\DDDEastAnglia*\bin" -Include "DDDEastAnglia*Tests.dll")
     Write-Host ("Found {0} test assemblies: {1}" -f $testAssemblies.Length, ($testAssemblies -join ", "))
 
     Write-Host "Running tests" -ForegroundColor Green
