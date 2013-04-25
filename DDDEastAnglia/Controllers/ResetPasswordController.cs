@@ -1,12 +1,8 @@
 ﻿using System.Linq;
-using System.Net;
-using System.Net.Mail;
-using System.Web.Configuration;
 using System.Web.Mvc;
 using DDDEastAnglia.DataAccess.EntityFramework;
+using DDDEastAnglia.Helpers;
 using DDDEastAnglia.Models;
-using SendGridMail;
-using SendGridMail.Transport;
 using WebMatrix.WebData;
 
 namespace DDDEastAnglia.Controllers
@@ -30,33 +26,17 @@ namespace DDDEastAnglia.Controllers
                 return View("Step1", model);
             }
 
-            string passwordResetToken;
+            UserProfile profile;
+            DDDEAContext context = new DDDEAContext();
 
             if (!string.IsNullOrWhiteSpace(model.UserName))
             {
-                DDDEAContext context = new DDDEAContext();
-                var profile = context.UserProfiles.FirstOrDefault(p => p.UserName == model.UserName);
+                profile = context.UserProfiles.FirstOrDefault(p => p.UserName == model.UserName);
 
-                if (profile == null)
-                {
-                    ModelState.AddModelError("", "Could not reset password.");
-                    return View("Step1");
-                }
-
-                passwordResetToken = WebSecurity.GeneratePasswordResetToken(model.UserName);
             }
             else if (!string.IsNullOrWhiteSpace(model.EmailAddress))
             {
-                DDDEAContext context = new DDDEAContext();
-                var profile = context.UserProfiles.FirstOrDefault(p => p.EmailAddress == model.EmailAddress);
-
-                if (profile == null)
-                {
-                    ModelState.AddModelError("", "Could not reset password.");
-                    return View("Step1");
-                }
-                
-                passwordResetToken = WebSecurity.GeneratePasswordResetToken(profile.UserName);
+                profile = context.UserProfiles.FirstOrDefault(p => p.EmailAddress == model.EmailAddress);
             }
             else
             {
@@ -64,9 +44,16 @@ namespace DDDEastAnglia.Controllers
                 return View("Step1");
             }
 
-            SendEmailToUser(passwordResetToken);
+            if (profile == null)
+            {
+                ModelState.AddModelError("", "Could not reset password.");
+                return View("Step1");
+            }
 
-            return View("Step2", new ResetPasswordStepTwoModel { Token = passwordResetToken });
+            string passwordResetToken = WebSecurity.GeneratePasswordResetToken(model.UserName, 120);
+            SendEmailToUser(profile.EmailAddress, passwordResetToken);
+
+            return View("Step2");
         }
          
         [HttpGet]
@@ -104,24 +91,12 @@ namespace DDDEastAnglia.Controllers
             return View("Step4");
         }
 
-        private void SendEmailToUser(string passwordResetToken)
+        private void SendEmailToUser(string emailAddress, string passwordResetToken)
         {
             string resetUrl = Url.Action("EmailConfirmation", "ResetPassword", new { token = passwordResetToken }, Request.Url.Scheme);
-            
-            var from = new MailAddress("site@dddeastanglia.com");
-            var to = new[] { new MailAddress("test@adrianbanks.co.uk") };
-            var subject = "DDD East Anglia Password Reset";
-            var html = string.Format("<a href=\"{0}\">Reset password</a>", resetUrl);
-            var text = resetUrl;
-
-            var smtpUsername = WebConfigurationManager.AppSettings["SMTPUsername"];
-            var smtpPassword = WebConfigurationManager.AppSettings["SMTPPassword"];
-            var smtpHost = WebConfigurationManager.AppSettings["SMTPHost"];
-            var smtpPort = int.Parse(WebConfigurationManager.AppSettings["SMTPPort"]);
-
-            SendGrid message = SendGrid.GetInstance(from, to, new MailAddress[0], new MailAddress[0], subject, html, text);
-            var credentials = new NetworkCredential(smtpUsername, smtpPassword);
-            SMTP.GetInstance(credentials, smtpHost, smtpPort).Deliver(message);
+            string templatePath = Server.MapPath("~/ForgottenPasswordTemplate.html");
+            var emailSender = new EmailSender();
+            emailSender.SendPasswordResetEmail(templatePath, emailAddress, resetUrl);
         }    
     }
 }

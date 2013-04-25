@@ -2,20 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Net;
-using System.Net.Mail;
 using System.Transactions;
-using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Web.Security;
 using DDDEastAnglia.DataAccess.EntityFramework;
 using DotNetOpenAuth.AspNet;
 using Microsoft.Web.WebPages.OAuth;
-using SendGridMail;
-using SendGridMail.Transport;
 using WebMatrix.WebData;
 using DDDEastAnglia.Models;
-
 using IsolationLevel = System.Transactions.IsolationLevel;
 
 namespace DDDEastAnglia.Controllers
