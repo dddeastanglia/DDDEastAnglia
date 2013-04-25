@@ -10,53 +10,50 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
-    <fieldset>
-        <legend>Session</legend>
+    @Html.HiddenFor(model => model.SessionId)
 
-        @Html.HiddenFor(model => model.SessionId)
+    <div class="editor-label">
+        @Html.LabelFor(model => model.Title)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.Title)
+        @Html.ValidationMessageFor(model => model.Title)
+    </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Title)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Title)
-            @Html.ValidationMessageFor(model => model.Title)
-        </div>
+    <div class="editor-label">
+        @Html.LabelFor(model => model.Abstract)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.Abstract)
+        @Html.ValidationMessageFor(model => model.Abstract)
+    </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Abstract)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Abstract)
-            @Html.ValidationMessageFor(model => model.Abstract)
-        </div>
+    <div class="editor-label">
+        @Html.LabelFor(model => model.SpeakerUserName)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.SpeakerUserName)
+        @Html.ValidationMessageFor(model => model.SpeakerUserName)
+    </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.SpeakerUserName)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.SpeakerUserName)
-            @Html.ValidationMessageFor(model => model.SpeakerUserName)
-        </div>
+    <div class="editor-label">
+        @Html.LabelFor(model => model.Votes)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.Votes)
+        @Html.ValidationMessageFor(model => model.Votes)
+    </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Votes)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Votes)
-            @Html.ValidationMessageFor(model => model.Votes)
-        </div>
-
-        <p>
-            <input type="submit" class="btn" value="Save" />
-        </p>
-    </fieldset>
+    <p>
+        <input type="submit" class="btn" value="Save" />
+    </p>
 }
 
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
 
-@section Scripts {
+@section Scripts 
+{
     @Scripts.Render("~/bundles/jqueryval")
 }
