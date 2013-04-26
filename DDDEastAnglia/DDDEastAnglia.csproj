@@ -312,6 +312,7 @@
     <Compile Include="Models\SessionTweetLink.cs" />
     <Compile Include="Models\SessionVoteModel.cs" />
     <Compile Include="Models\SpeakerDisplayModel.cs" />
+    <Content Include="ForgottenPasswordTemplate.txt" />
     <Content Include="ForgottenPasswordTemplate.html" />
     <Content Include="Images\logo-icon-114.png" />
     <Content Include="Images\logo-icon-144.png" />

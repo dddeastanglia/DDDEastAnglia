@@ -94,9 +94,10 @@ namespace DDDEastAnglia.Controllers
         private void SendEmailToUser(string emailAddress, string passwordResetToken)
         {
             string resetUrl = Url.Action("EmailConfirmation", "ResetPassword", new { token = passwordResetToken }, Request.Url.Scheme);
-            string templatePath = Server.MapPath("~/ForgottenPasswordTemplate.html");
+            string htmlTemplatePath = Server.MapPath("~/ForgottenPasswordTemplate.html");
+            string textTemplatePath = Server.MapPath("~/ForgottenPasswordTemplate.txt");
             var emailSender = new EmailSender();
-            emailSender.SendPasswordResetEmail(templatePath, emailAddress, resetUrl);
+            emailSender.SendPasswordResetEmail(htmlTemplatePath, textTemplatePath, emailAddress, resetUrl);
         }    
     }
 }
