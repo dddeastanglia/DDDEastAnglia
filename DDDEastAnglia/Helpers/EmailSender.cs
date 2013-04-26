@@ -22,24 +22,29 @@ namespace DDDEastAnglia.Helpers
             smtpPassword = WebConfigurationManager.AppSettings["SMTPPassword"];
         }
 
-        public void SendPasswordResetEmail(string templatePath, string to, string resetPasswordUrl)
+        public void SendPasswordResetEmail(string htmlTemplatePath, string textTemplatePath, string to, string resetPasswordUrl)
         {
-            string template;
-
-            using (var reader = new StreamReader(templatePath))
-            {
-                template = reader.ReadToEnd();
-            }
+            string htmlTemplate = GetFileContents(htmlTemplatePath);
+            string textTemplate = GetFileContents(textTemplatePath);
 
             var fromAddress = new MailAddress("admin@dddeastanglia.com", "DDD East Anglia");
             var toAddress = new[] { new MailAddress(to) };
-            var subject = "DDD East Anglia Password Reset Request";
-            var html = template.Replace("[resetLink]", resetPasswordUrl);
-            var text = resetPasswordUrl;
+            const string subject = "DDD East Anglia Password Reset Request";
+            var html = htmlTemplate.Replace("[resetLink]", resetPasswordUrl);
+            var text = textTemplate.Replace("[resetLink]", resetPasswordUrl);
 
             SendGrid message = SendGrid.GetInstance(fromAddress, toAddress, new MailAddress[0], new MailAddress[0], subject, html, text);
             var credentials = new NetworkCredential(smtpUsername, smtpPassword);
             SMTP.GetInstance(credentials, smtpHost, smtpPort).Deliver(message);
+        }
+
+        private string GetFileContents(string path)
+        {
+            using (var reader = new StreamReader(path))
+            {
+                string contents = reader.ReadToEnd();
+                return contents;
+            }
         }
     }
 }
