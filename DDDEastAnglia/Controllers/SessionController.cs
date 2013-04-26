@@ -53,7 +53,7 @@ namespace DDDEastAnglia.Controllers
 
             var userProfile = db.UserProfiles.First(s => s.UserName == session.SpeakerUserName);
             var displayModel = CreateDisplayModel(session, userProfile);
-            displayModel.SpeakerGravitarUrl = userProfile.GravitarUrl();
+            displayModel.SpeakerGravatarUrl = userProfile.GravatarUrl();
             return View(displayModel);
         }
 
@@ -167,7 +167,7 @@ namespace DDDEastAnglia.Controllers
                     SpeakerId = profile.UserId,
                     SpeakerName = profile.Name,
                     SpeakerUserName = session.SpeakerUserName,
-                    SpeakerGravitarUrl = profile.GravitarUrl(),
+                    SpeakerGravatarUrl = profile.GravatarUrl(),
                     TweetLink = tweetLink,
                     IsUsersSession = isUsersSession
                 };

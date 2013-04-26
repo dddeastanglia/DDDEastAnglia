@@ -40,7 +40,7 @@ namespace DDDEastAnglia.Models
         [DisplayName("I am a new speaker (have not spoken at a DDD event before)")]
         public bool NewSpeaker { get; set; }
 
-        public string GravitarUrl(int size = 50)
+        public string GravatarUrl(int size = 50)
         {
             if (string.IsNullOrWhiteSpace(EmailAddress))
             {
