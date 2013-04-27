@@ -7,9 +7,9 @@
 <h2>@Html.DisplayFor(model => model.SessionTitle)</h2>
 
 <div>
-    @if (Model.SpeakerGravitarUrl != null)
+    @if (Model.SpeakerGravatarUrl != null)
     {
-        <img src="@Model.SpeakerGravitarUrl" alt="@Model.SpeakerName"  />
+        <img src="@Model.SpeakerGravatarUrl" alt="@Model.SpeakerName"  />
     }
     <a href="@Url.Action("Details", "Speaker", new { id = Model.SpeakerId })">@(string.IsNullOrWhiteSpace(Model.SpeakerName) ? Model.SpeakerUserName : Model.SpeakerName)</a>
 </div>
