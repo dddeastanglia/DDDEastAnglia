@@ -33,11 +33,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="NSubstitute">
-      <HintPath>..\packages\NSubstitute.1.5.0.0\lib\NET40\NSubstitute.dll</HintPath>
+    <Reference Include="NSubstitute, Version=1.6.0.0, Culture=neutral, PublicKeyToken=92dd2e9066daa5ca, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\NSubstitute.1.6.0.0\lib\NET40\NSubstitute.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework, Version=2.6.2.12296, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <HintPath>..\packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp">
+      <HintPath>..\packages\RestSharp.104.1\lib\net4\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="SendGridMail">
+      <HintPath>..\packages\Sendgrid.1.1.1\lib\net40\SendGridMail.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -69,6 +76,11 @@
     <Compile Include="Domain\Conferences\Given_The_Agenda_Is_Published_And_Registration_Is_Open_The_Conference_Should.cs" />
     <Compile Include="Domain\Conferences\Given_The_Agenda_Is_Published_The_Conference_Should.cs" />
     <Compile Include="Helpers\Given_A_List_Of_Items_RandomShuffle_Should.cs" />
+    <Compile Include="Helpers\Email\ResetPasswordEmailSender_Should.cs" />
+    <Compile Include="Helpers\Email\SendGrid\SendGridMessageWrapper_Should.cs" />
+    <Compile Include="Helpers\Email\SendGrid\SendGridEmailSender_Should.cs" />
+    <Compile Include="Helpers\Email\Smtp\SmtpHostSettingsProvider_Should.cs" />
+    <Compile Include="Helpers\Email\Smtp\SmtpHostSettings_Should.cs" />
     <Compile Include="Helpers\Given_An_IPV4_Address_MatchIPAddress_Should.cs" />
     <Compile Include="Helpers\Given_A_List_Of_Sessions.cs" />
     <Compile Include="Voting\CookieHelper.cs" />

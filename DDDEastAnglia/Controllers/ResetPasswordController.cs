@@ -1,7 +1,11 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
 using DDDEastAnglia.DataAccess.EntityFramework;
-using DDDEastAnglia.Helpers;
+using DDDEastAnglia.Helpers.AppSettings;
+using DDDEastAnglia.Helpers.Email;
+using DDDEastAnglia.Helpers.Email.SendGrid;
+using DDDEastAnglia.Helpers.Email.Smtp;
+using DDDEastAnglia.Helpers.File;
 using DDDEastAnglia.Models;
 using WebMatrix.WebData;
 
@@ -96,8 +100,11 @@ namespace DDDEastAnglia.Controllers
             string resetUrl = Url.Action("EmailConfirmation", "ResetPassword", new { token = passwordResetToken }, Request.Url.Scheme);
             string htmlTemplatePath = Server.MapPath("~/ForgottenPasswordTemplate.html");
             string textTemplatePath = Server.MapPath("~/ForgottenPasswordTemplate.txt");
-            var emailSender = new EmailSender();
-            emailSender.SendPasswordResetEmail(htmlTemplatePath, textTemplatePath, emailAddress, resetUrl);
+
+            var hostSettingsProvider = new SmtpHostSettingsProvider(new WebConfigurationAppSettingsProvider());
+            var emailSender = new SendGridEmailSender(hostSettingsProvider.GetSettings());
+            var resetPasswordEmailSender = new ResetPasswordEmailSender(emailSender, new SendGridMessageFactory(), new FileContentsProvider());
+            resetPasswordEmailSender.SendEmail(htmlTemplatePath, textTemplatePath, emailAddress, resetUrl);
         }    
     }
 }
