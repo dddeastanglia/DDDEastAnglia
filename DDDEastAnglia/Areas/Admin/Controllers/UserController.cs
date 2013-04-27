@@ -43,7 +43,7 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
                     WebsiteUrl = profile.WebsiteUrl,
                     TwitterHandle = profile.TwitterHandle,
                     Bio = profile.Bio,
-                    GravatarUrl = profile.GravitarUrl()
+                    GravatarUrl = profile.GravatarUrl()
                 };
         }
     }
