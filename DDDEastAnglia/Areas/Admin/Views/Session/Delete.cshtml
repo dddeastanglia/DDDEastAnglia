@@ -7,38 +7,37 @@
 <h2>Delete</h2>
 
 <h3>Are you sure you want to delete this?</h3>
-<fieldset>
-    <legend>Session</legend>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Title)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Title)
-    </div>
+<div class="display-label">
+        @Html.DisplayNameFor(model => model.Title)
+</div>
+<div class="display-field">
+    @Html.DisplayFor(model => model.Title)
+</div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Abstract)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Abstract)
-    </div>
+<div class="display-label">
+        @Html.DisplayNameFor(model => model.Abstract)
+</div>
+<div class="display-field">
+    @Html.DisplayFor(model => model.Abstract)
+</div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.SpeakerUserName)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.SpeakerUserName)
-    </div>
+<div class="display-label">
+        @Html.DisplayNameFor(model => model.SpeakerUserName)
+</div>
+<div class="display-field">
+    @Html.DisplayFor(model => model.SpeakerUserName)
+</div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Votes)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Votes)
-    </div>
-</fieldset>
-@using (Html.BeginForm()) {
+<div class="display-label">
+        @Html.DisplayNameFor(model => model.Votes)
+</div>
+<div class="display-field">
+    @Html.DisplayFor(model => model.Votes)
+</div>
+
+@using (Html.BeginForm()) 
+{
     @Html.AntiForgeryToken()
     <p>
         <input type="submit" class="btn" value="Delete" /> |
