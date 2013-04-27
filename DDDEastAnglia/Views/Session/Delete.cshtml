@@ -8,11 +8,9 @@
 
 @using (Html.BeginForm())
 {
-    <fieldset id="delete-session">
-        <legend>Please confirm that you want to delete the following session</legend>
+    <p>Please confirm that you want to delete the following session</p>
         
-        @Html.Partial("_SessionDetailsPartial", Model)
-    </fieldset>
+    @Html.Partial("_SessionDetailsPartial", Model)
 
     <p class="alert alert-danger">
         Deleting a session cannot be undone. Please be sure that you wish to delete this session before continuing.
