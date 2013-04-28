@@ -9,7 +9,7 @@ using DDDEastAnglia.Mvc.Attributes;
 
 namespace DDDEastAnglia.Controllers
 {
-    public class VoteController : Controller, IRequestProvider
+    public class VoteController : Controller
     {
         private readonly ISessionVoteModelQuery _sessionVoteModelQuery;
         private readonly IMessageBus _messageBus;
@@ -93,7 +93,7 @@ namespace DDDEastAnglia.Controllers
         private ActionResult RedirectOrReturnPartialView(int sessionId)
         {
             return _controllerInformationProvider.IsAjaxRequest
-                       ? RedirectToAction("Status", new { id = sessionId})
+                       ? RedirectToAction("Status", "Vote", new { id = sessionId})
                        : RedirectToAction("Index", "Session");
         }
     }

@@ -283,6 +283,7 @@
     <Compile Include="DataAccess\Commands\Vote\DeleteVoteCommand.cs" />
     <Compile Include="DataAccess\Commands\Vote\RegisterVoteCommand.cs" />
     <Compile Include="DataAccess\EntityFramework\EntityFrameworkConferenceRepository.cs" />
+    <Compile Include="DataAccess\EntityFramework\EntityFrameworkDataAccessModule.cs" />
     <Compile Include="DataAccess\EntityFramework\EntityFrameworkSessionRepository.cs" />
     <Compile Include="DataAccess\EntityFramework\EntityFrameworkVoteRepository.cs" />
     <Compile Include="DataAccess\EntityFramework\Migrations\201304170655041_LinkSessionToConference.cs" />
@@ -302,6 +303,7 @@
     <Compile Include="DataAccess\ISessionRepository.cs" />
     <Compile Include="DataAccess\ISessionVoteModelQuery.cs" />
     <Compile Include="DataAccess\IVoteRepository.cs" />
+    <Compile Include="DataAccess\MessageBus\CommandProcessingModule.cs" />
     <Compile Include="DataAccess\MessageBus\IMessage.cs" />
     <Compile Include="DataAccess\MessageBus\IMessageBus.cs" />
     <Compile Include="DataAccess\MessageBus\SimpleMessageBus.cs" />
@@ -353,6 +355,8 @@
     <Compile Include="Helpers\SessionSorter.cs" />
     <Compile Include="Helpers\Email\Smtp\SmtpHostSettings.cs" />
     <Compile Include="Helpers\WebSecurityWrapper.cs" />
+    <Compile Include="Helpers\IControllerInformationProvider.cs" />
+    <Compile Include="Helpers\MvcHelperModule.cs" />
     <Compile Include="Models\BannerViewModel.cs" />
     <Compile Include="DataAccess\EntityFramework\Migrations\201303302150305_InitialCreate.cs" />
     <Compile Include="DataAccess\EntityFramework\Migrations\201303302150305_InitialCreate.Designer.cs">
