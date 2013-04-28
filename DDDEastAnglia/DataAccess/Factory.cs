@@ -19,9 +19,9 @@ namespace DDDEastAnglia.DataAccess
         private static IVoteRepository _voteRepository;
         private static SimpleMessageBus _simpleMessageBus;
         private static IBannerModelQuery _bannerModelQuery;
-        public static ISessionVoteModelProvider GetSessionVoteModelProvider()
+        public static ISessionVoteModelQuery GetSessionVoteModelProvider()
         {
-            return new SessionVoteModelProvider(GetVoteRepository(), GetConferenceRepository());
+            return new SessionVoteModelQuery(GetVoteRepository(), GetConferenceRepository());
         }
 
         public static IMessageBus GetMessageBus()

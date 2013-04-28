@@ -11,23 +11,15 @@ namespace DDDEastAnglia.Controllers
 {
     public class VoteController : Controller, IRequestProvider
     {
-        private readonly ISessionVoteModelProvider _sessionVoteModelProvider;
+        private readonly ISessionVoteModelQuery _sessionVoteModelQuery;
         private readonly IMessageBus _messageBus;
         private readonly IControllerInformationProvider _controllerInformationProvider; 
 
-        public VoteController() 
-            : this(Factory.GetSessionVoteModelProvider(),
-                   Factory.GetMessageBus(),
-                   Factory.GetControllerInformationProvider())
-        {
-            
-        }
-
-        public VoteController(ISessionVoteModelProvider sessionVoteModelProvider,
+        public VoteController(ISessionVoteModelQuery sessionVoteModelQuery,
             IMessageBus messageBus,
             IControllerInformationProvider informationProvider)
         {
-            _sessionVoteModelProvider = sessionVoteModelProvider;
+            _sessionVoteModelQuery = sessionVoteModelQuery;
             _messageBus = messageBus;
             _controllerInformationProvider = informationProvider;
         }
@@ -35,7 +27,7 @@ namespace DDDEastAnglia.Controllers
         public ActionResult Status(int id)
         {
             var cookie = _controllerInformationProvider.GetCookie(VotingCookie.CookieName);
-            var result = _sessionVoteModelProvider.Get(id, GetCookieId(cookie.Value));
+            var result = _sessionVoteModelQuery.Get(id, GetCookieId(cookie.Value));
             _controllerInformationProvider.SaveCookie(_controllerInformationProvider.GetCookie(VotingCookie.CookieName));
             _controllerInformationProvider.SaveCookie(cookie);
             return result.CanVote ? PartialView(result) as ActionResult : new EmptyResult();
