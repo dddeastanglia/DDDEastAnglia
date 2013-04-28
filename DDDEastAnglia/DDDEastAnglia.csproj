@@ -266,6 +266,8 @@
     <Compile Include="Areas\Admin\Controllers\VotingController.cs" />
     <Compile Include="Areas\Admin\Models\UserModel.cs" />
     <Compile Include="Areas\Admin\Models\VotingStatsViewModel.cs" />
+    <Content Include="Content\admin.css" />
+    <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="Controllers\BannerController.cs" />
     <Compile Include="Controllers\NavigationBarController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
