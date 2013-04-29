@@ -13,7 +13,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>4.1</ProjectVersion>
     <ProjectGuid>{90eb22d7-1d86-4964-a65d-343d754df2f5}</ProjectGuid>
-    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql110DatabaseSchemaProvider</DSP>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.SqlAzureDatabaseSchemaProvider</DSP>
     <OutputType>Database</OutputType>
     <RootPath>
     </RootPath>
@@ -25,7 +25,7 @@
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetLanguage>CS</TargetLanguage>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <SqlServerVerification>False</SqlServerVerification>
+    <SqlServerVerification>True</SqlServerVerification>
     <TargetDatabaseSet>True</TargetDatabaseSet>
     <DefaultCollation>SQL_Latin1_General_CP1_CI_AS</DefaultCollation>
     <Containment>None</Containment>
