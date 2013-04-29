@@ -233,6 +233,10 @@ fieldset {
     padding-right: 10px;
 }
 
+.action form {
+    display: inline;
+}
+
 #notifications-banner {
     color: white;
     background-color: #008600;
@@ -275,8 +279,3 @@ fieldset {
 a i {
     text-decoration: none;
 }
-
-.voting {
-    float: right;
-}
-
