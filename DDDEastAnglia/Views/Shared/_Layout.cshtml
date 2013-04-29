@@ -58,6 +58,7 @@
                             <li class="dropdown @Html.MenuState("Home", "Sponsors")">@Html.ActionLink("Sponsors", "Sponsors", "Home")</li>
                             <li class="dropdown @Html.MenuState("Home", "Team")">@Html.ActionLink("Team", "Team", "Home")</li>
                             <li class="dropdown @Html.MenuState("Home", "Contact")">@Html.ActionLink("Contact", "Contact", "Home")</li>
+                            <li class="dropdown">@Html.ActionLink("Admin", "Index", new { area = "Admin", controller = "AdminHome" })</li>
                         </ul>
                     </div><!--/.nav-collapse -->
                 </div>
