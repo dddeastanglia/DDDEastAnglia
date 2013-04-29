@@ -4,9 +4,6 @@ using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using Ninject;
 using Ninject.Web.Common;
 using System.Reflection;
-using DDDEastAnglia.DataAccess.EntityFramework;
-using DDDEastAnglia.DataAccess.MessageBus;
-using DDDEastAnglia.Helpers;
 
 [assembly: WebActivator.PreApplicationStartMethod(typeof(DDDEastAnglia.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivator.ApplicationShutdownMethodAttribute(typeof(DDDEastAnglia.App_Start.NinjectWebCommon), "Stop")]
