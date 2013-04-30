@@ -15,6 +15,7 @@ namespace DDDEastAnglia.Controllers
         private const string DefaultEventName = "DDDEA2013";
         private readonly DDDEAContext db = new DDDEAContext();
         private readonly IConferenceRepository _conferenceRepository = Factory.GetConferenceRepository();
+
         // GET: /Session/
         [AllowAnonymous]
         [AllowCrossSiteJson]
@@ -36,7 +37,8 @@ namespace DDDEastAnglia.Controllers
             return View(new SessionIndexModel
                         {
                             Sessions = allSessions,
-                            IsOpenForSubmission = _conferenceRepository.GetByEventShortName(DefaultEventName).CanSubmit()
+                            IsOpenForSubmission = _conferenceRepository.GetByEventShortName(DefaultEventName).CanSubmit(),
+                            IsOpenForVoting = _conferenceRepository.GetByEventShortName(DefaultEventName).CanVote()
                         });
         }
 
@@ -192,7 +194,5 @@ namespace DDDEastAnglia.Controllers
             db.Dispose();
             base.Dispose(disposing);
         }
-
-
     }
 }

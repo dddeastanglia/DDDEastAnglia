@@ -1,8 +1,5 @@
-@using DDDEastAnglia.DataAccess
-@using DDDEastAnglia.DataAccess.EntityFramework
 @using DDDEastAnglia.Models
 @model SessionIndexModel
-
 
 @{
     ViewBag.Title = "Sessions";
@@ -13,6 +10,11 @@
 @if (Model.IsOpenForSubmission)
 {
     <p>Session submission is now open. If you would like to speak at @Html.DDDEastAnglia(), please @Html.ActionLink("submit a session", "Create", "Session", null, new { @class = "submit-session" }).</p>
+}
+
+@if (Model.IsOpenForVoting)
+{
+    <p>Session voting is now open. Please read through the sessions and vote for those that you would like to see on the agenda.</p>
 }
 
 @foreach (var session in Model.Sessions)
