@@ -78,6 +78,11 @@ namespace DDDEastAnglia.DataAccess
             return _bannerModelQuery;
         }
 
+        public static ISessionSorter GetSessionSorter()
+        {
+            return new SessionSorter(new AlphabeticalSort(), new RandomSort());
+        }
+
         private static ConferenceBuilder GetConferenceBuilder()
         {
             var builder = new ConferenceBuilder(
