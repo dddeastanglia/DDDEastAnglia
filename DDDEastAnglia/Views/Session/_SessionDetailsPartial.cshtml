@@ -5,12 +5,11 @@
     @if (Model.IsUsersSession)
     {
         <span class="action">
-            <i class="icon-edit"></i> @Html.ActionLink("Edit", "Edit", "Session", new { id = Model.SessionId })
+            <i class="icon-edit"></i> @Html.ActionLink("Edit", "Edit", "Session", new { id = Model.SessionId }, htmlAttributes: null)
         </span>
         <span class="action">
-            <i class="icon-trash"></i> @Html.ActionLink("Delete", "Delete", "Session", new { id = Model.SessionId })
+            <i class="icon-trash"></i> @Html.ActionLink("Delete", "Delete", "Session", new { id = Model.SessionId }, htmlAttributes: null)
         </span>
-        
     }
         @Html.Action("Status", "Vote", new { id = @Model.SessionId })
     </div>
