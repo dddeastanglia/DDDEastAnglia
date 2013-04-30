@@ -6,6 +6,7 @@ using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.DataAccess.EntityFramework;
 using DDDEastAnglia.Models;
 using DDDEastAnglia.Mvc.Attributes;
+using DDDEastAnglia.Helpers;
 
 namespace DDDEastAnglia.Controllers
 {
@@ -15,6 +16,18 @@ namespace DDDEastAnglia.Controllers
         private const string DefaultEventName = "DDDEA2013";
         private readonly DDDEAContext db = new DDDEAContext();
         private readonly IConferenceRepository _conferenceRepository = Factory.GetConferenceRepository();
+        private readonly ISessionSorter _sessionSorter;
+
+        public SessionController()
+            : this(Factory.GetSessionSorter())
+        {
+        }
+
+        public SessionController(ISessionSorter sorter)
+        {
+            _sessionSorter = sorter;
+        }
+
         // GET: /Session/
         [AllowAnonymous]
         [AllowCrossSiteJson]
@@ -32,7 +45,8 @@ namespace DDDEastAnglia.Controllers
                 allSessions.Add(displayModel);
             }
 
-            allSessions.Sort(new SessionDisplayModelComparer());
+            _sessionSorter.SortSessions(_conferenceRepository.GetByEventShortName(DefaultEventName), allSessions);
+
             return View(new SessionIndexModel
                         {
                             Sessions = allSessions,

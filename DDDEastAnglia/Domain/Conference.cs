@@ -32,7 +32,7 @@ namespace DDDEastAnglia.Domain
             return _calendarEntries[CalendarEntryType.SessionSubmission].IsOpen();
         }
 
-        public bool CanVote()
+        public virtual bool CanVote()
         {
             return _calendarEntries[CalendarEntryType.Voting].IsOpen();
         }
