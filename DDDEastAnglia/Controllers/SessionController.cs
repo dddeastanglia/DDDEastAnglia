@@ -6,6 +6,7 @@ using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.DataAccess.EntityFramework;
 using DDDEastAnglia.Models;
 using DDDEastAnglia.Mvc.Attributes;
+using DDDEastAnglia.Helpers;
 
 namespace DDDEastAnglia.Controllers
 {
@@ -32,7 +33,15 @@ namespace DDDEastAnglia.Controllers
                 allSessions.Add(displayModel);
             }
 
-            allSessions.Sort(new SessionDisplayModelComparer());
+            if (_conferenceRepository.GetByEventShortName(DefaultEventName).CanVote())
+            {
+                allSessions.RandomShuffle();
+            }
+            else
+            {
+                allSessions.Sort(new SessionDisplayModelComparer());
+            }
+
             return View(new SessionIndexModel
                         {
                             Sessions = allSessions,
