@@ -10,10 +10,7 @@ namespace DDDEastAnglia.Helpers.Email.Smtp
         public const string SmtpUsernameKey = "SMTPUsername";
         public const string SmtpPasswordKey = "SMTPPassword";
 
-        private readonly string host;
-        private readonly int port;
-        private readonly string username;
-        private readonly string password;
+        private readonly SmtpHostSettings smtpHostSettings;
 
         public SmtpHostSettingsProvider(IAppSettingsProvider appSettingsProvider)
         {
@@ -22,15 +19,16 @@ namespace DDDEastAnglia.Helpers.Email.Smtp
                 throw new ArgumentNullException("appSettingsProvider");
             }
 
-            host = appSettingsProvider.GetSetting(SmtpHostKey);
-            port = int.Parse(appSettingsProvider.GetSetting(SmtpPortKey));
-            username = appSettingsProvider.GetSetting(SmtpUsernameKey);
-            password = appSettingsProvider.GetSetting(SmtpPasswordKey);
+            string host = appSettingsProvider.GetSetting(SmtpHostKey);
+            int port = int.Parse(appSettingsProvider.GetSetting(SmtpPortKey));
+            string username = appSettingsProvider.GetSetting(SmtpUsernameKey);
+            string password = appSettingsProvider.GetSetting(SmtpPasswordKey);
+            smtpHostSettings = new SmtpHostSettings(host, port, username, password);
         }
 
         public IMailHostSettings GetSettings()
         {
-            return new SmtpHostSettings(host, port, username, password);
+            return smtpHostSettings;
         }
     }
 }
