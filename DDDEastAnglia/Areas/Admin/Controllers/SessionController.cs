@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web.Mvc;
 using DDDEastAnglia.DataAccess.EntityFramework;
@@ -14,7 +15,17 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
         // GET: /Admin/Session/
         public ActionResult Index()
         {
-            return View(db.Sessions.OrderByDescending(s => s.Votes).ToList());
+            IDictionary<int, int> votesGroupedBySessionId = db.Votes.GroupBy(v => v.SessionId).ToDictionary(g => g.Key, g => g.Count());
+            var sessions = db.Sessions;
+
+            foreach (var session in sessions)
+            {
+                int voteCount;
+                votesGroupedBySessionId.TryGetValue(session.SessionId, out voteCount);
+                session.Votes = voteCount;
+            }
+
+            return View(sessions.OrderByDescending(s => s.Votes).ToList());
         }
 
         // GET: /Admin/Session/Details/5
