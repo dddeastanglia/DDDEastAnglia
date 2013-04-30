@@ -1,6 +1,6 @@
 ﻿
 $(function () {
-    $('.voting').each(function(index) {
+    $('span[data-hasvote="true"]').each(function (index) {
         replaceSubmit($(this), onVoteComplete($(this)));
     });
     
