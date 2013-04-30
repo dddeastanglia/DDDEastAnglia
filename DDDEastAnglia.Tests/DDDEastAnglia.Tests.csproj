@@ -68,6 +68,7 @@
     <Compile Include="Domain\Conferences\Given_That_No_CalendarEntries_Have_Been_Recorded_The_Conference_Should.cs" />
     <Compile Include="Domain\Conferences\Given_The_Agenda_Is_Published_And_Registration_Is_Open_The_Conference_Should.cs" />
     <Compile Include="Domain\Conferences\Given_The_Agenda_Is_Published_The_Conference_Should.cs" />
+    <Compile Include="Helpers\Given_A_List_Of_Items_RandomShuffle_Should.cs" />
     <Compile Include="Helpers\Given_An_IPV4_Address_MatchIPAddress_Should.cs" />
     <Compile Include="Voting\CookieHelper.cs" />
     <Compile Include="Voting\Given_A_SessionId_The_Vote_Controller_Should.cs" />
