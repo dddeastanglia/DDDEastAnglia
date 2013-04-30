@@ -50,7 +50,8 @@ namespace DDDEastAnglia.Controllers
             return View(new SessionIndexModel
                         {
                             Sessions = allSessions,
-                            IsOpenForSubmission = _conferenceRepository.GetByEventShortName(DefaultEventName).CanSubmit()
+                            IsOpenForSubmission = _conferenceRepository.GetByEventShortName(DefaultEventName).CanSubmit(),
+                            IsOpenForVoting = _conferenceRepository.GetByEventShortName(DefaultEventName).CanVote()
                         });
         }
 
@@ -206,7 +207,5 @@ namespace DDDEastAnglia.Controllers
             db.Dispose();
             base.Dispose(disposing);
         }
-
-
     }
 }
