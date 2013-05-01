@@ -15,8 +15,17 @@ namespace DDDEastAnglia.Helpers
             Kernel.Bind(from => from.FromThisAssembly()
                                     .SelectAllClasses()
                                     .InNamespaceOf<IControllerInformationProvider>()
+                                    .Excluding<AlphabeticalSort>()
+                                    .Excluding<RandomSort>()
                                     .BindDefaultInterfaces()
                                     .Configure(binding => binding.InSingletonScope()));
+            Kernel.Bind<ISortAlgorithm>()
+                  .To<AlphabeticalSort>()
+                  .When(request => request.Target.Name.StartsWith("default"));
+
+            Kernel.Bind<ISortAlgorithm>()
+                  .To<RandomSort>()
+                  .When(request => request.Target.Name.StartsWith("voting"));
         }
     }
 }
