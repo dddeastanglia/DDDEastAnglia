@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Web;
-
+using System.Web.Helpers;
 using DotNetOpenAuth.AspNet.Clients;
 using DotNetOpenAuth.Messaging;
 
@@ -84,13 +84,18 @@ namespace DDDEastAnglia
         /// <returns>A dictionary of profile data.</returns>
         protected override IDictionary<string, string> GetUserData(string accessToken)
         {
-            var request = WebRequest.Create(_userEndpoint + "?access_token=" + accessToken);
+            var uriBuilder = new UriBuilder(_userEndpoint);
+            uriBuilder.AppendQueryArgument("access_token", accessToken);
 
-            using (var response = request.GetResponse())
-            using (var responseStream = response.GetResponseStream())
-            using (var streamReader = new StreamReader(responseStream))
+            using (var webClient = new WebClient())
             {
-                return System.Web.Helpers.Json.Decode<Dictionary<string, string>>(streamReader.ReadToEnd());
+                webClient.Headers.Add(HttpRequestHeader.UserAgent, "DDD East Anglia (www.dddeastanglia.com) .NET 4.0 WebClient");
+
+                using (var responseStream = webClient.OpenRead(uriBuilder.Uri))
+                using (var streamReader = new StreamReader(responseStream))
+                {
+                    return Json.Decode<Dictionary<string, string>>(streamReader.ReadToEnd());
+                }
             }
         }
 
