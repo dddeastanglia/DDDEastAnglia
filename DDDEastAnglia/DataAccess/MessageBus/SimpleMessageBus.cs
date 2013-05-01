@@ -8,13 +8,12 @@ namespace DDDEastAnglia.DataAccess.MessageBus
     {
         private readonly Dictionary<Type, IHandle> _handlers = new Dictionary<Type, IHandle>();
 
-        public SimpleMessageBus()
-        {
-            
-        }
-
         public SimpleMessageBus(IEnumerable<IHandle> handlers)
         {
+            if (handlers == null)
+            {
+                return;
+            }
             foreach (var handler in handlers)
             {
                 Register(handler);

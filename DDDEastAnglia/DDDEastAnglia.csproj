@@ -74,6 +74,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Ninject.3.0.1.10\lib\net40\Ninject.dll</HintPath>
     </Reference>
+    <Reference Include="Ninject.Extensions.Conventions">
+      <HintPath>..\packages\Ninject.Extensions.Conventions.3.0.0.11\lib\net40\Ninject.Extensions.Conventions.dll</HintPath>
+    </Reference>
     <Reference Include="Ninject.Web.Common, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Ninject.Web.Common.3.0.0.7\lib\net40-full\Ninject.Web.Common.dll</HintPath>
@@ -276,8 +279,6 @@
     <Compile Include="Controllers\SpeakerDisplayModelComparer.cs" />
     <Compile Include="Controllers\VoteController.cs" />
     <Compile Include="DataAccess\EntityFramework\Builders\Calendar\CalendarEntryBuilder.cs" />
-    <Compile Include="DataAccess\EntityFramework\Builders\Calendar\CalendarItemToSingleTimeEntryConverter.cs" />
-    <Compile Include="DataAccess\EntityFramework\Builders\Calendar\CalendarItemToTimeRangeEntryConverter.cs" />
     <Compile Include="DataAccess\EntityFramework\Builders\ConferenceBuilder.cs" />
     <Compile Include="DataAccess\Builders\IBuild.cs" />
     <Compile Include="DataAccess\Commands\Vote\DeleteVoteCommand.cs" />
@@ -295,7 +296,7 @@
     <Compile Include="DataAccess\EntityFramework\Initialiser.cs" />
     <Compile Include="DataAccess\EntityFramework\Models\Vote.cs" />
     <Compile Include="DataAccess\EntityFramework\Queries\EntityFrameworkBannerModelQuery.cs" />
-    <Compile Include="DataAccess\Factory.cs" />
+    <Compile Include="DataAccess\EntityFramework\SessionVoteModelQuery.cs" />
     <Compile Include="DataAccess\Handlers\Voting\DeleteVoteCommandHandler.cs" />
     <Compile Include="DataAccess\Handlers\Voting\RegisterVoteCommandHandler.cs" />
     <Compile Include="DataAccess\IConferenceRepository.cs" />
@@ -356,6 +357,12 @@
     <Compile Include="Helpers\Email\Smtp\SmtpHostSettings.cs" />
     <Compile Include="Helpers\WebSecurityWrapper.cs" />
     <Compile Include="Helpers\IControllerInformationProvider.cs" />
+    <Compile Include="Helpers\ISessionSorter.cs" />
+    <Compile Include="Helpers\ISortAlgorithm.cs" />
+    <Compile Include="Helpers\ListExtensions.cs" />
+    <Compile Include="Helpers\IControllerInformationProvider.cs" />
+    <Compile Include="Helpers\RandomSort.cs" />
+    <Compile Include="Helpers\SessionSorter.cs" />
     <Compile Include="Helpers\MvcHelperModule.cs" />
     <Compile Include="Models\BannerViewModel.cs" />
     <Compile Include="DataAccess\EntityFramework\Migrations\201303302150305_InitialCreate.cs" />

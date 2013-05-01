@@ -6,19 +6,33 @@ namespace DDDEastAnglia.DataAccess.EntityFramework.Builders.Calendar
 {
     public class CalendarEntryBuilder : IBuild<CalendarItem, CalendarEntry>
     {
-        private readonly IBuild<CalendarItem, SingleTimeEntry> _singleTimeEntryBuilder;
-        private readonly IBuild<CalendarItem, TimeRangeEntry> _timeRangeBuilder;
-
-        public CalendarEntryBuilder(IBuild<CalendarItem, SingleTimeEntry> singleTimeEntryBuilder,
-                                    IBuild<CalendarItem, TimeRangeEntry> timeRangeBuilder)
-        {
-            _singleTimeEntryBuilder = singleTimeEntryBuilder;
-            _timeRangeBuilder = timeRangeBuilder;
-        }
-
         public CalendarEntry Build(CalendarItem item)
         {
-            return _singleTimeEntryBuilder.Build(item) ?? _timeRangeBuilder.Build(item) ?? (CalendarEntry)new NullCalendarEntry();
+            return CreateSingleTimeEntry(item) ?? CreateTimeRangeEntry(item) ?? new NullCalendarEntry();
+        }
+
+        private CalendarEntry CreateSingleTimeEntry(CalendarItem item)
+        {
+            if (item.EndDate.HasValue)
+            {
+                return null;
+            }
+            return new SingleTimeEntry(item.CalendarItemId, item.EntryType, item.Description, item.IsPublic, item.Authorised, item.StartDate);
+        }
+
+        private CalendarEntry CreateTimeRangeEntry(CalendarItem item)
+        {
+            if (!item.EndDate.HasValue)
+            {
+                return null;
+            }
+            return new TimeRangeEntry(item.CalendarItemId,
+                                      item.EntryType,
+                                      item.Description,
+                                      item.IsPublic,
+                                      item.Authorised,
+                                      item.StartDate,
+                                      item.EndDate.Value);
         }
     }
 }
