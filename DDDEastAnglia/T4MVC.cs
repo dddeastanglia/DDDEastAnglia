@@ -100,6 +100,8 @@ namespace Links
         public static readonly string jquery_ui_1_10_2_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-ui-1.10.2.min.js") ? Url("jquery-ui-1.10.2.min.js") : Url("jquery-ui-1.10.2.js");
                       
         public static readonly string jquery_ui_1_10_2_min_js = Url("jquery-ui-1.10.2.min.js");
+        public static readonly string jquery_cookie_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.cookie.min.js") ? Url("jquery.cookie.min.js") : Url("jquery.cookie.js");
+                      
         public static readonly string jquery_unobtrusive_ajax_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.unobtrusive-ajax.min.js") ? Url("jquery.unobtrusive-ajax.min.js") : Url("jquery.unobtrusive-ajax.js");
                       
         public static readonly string jquery_unobtrusive_ajax_min_js = Url("jquery.unobtrusive-ajax.min.js");
