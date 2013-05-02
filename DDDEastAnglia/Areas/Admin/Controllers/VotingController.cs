@@ -31,9 +31,9 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
             return View(model);
         }
 
-        public ActionResult Leaderboard()
+        public ActionResult Leaderboard(int limit = int.MaxValue)
         {
-            var leaderboardSessions = dataProvider.GetLeaderBoard();
+            var leaderboardSessions = dataProvider.GetLeaderBoard(limit);
             var highestVoteCount = leaderboardSessions.Max(s => s.NumberOfVotes);
             var model = new LeaderboardViewModel
                 {

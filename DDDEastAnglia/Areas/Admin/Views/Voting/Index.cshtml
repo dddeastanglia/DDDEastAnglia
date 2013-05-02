@@ -29,10 +29,11 @@
     
 </div>
 
-<h3>Other Stats</h3>
+<h3>Session Stats</h3>
 
 <ul>
-    <li>@Html.ActionLink("Leaderboard", "Leaderboard") - current highest-voted sessions</li>
+    <li>@Html.ActionLink("Votes for the top 15 sessions", "Leaderboard", new { limit = 15 })</li>
+    <li>@Html.ActionLink("Votes for all sessions", "Leaderboard")</li>
 </ul>
 
 @section scripts

@@ -77,9 +77,9 @@ namespace DDDEastAnglia.VotingData
             }
         }
 
-        public IList<LeaderBoardSession> GetLeaderBoard()
+        public IList<LeaderBoardSession> GetLeaderBoard(int limit)
         {
-            var leaderBoardSessions = queryRunner.RunQuery(new LeaderBoardQuery());
+            var leaderBoardSessions = queryRunner.RunQuery(new LeaderBoardQuery(limit));
             return leaderBoardSessions;
         }
     }
