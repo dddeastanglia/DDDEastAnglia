@@ -1,3 +1,68 @@
-﻿<h2>Voting Stats</h2>
+﻿@model DDDEastAnglia.Areas.Admin.Models.VotingStatsViewModel
 
-@Html.ActionLink("General stats", "GeneralVoteStats")
+@section header
+{
+    @Styles.Render("~/Content/themes/base/css")
+
+    <style>
+        #startdate {
+            float: left;
+            margin-right: 10px;
+        }
+        
+        #enddate {
+            float: right;
+            margin-left: 10px;
+        }
+        
+        .ui-progressbar {
+            height: 1em;
+        }
+
+        #progressbar .ui-progressbar-value {
+            background: #008600;
+        }
+
+        #progresslabel {
+            float: left;
+            margin-left: 50%;
+            font-size: 0.85em;
+            line-height: 1.2em;
+            text-shadow: 1px 1px 0 #fff;         
+        }
+    </style>
+}
+
+<h3>General Stats</h3>
+
+<ul>
+    <li>@Model.TotalVotes votes cast in @Model.NumberOfDaysOfVotingPassed days.</li>
+    <li>@Model.NumberOfDaysOfVotingRemaining days of voting remaining.</li>
+</ul>
+
+<div>
+    <span id="startdate">@Model.VotingStartDate.ToLongDateString()</span>
+    <span id="enddate">@Model.VotingEndDate.ToLongDateString()</span>
+    <div id="progressbar"><div id="progresslabel"></div></div>
+    
+</div>
+
+<h3>Other Stats</h3>
+
+<ul>
+    <li>@Html.ActionLink("Leaderboard", "Leaderboard") - current highest-voted sessions</li>
+</ul>
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryui")
+    <script>
+        $(function() {
+            $("#progressbar").progressbar({
+                max: @Model.NumberOfDaysOfVoting,
+                value: @Model.NumberOfDaysOfVotingPassed
+            });
+            $("#progresslabel").text("@((int) (Model.NumberOfDaysOfVotingPassed * 1.0f / Model.NumberOfDaysOfVoting * 100)) %");
+        });
+    </script>    
+}

@@ -193,8 +193,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="VotingData\DataProvider.cs" />
+    <Compile Include="VotingData\IQueryResultObjectFactory.cs" />
+    <Compile Include="VotingData\Models\LeaderBoardSession.cs" />
+    <Compile Include="VotingData\Queries\LeaderBoardQuery.cs" />
+    <Compile Include="VotingData\Queries\IQuery.cs" />
+    <Compile Include="VotingData\QueryRunner.cs" />
     <Content Include="Areas\Admin\Content\admin.css" />
+    <Compile Include="Areas\Admin\Controllers\VotingController.cs" />
     <Compile Include="Areas\Admin\Models\UserModel.cs" />
+    <Compile Include="Areas\Admin\Models\VotingStatsViewModel.cs" />
     <Compile Include="Controllers\BannerController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\SessionDisplayModelComparer.cs" />
@@ -440,6 +448,8 @@
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Admin\Views\Session\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Voting\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Voting\Leaderboard.cshtml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\html5shiv-printshiv.js" />

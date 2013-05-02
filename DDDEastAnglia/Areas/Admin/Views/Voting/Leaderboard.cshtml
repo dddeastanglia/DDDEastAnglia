@@ -1,0 +1,34 @@
+﻿@model IList<DDDEastAnglia.VotingData.Models.LeaderBoardSession>
+
+<h2>Leaderboard</h2>
+
+<p>This shows the current highest-voted sessions.</p>
+
+<table class="table table-striped table-hover table-condensed">
+    <thead>
+        <tr><th>
+            Position
+        </th><th>
+            Session Title
+        </th><th>
+            Speaker
+        </th><th>
+            Number of Votes
+        </th></tr>
+    </thead>
+    
+    <tbody>
+    @foreach (var item in Model) 
+    {
+        <tr><td>
+            @Html.DisplayFor(modelItem => item.Position)
+        </td><td>
+            <a href="@Url.Action("Details", "Session", new { id = item.SessionId })">@item.SessionTitle</a>
+        </td><td>
+            <a href="@Url.Action("Details", "User", new { id = item.SpeakerUserId })">@item.SpeakerName</a>
+        </td><td>
+            @Html.DisplayFor(modelItem => item.NumberOfVotes)
+        </td></tr>
+    }
+    </tbody>
+</table>
