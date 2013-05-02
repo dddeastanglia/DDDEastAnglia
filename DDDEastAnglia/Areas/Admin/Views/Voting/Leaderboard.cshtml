@@ -1,4 +1,4 @@
-﻿@model IList<DDDEastAnglia.VotingData.Models.LeaderBoardSession>
+﻿@model DDDEastAnglia.Areas.Admin.Models.LeaderboardViewModel
 
 <h2>Leaderboard</h2>
 
@@ -18,7 +18,7 @@
     </thead>
     
     <tbody>
-    @foreach (var item in Model) 
+    @foreach (var item in Model.Sessions) 
     {
         <tr><td>
             @Html.DisplayFor(modelItem => item.Position)
@@ -27,8 +27,22 @@
         </td><td>
             <a href="@Url.Action("Details", "User", new { id = item.SpeakerUserId })">@item.SpeakerName</a>
         </td><td>
+            <div id="progressbar@(item.SessionId)" data-value="@item.NumberOfVotes"></div>
             @Html.DisplayFor(modelItem => item.NumberOfVotes)
         </td></tr>
     }
     </tbody>
 </table>
+
+@section scripts
+{
+    <script>
+        $('div[id^="progressbar"]').each(function() {
+            var votes = parseInt($(this).attr("data-value"));
+            $(this).progressbar({
+                max: @Model.HighestVoteCount,
+                value: votes
+            });
+        });
+    </script>
+}

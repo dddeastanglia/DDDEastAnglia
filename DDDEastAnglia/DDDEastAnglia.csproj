@@ -193,6 +193,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Areas\Admin\Models\LeaderboardViewModel.cs" />
     <Compile Include="VotingData\DataProvider.cs" />
     <Compile Include="VotingData\IQueryResultObjectFactory.cs" />
     <Compile Include="VotingData\Models\LeaderBoardSession.cs" />

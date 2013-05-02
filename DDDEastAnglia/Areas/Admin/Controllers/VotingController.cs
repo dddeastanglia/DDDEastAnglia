@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using DDDEastAnglia.Areas.Admin.Models;
 using DDDEastAnglia.VotingData;
+using System.Linq;
 
 namespace DDDEastAnglia.Areas.Admin.Controllers
 {
@@ -32,8 +33,14 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
 
         public ActionResult Leaderboard()
         {
-            var leaderBoard = dataProvider.GetLeaderBoard();
-            return View(leaderBoard);
+            var leaderboardSessions = dataProvider.GetLeaderBoard();
+            var highestVoteCount = leaderboardSessions.Max(s => s.NumberOfVotes);
+            var model = new LeaderboardViewModel
+                {
+                    HighestVoteCount = highestVoteCount,
+                    Sessions = leaderboardSessions
+                };
+            return View(model);
         }
     }
 }
