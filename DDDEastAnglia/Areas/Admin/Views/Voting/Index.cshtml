@@ -15,26 +15,57 @@
     </style>
 }
 
-<h3>General Stats</h3>
+<div class="well">
+    <h3>General Stats</h3>
 
-<ul>
-    <li>@Model.TotalVotes votes cast in @Model.NumberOfDaysOfVotingPassed days by @Model.NumberOfUsersWhoHaveVoted users.</li>
-    <li>@Model.NumberOfDaysOfVotingRemaining days of voting remaining.</li>
-</ul>
+    <ul>
+        <li>@Model.TotalVotes votes cast in @Model.NumberOfDaysOfVotingPassed days by @Model.NumberOfUsersWhoHaveVoted users.</li>
+        <li>@Model.NumberOfDaysOfVotingRemaining days of voting remaining.</li>
+    </ul>
 
-<div>
-    <span id="startdate">@Model.VotingStartDate.ToLongDateString()</span>
-    <span id="enddate">@Model.VotingEndDate.ToLongDateString()</span>
-    <div id="progressbar"><div id="progresslabel"></div></div>
-    
+    <div>
+        <span id="startdate">@Model.VotingStartDate.ToLongDateString()</span>
+        <span id="enddate">@Model.VotingEndDate.ToLongDateString()</span>
+        <div id="progressbar"><div id="progresslabel"></div></div>
+    </div>
 </div>
 
-<h3>Session Stats</h3>
+<div class="well">
+    <h3>Time-based Stats</h3>
 
-<ul>
-    <li>@Html.ActionLink("Votes for the top 15 sessions", "Leaderboard", new { limit = 15 })</li>
-    <li>@Html.ActionLink("Votes for all sessions", "Leaderboard")</li>
-</ul>
+    <ul>
+        <li>Votes per day</li>
+        <li>Votes per hour</li>
+    </ul>
+</div>
+
+<div class="well">
+    <h3>Session Stats</h3>
+
+    <ul>
+        <li>@Html.ActionLink("Votes for the top 15 sessions", "Leaderboard", new { limit = 15 })</li>
+        <li>@Html.ActionLink("Votes for all sessions", "Leaderboard")</li>
+    </ul>
+</div>
+
+<div class="well">
+    <h3>User Stats</h3>
+
+    <ul>
+        <li>Known users who have voted + vote counts</li>
+        <li>Unknown users who have voted + vote counts (use gravatar pics)</li>
+        <li>(All?) users linked to the sessions voted for</li>
+    </ul>
+</div>
+
+<div class="well">
+    <h3>IP Address Stats</h3>
+
+    <ul>
+        <li>Distinct IP addresses that have voted</li>
+        <li>All IP addresses that have voted</li>
+    </ul>
+</div>
 
 @section scripts
 {
@@ -43,7 +74,7 @@
             $("#progressbar").progressbar({
                 max: @Model.NumberOfDaysOfVoting,
                 value: @Model.NumberOfDaysOfVotingPassed
-            });
+                });
             $("#progresslabel").text("@((int) (Model.NumberOfDaysOfVotingPassed * 1.0f / Model.NumberOfDaysOfVoting * 100)) %");
         });
     </script>    
