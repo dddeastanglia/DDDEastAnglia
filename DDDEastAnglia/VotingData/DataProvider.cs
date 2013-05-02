@@ -77,6 +77,14 @@ namespace DDDEastAnglia.VotingData
             }
         }
 
+        public int GetnumberOfUsersWhoHaveVoted()
+        {
+            using (var context = new DDDEAContext())
+            {
+                return context.Votes.AsEnumerable().GroupBy(v => v.CookieId).Count();
+            }
+        }
+
         public IList<LeaderBoardSession> GetLeaderBoard(int limit)
         {
             var leaderBoardSessions = queryRunner.RunQuery(new LeaderBoardQuery(limit));

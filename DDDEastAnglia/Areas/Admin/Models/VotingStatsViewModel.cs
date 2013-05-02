@@ -8,6 +8,7 @@ namespace DDDEastAnglia.Areas.Admin.Models
     public class VotingStatsViewModel
     {
         public int TotalVotes{get;set;}
+        public int NumberOfUsersWhoHaveVoted{get;set;}
         public IList<IGrouping<DateTime, Vote>> VotesByDate{get;set;}
         public IList<IGrouping<int, Vote>> VotesByHour{get;set;}
         public int NumberOfDaysOfVotingPassed{get;set;}
