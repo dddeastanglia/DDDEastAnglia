@@ -1,16 +1,25 @@
 ﻿@using DDDEastAnglia.DataAccess
+@using DDDEastAnglia.DataAccess.DataModel
 
-@if (new EventRepository().Get("DDDEA2013").CanSubmit())
+@{
+    var eventRepository = new EventRepository();
+    var dddevent = eventRepository.Get("DDDEA2013");
+
+    var submissionEnds = dddevent.PreConferenceAgenda.First(i => i.DateType == DateType.SubmissionEnds);
+    var votingEnds = dddevent.PreConferenceAgenda.First(i => i.DateType == DateType.VotingEnds);
+}
+
+@if (@dddevent.CanSubmit())
 {
-    <div id="notifications-banner">
+    <div id="notifications-banner" expires-on="@submissionEnds.Date.ToString("R")">
         <span class="dismiss"><a title="Dismiss this notification">X</a></span>
         <p>Session submission is now open. If you would like to speak at DDD East Anglia, please @Html.ActionLink("submit a session", "Create", "Session", null, new { @class = "submit-session" }).</p>
     </div>                                
 }
-else if (new EventRepository().Get("DDDEA2013").CanVote())
+else if (@dddevent.CanVote())
 {
-    <div id="notifications-banner">
+    <div id="notifications-banner" expires-on="@votingEnds.Date.ToString("R")">
         <span class="dismiss"><a title="Dismiss this notification">X</a></span>
-        <p>Session voting is now open. Please @Html.ActionLink("vote on the sessions", "Vote", "Session") you would like to see at <span class="dddea">DDD East Anglia</span>.</p>
+        <p>Session voting is now open. Please @Html.ActionLink("vote on the sessions", "Vote", "Session") you would like to see at DDD East Anglia.</p>
     </div>                                
 }

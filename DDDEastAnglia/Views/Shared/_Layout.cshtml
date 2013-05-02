@@ -143,11 +143,29 @@
         @RenderSection("scripts", required: false)
         
         <script language="javascript">
-            $(document).ready(function() {
-                $("#notifications-banner").slideDown("slow");
-                $(".dismiss").click(function() {
-                    $("#notifications-banner").slideUp("fast");
-                });
+            $(document).ready(function () {
+                if ($("#notifications-banner").length) {
+                    var eventChangeDateStr = $("#notifications-banner").attr("expires-on");
+                    var eventChangeDate = new Date(eventChangeDateStr);
+
+                    var setEventChangeDateStr = $.cookie("notification-dismissed");
+                    var setEventChangeDate = new Date(setEventChangeDateStr);
+
+                    if (setEventChangeDate < eventChangeDate) {
+                        @{/* if the date in the cookie is less than the date on the banner, the user dismissed an older banner */}
+                        $.removeCookie('notification-dismissed');
+                    }
+
+                    var keepHidden = $.cookie('notification-dismissed');
+
+                    if (!keepHidden) {
+                        $("#notifications-banner").slideDown("slow");
+                        $(".dismiss").click(function() {
+                            $("#notifications-banner").slideUp("fast");
+                            $.cookie("notification-dismissed", eventChangeDateStr, { expires: 90 });
+                        });
+                    }
+                }
             });
         </script>     
 });
