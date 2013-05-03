@@ -1,6 +1,9 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
+using System.Net;
 using System.Web.Mvc;
 using DDDEastAnglia.Areas.Admin.Models;
+using DDDEastAnglia.Mvc.Attributes;
 using DDDEastAnglia.VotingData;
 using System.Linq;
 
@@ -54,6 +57,25 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
                     IPAddresses = ipAddresses
                 };
             return View(model);
+        }
+
+        [HttpPost]
+        [AllowCrossSiteJson]
+        public ContentResult LookupIPAddress(string ipAddress)
+        {
+            string hostName;
+
+            try
+            {
+                var ipHostEntry = Dns.GetHostEntry(ipAddress);
+                hostName = ipHostEntry.HostName;
+            }
+            catch
+            {
+                hostName = "[unknown]";
+            }
+
+            return Content(hostName);
         }
     }
 }
