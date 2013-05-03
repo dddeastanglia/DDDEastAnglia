@@ -40,17 +40,17 @@ namespace DDDEastAnglia
 
             AddStyleBundle(bundles, "~/Content/admin",
                            "~/Content/bootstrap.css",
-                           "~/Areas/Admin/Content/admin.css",
                            "~/Content/media-queries.css",
                            "~/Content/font-awesome.css",
-                           "~/Content/font-awesome-ie7.min.css");
+                           "~/Content/font-awesome-ie7.min.css",
+                           "~/Areas/Admin/Content/admin.css");
 
             AddStyleBundle(bundles, "~/Content/css",
                            "~/Content/bootstrap.css",
-                           "~/Content/Site.css",
                            "~/Content/media-queries.css",
                            "~/Content/font-awesome.css",
-                           "~/Content/font-awesome-ie7.min.css");
+                           "~/Content/font-awesome-ie7.min.css",
+                           "~/Content/Site.css");
 
             AddStyleBundle(bundles, "~/Content/themes/base/css",
                            "~/Content/themes/base/jquery.ui.core.css",
