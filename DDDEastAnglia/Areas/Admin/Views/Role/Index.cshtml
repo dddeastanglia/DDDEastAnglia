@@ -1,0 +1,18 @@
+﻿@model List<string>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Roles</h2>
+
+<table>
+    @foreach (string role in Model)
+    {
+        <tr>
+            <td>@role</td><td><a href="@Url.Action("Manage", "Role", new {id=role})">Manage</a> <a href="@Url.Action("Delete","Role",new {id=role})">Delete</a> </td>
+        </tr>
+    }
+</table>
+
+<a href="@Url.Action("Create", "Role")">Create a new role</a>
