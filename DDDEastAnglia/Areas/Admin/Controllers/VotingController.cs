@@ -43,5 +43,17 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
                 };
             return View(model);
         }
+
+        public ActionResult IPAddresses()
+        {
+            var ipAddresses = dataProvider.GetDistinctIPAddresses();
+            var highestVoteCount = ipAddresses.Max(s => s.NumberOfVotes);
+            var model = new IPAddressStatsViewModel
+                {
+                    HighestVoteCount = highestVoteCount,
+                    IPAddresses = ipAddresses
+                };
+            return View(model);
+        }
     }
 }

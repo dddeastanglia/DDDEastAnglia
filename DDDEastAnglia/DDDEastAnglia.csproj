@@ -193,10 +193,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Areas\Admin\Models\IPAddressStatsViewModel.cs" />
     <Compile Include="Areas\Admin\Models\LeaderboardViewModel.cs" />
     <Compile Include="VotingData\DataProvider.cs" />
     <Compile Include="VotingData\IQueryResultObjectFactory.cs" />
+    <Compile Include="VotingData\Models\IPAddressModel.cs" />
     <Compile Include="VotingData\Models\LeaderBoardSession.cs" />
+    <Compile Include="VotingData\Queries\DistinctIPAddressQuery.cs" />
     <Compile Include="VotingData\Queries\LeaderBoardQuery.cs" />
     <Compile Include="VotingData\Queries\IQuery.cs" />
     <Compile Include="VotingData\QueryRunner.cs" />
@@ -451,6 +454,7 @@
     <Content Include="Areas\Admin\Views\Session\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Voting\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Voting\Leaderboard.cshtml" />
+    <Content Include="Areas\Admin\Views\Voting\IPAddresses.cshtml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\html5shiv-printshiv.js" />

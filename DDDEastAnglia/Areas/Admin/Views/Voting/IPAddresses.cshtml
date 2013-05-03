@@ -1,0 +1,40 @@
+﻿@model DDDEastAnglia.Areas.Admin.Models.IPAddressStatsViewModel
+
+<h2>IP Addresses</h2>
+
+<p>This shows the current highest-voted sessions.</p>
+
+<table class="table table-striped table-hover table-condensed">
+    <thead>
+        <tr><th>
+            IP Address
+        </th><th>
+            Number of Votes
+        </th></tr>
+    </thead>
+    
+    <tbody>
+    @foreach (var item in Model.IPAddresses) 
+    {
+        <tr><td>
+            @Html.DisplayFor(modelItem => item.IPAddress)
+        </td><td>
+            <div id="progressbar@(item.IPAddress)" data-value="@item.NumberOfVotes"></div>
+            @Html.DisplayFor(modelItem => item.NumberOfVotes)
+        </td></tr>
+    }
+    </tbody>
+</table>
+
+@section scripts
+{
+    <script>
+        $('div[id^="progressbar"]').each(function() {
+            var votes = parseInt($(this).attr("data-value"));
+            $(this).progressbar({
+                max: @Model.HighestVoteCount,
+                value: votes
+            });
+        });
+    </script>
+}
