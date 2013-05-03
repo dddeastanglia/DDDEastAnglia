@@ -6,6 +6,13 @@
 
 <h2>Create</h2>
 
+@if (ViewBag.Message != null)
+{
+    <div>
+        @ViewBag.Message
+    </div>
+}
+
 @using (Html.BeginForm("Create", "Role"))
 {
     <div>

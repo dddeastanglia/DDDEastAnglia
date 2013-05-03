@@ -25,7 +25,24 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
         // GET: /Admin/Role/Delete
         public ActionResult Delete(string id)
         {
+            int roleMembersCount = Roles.GetUsersInRole(id).GetLength(0);
+            if (roleMembersCount > 0)
+            {
+                ViewBag.MembersCount = string.Format("There are currently {0} users in this role.", roleMembersCount);
+            }
+
             return this.View();
+        }
+
+        // POST: /Admin/Role/Delete
+
+        [HttpPost]
+        [ActionName("Delete")]
+        public ActionResult DeleteConfirmed(string id)
+        {
+            Roles.DeleteRole(id);
+
+            return RedirectToAction("Index");
         }
 
         // GET: /Admin/Role/Create
@@ -47,8 +64,8 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
                 }
                 else
                 {
-                    ViewBag["Message"] = "This role already exists!";
-                    return this.View(role);
+                    ViewBag.Message = "This role already exists!";
+                    return this.View(viewName: "Create", model: role);
                 }
             }
 

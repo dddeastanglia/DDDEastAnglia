@@ -1,5 +1,20 @@
-﻿@{
+﻿@model string
+
+@{
     ViewBag.Title = "Delete";
 }
 
 <h2>Delete</h2>
+
+@using (Html.BeginForm("Delete", "Role"))
+{
+    <div>
+        Are you sure you want to delete the role @Model?
+        @if (ViewBag.MembersCount != null)
+        {
+            @ViewBag.MembersCount
+        }
+    </div>
+    <input type="submit" value="Delete role"/>
+}
+<a href="@Url.Action("Index", "Role")">Return to list</a>
