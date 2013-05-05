@@ -463,6 +463,7 @@
     <Content Include="Areas\Admin\Views\Voting\Leaderboard.cshtml" />
     <Content Include="Areas\Admin\Views\Voting\IPAddresses.cshtml" />
     <Content Include="Areas\Admin\Views\Voting\VotesPerDay.cshtml" />
+    <Content Include="Areas\Admin\Views\Voting\VotesPerHour.cshtml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\html5shiv-printshiv.js" />

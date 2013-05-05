@@ -84,5 +84,12 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
             var model = new VotesPerDateTimeViewModel { Votes = votesPerDay };
             return View(model);
         }
+
+        public ActionResult VotesPerHour()
+        {
+            var votesPerHour = dataProvider.GetVotesPerHour();
+            var model = new VotesPerDateTimeViewModel { Votes = votesPerHour };
+            return View(model);
+        }
     }
 }

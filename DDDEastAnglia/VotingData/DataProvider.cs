@@ -125,5 +125,33 @@ namespace DDDEastAnglia.VotingData
                 return dateTimeVoteModels;
             }
         }
+
+        public IList<DateTimeVoteModel> GetVotesPerHour()
+        {
+            using (var context = new DDDEAContext())
+            {
+                var dateToCountDictionary = context.Votes.AsEnumerable()
+                                                   .GroupBy(v => v.TimeRecorded.TimeOfDay.Hours)
+                                                   .ToDictionary(g => g.Key, g => g.Count());
+
+                var dateTimeVoteModels = new List<DateTimeVoteModel>();
+
+                for (var hour = 0; hour < 24; hour++)
+                {
+                    int count;
+                    dateToCountDictionary.TryGetValue(hour, out count);
+                    var now = DateTime.UtcNow;
+                    var time = new DateTime(now.Year, now.Month, now.Day, hour, 0, 0, 0);
+                    var model = new DateTimeVoteModel
+                        {
+                            Date = time, 
+                            VoteCount = count
+                        };
+                    dateTimeVoteModels.Add(model);
+                }
+
+                return dateTimeVoteModels;
+            }
+        }
     }
 }
