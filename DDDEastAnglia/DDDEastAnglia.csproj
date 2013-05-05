@@ -193,8 +193,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Areas\Admin\Models\DateTimeVoteModel.cs" />
     <Compile Include="Areas\Admin\Models\IPAddressStatsViewModel.cs" />
     <Compile Include="Areas\Admin\Models\LeaderboardViewModel.cs" />
+    <Compile Include="Areas\Admin\Models\VotesPerDateTimeViewModel.cs" />
+    <Compile Include="Helpers\JavasctiptDateTimes.cs" />
     <Compile Include="VotingData\DataProvider.cs" />
     <Compile Include="VotingData\IQueryResultObjectFactory.cs" />
     <Compile Include="VotingData\Models\IPAddressModel.cs" />
@@ -320,6 +323,10 @@
     <Content Include="Images\logo-icon-72.png" />
     <Content Include="Images\sponsors\jetbrains.png" />
     <Content Include="Images\sponsors\software-east.png" />
+    <Content Include="Scripts\flot\jquery.flot.js" />
+    <Content Include="Scripts\flot\jquery.flot.min.js" />
+    <Content Include="Scripts\flot\jquery.flot.time.js" />
+    <Content Include="Scripts\flot\jquery.flot.time.min.js" />
     <Content Include="Scripts\jquery.cookie.js" />
     <Content Include="Scripts\jquery.tablesorter.js" />
     <Content Include="Scripts\jquery.tablesorter.min.js" />
@@ -455,6 +462,7 @@
     <Content Include="Areas\Admin\Views\Voting\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Voting\Leaderboard.cshtml" />
     <Content Include="Areas\Admin\Views\Voting\IPAddresses.cshtml" />
+    <Content Include="Areas\Admin\Views\Voting\VotesPerDay.cshtml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\html5shiv-printshiv.js" />

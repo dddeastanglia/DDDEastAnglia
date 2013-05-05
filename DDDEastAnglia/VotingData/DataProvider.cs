@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using DDDEastAnglia.Areas.Admin.Models;
 using DDDEastAnglia.DataAccess.EntityFramework;
 using DDDEastAnglia.DataAccess.EntityFramework.Models;
 using DDDEastAnglia.Domain.Calendar;
@@ -95,6 +96,34 @@ namespace DDDEastAnglia.VotingData
         {
             var distinctIPAddresses = queryRunner.RunQuery(new DistinctIPAddressQuery());
             return distinctIPAddresses;
+        }
+
+        public IList<DateTimeVoteModel> GetVotesPerDay()
+        {
+            using (var context = new DDDEAContext())
+            {
+                var dateToCountDictionary = context.Votes.AsEnumerable()
+                                                   .GroupBy(v => v.TimeRecorded.Date)
+                                                   .ToDictionary(g => g.Key, g => g.Count());
+
+                var votingStartDate = GetVotingStartDate();
+                var votingEndDate = GetVotingEndDate();
+                var dateTimeVoteModels = new List<DateTimeVoteModel>();
+
+                for (var day = votingStartDate.Date; day <= votingEndDate; day = day.AddDays(1))
+                {
+                    int count;
+                    dateToCountDictionary.TryGetValue(day, out count);
+                    var model = new DateTimeVoteModel
+                        {
+                            Date = day, 
+                            VoteCount = count
+                        };
+                    dateTimeVoteModels.Add(model);
+                }
+
+                return dateTimeVoteModels;
+            }
         }
     }
 }

@@ -77,5 +77,12 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
 
             return Content(hostName);
         }
+
+        public ActionResult VotesPerDay()
+        {
+            var votesPerDay = dataProvider.GetVotesPerDay();
+            var model = new VotesPerDateTimeViewModel { Votes = votesPerDay };
+            return View(model);
+        }
     }
 }
