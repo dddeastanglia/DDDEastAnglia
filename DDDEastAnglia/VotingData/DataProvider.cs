@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using DDDEastAnglia.Areas.Admin.Models;
 using DDDEastAnglia.DataAccess.EntityFramework;
 using DDDEastAnglia.DataAccess.EntityFramework.Models;
 using DDDEastAnglia.Domain.Calendar;
@@ -152,6 +151,12 @@ namespace DDDEastAnglia.VotingData
 
                 return dateTimeVoteModels;
             }
+        }
+
+        public IList<IPAddressVoterModel> GetVotersPerIPAddress()
+        {
+            var votesPerCookie = queryRunner.RunQuery(new VoteesPerIPAddressQuery());
+            return votesPerCookie;
         }
     }
 }

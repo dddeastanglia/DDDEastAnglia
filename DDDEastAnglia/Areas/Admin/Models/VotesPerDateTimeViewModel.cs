@@ -2,6 +2,7 @@
 using System.Text;
 using DDDEastAnglia.Helpers;
 using System.Linq;
+using DDDEastAnglia.VotingData.Models;
 
 namespace DDDEastAnglia.Areas.Admin.Models
 {

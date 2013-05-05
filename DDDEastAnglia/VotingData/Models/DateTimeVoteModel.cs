@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DDDEastAnglia.Areas.Admin.Models
+namespace DDDEastAnglia.VotingData.Models
 {
     public class DateTimeVoteModel
     {

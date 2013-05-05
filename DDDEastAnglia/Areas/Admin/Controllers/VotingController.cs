@@ -1,5 +1,4 @@
-﻿using System;
-using System.Configuration;
+﻿using System.Configuration;
 using System.Net;
 using System.Web.Mvc;
 using DDDEastAnglia.Areas.Admin.Models;
@@ -89,6 +88,13 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
         {
             var votesPerHour = dataProvider.GetVotesPerHour();
             var model = new VotesPerDateTimeViewModel { Votes = votesPerHour };
+            return View(model);
+        }
+
+        public ActionResult VotersPerIPAddress()
+        {
+            var votersPerIPAddress = dataProvider.GetVotersPerIPAddress();
+            var model = new VotersPerIPAddressViewModel { IPAddressVoters = votersPerIPAddress};
             return View(model);
         }
     }

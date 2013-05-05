@@ -193,7 +193,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Areas\Admin\Models\DateTimeVoteModel.cs" />
+    <Compile Include="Areas\Admin\Models\VotersPerIPAddressViewModel.cs" />
+    <Compile Include="VotingData\Models\DateTimeVoteModel.cs" />
     <Compile Include="Areas\Admin\Models\IPAddressStatsViewModel.cs" />
     <Compile Include="Areas\Admin\Models\LeaderboardViewModel.cs" />
     <Compile Include="Areas\Admin\Models\VotesPerDateTimeViewModel.cs" />
@@ -201,10 +202,12 @@
     <Compile Include="VotingData\DataProvider.cs" />
     <Compile Include="VotingData\IQueryResultObjectFactory.cs" />
     <Compile Include="VotingData\Models\IPAddressModel.cs" />
+    <Compile Include="VotingData\Models\IPAddressVoterModel.cs" />
     <Compile Include="VotingData\Models\LeaderBoardSession.cs" />
     <Compile Include="VotingData\Queries\DistinctIPAddressQuery.cs" />
     <Compile Include="VotingData\Queries\LeaderBoardQuery.cs" />
     <Compile Include="VotingData\Queries\IQuery.cs" />
+    <Compile Include="VotingData\Queries\VoteesPerIPAddressQuery.cs" />
     <Compile Include="VotingData\QueryRunner.cs" />
     <Content Include="Areas\Admin\Content\admin.css" />
     <Compile Include="Areas\Admin\Controllers\VotingController.cs" />
@@ -464,6 +467,7 @@
     <Content Include="Areas\Admin\Views\Voting\IPAddresses.cshtml" />
     <Content Include="Areas\Admin\Views\Voting\VotesPerDay.cshtml" />
     <Content Include="Areas\Admin\Views\Voting\VotesPerHour.cshtml" />
+    <Content Include="Areas\Admin\Views\Voting\VotersPerIPAddress.cshtml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\html5shiv-printshiv.js" />
