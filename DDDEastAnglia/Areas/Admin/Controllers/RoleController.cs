@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using System.Web.Security;
+using DDDEastAnglia.Areas.Admin.Models;
+using DDDEastAnglia.Models;
 
 namespace DDDEastAnglia.Areas.Admin.Controllers
 {
@@ -19,7 +21,27 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
         // GET: /Admin/Role/Manage
         public ActionResult Manage(string id)
         {
-            return this.View();
+            if (Roles.RoleExists(id))
+            {
+                RoleModel model = new RoleModel();
+                model.RoleName = id;
+
+                foreach (UserProfile user in db.UserProfiles)
+                {
+                    if (Roles.IsUserInRole(user.UserName, id))
+                    {
+                        model.Users.Add(user.UserName, true);
+                    }
+                    else
+                    {
+                        model.Users.Add(user.UserName, false);
+                    }
+                }
+
+                return this.View(model);
+            }
+
+            return RedirectToAction("Index", "Role");
         }
 
         // GET: /Admin/Role/Delete
