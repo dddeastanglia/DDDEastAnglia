@@ -44,6 +44,33 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
             return RedirectToAction("Index", "Role");
         }
 
+        [HttpPost]
+        public ActionResult Manage(RoleModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                foreach (KeyValuePair<string, bool> user in model.Users)
+                {
+                    if (user.Value)
+                    {
+                        if (!Roles.IsUserInRole(model.RoleName, user.Key))
+                        {
+                            Roles.AddUserToRole(model.RoleName, user.Key);
+                        }
+                    }
+                    else
+                    {
+                        if (Roles.IsUserInRole(model.RoleName, user.Key))
+                        {
+                            Roles.RemoveUserFromRole(user.Key, model.RoleName);
+                        }
+                    }
+                }
+            }
+
+            return this.View(model.RoleName);
+        }
+
         // GET: /Admin/Role/Delete
         public ActionResult Delete(string id)
         {
