@@ -29,7 +29,7 @@
             </div>
         </td><td>
             <div id="progressbar@(item.IPAddress)" data-value="@item.NumberOfVotes"></div>
-            @Html.DisplayFor(modelItem => item.NumberOfVotes)
+            @Html.ActionLink(item.NumberOfVotes.ToString(), "VotesForIPAddress", new { ipAddress = item.IPAddress})
         </td></tr>
     }
     </tbody>

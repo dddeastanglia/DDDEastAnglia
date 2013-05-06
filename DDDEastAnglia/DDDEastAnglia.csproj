@@ -195,6 +195,8 @@
   <ItemGroup>
     <Compile Include="Areas\Admin\Models\VotersPerIPAddressViewModel.cs" />
     <Content Include="Scripts\resolveIPAddress.js" />
+    <Compile Include="Areas\Admin\Models\VotesForIpAddressViewModel.cs" />
+    <Compile Include="VotingData\Models\CookieVoteModel.cs" />
     <Compile Include="VotingData\Models\DateTimeVoteModel.cs" />
     <Compile Include="Areas\Admin\Models\IPAddressStatsViewModel.cs" />
     <Compile Include="Areas\Admin\Models\LeaderboardViewModel.cs" />
@@ -208,7 +210,8 @@
     <Compile Include="VotingData\Queries\DistinctIPAddressQuery.cs" />
     <Compile Include="VotingData\Queries\LeaderBoardQuery.cs" />
     <Compile Include="VotingData\Queries\IQuery.cs" />
-    <Compile Include="VotingData\Queries\VoteesPerIPAddressQuery.cs" />
+    <Compile Include="VotingData\Queries\VotersPerIPAddressQuery.cs" />
+    <Compile Include="VotingData\Queries\VotesPerIPAddressQuery.cs" />
     <Compile Include="VotingData\QueryRunner.cs" />
     <Content Include="Areas\Admin\Content\admin.css" />
     <Compile Include="Areas\Admin\Controllers\VotingController.cs" />
@@ -469,6 +472,7 @@
     <Content Include="Areas\Admin\Views\Voting\VotesPerDay.cshtml" />
     <Content Include="Areas\Admin\Views\Voting\VotesPerHour.cshtml" />
     <Content Include="Areas\Admin\Views\Voting\VotersPerIPAddress.cshtml" />
+    <Content Include="Areas\Admin\Views\Voting\VotesForIPAddress.cshtml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\html5shiv-printshiv.js" />

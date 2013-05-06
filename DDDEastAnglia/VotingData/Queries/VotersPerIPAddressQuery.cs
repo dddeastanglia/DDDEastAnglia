@@ -3,7 +3,7 @@ using DDDEastAnglia.VotingData.Models;
 
 namespace DDDEastAnglia.VotingData.Queries
 {
-    public class VoteesPerIPAddressQuery : IQuery<IPAddressVoterModel>
+    public class VotersPerIPAddressQuery : IQuery<IPAddressVoterModel>
     {
         public string Sql
         {

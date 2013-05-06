@@ -155,8 +155,14 @@ namespace DDDEastAnglia.VotingData
 
         public IList<IPAddressVoterModel> GetVotersPerIPAddress()
         {
-            var votesPerCookie = queryRunner.RunQuery(new VoteesPerIPAddressQuery());
-            return votesPerCookie;
+            var votersPerIPAddress = queryRunner.RunQuery(new VotersPerIPAddressQuery());
+            return votersPerIPAddress;
+        }
+
+        public IList<CookieVoteModel> GetVotesPerCookieIPAddress(string ipAddress)
+        {
+            var votesPerIPAddress = queryRunner.RunQuery(new VotesPerIPAddressQuery(ipAddress));
+            return votesPerIPAddress;
         }
     }
 }

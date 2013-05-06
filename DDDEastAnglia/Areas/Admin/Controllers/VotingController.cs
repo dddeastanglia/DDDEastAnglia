@@ -102,5 +102,18 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
                 };
             return View(model);
         }
+
+        public ActionResult VotesForIPAddress(string ipAddress)
+        {
+            var votesForIPAddress = dataProvider.GetVotesPerCookieIPAddress(ipAddress);
+            int highestNumberOfVotes = votesForIPAddress.Max(v => v.NumberOfVotes);
+            var model = new VotesForIpAddressViewModel
+                {
+                    IPAddress = ipAddress,
+                    HighestNumberOfVotes = highestNumberOfVotes,
+                    DistinctVotes = votesForIPAddress
+                };
+            return View(model);
+        }
     }
 }
