@@ -171,7 +171,7 @@ INSERT INTO [dbo].[CalendarItems] (
     1,
     1,
     'Agenda announced',
-    '2013-05-01 00:00:00.0000000 +01:00',
+    '2013-05-29 00:00:00.0000000 +01:00',
     NULL,
     3,
     'AgendaPublished'
