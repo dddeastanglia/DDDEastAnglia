@@ -94,7 +94,12 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
         public ActionResult VotersPerIPAddress()
         {
             var votersPerIPAddress = dataProvider.GetVotersPerIPAddress();
-            var model = new VotersPerIPAddressViewModel { IPAddressVoters = votersPerIPAddress};
+            int highestNumberOfVoters = votersPerIPAddress.Max(v => v.NumberOfVoters);
+            var model = new VotersPerIPAddressViewModel
+                {
+                    HighestNumberOfVoters = highestNumberOfVoters,
+                    IPAddressVoters = votersPerIPAddress
+                };
             return View(model);
         }
     }

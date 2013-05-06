@@ -194,6 +194,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Areas\Admin\Models\VotersPerIPAddressViewModel.cs" />
+    <Content Include="Scripts\resolveIPAddress.js" />
     <Compile Include="VotingData\Models\DateTimeVoteModel.cs" />
     <Compile Include="Areas\Admin\Models\IPAddressStatsViewModel.cs" />
     <Compile Include="Areas\Admin\Models\LeaderboardViewModel.cs" />

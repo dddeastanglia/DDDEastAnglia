@@ -77,3 +77,7 @@ a.btn, .dropdown-menu a, a.brand, a [class^="icon-"] { text-decoration: none; }
     line-height: 1.2em;
     text-shadow: 1px 1px 0 #fff;         
 }
+
+th.barchart, td.barchart {
+    width: 50%;
+}

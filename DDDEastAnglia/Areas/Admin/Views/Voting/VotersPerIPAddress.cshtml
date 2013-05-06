@@ -2,23 +2,54 @@
 
 <h2>Voters per IP Address</h2>
 
+<p>This shows number of voters per IP address.</p>
+
+<div>
+    <a id="resolveAllLink" href="#" onclick="javascript:resolveAllIPAddresses(this); return false;"><i class="icon-search"></i> Resolve all</a>
+</div>
+
 <table class="table table-striped table-hover table-condensed">
     <thead>
         <tr><th>
             IP Address
-        </th><th>
+        </th><th class="barchart">
             Number of Voters
         </th></tr>
     </thead>
 
     <tbody>
-        @foreach (var item in @Model.IPAddressVoters)
-        {
-            <tr><td>
-                @item.IPAddress
-            </td><td>
-                @item.NumberOfVoters
-            </td></tr>
-        }
+    @foreach (var item in @Model.IPAddressVoters)
+    {
+        <tr><td>
+            @Html.DisplayFor(modelItem => item.IPAddress)
+            
+            <div>
+                <a id="link@(item.IPAddress.Replace(".", "-"))" href="#" onclick="javascript:resolveIP('link@(item.IPAddress.Replace(".", "-"))', '@item.IPAddress', 'resolved@(item.IPAddress.Replace(".", "-"))');return false;"><i class="icon-search"></i></a>
+                <span id="resolved@(item.IPAddress.Replace(".", "-"))"></span>
+            </div>
+        </td><td>
+            <div id="progressbar@(item.IPAddress)" data-value="@item.NumberOfVoters"></div>
+            @Html.DisplayFor(modelItem => item.NumberOfVoters)
+        </td></tr>
+    }
     </tbody>
 </table>
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/resolveIPAddress")
+    <script>
+        $('div[id^="progressbar"]').each(function() {
+            var votes = parseInt($(this).attr("data-value"));
+            $(this).progressbar({
+                max: @Model.HighestNumberOfVoters,
+                value: votes
+            });
+        });
+
+        function resolveIP(linkId, address, outputId) {
+            var postUrl = '@Url.Action("LookupIPAddress")';
+            resolveIPAddress(linkId, address, outputId, postUrl);
+        }
+    </script>
+}

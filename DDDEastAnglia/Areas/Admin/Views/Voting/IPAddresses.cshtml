@@ -12,7 +12,7 @@
     <thead>
         <tr><th>
             IP Address
-        </th><th>
+        </th><th class="barchart">
             Number of Votes
         </th></tr>
     </thead>
@@ -24,7 +24,7 @@
             @Html.DisplayFor(modelItem => item.IPAddress)
             
             <div>
-                <a id="link@(item.IPAddress.Replace(".", "-"))" href="#" onclick="javascript:resolveIPAddress('link@(item.IPAddress.Replace(".", "-"))', '@item.IPAddress', 'resolved@(item.IPAddress.Replace(".", "-"))');return false;"><i class="icon-search"></i></a>
+                <a id="link@(item.IPAddress.Replace(".", "-"))" href="#" onclick="javascript:resolveIP('link@(item.IPAddress.Replace(".", "-"))', '@item.IPAddress', 'resolved@(item.IPAddress.Replace(".", "-"))');return false;"><i class="icon-search"></i></a>
                 <span id="resolved@(item.IPAddress.Replace(".", "-"))"></span>
             </div>
         </td><td>
@@ -37,6 +37,7 @@
 
 @section scripts
 {
+    @Scripts.Render("~/bundles/resolveIPAddress")
     <script>
         $('div[id^="progressbar"]').each(function() {
             var votes = parseInt($(this).attr("data-value"));
@@ -46,27 +47,9 @@
             });
         });
 
-        function resolveAllIPAddresses(sender) {
-            $('#' + sender.id).animate({opacity: "0.0"});
-            $('a[id^="link"]').each(function() {
-                $(this).click();
-            });
-        }        
-
-        function resolveIPAddress(linkId, address, outputId) {
-            var link = $('#' + linkId);
-            link.replaceWith('<i id="' + linkId + '" class="icon-exchange"></i>');
-            $.post(
-                '@Url.Action("LookupIPAddress")',
-                { ipAddress: address }
-            ).done(function(data) {
-                var loadingIcon = $('#' + linkId);
-                loadingIcon.replaceWith('<i class="icon-globe"></i>');
-                var output = $('#' + outputId);
-                output.hide();
-                output.text(data);
-                output.fadeIn('fast');
-            });
+        function resolveIP(linkId, address, outputId) {
+            var postUrl = '@Url.Action("LookupIPAddress")';
+            resolveIPAddress(linkId, address, outputId, postUrl);
         }
     </script>
 }
