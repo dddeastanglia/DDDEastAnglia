@@ -1,10 +1,12 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Configuration;
 using System.Web.Mvc;
 using DDDEastAnglia.Areas.Admin.Models;
 using DDDEastAnglia.Helpers;
 using DDDEastAnglia.Mvc.Attributes;
 using DDDEastAnglia.VotingData;
+using DDDEastAnglia.VotingData.Models;
 
 namespace DDDEastAnglia.Areas.Admin.Controllers
 {
@@ -76,15 +78,29 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
         public ActionResult VotesPerDay()
         {
             var votesPerDay = dataProvider.GetVotesPerDay();
-            var model = new VotesPerDateTimeViewModel { Votes = votesPerDay };
-            return View(model);
+            var chartData = GetChartData(votesPerDay);
+            return View(chartData);
         }
 
         public ActionResult VotesPerHour()
         {
             var votesPerHour = dataProvider.GetVotesPerHour();
-            var model = new VotesPerDateTimeViewModel { Votes = votesPerHour };
-            return View(model);
+            var chartData = GetChartData(votesPerHour);
+            return View(chartData);
+        }
+
+        private long[][] GetChartData(IList<DateTimeVoteModel> voteData)
+        {
+            long[][] chartData = new long[voteData.Count][];
+
+            foreach (var item in voteData.Select((v, i) => new {Index = i, Vote = v}))
+            {
+                var vote = item.Vote;
+                long javascriptTimestamp = vote.Date.GetJavascriptTimestamp();
+                chartData[item.Index] = new[] {javascriptTimestamp, vote.VoteCount};
+            }
+
+            return chartData;
         }
 
         public ActionResult VotersPerIPAddress()

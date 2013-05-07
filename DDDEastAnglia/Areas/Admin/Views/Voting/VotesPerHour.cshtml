@@ -1,4 +1,5 @@
-﻿@model DDDEastAnglia.Areas.Admin.Models.VotesPerDateTimeViewModel
+﻿@using Newtonsoft.Json
+@model long[][]
 
 <h2>Votes Per Hour</h2>
 
@@ -12,7 +13,7 @@
         $(document).ready(function() {
             var data = [{
                 color: "#C00",
-                data: @Model.GetChartData()
+                data: @JsonConvert.SerializeObject(Model)
             }];
 
             var options = {
