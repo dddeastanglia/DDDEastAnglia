@@ -30,42 +30,51 @@
     </div>
 </div>
 
-<div class="well">
-    <h3>Time-based Stats</h3>
+@if (Model.TotalVotes > 0)
+{
+    <div class="well">
+        <h3>Time-based Stats</h3>
 
-    <ul>
-        <li>@Html.ActionLink("Votes per day", "VotesPerDay")</li>
-        <li>@Html.ActionLink("Votes per hour", "VotesPerHour")</li>
-    </ul>
-</div>
+        <ul>
+            <li>@Html.ActionLink("Votes per day", "VotesPerDay")</li>
+            <li>@Html.ActionLink("Votes per hour", "VotesPerHour")</li>
+        </ul>
+    </div>
 
-<div class="well">
-    <h3>Session Stats</h3>
+    <div class="well">
+        <h3>Session Stats</h3>
 
-    <ul>
-        <li>@Html.ActionLink("Votes for the top 15 sessions", "Leaderboard", new { limit = 15 })</li>
-        <li>@Html.ActionLink("Votes for all sessions", "Leaderboard")</li>
-        <li>'Normalised' top 15 sessions</li>
-        <li>'Normalised' sessions</li>
-    </ul>
-</div>
+        <ul>
+            <li>@Html.ActionLink("Votes for the top 15 sessions", "Leaderboard", new {limit = 15})</li>
+            <li>@Html.ActionLink("Votes for all sessions", "Leaderboard")</li>
+            <li>'Normalised' top 15 sessions</li>
+            <li>'Normalised' sessions</li>
+        </ul>
+    </div>
 
-<div class="well">
-    <h3>User Stats</h3>
+    <div class="well">
+        <h3>User Stats</h3>
 
-    <ul>
-        <li>Known users who have voted + vote counts</li>
-        <li>Unknown users who have voted + vote counts (use gravatar pics)</li>
-        <li>(All?) users linked to the sessions voted for</li>
-    </ul>
-</div>
+        <ul>
+            <li>Known users who have voted + vote counts</li>
+            <li>Unknown users who have voted + vote counts (use gravatar pics)</li>
+            <li>(All?) users linked to the sessions voted for</li>
+        </ul>
+    </div>
 
-<div class="well">
-    <h3>IP Address Stats</h3>
+    <div class="well">
+        <h3>IP Address Stats</h3>
 
-    <ul>
-        <li>@Html.ActionLink("Votes per IP address", "IPAddresses")</li>
-        <li>@Html.ActionLink("Voters per IP address", "VotersPerIPAddress")</li>
-        <li>The sessions that each IP addresses has voted for</li>
-    </ul>
-</div>
+        <ul>
+            <li>@Html.ActionLink("Votes per IP address", "IPAddresses")</li>
+            <li>@Html.ActionLink("Voters per IP address", "VotersPerIPAddress")</li>
+            <li>The sessions that each IP addresses has voted for</li>
+        </ul>
+    </div>
+}
+else
+{
+    <div class="well">
+        Voting statistics will appear here once votes have been cast.
+    </div>    
+}
