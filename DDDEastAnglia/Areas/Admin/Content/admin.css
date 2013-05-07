@@ -65,3 +65,15 @@ a.btn, .dropdown-menu a, a.brand, a [class^="icon-"] { text-decoration: none; }
 th.barchart, td.barchart {
     width: 50%;
 }
+
+.progress {
+    border: 1px solid #aaa;
+}
+
+.ui-progressbar {
+    height: 1em;
+}
+
+.ui-progressbar-value {
+    background: #008600;
+}
