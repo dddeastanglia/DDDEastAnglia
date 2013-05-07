@@ -27,7 +27,7 @@
         </td><td>
             <a href="@Url.Action("Details", "User", new { id = item.SpeakerUserId })">@item.SpeakerName</a>
         </td><td>
-            <div id="progressbar@(item.SessionId)" data-value="@item.NumberOfVotes"></div>
+            <div id="progressbar@(item.SessionId)" data-value-max="@Model.HighestVoteCount" data-value-current="@item.NumberOfVotes"></div>
             @Html.DisplayFor(modelItem => item.NumberOfVotes)
         </td></tr>
     }
@@ -36,13 +36,5 @@
 
 @section scripts
 {
-    <script>
-        $('div[id^="progressbar"]').each(function() {
-            var votes = parseInt($(this).attr("data-value"));
-            $(this).progressbar({
-                max: @Model.HighestVoteCount,
-                value: votes
-            });
-        });
-    </script>
+    @Scripts.Render("~/bundles/progressbar")
 }

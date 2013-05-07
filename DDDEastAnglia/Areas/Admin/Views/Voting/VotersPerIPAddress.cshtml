@@ -28,7 +28,7 @@
                 <span id="resolved@(item.IPAddress.Replace(".", "-"))"></span>
             </div>
         </td><td>
-            <div id="progressbar@(item.IPAddress)" data-value="@item.NumberOfVoters"></div>
+            <div id="progressbar@(item.IPAddress)" data-value-max="@Model.HighestNumberOfVoters" data-value-current="@item.NumberOfVoters"></div>
             @Html.ActionLink(item.NumberOfVoters.ToString(), "VotesForIPAddress", new { ipAddress = item.IPAddress})
         </td></tr>
     }
@@ -38,15 +38,8 @@
 @section scripts
 {
     @Scripts.Render("~/bundles/resolveIPAddress")
+    @Scripts.Render("~/bundles/progressbar")
     <script>
-        $('div[id^="progressbar"]').each(function() {
-            var votes = parseInt($(this).attr("data-value"));
-            $(this).progressbar({
-                max: @Model.HighestNumberOfVoters,
-                value: votes
-            });
-        });
-
         function resolveIP(linkId, address, outputId) {
             var postUrl = '@Url.Action("LookupIPAddress")';
             resolveIPAddress(linkId, address, outputId, postUrl);

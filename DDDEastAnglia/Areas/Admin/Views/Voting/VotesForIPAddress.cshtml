@@ -19,7 +19,7 @@
         <tr><td>
             @Html.DisplayFor(modelItem => item.CookieId)
         </td><td>
-            <div id="progressbar@(item.NumberOfVotes)" data-value="@item.NumberOfVotes"></div>
+            <div id="progressbar@(item.NumberOfVotes)" data-value-max="@Model.HighestNumberOfVotes" data-value-current="@item.NumberOfVotes"></div>
             @Html.DisplayFor(modelItem => item.NumberOfVotes)
         </td></tr>
     }
@@ -28,13 +28,5 @@
 
 @section scripts
 {
-    <script>
-        $('div[id^="progressbar"]').each(function() {
-            var votes = parseInt($(this).attr("data-value"));
-            $(this).progressbar({
-                max: @Model.HighestNumberOfVotes,
-                value: votes
-            });
-        });
-    </script>
+    @Scripts.Render("~/bundles/progressbar")
 }
