@@ -14,6 +14,7 @@ namespace DDDEastAnglia.Areas.Admin.Models
         public int NumberOfDaysOfVotingPassed{get;set;}
         public int NumberOfDaysOfVotingRemaining{get;set;}
         public int NumberOfDaysOfVoting{get;set;}
+        public int VotingCompletePercentage{get;set;}
         public DateTime VotingStartDate{get;set;}
         public DateTime VotingEndDate{get;set;}
     }
