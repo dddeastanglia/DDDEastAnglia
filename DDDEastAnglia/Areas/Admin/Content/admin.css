@@ -73,3 +73,7 @@ th.barchart, td.barchart {
 .ui-progressbar-value {
     background: #008600;
 }
+
+.votedSessions {
+    padding-left: 30px;
+}

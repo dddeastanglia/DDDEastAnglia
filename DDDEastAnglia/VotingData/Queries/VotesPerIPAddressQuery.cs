@@ -20,9 +20,11 @@ namespace DDDEastAnglia.VotingData.Queries
             get
             {
                 const string sql = @"
-SELECT CookieId, COUNT(CookieId) AS VoteCount FROM Votes WHERE IPAddress LIKE '{0}'
+SELECT CookieId, COUNT(CookieId) AS VoteCount
+FROM Votes
+WHERE IPAddress LIKE '{0}'
 GROUP BY CookieId
-ORDER BY COUNT(CookieId) DESC
+ORDER BY VoteCount DESC
 ";
                 return string.Format(sql, ipAddress);
             }

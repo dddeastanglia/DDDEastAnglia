@@ -10,7 +10,10 @@ namespace DDDEastAnglia.VotingData.Queries
             get
             {
                 return @"
-SELECT IPAddress, COUNT(IPAddress) AS VoteCount FROM Votes GROUP BY IPAddress ORDER BY COUNT(IPAddress) DESC";
+SELECT IPAddress, COUNT(IPAddress) AS VoteCount
+FROM Votes
+GROUP BY IPAddress
+ORDER BY VoteCount DESC";
             }
         }
 

@@ -127,5 +127,19 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
                 };
             return View(model);
         }
+
+        public ActionResult KnownUserVotes()
+        {
+            var knownUserVotes = dataProvider.GetKnownUserVotes();
+            return View(knownUserVotes);
+        }
+
+        [HttpPost]
+        [AllowCrossSiteJson]
+        public ActionResult GetSessionsVotedForByUser(int userId)
+        {
+            var sessionsVotedFor = dataProvider.GetVotedForSessions(userId);
+            return PartialView("_VotedForSessions", sessionsVotedFor);
+        }
     }
 }

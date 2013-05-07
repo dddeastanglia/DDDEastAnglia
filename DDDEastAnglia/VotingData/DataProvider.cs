@@ -167,5 +167,17 @@ namespace DDDEastAnglia.VotingData
             var votesPerIPAddress = queryRunner.RunQuery(new VotesPerIPAddressQuery(ipAddress));
             return votesPerIPAddress;
         }
+
+        public IList<UserVoteCountModel> GetKnownUserVotes()
+        {
+            var knownUserVotes = queryRunner.RunQuery(new KnownUsersVotingQuery());
+            return knownUserVotes;
+        }
+
+        public IList<VotedSessionModel> GetVotedForSessions(int userId)
+        {
+            var sessionsVotedFor = queryRunner.RunQuery(new KnownUserVotedSessionsQuery(userId));
+            return sessionsVotedFor;
+        }
     }
 }

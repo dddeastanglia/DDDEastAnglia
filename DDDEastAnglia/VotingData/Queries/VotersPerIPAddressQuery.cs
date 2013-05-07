@@ -10,7 +10,8 @@ namespace DDDEastAnglia.VotingData.Queries
             get 
             {
                 return @"
-SELECT CookieVsIPAddress.IPAddress, COUNT(CookieVsIPAddress.CookieId) AS VoterCount FROM
+SELECT CookieVsIPAddress.IPAddress, COUNT(CookieVsIPAddress.CookieId) AS VoterCount
+FROM
 (
     SELECT IPAddress, CookieId FROM Votes
     GROUP BY IPAddress, CookieId

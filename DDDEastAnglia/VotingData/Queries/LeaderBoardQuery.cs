@@ -25,7 +25,7 @@ FROM Sessions s
 JOIN Votes v ON v.SessionId = s.SessionId
 JOIN UserProfile u ON u.UserName = s.SpeakerUserName
 GROUP BY s.SessionId, s.Title, u.UserId, u.Name
-ORDER BY COUNT(v.SessionId) DESC", 
+ORDER BY VoteCount DESC", 
                                  limit == int.MaxValue ? "" : "TOP " + limit);
             }
         }

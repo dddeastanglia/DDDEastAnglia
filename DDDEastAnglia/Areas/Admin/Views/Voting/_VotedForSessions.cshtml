@@ -1,0 +1,12 @@
+﻿@model IList<DDDEastAnglia.VotingData.Models.VotedSessionModel>
+
+<table class="table table-striped table-hover table-condensed table-bordered">
+    @foreach (var votedSession in Model)
+    {
+        <tr><td>
+            <a href="@Url.Action("Details", "Session", new { area = "", id = votedSession.SessionId })">@votedSession.SessionTitle</a> 
+        </td><td>
+            <a href="@Url.Action("Details", "Speaker", new { area = "", id = votedSession.SpeakerUserId })">@votedSession.SpeakerName</a> 
+        </td></tr>
+    }
+</table>
