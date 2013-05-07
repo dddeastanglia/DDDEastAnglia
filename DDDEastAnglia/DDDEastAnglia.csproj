@@ -202,7 +202,7 @@
     <Compile Include="Areas\Admin\Models\IPAddressStatsViewModel.cs" />
     <Compile Include="Areas\Admin\Models\LeaderboardViewModel.cs" />
     <Compile Include="Areas\Admin\Models\VotesPerDateTimeViewModel.cs" />
-    <Compile Include="Helpers\JavasctiptDateTimes.cs" />
+    <Compile Include="Helpers\JavaScriptDateTimes.cs" />
     <Compile Include="VotingData\DataProvider.cs" />
     <Compile Include="VotingData\IQueryResultObjectFactory.cs" />
     <Compile Include="VotingData\Models\IPAddressModel.cs" />
