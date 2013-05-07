@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Configuration;
 using System.Web.Mvc;
 using DDDEastAnglia.Areas.Admin.Models;
 using DDDEastAnglia.Helpers;
@@ -17,12 +16,13 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
         private readonly DataProvider dataProvider;
         private readonly DnsLookup dnsLookup;
 
-        public VotingController()
+        public VotingController() : this(DataProviderFactory.Create(), new DnsLookup())
+        {}
+
+        public VotingController(DataProvider dataProvider, DnsLookup dnsLookup)
         {
-            var connectionStringSettings = ConfigurationManager.ConnectionStrings["DDDEastAnglia"];
-            var queryRunner = new QueryRunner(connectionStringSettings.ConnectionString);
-            dataProvider = new DataProvider(queryRunner);
-            dnsLookup = new DnsLookup();
+            this.dataProvider = dataProvider;
+            this.dnsLookup = dnsLookup;
         }
 
         public ActionResult Index()
