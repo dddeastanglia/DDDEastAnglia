@@ -72,7 +72,10 @@ namespace DDDEastAnglia.VotingData
         {
             using (var context = new DDDEAContext())
             {
-                CalendarItem votingDates = context.Conferences.Include("CalendarItems").First().CalendarItems.Single(c => c.EntryType == CalendarEntryType.Voting);
+                CalendarItem votingDates = context.Conferences.Include("CalendarItems")
+                                                  .First()
+                                                  .CalendarItems
+                                                  .Single(c => c.EntryType == CalendarEntryType.Voting);
                 return callback(votingDates);
             }
         }
