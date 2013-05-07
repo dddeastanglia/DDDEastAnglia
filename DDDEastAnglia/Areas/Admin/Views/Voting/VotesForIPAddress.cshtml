@@ -1,4 +1,5 @@
-﻿@model DDDEastAnglia.Areas.Admin.Models.VotesForIpAddressViewModel
+﻿@using DDDEastAnglia.Helpers
+@model DDDEastAnglia.Areas.Admin.Models.VotesForIpAddressViewModel
 
 <h2>Voters for IP Address @Model.IPAddress</h2>
 
@@ -17,6 +18,7 @@
     @foreach (var item in @Model.DistinctVotes)
     {
         <tr><td>
+                <img src="@(new GravatarUrl().GetUrl(item.CookieId.ToString(), useIdenticon: true))" width="32" height="32" />
             @Html.DisplayFor(modelItem => item.CookieId)
         </td><td>
             <div id="progressbar@(item.NumberOfVotes)" data-value-max="@Model.HighestNumberOfVotes" data-value-current="@item.NumberOfVotes"></div>
