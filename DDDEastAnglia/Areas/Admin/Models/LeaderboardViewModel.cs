@@ -6,6 +6,6 @@ namespace DDDEastAnglia.Areas.Admin.Models
     public class LeaderboardViewModel
     {
         public int HighestVoteCount{get;set;}
-        public IList<LeaderBoardSession> Sessions{get;set;}
+        public IList<SessionLeaderBoardEntry> Sessions{get;set;}
     }
 }

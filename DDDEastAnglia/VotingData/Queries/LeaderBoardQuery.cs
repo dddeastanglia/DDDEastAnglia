@@ -4,7 +4,7 @@ using DDDEastAnglia.VotingData.Models;
 
 namespace DDDEastAnglia.VotingData.Queries
 {
-    public class LeaderBoardQuery : IQuery<LeaderBoardSession>
+    public class LeaderBoardQuery : IQuery<SessionLeaderBoardEntry>
     {
         private readonly int limit;
 
@@ -30,7 +30,7 @@ ORDER BY COUNT(v.SessionId) DESC",
             }
         }
 
-        public IQueryResultObjectFactory<LeaderBoardSession> ObjectFactory
+        public IQueryResultObjectFactory<SessionLeaderBoardEntry> ObjectFactory
         {
             get
             {
@@ -38,9 +38,9 @@ ORDER BY COUNT(v.SessionId) DESC",
             }
         }
 
-        private class LeaderBoardSessionFactory : IQueryResultObjectFactory<LeaderBoardSession>
+        private class LeaderBoardSessionFactory : IQueryResultObjectFactory<SessionLeaderBoardEntry>
         {
-            public LeaderBoardSession Create(IDataReader reader)
+            public SessionLeaderBoardEntry Create(IDataReader reader)
             {
                 int position = Convert.ToInt32(reader.GetInt64(reader.GetOrdinal("Position")));
                 int sessionId = reader.GetInt32(reader.GetOrdinal("SessionId"));
@@ -49,7 +49,7 @@ ORDER BY COUNT(v.SessionId) DESC",
                 string speakerName = reader.GetString(reader.GetOrdinal("SpeakerName"));
                 int numberOfVotes = reader.GetInt32(reader.GetOrdinal("VoteCount"));
 
-                return new LeaderBoardSession
+                return new SessionLeaderBoardEntry
                     {
                         Position = position,
                         SessionId = sessionId,

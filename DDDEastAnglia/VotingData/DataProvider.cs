@@ -85,7 +85,7 @@ namespace DDDEastAnglia.VotingData
             }
         }
 
-        public IList<LeaderBoardSession> GetLeaderBoard(int limit)
+        public IList<SessionLeaderBoardEntry> GetLeaderBoard(int limit)
         {
             var leaderBoardSessions = queryRunner.RunQuery(new LeaderBoardQuery(limit));
             return leaderBoardSessions;

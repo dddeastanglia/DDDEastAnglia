@@ -1,6 +1,6 @@
 ﻿namespace DDDEastAnglia.VotingData.Models
 {
-    public class LeaderBoardSession
+    public class SessionLeaderBoardEntry
     {
         public int Position{get;set;}
         public int SessionId{get;set;}
