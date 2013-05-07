@@ -24,11 +24,11 @@ ORDER BY VoterCount DESC";
         {
             get
             {
-                return new CookieVoteModelFactory();
+                return new IPAddressVoterModelFactory();
             }
         }
 
-        private class CookieVoteModelFactory : IQueryResultObjectFactory<IPAddressVoterModel>
+        private class IPAddressVoterModelFactory : IQueryResultObjectFactory<IPAddressVoterModel>
         {
             public IPAddressVoterModel Create(IDataReader reader)
             {
