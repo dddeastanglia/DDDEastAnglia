@@ -4,6 +4,7 @@ using System.Linq;
 using DDDEastAnglia.DataAccess.EntityFramework;
 using DDDEastAnglia.DataAccess.EntityFramework.Models;
 using DDDEastAnglia.Domain.Calendar;
+using DDDEastAnglia.Helpers;
 using DDDEastAnglia.VotingData.Models;
 using DDDEastAnglia.VotingData.Queries;
 
@@ -170,7 +171,7 @@ namespace DDDEastAnglia.VotingData
 
         public IList<KnownUserVoteCountModel> GetKnownUserVotes()
         {
-            var knownUserVotes = queryRunner.RunQuery(new KnownUsersVotingQuery());
+            var knownUserVotes = queryRunner.RunQuery(new KnownUsersVotingQuery(new GravatarUrl()));
             return knownUserVotes;
         }
 
@@ -182,7 +183,7 @@ namespace DDDEastAnglia.VotingData
 
         public IList<AnonymousUserVoteCountModel> GetAnonymousUserVotes()
         {
-            var anonymousUserVotes = queryRunner.RunQuery(new AnonymousUsersVotingQuery());
+            var anonymousUserVotes = queryRunner.RunQuery(new AnonymousUsersVotingQuery(new GravatarUrl()));
             return anonymousUserVotes;
         }
 

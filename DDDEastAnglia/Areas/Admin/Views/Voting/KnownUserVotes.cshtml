@@ -9,6 +9,7 @@
         @foreach (var item in Model)
         {
             <tr><td>
+                <img src="@item.GravatarUrl" width="32" height="32" alt="@item.Name" title="@item.Name"/>
                 <a id="link@(item.UserId)" href="#" onclick="javascript:expand('@item.UserId'); return false;"><i id="icon@(item.UserId)" class="icon-chevron-right"></i> @item.Name</a>
                 <div class="votedSessions" id="placeholder@(item.UserId)"></div>
             </td><td>
