@@ -84,7 +84,7 @@ namespace DDDEastAnglia.VotingData
         {
             using (var context = new DDDEAContext())
             {
-                return context.Votes.AsEnumerable().GroupBy(v => v.CookieId).Count();
+                return context.Votes.GroupBy(v => v.CookieId).Count();
             }
         }
 
