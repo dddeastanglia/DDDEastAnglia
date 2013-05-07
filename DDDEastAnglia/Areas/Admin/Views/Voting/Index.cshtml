@@ -48,8 +48,9 @@
             <ul>
                 <li>@Html.ActionLink("Votes for the top 15 sessions", "Leaderboard", new {limit = 15})</li>
                 <li>@Html.ActionLink("Votes for all sessions", "Leaderboard")</li>
-                <li>'Normalised' top 15 sessions</li>
-                <li>'Normalised' sessions</li>
+                <li>TODO: 'Normalised' top 15 sessions (normalised takes out duplicate votes per IP address</li>
+                <li>TODO: 'Normalised' sessions</li>
+                <li>TODO: top X sessions with no duplicate speakers</li>
             </ul>
         </div>
     </div>
@@ -70,7 +71,7 @@
             <ul>
                 <li>@Html.ActionLink("Votes per IP address", "IPAddresses")</li>
                 <li>@Html.ActionLink("Voters per IP address", "VotersPerIPAddress")</li>
-                <li>The sessions that each IP addresses has voted for (i.e. total votes per session, regardless of user)</li>
+                <li>TODO: The sessions that each IP addresses has voted for (i.e. total votes per session, regardless of user)</li>
             </ul>
         </div>
     </div>
