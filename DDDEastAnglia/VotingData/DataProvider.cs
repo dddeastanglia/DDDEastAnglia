@@ -95,7 +95,7 @@ namespace DDDEastAnglia.VotingData
             return leaderBoardSessions;
         }
 
-        public IList<IPAddressModel> GetDistinctIPAddresses()
+        public IList<VotesForIPAddressModel> GetDistinctIPAddresses()
         {
             var distinctIPAddresses = queryRunner.RunQuery(new DistinctIPAddressQuery());
             return distinctIPAddresses;

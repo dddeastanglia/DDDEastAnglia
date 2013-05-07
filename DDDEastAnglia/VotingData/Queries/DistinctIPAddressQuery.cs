@@ -3,7 +3,7 @@ using DDDEastAnglia.VotingData.Models;
 
 namespace DDDEastAnglia.VotingData.Queries
 {
-    public class DistinctIPAddressQuery : IQuery<IPAddressModel>
+    public class DistinctIPAddressQuery : IQuery<VotesForIPAddressModel>
     {
         public string Sql
         {
@@ -17,7 +17,7 @@ ORDER BY VoteCount DESC";
             }
         }
 
-        public IQueryResultObjectFactory<IPAddressModel> ObjectFactory
+        public IQueryResultObjectFactory<VotesForIPAddressModel> ObjectFactory
         {
             get
             {
@@ -25,14 +25,14 @@ ORDER BY VoteCount DESC";
             }
         }
 
-        private class IPAddressModelFactory : IQueryResultObjectFactory<IPAddressModel>
+        private class IPAddressModelFactory : IQueryResultObjectFactory<VotesForIPAddressModel>
         {
-            public IPAddressModel Create(IDataReader reader)
+            public VotesForIPAddressModel Create(IDataReader reader)
             {
                 string ipAddress = reader.GetString(reader.GetOrdinal("IPAddress"));
                 int numberOfVotes = reader.GetInt32(reader.GetOrdinal("VoteCount"));
 
-                return new IPAddressModel
+                return new VotesForIPAddressModel
                     {
                         IPAddress = ipAddress,
                         NumberOfVotes = numberOfVotes

@@ -207,7 +207,7 @@
     <Compile Include="Helpers\JavaScriptDateTimes.cs" />
     <Compile Include="VotingData\DataProvider.cs" />
     <Compile Include="VotingData\IQueryResultObjectFactory.cs" />
-    <Compile Include="VotingData\Models\IPAddressModel.cs" />
+    <Compile Include="VotingData\Models\VotesForIPAddressModel.cs" />
     <Compile Include="VotingData\Models\IPAddressVoterModel.cs" />
     <Compile Include="VotingData\Models\SessionLeaderBoardEntry.cs" />
     <Compile Include="VotingData\Models\KnownUserVoteCountModel.cs" />
