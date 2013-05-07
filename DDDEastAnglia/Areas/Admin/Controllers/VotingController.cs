@@ -1,10 +1,10 @@
-﻿using System.Configuration;
-using System.Net;
+﻿using System.Linq;
+using System.Configuration;
 using System.Web.Mvc;
 using DDDEastAnglia.Areas.Admin.Models;
+using DDDEastAnglia.Helpers;
 using DDDEastAnglia.Mvc.Attributes;
 using DDDEastAnglia.VotingData;
-using System.Linq;
 
 namespace DDDEastAnglia.Areas.Admin.Controllers
 {
@@ -12,11 +12,13 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
     public class VotingController : Controller
     {
         private readonly DataProvider dataProvider;
+        private readonly DnsLookup dnsLookup;
 
         public VotingController()
         {
             var connectionStringSettings = ConfigurationManager.ConnectionStrings["DDDEastAnglia"];
             dataProvider = new DataProvider(connectionStringSettings.ConnectionString);
+            dnsLookup = new DnsLookup();
         }
 
         public ActionResult Index()
@@ -66,18 +68,7 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
         [AllowCrossSiteJson]
         public ContentResult LookupIPAddress(string ipAddress)
         {
-            string hostName;
-
-            try
-            {
-                var ipHostEntry = Dns.GetHostEntry(ipAddress);
-                hostName = ipHostEntry.HostName;
-            }
-            catch
-            {
-                hostName = "[unknown]";
-            }
-
+            string hostName = dnsLookup.Resolve(ipAddress);
             return Content(hostName);
         }
 

@@ -196,6 +196,7 @@
     <Compile Include="Areas\Admin\Models\VotersPerIPAddressViewModel.cs" />
     <Content Include="Scripts\resolveIPAddress.js" />
     <Compile Include="Areas\Admin\Models\VotesForIpAddressViewModel.cs" />
+    <Compile Include="Helpers\DnsLookup.cs" />
     <Compile Include="VotingData\Models\CookieVoteModel.cs" />
     <Compile Include="VotingData\Models\DateTimeVoteModel.cs" />
     <Compile Include="Areas\Admin\Models\IPAddressStatsViewModel.cs" />
