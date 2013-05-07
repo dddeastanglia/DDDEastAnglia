@@ -117,11 +117,13 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
 
         public ActionResult VotesForIPAddress(string ipAddress)
         {
+            var hostName = dnsLookup.Resolve(ipAddress);
             var votesForIPAddress = dataProvider.GetVotesPerCookieIPAddress(ipAddress);
             int highestNumberOfVotes = votesForIPAddress.Max(v => v.NumberOfVotes);
             var model = new VotesForIpAddressViewModel
                 {
                     IPAddress = ipAddress,
+                    HostName = hostName,
                     HighestNumberOfVotes = highestNumberOfVotes,
                     DistinctVotes = votesForIPAddress
                 };
