@@ -1,4 +1,4 @@
-﻿@model IList<DDDEastAnglia.VotingData.Models.UserVoteCountModel>
+﻿@model IList<DDDEastAnglia.VotingData.Models.KnownUserVoteCountModel>
 
 <h2>Votes cast by known users</h2>
 
@@ -9,7 +9,7 @@
         @foreach (var item in Model)
         {
             <tr><td>
-                <a id="link@(item.UserId)" href="#" onclick="javascript:expand(@item.UserId); return false;"><i id="icon@(item.UserId)" class="icon-chevron-right"></i> @item.Name</a>
+                <a id="link@(item.UserId)" href="#" onclick="javascript:expand('@item.UserId'); return false;"><i id="icon@(item.UserId)" class="icon-chevron-right"></i> @item.Name</a>
                 <div class="votedSessions" id="placeholder@(item.UserId)"></div>
             </td><td>
                 <div class="pull-right">@item.NumberOfVotes votes</div>
@@ -22,7 +22,7 @@
 {
     <script>
         function expand(userId) {
-            var postUrl = '@Url.Action("GetSessionsVotedForByUser")';
+            var postUrl = '@Url.Action("GetSessionsVotedForByKnownUser")';
             $.post(
                 postUrl,
                 { userId: userId }

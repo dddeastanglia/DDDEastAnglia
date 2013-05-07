@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Configuration;
 using System.Web.Mvc;
@@ -136,9 +137,23 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
 
         [HttpPost]
         [AllowCrossSiteJson]
-        public ActionResult GetSessionsVotedForByUser(int userId)
+        public ActionResult GetSessionsVotedForByKnownUser(int userId)
         {
             var sessionsVotedFor = dataProvider.GetVotedForSessions(userId);
+            return PartialView("_VotedForSessions", sessionsVotedFor);
+        }
+
+        public ActionResult AnonymousUserVotes()
+        {
+            var anonymousUserVotes = dataProvider.GetAnonymousUserVotes();
+            return View(anonymousUserVotes);
+        }
+
+        [HttpPost]
+        [AllowCrossSiteJson]
+        public ActionResult GetSessionsVotedForByAnonymousUser(Guid cookieId)
+        {
+            var sessionsVotedFor = dataProvider.GetVotedForSessions(cookieId);
             return PartialView("_VotedForSessions", sessionsVotedFor);
         }
     }

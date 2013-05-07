@@ -1,14 +1,15 @@
-﻿using DDDEastAnglia.VotingData.Models;
+﻿using System;
+using DDDEastAnglia.VotingData.Models;
 
 namespace DDDEastAnglia.VotingData.Queries
 {
-    public class KnownUserVotedSessionsQuery : IQuery<VotedSessionModel>
+    public class AnonymousUserVotedSessionsQuery : IQuery<VotedSessionModel>
     {
-        private readonly int userId;
+        private readonly Guid cookieId;
 
-        public KnownUserVotedSessionsQuery(int userId)
+        public AnonymousUserVotedSessionsQuery(Guid cookieId)
         {
-            this.userId = userId;
+            this.cookieId = cookieId;
         }
 
         public string Sql
@@ -20,9 +21,9 @@ SELECT s.SessionId AS SessionId, s.Title AS SessionTitle, p.UserId AS SpeakerUse
 FROM Votes v, Sessions s, UserProfile p
 WHERE v.SessionId = s.SessionId
 AND s.SpeakerUserName = p.UserName
-AND v.UserId = {0}
+AND v.CookieId = '{0}'
 ORDER BY SpeakerName",
-                   userId);
+                   cookieId);
             }
         }
 

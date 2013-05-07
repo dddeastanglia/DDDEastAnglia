@@ -1,6 +1,6 @@
 ﻿namespace DDDEastAnglia.VotingData.Models
 {
-    public class UserVoteCountModel
+    public class KnownUserVoteCountModel
     {
         public int UserId{get;set;} 
         public string Name{get;set;} 

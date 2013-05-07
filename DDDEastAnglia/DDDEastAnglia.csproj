@@ -199,6 +199,7 @@
     <Compile Include="Helpers\DnsLookup.cs" />
     <Content Include="Scripts\progressbar.js" />
     <Compile Include="VotingData\Models\CookieVoteModel.cs" />
+    <Compile Include="VotingData\Models\AnonymousUserVoteCountModel.cs" />
     <Compile Include="VotingData\Models\DateTimeVoteModel.cs" />
     <Compile Include="Areas\Admin\Models\IPAddressStatsViewModel.cs" />
     <Compile Include="Areas\Admin\Models\LeaderboardViewModel.cs" />
@@ -208,13 +209,16 @@
     <Compile Include="VotingData\Models\IPAddressModel.cs" />
     <Compile Include="VotingData\Models\IPAddressVoterModel.cs" />
     <Compile Include="VotingData\Models\SessionLeaderBoardEntry.cs" />
-    <Compile Include="VotingData\Models\UserVoteCountModel.cs" />
+    <Compile Include="VotingData\Models\KnownUserVoteCountModel.cs" />
     <Compile Include="VotingData\Models\VotedSessionModel.cs" />
+    <Compile Include="VotingData\Queries\AnonymousUsersVotingQuery.cs" />
+    <Compile Include="VotingData\Queries\AnonymousUserVotedSessionsQuery.cs" />
     <Compile Include="VotingData\Queries\DistinctIPAddressQuery.cs" />
     <Compile Include="VotingData\Queries\KnownUsersVotingQuery.cs" />
     <Compile Include="VotingData\Queries\LeaderBoardQuery.cs" />
     <Compile Include="VotingData\Queries\IQuery.cs" />
     <Compile Include="VotingData\Queries\KnownUserVotedSessionsQuery.cs" />
+    <Compile Include="VotingData\Queries\VotedSessionModelFactory.cs" />
     <Compile Include="VotingData\Queries\VotersPerIPAddressQuery.cs" />
     <Compile Include="VotingData\Queries\VotesPerIPAddressQuery.cs" />
     <Compile Include="VotingData\QueryRunner.cs" />
@@ -480,6 +484,7 @@
     <Content Include="Areas\Admin\Views\Voting\VotesForIPAddress.cshtml" />
     <Content Include="Areas\Admin\Views\Voting\KnownUserVotes.cshtml" />
     <Content Include="Areas\Admin\Views\Voting\_VotedForSessions.cshtml" />
+    <Content Include="Areas\Admin\Views\Voting\AnonymousUserVotes.cshtml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\html5shiv-printshiv.js" />

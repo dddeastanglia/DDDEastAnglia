@@ -3,7 +3,7 @@ using DDDEastAnglia.VotingData.Models;
 
 namespace DDDEastAnglia.VotingData.Queries
 {
-    public class KnownUsersVotingQuery : IQuery<UserVoteCountModel>
+    public class KnownUsersVotingQuery : IQuery<KnownUserVoteCountModel>
     {
         public string Sql
         {
@@ -17,7 +17,7 @@ ORDER BY VoteCount DESC";
             }
         }
 
-        public IQueryResultObjectFactory<UserVoteCountModel> ObjectFactory
+        public IQueryResultObjectFactory<KnownUserVoteCountModel> ObjectFactory
         {
             get
             {
@@ -25,16 +25,16 @@ ORDER BY VoteCount DESC";
             }
         }
 
-        private class UserVoteCountModelFactory : IQueryResultObjectFactory<UserVoteCountModel>
+        private class UserVoteCountModelFactory : IQueryResultObjectFactory<KnownUserVoteCountModel>
         {
-            public UserVoteCountModel Create(IDataReader reader)
+            public KnownUserVoteCountModel Create(IDataReader reader)
             {
                 int userId = reader.GetInt32(reader.GetOrdinal("UserId"));
                 string name = reader.GetString(reader.GetOrdinal("Name"));
                 string username = reader.GetString(reader.GetOrdinal("UserName"));
                 int numberOfVotes = reader.GetInt32(reader.GetOrdinal("VoteCount"));
 
-                return new UserVoteCountModel
+                return new KnownUserVoteCountModel
                     {
                         UserId = userId,
                         Name = name ?? username,

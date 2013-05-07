@@ -168,7 +168,7 @@ namespace DDDEastAnglia.VotingData
             return votesPerIPAddress;
         }
 
-        public IList<UserVoteCountModel> GetKnownUserVotes()
+        public IList<KnownUserVoteCountModel> GetKnownUserVotes()
         {
             var knownUserVotes = queryRunner.RunQuery(new KnownUsersVotingQuery());
             return knownUserVotes;
@@ -177,6 +177,18 @@ namespace DDDEastAnglia.VotingData
         public IList<VotedSessionModel> GetVotedForSessions(int userId)
         {
             var sessionsVotedFor = queryRunner.RunQuery(new KnownUserVotedSessionsQuery(userId));
+            return sessionsVotedFor;
+        }
+
+        public IList<AnonymousUserVoteCountModel> GetAnonymousUserVotes()
+        {
+            var anonymousUserVotes = queryRunner.RunQuery(new AnonymousUsersVotingQuery());
+            return anonymousUserVotes;
+        }
+
+        public IList<VotedSessionModel> GetVotedForSessions(Guid cookieId)
+        {
+            var sessionsVotedFor = queryRunner.RunQuery(new AnonymousUserVotedSessionsQuery(cookieId));
             return sessionsVotedFor;
         }
     }
