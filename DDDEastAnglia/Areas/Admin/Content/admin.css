@@ -30,10 +30,6 @@ a.btn, .dropdown-menu a, a.brand, a [class^="icon-"] { text-decoration: none; }
     text-align: right;
 }
 
-.table i {
-    padding-left: 10px;
-}
-
 .dropdown-menu > li > form {
     margin-bottom: 0;
 }

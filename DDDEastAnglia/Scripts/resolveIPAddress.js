@@ -7,7 +7,7 @@
 
 function resolveIPAddress(linkId, address, outputId, postUrl) {
     var link = $('#' + linkId);
-    link.replaceWith('<i id="' + linkId + '" class="icon-exchange"></i>');
+    link.replaceWith('<i id="' + linkId + '" class="icon-spin icon-spinner"></i>');
     $.post(
         postUrl,
         { ipAddress: address }
