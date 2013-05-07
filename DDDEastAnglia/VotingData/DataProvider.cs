@@ -13,14 +13,14 @@ namespace DDDEastAnglia.VotingData
     {
         private readonly QueryRunner queryRunner;
 
-        public DataProvider(string connectionString)
+        public DataProvider(QueryRunner queryRunner)
         {
-            if (connectionString == null)
+            if (queryRunner == null)
             {
-                throw new ArgumentNullException("connectionString");
+                throw new ArgumentNullException("queryRunner");
             }
             
-            this.queryRunner = new QueryRunner(connectionString);
+            this.queryRunner = queryRunner;
         }
 
         public int GetTotalVoteCount()

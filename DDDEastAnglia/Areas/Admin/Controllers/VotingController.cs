@@ -17,7 +17,8 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
         public VotingController()
         {
             var connectionStringSettings = ConfigurationManager.ConnectionStrings["DDDEastAnglia"];
-            dataProvider = new DataProvider(connectionStringSettings.ConnectionString);
+            var queryRunner = new QueryRunner(connectionStringSettings.ConnectionString);
+            dataProvider = new DataProvider(queryRunner);
             dnsLookup = new DnsLookup();
         }
 
