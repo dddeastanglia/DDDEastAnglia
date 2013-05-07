@@ -5,7 +5,7 @@
 <p>This shows number of votes per IP address.</p>
 
 <div>
-    <a id="resolveAllLink" href="#" onclick="javascript:resolveAllIPAddresses(this); return false;"><i class="icon-search"></i> Resolve all</a>
+    <a id="resolveAllLink" href="#" onclick="javascript:resolveAllIPAddresses(this); return false;"><i class="icon-search"></i> Resolve all IP addresses</a>
 </div>
 
 <table class="table table-striped table-hover table-condensed">
@@ -24,7 +24,7 @@
             @Html.DisplayFor(modelItem => item.IPAddress)
             
             <div>
-                <a id="link@(item.IPAddress.Replace(".", "-"))" href="#" onclick="javascript:resolveIP('link@(item.IPAddress.Replace(".", "-"))', '@item.IPAddress', 'resolved@(item.IPAddress.Replace(".", "-"))');return false;"><i class="icon-search"></i></a>
+                <a id="link@(item.IPAddress.Replace(".", "-"))" href="#" onclick="javascript:resolveIP('link@(item.IPAddress.Replace(".", "-"))', '@item.IPAddress', 'resolved@(item.IPAddress.Replace(".", "-"))');return false;" title="Resolve IP address"><i class="icon-search"></i></a>
                 <span id="resolved@(item.IPAddress.Replace(".", "-"))"></span>
             </div>
         </td><td>
