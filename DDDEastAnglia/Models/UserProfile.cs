@@ -1,8 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Security.Cryptography;
-using System.Text;
+using DDDEastAnglia.Helpers;
 
 namespace DDDEastAnglia.Models
 {
@@ -42,30 +41,7 @@ namespace DDDEastAnglia.Models
 
         public string GravatarUrl(int size = 50)
         {
-            if (string.IsNullOrWhiteSpace(EmailAddress))
-            {
-                // deal with missing email addresses
-                return string.Format("http://www.gravatar.com/avatar/0000?s={0}&d=mm&r=pg", size);
-            }
-
-            using (MD5 md5Hasher = MD5.Create())
-            {
-                // Convert the input string to a byte array and compute the hash.  
-                byte[] data = md5Hasher.ComputeHash(Encoding.Default.GetBytes(EmailAddress));
-
-                // Create a new Stringbuilder to collect the bytes  
-                // and create a string.  
-                var builder = new StringBuilder();
-
-                // Loop through each byte of the hashed data  
-                // and format each one as a hexadecimal string.  
-                for (int i = 0; i < data.Length; i++)
-                {
-                    builder.Append(data[i].ToString("x2"));
-                }
-
-                return string.Format("http://www.gravatar.com/avatar/{0}?s={1}&d=mm&r=pg", builder, size);
-            }
+            return new GravatarUrl().GetUrl(EmailAddress, size: size);
         }
     }
 }
