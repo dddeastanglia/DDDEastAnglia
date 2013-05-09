@@ -1,28 +1,43 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using DDDEastAnglia.Areas.Admin.Models;
 using DDDEastAnglia.Helpers;
 using DDDEastAnglia.Mvc.Attributes;
 using DDDEastAnglia.VotingData;
-using DDDEastAnglia.VotingData.Models;
 
 namespace DDDEastAnglia.Areas.Admin.Controllers
 {
     [Authorize(Roles = "Administrator")]
     public class VotingController : Controller
     {
-        private readonly DataProvider dataProvider;
-        private readonly DnsLookup dnsLookup;
+        private readonly IDataProvider dataProvider;
+        private readonly IDnsLookup dnsLookup;
+        private readonly IChartDataConverter chartDataConverter;
 
-        public VotingController() : this(DataProviderFactory.Create(), new DnsLookup())
+        public VotingController() : this(DataProviderFactory.Create(), new DnsLookup(), new ChartDataConverter())
         {}
 
-        public VotingController(DataProvider dataProvider, DnsLookup dnsLookup)
+        public VotingController(IDataProvider dataProvider, IDnsLookup dnsLookup, IChartDataConverter chartDataConverter)
         {
+            if (dataProvider == null)
+            {
+                throw new ArgumentNullException("dataProvider");
+            }
+
+            if (dnsLookup == null)
+            {
+                throw new ArgumentNullException("dnsLookup");
+            }
+
+            if (chartDataConverter == null)
+            {
+                throw new ArgumentNullException("chartDataConverter");
+            }
+
             this.dataProvider = dataProvider;
             this.dnsLookup = dnsLookup;
+            this.chartDataConverter = chartDataConverter;
         }
 
         public ActionResult Index()
@@ -72,6 +87,11 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
         [AllowCrossSiteJson]
         public ContentResult LookupIPAddress(string ipAddress)
         {
+            if (string.IsNullOrWhiteSpace(ipAddress))
+            {
+                throw new ArgumentException("ipAddress");
+            }
+            
             string hostName = dnsLookup.Resolve(ipAddress);
             return Content(hostName);
         }
@@ -79,29 +99,15 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
         public ActionResult VotesPerDay()
         {
             var votesPerDay = dataProvider.GetVotesPerDay();
-            var chartData = GetChartData(votesPerDay);
+            var chartData = chartDataConverter.ToChartData(votesPerDay);
             return View(chartData);
         }
 
         public ActionResult VotesPerHour()
         {
             var votesPerHour = dataProvider.GetVotesPerHour();
-            var chartData = GetChartData(votesPerHour);
+            var chartData = chartDataConverter.ToChartData(votesPerHour);
             return View(chartData);
-        }
-
-        private long[][] GetChartData(IList<DateTimeVoteModel> voteData)
-        {
-            long[][] chartData = new long[voteData.Count][];
-
-            foreach (var item in voteData.Select((v, i) => new {Index = i, Vote = v}))
-            {
-                var vote = item.Vote;
-                long javascriptTimestamp = vote.Date.GetJavascriptTimestamp();
-                chartData[item.Index] = new[] {javascriptTimestamp, vote.VoteCount};
-            }
-
-            return chartData;
         }
 
         public ActionResult VotersPerIPAddress()
@@ -118,7 +124,12 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
 
         public ActionResult VotesForIPAddress(string ipAddress)
         {
-            var votesForIPAddress = dataProvider.GetVotesPerCookieIPAddress(ipAddress);
+            if (string.IsNullOrWhiteSpace(ipAddress))
+            {
+                throw new ArgumentException("ipAddress");
+            }
+            
+            var votesForIPAddress = dataProvider.GetVotesPerIPAddress(ipAddress);
             int highestNumberOfVotes = votesForIPAddress.Max(v => v.NumberOfVotes);
             var model = new VotesForIpAddressViewModel
                 {

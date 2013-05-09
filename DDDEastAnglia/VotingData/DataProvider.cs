@@ -10,7 +10,28 @@ using DDDEastAnglia.VotingData.Queries;
 
 namespace DDDEastAnglia.VotingData
 {
-    public class DataProvider
+    public interface IDataProvider
+    {
+        int GetTotalVoteCount();
+        DateTime GetVotingStartDate();
+        DateTime GetVotingEndDate();
+        int GetNumberOfDaysOfVoting();
+        int GetNumberOfDaysSinceVotingOpened();
+        int GetNumberOfDaysUntilVotingCloses();
+        int GetnumberOfUsersWhoHaveVoted();
+        IList<SessionLeaderBoardEntry> GetLeaderBoard(int limit);
+        IList<VotesForIPAddressModel> GetDistinctIPAddresses();
+        IList<DateTimeVoteModel> GetVotesPerDay();
+        IList<DateTimeVoteModel> GetVotesPerHour();
+        IList<IPAddressVoterModel> GetVotersPerIPAddress();
+        IList<CookieVoteModel> GetVotesPerIPAddress(string ipAddress);
+        IList<KnownUserVoteCountModel> GetKnownUserVotes();
+        IList<VotedSessionModel> GetVotedForSessions(int userId);
+        IList<AnonymousUserVoteCountModel> GetAnonymousUserVotes();
+        IList<VotedSessionModel> GetVotedForSessions(Guid cookieId);
+    }
+
+    public class DataProvider : IDataProvider
     {
         private readonly QueryRunner queryRunner;
 
@@ -163,7 +184,7 @@ namespace DDDEastAnglia.VotingData
             return votersPerIPAddress;
         }
 
-        public IList<CookieVoteModel> GetVotesPerCookieIPAddress(string ipAddress)
+        public IList<CookieVoteModel> GetVotesPerIPAddress(string ipAddress)
         {
             var votesPerIPAddress = queryRunner.RunQuery(new VotesPerIPAddressQuery(ipAddress));
             return votesPerIPAddress;

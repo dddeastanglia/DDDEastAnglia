@@ -77,3 +77,7 @@ th.barchart, td.barchart {
 .votedSessions {
     padding-left: 30px;
 }
+
+.span6 {
+    height: 220px;
+}

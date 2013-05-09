@@ -5,7 +5,7 @@ namespace DDDEastAnglia.VotingData
     // This class can be removed once Ninject is present.
     public static class DataProviderFactory
     {
-        public static DataProvider Create()
+        public static IDataProvider Create()
         {
             var connectionStringSettings = ConfigurationManager.ConnectionStrings["DDDEastAnglia"];
             var queryRunner = new QueryRunner(connectionStringSettings.ConnectionString);

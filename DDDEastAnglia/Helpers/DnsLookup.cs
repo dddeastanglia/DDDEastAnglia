@@ -2,7 +2,12 @@
 
 namespace DDDEastAnglia.Helpers
 {
-    public class DnsLookup
+    public interface IDnsLookup
+    {
+        string Resolve(string ipAddress);
+    }
+
+    public class DnsLookup : IDnsLookup
     {
         public const string UnknownHostName = "[unknown]";
 
