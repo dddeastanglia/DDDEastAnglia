@@ -260,7 +260,6 @@
     <Compile Include="Helpers\ISessionSorter.cs" />
     <Compile Include="Helpers\ISortAlgorithm.cs" />
     <Compile Include="Helpers\ListExtensions.cs" />
-    <Compile Include="Helpers\EmailSender.cs" />
     <Compile Include="Helpers\AppSettings\IAppSettingsProvider.cs" />
     <Compile Include="Helpers\File\FileContentsProvider.cs" />
     <Compile Include="Helpers\Email\IEmailSender.cs" />
