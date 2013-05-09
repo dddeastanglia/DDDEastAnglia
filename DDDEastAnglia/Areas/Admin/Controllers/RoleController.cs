@@ -23,18 +23,20 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
         {
             if (Roles.RoleExists(id))
             {
-                RoleModel model = new RoleModel();
-                model.RoleName = id;
+                RoleModel model = new RoleModel { RoleName = id, roleUsers = new List<RoleUserModel>() };
 
                 foreach (UserProfile user in db.UserProfiles)
                 {
                     if (Roles.IsUserInRole(user.UserName, id))
                     {
-                        model.Users.Add(user.UserName, true);
+                        model.roleUsers.Add(
+                            new RoleUserModel() { IsMember = true, UserId = user.UserId, Username = user.UserName });
                     }
                     else
                     {
-                        model.Users.Add(user.UserName, false);
+                        model.roleUsers.Add(
+                            new RoleUserModel() { IsMember = false, UserId = user.UserId, Username = user.UserName });
+
                     }
                 }
 
@@ -49,20 +51,20 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                foreach (KeyValuePair<string, bool> user in model.Users)
+                foreach (RoleUserModel roleUser in model.roleUsers)
                 {
-                    if (user.Value)
+                    if (roleUser.IsMember)
                     {
-                        if (!Roles.IsUserInRole(model.RoleName, user.Key))
+                        if (!Roles.IsUserInRole(roleUser.Username, model.RoleName))
                         {
-                            Roles.AddUserToRole(model.RoleName, user.Key);
+                            Roles.AddUserToRole(roleUser.Username, model.RoleName);
                         }
                     }
                     else
                     {
-                        if (Roles.IsUserInRole(model.RoleName, user.Key))
+                        if (Roles.IsUserInRole(roleUser.Username, model.RoleName))
                         {
-                            Roles.RemoveUserFromRole(user.Key, model.RoleName);
+                            Roles.RemoveUserFromRole(roleUser.Username, model.RoleName);
                         }
                     }
                 }

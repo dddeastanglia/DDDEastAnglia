@@ -9,6 +9,13 @@ namespace DDDEastAnglia.Areas.Admin.Models
     {
         public string RoleName { get; set; }
 
-        public Dictionary<string, bool> Users { get; set; }
+        public List<RoleUserModel> roleUsers { get; set; }
+    }
+
+    public class RoleUserModel
+    {
+        public string Username { get; set; }
+        public int UserId { get; set; }
+        public bool IsMember { get; set; }
     }
 }

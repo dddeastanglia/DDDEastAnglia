@@ -1,7 +1,31 @@
-﻿@model DDDEastAnglia.Areas.Admin.Models.RoleModel
+﻿@using DDDEastAnglia.Areas.Admin.Models
+@model DDDEastAnglia.Areas.Admin.Models.RoleModel
 
-@{
-    ViewBag.Title = "Manage";
+@section header
+{
+    @Styles.Render("~/Content/admin")
 }
 
 <h2>Manage</h2>
+
+@using (Html.BeginForm("Manage", "Role"))
+{
+    @Html.HiddenFor(r => Model.RoleName)
+    <div>
+        @Model.RoleName
+    </div>
+    <table>
+        @foreach (RoleUserModel roleUser in Model.roleUsers)
+        {
+            <tr>
+                <td>
+                    @Html.HiddenFor(i => roleUser.UserId)
+                    @Html.DisplayTextFor(u => roleUser.Username)
+                </td>
+                <td>@Html.CheckBoxFor(m => roleUser.IsMember)</td>
+            </tr>
+        }
+    </table>
+    <input type="submit" value="Save"/>
+}
+<a href="@Url.Action("Index", "Role")">Back to list</a>
