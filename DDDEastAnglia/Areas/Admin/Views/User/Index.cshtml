@@ -7,6 +7,11 @@
 @section header
 {
     @Styles.Render("~/Content/admin")
+    <style>
+        .newSpeakerValue {
+            display: none;
+        }
+    </style>
 }
 
 <h2>@ViewBag.Title</h2>
@@ -42,14 +47,15 @@
     {
         <tr><td>
             <img src="@item.GravatarUrl" width="32" height="32" alt="@item.Name">
-                @Html.DisplayFor(modelItem => item.UserName)
+            @Html.DisplayFor(modelItem => item.UserName)
         </td><td>
             @Html.DisplayFor(modelItem => item.Name)
-         </td><td>
+        </td><td>
             @Html.DisplayFor(modelItem => item.EmailAddress)
-         </td><td>
-            @Html.DisplayFor(modelItem => item.NewSpeaker)
-         </td><td>
+        </td><td>
+            <i class="@(item.NewSpeaker ? "icon-ok" : "icon-remove")"></i>
+            <span class="newSpeakerValue">@item.NewSpeaker</span>
+        </td><td>
             @Html.DisplayFor(modelItem => item.SubmittedSessionCount)
         </td><td>
             <i class="icon-list-alt"></i> @Html.ActionLink("Details", "Details", new { id = item.UserId })
@@ -66,7 +72,7 @@
 
     <script language="javascript">
         $(document).ready(function() {
-            $("#usersTable").tablesorter({ headers: { 7: { sorter: false } } });
+            $("#usersTable").tablesorter({ headers: { 5: { sorter: false } }});
         });
     </script>
 }
