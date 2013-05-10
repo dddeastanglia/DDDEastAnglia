@@ -1,18 +1,44 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 using DDDEastAnglia.DataAccess.EntityFramework;
-using DDDEastAnglia.Helpers.AppSettings;
+using DDDEastAnglia.Helpers;
 using DDDEastAnglia.Helpers.Email;
-using DDDEastAnglia.Helpers.Email.SendGrid;
-using DDDEastAnglia.Helpers.Email.Smtp;
-using DDDEastAnglia.Helpers.File;
 using DDDEastAnglia.Models;
-using WebMatrix.WebData;
 
 namespace DDDEastAnglia.Controllers
 {
     public class ResetPasswordController : Controller
     {
+        private readonly IDDDEAContext context;
+        private readonly IResetPasswordThingy resetPasswordThingy;
+        private readonly IResetPasswordEmailSender resetPasswordEmailSender;
+
+        public ResetPasswordController() : this(new DDDEAContextWrapper(new DDDEAContext()), new WebSecurityWrapper(), ResetPasswordEmailSenderFactory.Create())
+        {}
+
+        public ResetPasswordController(IDDDEAContext context, IResetPasswordThingy resetPasswordThingy, IResetPasswordEmailSender resetPasswordEmailSender)
+        {
+            if (context == null)
+            {
+                throw new ArgumentNullException("context");
+            }
+
+            if (resetPasswordThingy == null)
+            {
+                throw new ArgumentNullException("resetPasswordThingy");
+            }
+            
+            if (resetPasswordEmailSender == null)
+            {
+                throw new ArgumentNullException("resetPasswordEmailSender");
+            }
+
+            this.context = context;
+            this.resetPasswordThingy = resetPasswordThingy;
+            this.resetPasswordEmailSender = resetPasswordEmailSender;
+        }
+
         [HttpGet]
         [AllowAnonymous]
         public virtual ActionResult Start()
@@ -31,12 +57,10 @@ namespace DDDEastAnglia.Controllers
             }
 
             UserProfile profile;
-            DDDEAContext context = new DDDEAContext();
 
             if (!string.IsNullOrWhiteSpace(model.UserName))
             {
                 profile = context.UserProfiles.FirstOrDefault(p => p.UserName == model.UserName);
-
             }
             else if (!string.IsNullOrWhiteSpace(model.EmailAddress))
             {
@@ -54,7 +78,7 @@ namespace DDDEastAnglia.Controllers
                 return View("Step1");
             }
 
-            string passwordResetToken = WebSecurity.GeneratePasswordResetToken(model.UserName, 120);
+            string passwordResetToken = resetPasswordThingy.GeneratePasswordResetToken(profile.UserName, 120);
             SendEmailToUser(profile.EmailAddress, passwordResetToken);
 
             return View("Step2");
@@ -76,7 +100,7 @@ namespace DDDEastAnglia.Controllers
                 return View("Step3", model);
             }
 
-            bool passwordWasReset = WebSecurity.ResetPassword(model.ResetToken, model.Password);
+            bool passwordWasReset = resetPasswordThingy.ResetPassword(model.ResetToken, model.Password);
 
             if (passwordWasReset)
             {
@@ -97,13 +121,10 @@ namespace DDDEastAnglia.Controllers
 
         private void SendEmailToUser(string emailAddress, string passwordResetToken)
         {
-            string resetUrl = Url.Action("EmailConfirmation", "ResetPassword", new { token = passwordResetToken }, Request.Url.Scheme);
+            string protocol = Request.Url.Scheme;
+            string resetUrl = Url.Action("EmailConfirmation", "ResetPassword", new { token = passwordResetToken }, protocol);
             string htmlTemplatePath = Server.MapPath("~/ForgottenPasswordTemplate.html");
             string textTemplatePath = Server.MapPath("~/ForgottenPasswordTemplate.txt");
-
-            var hostSettingsProvider = new SmtpHostSettingsProvider(new WebConfigurationAppSettingsProvider());
-            var emailSender = new SendGridEmailSender(hostSettingsProvider.GetSettings());
-            var resetPasswordEmailSender = new ResetPasswordEmailSender(emailSender, new SendGridMessageFactory(), new FileContentsProvider());
             resetPasswordEmailSender.SendEmail(htmlTemplatePath, textTemplatePath, emailAddress, resetUrl);
         }    
     }

@@ -4,7 +4,12 @@ using DDDEastAnglia.Helpers.File;
 
 namespace DDDEastAnglia.Helpers.Email
 {
-    public class ResetPasswordEmailSender
+    public interface IResetPasswordEmailSender
+    {
+        void SendEmail(string htmlTemplatePath, string textTemplatePath, string toAddress, string resetPasswordUrl);
+    }
+
+    public class ResetPasswordEmailSender : IResetPasswordEmailSender
     {
         public const string FromEmailAddress = "admin@dddeastanglia.com";
         public const string FromEmailName = "DDD East Anglia";
