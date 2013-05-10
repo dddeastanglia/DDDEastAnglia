@@ -9,7 +9,7 @@ namespace DDDEastAnglia.Models
         public string ResetToken { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "The new password must be at least {2} characters long.", MinimumLength = 6)]
+        [MinLength(6, ErrorMessage = "The new password must be at least {1} characters long.")]
         [DataType(DataType.Password)]
         [Display(Name = "new password")]
         public string Password { get; set; }
