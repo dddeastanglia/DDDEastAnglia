@@ -97,3 +97,129 @@ INSERT INTO [dbo].[__MigrationHistory] (
     '5.0.0.net40'
 );
 GO
+
+INSERT INTO [dbo].[Conferences] (
+    [ConferenceId],
+    [Name],
+    [ShortName]
+) VALUES (
+    1,
+    'DDD East Anglia 2013',
+    'DDDEA2013'
+);
+GO
+
+INSERT INTO [dbo].[CalendarItems] (
+    [CalendarItemId],
+    [ConferenceId],
+    [IsPublic],
+    [Authorised],
+    [Description],
+    [StartDate],
+    [EndDate],
+    [EntryType],
+    [EntryTypeString]
+) VALUES (
+    1,
+    1,
+    1,
+    1,
+    'Session submission',
+    '2013-04-01 00:00:00.0000000 +01:00',
+    '2013-04-29 00:00:00.0000000 +01:00',
+    1,
+    'SessionSubmission'
+);
+GO
+
+INSERT INTO [dbo].[CalendarItems] (
+    [CalendarItemId],
+    [ConferenceId],
+    [IsPublic],
+    [Authorised],
+    [Description],
+    [StartDate],
+    [EndDate],
+    [EntryType],
+    [EntryTypeString]
+) VALUES (
+    2,
+    1,
+    1,
+    1,
+    'Voting',
+    '2013-05-01 00:00:00.0000000 +01:00',
+    '2013-05-25 00:00:00.0000000 +01:00',
+    2,
+    'Voting'
+);
+GO
+
+INSERT INTO [dbo].[CalendarItems] (
+    [CalendarItemId],
+    [ConferenceId],
+    [IsPublic],
+    [Authorised],
+    [Description],
+    [StartDate],
+    [EndDate],
+    [EntryType],
+    [EntryTypeString]
+) VALUES (
+    3,
+    1,
+    1,
+    1,
+    'Agenda announced',
+    '2013-05-29 00:00:00.0000000 +01:00',
+    NULL,
+    3,
+    'AgendaPublished'
+);
+GO
+
+INSERT INTO [dbo].[CalendarItems] (
+    [CalendarItemId],
+    [ConferenceId],
+    [IsPublic],
+    [Authorised],
+    [Description],
+    [StartDate],
+    [EndDate],
+    [EntryType],
+    [EntryTypeString]
+) VALUES (
+    4,
+    1,
+    1,
+    1,
+    'Registration',
+    '2013-06-03 00:00:00.0000000 +01:00',
+    '2013-06-29 08:30:00.0000000 +01:00',
+    4,
+    'Registration'
+);
+GO
+
+INSERT INTO [dbo].[CalendarItems] (
+    [CalendarItemId],
+    [ConferenceId],
+    [IsPublic],
+    [Authorised],
+    [Description],
+    [StartDate],
+    [EndDate],
+    [EntryType],
+    [EntryTypeString]
+) VALUES (
+    5,
+    1,
+    1,
+    1,
+    'Conference',
+    '2013-06-29 08:30:00.0000000 +01:00',
+    '2013-06-29 17:00:00.0000000 +01:00',
+    5,
+    'Conference'
+);
+GO
