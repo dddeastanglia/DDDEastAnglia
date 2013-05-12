@@ -41,12 +41,12 @@
                 @Html.CheckBoxFor(m => m.RememberMe)
                 @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox inline" })
             </div>
-        
         </div>
 
         <div class="control-group">
             <div class="controls">
                 <input type="submit" class="btn btn-primary" value="Log in" />
+                @Html.ActionLink("Forgotten your password?", "Start", "ResetPassword").
             </div>
         </div>
     </fieldset>
