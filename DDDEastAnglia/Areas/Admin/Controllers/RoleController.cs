@@ -70,7 +70,7 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
                 }
             }
 
-            return this.View(model.RoleName);
+            return this.View("Manage", model);
         }
 
         // GET: /Admin/Role/Delete
