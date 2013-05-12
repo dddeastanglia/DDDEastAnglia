@@ -18,7 +18,7 @@ namespace DDDEastAnglia.VotingData
         int GetNumberOfDaysOfVoting();
         int GetNumberOfDaysSinceVotingOpened();
         int GetNumberOfDaysUntilVotingCloses();
-        int GetnumberOfUsersWhoHaveVoted();
+        int GetNumberOfUsersWhoHaveVoted();
         IList<SessionLeaderBoardEntry> GetLeaderBoard(int limit);
         IList<VotesForIPAddressModel> GetDistinctIPAddresses();
         IList<DateTimeVoteModel> GetVotesPerDay();
@@ -102,7 +102,7 @@ namespace DDDEastAnglia.VotingData
             }
         }
 
-        public int GetnumberOfUsersWhoHaveVoted()
+        public int GetNumberOfUsersWhoHaveVoted()
         {
             using (var context = new DDDEAContext())
             {

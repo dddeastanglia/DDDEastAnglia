@@ -48,7 +48,7 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
             var model = new VotingStatsViewModel
                 {
                     TotalVotes = dataProvider.GetTotalVoteCount(),
-                    NumberOfUsersWhoHaveVoted = dataProvider.GetnumberOfUsersWhoHaveVoted(),
+                    NumberOfUsersWhoHaveVoted = dataProvider.GetNumberOfUsersWhoHaveVoted(),
                     NumberOfDaysOfVoting = numberOfDaysOfVoting,
                     NumberOfDaysOfVotingPassed = numberOfDaysSinceVotingOpened,
                     NumberOfDaysOfVotingRemaining = dataProvider.GetNumberOfDaysUntilVotingCloses(),
