@@ -81,6 +81,11 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
             {
                 ViewBag.MembersCount = string.Format("There are currently {0} users in this role.", roleMembersCount);
             }
+            else
+            {
+                Roles.DeleteRole(id);
+                return RedirectToAction("Index");
+            }
 
             return this.View();
         }
