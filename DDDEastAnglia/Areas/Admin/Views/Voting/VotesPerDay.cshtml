@@ -1,6 +1,6 @@
 ﻿@using DDDEastAnglia.Helpers
 @using Newtonsoft.Json
-@model long[][]
+@model DDDEastAnglia.Areas.Admin.Models.VotesPerDayViewModel
 
 <h2>Votes Per Day</h2>
 
@@ -14,10 +14,18 @@
 
     <script>
         $(document).ready(function() {
-            var data = [{
-                color: "#C00",
-                data: @JsonConvert.SerializeObject(Model)
-            }];
+            var data = [
+                {
+                    label: "Votes per day",
+                    color: "#C00",
+                    data: @JsonConvert.SerializeObject(Model.DayByDay)
+                },
+                {
+                    label: "Cumulative votes",
+                    color: "#0C0",
+                    data: @JsonConvert.SerializeObject(Model.Cumulative)
+                }
+            ];
 
             var options = {
                 series: {
@@ -48,7 +56,7 @@
                     left: x + 5,
                     border: "1px solid #444",
                     padding: "2px",
-                    "background-color": "#c00",
+                    "background-color": "#00C",
                     color: "white",
                     opacity: 0.90
                 }).appendTo("body").fadeIn(200);

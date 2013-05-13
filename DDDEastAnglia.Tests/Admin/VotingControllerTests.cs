@@ -76,8 +76,7 @@ namespace DDDEastAnglia.Tests.Admin
             dataProvider.GetLeaderBoard(Arg.Any<int>()).Returns(new[] {new SessionLeaderBoardEntry()});
             var controller = new VotingController(dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
             
-            var result = (ViewResult) controller.Leaderboard(123);
-            var model = (LeaderboardViewModel) result.Model;
+            controller.Leaderboard(123);
 
             dataProvider.Received().GetLeaderBoard(123);
         }
@@ -171,7 +170,7 @@ namespace DDDEastAnglia.Tests.Admin
         }
 
         [Test]
-        public void TestThat_VotesPerDay_PassesTheChartDataToTheView()
+        public void TestThat_VotesPerDay_PassesTheCorrectChartDataToTheView()
         {
             var dataProvider = Substitute.For<IDataProvider>();
             var chartDataConverter = Substitute.For<IChartDataConverter>();
@@ -180,9 +179,10 @@ namespace DDDEastAnglia.Tests.Admin
             var controller = new VotingController(dataProvider, Substitute.For<IDnsLookup>(), chartDataConverter);
 
             var result = (ViewResult) controller.VotesPerDay();
-            var model = (long[][]) result.Model;
+            var model = (VotesPerDayViewModel) result.Model;
 
-            CollectionAssert.AreEquivalent(chartData, model);
+            CollectionAssert.AreEquivalent(chartData, model.DayByDay);
+            CollectionAssert.AreEquivalent(chartData, model.Cumulative);
         }
 
         [Test]

@@ -194,6 +194,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Areas\Admin\Models\VotersPerIPAddressViewModel.cs" />
+    <Compile Include="Areas\Admin\Models\VotesPerDayViewModel.cs" />
     <Compile Include="Helpers\ChartDataFormatter.cs" />
     <Compile Include="VotingData\DataProviderFactory.cs" />
     <Content Include="Scripts\resolveIPAddress.js" />
@@ -571,6 +572,7 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="Views\Shared\_SearchBox.cshtml" />
+    <Content Include="Views\Home\_Test.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

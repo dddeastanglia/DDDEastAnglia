@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using DDDEastAnglia.Areas.Admin.Models;
 using DDDEastAnglia.Helpers;
 using DDDEastAnglia.Mvc.Attributes;
 using DDDEastAnglia.VotingData;
+using DDDEastAnglia.VotingData.Models;
 
 namespace DDDEastAnglia.Areas.Admin.Controllers
 {
@@ -99,8 +101,28 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
         public ActionResult VotesPerDay()
         {
             var votesPerDay = dataProvider.GetVotesPerDay();
-            var chartData = chartDataConverter.ToChartData(votesPerDay);
-            return View(chartData);
+            var votesPerDayData = chartDataConverter.ToChartData(votesPerDay);
+
+            var cumulativeVotesPerDayData = WorkOutCumulativeVotes(votesPerDay);
+
+            var viewModel = new VotesPerDayViewModel {DayByDay = votesPerDayData, Cumulative = cumulativeVotesPerDayData};
+            return View(viewModel);
+        }
+
+        private long[][] WorkOutCumulativeVotes(IEnumerable<DateTimeVoteModel> votesPerDay)
+        {
+            int totalVotes = 0;
+            var cumulativeVotesPerDay = new List<DateTimeVoteModel>();
+
+            foreach (var dateTimeVoteModel in votesPerDay)
+            {
+                totalVotes += dateTimeVoteModel.VoteCount;
+                var model = new DateTimeVoteModel {Date = dateTimeVoteModel.Date, VoteCount = totalVotes};
+                cumulativeVotesPerDay.Add(model);
+            }
+
+            var cumulativeVotesPerDayData = chartDataConverter.ToChartData(cumulativeVotesPerDay);
+            return cumulativeVotesPerDayData;
         }
 
         public ActionResult VotesPerHour()
