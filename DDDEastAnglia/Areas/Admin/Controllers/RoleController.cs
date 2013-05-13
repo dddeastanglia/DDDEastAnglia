@@ -91,7 +91,7 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
         [ActionName("Delete")]
         public ActionResult DeleteConfirmed(string id)
         {
-            Roles.DeleteRole(id);
+            Roles.DeleteRole(id, false);
 
             return RedirectToAction("Index");
         }
