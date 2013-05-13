@@ -23,18 +23,18 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
         {
             if (Roles.RoleExists(id))
             {
-                RoleModel model = new RoleModel { RoleName = id, roleUsers = new List<RoleUserModel>() };
+                RoleModel model = new RoleModel { RoleName = id, roleUsers = new SortedList<string, RoleUserModel>() };
 
                 foreach (UserProfile user in db.UserProfiles)
                 {
                     if (Roles.IsUserInRole(user.UserName, id))
                     {
-                        model.roleUsers.Add(
+                        model.roleUsers.Add(user.UserName,
                             new RoleUserModel() { IsMember = true, UserId = user.UserId, Username = user.UserName });
                     }
                     else
                     {
-                        model.roleUsers.Add(
+                        model.roleUsers.Add(user.UserName,
                             new RoleUserModel() { IsMember = false, UserId = user.UserId, Username = user.UserName });
 
                     }
@@ -51,7 +51,7 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                foreach (RoleUserModel roleUser in model.roleUsers)
+                foreach (RoleUserModel roleUser in model.roleUsers.Values)
                 {
                     if (roleUser.IsMember)
                     {

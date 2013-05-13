@@ -9,7 +9,7 @@ namespace DDDEastAnglia.Areas.Admin.Models
     {
         public string RoleName { get; set; }
 
-        public List<RoleUserModel> roleUsers { get; set; }
+        public SortedList<string, RoleUserModel> roleUsers { get; set; }
     }
 
     public class RoleUserModel

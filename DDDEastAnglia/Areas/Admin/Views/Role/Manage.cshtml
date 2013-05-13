@@ -15,21 +15,18 @@
         @Model.RoleName
     </div>
     <table>
-        @for (int i = 0; i < Model.roleUsers.Count; i++)
+        @for (int i = 0; i < Model.roleUsers.Keys.Count; i++)
         {
             <tr>
                 <td>
-                    @Html.HiddenFor(m => Model.roleUsers[i].UserId)@Html.HiddenFor(m => Model.roleUsers[i].Username)
-                    @Model.roleUsers[i].Username
+                    @Html.HiddenFor(m => Model.roleUsers.Values[i].UserId)@Html.HiddenFor(m => Model.roleUsers.Values[i].Username)
+                    @Model.roleUsers.Values[i].Username
                 </td>
-                <td>@Html.CheckBoxFor(m => Model.roleUsers[i].IsMember)</td>
+                <td>@Html.CheckBoxFor(m => Model.roleUsers.Values[i].IsMember)</td>
             </tr>
   
         }
 
-        @foreach (RoleUserModel roleUser in Model.roleUsers)
-        {
-        }
     </table>
     <input type="submit" value="Save"/>
 }
