@@ -284,3 +284,45 @@ a i {
     margin-top: 15px;
     margin-bottom: 15px;
 }
+
+.hotel-details {
+    margin: 30px 0 30px 0;
+    padding: 10px;
+}
+
+.hotel-details.primary-hotel {
+    border: 5px solid #008600;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    border-radius: 10px;
+}
+
+.hotel-details img {
+    float: right;
+    width: 300px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    border-radius: 10px;
+}
+
+.hotel-prices {
+    margin: 10px 0 10px 0;
+}
+
+.hotel-prices thead {
+    font-weight: bold;
+}
+
+.hotel-prices td {
+    border: 1px solid black;
+    padding: 10px;
+}
+
+.hotel-details .telephone-number span {
+    font-weight: bold;
+    margin-right: 5px;
+}
