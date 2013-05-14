@@ -288,15 +288,17 @@ a i {
 .hotel-details {
     margin: 30px 0 30px 0;
     padding: 10px;
-}
 
-.hotel-details.primary-hotel {
-    border: 5px solid #008600;
+    border: 5px solid #e3e3e3;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     -ms-border-radius: 10px;
     -o-border-radius: 10px;
     border-radius: 10px;
+}
+
+.hotel-details.primary-hotel {
+    border-color: #008600;
 }
 
 .hotel-details img {
