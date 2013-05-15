@@ -18,7 +18,7 @@ namespace DDDEastAnglia.Models
         public string UserName { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "The password must be at least {2} characters long.", MinimumLength = 6)]
+        [MinLength(6, ErrorMessage = "The password must be at least {1} characters long.")]
         [DataType(DataType.Password)]
         [Display(Name = "password")]
         public string Password { get; set; }

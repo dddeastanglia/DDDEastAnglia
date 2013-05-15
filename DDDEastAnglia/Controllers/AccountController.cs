@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -10,7 +10,6 @@ using DotNetOpenAuth.AspNet;
 using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
 using DDDEastAnglia.Models;
-
 using IsolationLevel = System.Transactions.IsolationLevel;
 
 namespace DDDEastAnglia.Controllers
