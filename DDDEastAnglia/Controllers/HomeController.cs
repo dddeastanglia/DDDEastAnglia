@@ -19,6 +19,11 @@ namespace DDDEastAnglia.Controllers
             return View();
         }
 
+        public ActionResult Accommodation()
+        {
+            return View();
+        }
+
         public ActionResult Team()
         {
             return View();
