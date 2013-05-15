@@ -25,16 +25,13 @@ namespace DDDEastAnglia.Controllers
 
         public ActionResult Index()
         {
-            bool userIsAdmin = User.IsInRole("Administrator");
             var conference = conferenceRepository.GetByEventShortName(DefaultEventName);
-            bool isRegistrationOpen = conference.CanRegister();
-            bool isAgendaPublished = conference.CanPublishAgenda();
 
             var model = new NavigationMenuViewModel
                 {
-                            IsUserAnAdministrator = userIsAdmin,
-                            IsAgendaPublished = isAgendaPublished,
-                            IsRegistrationOpen = isRegistrationOpen
+                            IsUserAnAdministrator = User.IsInRole("Administrator"),
+                            IsAgendaPublished = conference.CanPublishAgenda(),
+                            IsRegistrationOpen = conference.CanRegister()
                 };
             return PartialView(model);
         }
