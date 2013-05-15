@@ -553,10 +553,6 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="Views\Shared\_SearchBox.cshtml" />
-    <Content Include="Views\Account\ResetPasswordStep1.cshtml" />
-    <Content Include="Views\Account\ResetPasswordStep2.cshtml" />
-    <Content Include="Views\Account\ResetPasswordStep3.cshtml" />
-    <Content Include="Views\Account\ResetPasswordStep4.cshtml" />
     <Content Include="Views\ResetPassword\Step1.cshtml" />
     <Content Include="Views\ResetPassword\Step2.cshtml" />
     <Content Include="Views\ResetPassword\Step3.cshtml" />
