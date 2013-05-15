@@ -33,7 +33,7 @@ namespace DDDEastAnglia.Tests.Controllers
         }
 
         [Test]
-        public void IndicateThatRegistrationIsOpen_WhenTheEvenReportsThatRegistrationIsOpen()
+        public void IndicateThatRegistrationIsOpen_WhenTheEventReportsThatRegistrationIsOpen()
         {
             var conference = Substitute.For<IConference>();
             conference.CanRegister().Returns(true);
@@ -46,7 +46,7 @@ namespace DDDEastAnglia.Tests.Controllers
         }
 
         [Test]
-        public void IndicateThatTheAgendaIsPublished_WhenTheEvenReportsThatTheAgendaIsPublished()
+        public void IndicateThatTheAgendaIsPublished_WhenTheEventReportsThatTheAgendaIsPublished()
         {
             var conference = Substitute.For<IConference>();
             conference.CanPublishAgenda().Returns(true);
