@@ -1,0 +1,80 @@
+﻿@model DDDEastAnglia.Areas.Admin.Models.VotingStatsViewModel
+
+@section header
+{
+    <style>
+        #startdate {
+            float: left;
+            margin-right: 10px;
+        }
+        
+        #enddate {
+            float: right;
+            margin-left: 10px;
+        }
+    </style>
+}
+
+<div class="well">
+    <h3>General Stats</h3>
+
+    <ul>
+        <li>@Model.TotalVotes votes cast in @Model.NumberOfDaysOfVotingPassed days by @Model.NumberOfUsersWhoHaveVoted users.</li>
+        <li>@Model.NumberOfDaysOfVotingRemaining days of voting remaining.</li>
+    </ul>
+
+    <div>
+        <span id="startdate">@Model.VotingStartDate.ToLongDateString()</span>
+        <span id="enddate">@Model.VotingEndDate.ToLongDateString()</span>
+        <div class="progress progress-success"><div class="bar" style="width: @Model.VotingCompletePercentage%"><p>@Model.VotingCompletePercentage%</p></div></div>
+    </div>
+</div>
+
+@if (Model.TotalVotes > 0)
+{
+    <div class="row-fluid">
+        <div class="span6 well">
+            <h3>Time-based Stats</h3>
+
+            <ul>
+                <li>@Html.ActionLink("Votes per day", "VotesPerDay")</li>
+                <li>@Html.ActionLink("Votes per hour", "VotesPerHour")</li>
+            </ul>
+        </div>
+
+        <div class="span6 well">
+            <h3>Session Stats</h3>
+
+            <ul>
+                <li>@Html.ActionLink("Votes for the top 15 sessions", "Leaderboard", new {limit = 15})</li>
+                <li>@Html.ActionLink("Votes for all sessions", "Leaderboard")</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="row-fluid">
+        <div class="span6 well">
+            <h3>User Stats</h3>
+
+            <ul>
+                <li>@Html.ActionLink("Known users who have voted", "KnownUserVotes")</li>
+                <li>@Html.ActionLink("Anonymous users who have voted", "AnonymousUserVotes")</li>
+            </ul>
+        </div>
+
+        <div class="span6 well">
+            <h3>IP Address Stats</h3>
+
+            <ul>
+                <li>@Html.ActionLink("Votes per IP address", "IPAddresses")</li>
+                <li>@Html.ActionLink("Voters per IP address", "VotersPerIPAddress")</li>
+            </ul>
+        </div>
+    </div>
+}
+else
+{
+    <div class="well">
+        Voting statistics will appear here once votes have been cast.
+    </div>    
+}
