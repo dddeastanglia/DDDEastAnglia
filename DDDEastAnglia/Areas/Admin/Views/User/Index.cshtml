@@ -46,7 +46,7 @@
     @foreach (var item in Model) 
     {
         <tr><td>
-            <img src="@item.GravatarUrl" width="32" height="32" alt="@item.Name">
+            <img src="@item.GravatarUrl" width="32" height="32" alt="@item.Name" title="@item.Name">
             @Html.DisplayFor(modelItem => item.UserName)
         </td><td>
             @Html.DisplayFor(modelItem => item.Name)

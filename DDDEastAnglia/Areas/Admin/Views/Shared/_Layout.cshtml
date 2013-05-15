@@ -7,6 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="description" content="DDD East Anglia conference website 29 June 2013">
         <meta name="author" content="DDD East Anglia">
+        @Styles.Render("~/Content/themes/base/css")
         @Styles.Render("~/Content/admin")
         @Scripts.Render("~/bundles/modernizr")
         @RenderSection("header", false)
@@ -26,7 +27,7 @@
         <div class="navbar navbar-fixed-top">
             <div class="navbar-inner">
                 <div class="container-fluid">
-                    <a class="brand" href="@Url.Action("Index", "AdminHome")">Conference Admin</a>
+                    <a class="brand" href="@Url.Action("Index", "AdminHome")"><i class="icon-home"></i> Conference Admin</a>
                     <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
@@ -41,6 +42,7 @@
                             <li><a href="@Url.Action("Index", "User")">Users</a></li>
                             <li><a href="@Url.Action("Index", "Role")">Roles</a></li>
                             <li><a href="@Url.Action("Index", "Session")">Sessions</a></li>
+                            <li><a href="@Url.Action("Index", "Voting")">Voting</a></li>
                         </ul>
                     </div>
                 </div>
@@ -50,6 +52,7 @@
             @RenderBody()
         </div>
         @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/jqueryui")
         @Scripts.Render("~/bundles/bootstrap")
         @Styles.Render("~/Content/Markdown")
         @RenderSection("scripts", required: false)

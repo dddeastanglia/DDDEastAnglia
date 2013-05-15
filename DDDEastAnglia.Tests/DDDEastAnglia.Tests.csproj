@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin\VotingControllerTests.cs" />
     <Compile Include="ConferenceHelper.cs" />
     <Compile Include="DataAccess\Builders\The_Conference_Builder_Should.cs" />
     <Compile Include="DataAccess\Handlers\Voting\DeleteVote\Given_The_Conference_Is_Not_Open_For_Voting_The_DeleteVotingCommandHandler_Should.cs" />

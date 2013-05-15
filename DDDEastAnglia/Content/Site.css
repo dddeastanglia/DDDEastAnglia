@@ -9,7 +9,7 @@ dd {
 
 a { text-decoration: underline; }
 
-a.btn, .dropdown-menu a, a.carousel-control { text-decoration: none; }
+a.btn, .dropdown-menu a, a.carousel-control, a [class^="icon-"] { text-decoration: none; }
 
 .carousel-caption a { color: white; }
 
@@ -270,10 +270,6 @@ fieldset {
     font-weight: bold;
     text-decoration: none;
     border: 0;
-}
-
-a i {
-    text-decoration: none;
 }
 
 .voting {
