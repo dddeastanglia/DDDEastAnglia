@@ -23,7 +23,6 @@ namespace DDDEastAnglia.Tests.Controllers
         public void IndicateThatTheUserIsAnAdministrator_WhenTheUserIsInTheAdministratorRole()
         {
             var conference = Substitute.For<IConference>();
-            conference.CanPublishAgenda().Returns(true);
             var user = new GenericPrincipal(new GenericIdentity("bob"), new[] {"administrator"});
             var controller = CreateController(conference, user);
 
