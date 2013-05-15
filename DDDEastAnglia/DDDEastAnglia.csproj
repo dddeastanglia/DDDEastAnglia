@@ -572,7 +572,6 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="Views\Shared\_SearchBox.cshtml" />
-    <Content Include="Views\Home\_Test.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
