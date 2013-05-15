@@ -296,6 +296,10 @@ fieldset {
 .hotel-details.primary-hotel {
     border-color: #008600;
 }
+ 
+.hotel-details table {
+    width: auto;
+}
 
 .hotel-details img {
     float: right;
@@ -309,15 +313,6 @@ fieldset {
 
 .hotel-prices {
     margin: 10px 0 10px 0;
-}
-
-.hotel-prices thead {
-    font-weight: bold;
-}
-
-.hotel-prices td {
-    border: 1px solid black;
-    padding: 10px;
 }
 
 .hotel-details .telephone-number span {
