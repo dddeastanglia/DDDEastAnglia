@@ -528,6 +528,7 @@
     </Content>
     <Content Include="Views\Shared\_SearchBox.cshtml" />
     <Content Include="Views\Home\Accommodation.cshtml" />
+    <Content Include="Views\Home\Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
