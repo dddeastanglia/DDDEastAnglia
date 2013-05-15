@@ -609,7 +609,6 @@
     <Content Include="Views\Shared\_SearchBox.cshtml" />
     <Content Include="Views\Home\Accommodation.cshtml" />
     <Content Include="Views\Home\Register.cshtml" />
-    <Content Include="Views\Home\_Test.cshtml" />
     <Content Include="Views\Account\ResetPasswordStep1.cshtml" />
     <Content Include="Views\Account\ResetPasswordStep2.cshtml" />
     <Content Include="Views\Account\ResetPasswordStep3.cshtml" />
