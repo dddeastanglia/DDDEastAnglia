@@ -3,7 +3,7 @@ using DDDEastAnglia.Domain.Calendar;
 
 namespace DDDEastAnglia.Domain
 {
-    public class Conference
+    public class Conference : IConference
     {
         private readonly int _id;
         private readonly string _name;

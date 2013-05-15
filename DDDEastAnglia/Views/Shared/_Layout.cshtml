@@ -47,24 +47,7 @@
                     <div class="btn-group pull-right">
                         @Html.Partial("_LoginPartial")
                     </div>
-                    <div class="nav-collapse">
-                        <ul class="nav">
-                            <li class="dropdown @Html.MenuState("Home", "Index")">@Html.ActionLink("Home", "Index", "Home")</li>
-                            <li class="dropdown @Html.MenuState("Session")">@Html.ActionLink("Sessions", "Index", "Session")</li>
-                            <li class="dropdown @Html.MenuState("Speaker", "Index")">@Html.ActionLink("Speakers", "Index", "Speaker")</li>
-                            @*<li class="dropdown">@Html.ActionLink("Agenda", MVC.Agenda.Index())</li>*@
-                            <li class="dropdown @Html.MenuState("Home", "About")">@Html.ActionLink("New to DDD?", "About", "Home")</li>
-                            <li class="dropdown @Html.MenuState("Home", "Venue")">@Html.ActionLink("Venue", "Venue", "Home")</li>
-                            <li class="dropdown @Html.MenuState("Home", "Sponsors")">@Html.ActionLink("Sponsors", "Sponsors", "Home")</li>
-                            <li class="dropdown @Html.MenuState("Home", "Team")">@Html.ActionLink("Team", "Team", "Home")</li>
-                            <li class="dropdown @Html.MenuState("Home", "Contact")">@Html.ActionLink("Contact", "Contact", "Home")</li>
-                            
-                            @if (User.IsInRole("Administrator"))
-                            {
-                                <li class="dropdown">@Html.ActionLink("Admin", "Index", new { area = "Admin", controller = "AdminHome" })</li>
-                            }
-                        </ul>
-                    </div><!--/.nav-collapse -->
+                    @Html.Action("Index", "NavigationBar")
                 </div>
             </div>
         </div>
