@@ -49,23 +49,25 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Manage(RoleModel model)
         {
-            if (ModelState.IsValid)
+            if (!this.ModelState.IsValid)
             {
-                foreach (RoleUserModel roleUser in model.roleUsers.Values)
+                return View("Manage", model);
+            }
+
+            foreach (RoleUserModel roleUser in model.roleUsers.Values)
+            {
+                if (roleUser.IsMember)
                 {
-                    if (roleUser.IsMember)
+                    if (!Roles.IsUserInRole(roleUser.Username, model.RoleName))
                     {
-                        if (!Roles.IsUserInRole(roleUser.Username, model.RoleName))
-                        {
-                            Roles.AddUserToRole(roleUser.Username, model.RoleName);
-                        }
+                        Roles.AddUserToRole(roleUser.Username, model.RoleName);
                     }
-                    else
+                }
+                else
+                {
+                    if (Roles.IsUserInRole(roleUser.Username, model.RoleName))
                     {
-                        if (Roles.IsUserInRole(roleUser.Username, model.RoleName))
-                        {
-                            Roles.RemoveUserFromRole(roleUser.Username, model.RoleName);
-                        }
+                        Roles.RemoveUserFromRole(roleUser.Username, model.RoleName);
                     }
                 }
             }
