@@ -80,14 +80,12 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
             if (roleMembersCount > 0)
             {
                 ViewBag.MembersCount = string.Format("There are currently {0} users in this role.", roleMembersCount);
-            }
-            else
-            {
-                Roles.DeleteRole(id);
-                return RedirectToAction("Index");
+                return View();
             }
 
-            return View();
+            Roles.DeleteRole(id);
+            return RedirectToAction("Index");
+
         }
 
         // POST: /Admin/Role/Delete
