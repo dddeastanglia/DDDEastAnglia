@@ -15,7 +15,7 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
             List<string> roles = new List<string>();
             roles.AddRange(Roles.GetAllRoles());
 
-            return this.View(roles);
+            return View(roles);
         }
 
         // GET: /Admin/Role/Manage
@@ -40,7 +40,7 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
                     }
                 }
 
-                return this.View(model);
+                return View(model);
             }
 
             return RedirectToAction("Index", "Role");
@@ -70,7 +70,7 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
                 }
             }
 
-            return this.View("Manage", model);
+            return View("Manage", model);
         }
 
         // GET: /Admin/Role/Delete
@@ -87,7 +87,7 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
 
-            return this.View();
+            return View();
         }
 
         // POST: /Admin/Role/Delete
@@ -106,7 +106,7 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
         {
             string role = string.Empty;
 
-            return this.View(role);
+            return View(role);
         }
 
         [HttpPost]
@@ -121,7 +121,7 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
                 else
                 {
                     ViewBag.Message = "This role already exists!";
-                    return this.View(viewName: "Create", model: role);
+                    return View(viewName: "Create", model: role);
                 }
             }
 
