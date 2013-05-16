@@ -104,9 +104,7 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
         // GET: /Admin/Role/Create
         public ActionResult Create()
         {
-            string role = string.Empty;
-
-            return View(role);
+            return View(string.Empty);
         }
 
         [HttpPost]
