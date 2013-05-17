@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Security.Principal;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using DDDEastAnglia.Controllers;
@@ -40,108 +41,151 @@ namespace DDDEastAnglia.Tests.Controllers
             Assert.Throws<ArgumentNullException>(() => new NavigationBarController(conferenceRepository, menuStateFactory, null));
         }
 
+        [TestCase("Home")]
+        [TestCase("About")]
+        [TestCase("Venue")]
+        [TestCase("Sponsors")]
+        [TestCase("Team")]
+        [TestCase("Contact")]
+        public void IncludeAStandardMenuItemThatIsVisible(string linkText)
+        {
+            var controller = CreateController();
+
+            var result = controller.Index();
+
+            var link = FindLink(result, linkText);
+            Assert.IsTrue(link.IsVisible);
+        }
+
+        [TestCase("Home", "Home", "Index")]
+        [TestCase("Sessions", "Session", "Index")]
+        [TestCase("Speakers", "Speaker", "Index")]
+        [TestCase("Agenda", "Agenda", "Home")]
+        [TestCase("Register", "Register", "Home")]
+        [TestCase("About", "About", "Home")]
+        [TestCase("Venue", "Venue", "Home")]
+        [TestCase("Sponsors", "Sponsors", "Home")]
+        [TestCase("Team", "Team", "Home")]
+        [TestCase("Contact", "Contact", "Home")]
+        [TestCase("Admin", "AdminHome", "Index")]
+        public void SetTheLinkThatMatchesTheCurrentOneToActive(string linkText, string controllerName, string actionName)
+        {
+            var controller = CreateController(currentControllerName: controllerName, currentActionName: actionName);
+
+            var result = controller.Index();
+
+            var link = FindLink(result, linkText);
+            Assert.IsTrue(link.IsActive);
+        }
+
         [Test]
         public void SetTheAdminLinkToNotVisible_WhenTheUserIsNotInTheAdministratorRole()
         {
-            var conference = Substitute.For<IConference>();
-            var user = new GenericPrincipal(new GenericIdentity("bob"), new string[0]);
-            var controller = CreateController(conference, user);
+            var controller = CreateController();
 
-            var result = (PartialViewResult) controller.Index();
+            var result = controller.Index();
 
-            var model = (NavigationMenuViewModel) result.Model;
-            var adminLink = model.Links.Single(l => l.LinkText == "Admin");
+            var adminLink = FindLink(result, "Admin");
             Assert.IsFalse(adminLink.IsVisible);
         }
 
         [Test]
         public void SetTheAdminLinkToVisible_WhenTheUserIsInTheAdministratorRole()
         {
-            var conference = Substitute.For<IConference>();
-            var user = new GenericPrincipal(new GenericIdentity("bob"), new[] {"administrator"});
-            var controller = CreateController(conference, user);
+            var controller = CreateController(userRoles: new[] {"administrator"});
 
-            var result = (PartialViewResult) controller.Index();
+            var result = controller.Index();
 
-            var model = (NavigationMenuViewModel) result.Model;
-            var adminLink = model.Links.Single(l => l.LinkText == "Admin");
+            var adminLink = FindLink(result, "Admin");
             Assert.IsTrue(adminLink.IsVisible);
         }
 
         [Test]
         public void SetTheRegistrationLinkToNotVisible_WhenTheEventReportsThatRegistrationIsNotOpen()
         {
-            var conference = Substitute.For<IConference>();
-            conference.CanRegister().Returns(false);
-            var controller = CreateController(conference);
+            var controller = CreateController(conference => conference.CanRegister().Returns(false));
 
-            var result = (PartialViewResult) controller.Index();
+            var result = controller.Index();
 
-            var model = (NavigationMenuViewModel) result.Model;
-            var registrationLink = model.Links.Single(l => l.LinkText == "Register");
+            var registrationLink = FindLink(result, "Register");
             Assert.IsFalse(registrationLink.IsVisible);
         }
 
         [Test]
         public void SetTheRegistrationLinkToVisible_WhenTheEventReportsThatRegistrationIsOpen()
         {
-            var conference = Substitute.For<IConference>();
-            conference.CanRegister().Returns(true);
-            var controller = CreateController(conference);
+            var controller = CreateController(conference => conference.CanRegister().Returns(true));
 
-            var result = (PartialViewResult) controller.Index();
+            var result = controller.Index();
 
-            var model = (NavigationMenuViewModel) result.Model;
-            var registrationLink = model.Links.Single(l => l.LinkText == "Register");
+            var registrationLink = FindLink(result, "Register");
             Assert.IsTrue(registrationLink.IsVisible);
         }
 
         [Test]
         public void SetTheAgendaLinkToNotVisible_WhenTheEventReportsThatTheAgendaIsNotPublished()
         {
-            var conference = Substitute.For<IConference>();
-            conference.CanPublishAgenda().Returns(false);
-            var controller = CreateController(conference);
+            var controller = CreateController(conference => conference.CanPublishAgenda().Returns(false));
 
-            var result = (PartialViewResult) controller.Index();
+            var result = controller.Index();
 
-            var model = (NavigationMenuViewModel) result.Model;
-            var agendaLink = model.Links.Single(l => l.LinkText == "Agenda");
+            var agendaLink = FindLink(result, "Agenda");
             Assert.IsFalse(agendaLink.IsVisible);
         }
 
         [Test]
         public void SetTheAgendaLinkToVisible_WhenTheEventReportsThatTheAgendaIsPublished()
         {
+            var controller = CreateController(conference => conference.CanPublishAgenda().Returns(true));
+
+            var result = controller.Index();
+
+            var agendaLink = FindLink(result, "Agenda");
+            Assert.IsTrue(agendaLink.IsVisible);
+        }
+
+        private NavigationMenuLinkViewModel FindLink(ActionResult result, string linkText)
+        {
+            var partialResult =(PartialViewResult) result;
+            var model = (NavigationMenuViewModel) partialResult.Model;
+            var link = model.Links.Single(l => l.LinkText == linkText);
+            return link;
+        }
+
+        private NavigationBarController CreateController(Action<IConference> conferenceSetupCallback = null, 
+                                                            string[] userRoles = null, 
+                                                            string currentControllerName = "some controller", 
+                                                            string currentActionName = "some action")
+        {
             var conference = Substitute.For<IConference>();
-            conference.CanPublishAgenda().Returns(true);
-            var controller = CreateController(conference);
 
-            var result = (PartialViewResult) controller.Index();
+            if (conferenceSetupCallback != null)
+            {
+                conferenceSetupCallback(conference);
+            }
 
-            var model = (NavigationMenuViewModel) result.Model;
-            var agendaLink = model.Links.Single(l => l.LinkText == "Agenda");
-            Assert.IsFalse(agendaLink.IsVisible);
-        }
+            var user = new GenericPrincipal(new GenericIdentity("bob"), userRoles ?? new string[0]);
 
-        private NavigationBarController CreateController(IConference conference)
-        {
-            var user = new GenericPrincipal(new GenericIdentity("bob"), new string[0]);
-            return CreateController(conference, user);
-        }
-
-        private NavigationBarController CreateController(IConference conference, IPrincipal user)
-        {
             var conferenceRepository = Substitute.For<IConferenceRepository>();
             conferenceRepository.GetByEventShortName(Arg.Any<string>()).Returns(conference);
+            
+            var routeData = new RouteData();
+            routeData.Values.Add("controller", currentControllerName);
+            routeData.Values.Add("action", currentActionName);
+
+            var requestContext = new RequestContext {RouteData = routeData};
 
             var menuStateFactory = Substitute.For<IMenuStateFactory>();
+            menuStateFactory.Create(Arg.Any<RouteData>()).Returns(new MenuState(routeData));
             var urlHelperFactory = Substitute.For<IUrlHelperFactory>();
+            urlHelperFactory.Create(Arg.Any<RequestContext>()).Returns(new UrlHelper(requestContext));
 
-            var controllerContext = Substitute.For<ControllerContext>();
+            var controllerContext = new ControllerContext();
+            routeData.DataTokens["ParentActionViewContext"] = new ViewContext {RouteData = routeData};
+            controllerContext.RouteData = routeData;
+            controllerContext.HttpContext = Substitute.For<HttpContextBase>();
             controllerContext.HttpContext.User.Returns(user);
-            controllerContext.RequestContext.Returns(new RequestContext());
-            controllerContext.ParentActionViewContext.RouteData.Returns(new RouteData());
+            controllerContext.RequestContext = requestContext;
             return new NavigationBarController(conferenceRepository, menuStateFactory, urlHelperFactory) {ControllerContext = controllerContext};
         }
     }
