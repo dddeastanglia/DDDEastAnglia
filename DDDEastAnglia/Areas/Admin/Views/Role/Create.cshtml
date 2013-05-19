@@ -1,11 +1,11 @@
-﻿@model string
+﻿@model DDDEastAnglia.Areas.Admin.Models.CreateRoleModel
 
 <h2>Create</h2>
 
-@if (ViewBag.Message != null)
+@if (Model.FeedbackMessage != null)
 {
     <div>
-        @ViewBag.Message
+        @Model.FeedbackMessage
     </div>
 }
 
@@ -13,10 +13,10 @@
 {
     <div>
     
-        New Role: @Html.TextBox("role",Model)
+        New Role: @Html.TextBoxFor(m => Model.RoleName)
     </div>
     <div>
-        <input type="submit" value="Create" class="btn"/>
+        <input type="submit" value="Create" class="btn btn-primary"/>
     </div>
 }
 <div>
