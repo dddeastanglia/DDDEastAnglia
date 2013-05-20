@@ -46,6 +46,7 @@
             <h3>Session Stats</h3>
 
             <ul>
+                <li>@Html.ActionLink("Votes for the top 15 sessions with no duplicate speakers", "Leaderboard", new {limit = 15, allowDuplicateSpeakers = false})</li>
                 <li>@Html.ActionLink("Votes for the top 15 sessions", "Leaderboard", new {limit = 15})</li>
                 <li>@Html.ActionLink("Votes for all sessions", "Leaderboard")</li>
             </ul>
