@@ -21,7 +21,8 @@ namespace DDDEastAnglia.VotingData.Queries
 
         public string Sql
         {
-            get {
+            get 
+            {
                 return @"
 SELECT CookieId, COUNT(CookieId) AS VoteCount 
 FROM Votes

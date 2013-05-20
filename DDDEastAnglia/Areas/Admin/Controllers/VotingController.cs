@@ -189,5 +189,11 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
             var sessionsVotedFor = dataProvider.GetVotedForSessions(cookieId);
             return PartialView("_VotedForSessions", sessionsVotedFor);
         }
+
+        public ActionResult DuplicateVotes()
+        {
+            var duplicateVotes = dataProvider.GetDuplicateVotes();
+            return View(duplicateVotes);
+        }
     }
 }
