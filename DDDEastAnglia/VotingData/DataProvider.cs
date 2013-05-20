@@ -19,7 +19,7 @@ namespace DDDEastAnglia.VotingData
         int GetNumberOfDaysSinceVotingOpened();
         int GetNumberOfDaysUntilVotingCloses();
         int GetNumberOfUsersWhoHaveVoted();
-        IList<SessionLeaderBoardEntry> GetLeaderBoard(int limit);
+        IList<SessionLeaderBoardEntry> GetLeaderBoard(int limit, bool allowDuplicateSpeakers);
         IList<VotesForIPAddressModel> GetDistinctIPAddresses();
         IList<DateTimeVoteModel> GetVotesPerDay();
         IList<DateTimeVoteModel> GetVotesPerHour();
@@ -111,9 +111,9 @@ namespace DDDEastAnglia.VotingData
             }
         }
 
-        public IList<SessionLeaderBoardEntry> GetLeaderBoard(int limit)
+        public IList<SessionLeaderBoardEntry> GetLeaderBoard(int limit, bool allowDuplicateSpeakers)
         {
-            var leaderBoardSessions = queryRunner.RunQuery(new LeaderBoardQuery(limit));
+            var leaderBoardSessions = queryRunner.RunQuery(new LeaderBoardQuery(limit, allowDuplicateSpeakers));
             return leaderBoardSessions;
         }
 

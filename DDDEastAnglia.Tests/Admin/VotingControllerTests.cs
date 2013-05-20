@@ -60,7 +60,7 @@ namespace DDDEastAnglia.Tests.Admin
         {
             var dataProvider = Substitute.For<IDataProvider>();
             var sessions = new[] {new SessionLeaderBoardEntry {NumberOfVotes = 2}, new SessionLeaderBoardEntry {NumberOfVotes = 4}};
-            dataProvider.GetLeaderBoard(Arg.Any<int>()).Returns(sessions);
+            dataProvider.GetLeaderBoard(Arg.Any<int>(), Arg.Any<bool>()).Returns(sessions);
             var controller = new VotingController(dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
             
             var result = (ViewResult) controller.Leaderboard();
@@ -73,12 +73,24 @@ namespace DDDEastAnglia.Tests.Admin
         public void TestThat_Leaderboard_LimitsTheNumberOfSessions()
         {
             var dataProvider = Substitute.For<IDataProvider>();
-            dataProvider.GetLeaderBoard(Arg.Any<int>()).Returns(new[] {new SessionLeaderBoardEntry()});
+            dataProvider.GetLeaderBoard(Arg.Any<int>(), Arg.Any<bool>()).Returns(new[] {new SessionLeaderBoardEntry()});
             var controller = new VotingController(dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
             
             controller.Leaderboard(123);
 
-            dataProvider.Received().GetLeaderBoard(123);
+            dataProvider.Received().GetLeaderBoard(123, Arg.Any<bool>());
+        }
+
+        [Test]
+        public void TestThat_Leaderboard_ForbidsDuplicateSpeakers()
+        {
+            var dataProvider = Substitute.For<IDataProvider>();
+            dataProvider.GetLeaderBoard(Arg.Any<int>(), Arg.Any<bool>()).Returns(new[] {new SessionLeaderBoardEntry()});
+            var controller = new VotingController(dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
+            
+            controller.Leaderboard(123, false);
+
+            dataProvider.Received().GetLeaderBoard(Arg.Any<int>(), false);
         }
 
         [Test]
@@ -86,7 +98,7 @@ namespace DDDEastAnglia.Tests.Admin
         {
             var dataProvider = Substitute.For<IDataProvider>();
             var sessions = new[] {new SessionLeaderBoardEntry(), new SessionLeaderBoardEntry()};
-            dataProvider.GetLeaderBoard(Arg.Any<int>()).Returns(sessions);
+            dataProvider.GetLeaderBoard(Arg.Any<int>(), Arg.Any<bool>()).Returns(sessions);
             var controller = new VotingController(dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
             
             var result = (ViewResult) controller.Leaderboard();
