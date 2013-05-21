@@ -227,6 +227,35 @@ namespace DDDEastAnglia.Tests.Admin
         }
 
         [Test]
+        public void TestThat_NumberOfUsersWhoHaveCastXVotes_UsesTheDataObtainedFromTheDataProvider_ToCreateTheChartData()
+        {
+            var dataProvider = Substitute.For<IDataProvider>();
+            var voteCounts = new[] {new NumberOfUsersWithVotesModel()};
+            dataProvider.GetNumberOfVotesCastCounts().Returns(voteCounts);
+            var chartDataConverter = Substitute.For<IChartDataConverter>();
+            var controller = new VotingController(dataProvider, Substitute.For<IDnsLookup>(), chartDataConverter);
+
+            controller.NumberOfUsersWhoHaveCastXVotes();
+
+            chartDataConverter.Received().ToChartData(voteCounts);
+        }
+
+        [Test]
+        public void TestThat_NumberOfUsersWhoHaveCastXVotes_PassesTheChartDataToTheView()
+        {
+            var dataProvider = Substitute.For<IDataProvider>();
+            var chartDataConverter = Substitute.For<IChartDataConverter>();
+            long[][] chartData = new long[2][];
+            chartDataConverter.ToChartData(Arg.Any<IList<NumberOfUsersWithVotesModel>>()).Returns(chartData);
+            var controller = new VotingController(dataProvider, Substitute.For<IDnsLookup>(), chartDataConverter);
+
+            var result = (ViewResult) controller.NumberOfUsersWhoHaveCastXVotes();
+            var model = (long[][]) result.Model;
+
+            CollectionAssert.AreEquivalent(chartData, model);
+        }
+
+        [Test]
         public void TestThat_VotersPerIPAddress_SetsTheHighestOccuringNumberOfVotersOnTheModel()
         {
             var dataProvider = Substitute.For<IDataProvider>();

@@ -23,6 +23,7 @@ namespace DDDEastAnglia.VotingData
         IList<VotesForIPAddressModel> GetDistinctIPAddresses();
         IList<DateTimeVoteModel> GetVotesPerDay();
         IList<DateTimeVoteModel> GetVotesPerHour();
+        IList<NumberOfUsersWithVotesModel> GetNumberOfVotesCastCounts();
         IList<IPAddressVoterModel> GetVotersPerIPAddress();
         IList<CookieVoteModel> GetVotesPerIPAddress(string ipAddress);
         IList<KnownUserVoteCountModel> GetKnownUserVotes();
@@ -177,6 +178,12 @@ namespace DDDEastAnglia.VotingData
 
                 return dateTimeVoteModels;
             }
+        }
+
+        public IList<NumberOfUsersWithVotesModel> GetNumberOfVotesCastCounts()
+        {
+            var numberOfVotesCastCount = queryRunner.RunQuery(new NumberOfUsersWhoHaveVotedXTimesQuery());
+            return numberOfVotesCastCount;
         }
 
         public IList<IPAddressVoterModel> GetVotersPerIPAddress()

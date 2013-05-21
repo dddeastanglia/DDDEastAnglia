@@ -132,6 +132,13 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
             return View(chartData);
         }
 
+        public ActionResult NumberOfUsersWhoHaveCastXVotes()
+        {
+            var numberOfVotesCastCounts = dataProvider.GetNumberOfVotesCastCounts();
+            var chartData = chartDataConverter.ToChartData(numberOfVotesCastCounts);
+            return View(chartData);
+        }
+
         public ActionResult VotersPerIPAddress()
         {
             var votersPerIPAddress = dataProvider.GetVotersPerIPAddress();
