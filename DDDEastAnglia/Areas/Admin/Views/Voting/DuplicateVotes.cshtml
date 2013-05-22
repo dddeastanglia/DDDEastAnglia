@@ -1,0 +1,30 @@
+﻿@model IList<DDDEastAnglia.VotingData.Models.DuplicateVoteModel>
+
+<h2>Duplicate votes cast</h2>
+
+<p>This shows duplicate votes that have been made for a session by the same user.</p>
+
+@if (Model.Count == 0)
+{
+    <h3>Hooray! There are no duplicate votes - as it should be.</h3>
+}
+else
+{
+    <table class="table table-striped table-hover table-condensed">
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr><td>
+                    <img src="@item.GravatarUrl" width="32" height="32" />
+                    @item.CookieId
+                </td><td>
+                    <a href="@Url.Action("Details", "Session", new { area = "", id = item.SessionId })">@item.SessionTitle</a> 
+                </td><td>
+                    <a href="@Url.Action("Details", "Speaker", new { area = "", id = item.SpeakerUserId })">@item.SpeakerName</a> 
+                </td><td>
+                    <div class="pull-right">@item.NumberOfVotes votes</div>
+                </td></tr>
+            }
+        </tbody>
+    </table>
+}

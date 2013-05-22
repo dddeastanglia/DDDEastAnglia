@@ -61,9 +61,9 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
             return View(model);
         }
 
-        public ActionResult Leaderboard(int limit = int.MaxValue)
+        public ActionResult Leaderboard(int limit = int.MaxValue, bool allowDuplicateSpeakers = true)
         {
-            var leaderboardSessions = dataProvider.GetLeaderBoard(limit);
+            var leaderboardSessions = dataProvider.GetLeaderBoard(limit, allowDuplicateSpeakers);
             var highestVoteCount = leaderboardSessions.Max(s => s.NumberOfVotes);
             var model = new LeaderboardViewModel
                 {
@@ -132,6 +132,13 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
             return View(chartData);
         }
 
+        public ActionResult NumberOfUsersWhoHaveCastXVotes()
+        {
+            var numberOfVotesCastCounts = dataProvider.GetNumberOfVotesCastCounts();
+            var chartData = chartDataConverter.ToChartData(numberOfVotesCastCounts);
+            return View(chartData);
+        }
+
         public ActionResult VotersPerIPAddress()
         {
             var votersPerIPAddress = dataProvider.GetVotersPerIPAddress();
@@ -188,6 +195,12 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
         {
             var sessionsVotedFor = dataProvider.GetVotedForSessions(cookieId);
             return PartialView("_VotedForSessions", sessionsVotedFor);
+        }
+
+        public ActionResult DuplicateVotes()
+        {
+            var duplicateVotes = dataProvider.GetDuplicateVotes();
+            return View(duplicateVotes);
         }
     }
 }

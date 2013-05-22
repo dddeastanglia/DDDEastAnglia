@@ -46,6 +46,7 @@
             <h3>Session Stats</h3>
 
             <ul>
+                <li>@Html.ActionLink("Votes for the top 15 sessions with no duplicate speakers", "Leaderboard", new {limit = 15, allowDuplicateSpeakers = false})</li>
                 <li>@Html.ActionLink("Votes for the top 15 sessions", "Leaderboard", new {limit = 15})</li>
                 <li>@Html.ActionLink("Votes for all sessions", "Leaderboard")</li>
             </ul>
@@ -59,6 +60,8 @@
             <ul>
                 <li>@Html.ActionLink("Known users who have voted", "KnownUserVotes")</li>
                 <li>@Html.ActionLink("Anonymous users who have voted", "AnonymousUserVotes")</li>
+                <li>@Html.ActionLink("Users who have voted for the same session more than once", "DuplicateVotes")</li>
+                <li>@Html.ActionLink("Distribution of the total number of votes per user", "NumberOfUsersWhoHaveCastXVotes")</li>
             </ul>
         </div>
 

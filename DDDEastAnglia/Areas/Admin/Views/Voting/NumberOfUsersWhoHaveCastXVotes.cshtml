@@ -1,0 +1,70 @@
+﻿@using Newtonsoft.Json
+@model long[][]
+
+<h2>Total votes distribution per user</h2>
+
+<p>This charts shows the number of users who have voted for a given number of sessions. The vertical bar represents the total number of available slots in the agenda.</p>
+
+<div id="chart" style="width:100%;height:600px;"></div>
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/flot")
+
+    <script>
+        $(document).ready(function() {
+            var data = [{
+                color: "#C00",
+                data: @JsonConvert.SerializeObject(Model)
+                }];
+
+            var options = {
+                series: {
+                    lines: { show: true },
+                    points: { show: true },
+                    shadowSize: 2
+                },
+                grid: {
+                    hoverable: true,
+                    backgroundColor: { colors: ["#fff", "#eee"] },
+                    markings: [
+                        { xaxis: { from: 15, to: 15 }, color: "#444", label: "Number of slots in agenda" }
+                    ]
+                }
+            };
+
+            $.plot($("#chart"), data, options);
+
+            function showTooltip(x, y, contents) {
+                $("<div id='tooltip'>" + contents + "</div>").css({
+                    position: "absolute",
+                    display: "none",
+                    top: y - 30,
+                    left: x + 5,
+                    border: "1px solid #444",
+                    padding: "2px",
+                    "background-color": "#c00",
+                    color: "white",
+                    opacity: 0.90
+                }).appendTo("body").fadeIn(200);
+            }
+
+            var previousPoint = null;
+            $("#chart").bind("plothover", function(event, pos, item) {
+                if (item) {
+                    if (previousPoint != item.dataIndex) {
+                        previousPoint = item.dataIndex;
+
+                        $("#tooltip").remove();
+                        var numberOfUsers = item.datapoint[0];
+                        var numberOfVotes = item.datapoint[1];
+                        showTooltip(item.pageX, item.pageY, numberOfUsers + ", " + numberOfVotes);
+                    }
+                } else {
+                    $("#tooltip").remove();
+                    previousPoint = null;
+                }
+            });
+        });
+    </script>
+}
