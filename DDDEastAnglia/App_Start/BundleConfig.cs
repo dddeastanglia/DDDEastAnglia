@@ -32,7 +32,8 @@ namespace DDDEastAnglia
 
             AddScriptBundle(bundles, "~/bundles/flot",
                             "~/Scripts/flot/jquery.flot.js",
-                            "~/Scripts/flot/jquery.flot.time.js");
+                            "~/Scripts/flot/jquery.flot.time.js",
+                            "~/Scripts/flot/jquery.flot.axislabel.js");
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
