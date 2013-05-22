@@ -66,7 +66,7 @@ ORDER BY VoteCount DESC";
                     {
                         UserId = userId,
                         GravatarUrl = gravatar.GetUrl(emailAddress),
-                        Name = name ?? username,
+                        Name = string.IsNullOrWhiteSpace(name) ? username : name,
                         NumberOfVotes = numberOfVotes
                     };
             }
