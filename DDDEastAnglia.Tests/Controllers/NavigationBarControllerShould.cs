@@ -134,6 +134,39 @@ namespace DDDEastAnglia.Tests.Controllers
         }
 
         [Test]
+        public void SetTheSessionsLinkToVisible_WhenTheEventReportsThatSessionSubmissionIsOpen()
+        {
+            var controller = CreateController(conference => conference.CanSubmit().Returns(true));
+
+            var result = controller.Index();
+
+            var agendaLink = FindLink(result, "Sessions");
+            Assert.IsTrue(agendaLink.IsVisible);
+        }
+
+        [Test]
+        public void SetTheSessionsLinkToVisible_WhenTheEventReportsThatSessionVotingIsOpen()
+        {
+            var controller = CreateController(conference => conference.CanVote().Returns(true));
+
+            var result = controller.Index();
+
+            var agendaLink = FindLink(result, "Sessions");
+            Assert.IsTrue(agendaLink.IsVisible);
+        }
+
+        [Test]
+        public void SetTheSessionsLinkToNotVisible_WhenTheEventReportsThatTheAgendaIsPublished()
+        {
+            var controller = CreateController(conference => conference.CanPublishAgenda().Returns(true));
+
+            var result = controller.Index();
+
+            var agendaLink = FindLink(result, "Sessions");
+            Assert.IsFalse(agendaLink.IsVisible);
+        }
+
+        [Test]
         public void SetTheAgendaLinkToVisible_WhenTheEventReportsThatTheAgendaIsPublished()
         {
             var controller = CreateController(conference => conference.CanPublishAgenda().Returns(true));
