@@ -19,16 +19,18 @@ namespace DDDEastAnglia.VotingData
         int GetNumberOfDaysSinceVotingOpened();
         int GetNumberOfDaysUntilVotingCloses();
         int GetNumberOfUsersWhoHaveVoted();
-        IList<SessionLeaderBoardEntry> GetLeaderBoard(int limit);
+        IList<SessionLeaderBoardEntry> GetLeaderBoard(int limit, bool allowDuplicateSpeakers);
         IList<VotesForIPAddressModel> GetDistinctIPAddresses();
         IList<DateTimeVoteModel> GetVotesPerDay();
         IList<DateTimeVoteModel> GetVotesPerHour();
+        IList<NumberOfUsersWithVotesModel> GetNumberOfVotesCastCounts();
         IList<IPAddressVoterModel> GetVotersPerIPAddress();
         IList<CookieVoteModel> GetVotesPerIPAddress(string ipAddress);
         IList<KnownUserVoteCountModel> GetKnownUserVotes();
         IList<VotedSessionModel> GetVotedForSessions(int userId);
         IList<AnonymousUserVoteCountModel> GetAnonymousUserVotes();
         IList<VotedSessionModel> GetVotedForSessions(Guid cookieId);
+        IList<DuplicateVoteModel> GetDuplicateVotes();
     }
 
     public class DataProvider : IDataProvider
@@ -110,9 +112,9 @@ namespace DDDEastAnglia.VotingData
             }
         }
 
-        public IList<SessionLeaderBoardEntry> GetLeaderBoard(int limit)
+        public IList<SessionLeaderBoardEntry> GetLeaderBoard(int limit, bool allowDuplicateSpeakers)
         {
-            var leaderBoardSessions = queryRunner.RunQuery(new LeaderBoardQuery(limit));
+            var leaderBoardSessions = queryRunner.RunQuery(new LeaderBoardQuery(limit, allowDuplicateSpeakers));
             return leaderBoardSessions;
         }
 
@@ -178,6 +180,12 @@ namespace DDDEastAnglia.VotingData
             }
         }
 
+        public IList<NumberOfUsersWithVotesModel> GetNumberOfVotesCastCounts()
+        {
+            var numberOfVotesCastCount = queryRunner.RunQuery(new NumberOfUsersWhoHaveVotedXTimesQuery());
+            return numberOfVotesCastCount;
+        }
+
         public IList<IPAddressVoterModel> GetVotersPerIPAddress()
         {
             var votersPerIPAddress = queryRunner.RunQuery(new VotersPerIPAddressQuery());
@@ -212,6 +220,12 @@ namespace DDDEastAnglia.VotingData
         {
             var sessionsVotedFor = queryRunner.RunQuery(new AnonymousUserVotedSessionsQuery(cookieId));
             return sessionsVotedFor;
+        }
+
+        public IList<DuplicateVoteModel> GetDuplicateVotes()
+        {
+            var duplicateVotes = queryRunner.RunQuery(new UsersWhoHaveVotedForTheSameSessionMoreThanOnceQuery(new GravatarUrl()));
+            return duplicateVotes;
         }
     }
 }

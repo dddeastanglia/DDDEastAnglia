@@ -216,6 +216,8 @@
     <Compile Include="Helpers\JavaScriptDateTimes.cs" />
     <Compile Include="VotingData\DataProvider.cs" />
     <Compile Include="VotingData\IQueryResultObjectFactory.cs" />
+    <Compile Include="VotingData\Models\DuplicateVoteModel.cs" />
+    <Compile Include="VotingData\Models\NumberOfUsersWithVotesModel.cs" />
     <Compile Include="VotingData\Models\VotesForIPAddressModel.cs" />
     <Compile Include="VotingData\Models\IPAddressVoterModel.cs" />
     <Compile Include="VotingData\Models\SessionLeaderBoardEntry.cs" />
@@ -228,6 +230,8 @@
     <Compile Include="VotingData\Queries\LeaderBoardQuery.cs" />
     <Compile Include="VotingData\Queries\IQuery.cs" />
     <Compile Include="VotingData\Queries\KnownUserVotedSessionsQuery.cs" />
+    <Compile Include="VotingData\Queries\NumberOfUsersWhoHaveVotedXTimesQuery.cs" />
+    <Compile Include="VotingData\Queries\UsersWhoHaveVotedForTheSameSessionMoreThanOnceQuery.cs" />
     <Compile Include="VotingData\Queries\VotedSessionModelFactory.cs" />
     <Compile Include="VotingData\Queries\VotersPerIPAddressQuery.cs" />
     <Compile Include="VotingData\Queries\VotesPerIPAddressQuery.cs" />
@@ -524,6 +528,8 @@
     <Content Include="Content\font\fontawesome-webfont.ttf" />
     <Content Include="Content\font\fontawesome-webfont.eot" />
     <Content Include="Content\font\FontAwesome.otf" />
+    <Content Include="Areas\Admin\Views\Voting\DuplicateVotes.cshtml" />
+    <Content Include="Areas\Admin\Views\Voting\NumberOfUsersWhoHaveCastXVotes.cshtml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\html5shiv-printshiv.js" />

@@ -21,7 +21,8 @@ namespace DDDEastAnglia.VotingData.Queries
 
         public string Sql
         {
-            get {
+            get 
+            {
                 return @"
 SELECT v.UserId, p.Name, p.UserName, p.EmailAddress, COUNT(v.UserId) AS VoteCount FROM Votes v
 JOIN UserProfile p ON v.UserId = p.UserId
