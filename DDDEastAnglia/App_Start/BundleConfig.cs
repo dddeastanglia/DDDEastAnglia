@@ -30,6 +30,11 @@ namespace DDDEastAnglia
             AddScriptBundle(bundles, "~/bundles/Markdown",
                             "~/Scripts/Markdown*");
 
+            AddScriptBundle(bundles, "~/bundles/flot",
+                            "~/Scripts/flot/jquery.flot.js",
+                            "~/Scripts/flot/jquery.flot.time.js",
+                            "~/Scripts/flot/jquery.flot.axislabel.js");
+
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
 
@@ -37,20 +42,22 @@ namespace DDDEastAnglia
                             "~/Scripts/modernizr-*");
 
             AddScriptBundle(bundles, "~/bundles/voting", "~/Scripts/voting.js");
+            AddScriptBundle(bundles, "~/bundles/resolveIPAddress", "~/Scripts/resolveIPAddress.js");
+            AddScriptBundle(bundles, "~/bundles/progressbar", "~/Scripts/progressbar.js");
 
             AddStyleBundle(bundles, "~/Content/admin",
                            "~/Content/bootstrap.css",
-                           "~/Areas/Admin/Content/admin.css",
                            "~/Content/media-queries.css",
                            "~/Content/font-awesome.css",
-                           "~/Content/font-awesome-ie7.min.css");
+                           "~/Content/font-awesome-ie7.min.css",
+                           "~/Areas/Admin/Content/admin.css");
 
             AddStyleBundle(bundles, "~/Content/css",
                            "~/Content/bootstrap.css",
-                           "~/Content/Site.css",
                            "~/Content/media-queries.css",
                            "~/Content/font-awesome.css",
-                           "~/Content/font-awesome-ie7.min.css");
+                           "~/Content/font-awesome-ie7.min.css",
+                           "~/Content/Site.css");
 
             AddStyleBundle(bundles, "~/Content/themes/base/css",
                            "~/Content/themes/base/jquery.ui.core.css",

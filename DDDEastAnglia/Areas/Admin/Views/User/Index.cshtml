@@ -46,7 +46,7 @@
     @foreach (var item in Model) 
     {
         <tr><td>
-            <img src="@item.GravatarUrl" width="32" height="32" alt="@item.Name">
+            <img src="@item.GravatarUrl" width="32" height="32" alt="@item.Name" title="@item.Name">
             @Html.DisplayFor(modelItem => item.UserName)
         </td><td>
             @Html.DisplayFor(modelItem => item.Name)
@@ -58,9 +58,9 @@
         </td><td>
             @Html.DisplayFor(modelItem => item.SubmittedSessionCount)
         </td><td>
-            <i class="icon-list-alt"></i> @Html.ActionLink("Details", "Details", new { id = item.UserId })
-            <i class="icon-edit"></i> @Html.ActionLink("Edit", "Edit", new { id = item.UserId }) 
-            <i class="icon-trash"></i> @Html.ActionLink("Delete", "Delete", new { id = item.UserId })
+            <i class="icon-list-alt"></i> @Html.ActionLink("Details", "Details", "Session", new { id = item.UserId }, new { area = "Admin"})
+            <i class="icon-edit"></i> @Html.ActionLink("Edit", "Edit", "Session", new { id = item.UserId }, new { area = "Admin"}) 
+            <i class="icon-trash"></i> @Html.ActionLink("Delete", "Delete", "Session", new { id = item.UserId }, new { area = "Admin"})
         </td></tr>
     }
     </tbody>
