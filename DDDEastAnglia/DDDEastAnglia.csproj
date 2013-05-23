@@ -331,6 +331,8 @@
     <Compile Include="Models\SpeakerDisplayModel.cs" />
     <Content Include="ForgottenPasswordTemplate.txt" />
     <Content Include="ForgottenPasswordTemplate.html" />
+    <Content Include="Content\font-awesome-ie7.css" />
+    <Content Include="Content\font-awesome.min.css" />
     <Content Include="Images\logo-icon-114.png" />
     <Content Include="Images\logo-icon-144.png" />
     <Content Include="Images\logo-icon-57.png" />
@@ -457,10 +459,6 @@
     <Content Include="Images\sponsors\tekpub.png" />
     <Content Include="Images\sponsors\tinamous.png" />
     <Content Include="Images\wmd-buttons.png" />
-    <Content Include="Content\font\fontawesome-webfont.woff" />
-    <Content Include="Content\font\fontawesome-webfont.ttf" />
-    <Content Include="Content\font\fontawesome-webfont.eot" />
-    <Content Include="Content\font\FontAwesome.otf" />
     <Content Include="Areas\Admin\Views\Web.config" />
     <Content Include="Areas\Admin\Views\AdminHome\Index.cshtml" />
     <Content Include="Areas\Admin\Views\User\Index.cshtml" />
@@ -470,6 +468,10 @@
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Admin\Views\Session\Index.cshtml" />
+    <Content Include="Content\font\fontawesome-webfont.woff" />
+    <Content Include="Content\font\fontawesome-webfont.ttf" />
+    <Content Include="Content\font\fontawesome-webfont.eot" />
+    <Content Include="Content\font\FontAwesome.otf" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\html5shiv-printshiv.js" />
