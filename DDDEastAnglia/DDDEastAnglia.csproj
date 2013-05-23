@@ -333,6 +333,9 @@
     <Content Include="ForgottenPasswordTemplate.html" />
     <Content Include="Content\font-awesome-ie7.css" />
     <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Images\hotel-newmarket-road.jpg" />
+    <Content Include="Images\hotel-orchard-park.jpg" />
+    <Content Include="Images\hotel-university-arms.jpg" />
     <Content Include="Images\logo-icon-114.png" />
     <Content Include="Images\logo-icon-144.png" />
     <Content Include="Images\logo-icon-57.png" />
@@ -559,6 +562,7 @@
     <Content Include="Views\ResetPassword\Step2.cshtml" />
     <Content Include="Views\ResetPassword\Step3.cshtml" />
     <Content Include="Views\ResetPassword\Step4.cshtml" />
+    <Content Include="Views\Home\Accommodation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
