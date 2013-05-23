@@ -74,6 +74,12 @@
       <Private>True</Private>
       <HintPath>..\packages\Nuget.Core.1.6.2\lib\net40\NuGet.Core.dll</HintPath>
     </Reference>
+    <Reference Include="RestSharp">
+      <HintPath>..\packages\RestSharp.104.1\lib\net4\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="SendGridMail">
+      <HintPath>..\packages\Sendgrid.1.1.1\lib\net40\SendGridMail.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
@@ -197,6 +203,7 @@
     <Compile Include="Areas\Admin\Models\UserModel.cs" />
     <Compile Include="Controllers\BannerController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
+    <Compile Include="Controllers\ResetPasswordController.cs" />
     <Compile Include="Controllers\SessionDisplayModelComparer.cs" />
     <Compile Include="Controllers\SpeakerDisplayModelComparer.cs" />
     <Compile Include="Controllers\VoteController.cs" />
@@ -250,15 +257,33 @@
     <Compile Include="Helpers\Context\HttpContextWrapper.cs" />
     <Compile Include="Helpers\Context\HttpWebRequestFactory.cs" />
     <Compile Include="Helpers\CookieExtensions.cs" />
+    <Compile Include="Helpers\Email\ResetPasswordEmailSenderFactory.cs" />
+    <Compile Include="Helpers\IResetPasswordThingy.cs" />
     <Compile Include="Helpers\ISessionSorter.cs" />
     <Compile Include="Helpers\ISortAlgorithm.cs" />
     <Compile Include="Helpers\ListExtensions.cs" />
+    <Compile Include="Helpers\AppSettings\IAppSettingsProvider.cs" />
+    <Compile Include="Helpers\File\FileContentsProvider.cs" />
+    <Compile Include="Helpers\Email\IEmailSender.cs" />
+    <Compile Include="Helpers\File\IFileContentsProvider.cs" />
+    <Compile Include="Helpers\Email\IMailHostSettingsProvider.cs" />
+    <Compile Include="Helpers\Email\IMailMessage.cs" />
+    <Compile Include="Helpers\Email\IMessageFactory.cs" />
+    <Compile Include="Helpers\Email\SendGrid\SendGridMessageFactory.cs" />
+    <Compile Include="Helpers\Email\Smtp\SmtpHostSettingsProvider.cs" />
+    <Compile Include="Helpers\Email\ResetPasswordEmailSender.cs" />
+    <Compile Include="Helpers\Email\SendGrid\SendGridEmailSender.cs" />
+    <Compile Include="Helpers\Email\SendGrid\SendGridMessageWrapper.cs" />
+    <Compile Include="Helpers\AppSettings\WebConfigurationAppSettingsProvider.cs" />
     <Compile Include="Helpers\ICurrentUserVoteRepository.cs" />
     <Compile Include="Helpers\IControllerInformationProvider.cs" />
+    <Compile Include="Helpers\Email\IMailHostSettings.cs" />
     <Compile Include="Helpers\IRequestFactory.cs" />
     <Compile Include="Helpers\IRequestProvider.cs" />
     <Compile Include="Helpers\RandomSort.cs" />
     <Compile Include="Helpers\SessionSorter.cs" />
+    <Compile Include="Helpers\Email\Smtp\SmtpHostSettings.cs" />
+    <Compile Include="Helpers\WebSecurityWrapper.cs" />
     <Compile Include="Models\BannerViewModel.cs" />
     <Compile Include="DataAccess\EntityFramework\Migrations\201303302150305_InitialCreate.cs" />
     <Compile Include="DataAccess\EntityFramework\Migrations\201303302150305_InitialCreate.Designer.cs">
@@ -297,11 +322,15 @@
     <Compile Include="Models\Query\IBannerModelQuery.cs" />
     <Compile Include="Models\RegisterExternalLoginModel.cs" />
     <Compile Include="Models\RegisterModel.cs" />
+    <Compile Include="Models\ResetPasswordStepOneModel.cs" />
+    <Compile Include="Models\ResetPasswordStepThreeModel.cs" />
     <Compile Include="Models\SessionDisplayModel.cs" />
     <Compile Include="Models\SessionIndexModel.cs" />
     <Compile Include="Models\SessionTweetLink.cs" />
     <Compile Include="Models\SessionVoteModel.cs" />
     <Compile Include="Models\SpeakerDisplayModel.cs" />
+    <Content Include="ForgottenPasswordTemplate.txt" />
+    <Content Include="ForgottenPasswordTemplate.html" />
     <Content Include="Images\logo-icon-114.png" />
     <Content Include="Images\logo-icon-144.png" />
     <Content Include="Images\logo-icon-57.png" />
@@ -524,6 +553,10 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="Views\Shared\_SearchBox.cshtml" />
+    <Content Include="Views\ResetPassword\Step1.cshtml" />
+    <Content Include="Views\ResetPassword\Step2.cshtml" />
+    <Content Include="Views\ResetPassword\Step3.cshtml" />
+    <Content Include="Views\ResetPassword\Step4.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -551,6 +584,7 @@
     </ExcludeFromPackageFiles>
     <ExcludeFromPackageFiles Include="appSettingsSecret.config">
       <FromTarget>Project</FromTarget>
+      <SubType>Designer</SubType>
     </ExcludeFromPackageFiles>
   </ItemGroup>
   <ItemGroup>
