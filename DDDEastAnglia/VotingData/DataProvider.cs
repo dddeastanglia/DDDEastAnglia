@@ -88,7 +88,7 @@ namespace DDDEastAnglia.VotingData
             return GetVotingDates(votingDates =>
                 {
                     var durationUnitVotingCloses = votingDates.EndDate - DateTime.Today;
-                    return (int) durationUnitVotingCloses.Value.TotalDays;
+                    return (int) Math.Max(0, durationUnitVotingCloses.Value.TotalDays);
                 });
         }
 
