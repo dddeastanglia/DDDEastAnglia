@@ -8,7 +8,7 @@ namespace DDDEastAnglia.Models
     public class VotingCookie
     {
         public const string CookieName = "DDDEA2013.Voting";
-        public static readonly DateTime DefaultExpiry = new DateTime(2013, 5, 24);
+        public static readonly DateTime DefaultExpiry = new DateTime(2013, 5, 25);
         private readonly List<int> _sessionsVotedFor = new List<int>();
 
         public VotingCookie(Guid id, IEnumerable<int> sessionsVotedFor)
