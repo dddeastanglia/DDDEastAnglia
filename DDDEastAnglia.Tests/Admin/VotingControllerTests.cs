@@ -54,6 +54,34 @@ namespace DDDEastAnglia.Tests.Admin
 
             Assert.That(model.VotingCompletePercentage, Is.EqualTo(expectedPercentageCompletion));
         }
+        
+        [TestCase]
+        public void TestThat_Index_DoesNotCalculateGreaterThanOneHunderdPercent_ForTheDurationThroughTheVotingPeriod()
+        {
+            var dataProvider = Substitute.For<IDataProvider>();
+            dataProvider.GetNumberOfDaysSinceVotingOpened().Returns(25);
+            dataProvider.GetNumberOfDaysOfVoting().Returns(10);
+            var controller = new VotingController(dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
+
+            var result = (ViewResult) controller.Index();
+            var model = (VotingStatsViewModel) result.Model;
+
+            Assert.That(model.VotingCompletePercentage, Is.EqualTo(100));
+        }
+
+        [Test]
+        public void TestThat_Index_DoesNotCalculateTheNumberOfDaysOfVotingPassedGreaterThanTheTotalNumberOfAllowableVotingDays()
+        {
+            var dataProvider = Substitute.For<IDataProvider>();
+            dataProvider.GetNumberOfDaysSinceVotingOpened().Returns(25);
+            dataProvider.GetNumberOfDaysOfVoting().Returns(10);
+            var controller = new VotingController(dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
+
+            var result = (ViewResult) controller.Index();
+            var model = (VotingStatsViewModel) result.Model;
+
+            Assert.That(model.NumberOfDaysOfVotingPassed, Is.EqualTo(10));
+        }
 
         [Test]
         public void TestThat_Leaderboard_SetsTheHighestOccuringNumberOfVotesOnTheModel()
