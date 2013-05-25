@@ -1,4 +1,6 @@
 ﻿using NUnit.Framework;
+using NSubstitute;
+using System.Web.Security;
 
 namespace DDDEastAnglia.Tests.RoleController
 {
@@ -6,5 +8,6 @@ namespace DDDEastAnglia.Tests.RoleController
     class Given_An_Empty_Role_The_RoleController_Should
     {
 
+        // private var Roles = Substitute.For<Roles>();
     }
 }

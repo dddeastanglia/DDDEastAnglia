@@ -83,6 +83,8 @@
     <Compile Include="DataAccess\MessageBus\Given_That_No_Handlers_Have_Been_Registered_The_SimpleMessageBus_Should.cs" />
     <Compile Include="DataAccess\MessageBus\Given_That_The_TestMessageHandler_Has_Been_Registered_The_SimpleMessageBus_Should.cs" />
     <Compile Include="DataAccess\MessageBus\TestMessage.cs" />
+    <Compile Include="Domain\Agenda\Given_An_Unpublished_Agenda.cs" />
+    <Compile Include="Domain\Agenda\Given_A_Published_Agenda.cs" />
     <Compile Include="Domain\Conferences\Calendar\The_TimeRangeEntry_Should.cs" />
     <Compile Include="Domain\Conferences\Calendar\The_Single_Time_Entry_Should.cs" />
     <Compile Include="Domain\Conferences\Given_Only_The_Submission_Is_Open_The_Conference_Should.cs" />
