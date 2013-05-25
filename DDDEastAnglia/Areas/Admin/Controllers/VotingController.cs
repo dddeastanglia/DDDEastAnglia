@@ -45,14 +45,14 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
         public ActionResult Index()
         {
             int numberOfDaysOfVoting = dataProvider.GetNumberOfDaysOfVoting();
-            int numberOfDaysSinceVotingOpened = dataProvider.GetNumberOfDaysSinceVotingOpened();
-            int votingPercentComplete = (int) (numberOfDaysSinceVotingOpened * 1.0f / numberOfDaysOfVoting * 100);
+            int numberOfDaysOfVotingPassed = Math.Min(numberOfDaysOfVoting, dataProvider.GetNumberOfDaysSinceVotingOpened());
+            int votingPercentComplete = (int) (numberOfDaysOfVotingPassed * 1.0f / numberOfDaysOfVoting * 100);
             var model = new VotingStatsViewModel
                 {
                     TotalVotes = dataProvider.GetTotalVoteCount(),
                     NumberOfUsersWhoHaveVoted = dataProvider.GetNumberOfUsersWhoHaveVoted(),
                     NumberOfDaysOfVoting = numberOfDaysOfVoting,
-                    NumberOfDaysOfVotingPassed = numberOfDaysSinceVotingOpened,
+                    NumberOfDaysOfVotingPassed = numberOfDaysOfVotingPassed,
                     NumberOfDaysOfVotingRemaining = dataProvider.GetNumberOfDaysUntilVotingCloses(),
                     VotingCompletePercentage = votingPercentComplete,
                     VotingStartDate = dataProvider.GetVotingStartDate(),
