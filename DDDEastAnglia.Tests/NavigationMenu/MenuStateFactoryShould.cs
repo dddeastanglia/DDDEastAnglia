@@ -20,7 +20,7 @@ namespace DDDEastAnglia.Tests.NavigationMenu
         {
             var factory = new MenuStateFactory();
             var menuState = factory.Create(new RouteData());
-            Assert.IsNotNull(menuState);
+            Assert.IsInstanceOf<MenuState>(menuState);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web.Mvc;
 using System.Web.Routing;
 using DDDEastAnglia.NavigationMenu;
 using NUnit.Framework;
@@ -20,7 +21,7 @@ namespace DDDEastAnglia.Tests.NavigationMenu
         {
             var factory = new UrlHelperFactory();
             var urlHelper = factory.Create(new RequestContext());
-            Assert.IsNotNull(urlHelper);
+            Assert.IsInstanceOf<UrlHelper>(urlHelper);
         }
     }
 }
