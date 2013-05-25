@@ -51,7 +51,7 @@ namespace DDDEastAnglia.Tests.Controllers
         {
             var controller = CreateController();
 
-            var result = controller.Index();
+            var result = controller.RenderMenu();
 
             var link = FindLink(result, linkText);
             Assert.IsTrue(link.IsVisible);
@@ -72,7 +72,7 @@ namespace DDDEastAnglia.Tests.Controllers
         {
             var controller = CreateController(currentControllerName: controllerName, currentActionName: actionName);
 
-            var result = controller.Index();
+            var result = controller.RenderMenu();
 
             var link = FindLink(result, linkText);
             Assert.IsTrue(link.IsActive);
@@ -83,7 +83,7 @@ namespace DDDEastAnglia.Tests.Controllers
         {
             var controller = CreateController();
 
-            var result = controller.Index();
+            var result = controller.RenderMenu();
 
             var adminLink = FindLink(result, "Admin");
             Assert.IsFalse(adminLink.IsVisible);
@@ -94,7 +94,7 @@ namespace DDDEastAnglia.Tests.Controllers
         {
             var controller = CreateController(userRoles: new[] {"administrator"});
 
-            var result = controller.Index();
+            var result = controller.RenderMenu();
 
             var adminLink = FindLink(result, "Admin");
             Assert.IsTrue(adminLink.IsVisible);
@@ -105,7 +105,7 @@ namespace DDDEastAnglia.Tests.Controllers
         {
             var controller = CreateController(conference => conference.CanRegister().Returns(false));
 
-            var result = controller.Index();
+            var result = controller.RenderMenu();
 
             var registrationLink = FindLink(result, "Register");
             Assert.IsFalse(registrationLink.IsVisible);
@@ -116,7 +116,7 @@ namespace DDDEastAnglia.Tests.Controllers
         {
             var controller = CreateController(conference => conference.CanRegister().Returns(true));
 
-            var result = controller.Index();
+            var result = controller.RenderMenu();
 
             var registrationLink = FindLink(result, "Register");
             Assert.IsTrue(registrationLink.IsVisible);
@@ -127,7 +127,7 @@ namespace DDDEastAnglia.Tests.Controllers
         {
             var controller = CreateController(conference => conference.CanPublishAgenda().Returns(false));
 
-            var result = controller.Index();
+            var result = controller.RenderMenu();
 
             var agendaLink = FindLink(result, "Agenda");
             Assert.IsFalse(agendaLink.IsVisible);
@@ -138,7 +138,7 @@ namespace DDDEastAnglia.Tests.Controllers
         {
             var controller = CreateController(conference => conference.CanSubmit().Returns(true));
 
-            var result = controller.Index();
+            var result = controller.RenderMenu();
 
             var agendaLink = FindLink(result, "Sessions");
             Assert.IsTrue(agendaLink.IsVisible);
@@ -149,7 +149,7 @@ namespace DDDEastAnglia.Tests.Controllers
         {
             var controller = CreateController(conference => conference.CanVote().Returns(true));
 
-            var result = controller.Index();
+            var result = controller.RenderMenu();
 
             var agendaLink = FindLink(result, "Sessions");
             Assert.IsTrue(agendaLink.IsVisible);
@@ -160,7 +160,7 @@ namespace DDDEastAnglia.Tests.Controllers
         {
             var controller = CreateController(conference => conference.CanPublishAgenda().Returns(true));
 
-            var result = controller.Index();
+            var result = controller.RenderMenu();
 
             var agendaLink = FindLink(result, "Sessions");
             Assert.IsFalse(agendaLink.IsVisible);
@@ -171,7 +171,7 @@ namespace DDDEastAnglia.Tests.Controllers
         {
             var controller = CreateController(conference => conference.CanPublishAgenda().Returns(true));
 
-            var result = controller.Index();
+            var result = controller.RenderMenu();
 
             var agendaLink = FindLink(result, "Agenda");
             Assert.IsTrue(agendaLink.IsVisible);

@@ -39,7 +39,8 @@ namespace DDDEastAnglia.Controllers
             this.urlHelperFactory = urlHelperFactory;
         }
 
-        public ActionResult Index()
+        [ChildActionOnly]
+        public ActionResult RenderMenu()
         {
             var conference = conferenceRepository.GetByEventShortName(DefaultEventName);
             var links = new List<NavigationMenuLinkViewModel>
