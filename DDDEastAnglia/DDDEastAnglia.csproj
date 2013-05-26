@@ -619,6 +619,7 @@
     <Content Include="Views\ResetPassword\Step3.cshtml" />
     <Content Include="Views\ResetPassword\Step4.cshtml" />
     <Content Include="Views\Home\Accommodation.cshtml" />
+    <Content Include="Views\Home\Agenda.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
