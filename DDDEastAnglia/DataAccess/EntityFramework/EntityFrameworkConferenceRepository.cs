@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using DDDEastAnglia.DataAccess.Builders;
+using DDDEastAnglia.Domain;
 using Conference = DDDEastAnglia.Domain.Conference;
 
 namespace DDDEastAnglia.DataAccess.EntityFramework
@@ -13,7 +14,7 @@ namespace DDDEastAnglia.DataAccess.EntityFramework
             _conferenceBuilder = conferenceBuilder;
         }
 
-        public Conference ForSession(int sessionId)
+        public IConference ForSession(int sessionId)
         {
             using (var dddeaContext = new DDDEAContext())
             {
@@ -22,7 +23,7 @@ namespace DDDEastAnglia.DataAccess.EntityFramework
             }
         }
 
-        public Conference GetByEventShortName(string shortName)
+        public IConference GetByEventShortName(string shortName)
         {
             using (var dddeaContext = new DDDEAContext())
             {

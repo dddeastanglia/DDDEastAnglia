@@ -241,6 +241,7 @@
     <Compile Include="Areas\Admin\Models\UserModel.cs" />
     <Compile Include="Areas\Admin\Models\VotingStatsViewModel.cs" />
     <Compile Include="Controllers\BannerController.cs" />
+    <Compile Include="Controllers\NavigationBarController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\ResetPasswordController.cs" />
     <Compile Include="Controllers\SessionDisplayModelComparer.cs" />
@@ -290,6 +291,7 @@
     <Compile Include="Domain\Calendar\SingleTimeEntry.cs" />
     <Compile Include="Domain\Calendar\TimeRangeEntry.cs" />
     <Compile Include="Domain\Conference.cs" />
+    <Compile Include="Domain\IConference.cs" />
     <Compile Include="GlimpseSecurityPolicy.cs" />
     <Compile Include="Helpers\AlphabeticalSort.cs" />
     <Compile Include="Helpers\Context\HttpContextControllerInformationProvider.cs" />
@@ -358,6 +360,7 @@
     <Compile Include="Models\GrokTalk.cs" />
     <Compile Include="Models\LocalPasswordModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\NavigationMenuViewModel.cs" />
     <Compile Include="Models\Query\IBannerModelQuery.cs" />
     <Compile Include="Models\RegisterExternalLoginModel.cs" />
     <Compile Include="Models\RegisterModel.cs" />
@@ -619,6 +622,7 @@
     <Content Include="Views\ResetPassword\Step3.cshtml" />
     <Content Include="Views\ResetPassword\Step4.cshtml" />
     <Content Include="Views\Home\Accommodation.cshtml" />
+    <Content Include="Views\NavigationBar\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

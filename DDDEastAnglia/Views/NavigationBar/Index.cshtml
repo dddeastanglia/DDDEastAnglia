@@ -1,0 +1,31 @@
+﻿@model DDDEastAnglia.Models.NavigationMenuViewModel
+
+<div class="nav-collapse">
+    <ul class="nav">
+        <li class="dropdown @Html.MenuState("Home", "Index")">@Html.ActionLink("Home", "Index", "Home")</li>
+        <li class="dropdown @Html.MenuState("Session")">@Html.ActionLink("Sessions", "Index", "Session")</li>
+        <li class="dropdown @Html.MenuState("Speaker", "Index")">@Html.ActionLink("Speakers", "Index", "Speaker")</li>
+        
+        @if (Model.IsAgendaPublished)
+        {
+            <li class="dropdown @Html.MenuState("Home", "Agenda")">@Html.ActionLink("Agenda", "Agenda", "Home")</li>
+        }
+
+        @if (Model.IsRegistrationOpen)
+        {
+            <li class="dropdown @Html.MenuState("Home", "Register")">@Html.ActionLink("Register", "Register", "Home")</li>
+        }
+
+        <li class="dropdown @Html.MenuState("Home", "About")">@Html.ActionLink("New to DDD?", "About", "Home")</li>
+        <li class="dropdown @Html.MenuState("Home", "Venue")">@Html.ActionLink("Venue", "Venue", "Home")</li>
+        <li class="dropdown @Html.MenuState("Home", "Accommodation")">@Html.ActionLink("Accommodation", "Accommodation", "Home")</li>
+        <li class="dropdown @Html.MenuState("Home", "Sponsors")">@Html.ActionLink("Sponsors", "Sponsors", "Home")</li>
+        <li class="dropdown @Html.MenuState("Home", "Team")">@Html.ActionLink("Team", "Team", "Home")</li>
+        <li class="dropdown @Html.MenuState("Home", "Contact")">@Html.ActionLink("Contact", "Contact", "Home")</li>
+                            
+        @if (Model.IsUserAnAdministrator)
+        {
+            <li class="dropdown">@Html.ActionLink("Admin", "Index", new { area = "Admin", controller = "AdminHome" })</li>
+        }
+    </ul>
+</div>
