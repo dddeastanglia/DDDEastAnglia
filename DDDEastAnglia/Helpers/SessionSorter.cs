@@ -1,11 +1,6 @@
-﻿using DDDEastAnglia.Controllers;
-using DDDEastAnglia.DataAccess;
-using DDDEastAnglia.Domain;
+﻿using DDDEastAnglia.Domain;
 using DDDEastAnglia.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace DDDEastAnglia.Helpers
 {
@@ -20,7 +15,7 @@ namespace DDDEastAnglia.Helpers
             _votingSort = votingSort;
         }
 
-        public void SortSessions(Conference conference, List<SessionDisplayModel> sessions)
+        public void SortSessions(IConference conference, List<SessionDisplayModel> sessions)
         {
             if (conference.CanVote())
             {

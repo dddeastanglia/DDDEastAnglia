@@ -1,0 +1,13 @@
+﻿@model DDDEastAnglia.Models.NavigationMenuViewModel
+
+<div class="nav-collapse">
+    <ul class="nav">
+        @foreach (var link in Model.Links)
+        {
+            if (link.IsVisible)
+            {
+                <li class="dropdown @(link.IsActive ? "active" : "")"><a href="@link.LinkUrl">@link.LinkText</a></li>
+            }
+        }
+    </ul>
+</div>

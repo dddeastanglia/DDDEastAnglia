@@ -4,7 +4,7 @@ namespace DDDEastAnglia.DataAccess
 {
     public interface IConferenceRepository
     {
-        Conference ForSession(int sessionId);
-        Conference GetByEventShortName(string shortName);
+        IConference ForSession(int sessionId);
+        IConference GetByEventShortName(string shortName);
     }
 }

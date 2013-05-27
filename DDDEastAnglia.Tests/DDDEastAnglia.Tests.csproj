@@ -61,6 +61,7 @@
     <Compile Include="ConferenceHelper.cs" />
     <Compile Include="Controllers\ResetPasswordControllerTests.cs" />
     <Compile Include="ControllerTestExtensions.cs" />
+    <Compile Include="Controllers\NavigationBarControllerShould.cs" />
     <Compile Include="DataAccess\Builders\The_Conference_Builder_Should.cs" />
     <Compile Include="DataAccess\Handlers\Voting\DeleteVote\Given_The_Conference_Is_Not_Open_For_Voting_The_DeleteVotingCommandHandler_Should.cs" />
     <Compile Include="DataAccess\Handlers\Voting\DeleteVote\Given_The_User_Did_Not_Vote_For_The_Session_The_DeleteVotingCommandHandler_Should.cs" />
@@ -86,6 +87,9 @@
     <Compile Include="Helpers\Email\Smtp\SmtpHostSettings_Should.cs" />
     <Compile Include="Helpers\Given_An_IPV4_Address_MatchIPAddress_Should.cs" />
     <Compile Include="Helpers\Given_A_List_Of_Sessions.cs" />
+    <Compile Include="NavigationMenu\MenuStateFactoryShould.cs" />
+    <Compile Include="NavigationMenu\MenuStateShould.cs" />
+    <Compile Include="NavigationMenu\UrlHelperFactoryShould.cs" />
     <Compile Include="Voting\CookieHelper.cs" />
     <Compile Include="Voting\Given_A_SessionId_The_Vote_Controller_Should.cs" />
     <Compile Include="Voting\Given_That_I_Am_Logged_In_The_Vote_Controller_Should.cs" />
