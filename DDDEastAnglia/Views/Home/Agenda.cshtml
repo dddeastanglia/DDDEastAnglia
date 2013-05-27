@@ -10,131 +10,152 @@
         border-collapse: collapse;
     }
 
-    .centredColumn
+    .centredCell
     {
-    	text-align: center;
+        text-align: center;
     }
 
+    .boldCell
+    {
+        font-weight: bold;
+    }
+
+    .nonSession
+    {
+        color: #999999;
+    }
 </style>
+
+<h2>DDD East Anglia 2013 Agenda</h2>
 
 <table>
     <tr>
-    <td />
-    <td class="centredColumn">Room 1</td>
-    <td class="centredColumn">Room 2</td>
-    <td class="centredColumn">Room 3</td>
+        <td />
+        <td class="centredCell boldCell">Room 1</td>
+        <td class="centredCell boldCell">Room 2</td>
+        <td class="centredCell boldCell">Room 3</td>
     </tr>
     <tr>
-    <td/>
-        <td class="centredColumn"><em>Web</em></td>
-    <td class="centredColumn"><em>Languages</em></td>
-    <td class="centredColumn"><em>Practices</em></td>
+        <td class="boldCell">0830</td>
+        <td colspan="3" class="centredCell nonSession">Registration</td>
     </tr>
     <tr>
-        <td>0830</td>
-        <td colspan="3" class="centredColumn">Registration</td>
+        <td class="boldCell">0900</td>
+        <td colspan="3" class="centredCell nonSession">Welcome & Housekeeping</td>
     </tr>
     <tr>
-        <td>0900</td>
-        <td colspan="3" class="centredColumn">Welcome & Housekeeping</td>
-    </tr>
-    <tr>
-        <td>0915</td>
+        <td class="boldCell">0915</td>
         <td>
-            @Html.ActionLink("The densest, fastest moving talk ever","Details","Session",new {id = 44}) <br/>
-            @Html.ActionLink("Mark Rendle","Details", "Speaker", new {id=48})
+            @Html.ActionLink("The densest, fastest moving talk ever", "Details", "Session", new { id = 44 })
+            <br />
+            <br />
+            @Html.ActionLink("Mark Rendle", "Details", "Speaker", new { id = 48 })
         </td>
         <td>
-            @Html.ActionLink("Async C# 5.0 - Patterns for Real-World Use","Details","Session", new {id=75})<br/>
-            @Html.ActionLink("Liam Westley","Details", "Speaker", new {id=62})
+            @Html.ActionLink("Async C# 5.0 - Patterns for Real-World Use", "Details", "Session", new { id = 75 })<br />
+            <br />
+            @Html.ActionLink("Liam Westley", "Details", "Speaker", new { id = 62 })
         </td>
         <td>
-            @Html.ActionLink("Pragmatic Dependency Injection","Details", "Session", new {id=46})<br/>
-            @Html.ActionLink("Ian Russell","Details", "Speaker", new {id=53})
+            @Html.ActionLink("Pragmatic Dependency Injection", "Details", "Session", new { id = 46 })<br />
+            <br />
+            @Html.ActionLink("Ian Russell", "Details", "Speaker", new { id = 53 })
         </td>
     </tr>
     <tr>
-        <td>1015</td>
-        <td colspan="3" class="centredColumn">Break</td>
+        <td class="boldCell">1015</td>
+        <td colspan="3" class="centredCell nonSession">Break</td>
     </tr>
     <tr>
-        <td>1030</td>
-        <td>@Html.ActionLink("Angular JS","Details", "Session", new {id = 92})<br/>
-            @Html.ActionLink("George Adamson", "Details", "Speaker", new {id=66})
+        <td class="boldCell">1030</td>
+        <td>@Html.ActionLink("Angular JS", "Details", "Session", new { id = 92 })<br />
+            <br />
+            @Html.ActionLink("George Adamson", "Details", "Speaker", new { id = 66 })
         </td>
         <td>
-            @Html.ActionLink("Cross Platform Game Development in C# with Monogame","Details","Session", new {id=64})<br/>
-            @Html.ActionLink("Randolph Burt","Details", "Speaker",new {id=76})
+            @Html.ActionLink("Cross Platform Game Development in C# with Monogame", "Details", "Session", new { id = 64 })<br />
+            <br />
+            @Html.ActionLink("Randolph Burt", "Details", "Speaker", new { id = 76 })
         </td>
         <td>
-            @Html.ActionLink("Continuous Delivery at 7Digital - An Experience Report","Details", "Session", new {id=88})<br/>
-            @Html.ActionLink("Chris O'Dell","Details","Speaker", new {id=85})
+            @Html.ActionLink("Continuous Delivery at 7Digital - An Experience Report", "Details", "Session", new { id = 88 })<br />
+            <br />
+            @Html.ActionLink("Chris O'Dell", "Details", "Speaker", new { id = 85 })
         </td>
     </tr>
     <tr>
-        <td>1130</td>
-        <td colspan="3" class="centredColumn">Break</td>
+        <td class="boldCell">1130</td>
+        <td colspan="3" class="centredCell nonSession">Break</td>
     </tr>
     <tr>
-        <td>1145</td>
-        <td>@Html.ActionLink("An Introduction to Security for Web Apps", "Details", "Session", new {id=22})<br/>
-            @Html.ActionLink("David Simner","Details", "Speaker", new {id=11})
+        <td class="boldCell">1145</td>
+        <td>@Html.ActionLink("An Introduction to Security for Web Apps", "Details", "Session", new { id = 22 })<br />
+            <br />
+            @Html.ActionLink("David Simner", "Details", "Speaker", new { id = 11 })
         </td>
         <td>
-            @Html.ActionLink("Using HTML5 to build desktop software","Details","Session",new {id=68})<br/>
-            @Html.ActionLink("Kevin Boyle","Details","Speaker", new {id=78})
+            @Html.ActionLink("Using HTML5 to build desktop software", "Details", "Session", new { id = 68 })<br />
+            <br />
+            @Html.ActionLink("Kevin Boyle", "Details", "Speaker", new { id = 78 })
         </td>
         <td>
-            @Html.ActionLink("Outside-In Testing of MVC","Details","Session",new {id=55})<br/>
-            @Html.ActionLink("Rob Ashton","Details","Speaker", new {id=59})
+            @Html.ActionLink("Outside-In Testing of MVC", "Details", "Session", new { id = 55 })<br />
+            <br />
+            @Html.ActionLink("Rob Ashton", "Details", "Speaker", new { id = 59 })
         </td>
     </tr>
     <tr>
-        <td>1245</td>
-        <td colspan="3" class="centredColumn">Lunch, Grok Talks</td>
+        <td class="boldCell">1245</td>
+        <td colspan="3" class="centredCell nonSession">Lunch, Grok Talks</td>
     </tr>
     <tr>
-        <td>1400</td>
-        <td>@Html.ActionLink("Performance Testing Your .NET Web Applications","Details","Session", new {id=74})<br/>
-            @Html.ActionLink("Niall Merrigan", "Details", "Speaker", new {id=81})
-        </td>
-        <td>
-            @Html.ActionLink("Tyrannosaurus RX: Slaying the event-driven sauropod with Reactive Extensions for .NET", "Details", "Session", new {id=34})<br/>
-            @Html.ActionLink("John Stovin","Details","Speaker", new {id=22})
+        <td class="boldCell">1400</td>
+        <td>@Html.ActionLink("Performance Testing Your .NET Web Applications", "Details", "Session", new { id = 74 })<br />
+            <br />
+            @Html.ActionLink("Niall Merrigan", "Details", "Speaker", new { id = 81 })
         </td>
         <td>
-            @Html.ActionLink("Better Unit Testing", "Details", "Session", new {id=63})<br/>
-            @Html.ActionLink("Isaac Abraham", "Details", "Speaker", new {id=75})
-        </td>
-    </tr>
-    <tr>
-        <td>1500</td>
-        <td colspan="3" class="centredColumn">Break</td>
-    </tr>
-    <tr>
-        <td>1515</td>
-        <td>
-            @Html.ActionLink("SignalR: Ready for Real-time","Details","Session", new {id=13})<br/>
-            @Html.ActionLink("Dave Sussman","Details","Speaker", new {id=20})
+            @Html.ActionLink("Tyrannosaurus RX: Slaying the event-driven sauropod with Reactive Extensions for .NET", "Details", "Session", new { id = 34 })<br />
+            <br />
+            @Html.ActionLink("John Stovin", "Details", "Speaker", new { id = 22 })
         </td>
         <td>
-            @Html.ActionLink("Creating Domain-Specific Languages in F#","Details","Session", new {id=42})<br/>
-            @Html.ActionLink("Tomas Petricek","Details","Speaker", new {id=47})
-        </td>
-        <td>@Html.ActionLink("An Introduction to Octopus Deployment","Details","Session", new {id=16})<br/>
-            @Html.ActionLink("Joel Hammond-Turner","Details","Speaker",new {id=23})
+            @Html.ActionLink("Better Unit Testing", "Details", "Session", new { id = 63 })<br />
+            <br />
+            @Html.ActionLink("Isaac Abraham", "Details", "Speaker", new { id = 75 })
         </td>
     </tr>
     <tr>
-        <td>1615</td>
-        <td colspan="3" class="centredColumn">Break</td>
+        <td class="boldCell">1500</td>
+        <td colspan="3" class="centredCell nonSession">Break</td>
     </tr>
     <tr>
-        <td>1630</td>
-        <td colspan="3" class="centredColumn">Wrap-up</td>
+        <td class="boldCell">1515</td>
+        <td>
+            @Html.ActionLink("SignalR: Ready for Real-time", "Details", "Session", new { id = 13 })<br />
+            <br />
+            @Html.ActionLink("Dave Sussman", "Details", "Speaker", new { id = 20 })
+        </td>
+        <td>
+            @Html.ActionLink("Creating Domain-Specific Languages in F#", "Details", "Session", new { id = 42 })<br />
+            <br />
+            @Html.ActionLink("Tomas Petricek", "Details", "Speaker", new { id = 47 })
+        </td>
+        <td>@Html.ActionLink("An Introduction to Octopus Deployment", "Details", "Session", new { id = 16 })<br />
+            <br />
+            @Html.ActionLink("Joel Hammond-Turner", "Details", "Speaker", new { id = 23 })
+        </td>
     </tr>
     <tr>
-        <td>1700</td>
-        <td colspan="3" class="centredColumn">Close</td>
+        <td class="boldCell">1615</td>
+        <td colspan="3" class="centredCell nonSession">Break</td>
+    </tr>
+    <tr>
+        <td class="boldCell">1630</td>
+        <td colspan="3" class="centredCell nonSession">Wrap-up</td>
+    </tr>
+    <tr>
+        <td class="boldCell">1700</td>
+        <td colspan="3" class="centredCell nonSession">Close</td>
     </tr>
 </table>
