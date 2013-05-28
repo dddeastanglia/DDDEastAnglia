@@ -203,6 +203,7 @@
     <Compile Include="Areas\Admin\Models\VotesPerDayViewModel.cs" />
     <Compile Include="Helpers\ChartDataFormatter.cs" />
     <Compile Include="VotingData\DataProviderFactory.cs" />
+    <Content Include="Content\Site_print.css" />
     <Content Include="Scripts\resolveIPAddress.js" />
     <Compile Include="Areas\Admin\Models\VotesForIpAddressViewModel.cs" />
     <Compile Include="Helpers\DnsLookup.cs" />

@@ -1,0 +1,24 @@
+﻿/* Print-friendly stylesheet - hides Nav bar, sidebar and footer */
+
+@media print
+{
+
+.masthead
+{
+    display: none;
+}
+.navbar
+{
+    display: none;
+}
+
+#sidebar
+{
+    display: none;
+}
+
+footer
+{
+    display: none;
+}
+}
