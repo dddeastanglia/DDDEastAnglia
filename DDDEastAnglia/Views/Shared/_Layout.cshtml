@@ -52,7 +52,7 @@
                             <li class="dropdown @Html.MenuState("Home", "Index")">@Html.ActionLink("Home", "Index", "Home")</li>
                             <li class="dropdown @Html.MenuState("Session")">@Html.ActionLink("Sessions", "Index", "Session")</li>
                             <li class="dropdown @Html.MenuState("Speaker", "Index")">@Html.ActionLink("Speakers", "Index", "Speaker")</li>
-                            @*<li class="dropdown">@Html.ActionLink("Agenda", MVC.Agenda.Index())</li>*@
+                            <li class="dropdown @Html.MenuState("Home", "Agenda")">@Html.ActionLink("Agenda", "Agenda", "Home")</li>
                             <li class="dropdown @Html.MenuState("Home", "About")">@Html.ActionLink("New to DDD?", "About", "Home")</li>
                             <li class="dropdown @Html.MenuState("Home", "Venue")">@Html.ActionLink("Venue", "Venue", "Home")</li>
                             <li class="dropdown @Html.MenuState("Home", "Accommodation")">@Html.ActionLink("Accommodation", "Accommodation", "Home")</li>
