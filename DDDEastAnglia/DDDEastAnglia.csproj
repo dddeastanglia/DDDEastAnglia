@@ -201,6 +201,13 @@
   <ItemGroup>
     <Compile Include="Areas\Admin\Models\VotersPerIPAddressViewModel.cs" />
     <Compile Include="Areas\Admin\Models\VotesPerDayViewModel.cs" />
+    <Compile Include="Helpers\Sessions\AllSessionsLoader.cs" />
+    <Compile Include="Helpers\Sessions\ISessionLoader.cs" />
+    <Compile Include="Helpers\Sessions\IUserProfileFilter.cs" />
+    <Compile Include="Helpers\Sessions\SelectedSessions.cs" />
+    <Compile Include="Helpers\Sessions\SelectedSessionsLoader.cs" />
+    <Compile Include="Helpers\Sessions\SelectedSpeakerProfileFilter.cs" />
+    <Compile Include="Helpers\Sessions\SubmittedSessionProfileFilter.cs" />
     <Compile Include="Helpers\ChartDataFormatter.cs" />
     <Compile Include="VotingData\DataProviderFactory.cs" />
     <Content Include="Content\Site_print.css" />

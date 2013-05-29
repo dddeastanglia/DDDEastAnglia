@@ -87,6 +87,10 @@
     <Compile Include="Helpers\Email\Smtp\SmtpHostSettings_Should.cs" />
     <Compile Include="Helpers\Given_An_IPV4_Address_MatchIPAddress_Should.cs" />
     <Compile Include="Helpers\Given_A_List_Of_Sessions.cs" />
+    <Compile Include="Helpers\Sessions\AllSessionsLoaderShould.cs" />
+    <Compile Include="Helpers\Sessions\SelectedSpeakerProfileFilterShould.cs" />
+    <Compile Include="Helpers\Sessions\SelectedSessionsLoaderShould.cs" />
+    <Compile Include="Helpers\Sessions\SubmittedSessionProfileFilterShould.cs" />
     <Compile Include="NavigationMenu\MenuStateFactoryShould.cs" />
     <Compile Include="NavigationMenu\MenuStateShould.cs" />
     <Compile Include="NavigationMenu\UrlHelperFactoryShould.cs" />

@@ -1,7 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.DataAccess.EntityFramework;
+using DDDEastAnglia.Domain;
+using DDDEastAnglia.Helpers.Sessions;
 using DDDEastAnglia.Models;
 
 namespace DDDEastAnglia.Controllers
@@ -9,22 +13,48 @@ namespace DDDEastAnglia.Controllers
     public class SpeakerController : Controller
     {
         private readonly DDDEAContext db = new DDDEAContext();
+        private readonly IConference conference;
+
+        public SpeakerController() : this(Factory.GetConferenceRepository().GetByEventShortName("DDDEA2013"))
+        {}
+
+        public SpeakerController(IConference conference)
+        {
+            if (conference == null)
+            {
+                throw new ArgumentNullException("conference");
+            }
+            
+            this.conference = conference;
+        }
 
         public ActionResult Index()
         {
             var speakers = new List<SpeakerDisplayModel>();
             var speakerProfiles = db.UserProfiles.ToList();
 
-            foreach (var speakerProfile in speakerProfiles)
-            {
-                var speakersSessions = GetSessionsForSpeaker(speakerProfile);
+            IUserProfileFilter userProfileFilter;
+            ISessionLoader sessionLoader;
+            var context = new DDDEAContextWrapper(db);
 
-                // exclude speakers that haven't submitted any sessions
-                if (speakersSessions.Any())
-                {
-                    var speaker = CreateDisplayModel(speakerProfile, speakersSessions);
-                    speakers.Add(speaker);
-                }
+            if (conference.CanPublishAgenda())
+            {
+                userProfileFilter = new SelectedSpeakerProfileFilter();
+                sessionLoader = new SelectedSessionsLoader(context);
+            }
+            else
+            {
+                userProfileFilter = new SubmittedSessionProfileFilter(context);
+                sessionLoader = new AllSessionsLoader(context);
+            }
+
+            var speakersWhoHaveSubmittedSessions = userProfileFilter.FilterProfiles(speakerProfiles);
+
+            foreach (var speakerProfile in speakersWhoHaveSubmittedSessions)
+            {
+                var speakersSessions = sessionLoader.LoadSessions(speakerProfile);
+                var speaker = CreateDisplayModel(speakerProfile, speakersSessions);
+                speakers.Add(speaker);
             }
 
             speakers.Sort(new SpeakerDisplayModelComparer());
@@ -45,7 +75,7 @@ namespace DDDEastAnglia.Controllers
             return View(displayModel);
         }
 
-        private List<Session> GetSessionsForSpeaker(UserProfile speakerProfile)
+        private IEnumerable<Session> GetSessionsForSpeaker(UserProfile speakerProfile)
         {
             return db.Sessions.Where(s => s.SpeakerUserName == speakerProfile.UserName).ToList();
         }
