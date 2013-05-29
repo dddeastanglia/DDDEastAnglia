@@ -4,7 +4,7 @@
 // Acts as a wrapper around the static System.Web.Security.Roles class
 namespace DDDEastAnglia
 {
-    public class RoleManager
+    public class RoleManager : IRoleManager
     {
         public bool IsUserInRole(string username, string rolename)
         {
