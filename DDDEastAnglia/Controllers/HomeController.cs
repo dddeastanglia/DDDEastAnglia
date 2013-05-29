@@ -43,5 +43,10 @@ namespace DDDEastAnglia.Controllers
         {
             return View();
         }
+
+        public ActionResult Agenda()
+        {
+            return View();
+        }
     }
 }

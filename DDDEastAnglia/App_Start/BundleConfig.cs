@@ -18,10 +18,10 @@ namespace DDDEastAnglia
                             "~/Scripts/jquery.unobtrusive*",
                             "~/Scripts/jquery.validate*");
 
-            AddScriptBundle(bundles, "~/bundles/tablesorter", 
+            AddScriptBundle(bundles, "~/bundles/tablesorter",
                             "~/Scripts/jquery.tablesorter*");
 
-            AddScriptBundle(bundles, "~/bundles/searchfilter", 
+            AddScriptBundle(bundles, "~/bundles/searchfilter",
                             "~/Scripts/searchfilter.js");
 
             AddScriptBundle(bundles, "~/bundles/bootstrap",
@@ -75,6 +75,8 @@ namespace DDDEastAnglia
 
             AddStyleBundle(bundles, "~/Content/Markdown",
                            "~/Content/Markdown.css");
+
+            AddStyleBundle(bundles, "~/Content/Site_print", "~/Content/Site_print.css");
         }
 
         private static void AddScriptBundle(BundleCollection bundles, string virtualPath, params string[] scriptFiles)

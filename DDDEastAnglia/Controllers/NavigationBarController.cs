@@ -48,7 +48,7 @@ namespace DDDEastAnglia.Controllers
                     CreateLink("Home", "Home", "Index"), 
                     CreateLink("Sessions", "Session", "Index", () => !conference.CanPublishAgenda() && (conference.CanSubmit() || conference.CanVote())),
                     CreateLink("Speakers", "Speaker", "Index"),
-                    CreateLink("Agenda", "Agenda", "Home", conference.CanPublishAgenda),
+                    CreateLink("Agenda", "Home", "Agenda", conference.CanPublishAgenda),
                     CreateLink("Register", "Home", "Register", conference.CanRegister),
                     CreateLink("New to DDD?", "Home", "About"),
                     CreateLink("Venue", "Home", "Venue"),

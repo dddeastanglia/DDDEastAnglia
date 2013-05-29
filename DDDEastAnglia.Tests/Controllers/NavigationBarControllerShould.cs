@@ -61,7 +61,7 @@ namespace DDDEastAnglia.Tests.Controllers
         [TestCase("Home", "Home", "Index")]
         [TestCase("Sessions", "Session", "Index")]
         [TestCase("Speakers", "Speaker", "Index")]
-        [TestCase("Agenda", "Agenda", "Home")]
+        [TestCase("Agenda", "Home", "Agenda")]
         [TestCase("Register", "Home", "Register")]
         [TestCase("New to DDD?", "Home", "About")]
         [TestCase("Venue", "Home", "Venue")]

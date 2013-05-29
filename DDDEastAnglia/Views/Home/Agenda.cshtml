@@ -1,0 +1,202 @@
+﻿@{
+    ViewBag.Title = "Agenda";
+}
+
+@Styles.Render("~/Content/Site_print")
+
+<style>
+    table, th, td {
+        border: 1px solid black;
+    }
+
+    tr > td:first-child {
+        font-weight: bold;
+    }
+
+    th, td {
+        padding: 4px;
+        vertical-align: top;
+        width: 32%;
+    }
+
+    .timeCell {
+        width: 4%;
+    }
+
+    .nonSession {
+        color: #999999;
+        border: 1px solid #999999;
+    }
+</style>
+
+<h2>@ViewBag.Title</h2>
+
+<table>
+    <tr>
+        <th class="timeCell"/>
+        <th>Room 1</th>
+        <th>Room 2</th>
+        <th>Room 3</th>
+    </tr>
+
+    <tr>
+        <td class="timeCell">0830</td>
+        <td colspan="3" class="nonSession">Registration</td>
+    </tr>
+    
+    <tr>
+        <td class="timeCell">0900</td>
+        <td colspan="3" class="nonSession">Welcome &amp; Housekeeping</td>
+    </tr>
+    
+    <tr>
+        <td class="timeCell">0915</td>
+        <td>
+            @Html.ActionLink("The densest, fastest moving talk ever", "Details", "Session", new { id = 44 }, null)
+            <br />
+            <br />
+            @Html.ActionLink("Mark Rendle", "Details", "Speaker", new { id = 48 }, null)
+        </td>
+        <td>
+            @Html.ActionLink("Async C# 5.0 - Patterns for Real-World Use", "Details", "Session", new { id = 75 }, null)
+            <br />
+            <br />
+            @Html.ActionLink("Liam Westley", "Details", "Speaker", new { id = 62 }, null)
+        </td>
+        <td>
+            @Html.ActionLink("Pragmatic Dependency Injection", "Details", "Session", new { id = 46 }, null)
+            <br />
+            <br />
+            @Html.ActionLink("Ian Russell", "Details", "Speaker", new { id = 53 }, null)
+        </td>
+    </tr>
+
+    <tr>
+        <td class="timeCell">1015</td>
+        <td colspan="3" class="nonSession">Break</td>
+    </tr>
+    
+    <tr>
+        <td class="timeCell">1030</td>
+        <td>
+            @Html.ActionLink("Angular JS", "Details", "Session", new { id = 92 }, null)
+            <br />
+            <br />
+            @Html.ActionLink("George Adamson", "Details", "Speaker", new { id = 66 }, null)
+        </td>
+        <td>
+            @Html.ActionLink("Cross Platform Game Development in C# with Monogame", "Details", "Session", new { id = 64 }, null)
+            <br />
+            <br />
+            @Html.ActionLink("Randolph Burt", "Details", "Speaker", new { id = 76 }, null)
+        </td>
+        <td>
+            @Html.ActionLink("Continuous Delivery at 7Digital - An Experience Report", "Details", "Session", new { id = 88 }, null)
+            <br />
+            <br />
+            @Html.ActionLink("Chris O'Dell", "Details", "Speaker", new { id = 85 }, null)
+        </td>
+    </tr>
+    
+    <tr>
+        <td class="timeCell">1130</td>
+        <td colspan="3" class="nonSession">Break</td>
+    </tr>
+    
+    <tr>
+        <td class="timeCell">1145</td>
+        <td>
+            @Html.ActionLink("An Introduction to Security for Web Apps", "Details", "Session", new { id = 22 }, null)
+            <br />
+            <br />
+            @Html.ActionLink("David Simner", "Details", "Speaker", new { id = 11 }, null)
+        </td>
+        <td>
+            @Html.ActionLink("Using HTML5 to build desktop software", "Details", "Session", new { id = 68 }, null)
+            <br />
+            <br />
+            @Html.ActionLink("Kevin Boyle", "Details", "Speaker", new { id = 78 }, null)
+        </td>
+        <td>
+            @Html.ActionLink("Outside-In Testing of MVC", "Details", "Session", new { id = 55 }, null)
+            <br />
+            <br />
+            @Html.ActionLink("Rob Ashton", "Details", "Speaker", new { id = 59 }, null)
+        </td>
+    </tr>
+    
+    <tr>
+        <td class="timeCell">1245</td>
+        <td colspan="3" class="nonSession">Lunch, Grok Talks</td>
+    </tr>
+    
+    <tr>
+        <td class="timeCell">1400</td>
+        <td>
+            TBC
+            @*
+            @Html.ActionLink("Performance Testing Your .NET Web Applications", "Details", "Session", new { id = 74 }, null)
+            <br />
+            <br />
+            @Html.ActionLink("Niall Merrigan", "Details", "Speaker", new { id = 81 }, null)
+            *@
+        </td>
+        <td>
+            TBC
+            @*
+            @Html.ActionLink("Tyrannosaurus RX: Slaying the event-driven sauropod with Reactive Extensions for .NET", "Details", "Session", new { id = 34 }, null)
+            <br />
+            <br />
+            @Html.ActionLink("John Stovin", "Details", "Speaker", new { id = 22 }, null)
+            *@
+        </td>
+        <td>
+            @Html.ActionLink("Better Unit Testing", "Details", "Session", new { id = 63 }, null)
+            <br />
+            <br />
+            @Html.ActionLink("Isaac Abraham", "Details", "Speaker", new { id = 75 }, null)
+        </td>
+    </tr>
+
+    <tr>
+        <td class="timeCell">1500</td>
+        <td colspan="3" class="nonSession">Break</td>
+    </tr>
+    
+    <tr>
+        <td class="timeCell">1515</td>
+        <td>
+            @Html.ActionLink("SignalR: Ready for Real-time", "Details", "Session", new { id = 13 }, null)
+            <br />
+            <br />
+            @Html.ActionLink("Dave Sussman", "Details", "Speaker", new { id = 20 }, null)
+        </td>
+        <td>
+            @Html.ActionLink("Creating Domain-Specific Languages in F#", "Details", "Session", new { id = 42 }, null)
+            <br />
+            <br />
+            @Html.ActionLink("Tomas Petricek", "Details", "Speaker", new { id = 47 }, null)
+        </td>
+        <td>
+            @Html.ActionLink("An Introduction to Octopus Deployment", "Details", "Session", new { id = 16 }, null)
+            <br />
+            <br />
+            @Html.ActionLink("Joel Hammond-Turner", "Details", "Speaker", new { id = 23 }, null)
+        </td>
+    </tr>
+
+    <tr>
+        <td class="timeCell">1615</td>
+        <td colspan="3" class="nonSession">Break</td>
+    </tr>
+    
+    <tr>
+        <td class="timeCell">1630</td>
+        <td colspan="3" class="nonSession">Wrap-up</td>
+    </tr>
+    
+    <tr>
+        <td class="timeCell">1700</td>
+        <td colspan="3" class="nonSession">Close</td>
+    </tr>
+</table>
