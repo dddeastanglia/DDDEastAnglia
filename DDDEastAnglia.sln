@@ -13,6 +13,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{9D1C6E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DDDEastAnglia.Tests", "DDDEastAnglia.Tests\DDDEastAnglia.Tests.csproj", "{C7556082-8C2F-4ECA-A7FF-E54AEEBBDD28}"
 EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "DDDEastAnglia.Database", "DDDEastAnglia.Database\DDDEastAnglia.Database.sqlproj", "{90EB22D7-1D86-4964-A65D-343D754DF2F5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
