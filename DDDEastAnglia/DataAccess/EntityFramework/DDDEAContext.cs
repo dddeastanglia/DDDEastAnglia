@@ -10,6 +10,7 @@ namespace DDDEastAnglia.DataAccess.EntityFramework
     public interface IDDDEAContext
     {
         IList<UserProfile> UserProfiles{get;}
+        IList<Session> Sessions{get;}
     }
 
     public class DDDEAContextWrapper : IDDDEAContext
@@ -27,6 +28,7 @@ namespace DDDEastAnglia.DataAccess.EntityFramework
         }
 
         public IList<UserProfile> UserProfiles{get {return context.UserProfiles.ToList();}}
+        public IList<Session> Sessions{get {return context.Sessions.ToList();}}
     }
 
     public class DDDEAContext : DbContext
