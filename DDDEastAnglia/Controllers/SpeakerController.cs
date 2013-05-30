@@ -14,18 +14,34 @@ namespace DDDEastAnglia.Controllers
     {
         private readonly DDDEAContext db = new DDDEAContext();
         private readonly IConference conference;
+        private readonly ISessionLoaderFactory sessionLoaderFactory;
+        private readonly IUserProfileFilterFactory userProfileFilterFactory;
 
-        public SpeakerController() : this(Factory.GetConferenceRepository().GetByEventShortName("DDDEA2013"))
+        public SpeakerController() 
+            : this(Factory.GetConferenceRepository().GetByEventShortName("DDDEA2013"),
+                    new SessionLoaderFactory(), new UserProfileFilterFactory())
         {}
 
-        public SpeakerController(IConference conference)
+        public SpeakerController(IConference conference, ISessionLoaderFactory sessionLoaderFactory, IUserProfileFilterFactory userProfileFilterFactory)
         {
             if (conference == null)
             {
                 throw new ArgumentNullException("conference");
             }
+
+            if (sessionLoaderFactory == null)
+            {
+                throw new ArgumentNullException("sessionLoaderFactory");
+            }
+
+            if (userProfileFilterFactory == null)
+            {
+                throw new ArgumentNullException("userProfileFilterFactory");
+            }
             
             this.conference = conference;
+            this.sessionLoaderFactory = sessionLoaderFactory;
+            this.userProfileFilterFactory = userProfileFilterFactory;
         }
 
         public ActionResult Index()
@@ -33,21 +49,9 @@ namespace DDDEastAnglia.Controllers
             var speakers = new List<SpeakerDisplayModel>();
             var speakerProfiles = db.UserProfiles.ToList();
 
-            IUserProfileFilter userProfileFilter;
-            ISessionLoader sessionLoader;
             var context = new DDDEAContextWrapper(db);
-
-            if (conference.CanPublishAgenda())
-            {
-                userProfileFilter = new SelectedSpeakerProfileFilter();
-                sessionLoader = new SelectedSessionsLoader(context);
-            }
-            else
-            {
-                userProfileFilter = new SubmittedSessionProfileFilter(context);
-                sessionLoader = new AllSessionsLoader(context);
-            }
-
+            var sessionLoader = sessionLoaderFactory.Create(conference, context);
+            var userProfileFilter = userProfileFilterFactory.Create(conference, context);
             var speakersWhoHaveSubmittedSessions = userProfileFilter.FilterProfiles(speakerProfiles);
 
             foreach (var speakerProfile in speakersWhoHaveSubmittedSessions)
@@ -70,14 +74,10 @@ namespace DDDEastAnglia.Controllers
                 return HttpNotFound();
             }
 
-            var sessions = GetSessionsForSpeaker(speakerProfile);
+            var sessionLoader = sessionLoaderFactory.Create(conference, new DDDEAContextWrapper(db));
+            var sessions = sessionLoader.LoadSessions(speakerProfile);
             var displayModel = CreateDisplayModel(speakerProfile, sessions);
             return View(displayModel);
-        }
-
-        private IEnumerable<Session> GetSessionsForSpeaker(UserProfile speakerProfile)
-        {
-            return db.Sessions.Where(s => s.SpeakerUserName == speakerProfile.UserName).ToList();
         }
 
         private SpeakerDisplayModel CreateDisplayModel(UserProfile userProfile, IEnumerable<Session> sessions)
