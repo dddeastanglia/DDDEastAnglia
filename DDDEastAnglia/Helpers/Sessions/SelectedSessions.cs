@@ -19,7 +19,7 @@ namespace DDDEastAnglia.Helpers.Sessions
                                 11, // David Simner
                                 78, // Kevin Boyle
                                 59, // Rob Ashton
-                                81, // Niall Merrigan
+                                29, // Ben Hall
                                 22, // John Stovin
                                 75, // Isaac Abraham
                                 20, // Dave Sussman
@@ -44,7 +44,7 @@ namespace DDDEastAnglia.Helpers.Sessions
                                 22, // David Simner
                                 68, // Kevin Boyle
                                 55, // Rob Ashton
-                                74, // Niall Merrigan
+                                21, // Ben Hall
                                 34, // John Stovin
                                 63, // Isaac Abraham
                                 13, // Dave Sussman
