@@ -33,21 +33,9 @@ namespace DDDEastAnglia.Controllers
             var speakers = new List<SpeakerDisplayModel>();
             var speakerProfiles = db.UserProfiles.ToList();
 
-            IUserProfileFilter userProfileFilter;
-            ISessionLoader sessionLoader;
             var context = new DDDEAContextWrapper(db);
-
-            if (conference.CanPublishAgenda())
-            {
-                userProfileFilter = new SelectedSpeakerProfileFilter();
-                sessionLoader = new SelectedSessionsLoader(context);
-            }
-            else
-            {
-                userProfileFilter = new SubmittedSessionProfileFilter(context);
-                sessionLoader = new AllSessionsLoader(context);
-            }
-
+            var sessionLoader = CreateSessionLoader(context);
+            var userProfileFilter = CreateUserProfileFilter(context);
             var speakersWhoHaveSubmittedSessions = userProfileFilter.FilterProfiles(speakerProfiles);
 
             foreach (var speakerProfile in speakersWhoHaveSubmittedSessions)
@@ -70,14 +58,42 @@ namespace DDDEastAnglia.Controllers
                 return HttpNotFound();
             }
 
-            var sessions = GetSessionsForSpeaker(speakerProfile);
+            var sessionLoader = CreateSessionLoader(new DDDEAContextWrapper(db));
+            var sessions = sessionLoader.LoadSessions(speakerProfile);
             var displayModel = CreateDisplayModel(speakerProfile, sessions);
             return View(displayModel);
         }
 
-        private IEnumerable<Session> GetSessionsForSpeaker(UserProfile speakerProfile)
+        private IUserProfileFilter CreateUserProfileFilter(IDDDEAContext context)
         {
-            return db.Sessions.Where(s => s.SpeakerUserName == speakerProfile.UserName).ToList();
+            IUserProfileFilter userProfileFilter;
+
+            if (conference.CanPublishAgenda())
+            {
+                userProfileFilter = new SelectedSpeakerProfileFilter();
+            }
+            else
+            {
+                userProfileFilter = new SubmittedSessionProfileFilter(context);
+            }
+
+            return userProfileFilter;
+        }
+
+        private ISessionLoader CreateSessionLoader(IDDDEAContext context)
+        {
+            ISessionLoader sessionLoader;
+
+            if (conference.CanPublishAgenda())
+            {
+                sessionLoader = new SelectedSessionsLoader(context);
+            }
+            else
+            {
+                sessionLoader = new AllSessionsLoader(context);
+            }
+
+            return sessionLoader;
         }
 
         private SpeakerDisplayModel CreateDisplayModel(UserProfile userProfile, IEnumerable<Session> sessions)
