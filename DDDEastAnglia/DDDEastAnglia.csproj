@@ -207,8 +207,10 @@
     <Compile Include="Helpers\Sessions\SelectedSessions.cs" />
     <Compile Include="Helpers\Sessions\SelectedSessionsLoader.cs" />
     <Compile Include="Helpers\Sessions\SelectedSpeakerProfileFilter.cs" />
+    <Compile Include="Helpers\Sessions\SessionLoaderFactory.cs" />
     <Compile Include="Helpers\Sessions\SubmittedSessionProfileFilter.cs" />
     <Compile Include="Helpers\ChartDataFormatter.cs" />
+    <Compile Include="Helpers\Sessions\UserProfileFilterFactory.cs" />
     <Compile Include="VotingData\DataProviderFactory.cs" />
     <Content Include="Content\Site_print.css" />
     <Content Include="Scripts\resolveIPAddress.js" />
