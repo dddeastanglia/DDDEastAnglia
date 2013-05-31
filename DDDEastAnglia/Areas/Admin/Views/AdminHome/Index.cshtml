@@ -1,8 +1,14 @@
-﻿@{
+﻿@using DDDEastAnglia
+@{
     ViewBag.Title = "Admin Index";
 }
 
+<div class="pull-right muted">
+    Version: @VersionInfo.SHA1
+</div>
+
 <h2>Admin Index</h2>
+
 <ul>
     <li>@Html.ActionLink("Users", "Index", "User")</li>
     <li>@Html.ActionLink("Roles", "Index", "Role")</li>
