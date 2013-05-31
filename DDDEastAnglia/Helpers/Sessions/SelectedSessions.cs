@@ -20,7 +20,7 @@ namespace DDDEastAnglia.Helpers.Sessions
                                 78, // Kevin Boyle
                                 59, // Rob Ashton
                                 29, // Ben Hall
-                                22, // John Stovin
+                                82, // Ashic Mahtab
                                 75, // Isaac Abraham
                                 20, // Dave Sussman
                                 47, // Thomas Petricek
@@ -45,7 +45,7 @@ namespace DDDEastAnglia.Helpers.Sessions
                                 68, // Kevin Boyle
                                 55, // Rob Ashton
                                 21, // Ben Hall
-                                34, // John Stovin
+                                77, // Ashic Mahtab
                                 63, // Isaac Abraham
                                 13, // Dave Sussman
                                 42, // Thomas Petricek

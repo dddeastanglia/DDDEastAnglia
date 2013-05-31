@@ -24,8 +24,15 @@
     }
 
     .nonSession {
-        color: #999999;
-        border: 1px solid #999999;
+        background-color: #f5f5f5;
+    }
+
+    .sessionTitle {
+        font-weight: bold;
+    }
+
+    .speakerName {
+        font-size: smaller;
     }
 </style>
 
@@ -39,161 +46,143 @@
         <th>Room 3</th>
     </tr>
 
-    <tr>
-        <td class="timeCell">0830</td>
-        <td colspan="3" class="nonSession">Registration</td>
+    <tr class="nonSession">
+        <td class="timeCell">08:30</td>
+        <td colspan="3">Registration</td>
+    </tr>
+    
+    <tr class="nonSession">
+        <td class="timeCell">09:00</td>
+        <td colspan="3">Welcome &amp; Housekeeping</td>
     </tr>
     
     <tr>
-        <td class="timeCell">0900</td>
-        <td colspan="3" class="nonSession">Welcome &amp; Housekeeping</td>
-    </tr>
-    
-    <tr>
-        <td class="timeCell">0915</td>
+        <td class="timeCell">09:15</td>
         <td>
-            @Html.ActionLink("The densest, fastest moving talk ever", "Details", "Session", new { id = 44 }, null)
+            @Html.ActionLink("The densest, fastest moving talk ever", "Details", "Session", new { id = 44 }, new { @class = "sessionTitle" })
             <br />
-            <br />
-            @Html.ActionLink("Mark Rendle", "Details", "Speaker", new { id = 48 }, null)
+            @Html.ActionLink("Mark Rendle", "Details", "Speaker", new { id = 48 }, new { @class = "speakerName" })
         </td>
         <td>
-            @Html.ActionLink("Async C# 5.0 - Patterns for Real-World Use", "Details", "Session", new { id = 75 }, null)
+            @Html.ActionLink("Async C# 5.0 - Patterns for Real-World Use", "Details", "Session", new { id = 75 }, new { @class = "sessionTitle" })
             <br />
-            <br />
-            @Html.ActionLink("Liam Westley", "Details", "Speaker", new { id = 62 }, null)
+            @Html.ActionLink("Liam Westley", "Details", "Speaker", new { id = 62 }, new { @class = "speakerName" })
         </td>
         <td>
-            @Html.ActionLink("Pragmatic Dependency Injection", "Details", "Session", new { id = 46 }, null)
+            @Html.ActionLink("Pragmatic Dependency Injection", "Details", "Session", new { id = 46 }, new { @class = "sessionTitle" })
             <br />
-            <br />
-            @Html.ActionLink("Ian Russell", "Details", "Speaker", new { id = 53 }, null)
+            @Html.ActionLink("Ian Russell", "Details", "Speaker", new { id = 53 }, new { @class = "speakerName" })
         </td>
     </tr>
 
-    <tr>
-        <td class="timeCell">1015</td>
-        <td colspan="3" class="nonSession">Break</td>
+    <tr class="nonSession">
+        <td class="timeCell">10:15</td>
+        <td colspan="3">Break</td>
     </tr>
     
     <tr>
-        <td class="timeCell">1030</td>
+        <td class="timeCell">10:30</td>
         <td>
-            @Html.ActionLink("Angular JS", "Details", "Session", new { id = 92 }, null)
+            @Html.ActionLink("Angular JS", "Details", "Session", new { id = 92 }, new { @class = "sessionTitle" })
             <br />
-            <br />
-            @Html.ActionLink("George Adamson", "Details", "Speaker", new { id = 66 }, null)
+            @Html.ActionLink("George Adamson", "Details", "Speaker", new { id = 66 }, new { @class = "speakerName" })
         </td>
         <td>
-            @Html.ActionLink("Cross Platform Game Development in C# with Monogame", "Details", "Session", new { id = 64 }, null)
+            @Html.ActionLink("Cross Platform Game Development in C# with Monogame", "Details", "Session", new { id = 64 }, new { @class = "sessionTitle" })
             <br />
-            <br />
-            @Html.ActionLink("Randolph Burt", "Details", "Speaker", new { id = 76 }, null)
+            @Html.ActionLink("Randolph Burt", "Details", "Speaker", new { id = 76 }, new { @class = "speakerName" })
         </td>
         <td>
-            @Html.ActionLink("Continuous Delivery at 7Digital - An Experience Report", "Details", "Session", new { id = 88 }, null)
+            @Html.ActionLink("Continuous Delivery at 7Digital - An Experience Report", "Details", "Session", new { id = 88 }, new { @class = "sessionTitle" })
             <br />
-            <br />
-            @Html.ActionLink("Chris O'Dell", "Details", "Speaker", new { id = 85 }, null)
+            @Html.ActionLink("Chris O'Dell", "Details", "Speaker", new { id = 85 }, new { @class = "speakerName" })
         </td>
     </tr>
     
-    <tr>
-        <td class="timeCell">1130</td>
-        <td colspan="3" class="nonSession">Break</td>
+    <tr class="nonSession">
+        <td class="timeCell">11:30</td>
+        <td colspan="3">Break</td>
     </tr>
     
     <tr>
-        <td class="timeCell">1145</td>
+        <td class="timeCell">11:45</td>
         <td>
-            @Html.ActionLink("An Introduction to Security for Web Apps", "Details", "Session", new { id = 22 }, null)
+            @Html.ActionLink("An Introduction to Security for Web Apps", "Details", "Session", new { id = 22 }, new { @class = "sessionTitle" })
             <br />
-            <br />
-            @Html.ActionLink("David Simner", "Details", "Speaker", new { id = 11 }, null)
+            @Html.ActionLink("David Simner", "Details", "Speaker", new { id = 11 }, new { @class = "speakerName" })
         </td>
         <td>
-            @Html.ActionLink("Using HTML5 to build desktop software", "Details", "Session", new { id = 68 }, null)
+            @Html.ActionLink("Using HTML5 to build desktop software", "Details", "Session", new { id = 68 }, new { @class = "sessionTitle" })
             <br />
-            <br />
-            @Html.ActionLink("Kevin Boyle", "Details", "Speaker", new { id = 78 }, null)
+            @Html.ActionLink("Kevin Boyle", "Details", "Speaker", new { id = 78 }, new { @class = "speakerName" })
         </td>
         <td>
-            @Html.ActionLink("Outside-In Testing of MVC", "Details", "Session", new { id = 55 }, null)
+            @Html.ActionLink("Outside-In Testing of MVC", "Details", "Session", new { id = 55 }, new { @class = "sessionTitle" })
             <br />
-            <br />
-            @Html.ActionLink("Rob Ashton", "Details", "Speaker", new { id = 59 }, null)
+            @Html.ActionLink("Rob Ashton", "Details", "Speaker", new { id = 59 }, new { @class = "speakerName" })
         </td>
     </tr>
     
-    <tr>
-        <td class="timeCell">1245</td>
-        <td colspan="3" class="nonSession">Lunch, Grok Talks</td>
+    <tr class="nonSession">
+        <td class="timeCell">12:45</td>
+        <td colspan="3">Lunch, Grok Talks</td>
     </tr>
     
     <tr>
-        <td class="timeCell">1400</td>
+        <td class="timeCell">14:00</td>
         <td>
-            @Html.ActionLink("Building Startups and Minimum Viable Products using Lean Startup techniques", "Details", "Session", new { id = 21 }, null)
+            @Html.ActionLink("Building Startups and Minimum Viable Products using Lean Startup techniques", "Details", "Session", new { id = 21 }, new { @class = "sessionTitle" })
             <br />
-            <br />
-            @Html.ActionLink("Ben Hall", "Details", "Speaker", new { id = 29 }, null)
+            @Html.ActionLink("Ben Hall", "Details", "Speaker", new { id = 29 }, new { @class = "speakerName" })
         </td>
         <td>
-            TBC
-            @*
-            @Html.ActionLink("Tyrannosaurus RX: Slaying the event-driven sauropod with Reactive Extensions for .NET", "Details", "Session", new { id = 34 }, null)
+            @Html.ActionLink("Why use DDD, CQRS and Event Sourcing", "Details", "Session", new { id = 77 }, new { @class = "sessionTitle" })
             <br />
-            <br />
-            @Html.ActionLink("John Stovin", "Details", "Speaker", new { id = 22 }, null)
-            *@
+            @Html.ActionLink("Ashic Mahtab", "Details", "Speaker", new { id = 82 }, new { @class = "speakerName" })
         </td>
         <td>
-            @Html.ActionLink("Better Unit Testing", "Details", "Session", new { id = 63 }, null)
+            @Html.ActionLink("Better Unit Testing", "Details", "Session", new { id = 63 }, new { @class = "sessionTitle" })
             <br />
-            <br />
-            @Html.ActionLink("Isaac Abraham", "Details", "Speaker", new { id = 75 }, null)
+            @Html.ActionLink("Isaac Abraham", "Details", "Speaker", new { id = 75 }, new { @class = "speakerName" })
         </td>
     </tr>
 
-    <tr>
-        <td class="timeCell">1500</td>
-        <td colspan="3" class="nonSession">Break</td>
+    <tr class="nonSession">
+        <td class="timeCell">15:00</td>
+        <td colspan="3">Break</td>
     </tr>
     
     <tr>
-        <td class="timeCell">1515</td>
+        <td class="timeCell">15:15</td>
         <td>
-            @Html.ActionLink("SignalR: Ready for Real-time", "Details", "Session", new { id = 13 }, null)
+            @Html.ActionLink("SignalR: Ready for Real-time", "Details", "Session", new { id = 13 }, new { @class = "sessionTitle" })
             <br />
-            <br />
-            @Html.ActionLink("Dave Sussman", "Details", "Speaker", new { id = 20 }, null)
+            @Html.ActionLink("Dave Sussman", "Details", "Speaker", new { id = 20 }, new { @class = "speakerName" })
         </td>
         <td>
-            @Html.ActionLink("Creating Domain-Specific Languages in F#", "Details", "Session", new { id = 42 }, null)
+            @Html.ActionLink("Creating Domain-Specific Languages in F#", "Details", "Session", new { id = 42 }, new { @class = "sessionTitle" })
             <br />
-            <br />
-            @Html.ActionLink("Tomas Petricek", "Details", "Speaker", new { id = 47 }, null)
+            @Html.ActionLink("Tomas Petricek", "Details", "Speaker", new { id = 47 }, new { @class = "speakerName" })
         </td>
         <td>
-            @Html.ActionLink("An Introduction to Octopus Deployment", "Details", "Session", new { id = 16 }, null)
+            @Html.ActionLink("An Introduction to Octopus Deployment", "Details", "Session", new { id = 16 }, new { @class = "sessionTitle" })
             <br />
-            <br />
-            @Html.ActionLink("Joel Hammond-Turner", "Details", "Speaker", new { id = 23 }, null)
+            @Html.ActionLink("Joel Hammond-Turner", "Details", "Speaker", new { id = 23 }, new { @class = "speakerName" })
         </td>
     </tr>
 
-    <tr>
-        <td class="timeCell">1615</td>
-        <td colspan="3" class="nonSession">Break</td>
+    <tr class="nonSession">
+        <td class="timeCell">16:15</td>
+        <td colspan="3">Break</td>
     </tr>
     
-    <tr>
-        <td class="timeCell">1630</td>
-        <td colspan="3" class="nonSession">Wrap-up</td>
+    <tr class="nonSession">
+        <td class="timeCell">16:30</td>
+        <td colspan="3">Wrap-up</td>
     </tr>
     
-    <tr>
-        <td class="timeCell">1700</td>
-        <td colspan="3" class="nonSession">Close</td>
+    <tr class="nonSession">
+        <td class="timeCell">17:00</td>
+        <td colspan="3">Close</td>
     </tr>
 </table>
