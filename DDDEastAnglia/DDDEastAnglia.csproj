@@ -70,6 +70,21 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Ninject, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Ninject.3.0.1.10\lib\net40\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Extensions.Conventions">
+      <HintPath>..\packages\Ninject.Extensions.Conventions.3.0.0.11\lib\net40\Ninject.Extensions.Conventions.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.Common, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Ninject.Web.Common.3.0.0.7\lib\net40-full\Ninject.Web.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Ninject.MVC3.3.0.0.6\lib\net40-full\Ninject.Web.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="NuGet.Core, Version=1.6.30117.9648, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Nuget.Core.1.6.2\lib\net40\NuGet.Core.dll</HintPath>
@@ -153,6 +168,10 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="WebActivator, Version=1.5.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\WebActivator.1.5.3\lib\net40\WebActivator.dll</HintPath>
+    </Reference>
     <Reference Include="WebMatrix.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.Data.2.0.20710.0\lib\net40\WebMatrix.Data.dll</HintPath>
@@ -211,6 +230,7 @@
     <Compile Include="Helpers\Sessions\SubmittedSessionProfileFilter.cs" />
     <Compile Include="Helpers\ChartDataFormatter.cs" />
     <Compile Include="Helpers\Sessions\UserProfileFilterFactory.cs" />
+    <Compile Include="NavigationMenu\NavigationMenuModule.cs" />
     <Compile Include="VotingData\DataProviderFactory.cs" />
     <Content Include="Content\Site_print.css" />
     <Content Include="Scripts\resolveIPAddress.js" />
@@ -250,6 +270,7 @@
     <Compile Include="Areas\Admin\Controllers\VotingController.cs" />
     <Compile Include="Areas\Admin\Models\UserModel.cs" />
     <Compile Include="Areas\Admin\Models\VotingStatsViewModel.cs" />
+    <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="Controllers\BannerController.cs" />
     <Compile Include="Controllers\NavigationBarController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
@@ -258,13 +279,12 @@
     <Compile Include="Controllers\SpeakerDisplayModelComparer.cs" />
     <Compile Include="Controllers\VoteController.cs" />
     <Compile Include="DataAccess\EntityFramework\Builders\Calendar\CalendarEntryBuilder.cs" />
-    <Compile Include="DataAccess\EntityFramework\Builders\Calendar\CalendarItemToSingleTimeEntryConverter.cs" />
-    <Compile Include="DataAccess\EntityFramework\Builders\Calendar\CalendarItemToTimeRangeEntryConverter.cs" />
     <Compile Include="DataAccess\EntityFramework\Builders\ConferenceBuilder.cs" />
     <Compile Include="DataAccess\Builders\IBuild.cs" />
     <Compile Include="DataAccess\Commands\Vote\DeleteVoteCommand.cs" />
     <Compile Include="DataAccess\Commands\Vote\RegisterVoteCommand.cs" />
     <Compile Include="DataAccess\EntityFramework\EntityFrameworkConferenceRepository.cs" />
+    <Compile Include="DataAccess\EntityFramework\EntityFrameworkDataAccessModule.cs" />
     <Compile Include="DataAccess\EntityFramework\EntityFrameworkSessionRepository.cs" />
     <Compile Include="DataAccess\EntityFramework\EntityFrameworkVoteRepository.cs" />
     <Compile Include="DataAccess\EntityFramework\Migrations\201304170655041_LinkSessionToConference.cs" />
@@ -276,14 +296,15 @@
     <Compile Include="DataAccess\EntityFramework\Initialiser.cs" />
     <Compile Include="DataAccess\EntityFramework\Models\Vote.cs" />
     <Compile Include="DataAccess\EntityFramework\Queries\EntityFrameworkBannerModelQuery.cs" />
-    <Compile Include="DataAccess\Factory.cs" />
+    <Compile Include="DataAccess\EntityFramework\SessionVoteModelQuery.cs" />
     <Compile Include="DataAccess\Handlers\Voting\DeleteVoteCommandHandler.cs" />
     <Compile Include="DataAccess\Handlers\Voting\RegisterVoteCommandHandler.cs" />
     <Compile Include="DataAccess\IConferenceRepository.cs" />
     <Compile Include="DataAccess\IRepository.cs" />
     <Compile Include="DataAccess\ISessionRepository.cs" />
-    <Compile Include="DataAccess\ISessionVoteModelProvider.cs" />
+    <Compile Include="DataAccess\ISessionVoteModelQuery.cs" />
     <Compile Include="DataAccess\IVoteRepository.cs" />
+    <Compile Include="DataAccess\MessageBus\CommandProcessingModule.cs" />
     <Compile Include="DataAccess\MessageBus\IMessage.cs" />
     <Compile Include="DataAccess\MessageBus\IMessageBus.cs" />
     <Compile Include="DataAccess\MessageBus\SimpleMessageBus.cs" />
@@ -305,9 +326,6 @@
     <Compile Include="GlimpseSecurityPolicy.cs" />
     <Compile Include="Helpers\AlphabeticalSort.cs" />
     <Compile Include="Helpers\Context\HttpContextControllerInformationProvider.cs" />
-    <Compile Include="Helpers\Context\HttpContextWrapper.cs" />
-    <Compile Include="Helpers\Context\HttpWebRequestFactory.cs" />
-    <Compile Include="Helpers\CookieExtensions.cs" />
     <Compile Include="Helpers\Email\ResetPasswordEmailSenderFactory.cs" />
     <Compile Include="Helpers\IResetPasswordThingy.cs" />
     <Compile Include="Helpers\ISessionSorter.cs" />
@@ -326,15 +344,13 @@
     <Compile Include="Helpers\Email\SendGrid\SendGridEmailSender.cs" />
     <Compile Include="Helpers\Email\SendGrid\SendGridMessageWrapper.cs" />
     <Compile Include="Helpers\AppSettings\WebConfigurationAppSettingsProvider.cs" />
-    <Compile Include="Helpers\ICurrentUserVoteRepository.cs" />
     <Compile Include="Helpers\IControllerInformationProvider.cs" />
     <Compile Include="Helpers\Email\IMailHostSettings.cs" />
-    <Compile Include="Helpers\IRequestFactory.cs" />
-    <Compile Include="Helpers\IRequestProvider.cs" />
     <Compile Include="Helpers\RandomSort.cs" />
     <Compile Include="Helpers\SessionSorter.cs" />
     <Compile Include="Helpers\Email\Smtp\SmtpHostSettings.cs" />
     <Compile Include="Helpers\WebSecurityWrapper.cs" />
+    <Compile Include="Helpers\MvcHelperModule.cs" />
     <Compile Include="Models\BannerViewModel.cs" />
     <Compile Include="DataAccess\EntityFramework\Migrations\201303302150305_InitialCreate.cs" />
     <Compile Include="DataAccess\EntityFramework\Migrations\201303302150305_InitialCreate.Designer.cs">

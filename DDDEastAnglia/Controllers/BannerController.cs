@@ -1,5 +1,4 @@
 ﻿using System.Web.Mvc;
-using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.Models.Query;
 
 namespace DDDEastAnglia.Controllers
@@ -7,12 +6,6 @@ namespace DDDEastAnglia.Controllers
     public class BannerController : Controller
     {
         private readonly IBannerModelQuery _bannerQuery;
-
-        public BannerController()
-            : this(Factory.GetBannerModelQuery())
-        {
-            
-        }
 
         public BannerController(IBannerModelQuery bannerQuery)
         {

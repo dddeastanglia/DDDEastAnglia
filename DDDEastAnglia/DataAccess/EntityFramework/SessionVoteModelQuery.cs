@@ -1,19 +1,14 @@
 ﻿using System;
 using DDDEastAnglia.Models;
 
-namespace DDDEastAnglia.DataAccess
+namespace DDDEastAnglia.DataAccess.EntityFramework
 {
-    public interface ISessionVoteModelProvider
-    {
-        SessionVoteModel Get(int sessionId, Guid cookieId);
-    }
-    
-    public class SessionVoteModelProvider : ISessionVoteModelProvider
+    public class SessionVoteModelQuery : ISessionVoteModelQuery
     {
         private readonly IVoteRepository _voteRepository;
         private readonly IConferenceRepository _conferenceRepository;
 
-        public SessionVoteModelProvider(IVoteRepository voteRepository, IConferenceRepository conferenceRepository)
+        public SessionVoteModelQuery(IVoteRepository voteRepository, IConferenceRepository conferenceRepository)
         {
             _voteRepository = voteRepository;
             _conferenceRepository = conferenceRepository;

@@ -15,16 +15,13 @@ namespace DDDEastAnglia.Controllers
     {
         private const string DefaultEventName = "DDDEA2013";
         private readonly DDDEAContext db = new DDDEAContext();
-        private readonly IConferenceRepository _conferenceRepository = Factory.GetConferenceRepository();
+        private readonly IConferenceRepository _conferenceRepository;
         private readonly ISessionSorter _sessionSorter;
 
-        public SessionController()
-            : this(Factory.GetSessionSorter())
-        {
-        }
 
-        public SessionController(ISessionSorter sorter)
+        public SessionController(IConferenceRepository conferenceRepository, ISessionSorter sorter)
         {
+            _conferenceRepository = conferenceRepository;
             _sessionSorter = sorter;
         }
 
