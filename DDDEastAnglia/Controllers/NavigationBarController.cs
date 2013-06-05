@@ -14,9 +14,6 @@ namespace DDDEastAnglia.Controllers
         private readonly IMenuStateFactory menuStateFactory;
         private readonly IUrlHelperFactory urlHelperFactory;
 
-        public NavigationBarController() : this(Factory.GetConferenceRepository(), new MenuStateFactory(), new UrlHelperFactory())
-        {}
-
         public NavigationBarController(IConferenceRepository conferenceRepository, IMenuStateFactory menuStateFactory, IUrlHelperFactory urlHelperFactory)
         {
             if (conferenceRepository == null)

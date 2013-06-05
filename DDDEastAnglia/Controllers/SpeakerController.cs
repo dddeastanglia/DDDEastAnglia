@@ -13,16 +13,11 @@ namespace DDDEastAnglia.Controllers
     public class SpeakerController : Controller
     {
         private readonly DDDEAContext db = new DDDEAContext();
-        private readonly IConference conference;
+        private readonly IConferenceRepository conferenceRepository;
         private readonly ISessionLoaderFactory sessionLoaderFactory;
         private readonly IUserProfileFilterFactory userProfileFilterFactory;
 
-        public SpeakerController() 
-            : this(Factory.GetConferenceRepository().GetByEventShortName("DDDEA2013"),
-                    new SessionLoaderFactory(), new UserProfileFilterFactory())
-        {}
-
-        public SpeakerController(IConference conference, ISessionLoaderFactory sessionLoaderFactory, IUserProfileFilterFactory userProfileFilterFactory)
+        public SpeakerController(IConferenceRepository conference, ISessionLoaderFactory sessionLoaderFactory, IUserProfileFilterFactory userProfileFilterFactory)
         {
             if (conference == null)
             {
@@ -39,7 +34,7 @@ namespace DDDEastAnglia.Controllers
                 throw new ArgumentNullException("userProfileFilterFactory");
             }
             
-            this.conference = conference;
+            this.conferenceRepository = conference;
             this.sessionLoaderFactory = sessionLoaderFactory;
             this.userProfileFilterFactory = userProfileFilterFactory;
         }
@@ -50,8 +45,8 @@ namespace DDDEastAnglia.Controllers
             var speakerProfiles = db.UserProfiles.ToList();
 
             var context = new DDDEAContextWrapper(db);
-            var sessionLoader = sessionLoaderFactory.Create(conference, context);
-            var userProfileFilter = userProfileFilterFactory.Create(conference, context);
+            var sessionLoader = sessionLoaderFactory.Create(Get2013Conference(), context);
+            var userProfileFilter = userProfileFilterFactory.Create(Get2013Conference(), context);
             var speakersWhoHaveSubmittedSessions = userProfileFilter.FilterProfiles(speakerProfiles);
 
             foreach (var speakerProfile in speakersWhoHaveSubmittedSessions)
@@ -74,10 +69,15 @@ namespace DDDEastAnglia.Controllers
                 return HttpNotFound();
             }
 
-            var sessionLoader = sessionLoaderFactory.Create(conference, new DDDEAContextWrapper(db));
+            var sessionLoader = sessionLoaderFactory.Create(Get2013Conference(), new DDDEAContextWrapper(db));
             var sessions = sessionLoader.LoadSessions(speakerProfile);
             var displayModel = CreateDisplayModel(speakerProfile, sessions);
             return View(displayModel);
+        }
+
+        private IConference Get2013Conference()
+        {
+            return conferenceRepository.GetByEventShortName("DDDEA2013");
         }
 
         private SpeakerDisplayModel CreateDisplayModel(UserProfile userProfile, IEnumerable<Session> sessions)

@@ -26,10 +26,9 @@ namespace DDDEastAnglia.Tests.DataAccess.MessageBus
 
         private void Given_That_A_TestMessageHandler_Has_Been_Registered()
         {
-            _messageBus = new SimpleMessageBus();
             _testMessageHandler = Substitute.For<IHandle>();
             _testMessageHandler.MessageType.Returns(typeof(TestMessage));
-            _messageBus.Register(_testMessageHandler);
+            _messageBus = new SimpleMessageBus(new [] {_testMessageHandler});
         }
 
         private void When_I_Send_A_Message()

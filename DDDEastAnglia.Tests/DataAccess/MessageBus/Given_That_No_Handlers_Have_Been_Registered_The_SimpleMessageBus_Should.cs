@@ -16,7 +16,7 @@ namespace DDDEastAnglia.Tests.DataAccess.MessageBus
 
         private void Given_That_No_Handlers_Have_Been_Registered()
         {
-            _messageBus = new SimpleMessageBus();
+            _messageBus = new SimpleMessageBus(null);
         }
 
         private void When_I_Send_A_Message()
