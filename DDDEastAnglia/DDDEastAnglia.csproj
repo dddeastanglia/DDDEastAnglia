@@ -233,6 +233,8 @@
     <Compile Include="NavigationMenu\NavigationMenuModule.cs" />
     <Compile Include="VotingData\DataProviderFactory.cs" />
     <Content Include="Content\Site_print.css" />
+    <Content Include="Images\sponsors\github.png" />
+    <Content Include="Images\sponsors\stackoverflow.png" />
     <Content Include="Scripts\resolveIPAddress.js" />
     <Compile Include="Areas\Admin\Models\VotesForIpAddressViewModel.cs" />
     <Compile Include="Helpers\DnsLookup.cs" />
@@ -757,6 +759,6 @@
     <ReadLinesFromFile File="@(VersionInfoFile)">
       <Output TaskParameter="Lines" ItemName="FileContents" />
     </ReadLinesFromFile>
-    <FileUpdate Files="@(VersionInfoFile)" Regex="\[unknown\]" ReplacementText="$(BUILD_VCS_NUMBER)" Condition="'$(BUILD_VCS_NUMBER)' != ''"/>
+    <FileUpdate Files="@(VersionInfoFile)" Regex="\[unknown\]" ReplacementText="$(BUILD_VCS_NUMBER)" Condition="'$(BUILD_VCS_NUMBER)' != ''" />
   </Target>
 </Project>
