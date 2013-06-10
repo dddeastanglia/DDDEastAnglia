@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DDDEastAnglia
 {
-    interface IRoleManager
+    public interface IRoleManager
     {
         bool IsUserInRole(string username, string rolename);
 
