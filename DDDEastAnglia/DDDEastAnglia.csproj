@@ -232,9 +232,13 @@
     <Compile Include="Helpers\Sessions\UserProfileFilterFactory.cs" />
     <Compile Include="NavigationMenu\NavigationMenuModule.cs" />
     <Compile Include="VotingData\DataProviderFactory.cs" />
+    <Content Include="Areas\Admin\Views\Voting\NumberOfUsersWhoHaveCastXVotes.cshtml" />
+    <Content Include="Areas\Admin\Views\Voting\VotesPerDay.cshtml" />
+    <Content Include="Areas\Admin\Views\Voting\VotesPerHour.cshtml" />
     <Content Include="Content\Site_print.css" />
     <Content Include="Images\sponsors\github.png" />
     <Content Include="Images\sponsors\stackoverflow.png" />
+    <Content Include="Images\sponsors\TechSmith.png" />
     <Content Include="Scripts\resolveIPAddress.js" />
     <Compile Include="Areas\Admin\Models\VotesForIpAddressViewModel.cs" />
     <Compile Include="Helpers\DnsLookup.cs" />
@@ -553,8 +557,6 @@
     <Content Include="Areas\Admin\Views\Voting\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Voting\Leaderboard.cshtml" />
     <Content Include="Areas\Admin\Views\Voting\IPAddresses.cshtml" />
-    <Content Include="Areas\Admin\Views\Voting\VotesPerDay.cshtml" />
-    <Content Include="Areas\Admin\Views\Voting\VotesPerHour.cshtml" />
     <Content Include="Areas\Admin\Views\Voting\VotersPerIPAddress.cshtml" />
     <Content Include="Areas\Admin\Views\Voting\VotesForIPAddress.cshtml" />
     <Content Include="Areas\Admin\Views\Voting\KnownUserVotes.cshtml" />
@@ -565,7 +567,6 @@
     <Content Include="Content\font\fontawesome-webfont.eot" />
     <Content Include="Content\font\FontAwesome.otf" />
     <Content Include="Areas\Admin\Views\Voting\DuplicateVotes.cshtml" />
-    <Content Include="Areas\Admin\Views\Voting\NumberOfUsersWhoHaveCastXVotes.cshtml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\html5shiv-printshiv.js" />
