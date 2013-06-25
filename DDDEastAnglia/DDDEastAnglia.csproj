@@ -237,6 +237,7 @@
     <Content Include="Areas\Admin\Views\Voting\VotesPerHour.cshtml" />
     <Content Include="Content\Site_print.css" />
     <Content Include="Images\parking.jpg" />
+    <Content Include="Images\sponsors\blackdotsolutions.png" />
     <Content Include="Images\sponsors\github.png" />
     <Content Include="Images\sponsors\stackoverflow.png" />
     <Content Include="Images\sponsors\TechSmith.png" />
