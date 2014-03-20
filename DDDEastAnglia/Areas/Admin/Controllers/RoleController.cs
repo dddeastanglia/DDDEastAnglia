@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
-using System.Web.Security;
 using DDDEastAnglia.Areas.Admin.Models;
 using DDDEastAnglia.Models;
 
@@ -21,17 +20,17 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
         }
 
         // GET: /Admin/Role/Manage
-        public ActionResult Manage(string id)
+        public ActionResult Manage(string rolename)
         {
             RoleManager manager = new RoleManager();
 
-            if (manager.RoleExists(id))
+            if (manager.RoleExists(rolename))
             {
-                ManageRoleModel model = new ManageRoleModel { RoleName = id, roleUsers = new SortedList<string, RoleUserModel>() };
+                ManageRoleModel model = new ManageRoleModel { RoleName = rolename, roleUsers = new SortedList<string, RoleUserModel>() };
 
-                foreach (UserProfile user in db.UserProfiles)
+                foreach (UserProfile user in _db.UserProfiles)
                 {
-                    if (manager.IsUserInRole(user.UserName, id))
+                    if (manager.IsUserInRole(user.UserName, rolename))
                     {
                         model.roleUsers.Add(user.UserName,
                             new RoleUserModel { IsMember = true, UserId = user.UserId, Username = user.UserName });
@@ -52,7 +51,7 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Manage(ManageRoleModel model)
         {
-            if (!this.ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View("Manage", model);
             }
@@ -65,41 +64,41 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
             return View("Manage", model);
         }
 
-        private static void AddRemoveRoleMember(string Role, RoleUserModel roleUser)
+        private static void AddRemoveRoleMember(string rolename, RoleUserModel roleUser)
         {
             RoleManager manager = new RoleManager();
 
             if (roleUser.IsMember)
             {
-                if (!manager.IsUserInRole(roleUser.Username, Role))
+                if (!manager.IsUserInRole(roleUser.Username, rolename))
                 {
-                    manager.AddUserToRole(roleUser.Username, Role);
+                    manager.AddUserToRole(roleUser.Username, rolename);
                 }
             }
             else
             {
-                if (manager.IsUserInRole(roleUser.Username, Role))
+                if (manager.IsUserInRole(roleUser.Username, rolename))
                 {
-                    manager.RemoveUserFromRole(roleUser.Username, Role);
+                    manager.RemoveUserFromRole(roleUser.Username, rolename);
                 }
             }
         }
 
         // GET: /Admin/Role/Delete
-        public ActionResult Delete(string id)
+        public ActionResult Delete(string rolename)
         {
             RoleManager manager = new RoleManager();
 
             DeleteRoleModel model = new DeleteRoleModel();
 
-            int roleMembersCount = manager.GetUsersCount(id);
+            int roleMembersCount = manager.GetUsersCount(rolename);
             if (roleMembersCount > 0)
             {
                 model.FeedbackMessage = string.Format("There are currently {0} users in this role.", roleMembersCount);
                 return View(model);
             }
 
-            manager.DeleteRole(id);
+            manager.DeleteRole(rolename);
 
             return RedirectToAction("Index");
 
@@ -109,11 +108,11 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
 
         [HttpPost]
         [ActionName("Delete")]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(string rolename)
         {
             RoleManager manager = new RoleManager();
 
-            manager.DeleteRole(id);
+            manager.DeleteRole(rolename);
 
             return RedirectToAction("Index");
         }

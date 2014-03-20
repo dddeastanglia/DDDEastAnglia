@@ -73,6 +73,7 @@
     <Compile Include="Controllers\NavigationBarControllerShould.cs" />
     <Compile Include="Controllers\RoleController\Given_An_Empty_Role_The_RoleController_Should.cs" />
     <Compile Include="Controllers\RoleController\Given_A_Populated_Role_The_RoleController_Should.cs" />
+    <Compile Include="Controllers\RoleController\RoleController.cs" />
     <Compile Include="DataAccess\Builders\The_Conference_Builder_Should.cs" />
     <Compile Include="DataAccess\Handlers\Voting\DeleteVote\Given_The_Conference_Is_Not_Open_For_Voting_The_DeleteVotingCommandHandler_Should.cs" />
     <Compile Include="DataAccess\Handlers\Voting\DeleteVote\Given_The_User_Did_Not_Vote_For_The_Session_The_DeleteVotingCommandHandler_Should.cs" />
