@@ -10,7 +10,7 @@
     @foreach (string role in Model)
     {
         <tr>
-            <td>@role</td><td><a href="@Url.Action("Manage", "Role", new {id=role})">Manage</a> <a href="@Url.Action("Delete","Role",new {id=role})">Delete</a> </td>
+            <td>@role</td><td><a href="@Url.Action("Manage", "Role", new {rolename=role})">Manage</a> <a href="@Url.Action("Delete","Role",new {rolename=role})">Delete</a> </td>
         </tr>
     }
 </table>
