@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using NSubstitute;
+using NUnit.Framework;
 
 namespace DDDEastAnglia.Tests.Controllers.RoleController
 {
@@ -9,7 +10,8 @@ namespace DDDEastAnglia.Tests.Controllers.RoleController
         public void Delete_An_Empty_Role_Without_Confirmation()
         {
             // Arrange
-            RoleController controller = new RoleController();
+            IRoleManager manager = Substitute.For<IRoleManager>();
+            RoleController controller = new RoleController(manager);
 
             // Act
 
