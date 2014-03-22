@@ -60,15 +60,13 @@
       <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Glimpse.AspNet">
-      <HintPath>..\packages\Glimpse.AspNet.1.1.0\lib\net40\Glimpse.AspNet.dll</HintPath>
+      <HintPath>..\packages\Glimpse.AspNet.1.8.0\lib\net45\Glimpse.AspNet.dll</HintPath>
     </Reference>
-    <Reference Include="Glimpse.Core, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Glimpse.1.1.0\lib\net40\Glimpse.Core.dll</HintPath>
+    <Reference Include="Glimpse.Core">
+      <HintPath>..\packages\Glimpse.1.8.2\lib\net45\Glimpse.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Glimpse.Mvc3, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Glimpse.Mvc3.1.1.0\lib\net40\Glimpse.Mvc3.dll</HintPath>
+    <Reference Include="Glimpse.Mvc4">
+      <HintPath>..\packages\Glimpse.Mvc4.1.5.3\lib\net40\Glimpse.Mvc4.dll</HintPath>
     </Reference>
     <Reference Include="MarkdownSharp">
       <HintPath>..\packages\MarkdownSharp.1.13.0.0\lib\35\MarkdownSharp.dll</HintPath>
@@ -226,6 +224,7 @@
   <ItemGroup>
     <Compile Include="Areas\Admin\Models\VotersPerIPAddressViewModel.cs" />
     <Compile Include="Areas\Admin\Models\VotesPerDayViewModel.cs" />
+    <Compile Include="GlimpseSecurityPolicy.cs" />
     <Compile Include="Helpers\Sessions\AllSessionsLoader.cs" />
     <Compile Include="Helpers\Sessions\ISessionLoader.cs" />
     <Compile Include="Helpers\Sessions\IUserProfileFilter.cs" />
@@ -338,7 +337,6 @@
     <Compile Include="Domain\Calendar\TimeRangeEntry.cs" />
     <Compile Include="Domain\Conference.cs" />
     <Compile Include="Domain\IConference.cs" />
-    <Compile Include="GlimpseSecurityPolicy.cs" />
     <Compile Include="Helpers\AlphabeticalSort.cs" />
     <Compile Include="Helpers\Context\HttpContextControllerInformationProvider.cs" />
     <Compile Include="Helpers\Email\ResetPasswordEmailSenderFactory.cs" />
