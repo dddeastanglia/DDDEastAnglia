@@ -1,4 +1,4 @@
-﻿@using Newtonsoft.Json
+﻿@using DDDEastAnglia
 @model long[][]
 
 <h2>Total votes distribution per user</h2>
@@ -15,7 +15,7 @@
         $(document).ready(function() {
             var data = [{
                 color: "#C00",
-                data: @JsonConvert.SerializeObject(Model)
+                data: @JsonConvertWrapper.SerializeObject(Model)
                 }];
 
             var options = {
