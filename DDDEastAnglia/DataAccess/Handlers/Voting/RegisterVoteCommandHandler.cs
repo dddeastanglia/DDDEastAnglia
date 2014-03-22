@@ -1,4 +1,6 @@
 ﻿using DDDEastAnglia.DataAccess.Commands.Vote;
+using DDDEastAnglia.DataAccess.EntityFramework.Builders;
+using DDDEastAnglia.DataAccess.EntityFramework.Builders.Calendar;
 using DDDEastAnglia.DataAccess.EntityFramework.Models;
 using DDDEastAnglia.DataAccess.MessageBus;
 
@@ -6,27 +8,31 @@ namespace DDDEastAnglia.DataAccess.Handlers.Voting
 {
     public class RegisterVoteCommandHandler : BaseHandler<RegisterVoteCommand>
     {
-        private readonly IVoteRepository _voteRepository;
-        private readonly IConferenceRepository _conferenceRepository;
+        private readonly IVoteRepository voteRepository;
+        private readonly IConferenceRepository conferenceRepository;
 
         public RegisterVoteCommandHandler(IVoteRepository voteRepository, IConferenceRepository conferenceRepository)
         {
-            _voteRepository = voteRepository;
-            _conferenceRepository = conferenceRepository;
+            this.voteRepository = voteRepository;
+            this.conferenceRepository = conferenceRepository;
         }
 
         public override void Handle(RegisterVoteCommand message)
         {
-            var conference = _conferenceRepository.ForSession(message.SessionId);
+            var dataConference = conferenceRepository.ForSession(message.SessionId);
+            var conference = new ConferenceBuilder(new CalendarEntryBuilder()).Build(dataConference);
+
             if (conference == null || !conference.CanVote())
             {
                 return;
             }
-            if (_voteRepository.HasVotedFor(message.SessionId, message.CookieId))
+            
+            if (voteRepository.HasVotedFor(message.SessionId, message.CookieId))
             {
                 return;
             }
-            _voteRepository.Save(new Vote
+            
+            voteRepository.AddVote(new Vote
                 {
                     CookieId = message.CookieId,
                     IPAddress = message.IPAddress,

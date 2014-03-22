@@ -1,7 +1,8 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 using DDDEastAnglia.Areas.Admin.Models;
-using DDDEastAnglia.DataAccess.EntityFramework;
+using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.Models;
 
 namespace DDDEastAnglia.Areas.Admin.Controllers
@@ -9,17 +10,35 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
     [Authorize(Roles = "Administrator")]
     public class UserController : Controller
     {
-        private readonly DDDEAContext db = new DDDEAContext();
-        
+        private readonly IUserProfileRepository userProfileRepository;
+        private readonly ISessionRepository sessionRepository;
+
+        public UserController(IUserProfileRepository userProfileRepository, ISessionRepository sessionRepository)
+        {
+            if (userProfileRepository == null)
+            {
+                throw new ArgumentNullException("userProfileRepository");
+            }
+
+            if (sessionRepository == null)
+            {
+                throw new ArgumentNullException("sessionRepository");
+            }
+            
+            this.userProfileRepository = userProfileRepository;
+            this.sessionRepository = sessionRepository;
+        }
+
         // GET: /Admin/User/
         public ActionResult Index()
         {
-            var users = db.UserProfiles.ToList()
-                                       .Select(CreateUserModel)
-                                       .OrderBy(u => u.UserName).ToList();
+            var users = userProfileRepository.GetAllUserProfiles()
+                                             .Select(CreateUserModel)
+                                             .OrderBy(u => u.UserName).ToList();
 
-            var sessionCountsPerUser = db.Sessions.GroupBy(s => s.SpeakerUserName)
-                                         .ToDictionary(g => g.Key, g => g.Count());
+            var sessionCountsPerUser = sessionRepository.GetAllSessions()
+                                                        .GroupBy(s => s.SpeakerUserName)
+                                                        .ToDictionary(g => g.Key, g => g.Count());
 
             foreach (var user in users)
             {

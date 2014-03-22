@@ -42,7 +42,7 @@ namespace DDDEastAnglia.Tests.DataAccess.Handlers.Voting.RegisterVote
                     TimeRecorded = _simulatedNow
                 });
 
-            _voteRepository.DidNotReceiveWithAnyArgs().Save(null);
+            _voteRepository.DidNotReceiveWithAnyArgs().AddVote(null);
         }
     }
 }

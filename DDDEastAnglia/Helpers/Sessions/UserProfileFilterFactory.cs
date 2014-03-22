@@ -1,16 +1,29 @@
-﻿using DDDEastAnglia.DataAccess.EntityFramework;
+﻿using System;
+using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.Domain;
 
 namespace DDDEastAnglia.Helpers.Sessions
 {
     public interface IUserProfileFilterFactory
     {
-        IUserProfileFilter Create(IConference conference, IDDDEAContext context);
+        IUserProfileFilter Create(IConference conference);
     }
 
     public class UserProfileFilterFactory : IUserProfileFilterFactory
     {
-        public IUserProfileFilter Create(IConference conference, IDDDEAContext context)
+        private readonly ISessionRepository sessionRepository;
+
+        public UserProfileFilterFactory(ISessionRepository sessionRepository)
+        {
+            if (sessionRepository == null)
+            {
+                throw new ArgumentNullException("sessionRepository");
+            }
+            
+            this.sessionRepository = sessionRepository;
+        }
+
+        public IUserProfileFilter Create(IConference conference)
         {
             IUserProfileFilter userProfileFilter;
 
@@ -20,7 +33,7 @@ namespace DDDEastAnglia.Helpers.Sessions
             }
             else
             {
-                userProfileFilter = new SubmittedSessionProfileFilter(context);
+                userProfileFilter = new SubmittedSessionProfileFilter(sessionRepository);
             }
 
             return userProfileFilter;

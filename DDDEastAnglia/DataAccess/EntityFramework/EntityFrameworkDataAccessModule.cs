@@ -10,7 +10,7 @@ namespace DDDEastAnglia.DataAccess.EntityFramework
         {
             Kernel.Bind(from => from.FromThisAssembly()
                                     .SelectAllClasses()
-                                    .InNamespaceOf<EntityFrameworkConferenceRepository>()
+                                    .InNamespaceOf<ConferenceRepository>()
                                     .BindDefaultInterfaces()
                                     .Configure(binding => binding.InRequestScope()));
         }

@@ -1,10 +1,10 @@
-﻿using DDDEastAnglia.Domain;
+﻿using DDDEastAnglia.DataAccess.EntityFramework.Models;
 
 namespace DDDEastAnglia.DataAccess
 {
     public interface IConferenceRepository
     {
-        IConference ForSession(int sessionId);
-        IConference GetByEventShortName(string shortName);
+        Conference ForSession(int sessionId);
+        Conference GetByEventShortName(string shortName);
     }
 }

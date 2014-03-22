@@ -43,9 +43,9 @@ namespace DDDEastAnglia.Tests.DataAccess.Handlers.Voting.RegisterVote
                     TimeRecorded = _simulatedNow
                 });
 
-            _voteRepository.Received().Save(Arg.Is<Vote>(vote => vote.CookieId == CookieId));
-            _voteRepository.Received().Save(Arg.Is<Vote>(vote => vote.SessionId == SessionId));
-            _voteRepository.Received().Save(Arg.Is<Vote>(vote => vote.TimeRecorded == _simulatedNow));
+            _voteRepository.Received().AddVote(Arg.Is<Vote>(vote => vote.CookieId == CookieId));
+            _voteRepository.Received().AddVote(Arg.Is<Vote>(vote => vote.SessionId == SessionId));
+            _voteRepository.Received().AddVote(Arg.Is<Vote>(vote => vote.TimeRecorded == _simulatedNow));
         }
     }
 }

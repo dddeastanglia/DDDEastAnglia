@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Web.Mvc;
 using DDDEastAnglia.DataAccess;
+using DDDEastAnglia.DataAccess.EntityFramework.Builders;
+using DDDEastAnglia.DataAccess.EntityFramework.Builders.Calendar;
 using DDDEastAnglia.Models;
 using DDDEastAnglia.NavigationMenu;
 
@@ -39,7 +41,9 @@ namespace DDDEastAnglia.Controllers
         [ChildActionOnly]
         public ActionResult RenderMenu()
         {
-            var conference = conferenceRepository.GetByEventShortName(DefaultEventName);
+            var dataConference = conferenceRepository.GetByEventShortName(DefaultEventName);
+            var conference = new ConferenceBuilder(new CalendarEntryBuilder()).Build(dataConference);
+
             var links = new List<NavigationMenuLinkViewModel>
                 {
                     CreateLink("Home", "Home", "Index"), 

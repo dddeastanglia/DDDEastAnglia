@@ -4,14 +4,25 @@ using System.Net;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
-using DDDEastAnglia.DataAccess.EntityFramework;
+using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.Models;
 
 namespace DDDEastAnglia.Helpers.Context
 {
     public class HttpContextControllerInformationProvider : IControllerInformationProvider
     {
-        private DDDEAContext context = new DDDEAContext();
+        private readonly IUserProfileRepository userProfileRepository;
+
+        public HttpContextControllerInformationProvider(IUserProfileRepository userProfileRepository)
+        {
+            if (userProfileRepository == null)
+            {
+                throw new ArgumentNullException("userProfileRepository");
+            }
+            
+            this.userProfileRepository = userProfileRepository;
+        }
+
         private static readonly Regex IPV4AddressMatch = new Regex(@"\b(?<IPAddress>((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))\b", RegexOptions.Compiled);
 
         public string UserAgent { get { return HttpContext.Current.Request.UserAgent; } }
@@ -46,7 +57,7 @@ namespace DDDEastAnglia.Helpers.Context
 
         public UserProfile GetCurrentUser()
         {
-            return context.UserProfiles.FirstOrDefault(profile => profile.UserName == HttpContext.Current.User.Identity.Name);
+            return userProfileRepository.GetAllUserProfiles().FirstOrDefault(profile => profile.UserName == HttpContext.Current.User.Identity.Name);
         }
 
         public DateTime UtcNow { get { return DateTime.UtcNow; } }

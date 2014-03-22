@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Linq;
 using System.Web.Mvc;
-using DDDEastAnglia.DataAccess.EntityFramework;
+using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.Helpers;
 using DDDEastAnglia.Helpers.Email;
 using DDDEastAnglia.Models;
@@ -10,18 +9,15 @@ namespace DDDEastAnglia.Controllers
 {
     public class ResetPasswordController : Controller
     {
-        private readonly IDDDEAContext context;
+        private readonly IUserProfileRepository userProfileRepository;
         private readonly IResetPasswordThingy resetPasswordThingy;
         private readonly IResetPasswordEmailSender resetPasswordEmailSender;
 
-        public ResetPasswordController() : this(new DDDEAContextWrapper(new DDDEAContext()), new WebSecurityWrapper(), ResetPasswordEmailSenderFactory.Create())
-        {}
-
-        public ResetPasswordController(IDDDEAContext context, IResetPasswordThingy resetPasswordThingy, IResetPasswordEmailSender resetPasswordEmailSender)
+        public ResetPasswordController(IUserProfileRepository userProfileRepository, IResetPasswordThingy resetPasswordThingy, IResetPasswordEmailSender resetPasswordEmailSender)
         {
-            if (context == null)
+            if (userProfileRepository == null)
             {
-                throw new ArgumentNullException("context");
+                throw new ArgumentNullException("userProfileRepository");
             }
 
             if (resetPasswordThingy == null)
@@ -34,7 +30,7 @@ namespace DDDEastAnglia.Controllers
                 throw new ArgumentNullException("resetPasswordEmailSender");
             }
 
-            this.context = context;
+            this.userProfileRepository = userProfileRepository;
             this.resetPasswordThingy = resetPasswordThingy;
             this.resetPasswordEmailSender = resetPasswordEmailSender;
         }
@@ -60,11 +56,11 @@ namespace DDDEastAnglia.Controllers
 
             if (!string.IsNullOrWhiteSpace(model.UserName))
             {
-                profile = context.UserProfiles.FirstOrDefault(p => p.UserName == model.UserName);
+                profile = userProfileRepository.GetUserProfileByUserName(model.UserName);
             }
             else if (!string.IsNullOrWhiteSpace(model.EmailAddress))
             {
-                profile = context.UserProfiles.FirstOrDefault(p => p.EmailAddress == model.EmailAddress);
+                profile = userProfileRepository.GetUserProfileByEmailAddress(model.EmailAddress);
             }
             else
             {
