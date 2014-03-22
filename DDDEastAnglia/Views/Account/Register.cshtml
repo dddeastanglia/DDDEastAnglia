@@ -13,7 +13,7 @@
 
     @Html.ValidationSummary(true)
 
-    <div class="control-group">
+    <div class="form-group">
         @Html.LabelFor(m => m.FullName, new { @class = "control-label" })
         <div class="controls">
             @Html.TextBoxFor(m => m.FullName, new { autofocus = true })
@@ -21,7 +21,7 @@
         </div>
     </div>
 
-    <div class="control-group">
+    <div class="form-group">
         @Html.LabelFor(m => m.EmailAddress, new { @class = "control-label" })
         <div class="controls">
             @Html.TextBoxFor(m => m.EmailAddress, new { type = "email" })
@@ -29,7 +29,7 @@
         </div>
     </div>
 
-    <div class="control-group">
+    <div class="form-group">
         @Html.LabelFor(m => m.UserName, new { @class = "control-label" })
         <div class="controls">
             @Html.TextBoxFor(m => m.UserName)
@@ -37,7 +37,7 @@
         </div>
     </div>
 
-    <div class="control-group">
+    <div class="form-group">
         @Html.LabelFor(m => m.Password, new { @class = "control-label" })
         <div class="controls">
             @Html.PasswordFor(m => m.Password)
@@ -45,7 +45,7 @@
         </div>
     </div>
 
-    <div class="control-group">
+    <div class="form-group">
         @Html.LabelFor(m => m.ConfirmPassword, new { @class = "control-label" })
         <div class="controls">
             @Html.PasswordFor(m => m.ConfirmPassword)
@@ -53,7 +53,7 @@
         </div>        
     </div>
 
-    <div class="control-group">
+    <div class="form-group">
         <div class="controls">
             <input type="submit" class="btn btn-primary" value="Register" />
         </div>

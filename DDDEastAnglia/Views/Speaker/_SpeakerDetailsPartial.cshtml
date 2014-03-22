@@ -1,7 +1,7 @@
 ﻿@using DDDEastAnglia.Models
 @model SpeakerDisplayModel
 
-<div class="span12 speaker @(Model.IsCurrentUser ? "speaker-own" : "")">
+<div class="col-md-12 speaker @(Model.IsCurrentUser ? "speaker-own" : "")">
     @if (Model.IsCurrentUser)
     {
         <div class="pull-right">

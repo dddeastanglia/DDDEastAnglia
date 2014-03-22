@@ -12,7 +12,7 @@
 
     @Html.HiddenFor(m => m.ResetToken)
 
-    <div class="control-group">
+    <div class="form-group">
         @Html.LabelFor(m => m.Password, new { @class = "control-label", autofocus = true })
         <div class="controls">
             @Html.PasswordFor(m => m.Password)
@@ -20,7 +20,7 @@
         </div>
     </div>
 
-    <div class="control-group">
+    <div class="form-group">
         @Html.LabelFor(m => m.ConfirmationPassword, new { @class = "control-label"})
         <div class="controls">
             @Html.PasswordFor(m => m.ConfirmationPassword)
@@ -28,7 +28,7 @@
         </div>
     </div>
 
-    <div class="control-group">
+    <div class="form-group">
         <div class="controls">
             <input type="submit" class="btn btn-primary" value="Set new password" />
         </div>

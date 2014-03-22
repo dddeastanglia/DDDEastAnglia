@@ -20,7 +20,7 @@
     @Html.HiddenFor(m => m.UserId)
     @Html.HiddenFor(m => m.UserName)
         
-    <div class="control-group">
+    <div class="form-group">
         @Html.LabelFor(m => Model.Name, new { @class = "control-label" })
         <div class="controls">
             @Html.TextBoxFor(m => Model.Name, new { autofocus = true })
@@ -28,7 +28,7 @@
         </div>
     </div>
 
-    <div class="control-group">
+    <div class="form-group">
         @Html.LabelFor(m => Model.EmailAddress, new { @class = "control-label" })
         <div class="controls">
             @Html.TextBoxFor(m => Model.EmailAddress, new { type = "email" })
@@ -36,31 +36,31 @@
         </div>
     </div>
 
-    <div class="control-group">
+    <div class="form-group">
         @Html.LabelFor(m => Model.MobilePhone, new { @class = "control-label" })
         <div class="controls">
             @Html.TextBoxFor(m => Model.MobilePhone, new { type = "tel" })
         </div>
     </div>
 
-    <div class="control-group">
+    <div class="form-group">
         @Html.LabelFor(m => Model.TwitterHandle, new { @class = "control-label" })
         <div class="controls">
-            <div class="input-prepend">
-                <span class="add-on">@@</span>
+            <div class="input-group">
+                <span class="input-group-addon">@@</span>
                 @Html.TextBoxFor(m => Model.TwitterHandle)
             </div>
         </div>
     </div>
 
-    <div class="control-group">
+    <div class="form-group">
         @Html.LabelFor(m => Model.WebsiteUrl, new { @class = "control-label" })
         <div class="controls">
             @Html.TextBoxFor(m => Model.WebsiteUrl, new { type = "url" })
         </div>
     </div>
 
-    <div class="control-group">
+    <div class="form-group">
         @Html.LabelFor(m => Model.Bio, new { @class = "control-label" })
         <div class="controls">
             <div id="wmd-button-bar"></div>
@@ -71,14 +71,14 @@
         </div>
     </div>
 
-    <div class="control-group">
+    <div class="form-group">
         <div class="controls">
             @Html.CheckBoxFor(m => Model.NewSpeaker)
-            @Html.LabelFor(m => Model.NewSpeaker, new { @class = "checkbox inline" })
+            @Html.LabelFor(m => Model.NewSpeaker, new { @class = "checkbox-inline" })
         </div>
     </div>
     
-    <div class="control-group">
+    <div class="form-group">
         <div class="controls">
             <input type="submit" class="btn btn-primary" value="Save profile" />
         </div>

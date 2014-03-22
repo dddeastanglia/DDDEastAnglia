@@ -20,7 +20,7 @@
 
         @Html.ValidationSummary(true)
 
-        <div class="control-group">
+        <div class="form-group">
             @Html.LabelFor(m => m.UserName, new { @class = "control-label", autofocus = true })
             <div class="controls">
                 @Html.TextBoxFor(m => m.UserName)
@@ -28,7 +28,7 @@
             </div>
         </div>
 
-        <div class="control-group">
+        <div class="form-group">
             @Html.LabelFor(m => m.Password, new { @class = "control-label" })
             <div class="controls">
                 @Html.PasswordFor(m => m.Password)
@@ -36,14 +36,14 @@
             </div>
         </div>
 
-        <div class="control-group">
+        <div class="form-group">
             <div class="controls">
                 @Html.CheckBoxFor(m => m.RememberMe)
-                @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox inline" })
+                @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox-inline" })
             </div>
         </div>
 
-        <div class="control-group">
+        <div class="form-group">
             <div class="controls">
                 <input type="submit" class="btn btn-primary" value="Log in" />
                 @Html.ActionLink("Forgotten your password?", "Start", "ResetPassword").
