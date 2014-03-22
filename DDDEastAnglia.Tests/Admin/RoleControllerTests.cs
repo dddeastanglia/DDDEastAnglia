@@ -3,10 +3,10 @@ using DDDEastAnglia.Areas.Admin.Models;
 using NSubstitute;
 using NUnit.Framework;
 
-namespace DDDEastAnglia.Tests.Controllers.RoleController
+namespace DDDEastAnglia.Tests.Admin
 {
     [TestFixture]
-    class RoleController
+    class RoleControllerTests
     {
         // User that is a member doesn't get added again
         // User that is not a member doesn't get removed
