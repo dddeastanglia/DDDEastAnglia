@@ -306,8 +306,6 @@
     <Compile Include="VotingData\QueryRunner.cs" />
     <Content Include="Areas\Admin\Content\admin.css" />
     <Compile Include="Areas\Admin\Controllers\VotingController.cs" />
-    <Compile Include="Areas\Admin\Models\RoleModel.cs" />
-    <Content Include="App_Code\IRoleManager.cs" />
     <Compile Include="App_Code\IRoleManager.cs" />
     <Compile Include="App_Code\RoleManager.cs" />
     <Compile Include="Areas\Admin\Models\CreateRoleModel.cs" />

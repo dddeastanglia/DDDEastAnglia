@@ -8,13 +8,18 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
     [Authorize(Roles = "Administrator")]
     public class RoleController : Controller
     {
+        private readonly IRoleManager _manager;
+
+        public RoleController(IRoleManager roleManager)
+        {
+            _manager = roleManager;
+        }
+
         // GET: /Admin/Role/
         public ActionResult Index()
         {
-            RoleManager manager = new RoleManager();
-
             List<string> roles = new List<string>();
-            roles.AddRange(manager.GetAllRoles());
+            roles.AddRange(_manager.GetAllRoles());
 
             return View(roles);
         }
@@ -22,15 +27,13 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
         // GET: /Admin/Role/Manage
         public ActionResult Manage(string rolename)
         {
-            RoleManager manager = new RoleManager();
-
-            if (manager.RoleExists(rolename))
+            if (_manager.RoleExists(rolename))
             {
                 ManageRoleModel model = new ManageRoleModel { RoleName = rolename, roleUsers = new SortedList<string, RoleUserModel>() };
 
                 foreach (UserProfile user in _db.UserProfiles)
                 {
-                    if (manager.IsUserInRole(user.UserName, rolename))
+                    if (_manager.IsUserInRole(user.UserName, rolename))
                     {
                         model.roleUsers.Add(user.UserName,
                             new RoleUserModel { IsMember = true, UserId = user.UserId, Username = user.UserName });
@@ -64,22 +67,20 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
             return View("Manage", model);
         }
 
-        private static void AddRemoveRoleMember(string rolename, RoleUserModel roleUser)
+        private void AddRemoveRoleMember(string rolename, RoleUserModel roleUser)
         {
-            RoleManager manager = new RoleManager();
-
             if (roleUser.IsMember)
             {
-                if (!manager.IsUserInRole(roleUser.Username, rolename))
+                if (!_manager.IsUserInRole(roleUser.Username, rolename))
                 {
-                    manager.AddUserToRole(roleUser.Username, rolename);
+                    _manager.AddUserToRole(roleUser.Username, rolename);
                 }
             }
             else
             {
-                if (manager.IsUserInRole(roleUser.Username, rolename))
+                if (_manager.IsUserInRole(roleUser.Username, rolename))
                 {
-                    manager.RemoveUserFromRole(roleUser.Username, rolename);
+                    _manager.RemoveUserFromRole(roleUser.Username, rolename);
                 }
             }
         }
@@ -87,18 +88,16 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
         // GET: /Admin/Role/Delete
         public ActionResult Delete(string rolename)
         {
-            RoleManager manager = new RoleManager();
-
             DeleteRoleModel model = new DeleteRoleModel();
 
-            int roleMembersCount = manager.GetUsersCount(rolename);
+            int roleMembersCount = _manager.GetUsersCount(rolename);
             if (roleMembersCount > 0)
             {
                 model.FeedbackMessage = string.Format("There are currently {0} users in this role.", roleMembersCount);
                 return View(model);
             }
 
-            manager.DeleteRole(rolename);
+            _manager.DeleteRole(rolename);
 
             return RedirectToAction("Index");
 
@@ -110,9 +109,7 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
         [ActionName("Delete")]
         public ActionResult DeleteConfirmed(string rolename)
         {
-            RoleManager manager = new RoleManager();
-
-            manager.DeleteRole(rolename);
+            _manager.DeleteRole(rolename);
 
             return RedirectToAction("Index");
         }
@@ -127,13 +124,11 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Create(CreateRoleModel model)
         {
-            RoleManager manager = new RoleManager();
-
             if (ModelState.IsValid)
             {
-                if (!manager.RoleExists(model.RoleName))
+                if (!_manager.RoleExists(model.RoleName))
                 {
-                    manager.CreateRole(model.RoleName);
+                    _manager.CreateRole(model.RoleName);
                 }
                 else
                 {
@@ -144,6 +139,5 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
 
             return RedirectToAction("Index");
         }
-
     }
 }

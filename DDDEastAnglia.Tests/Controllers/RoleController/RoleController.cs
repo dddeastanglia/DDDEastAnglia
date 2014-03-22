@@ -18,12 +18,12 @@ namespace DDDEastAnglia.Tests.Controllers.RoleController
             IRoleManager manager = Substitute.For<IRoleManager>();
             Areas.Admin.Controllers.RoleController controller = new Areas.Admin.Controllers.RoleController(manager);
             manager.IsUserInRole("testuser", "dummyrole").Returns(false);
-            ManageRoleModel model = new ManageRoleModel()
+            ManageRoleModel model = new ManageRoleModel
             {
                 RoleName = "dummyrole",
                 roleUsers = new SortedList<string, RoleUserModel>()
             };
-            model.roleUsers.Add("testuser", new RoleUserModel() { IsMember = true, UserId = 999, Username = "testuser" });
+            model.roleUsers.Add("testuser", new RoleUserModel { IsMember = true, UserId = 999, Username = "testuser" });
 
             // Act
             controller.Manage(model);
@@ -39,12 +39,12 @@ namespace DDDEastAnglia.Tests.Controllers.RoleController
             IRoleManager manager = Substitute.For<IRoleManager>();
             Areas.Admin.Controllers.RoleController controller = new Areas.Admin.Controllers.RoleController(manager);
             manager.IsUserInRole("testuser", "dummyrole").Returns(true);
-            ManageRoleModel model = new ManageRoleModel()
+            ManageRoleModel model = new ManageRoleModel
             {
                 RoleName = "dummyrole",
                 roleUsers = new SortedList<string, RoleUserModel>()
             };
-            model.roleUsers.Add("testuser", new RoleUserModel() { IsMember = true, UserId = 999, Username = "testuser" });
+            model.roleUsers.Add("testuser", new RoleUserModel { IsMember = true, UserId = 999, Username = "testuser" });
 
             // Act
             controller.Manage(model);
@@ -60,12 +60,12 @@ namespace DDDEastAnglia.Tests.Controllers.RoleController
             IRoleManager manager = Substitute.For<IRoleManager>();
             Areas.Admin.Controllers.RoleController controller = new Areas.Admin.Controllers.RoleController(manager);
             manager.IsUserInRole("testuser", "dummyrole").Returns(true);
-            ManageRoleModel model = new ManageRoleModel()
+            ManageRoleModel model = new ManageRoleModel
             {
                 RoleName = "dummyrole",
                 roleUsers = new SortedList<string, RoleUserModel>()
             };
-            model.roleUsers.Add("testuser", new RoleUserModel() { IsMember = false, UserId = 999, Username = "testuser" });
+            model.roleUsers.Add("testuser", new RoleUserModel { IsMember = false, UserId = 999, Username = "testuser" });
 
             // Act
             controller.Manage(model);
@@ -81,12 +81,12 @@ namespace DDDEastAnglia.Tests.Controllers.RoleController
             IRoleManager manager = Substitute.For<IRoleManager>();
             Areas.Admin.Controllers.RoleController controller = new Areas.Admin.Controllers.RoleController(manager);
             manager.IsUserInRole("testuser", "dummyrole").Returns(false);
-            ManageRoleModel model = new ManageRoleModel()
+            ManageRoleModel model = new ManageRoleModel
             {
                 RoleName = "dummyrole",
                 roleUsers = new SortedList<string, RoleUserModel>()
             };
-            model.roleUsers.Add("testuser", new RoleUserModel() { IsMember = false, UserId = 999, Username = "testuser" });
+            model.roleUsers.Add("testuser", new RoleUserModel { IsMember = false, UserId = 999, Username = "testuser" });
 
             // Act
             controller.Manage(model);
@@ -162,7 +162,7 @@ namespace DDDEastAnglia.Tests.Controllers.RoleController
             IRoleManager manager = Substitute.For<IRoleManager>();
             Areas.Admin.Controllers.RoleController controller = new Areas.Admin.Controllers.RoleController(manager);
             manager.RoleExists("dummyrole").Returns(false);
-            CreateRoleModel model = new CreateRoleModel() { RoleName = "dummyrole" };
+            CreateRoleModel model = new CreateRoleModel { RoleName = "dummyrole" };
 
             // Act
             controller.Create(model);
@@ -178,7 +178,7 @@ namespace DDDEastAnglia.Tests.Controllers.RoleController
             IRoleManager manager = Substitute.For<IRoleManager>();
             Areas.Admin.Controllers.RoleController controller = new Areas.Admin.Controllers.RoleController(manager);
             manager.RoleExists("dummyrole").Returns(true);
-            CreateRoleModel model = new CreateRoleModel() { RoleName = "dummyrole" };
+            CreateRoleModel model = new CreateRoleModel { RoleName = "dummyrole" };
 
             // Act
             controller.Create(model);
