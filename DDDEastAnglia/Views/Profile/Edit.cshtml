@@ -22,7 +22,7 @@
         
     <div class="form-group">
         @Html.LabelFor(m => Model.Name, new { @class = "control-label" })
-        <div class="controls">
+        <div>
             @Html.TextBoxFor(m => Model.Name, new { autofocus = true })
             @Html.ValidationMessageFor(m => Model.Name)
         </div>
@@ -30,7 +30,7 @@
 
     <div class="form-group">
         @Html.LabelFor(m => Model.EmailAddress, new { @class = "control-label" })
-        <div class="controls">
+        <div>
             @Html.TextBoxFor(m => Model.EmailAddress, new { type = "email" })
             @Html.ValidationMessageFor(m => Model.EmailAddress)
         </div>
@@ -38,14 +38,14 @@
 
     <div class="form-group">
         @Html.LabelFor(m => Model.MobilePhone, new { @class = "control-label" })
-        <div class="controls">
+        <div>
             @Html.TextBoxFor(m => Model.MobilePhone, new { type = "tel" })
         </div>
     </div>
 
     <div class="form-group">
         @Html.LabelFor(m => Model.TwitterHandle, new { @class = "control-label" })
-        <div class="controls">
+        <div>
             <div class="input-group">
                 <span class="input-group-addon">@@</span>
                 @Html.TextBoxFor(m => Model.TwitterHandle)
@@ -55,14 +55,14 @@
 
     <div class="form-group">
         @Html.LabelFor(m => Model.WebsiteUrl, new { @class = "control-label" })
-        <div class="controls">
+        <div>
             @Html.TextBoxFor(m => Model.WebsiteUrl, new { type = "url" })
         </div>
     </div>
 
     <div class="form-group">
         @Html.LabelFor(m => Model.Bio, new { @class = "control-label" })
-        <div class="controls">
+        <div>
             <div id="wmd-button-bar"></div>
             <div>
                 @Html.TextAreaFor(m => Model.Bio, 10, 80, new { id = "wmd-input" })
@@ -72,14 +72,14 @@
     </div>
 
     <div class="form-group">
-        <div class="controls">
+        <div>
             @Html.CheckBoxFor(m => Model.NewSpeaker)
             @Html.LabelFor(m => Model.NewSpeaker, new { @class = "checkbox-inline" })
         </div>
     </div>
     
     <div class="form-group">
-        <div class="controls">
+        <div>
             <input type="submit" class="btn btn-primary" value="Save profile" />
         </div>
     </div>
