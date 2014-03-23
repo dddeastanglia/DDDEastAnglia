@@ -26,14 +26,14 @@
     <div>
         <span id="startdate">@Model.VotingStartDate.ToLongDateString()</span>
         <span id="enddate">@Model.VotingEndDate.ToLongDateString()</span>
-        <div class="progress progress-success"><div class="bar" style="width: @Model.VotingCompletePercentage%"><p>@Model.VotingCompletePercentage%</p></div></div>
+        <div class="progress progress-success"><div class="progress-bar" style="width: @Model.VotingCompletePercentage%"><p>@Model.VotingCompletePercentage%</p></div></div>
     </div>
 </div>
 
 @if (Model.TotalVotes > 0)
 {
-    <div class="row-fluid">
-        <div class="span6 well">
+    <div class="row">
+        <div class="col-md-6 well">
             <h3>Time-based Stats</h3>
 
             <ul>
@@ -42,7 +42,7 @@
             </ul>
         </div>
 
-        <div class="span6 well">
+        <div class="col-md-6 well">
             <h3>Session Stats</h3>
 
             <ul>
@@ -53,8 +53,8 @@
         </div>
     </div>
     
-    <div class="row-fluid">
-        <div class="span6 well">
+    <div class="row">
+        <div class="col-md-6 well">
             <h3>User Stats</h3>
 
             <ul>
@@ -65,7 +65,7 @@
             </ul>
         </div>
 
-        <div class="span6 well">
+        <div class="col-md-6 well">
             <h3>IP Address Stats</h3>
 
             <ul>

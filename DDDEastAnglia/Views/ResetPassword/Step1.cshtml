@@ -12,24 +12,24 @@
     
     @Html.ValidationSummary(true)
 
-    <div class="control-group">
+    <div class="form-group">
         @Html.LabelFor(m => m.UserName, new { @class = "control-label", autofocus = true })
-        <div class="controls">
+        <div>
             @Html.TextBoxFor(m => m.UserName)
             @Html.ValidationMessageFor(m => m.UserName)
         </div>
     </div>
         
-    <div class="control-group">
+    <div class="form-group">
         @Html.LabelFor(m => m.EmailAddress, new { @class = "control-label"})
-        <div class="controls">
+        <div>
             @Html.TextBoxFor(m => m.EmailAddress)
             @Html.ValidationMessageFor(m => m.EmailAddress)
         </div>
     </div>
 
-    <div class="control-group">
-        <div class="controls">
+    <div class="form-group">
+        <div>
             <input type="submit" class="btn btn-primary" value="Reset password" />
         </div>
     </div>

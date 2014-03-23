@@ -20,32 +20,32 @@
         @Html.ValidationSummary(true)
         @Html.HiddenFor(m => m.ExternalLoginData)
 
-        <div class="control-group">
+        <div class="form-group">
             @Html.LabelFor(m => m.UserName, new { @class = "control-label"})
-            <div class="controls">
+            <div>
                 @Html.TextBoxFor(m => m.UserName)
                 @Html.ValidationMessageFor(m => m.UserName)
             </div>
         </div>
 
-        <div class="control-group">
+        <div class="form-group">
             @Html.LabelFor(m => m.Name, new { @class = "control-label"})
-            <div class="controls">
+            <div>
                 @Html.TextBoxFor(m => m.Name)
                 @Html.ValidationMessageFor(m => m.Name)
             </div>
         </div>
 
-        <div class="control-group">
+        <div class="form-group">
             @Html.LabelFor(m => m.EmailAddress, new { @class = "control-label"})
-            <div class="controls">
+            <div>
                 @Html.TextBoxFor(m => m.EmailAddress, new { type = "email" })
                 @Html.ValidationMessageFor(m => m.EmailAddress)
             </div>
         </div>
 
-        <div class="control-group">
-            <div class="controls">
+        <div class="form-group">
+            <div>
                 <input type="submit" class="btn btn-primary" value="Register" />
             </div>
         </div>
