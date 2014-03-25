@@ -1,5 +1,5 @@
 ﻿using System.Configuration;
-using DDDEastAnglia.DataAccess.EntityFramework;
+using DDDEastAnglia.DataAccess.SimpleData;
 
 namespace DDDEastAnglia.VotingData
 {

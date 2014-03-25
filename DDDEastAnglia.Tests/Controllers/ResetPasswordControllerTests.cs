@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 using DDDEastAnglia.Controllers;
-using DDDEastAnglia.DataAccess.EntityFramework;
+using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.Helpers;
 using DDDEastAnglia.Helpers.Email;
 using DDDEastAnglia.Models;
@@ -24,23 +24,23 @@ namespace DDDEastAnglia.Tests.Controllers
         [Test]
         public void TestThat_Ctor_ThrowsAnException_WhenTheSuppliedResetPasswordThingyIsNull()
         {
-            var context = Substitute.For<IDDDEAContext>();
+            var userProfileRepository = Substitute.For<IUserProfileRepository>();
             var resetPasswordEmailSender = Substitute.For<IResetPasswordEmailSender>();
-            Assert.Throws<ArgumentNullException>(() => new ResetPasswordController(context, null, resetPasswordEmailSender));
+            Assert.Throws<ArgumentNullException>(() => new ResetPasswordController(userProfileRepository, null, resetPasswordEmailSender));
         }
 
         [Test]
         public void TestThat_Ctor_ThrowsAnException_WhenTheSuppliedResetPasswordEmailSenderIsNull()
         {
-            var context = Substitute.For<IDDDEAContext>();
+            var userProfileRepository = Substitute.For<IUserProfileRepository>();
             var resetPasswordThingy = Substitute.For<IResetPasswordThingy>();
-            Assert.Throws<ArgumentNullException>(() => new ResetPasswordController(context, resetPasswordThingy, null));
+            Assert.Throws<ArgumentNullException>(() => new ResetPasswordController(userProfileRepository, resetPasswordThingy, null));
         }
 
         [Test]
         public void TestThat_Start_BeginsAtStepOne()
         {
-            var controller = new ResetPasswordController(Substitute.For<IDDDEAContext>(), Substitute.For<IResetPasswordThingy>(), Substitute.For<IResetPasswordEmailSender>());
+            var controller = new ResetPasswordController(Substitute.For<IUserProfileRepository>(), Substitute.For<IResetPasswordThingy>(), Substitute.For<IResetPasswordEmailSender>());
             
             var result = (ViewResult) controller.Start();
             
@@ -50,7 +50,7 @@ namespace DDDEastAnglia.Tests.Controllers
         [Test]
         public void TestThat_ResetPassword_RedirectsBackToStepOne_WhenTheModelIsInvalid()
         {
-            var controller = new ResetPasswordController(Substitute.For<IDDDEAContext>(), Substitute.For<IResetPasswordThingy>(), Substitute.For<IResetPasswordEmailSender>());
+            var controller = new ResetPasswordController(Substitute.For<IUserProfileRepository>(), Substitute.For<IResetPasswordThingy>(), Substitute.For<IResetPasswordEmailSender>());
             controller.ModelState.AddModelError("", "invalid");
 
             var model = new ResetPasswordStepOneModel();
@@ -62,7 +62,7 @@ namespace DDDEastAnglia.Tests.Controllers
         [Test]
         public void TestThat_ResetPassword_AddsAValidationError_WhenTheModelHasAnInvalidUserNameAndEmailAddress()
         {
-            var controller = new ResetPasswordController(Substitute.For<IDDDEAContext>(), Substitute.For<IResetPasswordThingy>(), Substitute.For<IResetPasswordEmailSender>());
+            var controller = new ResetPasswordController(Substitute.For<IUserProfileRepository>(), Substitute.For<IResetPasswordThingy>(), Substitute.For<IResetPasswordEmailSender>());
 
             var model = new ResetPasswordStepOneModel {UserName = null, EmailAddress = null};
             controller.ResetPassword(model);
@@ -73,7 +73,7 @@ namespace DDDEastAnglia.Tests.Controllers
         [Test]
         public void TestThat_ResetPassword_RedirectsBackToStepOne_WhenTheModelHasAnInvalidUserNameAndEmailAddress()
         {
-            var controller = new ResetPasswordController(Substitute.For<IDDDEAContext>(), Substitute.For<IResetPasswordThingy>(), Substitute.For<IResetPasswordEmailSender>());
+            var controller = new ResetPasswordController(Substitute.For<IUserProfileRepository>(), Substitute.For<IResetPasswordThingy>(), Substitute.For<IResetPasswordEmailSender>());
 
             var model = new ResetPasswordStepOneModel {UserName = null, EmailAddress = null};
             var result = (ViewResult) controller.ResetPassword(model);
@@ -84,7 +84,7 @@ namespace DDDEastAnglia.Tests.Controllers
         [Test]
         public void TestThat_ResetPassword_AddsAValidationError_WhenTheModelHasAValidUserName_ButTheUserProfileCouldNotBeFound()
         {
-            var controller = new ResetPasswordController(Substitute.For<IDDDEAContext>(), Substitute.For<IResetPasswordThingy>(), Substitute.For<IResetPasswordEmailSender>());
+            var controller = new ResetPasswordController(Substitute.For<IUserProfileRepository>(), Substitute.For<IResetPasswordThingy>(), Substitute.For<IResetPasswordEmailSender>());
 
             var model = new ResetPasswordStepOneModel {UserName = "bob"};
             controller.ResetPassword(model);
@@ -95,7 +95,7 @@ namespace DDDEastAnglia.Tests.Controllers
         [Test]
         public void TestThat_ResetPassword_RedirectsBackToStepOne_WhenTheModelHasAValidUserName_ButTheUserProfileCouldNotBeFound()
         {
-            var controller = new ResetPasswordController(Substitute.For<IDDDEAContext>(), Substitute.For<IResetPasswordThingy>(), Substitute.For<IResetPasswordEmailSender>());
+            var controller = new ResetPasswordController(Substitute.For<IUserProfileRepository>(), Substitute.For<IResetPasswordThingy>(), Substitute.For<IResetPasswordEmailSender>());
 
             var model = new ResetPasswordStepOneModel {UserName = "bob"};
             var result = (ViewResult) controller.ResetPassword(model);
@@ -106,7 +106,7 @@ namespace DDDEastAnglia.Tests.Controllers
         [Test]
         public void TestThat_ResetPassword_AddsAValidationError_WhenTheModelHasAValidEmailAddress_ButTheUserProfileCouldNotBeFound()
         {
-            var controller = new ResetPasswordController(Substitute.For<IDDDEAContext>(), Substitute.For<IResetPasswordThingy>(), Substitute.For<IResetPasswordEmailSender>());
+            var controller = new ResetPasswordController(Substitute.For<IUserProfileRepository>(), Substitute.For<IResetPasswordThingy>(), Substitute.For<IResetPasswordEmailSender>());
 
             var model = new ResetPasswordStepOneModel {EmailAddress = "bob@example.com"};
             controller.ResetPassword(model);
@@ -117,7 +117,7 @@ namespace DDDEastAnglia.Tests.Controllers
         [Test]
         public void TestThat_ResetPassword_RedirectsBackToStepOne_WhenTheModelHasAValidEmailAddress_ButTheUserProfileCouldNotBeFound()
         {
-            var controller = new ResetPasswordController(Substitute.For<IDDDEAContext>(), Substitute.For<IResetPasswordThingy>(), Substitute.For<IResetPasswordEmailSender>());
+            var controller = new ResetPasswordController(Substitute.For<IUserProfileRepository>(), Substitute.For<IResetPasswordThingy>(), Substitute.For<IResetPasswordEmailSender>());
 
             var model = new ResetPasswordStepOneModel {EmailAddress = "bob@example.com"};
             var result = (ViewResult) controller.ResetPassword(model);
@@ -128,10 +128,10 @@ namespace DDDEastAnglia.Tests.Controllers
         [Test]
         public void TestThat_ResetPassword_GeneratesAPasswordResetTokenForTheUser_WhenAValidUserIsFound_FromAUserName()
         {
-            var context = Substitute.For<IDDDEAContext>();
-            context.UserProfiles.Returns(new[] {new UserProfile {UserName = "bob", EmailAddress = "bob@example.com"}});
+            var userProfileRepository = Substitute.For<IUserProfileRepository>();
+            userProfileRepository.GetAllUserProfiles().Returns(new[] {new UserProfile {UserName = "bob", EmailAddress = "bob@example.com"}});
             var resetPasswordThingy = Substitute.For<IResetPasswordThingy>();
-            var controller = new ResetPasswordController(context, resetPasswordThingy, Substitute.For<IResetPasswordEmailSender>());
+            var controller = new ResetPasswordController(userProfileRepository, resetPasswordThingy, Substitute.For<IResetPasswordEmailSender>());
             controller.SetupWithHttpContextAndUrlHelper();
 
             var model = new ResetPasswordStepOneModel {UserName = "bob"};
@@ -143,10 +143,10 @@ namespace DDDEastAnglia.Tests.Controllers
         [Test]
         public void TestThat_ResetPassword_GeneratesAPasswordResetTokenForTheUser_WhenAValidUserIsFound_FromAnEmailAddress()
         {
-            var context = Substitute.For<IDDDEAContext>();
-            context.UserProfiles.Returns(new[] {new UserProfile {UserName = "bob", EmailAddress = "bob@example.com"}});
+            var userProfileRepository = Substitute.For<IUserProfileRepository>();
+            userProfileRepository.GetAllUserProfiles().Returns(new[] {new UserProfile {UserName = "bob", EmailAddress = "bob@example.com"}});
             var resetPasswordThingy = Substitute.For<IResetPasswordThingy>();
-            var controller = new ResetPasswordController(context, resetPasswordThingy, Substitute.For<IResetPasswordEmailSender>());
+            var controller = new ResetPasswordController(userProfileRepository, resetPasswordThingy, Substitute.For<IResetPasswordEmailSender>());
             controller.SetupWithHttpContextAndUrlHelper();
 
             var model = new ResetPasswordStepOneModel {EmailAddress = "bob@example.com"};
@@ -158,10 +158,10 @@ namespace DDDEastAnglia.Tests.Controllers
         [Test]
         public void TestThat_ResetPassword_SendsAnEmailToTheUser_WhenAValidUserIsFound_FromAUserName()
         {
-            var context = Substitute.For<IDDDEAContext>();
-            context.UserProfiles.Returns(new[] {new UserProfile {UserName = "bob", EmailAddress = "bob@example.com"}});
+            var userProfileRepository = Substitute.For<IUserProfileRepository>();
+            userProfileRepository.GetAllUserProfiles().Returns(new[] {new UserProfile {UserName = "bob", EmailAddress = "bob@example.com"}});
             var resetPasswordEmailSender = Substitute.For<IResetPasswordEmailSender>();
-            var controller = new ResetPasswordController(context, Substitute.For<IResetPasswordThingy>(), resetPasswordEmailSender);
+            var controller = new ResetPasswordController(userProfileRepository, Substitute.For<IResetPasswordThingy>(), resetPasswordEmailSender);
             controller.SetupWithHttpContextAndUrlHelper();
 
             var model = new ResetPasswordStepOneModel {UserName = "bob"};
@@ -173,10 +173,10 @@ namespace DDDEastAnglia.Tests.Controllers
         [Test]
         public void TestThat_ResetPassword_SendsAnEmailToTheUser_WhenAValidUserIsFound_FromAnEmailAddress()
         {
-            var context = Substitute.For<IDDDEAContext>();
-            context.UserProfiles.Returns(new[] {new UserProfile {UserName = "bob", EmailAddress = "bob@example.com"}});
+            var userProfileRepository = Substitute.For<IUserProfileRepository>();
+            userProfileRepository.GetAllUserProfiles().Returns(new[] {new UserProfile {UserName = "bob", EmailAddress = "bob@example.com"}});
             var resetPasswordEmailSender = Substitute.For<IResetPasswordEmailSender>();
-            var controller = new ResetPasswordController(context, Substitute.For<IResetPasswordThingy>(), resetPasswordEmailSender);
+            var controller = new ResetPasswordController(userProfileRepository, Substitute.For<IResetPasswordThingy>(), resetPasswordEmailSender);
             controller.SetupWithHttpContextAndUrlHelper();
 
             var model = new ResetPasswordStepOneModel {EmailAddress = "bob@example.com"};
@@ -188,7 +188,7 @@ namespace DDDEastAnglia.Tests.Controllers
         [Test]
         public void TestThat_EmailConfirmation_RedirectsToTheCorrectView()
         {
-            var controller = new ResetPasswordController(Substitute.For<IDDDEAContext>(), Substitute.For<IResetPasswordThingy>(), Substitute.For<IResetPasswordEmailSender>());
+            var controller = new ResetPasswordController(Substitute.For<IUserProfileRepository>(), Substitute.For<IResetPasswordThingy>(), Substitute.For<IResetPasswordEmailSender>());
             
             var result = (ViewResult) controller.EmailConfirmation("token");
             
@@ -198,7 +198,7 @@ namespace DDDEastAnglia.Tests.Controllers
         [Test]
         public void TestThat_EmailConfirmation_PassesTheSuppliedToken_ToTheView()
         {
-            var controller = new ResetPasswordController(Substitute.For<IDDDEAContext>(), Substitute.For<IResetPasswordThingy>(), Substitute.For<IResetPasswordEmailSender>());
+            var controller = new ResetPasswordController(Substitute.For<IUserProfileRepository>(), Substitute.For<IResetPasswordThingy>(), Substitute.For<IResetPasswordEmailSender>());
 
             var result = (ViewResult) controller.EmailConfirmation("token");
             
@@ -209,7 +209,7 @@ namespace DDDEastAnglia.Tests.Controllers
         [Test]
         public void TestThat_Complete_SetsTheSuppliedMessageOnTheView()
         {
-            var controller = new ResetPasswordController(Substitute.For<IDDDEAContext>(), Substitute.For<IResetPasswordThingy>(), Substitute.For<IResetPasswordEmailSender>());
+            var controller = new ResetPasswordController(Substitute.For<IUserProfileRepository>(), Substitute.For<IResetPasswordThingy>(), Substitute.For<IResetPasswordEmailSender>());
 
             var result = (ViewResult) controller.Complete("a message");
 
@@ -219,7 +219,7 @@ namespace DDDEastAnglia.Tests.Controllers
         [Test]
         public void TestThat_SaveNewPassword_RedirectsToStepThree_WhenTheModelIsInvalid()
         {
-            var controller = new ResetPasswordController(Substitute.For<IDDDEAContext>(), Substitute.For<IResetPasswordThingy>(), Substitute.For<IResetPasswordEmailSender>());
+            var controller = new ResetPasswordController(Substitute.For<IUserProfileRepository>(), Substitute.For<IResetPasswordThingy>(), Substitute.For<IResetPasswordEmailSender>());
             controller.ModelState.AddModelError("", "invalid");
 
             var result = (ViewResult) controller.SaveNewPassword(new ResetPasswordStepThreeModel());
@@ -232,7 +232,7 @@ namespace DDDEastAnglia.Tests.Controllers
         {
             var resetPasswordThingy = Substitute.For<IResetPasswordThingy>();
             resetPasswordThingy.ResetPassword(Arg.Any<string>(), Arg.Any<string>()).Returns(false);
-            var controller = new ResetPasswordController(Substitute.For<IDDDEAContext>(), resetPasswordThingy, Substitute.For<IResetPasswordEmailSender>());
+            var controller = new ResetPasswordController(Substitute.For<IUserProfileRepository>(), resetPasswordThingy, Substitute.For<IResetPasswordEmailSender>());
 
             controller.SaveNewPassword(new ResetPasswordStepThreeModel());
 
@@ -244,7 +244,7 @@ namespace DDDEastAnglia.Tests.Controllers
         {
             var resetPasswordThingy = Substitute.For<IResetPasswordThingy>();
             resetPasswordThingy.ResetPassword(Arg.Any<string>(), Arg.Any<string>()).Returns(false);
-            var controller = new ResetPasswordController(Substitute.For<IDDDEAContext>(), resetPasswordThingy, Substitute.For<IResetPasswordEmailSender>());
+            var controller = new ResetPasswordController(Substitute.For<IUserProfileRepository>(), resetPasswordThingy, Substitute.For<IResetPasswordEmailSender>());
 
             var result = (ViewResult) controller.SaveNewPassword(new ResetPasswordStepThreeModel());
 
@@ -256,7 +256,7 @@ namespace DDDEastAnglia.Tests.Controllers
         {
             var resetPasswordThingy = Substitute.For<IResetPasswordThingy>();
             resetPasswordThingy.ResetPassword(Arg.Any<string>(), Arg.Any<string>()).Returns(true);
-            var controller = new ResetPasswordController(Substitute.For<IDDDEAContext>(), resetPasswordThingy, Substitute.For<IResetPasswordEmailSender>());
+            var controller = new ResetPasswordController(Substitute.For<IUserProfileRepository>(), resetPasswordThingy, Substitute.For<IResetPasswordEmailSender>());
 
             var result = (RedirectToRouteResult) controller.SaveNewPassword(new ResetPasswordStepThreeModel());
 

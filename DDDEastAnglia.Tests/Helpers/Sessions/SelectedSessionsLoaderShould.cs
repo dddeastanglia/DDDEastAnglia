@@ -1,5 +1,5 @@
 ﻿using System;
-using DDDEastAnglia.DataAccess.EntityFramework;
+using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.Helpers.Sessions;
 using DDDEastAnglia.Models;
 using NSubstitute;
@@ -19,19 +19,19 @@ namespace DDDEastAnglia.Tests.Helpers.Sessions
         [Test]
         public void ThrowAnException_WhenGivenANullProfile()
         {
-            var db = Substitute.For<IDDDEAContext>();
-            var sessionsLoader = new SelectedSessionsLoader(db);
+            var sessionRepository = Substitute.For<ISessionRepository>();
+            var sessionsLoader = new SelectedSessionsLoader(sessionRepository);
             Assert.Throws<ArgumentNullException>(() => sessionsLoader.LoadSessions(null));
         }
 
         [Test]
         public void OnlyReturnSelectedSessionsForTheSpecifiedSpeaker()
         {
-            var db = Substitute.For<IDDDEAContext>();
+            var sessionRepository = Substitute.For<ISessionRepository>();
             var session1 = new Session {SpeakerUserName = "bob", SessionId = 1234};
             var session3 = new Session {SpeakerUserName = "bob", SessionId = 44};
-            db.Sessions.Returns(new[] {session1, new Session {SpeakerUserName = "fred"}, session3});
-            var sessionsLoader = new SelectedSessionsLoader(db);
+            sessionRepository.GetAllSessions().Returns(new[] {session1, new Session {SpeakerUserName = "fred"}, session3});
+            var sessionsLoader = new SelectedSessionsLoader(sessionRepository);
 
             var sessions = sessionsLoader.LoadSessions(new UserProfile {UserName = "bob"});
 

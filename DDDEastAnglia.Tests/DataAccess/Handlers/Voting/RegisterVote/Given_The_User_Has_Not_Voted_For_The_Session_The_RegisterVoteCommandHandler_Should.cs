@@ -1,11 +1,9 @@
 ﻿using System;
 using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.DataAccess.Commands.Vote;
-using DDDEastAnglia.DataAccess.EntityFramework.Models;
 using DDDEastAnglia.DataAccess.Handlers.Voting;
 using NSubstitute;
 using NUnit.Framework;
-using Conference = DDDEastAnglia.Domain.Conference;
 
 namespace DDDEastAnglia.Tests.DataAccess.Handlers.Voting.RegisterVote
 {

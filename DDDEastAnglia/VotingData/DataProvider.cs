@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using DDDEastAnglia.DataAccess;
-using DDDEastAnglia.DataAccess.EntityFramework.Models;
+using DDDEastAnglia.DataAccess.SimpleData.Models;
 using DDDEastAnglia.Domain.Calendar;
 using DDDEastAnglia.Helpers;
 using DDDEastAnglia.VotingData.Models;

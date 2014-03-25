@@ -1,7 +1,7 @@
 ﻿using DDDEastAnglia.DataAccess.Commands.Vote;
-using DDDEastAnglia.DataAccess.EntityFramework.Builders;
-using DDDEastAnglia.DataAccess.EntityFramework.Builders.Calendar;
 using DDDEastAnglia.DataAccess.MessageBus;
+using DDDEastAnglia.DataAccess.SimpleData.Builders;
+using DDDEastAnglia.DataAccess.SimpleData.Builders.Calendar;
 
 namespace DDDEastAnglia.DataAccess.Handlers.Voting
 {

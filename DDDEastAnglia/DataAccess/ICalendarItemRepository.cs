@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using DDDEastAnglia.DataAccess.EntityFramework.Models;
+using DDDEastAnglia.DataAccess.SimpleData.Models;
 using DDDEastAnglia.Domain.Calendar;
 
 namespace DDDEastAnglia.DataAccess

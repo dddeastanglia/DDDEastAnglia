@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using DDDEastAnglia.DataAccess.EntityFramework.Models;
+using DDDEastAnglia.DataAccess.SimpleData.Models;
 
 namespace DDDEastAnglia.Areas.Admin.Models
 {

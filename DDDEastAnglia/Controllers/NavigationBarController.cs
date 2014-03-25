@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Web.Mvc;
 using DDDEastAnglia.DataAccess;
-using DDDEastAnglia.DataAccess.EntityFramework.Builders;
-using DDDEastAnglia.DataAccess.EntityFramework.Builders.Calendar;
+using DDDEastAnglia.DataAccess.SimpleData.Builders;
+using DDDEastAnglia.DataAccess.SimpleData.Builders.Calendar;
 using DDDEastAnglia.Models;
 using DDDEastAnglia.NavigationMenu;
 
