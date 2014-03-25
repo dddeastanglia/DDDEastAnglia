@@ -26,7 +26,7 @@ namespace DDDEastAnglia.DataAccess.EntityFramework
 
         public bool HasVotedFor(int sessionId, Guid cookieId)
         {
-            return db.Votes.Where(db.Votes.CookieId == cookieId && db.Votes.SessionId == sessionId);
+            return db.Votes.Exists(db.Votes.CookieId == cookieId && db.Votes.SessionId == sessionId);
         }
     }
 }

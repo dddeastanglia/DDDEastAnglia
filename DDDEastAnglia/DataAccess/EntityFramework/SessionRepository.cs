@@ -15,12 +15,12 @@ namespace DDDEastAnglia.DataAccess.EntityFramework
 
         public Session Get(int id)
         {
-            return db.Sessions.FindById(id);
+            return db.Sessions.FindBySessionId(id);
         }
 
         public IEnumerable<Session> GetSessionsSubmittedBy(string speakerName)
         {
-            return db.Sessions.FindBySpeakerUserName(speakerName);
+            return db.Sessions.FindAllBySpeakerUserName(speakerName);
         }
 
         public bool Exists(int id)

@@ -3,10 +3,10 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using WebMatrix.WebData;
 
 namespace DDDEastAnglia
 {
-
     public class MvcApplication : HttpApplication
     {
         protected void Application_Start()
@@ -32,7 +32,7 @@ namespace DDDEastAnglia
 //                    context.Database.Initialize(false);
 //                }
 //            }
-//            WebSecurity.InitializeDatabaseConnection("DDDEastAnglia", "UserProfile", "UserId", "UserName", autoCreateTables: true);
+            WebSecurity.InitializeDatabaseConnection("DDDEastAnglia", "UserProfile", "UserId", "UserName", autoCreateTables: true);
         }
     }
 }
