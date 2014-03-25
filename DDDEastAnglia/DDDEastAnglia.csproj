@@ -235,6 +235,7 @@
     <Compile Include="GlimpseSecurityPolicy.cs" />
     <Compile Include="DataAccess\EntityFramework\CalendarItemRepository.cs" />
     <Compile Include="DataAccess\EntityFramework\UserProfileRepository.cs" />
+    <Compile Include="DataAccess\ConferenceLoader.cs" />
     <Compile Include="DataAccess\SimpleData\CalendarItemRepository.cs" />
     <Compile Include="DataAccess\SimpleData\UserProfileRepository.cs" />
     <Compile Include="DataAccess\ICalendarItemRepository.cs" />

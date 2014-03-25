@@ -1,7 +1,5 @@
 ﻿using DDDEastAnglia.DataAccess.Commands.Vote;
 using DDDEastAnglia.DataAccess.MessageBus;
-using DDDEastAnglia.DataAccess.SimpleData.Builders;
-using DDDEastAnglia.DataAccess.SimpleData.Builders.Calendar;
 using DDDEastAnglia.DataAccess.SimpleData.Models;
 
 namespace DDDEastAnglia.DataAccess.Handlers.Voting
@@ -9,18 +7,17 @@ namespace DDDEastAnglia.DataAccess.Handlers.Voting
     public class RegisterVoteCommandHandler : BaseHandler<RegisterVoteCommand>
     {
         private readonly IVoteRepository voteRepository;
-        private readonly IConferenceRepository conferenceRepository;
+        private readonly IConferenceLoader conferenceLoader;
 
-        public RegisterVoteCommandHandler(IVoteRepository voteRepository, IConferenceRepository conferenceRepository)
+        public RegisterVoteCommandHandler(IVoteRepository voteRepository, IConferenceLoader conferenceLoader)
         {
             this.voteRepository = voteRepository;
-            this.conferenceRepository = conferenceRepository;
+            this.conferenceLoader = conferenceLoader;
         }
 
         public override void Handle(RegisterVoteCommand message)
         {
-            var dataConference = conferenceRepository.ForSession(message.SessionId);
-            var conference = new ConferenceBuilder(new CalendarEntryBuilder()).Build(dataConference);
+            var conference = conferenceLoader.LoadConference(message.SessionId);
 
             if (conference == null || !conference.CanVote())
             {
@@ -31,19 +28,19 @@ namespace DDDEastAnglia.DataAccess.Handlers.Voting
             {
                 return;
             }
-            
+
             voteRepository.AddVote(new Vote
-                {
-                    CookieId = message.CookieId,
-                    IPAddress = message.IPAddress,
-                    Referrer = message.Referrer,
-                    ScreenResolution = message.ScreenResolution,
-                    SessionId = message.SessionId,
-                    TimeRecorded = message.TimeRecorded,
-                    UserAgent = message.UserAgent,
-                    UserId = message.UserId,
-                    WebSessionId = message.WebSessionId
-                });
+            {
+                CookieId = message.CookieId,
+                IPAddress = message.IPAddress,
+                Referrer = message.Referrer,
+                ScreenResolution = message.ScreenResolution,
+                SessionId = message.SessionId,
+                TimeRecorded = message.TimeRecorded,
+                UserAgent = message.UserAgent,
+                UserId = message.UserId,
+                WebSessionId = message.WebSessionId
+            });
         }
     }
 }

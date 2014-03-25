@@ -2,9 +2,11 @@
 using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.DataAccess.Commands.Vote;
 using DDDEastAnglia.DataAccess.Handlers.Voting;
-using DDDEastAnglia.Domain;
+using DDDEastAnglia.DataAccess.SimpleData.Models;
+using DDDEastAnglia.Domain.Calendar;
 using NSubstitute;
 using NUnit.Framework;
+using Conference = DDDEastAnglia.Domain.Conference;
 
 namespace DDDEastAnglia.Tests.DataAccess.Handlers.Voting.DeleteVote
 {
@@ -15,8 +17,7 @@ namespace DDDEastAnglia.Tests.DataAccess.Handlers.Voting.DeleteVote
         private static readonly Guid CookieId = Guid.NewGuid();
         private DeleteVoteCommandHandler _handler; 
         private IVoteRepository _voteRepository;
-
-        private IConferenceRepository _conferenceRepository;
+        private IConferenceLoader _conferenceLoader;
 
         [SetUp]
         public void BeforeEachTest()
@@ -24,12 +25,12 @@ namespace DDDEastAnglia.Tests.DataAccess.Handlers.Voting.DeleteVote
             _voteRepository = Substitute.For<IVoteRepository>();
             _voteRepository.HasVotedFor(Arg.Is(SessionId), Arg.Is(CookieId)).Returns(true);
 
-            _conferenceRepository = Substitute.For<IConferenceRepository>();
-            var conference = new Conference(SessionId, "", "");
+            _conferenceLoader = Substitute.For<IConferenceLoader>();
+            var conference = new Conference(1, "", "");
             conference.AddToCalendar(ConferenceHelper.GetOpenVotingPeriod());
-            _conferenceRepository.ForSession(Arg.Is(1)).Returns(conference);
+            _conferenceLoader.LoadConference(Arg.Is(1)).Returns(conference);
 
-            _handler = new DeleteVoteCommandHandler(_voteRepository, _conferenceRepository);
+            _handler = new DeleteVoteCommandHandler(_voteRepository, _conferenceLoader);
         }
 
         [Test]

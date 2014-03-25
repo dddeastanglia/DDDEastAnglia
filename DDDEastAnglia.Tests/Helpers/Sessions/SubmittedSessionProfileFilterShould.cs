@@ -25,8 +25,7 @@ namespace DDDEastAnglia.Tests.Helpers.Sessions
             var profile1 = new UserProfile {UserName = "fred"};
             var profile2 = new UserProfile {UserName = "george"};
             var profile3 = new UserProfile {UserName = "bob"};
-
-            sessionRepository.GetAllSessions().Returns(new[] {new Session {SpeakerUserName = "bob"}});
+            sessionRepository.GetSessionsSubmittedBy("bob").Returns(new[] {new Session {SpeakerUserName = "bob"}});
 
             var profiles = profileFilter.FilterProfiles(new[] {profile1, profile2, profile3});
 

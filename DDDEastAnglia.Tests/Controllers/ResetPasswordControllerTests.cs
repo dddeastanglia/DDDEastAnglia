@@ -129,7 +129,7 @@ namespace DDDEastAnglia.Tests.Controllers
         public void TestThat_ResetPassword_GeneratesAPasswordResetTokenForTheUser_WhenAValidUserIsFound_FromAUserName()
         {
             var userProfileRepository = Substitute.For<IUserProfileRepository>();
-            userProfileRepository.GetAllUserProfiles().Returns(new[] {new UserProfile {UserName = "bob", EmailAddress = "bob@example.com"}});
+            userProfileRepository.GetUserProfileByUserName("bob").Returns(new UserProfile {UserName = "bob", EmailAddress = "bob@example.com"});
             var resetPasswordThingy = Substitute.For<IResetPasswordThingy>();
             var controller = new ResetPasswordController(userProfileRepository, resetPasswordThingy, Substitute.For<IResetPasswordEmailSender>());
             controller.SetupWithHttpContextAndUrlHelper();
@@ -144,7 +144,7 @@ namespace DDDEastAnglia.Tests.Controllers
         public void TestThat_ResetPassword_GeneratesAPasswordResetTokenForTheUser_WhenAValidUserIsFound_FromAnEmailAddress()
         {
             var userProfileRepository = Substitute.For<IUserProfileRepository>();
-            userProfileRepository.GetAllUserProfiles().Returns(new[] {new UserProfile {UserName = "bob", EmailAddress = "bob@example.com"}});
+            userProfileRepository.GetUserProfileByEmailAddress("bob@example.com").Returns(new UserProfile {UserName = "bob", EmailAddress = "bob@example.com"});
             var resetPasswordThingy = Substitute.For<IResetPasswordThingy>();
             var controller = new ResetPasswordController(userProfileRepository, resetPasswordThingy, Substitute.For<IResetPasswordEmailSender>());
             controller.SetupWithHttpContextAndUrlHelper();
@@ -159,7 +159,7 @@ namespace DDDEastAnglia.Tests.Controllers
         public void TestThat_ResetPassword_SendsAnEmailToTheUser_WhenAValidUserIsFound_FromAUserName()
         {
             var userProfileRepository = Substitute.For<IUserProfileRepository>();
-            userProfileRepository.GetAllUserProfiles().Returns(new[] {new UserProfile {UserName = "bob", EmailAddress = "bob@example.com"}});
+            userProfileRepository.GetUserProfileByUserName("bob").Returns(new UserProfile {UserName = "bob", EmailAddress = "bob@example.com"});
             var resetPasswordEmailSender = Substitute.For<IResetPasswordEmailSender>();
             var controller = new ResetPasswordController(userProfileRepository, Substitute.For<IResetPasswordThingy>(), resetPasswordEmailSender);
             controller.SetupWithHttpContextAndUrlHelper();
@@ -174,7 +174,7 @@ namespace DDDEastAnglia.Tests.Controllers
         public void TestThat_ResetPassword_SendsAnEmailToTheUser_WhenAValidUserIsFound_FromAnEmailAddress()
         {
             var userProfileRepository = Substitute.For<IUserProfileRepository>();
-            userProfileRepository.GetAllUserProfiles().Returns(new[] {new UserProfile {UserName = "bob", EmailAddress = "bob@example.com"}});
+            userProfileRepository.GetUserProfileByEmailAddress("bob@example.com").Returns(new UserProfile {UserName = "bob", EmailAddress = "bob@example.com"});
             var resetPasswordEmailSender = Substitute.For<IResetPasswordEmailSender>();
             var controller = new ResetPasswordController(userProfileRepository, Substitute.For<IResetPasswordThingy>(), resetPasswordEmailSender);
             controller.SetupWithHttpContextAndUrlHelper();

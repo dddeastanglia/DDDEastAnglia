@@ -28,14 +28,11 @@ namespace DDDEastAnglia.Tests.Helpers.Sessions
         public void OnlyReturnSessionsForTheSpecifiedSpeaker()
         {
             var sessionRepository = Substitute.For<ISessionRepository>();
-            var session1 = new Session {SpeakerUserName = "bob"};
-            var session3 = new Session {SpeakerUserName = "bob"};
-            sessionRepository.GetAllSessions().Returns(new[] { session1, new Session { SpeakerUserName = "fred" }, session3 });
             var sessionsLoader = new AllSessionsLoader(sessionRepository);
 
-            var sessions = sessionsLoader.LoadSessions(new UserProfile {UserName = "bob"});
+            sessionsLoader.LoadSessions(new UserProfile {UserName = "bob"});
 
-            CollectionAssert.AreEqual(new[] {session1, session3}, sessions);
+            sessionRepository.Received().GetSessionsSubmittedBy("bob");
         }
     }
 }

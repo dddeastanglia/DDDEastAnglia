@@ -25,12 +25,23 @@ namespace DDDEastAnglia.Tests.Helpers.Sessions
         }
 
         [Test]
+        public void OnlyReturnSessionsForTheSpecifiedSpeaker()
+        {
+            var sessionRepository = Substitute.For<ISessionRepository>();
+            var sessionsLoader = new SelectedSessionsLoader(sessionRepository);
+
+            sessionsLoader.LoadSessions(new UserProfile {UserName = "bob"});
+
+            sessionRepository.Received().GetSessionsSubmittedBy("bob");
+        }
+
+        [Test]
         public void OnlyReturnSelectedSessionsForTheSpecifiedSpeaker()
         {
             var sessionRepository = Substitute.For<ISessionRepository>();
             var session1 = new Session {SpeakerUserName = "bob", SessionId = 1234};
             var session3 = new Session {SpeakerUserName = "bob", SessionId = 44};
-            sessionRepository.GetAllSessions().Returns(new[] {session1, new Session {SpeakerUserName = "fred"}, session3});
+            sessionRepository.GetSessionsSubmittedBy("bob").Returns(new[] { session1, new Session { SpeakerUserName = "bob" }, session3 });
             var sessionsLoader = new SelectedSessionsLoader(sessionRepository);
 
             var sessions = sessionsLoader.LoadSessions(new UserProfile {UserName = "bob"});

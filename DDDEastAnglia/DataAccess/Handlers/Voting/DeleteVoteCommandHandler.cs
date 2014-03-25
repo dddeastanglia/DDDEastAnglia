@@ -1,25 +1,22 @@
 ﻿using DDDEastAnglia.DataAccess.Commands.Vote;
 using DDDEastAnglia.DataAccess.MessageBus;
-using DDDEastAnglia.DataAccess.SimpleData.Builders;
-using DDDEastAnglia.DataAccess.SimpleData.Builders.Calendar;
 
 namespace DDDEastAnglia.DataAccess.Handlers.Voting
 {
     public class DeleteVoteCommandHandler : BaseHandler<DeleteVoteCommand>
     {
         private readonly IVoteRepository voteRepository;
-        private readonly IConferenceRepository conferenceRepository;
+        private readonly IConferenceLoader conferenceLoader;
 
-        public DeleteVoteCommandHandler(IVoteRepository voteRepository, IConferenceRepository conferenceRepository)
+        public DeleteVoteCommandHandler(IVoteRepository voteRepository, IConferenceLoader conferenceLoader)
         {
             this.voteRepository = voteRepository;
-            this.conferenceRepository = conferenceRepository;
+            this.conferenceLoader = conferenceLoader;
         }
 
         public override void Handle(DeleteVoteCommand message)
         {
-            var dataConference = conferenceRepository.ForSession(message.SessionId);
-            var conference = new ConferenceBuilder(new CalendarEntryBuilder()).Build(dataConference);
+            var conference = conferenceLoader.LoadConference(message.SessionId);
 
             if (conference == null || !conference.CanVote())
             {
