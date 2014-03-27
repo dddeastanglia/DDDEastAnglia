@@ -232,7 +232,6 @@
   <ItemGroup>
     <Compile Include="Areas\Admin\Models\VotersPerIPAddressViewModel.cs" />
     <Compile Include="Areas\Admin\Models\VotesPerDayViewModel.cs" />
-    <Compile Include="GlimpseSecurityPolicy.cs" />
     <Compile Include="DataAccess\ConferenceLoader.cs" />
     <Compile Include="DataAccess\SimpleData\CalendarItemRepository.cs" />
     <Compile Include="DataAccess\SimpleData\UserProfileRepository.cs" />
