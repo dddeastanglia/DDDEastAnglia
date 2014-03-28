@@ -28,17 +28,17 @@ namespace DDDEastAnglia.Tests.Controllers
         [Test]
         public void ThrowAnException_IfConstructedWithANullMenuStateFactory()
         {
-            var conferenceRepository = Substitute.For<IConferenceRepository>();
+            var conferenceLoader = Substitute.For<IConferenceLoader>();
             var urlHelperFactory = Substitute.For<IUrlHelperFactory>();
-            Assert.Throws<ArgumentNullException>(() => new NavigationBarController(conferenceRepository, null, urlHelperFactory));
+            Assert.Throws<ArgumentNullException>(() => new NavigationBarController(conferenceLoader, null, urlHelperFactory));
         }
 
         [Test]
         public void ThrowAnException_IfConstructedWithANullUrlHelperFactory()
         {
-            var conferenceRepository = Substitute.For<IConferenceRepository>();
+            var conferenceLoader = Substitute.For<IConferenceLoader>();
             var menuStateFactory = Substitute.For<IMenuStateFactory>();
-            Assert.Throws<ArgumentNullException>(() => new NavigationBarController(conferenceRepository, menuStateFactory, null));
+            Assert.Throws<ArgumentNullException>(() => new NavigationBarController(conferenceLoader, menuStateFactory, null));
         }
 
         [TestCase("Home")]
@@ -201,8 +201,8 @@ namespace DDDEastAnglia.Tests.Controllers
 
             var user = new GenericPrincipal(new GenericIdentity("bob"), userRoles ?? new string[0]);
 
-            var conferenceRepository = Substitute.For<IConferenceRepository>();
-            conferenceRepository.GetByEventShortName(Arg.Any<string>()).Returns(conference);
+            var conferenceLoader = Substitute.For<IConferenceLoader>();
+            conferenceLoader.LoadConference().Returns(conference);
             
             var routeData = new RouteData();
             routeData.Values.Add("controller", currentControllerName);
@@ -221,7 +221,7 @@ namespace DDDEastAnglia.Tests.Controllers
             controllerContext.HttpContext = Substitute.For<HttpContextBase>();
             controllerContext.HttpContext.User.Returns(user);
             controllerContext.RequestContext = requestContext;
-            return new NavigationBarController(conferenceRepository, menuStateFactory, urlHelperFactory) {ControllerContext = controllerContext};
+            return new NavigationBarController(conferenceLoader, menuStateFactory, urlHelperFactory) {ControllerContext = controllerContext};
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using DDDEastAnglia.DataAccess.EntityFramework;
+﻿using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.Domain;
 using DDDEastAnglia.Helpers.Sessions;
 using NSubstitute;
@@ -14,10 +14,10 @@ namespace DDDEastAnglia.Tests.Helpers.Sessions
         {
             var conference = Substitute.For<IConference>();
             conference.CanPublishAgenda().Returns(false);
-            var context = Substitute.For<IDDDEAContext>();
-            var factory = new SessionLoaderFactory();
+            var sessionRepository = Substitute.For<ISessionRepository>();
+            var factory = new SessionLoaderFactory(sessionRepository);
 
-            var filter = factory.Create(conference, context);
+            var filter = factory.Create(conference);
             Assert.That(filter, Is.InstanceOf<AllSessionsLoader>());
         }
 
@@ -26,10 +26,10 @@ namespace DDDEastAnglia.Tests.Helpers.Sessions
         {
             var conference = Substitute.For<IConference>();
             conference.CanPublishAgenda().Returns(true);
-            var context = Substitute.For<IDDDEAContext>();
-            var factory = new SessionLoaderFactory();
+            var sessionRepository = Substitute.For<ISessionRepository>();
+            var factory = new SessionLoaderFactory(sessionRepository);
 
-            var filter = factory.Create(conference, context);
+            var filter = factory.Create(conference);
             Assert.That(filter, Is.InstanceOf<SelectedSessionsLoader>());
         }
     }

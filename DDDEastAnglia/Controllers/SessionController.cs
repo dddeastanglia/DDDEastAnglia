@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Web.Mvc;
 using DDDEastAnglia.DataAccess;
-using DDDEastAnglia.DataAccess.EntityFramework;
+using DDDEastAnglia.DataAccess.SimpleData.Builders;
+using DDDEastAnglia.DataAccess.SimpleData.Builders.Calendar;
 using DDDEastAnglia.Models;
 using DDDEastAnglia.Mvc.Attributes;
 using DDDEastAnglia.Helpers;
@@ -14,15 +14,17 @@ namespace DDDEastAnglia.Controllers
     public class SessionController : Controller
     {
         private const string DefaultEventName = "DDDEA2013";
-        private readonly DDDEAContext db = new DDDEAContext();
-        private readonly IConferenceRepository _conferenceRepository;
-        private readonly ISessionSorter _sessionSorter;
+        private readonly IConferenceRepository conferenceRepository;
+        private readonly IUserProfileRepository userProfileRepository;
+        private readonly ISessionRepository sessionRepository;
+        private readonly ISessionSorter sessionSorter;
 
-
-        public SessionController(IConferenceRepository conferenceRepository, ISessionSorter sorter)
+        public SessionController(IConferenceRepository conferenceRepository, IUserProfileRepository userProfileRepository, ISessionRepository sessionRepository, ISessionSorter sorter)
         {
-            _conferenceRepository = conferenceRepository;
-            _sessionSorter = sorter;
+            this.conferenceRepository = conferenceRepository;
+            this.userProfileRepository = userProfileRepository;
+            this.sessionRepository = sessionRepository;
+            sessionSorter = sorter;
         }
 
         // GET: /Session/
@@ -30,8 +32,8 @@ namespace DDDEastAnglia.Controllers
         [AllowCrossSiteJson]
         public ActionResult Index()
         {
-            var speakersLookup = db.UserProfiles.ToDictionary(p => p.UserName, p => p);
-            var sessions = db.Sessions;
+            var speakersLookup = userProfileRepository.GetAllUserProfiles().ToDictionary(p => p.UserName, p => p);
+            var sessions = sessionRepository.GetAllSessions();
 
             var allSessions = new List<SessionDisplayModel>();
 
@@ -42,13 +44,14 @@ namespace DDDEastAnglia.Controllers
                 allSessions.Add(displayModel);
             }
 
-            _sessionSorter.SortSessions(_conferenceRepository.GetByEventShortName(DefaultEventName), allSessions);
+            var conference = GetConference();
+            sessionSorter.SortSessions(conference, allSessions);
 
             return View(new SessionIndexModel
                         {
                             Sessions = allSessions,
-                            IsOpenForSubmission = _conferenceRepository.GetByEventShortName(DefaultEventName).CanSubmit(),
-                            IsOpenForVoting = _conferenceRepository.GetByEventShortName(DefaultEventName).CanVote()
+                            IsOpenForSubmission = conference.CanSubmit(),
+                            IsOpenForVoting = conference.CanVote()
                         });
         }
 
@@ -56,14 +59,14 @@ namespace DDDEastAnglia.Controllers
         [AllowAnonymous]
         public ActionResult Details(int id = 0)
         {
-            Session session = db.Sessions.Find(id);
+            Session session = sessionRepository.Get(id);
 
             if (session == null)
             {
                 return HttpNotFound();
             }
 
-            var userProfile = db.UserProfiles.First(s => s.UserName == session.SpeakerUserName);
+            var userProfile = userProfileRepository.GetUserProfileByUserName(session.SpeakerUserName);
             var displayModel = CreateDisplayModel(session, userProfile);
             displayModel.SpeakerGravatarUrl = userProfile.GravatarUrl();
             return View(displayModel);
@@ -72,7 +75,8 @@ namespace DDDEastAnglia.Controllers
         // GET: /Session/Create
         public ActionResult Create()
         {
-            var conference = _conferenceRepository.GetByEventShortName(DefaultEventName);
+            var conference = GetConference();
+
             if (!conference.CanSubmit())
             {
                 return RedirectToAction("Index");
@@ -83,7 +87,7 @@ namespace DDDEastAnglia.Controllers
                 return RedirectToAction("Index");
             }
 
-            var userProfile = db.UserProfiles.FirstOrDefault(u => u.UserName == User.Identity.Name);
+            var userProfile = userProfileRepository.GetUserProfileByUserName(User.Identity.Name);
 
             if (userProfile == null)
             {
@@ -97,15 +101,16 @@ namespace DDDEastAnglia.Controllers
         [HttpPost]
         public ActionResult Create([Bind(Exclude = "Votes")] Session session)
         {
-            if (!_conferenceRepository.GetByEventShortName(DefaultEventName).CanSubmit())
+            var conference = GetConference();
+
+            if (!conference.CanSubmit())
             {
                 return RedirectToAction("Index");
             }
 
             if (ModelState.IsValid)
             {
-                var addedSession = db.Sessions.Add(session);
-                db.SaveChanges();
+                var addedSession = sessionRepository.AddSession(session);
                 return RedirectToAction("Details", new {id = addedSession.SessionId});
             }
 
@@ -115,7 +120,7 @@ namespace DDDEastAnglia.Controllers
         // GET: /Session/Edit/5
         public ActionResult Edit(int id = 0)
         {
-            Session session = db.Sessions.Find(id);
+            Session session = sessionRepository.Get(id);
 
             if (session == null)
             {
@@ -131,8 +136,7 @@ namespace DDDEastAnglia.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(session).State = EntityState.Modified;
-                db.SaveChanges();
+                sessionRepository.UpdateSession(session);
                 return RedirectToAction("Index");
             }
 
@@ -142,14 +146,14 @@ namespace DDDEastAnglia.Controllers
         // GET: /Session/Delete/5
         public ActionResult Delete(int id = 0)
         {
-            Session session = db.Sessions.Find(id);
+            Session session = sessionRepository.Get(id);
 
             if (session == null)
             {
                 return HttpNotFound();
             }
 
-            var userProfile = db.UserProfiles.First(s => s.UserName == session.SpeakerUserName);
+            var userProfile = userProfileRepository.GetUserProfileByUserName(session.SpeakerUserName);
             var displayModel = CreateDisplayModel(session, userProfile);
             return View(displayModel);
         }
@@ -158,9 +162,7 @@ namespace DDDEastAnglia.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            Session session = db.Sessions.Find(id);
-            db.Sessions.Remove(session);
-            db.SaveChanges();
+            sessionRepository.DeleteSession(id);
             return RedirectToAction("Index");
         }
 
@@ -199,10 +201,11 @@ namespace DDDEastAnglia.Controllers
             return tweetLink;
         }
 
-        protected override void Dispose(bool disposing)
+        private Domain.Conference GetConference()
         {
-            db.Dispose();
-            base.Dispose(disposing);
+            var dataConference = conferenceRepository.GetByEventShortName(DefaultEventName);
+            var conference = new ConferenceBuilder(new CalendarEntryBuilder()).Build(dataConference);
+            return conference;
         }
     }
 }

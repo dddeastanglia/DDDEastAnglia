@@ -1,8 +1,8 @@
 ﻿using System;
 using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.DataAccess.Commands.Vote;
-using DDDEastAnglia.DataAccess.EntityFramework.Models;
 using DDDEastAnglia.DataAccess.Handlers.Voting;
+using DDDEastAnglia.DataAccess.SimpleData.Models;
 using NSubstitute;
 using NUnit.Framework;
 using Conference = DDDEastAnglia.Domain.Conference;
@@ -17,7 +17,7 @@ namespace DDDEastAnglia.Tests.DataAccess.Handlers.Voting.RegisterVote
         private readonly DateTime _simulatedNow = DateTime.Now;
         private RegisterVoteCommandHandler _handler;
         private IVoteRepository _voteRepository;
-        private IConferenceRepository _conferenceRepository;
+        private IConferenceLoader _conferenceLoader;
 
         [SetUp]
         public void BeforeEachTest()
@@ -25,12 +25,12 @@ namespace DDDEastAnglia.Tests.DataAccess.Handlers.Voting.RegisterVote
             _voteRepository = Substitute.For<IVoteRepository>();
             _voteRepository.HasVotedFor(Arg.Any<int>(), Arg.Any<Guid>()).Returns(false);
 
-            _conferenceRepository = Substitute.For<IConferenceRepository>();
-            var conference = new Conference(SessionId, "", "");
+            _conferenceLoader = Substitute.For<IConferenceLoader>();
+            var conference = new Conference(1, "", "");
             conference.AddToCalendar(ConferenceHelper.GetOpenVotingPeriod());
-            _conferenceRepository.ForSession(Arg.Is(1)).Returns(conference);
+            _conferenceLoader.LoadConference(Arg.Is(1)).Returns(conference);
 
-            _handler = new RegisterVoteCommandHandler(_voteRepository, _conferenceRepository);
+            _handler = new RegisterVoteCommandHandler(_voteRepository, _conferenceLoader);
         }
 
         [Test]
@@ -43,9 +43,9 @@ namespace DDDEastAnglia.Tests.DataAccess.Handlers.Voting.RegisterVote
                     TimeRecorded = _simulatedNow
                 });
 
-            _voteRepository.Received().Save(Arg.Is<Vote>(vote => vote.CookieId == CookieId));
-            _voteRepository.Received().Save(Arg.Is<Vote>(vote => vote.SessionId == SessionId));
-            _voteRepository.Received().Save(Arg.Is<Vote>(vote => vote.TimeRecorded == _simulatedNow));
+            _voteRepository.Received().AddVote(Arg.Is<Vote>(vote => vote.CookieId == CookieId));
+            _voteRepository.Received().AddVote(Arg.Is<Vote>(vote => vote.SessionId == SessionId));
+            _voteRepository.Received().AddVote(Arg.Is<Vote>(vote => vote.TimeRecorded == _simulatedNow));
         }
     }
 }

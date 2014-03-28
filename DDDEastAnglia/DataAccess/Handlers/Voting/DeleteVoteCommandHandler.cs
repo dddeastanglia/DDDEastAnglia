@@ -5,27 +5,30 @@ namespace DDDEastAnglia.DataAccess.Handlers.Voting
 {
     public class DeleteVoteCommandHandler : BaseHandler<DeleteVoteCommand>
     {
-        private readonly IVoteRepository _voteRepository;
-        private readonly IConferenceRepository _conferenceRepository;
+        private readonly IVoteRepository voteRepository;
+        private readonly IConferenceLoader conferenceLoader;
 
-        public DeleteVoteCommandHandler(IVoteRepository voteRepository, IConferenceRepository conferenceRepository)
+        public DeleteVoteCommandHandler(IVoteRepository voteRepository, IConferenceLoader conferenceLoader)
         {
-            _voteRepository = voteRepository;
-            _conferenceRepository = conferenceRepository;
+            this.voteRepository = voteRepository;
+            this.conferenceLoader = conferenceLoader;
         }
 
         public override void Handle(DeleteVoteCommand message)
         {
-            var conference = _conferenceRepository.ForSession(message.SessionId);
+            var conference = conferenceLoader.LoadConference(message.SessionId);
+
             if (conference == null || !conference.CanVote())
             {
                 return;
             }
-            if (!_voteRepository.HasVotedFor(message.SessionId, message.CookieId))
+            
+            if (!voteRepository.HasVotedFor(message.SessionId, message.CookieId))
             {
                 return;
             }
-            _voteRepository.Delete(message.SessionId, message.CookieId);
+            
+            voteRepository.Delete(message.SessionId, message.CookieId);
         }
     }
 }

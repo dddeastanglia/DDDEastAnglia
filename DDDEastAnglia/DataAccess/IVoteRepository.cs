@@ -1,11 +1,13 @@
 ﻿using System;
-using DDDEastAnglia.DataAccess.EntityFramework.Models;
+using System.Collections.Generic;
+using DDDEastAnglia.DataAccess.SimpleData.Models;
 
 namespace DDDEastAnglia.DataAccess
 {
     public interface IVoteRepository
     {
-        void Save(Vote vote);
+        IEnumerable<Vote> GetAllVotes();
+        void AddVote(Vote vote);
         void Delete(int sessionId, Guid cookieId);
         bool HasVotedFor(int sessionId, Guid cookieId);
     }

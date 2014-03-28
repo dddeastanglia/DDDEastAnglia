@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using DDDEastAnglia.DataAccess.EntityFramework.Builders;
-using DDDEastAnglia.DataAccess.EntityFramework.Builders.Calendar;
-using DDDEastAnglia.DataAccess.EntityFramework.Models;
+using DDDEastAnglia.DataAccess.SimpleData.Builders;
+using DDDEastAnglia.DataAccess.SimpleData.Builders.Calendar;
+using DDDEastAnglia.DataAccess.SimpleData.Models;
 using DDDEastAnglia.Domain.Calendar;
 using NUnit.Framework;
 using Conference = DDDEastAnglia.Domain.Conference;
@@ -69,7 +69,7 @@ namespace DDDEastAnglia.Tests.DataAccess.Builders
 
         private void Given_A_DataModel_With_No_CalendarItems()
         {
-            _source = new DDDEastAnglia.DataAccess.EntityFramework.Models.Conference
+            _source = new DDDEastAnglia.DataAccess.SimpleData.Models.Conference
                 {
                     ConferenceId = 1,
                     Name = "",
@@ -79,7 +79,7 @@ namespace DDDEastAnglia.Tests.DataAccess.Builders
 
         private void Given_A_DataModel_With_An_Open_Submission_Calendar_Item()
         {
-            _source = new DDDEastAnglia.DataAccess.EntityFramework.Models.Conference
+            _source = new DDDEastAnglia.DataAccess.SimpleData.Models.Conference
                 {
                     ConferenceId = 1,
                     Name = "",
@@ -99,7 +99,7 @@ namespace DDDEastAnglia.Tests.DataAccess.Builders
 
         private void Given_A_DataModel_With_An_Open_Voting_Calendar_Item()
         {
-            _source = new DDDEastAnglia.DataAccess.EntityFramework.Models.Conference
+            _source = new DDDEastAnglia.DataAccess.SimpleData.Models.Conference
             {
                 ConferenceId = 1,
                 Name = "",
@@ -126,7 +126,7 @@ namespace DDDEastAnglia.Tests.DataAccess.Builders
 
         public void Given_A_DataModel_With_An_Open_Publishing_The_Agenda_Calendar_Item()
         {
-            _source = new DDDEastAnglia.DataAccess.EntityFramework.Models.Conference
+            _source = new DDDEastAnglia.DataAccess.SimpleData.Models.Conference
             {
                 ConferenceId = 1,
                 Name = "",
@@ -160,7 +160,7 @@ namespace DDDEastAnglia.Tests.DataAccess.Builders
 
         private void Given_A_DataModel_With_An_Open_Publishing_The_Agenda_Calendar_Item_And_An_Open_Registration_Calendar_Item()
         {
-            _source = new DDDEastAnglia.DataAccess.EntityFramework.Models.Conference
+            _source = new DDDEastAnglia.DataAccess.SimpleData.Models.Conference
             {
                 ConferenceId = 1,
                 Name = "",
@@ -246,6 +246,6 @@ namespace DDDEastAnglia.Tests.DataAccess.Builders
         }
 
         private Conference _domainModel;
-        private DDDEastAnglia.DataAccess.EntityFramework.Models.Conference _source;
+        private DDDEastAnglia.DataAccess.SimpleData.Models.Conference _source;
     }
 }

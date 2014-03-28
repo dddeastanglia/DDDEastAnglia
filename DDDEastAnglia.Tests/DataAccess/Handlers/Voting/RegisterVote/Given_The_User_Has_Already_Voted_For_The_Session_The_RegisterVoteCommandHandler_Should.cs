@@ -16,7 +16,7 @@ namespace DDDEastAnglia.Tests.DataAccess.Handlers.Voting.RegisterVote
         private readonly DateTime _simulatedNow = DateTime.Now;
         private RegisterVoteCommandHandler _handler;
         private IVoteRepository _voteRepository;
-        private IConferenceRepository _conferenceRepository;
+        private IConferenceLoader _conferenceLoader;
 
         [SetUp]
         public void BeforeEachTest()
@@ -24,12 +24,12 @@ namespace DDDEastAnglia.Tests.DataAccess.Handlers.Voting.RegisterVote
             _voteRepository = Substitute.For<IVoteRepository>();
             _voteRepository.HasVotedFor(Arg.Any<int>(), Arg.Any<Guid>()).Returns(true);
 
-            _conferenceRepository = Substitute.For<IConferenceRepository>();
-            var conference = new Conference(SessionId, "", "");
+            _conferenceLoader = Substitute.For<IConferenceLoader>();
+            var conference = new Conference(1, "", "");
             conference.AddToCalendar(ConferenceHelper.GetOpenVotingPeriod());
-            _conferenceRepository.ForSession(Arg.Is(1)).Returns(conference);
+            _conferenceLoader.LoadConference(Arg.Is(1)).Returns(conference);
 
-            _handler = new RegisterVoteCommandHandler(_voteRepository, _conferenceRepository);
+            _handler = new RegisterVoteCommandHandler(_voteRepository, _conferenceLoader);
         }
 
         [Test]
@@ -42,7 +42,7 @@ namespace DDDEastAnglia.Tests.DataAccess.Handlers.Voting.RegisterVote
                     TimeRecorded = _simulatedNow
                 });
 
-            _voteRepository.DidNotReceiveWithAnyArgs().Save(null);
+            _voteRepository.DidNotReceiveWithAnyArgs().AddVote(null);
         }
     }
 }

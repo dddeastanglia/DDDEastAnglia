@@ -1,23 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using DDDEastAnglia.DataAccess.EntityFramework;
+using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.Models;
 
 namespace DDDEastAnglia.Helpers.Sessions
 {
     public class SelectedSessionsLoader : ISessionLoader
     {
-        private readonly IDDDEAContext context;
+        private readonly ISessionRepository sessionRepository;
 
-        public SelectedSessionsLoader(IDDDEAContext context)
+        public SelectedSessionsLoader(ISessionRepository sessionRepository)
         {
-            if (context == null)
+            if (sessionRepository == null)
             {
-                throw new ArgumentNullException("context");
+                throw new ArgumentNullException("sessionRepository");
             }
             
-            this.context = context;
+            this.sessionRepository = sessionRepository;
         }
 
         public IEnumerable<Session> LoadSessions(UserProfile profile)
@@ -26,9 +26,9 @@ namespace DDDEastAnglia.Helpers.Sessions
             {
                 throw new ArgumentNullException("profile");
             }
-            
-            return context.Sessions.Where(s => s.SpeakerUserName == profile.UserName
-                                                && SelectedSessions.SessionIds.Contains(s.SessionId));
+
+            var sessions = sessionRepository.GetSessionsSubmittedBy(profile.UserName);
+            return sessions.Where(s => SelectedSessions.SessionIds.Contains(s.SessionId));
         }
     }
 }

@@ -1,26 +1,39 @@
-﻿using DDDEastAnglia.DataAccess.EntityFramework;
+﻿using System;
+using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.Domain;
 
 namespace DDDEastAnglia.Helpers.Sessions
 {
     public interface ISessionLoaderFactory
     {
-        ISessionLoader Create(IConference conference, IDDDEAContext context);
+        ISessionLoader Create(IConference conference);
     }
 
     public class SessionLoaderFactory : ISessionLoaderFactory
     {
-        public ISessionLoader Create(IConference conference, IDDDEAContext context)
+        private readonly ISessionRepository sessionRepository;
+
+        public SessionLoaderFactory(ISessionRepository sessionRepository)
+        {
+            if (sessionRepository == null)
+            {
+                throw new ArgumentNullException("sessionRepository");
+            }
+            
+            this.sessionRepository = sessionRepository;
+        }
+
+        public ISessionLoader Create(IConference conference)
         {
             ISessionLoader sessionLoader;
 
             if (conference.CanPublishAgenda())
             {
-                sessionLoader = new SelectedSessionsLoader(context);
+                sessionLoader = new SelectedSessionsLoader(sessionRepository);
             }
             else
             {
-                sessionLoader = new AllSessionsLoader(context);
+                sessionLoader = new AllSessionsLoader(sessionRepository);
             }
 
             return sessionLoader;

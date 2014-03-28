@@ -1,15 +1,12 @@
-﻿using System.Data.Entity;
-using System.Web;
+﻿using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using DDDEastAnglia.DataAccess.EntityFramework;
 using WebMatrix.WebData;
 
 namespace DDDEastAnglia
 {
-
     public class MvcApplication : HttpApplication
     {
         protected void Application_Start()
@@ -27,14 +24,14 @@ namespace DDDEastAnglia
 
         private static void CreateDatabaseIfNecessary()
         {
-            Database.SetInitializer(new Initialiser());
-            using (var context = new DDDEAContext())
-            {
-                if (!context.Database.Exists())
-                {
-                    context.Database.Initialize(false);
-                }
-            }
+//            Database.SetInitializer(new Initialiser());
+//            using (var context = new DDDEAContext())
+//            {
+//                if (!context.Database.Exists())
+//                {
+//                    context.Database.Initialize(false);
+//                }
+//            }
             WebSecurity.InitializeDatabaseConnection("DDDEastAnglia", "UserProfile", "UserId", "UserName", autoCreateTables: true);
         }
     }

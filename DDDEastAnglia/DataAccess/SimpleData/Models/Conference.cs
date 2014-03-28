@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace DDDEastAnglia.DataAccess.EntityFramework.Models
+namespace DDDEastAnglia.DataAccess.SimpleData.Models
 {
     public class Conference
     {

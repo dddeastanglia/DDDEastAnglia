@@ -1,11 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Linq;
 using System.Transactions;
 using System.Web.Mvc;
 using System.Web.Security;
-using DDDEastAnglia.DataAccess.EntityFramework;
+using DDDEastAnglia.DataAccess;
 using DotNetOpenAuth.AspNet;
 using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
@@ -17,6 +15,18 @@ namespace DDDEastAnglia.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        private readonly IUserProfileRepository userProfileRepository;
+
+        public AccountController(IUserProfileRepository userProfileRepository)
+        {
+            if (userProfileRepository == null)
+            {
+                throw new ArgumentNullException("userProfileRepository");
+            }
+            
+            this.userProfileRepository = userProfileRepository;
+        }
+
         // GET: /Account/Login
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
@@ -73,12 +83,10 @@ namespace DDDEastAnglia.Controllers
                     WebSecurity.Login(model.UserName, model.Password);
 
                     // ensure the name and email address are set
-                    DDDEAContext context = new DDDEAContext();
-                    var profile = context.UserProfiles.First(p => p.UserName == model.UserName);
+                    var profile = userProfileRepository.GetUserProfileByUserName(model.UserName);
                     profile.Name = model.FullName;
                     profile.EmailAddress = model.EmailAddress;
-                    context.Entry(profile).State = EntityState.Modified;
-                    context.SaveChanges();
+                    userProfileRepository.UpdateUserProfile(profile);
 
                     return View("Registered", model);
                 }
@@ -252,25 +260,22 @@ namespace DDDEastAnglia.Controllers
             if (ModelState.IsValid)
             {
                 // Insert a new user into the database
-                using (DDDEAContext db = new DDDEAContext())
+                UserProfile user = userProfileRepository.GetUserProfileByUserName(model.UserName);
+
+                // Check if user already exists
+                if (user == null)
                 {
-                    UserProfile user = db.UserProfiles.FirstOrDefault(u => u.UserName.ToLower() == model.UserName.ToLower());
+                    // Insert name into the profile table
+                    var userProfile = new UserProfile { UserName = model.UserName, Name = model.Name, EmailAddress = model.EmailAddress };
+                    userProfileRepository.AddUserProfile(userProfile);
 
-                    // Check if user already exists
-                    if (user == null)
-                    {
-                        // Insert name into the profile table
-                        db.UserProfiles.Add(new UserProfile { UserName = model.UserName, Name = model.Name, EmailAddress = model.EmailAddress });
-                        db.SaveChanges();
+                    OAuthWebSecurity.CreateOrUpdateAccount(provider, providerUserId, model.UserName);
+                    OAuthWebSecurity.Login(provider, providerUserId, createPersistentCookie: false);
 
-                        OAuthWebSecurity.CreateOrUpdateAccount(provider, providerUserId, model.UserName);
-                        OAuthWebSecurity.Login(provider, providerUserId, createPersistentCookie: false);
-
-                        return RedirectToLocal(returnUrl);
-                    }
-
-                    ModelState.AddModelError("UserName", ErrorCodeToString(MembershipCreateStatus.DuplicateUserName));
+                    return RedirectToLocal(returnUrl);
                 }
+
+                ModelState.AddModelError("UserName", ErrorCodeToString(MembershipCreateStatus.DuplicateUserName));
             }
 
             ViewBag.ProviderDisplayName = OAuthWebSecurity.GetOAuthClientData(provider).DisplayName;

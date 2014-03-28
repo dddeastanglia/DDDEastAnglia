@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using DDDEastAnglia.DataAccess.EntityFramework;
-using DDDEastAnglia.DataAccess.EntityFramework.Models;
+using DDDEastAnglia.DataAccess;
+using DDDEastAnglia.DataAccess.SimpleData.Models;
 using DDDEastAnglia.Domain.Calendar;
 using DDDEastAnglia.Helpers;
 using DDDEastAnglia.VotingData.Models;
@@ -36,23 +36,34 @@ namespace DDDEastAnglia.VotingData
     public class DataProvider : IDataProvider
     {
         private readonly QueryRunner queryRunner;
+        private readonly IVoteRepository voteRepository;
+        private readonly ICalendarItemRepository calendarItemRepository;
 
-        public DataProvider(QueryRunner queryRunner)
+        public DataProvider(QueryRunner queryRunner, IVoteRepository voteRepository, ICalendarItemRepository calendarItemRepository)
         {
             if (queryRunner == null)
             {
                 throw new ArgumentNullException("queryRunner");
             }
+
+            if (voteRepository == null)
+            {
+                throw new ArgumentNullException("voteRepository");
+            }
+            
+            if (calendarItemRepository == null)
+            {
+                throw new ArgumentNullException("calendarItemRepository");
+            }
             
             this.queryRunner = queryRunner;
+            this.voteRepository = voteRepository;
+            this.calendarItemRepository = calendarItemRepository;
         }
 
         public int GetTotalVoteCount()
         {
-            using (var context = new DDDEAContext())
-            {
-                return context.Votes.Count();
-            }
+            return voteRepository.GetAllVotes().Count();
         }
 
         public DateTime GetVotingStartDate()
@@ -94,22 +105,13 @@ namespace DDDEastAnglia.VotingData
 
         private T GetVotingDates<T>(Func<CalendarItem, T> callback)
         {
-            using (var context = new DDDEAContext())
-            {
-                CalendarItem votingDates = context.Conferences.Include("CalendarItems")
-                                                  .First()
-                                                  .CalendarItems
-                                                  .Single(c => c.EntryType == CalendarEntryType.Voting);
-                return callback(votingDates);
-            }
+            var votingDates = calendarItemRepository.GetFromType(CalendarEntryType.Voting);
+            return callback(votingDates);
         }
 
         public int GetNumberOfUsersWhoHaveVoted()
         {
-            using (var context = new DDDEAContext())
-            {
-                return context.Votes.GroupBy(v => v.CookieId).Count();
-            }
+            return voteRepository.GetAllVotes().GroupBy(v => v.CookieId).Count();
         }
 
         public IList<SessionLeaderBoardEntry> GetLeaderBoard(int limit, bool allowDuplicateSpeakers)
@@ -126,58 +128,48 @@ namespace DDDEastAnglia.VotingData
 
         public IList<DateTimeVoteModel> GetVotesPerDay()
         {
-            using (var context = new DDDEAContext())
+            var dateToCountDictionary = voteRepository.GetAllVotes()
+                                                .GroupBy(v => v.TimeRecorded.Date)
+                                                .ToDictionary(g => g.Key, g => g.Count());
+
+            var votingStartDate = GetVotingStartDate();
+            var votingEndDate = GetVotingEndDate();
+            var dateTimeVoteModels = new List<DateTimeVoteModel>();
+
+            for (var day = votingStartDate.Date; day <= votingEndDate; day = day.AddDays(1))
             {
-                var dateToCountDictionary = context.Votes.AsEnumerable()
-                                                   .GroupBy(v => v.TimeRecorded.Date)
-                                                   .ToDictionary(g => g.Key, g => g.Count());
-
-                var votingStartDate = GetVotingStartDate();
-                var votingEndDate = GetVotingEndDate();
-                var dateTimeVoteModels = new List<DateTimeVoteModel>();
-
-                for (var day = votingStartDate.Date; day <= votingEndDate; day = day.AddDays(1))
-                {
-                    int count;
-                    dateToCountDictionary.TryGetValue(day, out count);
-                    var model = new DateTimeVoteModel
-                        {
-                            Date = day, 
-                            VoteCount = count
-                        };
-                    dateTimeVoteModels.Add(model);
-                }
-
-                return dateTimeVoteModels;
+                int count;
+                dateToCountDictionary.TryGetValue(day, out count);
+                var model = new DateTimeVoteModel
+                    {
+                        Date = day, 
+                        VoteCount = count
+                    };
+                dateTimeVoteModels.Add(model);
             }
+
+            return dateTimeVoteModels;
         }
 
         public IList<DateTimeVoteModel> GetVotesPerHour()
         {
-            using (var context = new DDDEAContext())
+            var dateToCountDictionary = voteRepository.GetAllVotes()
+                                                .GroupBy(v => v.TimeRecorded.TimeOfDay.Hours)
+                                                .ToDictionary(g => g.Key, g => g.Count());
+
+            var dateTimeVoteModels = new List<DateTimeVoteModel>();
+
+            for (var hour = 0; hour < 24; hour++)
             {
-                var dateToCountDictionary = context.Votes.AsEnumerable()
-                                                   .GroupBy(v => v.TimeRecorded.TimeOfDay.Hours)
-                                                   .ToDictionary(g => g.Key, g => g.Count());
-
-                var dateTimeVoteModels = new List<DateTimeVoteModel>();
-
-                for (var hour = 0; hour < 24; hour++)
-                {
-                    int count;
-                    dateToCountDictionary.TryGetValue(hour, out count);
-                    var now = DateTime.UtcNow;
-                    var time = new DateTime(now.Year, now.Month, now.Day, hour, 0, 0, 0);
-                    var model = new DateTimeVoteModel
-                        {
-                            Date = time, 
-                            VoteCount = count
-                        };
-                    dateTimeVoteModels.Add(model);
-                }
-
-                return dateTimeVoteModels;
+                int count;
+                dateToCountDictionary.TryGetValue(hour, out count);
+                var now = DateTime.UtcNow;
+                var time = new DateTime(now.Year, now.Month, now.Day, hour, 0, 0, 0);
+                var model = new DateTimeVoteModel { Date = time, VoteCount = count };
+                dateTimeVoteModels.Add(model);
             }
+
+            return dateTimeVoteModels;
         }
 
         public IList<NumberOfUsersWithVotesModel> GetNumberOfVotesCastCounts()

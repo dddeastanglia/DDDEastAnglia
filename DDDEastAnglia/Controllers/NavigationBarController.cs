@@ -9,16 +9,15 @@ namespace DDDEastAnglia.Controllers
 {
     public class NavigationBarController : Controller
     {
-        private const string DefaultEventName = "DDDEA2013";
-        private readonly IConferenceRepository conferenceRepository;
+        private readonly IConferenceLoader conferenceLoader;
         private readonly IMenuStateFactory menuStateFactory;
         private readonly IUrlHelperFactory urlHelperFactory;
 
-        public NavigationBarController(IConferenceRepository conferenceRepository, IMenuStateFactory menuStateFactory, IUrlHelperFactory urlHelperFactory)
+        public NavigationBarController(IConferenceLoader conferenceLoader, IMenuStateFactory menuStateFactory, IUrlHelperFactory urlHelperFactory)
         {
-            if (conferenceRepository == null)
+            if (conferenceLoader == null)
             {
-                throw new ArgumentNullException("conferenceRepository");
+                throw new ArgumentNullException("conferenceLoader");
             }
 
             if (menuStateFactory == null)
@@ -30,8 +29,8 @@ namespace DDDEastAnglia.Controllers
             {
                 throw new ArgumentNullException("urlHelperFactory");
             }
-            
-            this.conferenceRepository = conferenceRepository;
+
+            this.conferenceLoader = conferenceLoader;
             this.menuStateFactory = menuStateFactory;
             this.urlHelperFactory = urlHelperFactory;
         }
@@ -39,7 +38,8 @@ namespace DDDEastAnglia.Controllers
         [ChildActionOnly]
         public ActionResult RenderMenu()
         {
-            var conference = conferenceRepository.GetByEventShortName(DefaultEventName);
+            var conference = conferenceLoader.LoadConference();
+
             var links = new List<NavigationMenuLinkViewModel>
                 {
                     CreateLink("Home", "Home", "Index"), 

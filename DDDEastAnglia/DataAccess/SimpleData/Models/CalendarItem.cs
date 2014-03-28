@@ -1,7 +1,7 @@
 ﻿using System;
 using DDDEastAnglia.Domain.Calendar;
 
-namespace DDDEastAnglia.DataAccess.EntityFramework.Models
+namespace DDDEastAnglia.DataAccess.SimpleData.Models
 {
     public class CalendarItem
     {

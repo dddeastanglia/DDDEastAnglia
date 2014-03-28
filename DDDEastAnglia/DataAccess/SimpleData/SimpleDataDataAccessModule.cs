@@ -2,17 +2,18 @@
 using Ninject.Modules;
 using Ninject.Web.Common;
 
-namespace DDDEastAnglia.DataAccess.EntityFramework
+namespace DDDEastAnglia.DataAccess.SimpleData
 {
-    public class EntityFrameworkDataAccessModule : NinjectModule
+    public class SimpleDataDataAccessModule : NinjectModule
     {
         public override void Load()
         {
             Kernel.Bind(from => from.FromThisAssembly()
                                     .SelectAllClasses()
-                                    .InNamespaceOf<EntityFrameworkConferenceRepository>()
+                                    .InNamespaceOf<ConferenceRepository>()
                                     .BindDefaultInterfaces()
                                     .Configure(binding => binding.InRequestScope()));
+            Kernel.Bind<IConferenceLoader>().To<ConferenceLoader>().InRequestScope();
         }
     }
 }

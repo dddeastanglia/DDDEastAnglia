@@ -1,8 +1,8 @@
 using DDDEastAnglia.DataAccess.Builders;
-using DDDEastAnglia.DataAccess.EntityFramework.Models;
+using DDDEastAnglia.DataAccess.SimpleData.Models;
 using DDDEastAnglia.Domain.Calendar;
 
-namespace DDDEastAnglia.DataAccess.EntityFramework.Builders.Calendar
+namespace DDDEastAnglia.DataAccess.SimpleData.Builders.Calendar
 {
     public class CalendarEntryBuilder : IBuild<CalendarItem, CalendarEntry>
     {

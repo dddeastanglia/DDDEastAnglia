@@ -1,28 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using DDDEastAnglia.DataAccess.EntityFramework;
+using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.Models;
 
 namespace DDDEastAnglia.Helpers.Sessions
 {
     public class SubmittedSessionProfileFilter : IUserProfileFilter
     {
-        private readonly IDDDEAContext context;
+        private readonly ISessionRepository sessionRepository;
 
-        public SubmittedSessionProfileFilter(IDDDEAContext context)
+        public SubmittedSessionProfileFilter(ISessionRepository sessionRepository)
         {
-            if (context == null)
+            if (sessionRepository == null)
             {
-                throw new ArgumentNullException("context");
+                throw new ArgumentNullException("sessionRepository");
             }
             
-            this.context = context;
+            this.sessionRepository = sessionRepository;
         }
 
         public IEnumerable<UserProfile> FilterProfiles(IEnumerable<UserProfile> profiles)
         {
-            return profiles.Where(profile => context.Sessions.Any(s => s.SpeakerUserName == profile.UserName));
+            return profiles.Where(profile =>
+            {
+                var submittedSessions = sessionRepository.GetSessionsSubmittedBy(profile.UserName);
+                return submittedSessions != null && submittedSessions.Any(s => s.SpeakerUserName == profile.UserName);
+            });
         }
     }
 }

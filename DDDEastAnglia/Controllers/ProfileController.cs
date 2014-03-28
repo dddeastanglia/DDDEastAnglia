@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Data;
-using System.Linq;
 using System.Web.Mvc;
-using DDDEastAnglia.DataAccess.EntityFramework;
+using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.Models;
 
 namespace DDDEastAnglia.Controllers
@@ -10,11 +8,22 @@ namespace DDDEastAnglia.Controllers
     [Authorize]
     public class ProfileController : Controller
     {
+        private readonly IUserProfileRepository userProfileRepository;
+
+        public ProfileController(IUserProfileRepository userProfileRepository)
+        {
+            if (userProfileRepository == null)
+            {
+                throw new ArgumentNullException("userProfileRepository");
+            }
+            
+            this.userProfileRepository = userProfileRepository;
+        }
+
         [HttpGet]
         public ActionResult Edit(string message = null)
         {
-            DDDEAContext context = new DDDEAContext();
-            UserProfile profile = context.UserProfiles.First(p => p.UserName == User.Identity.Name);
+            UserProfile profile = userProfileRepository.GetUserProfileByUserName(User.Identity.Name);
             ViewBag.Message = message;
             return View(profile);
         }
@@ -35,9 +44,7 @@ namespace DDDEastAnglia.Controllers
 
             if (ModelState.IsValid)
             {
-                DDDEAContext context = new DDDEAContext();
-                context.Entry(profile).State = EntityState.Modified;
-                context.SaveChanges();
+                userProfileRepository.UpdateUserProfile(profile);
                 message = "Your profile has been updated successfully.";
             }
 
