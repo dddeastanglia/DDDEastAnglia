@@ -4,6 +4,7 @@
 
 @using (Html.BeginForm("Delete", "Role"))
 {
+    @Html.HiddenFor(m => Model.RoleName)
     <div>
         Are you sure you want to delete the role @Model.RoleName?
         @if (Model.FeedbackMessage != null)
