@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Web.Mvc;
-using DDDEastAnglia.Areas.Admin.Models;
+﻿using DDDEastAnglia.Areas.Admin.Models;
+using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.Models;
+using System.Collections.Generic;
+using System.Web.Mvc;
 
 namespace DDDEastAnglia.Areas.Admin.Controllers
 {
@@ -9,10 +10,12 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
     public class RoleController : Controller
     {
         private readonly IRoleManager _manager;
+        private readonly IUserProfileRepository _userProfileRepository;
 
-        public RoleController(IRoleManager roleManager)
+        public RoleController(IRoleManager roleManager, IUserProfileRepository userProfileRepository)
         {
             _manager = roleManager;
+            _userProfileRepository = userProfileRepository;
         }
 
         // GET: /Admin/Role/
@@ -31,7 +34,7 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
             {
                 ManageRoleModel model = new ManageRoleModel { RoleName = rolename, roleUsers = new SortedList<string, RoleUserModel>() };
 
-                foreach (UserProfile user in _db.UserProfiles)
+                foreach (UserProfile user in _userProfileRepository.GetAllUserProfiles())
                 {
                     if (_manager.IsUserInRole(user.UserName, rolename))
                     {
