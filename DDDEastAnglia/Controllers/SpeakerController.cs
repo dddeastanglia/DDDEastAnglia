@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using DDDEastAnglia.DataAccess;
+using DDDEastAnglia.DataAccess.SimpleData;
 using DDDEastAnglia.DataAccess.SimpleData.Builders;
 using DDDEastAnglia.DataAccess.SimpleData.Builders.Calendar;
 using DDDEastAnglia.Domain;
@@ -84,7 +85,7 @@ namespace DDDEastAnglia.Controllers
         private IConference Get2013Conference()
         {
             var dataConference = conferenceRepository.GetByEventShortName("DDDEA2013");
-            return new ConferenceBuilder(new CalendarEntryBuilder()).Build(dataConference);
+            return new ConferenceBuilder(new CalendarItemRepository(), new CalendarEntryBuilder()).Build(dataConference);
         }
 
         private SpeakerDisplayModel CreateDisplayModel(UserProfile userProfile, IEnumerable<Session> sessions)

@@ -8,13 +8,13 @@ using DDDEastAnglia.Models.Query;
 
 namespace DDDEastAnglia.DataAccess.SimpleData.Queries
 {
-    public class EntityFrameworkBannerModelQuery : IBannerModelQuery
+    public class BannerModelQuery : IBannerModelQuery
     {
         private readonly IBuild<Conference, Domain.Conference> conferenceBuilder;
         private readonly IConferenceRepository conferenceRepository;
         private readonly ICalendarItemRepository calendarItemRepository;
 
-        public EntityFrameworkBannerModelQuery(IBuild<Conference, Domain.Conference> conferenceBuilder, IConferenceRepository conferenceRepository, ICalendarItemRepository calendarItemRepository)
+        public BannerModelQuery(IBuild<Conference, Domain.Conference> conferenceBuilder, IConferenceRepository conferenceRepository, ICalendarItemRepository calendarItemRepository)
         {
             if (conferenceBuilder == null)
             {

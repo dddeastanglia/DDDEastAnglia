@@ -19,7 +19,7 @@ namespace DDDEastAnglia.DataAccess.SimpleData
         public SessionVoteModel Get(int sessionId, Guid cookieId)
         {
             var dataConference = conferenceRepository.ForSession(sessionId);
-            var conference = new ConferenceBuilder(new CalendarEntryBuilder()).Build(dataConference);
+            var conference = new ConferenceBuilder(new CalendarItemRepository(), new CalendarEntryBuilder()).Build(dataConference);
 
             return new SessionVoteModel
                 {

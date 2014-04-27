@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using DDDEastAnglia.DataAccess.SimpleData;
 using DDDEastAnglia.DataAccess.SimpleData.Builders;
 using DDDEastAnglia.DataAccess.SimpleData.Builders.Calendar;
 using DDDEastAnglia.DataAccess.SimpleData.Models;
@@ -201,7 +202,7 @@ namespace DDDEastAnglia.Tests.DataAccess.Builders
 
         private void When_I_Build_The_Domain_Model()
         {
-            var conferenceBuilder = new ConferenceBuilder(new CalendarEntryBuilder());
+            var conferenceBuilder = new ConferenceBuilder(new CalendarItemRepository(), new CalendarEntryBuilder());
             _domainModel = conferenceBuilder.Build(_source);
         }
 

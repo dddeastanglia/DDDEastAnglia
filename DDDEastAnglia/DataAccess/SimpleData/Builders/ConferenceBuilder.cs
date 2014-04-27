@@ -6,10 +6,12 @@ namespace DDDEastAnglia.DataAccess.SimpleData.Builders
 {
     public class ConferenceBuilder : IBuild<Conference, Domain.Conference>
     {
+        private readonly ICalendarItemRepository calendarItemRepository;
         private readonly IBuild<CalendarItem, CalendarEntry> calendarEntryBuilder;
 
-        public ConferenceBuilder(IBuild<CalendarItem, CalendarEntry> calendarEntryBuilder)
+        public ConferenceBuilder(ICalendarItemRepository calendarItemRepository, IBuild<CalendarItem, CalendarEntry> calendarEntryBuilder)
         {
+            this.calendarItemRepository = calendarItemRepository;
             this.calendarEntryBuilder = calendarEntryBuilder;
         }
 
@@ -21,17 +23,14 @@ namespace DDDEastAnglia.DataAccess.SimpleData.Builders
             }
             
             var conference = new Domain.Conference(item.ConferenceId, item.Name, item.ShortName);
-            
-            if (item.CalendarItems == null)
+            var calendarItems = calendarItemRepository.GetAll();
+
+            foreach (var calendarItem in calendarItems)
             {
-                return conference;
+                var calendarEntry = calendarEntryBuilder.Build(calendarItem);
+                conference.AddToCalendar(calendarEntry);
             }
-            
-            foreach (var calendarItem in item.CalendarItems)
-            {
-                conference.AddToCalendar(calendarEntryBuilder.Build(calendarItem));
-            }
-            
+
             return conference;
         }
     }
