@@ -247,12 +247,6 @@
     <Content Include="Areas\Admin\Views\Voting\VotesPerDay.cshtml" />
     <Content Include="Areas\Admin\Views\Voting\VotesPerHour.cshtml" />
     <Content Include="Content\Site_print.css" />
-    <Content Include="Images\parking.jpg" />
-    <Content Include="Images\sponsors\blackdotsolutions.png" />
-    <Content Include="Images\sponsors\github.png" />
-    <Content Include="Images\sponsors\stackoverflow.png" />
-    <Content Include="Images\sponsors\TechSmith.png" />
-    <Content Include="Images\venue.jpg" />
     <Content Include="Scripts\resolveIPAddress.js" />
     <Compile Include="Areas\Admin\Models\VotesForIpAddressViewModel.cs" />
     <Compile Include="Helpers\DnsLookup.cs" />
@@ -393,12 +387,6 @@
     <Content Include="Images\logo-icon-144.png" />
     <Content Include="Images\logo-icon-57.png" />
     <Content Include="Images\logo-icon-72.png" />
-    <Content Include="Images\sponsors\iammagpie.png" />
-    <Content Include="Images\sponsors\ideaspace.png" />
-    <Content Include="Images\sponsors\Gibraltar.png" />
-    <Content Include="Images\sponsors\jetbrains.png" />
-    <Content Include="Images\sponsors\microsoft.png" />
-    <Content Include="Images\sponsors\software-east.png" />
     <Content Include="Scripts\flot\jquery.flot.js" />
     <Content Include="Scripts\flot\jquery.flot.min.js" />
     <Content Include="Scripts\flot\jquery.flot.time.js" />
@@ -516,12 +504,6 @@
     <Content Include="Images\logo-small.png" />
     <Content Include="Images\philpursglove.png" />
     <Content Include="Images\simonstevens.jpg" />
-    <Content Include="Images\sponsors\aspose.png" />
-    <Content Include="Images\sponsors\pluralsight.png" />
-    <Content Include="Images\sponsors\skillsmatter.png" />
-    <Content Include="Images\sponsors\Red-Gate.png" />
-    <Content Include="Images\sponsors\tekpub.png" />
-    <Content Include="Images\sponsors\tinamous.png" />
     <Content Include="Images\wmd-buttons.png" />
     <Content Include="Areas\Admin\Views\Web.config" />
     <Content Include="Areas\Admin\Views\AdminHome\Index.cshtml" />
@@ -640,6 +622,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Images\sponsors\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
