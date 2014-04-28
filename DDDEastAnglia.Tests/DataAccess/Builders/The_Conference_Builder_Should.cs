@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using DDDEastAnglia.DataAccess.SimpleData;
+using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.DataAccess.SimpleData.Builders;
 using DDDEastAnglia.DataAccess.SimpleData.Builders.Calendar;
 using DDDEastAnglia.DataAccess.SimpleData.Models;
 using DDDEastAnglia.Domain.Calendar;
+using NSubstitute;
 using NUnit.Framework;
 using Conference = DDDEastAnglia.Domain.Conference;
 
@@ -70,6 +71,8 @@ namespace DDDEastAnglia.Tests.DataAccess.Builders
 
         private void Given_A_DataModel_With_No_CalendarItems()
         {
+            _calendarItemRepository = Substitute.For<ICalendarItemRepository>();
+            _calendarItemRepository.GetAll().Returns(new CalendarItem[0]);
             _source = new DDDEastAnglia.DataAccess.SimpleData.Models.Conference
                 {
                     ConferenceId = 1,
@@ -80,12 +83,8 @@ namespace DDDEastAnglia.Tests.DataAccess.Builders
 
         private void Given_A_DataModel_With_An_Open_Submission_Calendar_Item()
         {
-            _source = new DDDEastAnglia.DataAccess.SimpleData.Models.Conference
-                {
-                    ConferenceId = 1,
-                    Name = "",
-                    ShortName = "",
-                    CalendarItems = new List<CalendarItem>
+            _calendarItemRepository = Substitute.For<ICalendarItemRepository>();
+            _calendarItemRepository.GetAll().Returns(new List<CalendarItem>
                         {
                             new CalendarItem
                                 {
@@ -94,18 +93,19 @@ namespace DDDEastAnglia.Tests.DataAccess.Builders
                                     StartDate = DateTimeOffset.Now.AddDays(-1),
                                     EndDate = DateTimeOffset.Now.AddDays(1)
                                 }
-                        }
+                        });
+            _source = new DDDEastAnglia.DataAccess.SimpleData.Models.Conference
+                {
+                    ConferenceId = 1,
+                    Name = "",
+                    ShortName = ""
                 };
         }
 
         private void Given_A_DataModel_With_An_Open_Voting_Calendar_Item()
         {
-            _source = new DDDEastAnglia.DataAccess.SimpleData.Models.Conference
-            {
-                ConferenceId = 1,
-                Name = "",
-                ShortName = "",
-                CalendarItems = new List<CalendarItem>
+            _calendarItemRepository = Substitute.For<ICalendarItemRepository>();
+            _calendarItemRepository.GetAll().Returns(new List<CalendarItem>
                         {
                             new CalendarItem
                                 {
@@ -121,18 +121,19 @@ namespace DDDEastAnglia.Tests.DataAccess.Builders
                                     StartDate = DateTimeOffset.Now.AddDays(-1),
                                     EndDate = DateTimeOffset.Now.AddDays(1)
                                 }
-                        }
+                        });
+            _source = new DDDEastAnglia.DataAccess.SimpleData.Models.Conference
+            {
+                ConferenceId = 1,
+                Name = "",
+                ShortName = ""
             };
         }
 
         public void Given_A_DataModel_With_An_Open_Publishing_The_Agenda_Calendar_Item()
         {
-            _source = new DDDEastAnglia.DataAccess.SimpleData.Models.Conference
-            {
-                ConferenceId = 1,
-                Name = "",
-                ShortName = "",
-                CalendarItems = new List<CalendarItem>
+            _calendarItemRepository = Substitute.For<ICalendarItemRepository>();
+            _calendarItemRepository.GetAll().Returns(new List<CalendarItem>
                         {
                             new CalendarItem
                                 {
@@ -155,18 +156,19 @@ namespace DDDEastAnglia.Tests.DataAccess.Builders
                                     StartDate = DateTimeOffset.Now.AddDays(-2),
                                     EndDate = null
                                 }
-                        }
+                        });
+            _source = new DDDEastAnglia.DataAccess.SimpleData.Models.Conference
+            {
+                ConferenceId = 1,
+                Name = "",
+                ShortName = ""
             };
         }
 
         private void Given_A_DataModel_With_An_Open_Publishing_The_Agenda_Calendar_Item_And_An_Open_Registration_Calendar_Item()
         {
-            _source = new DDDEastAnglia.DataAccess.SimpleData.Models.Conference
-            {
-                ConferenceId = 1,
-                Name = "",
-                ShortName = "",
-                CalendarItems = new List<CalendarItem>
+            _calendarItemRepository = Substitute.For<ICalendarItemRepository>();
+            _calendarItemRepository.GetAll().Returns(new List<CalendarItem>
                         {
                             new CalendarItem
                                 {
@@ -196,13 +198,18 @@ namespace DDDEastAnglia.Tests.DataAccess.Builders
                                     StartDate = DateTimeOffset.Now.AddDays(-1),
                                     EndDate = DateTimeOffset.Now.AddDays(1)
                                 }
-                        }
+                        });
+            _source = new DDDEastAnglia.DataAccess.SimpleData.Models.Conference
+            {
+                ConferenceId = 1,
+                Name = "",
+                ShortName = ""
             };
         }
 
         private void When_I_Build_The_Domain_Model()
         {
-            var conferenceBuilder = new ConferenceBuilder(new CalendarItemRepository(), new CalendarEntryBuilder());
+            var conferenceBuilder = new ConferenceBuilder(_calendarItemRepository, new CalendarEntryBuilder());
             _domainModel = conferenceBuilder.Build(_source);
         }
 
@@ -246,6 +253,7 @@ namespace DDDEastAnglia.Tests.DataAccess.Builders
             Assert.That(_domainModel.CanRegister(), Is.True);
         }
 
+        private ICalendarItemRepository _calendarItemRepository;
         private Conference _domainModel;
         private DDDEastAnglia.DataAccess.SimpleData.Models.Conference _source;
     }
