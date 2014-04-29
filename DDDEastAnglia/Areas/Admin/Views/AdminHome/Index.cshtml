@@ -1,4 +1,6 @@
 ﻿@using DDDEastAnglia
+@model DDDEastAnglia.Areas.Admin.Models.MenuViewModel
+
 @{
     ViewBag.Title = "Admin Index";
 }
@@ -13,5 +15,9 @@
     <li>@Html.ActionLink("Users", "Index", "User")</li>
     <li>@Html.ActionLink("Roles", "Index", "Role")</li>
     <li>@Html.ActionLink("Sessions", "Index", "Session")</li>
-    <li>@Html.ActionLink("Voting", "Index", "Voting")</li>
+    
+    @if (Model.ShowVotingStatsLink)
+    {
+     <li>@Html.ActionLink("Voting", "Index", "Voting")</li>
+    }
 </ul>
