@@ -304,7 +304,7 @@
     <Compile Include="DataAccess\SimpleData\Models\CalendarItem.cs" />
     <Compile Include="DataAccess\SimpleData\Models\Conference.cs" />
     <Compile Include="DataAccess\SimpleData\Models\Vote.cs" />
-    <Compile Include="DataAccess\SimpleData\Queries\EntityFrameworkBannerModelQuery.cs" />
+    <Compile Include="DataAccess\SimpleData\Queries\BannerModelQuery.cs" />
     <Compile Include="DataAccess\SimpleData\SessionVoteModelQuery.cs" />
     <Compile Include="DataAccess\Handlers\Voting\DeleteVoteCommandHandler.cs" />
     <Compile Include="DataAccess\Handlers\Voting\RegisterVoteCommandHandler.cs" />

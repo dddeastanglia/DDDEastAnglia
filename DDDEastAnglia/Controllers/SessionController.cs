@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.Mvc;
 using DDDEastAnglia.DataAccess;
+using DDDEastAnglia.DataAccess.SimpleData;
 using DDDEastAnglia.DataAccess.SimpleData.Builders;
 using DDDEastAnglia.DataAccess.SimpleData.Builders.Calendar;
 using DDDEastAnglia.Models;
@@ -204,7 +205,7 @@ namespace DDDEastAnglia.Controllers
         private Domain.Conference GetConference()
         {
             var dataConference = conferenceRepository.GetByEventShortName(DefaultEventName);
-            var conference = new ConferenceBuilder(new CalendarEntryBuilder()).Build(dataConference);
+            var conference = new ConferenceBuilder(new CalendarItemRepository(), new CalendarEntryBuilder()).Build(dataConference);
             return conference;
         }
     }
