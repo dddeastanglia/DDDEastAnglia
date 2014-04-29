@@ -1,9 +1,24 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
+using DDDEastAnglia.DataAccess;
+using DDDEastAnglia.Models;
 
 namespace DDDEastAnglia.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IConferenceLoader conferenceLoader;
+
+        public HomeController(IConferenceLoader conferenceLoader)
+        {
+            if (conferenceLoader == null)
+            {
+                throw new ArgumentNullException("conferenceLoader");
+            }
+            
+            this.conferenceLoader = conferenceLoader;
+        }
+
         public ActionResult Index()
         {
             return View();
@@ -36,7 +51,9 @@ namespace DDDEastAnglia.Controllers
 
         public ActionResult About()
         {
-            return View();
+            var conference = conferenceLoader.LoadConference();
+            bool showSessionSubmissionLink = conference.CanSubmit();
+            return View(new AboutViewModel{ShowSessionSubmissionLink = showSessionSubmissionLink});
         }
 
         public ActionResult Register()
