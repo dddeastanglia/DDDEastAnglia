@@ -12,7 +12,7 @@ namespace DDDEastAnglia.Tests.Controllers
     public sealed class HomeControllerTests
     {
         [Test]
-        public void SubmitSessionLinks_ShouldNotBeShown_WhenSessionSubmissionIsNotOpen()
+        public void SubmitSessionLinks_ShouldBeHidden_WhenSessionSubmissionIsNotOpen()
         {
             var conference = Substitute.For<IConference>();
             conference.CanSubmit().Returns(false);
