@@ -43,8 +43,8 @@ public static class HTMLExtensions
                 encodedTweetText));
     }
 
-    public static MvcHtmlString ConditionalLink(this HtmlHelper htmlHelper, string linkText, string actionName, string controllerName, bool condition)
+    public static MvcHtmlString ActionLink(this HtmlHelper htmlHelper, string linkText, string actionName, string controllerName, bool displayCondition)
     {
-        return condition ? htmlHelper.ActionLink(linkText, actionName, controllerName) : new MvcHtmlString(linkText);
+        return displayCondition ? htmlHelper.ActionLink(linkText, actionName, controllerName) : new MvcHtmlString(linkText);
     }
 }
