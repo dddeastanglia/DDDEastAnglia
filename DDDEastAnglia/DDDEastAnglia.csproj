@@ -241,6 +241,7 @@
     <Compile Include="Helpers\Sessions\SubmittedSessionProfileFilter.cs" />
     <Compile Include="Helpers\ChartDataFormatter.cs" />
     <Compile Include="Helpers\Sessions\UserProfileFilterFactory.cs" />
+    <Compile Include="Models\AboutViewModel.cs" />
     <Compile Include="NavigationMenu\NavigationMenuModule.cs" />
     <Compile Include="VotingData\DataProviderFactory.cs" />
     <Content Include="Areas\Admin\Views\Voting\NumberOfUsersWhoHaveCastXVotes.cshtml" />

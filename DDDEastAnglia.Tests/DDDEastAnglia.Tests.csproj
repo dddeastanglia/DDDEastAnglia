@@ -61,6 +61,7 @@
   <ItemGroup>
     <Compile Include="Admin\VotingControllerTests.cs" />
     <Compile Include="ConferenceHelper.cs" />
+    <Compile Include="Controllers\HomeControllerTests.cs" />
     <Compile Include="Controllers\ResetPasswordControllerTests.cs" />
     <Compile Include="ControllerTestExtensions.cs" />
     <Compile Include="Controllers\NavigationBarControllerShould.cs" />
