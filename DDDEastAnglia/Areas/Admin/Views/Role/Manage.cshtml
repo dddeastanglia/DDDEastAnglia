@@ -23,14 +23,14 @@
                 </tr>
             </thead>
             <tbody>
-                @for (int i = 0; i < Model.roleUsers.Keys.Count; i++)
+                @for (int i = 0; i < Model.RoleUsers.Keys.Count; i++)
                 {
                     <tr>
                         <td>
-                            @Html.HiddenFor(m => Model.roleUsers.Values[i].UserId)@Html.HiddenFor(m => Model.roleUsers.Values[i].Username)
-                            @Model.roleUsers.Values[i].Username
+                            @Html.HiddenFor(m => Model.RoleUsers.Values[i].UserId)@Html.HiddenFor(m => Model.RoleUsers.Values[i].Username)
+                            @Model.RoleUsers.Values[i].Username
                         </td>
-                        <td style="text-align: center">@Html.CheckBoxFor(m => Model.roleUsers.Values[i].IsMember)</td>
+                        <td style="text-align: center">@Html.CheckBoxFor(m => Model.RoleUsers.Values[i].IsMember)</td>
                     </tr>
   
                 }

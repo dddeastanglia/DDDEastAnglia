@@ -32,18 +32,18 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
         {
             if (_manager.RoleExists(rolename))
             {
-                ManageRoleModel model = new ManageRoleModel { RoleName = rolename, roleUsers = new SortedList<string, RoleUserModel>() };
+                ManageRoleModel model = new ManageRoleModel { RoleName = rolename, RoleUsers = new SortedList<string, RoleUserModel>() };
 
                 foreach (UserProfile user in _userProfileRepository.GetAllUserProfiles())
                 {
                     if (_manager.IsUserInRole(user.UserName, rolename))
                     {
-                        model.roleUsers.Add(user.UserName,
+                        model.RoleUsers.Add(user.UserName,
                             new RoleUserModel { IsMember = true, UserId = user.UserId, Username = user.UserName });
                     }
                     else
                     {
-                        model.roleUsers.Add(user.UserName,
+                        model.RoleUsers.Add(user.UserName,
                             new RoleUserModel { IsMember = false, UserId = user.UserId, Username = user.UserName });
                     }
                 }
@@ -62,7 +62,7 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
                 return View("Manage", model);
             }
 
-            foreach (RoleUserModel roleUser in model.roleUsers.Values)
+            foreach (RoleUserModel roleUser in model.RoleUsers.Values)
             {
                 AddRemoveRoleMember(model.RoleName, roleUser);
             }

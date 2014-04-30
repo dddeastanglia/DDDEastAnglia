@@ -20,9 +20,9 @@ namespace DDDEastAnglia.Tests.Admin
             ManageRoleModel model = new ManageRoleModel
             {
                 RoleName = "dummyrole",
-                roleUsers = new SortedList<string, RoleUserModel>()
+                RoleUsers = new SortedList<string, RoleUserModel>()
             };
-            model.roleUsers.Add("testuser", new RoleUserModel { IsMember = true, UserId = 999, Username = "testuser" });
+            model.RoleUsers.Add("testuser", new RoleUserModel { IsMember = true, UserId = 999, Username = "testuser" });
 
             // Act
             controller.Manage(model);
@@ -42,9 +42,9 @@ namespace DDDEastAnglia.Tests.Admin
             ManageRoleModel model = new ManageRoleModel
             {
                 RoleName = "dummyrole",
-                roleUsers = new SortedList<string, RoleUserModel>()
+                RoleUsers = new SortedList<string, RoleUserModel>()
             };
-            model.roleUsers.Add("testuser", new RoleUserModel { IsMember = true, UserId = 999, Username = "testuser" });
+            model.RoleUsers.Add("testuser", new RoleUserModel { IsMember = true, UserId = 999, Username = "testuser" });
 
             // Act
             controller.Manage(model);
@@ -64,9 +64,9 @@ namespace DDDEastAnglia.Tests.Admin
             ManageRoleModel model = new ManageRoleModel
             {
                 RoleName = "dummyrole",
-                roleUsers = new SortedList<string, RoleUserModel>()
+                RoleUsers = new SortedList<string, RoleUserModel>()
             };
-            model.roleUsers.Add("testuser", new RoleUserModel { IsMember = false, UserId = 999, Username = "testuser" });
+            model.RoleUsers.Add("testuser", new RoleUserModel { IsMember = false, UserId = 999, Username = "testuser" });
 
             // Act
             controller.Manage(model);
@@ -86,9 +86,9 @@ namespace DDDEastAnglia.Tests.Admin
             ManageRoleModel model = new ManageRoleModel
             {
                 RoleName = "dummyrole",
-                roleUsers = new SortedList<string, RoleUserModel>()
+                RoleUsers = new SortedList<string, RoleUserModel>()
             };
-            model.roleUsers.Add("testuser", new RoleUserModel { IsMember = false, UserId = 999, Username = "testuser" });
+            model.RoleUsers.Add("testuser", new RoleUserModel { IsMember = false, UserId = 999, Username = "testuser" });
 
             // Act
             controller.Manage(model);
