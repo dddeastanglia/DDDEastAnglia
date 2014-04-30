@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq.Expressions;
 using System.Web.Mvc;
+using System.Web.Mvc.Html;
 using DDDEastAnglia.Models;
 using MarkdownSharp;
 
@@ -40,5 +41,10 @@ public static class HTMLExtensions
             string.Format(
                 @"<a href=""https://twitter.com/intent/tweet?text={0}"" class=""btn btn-mini"" target=""_blank""><i class=""icon-twitter""></i> Tweet</a>",
                 encodedTweetText));
+    }
+
+    public static MvcHtmlString ActionLink(this HtmlHelper htmlHelper, string linkText, string actionName, string controllerName, bool displayCondition)
+    {
+        return displayCondition ? htmlHelper.ActionLink(linkText, actionName, controllerName) : new MvcHtmlString(linkText);
     }
 }
