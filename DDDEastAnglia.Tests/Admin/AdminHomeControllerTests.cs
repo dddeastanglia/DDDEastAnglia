@@ -33,7 +33,7 @@ namespace DDDEastAnglia.Tests.Admin
         }
 
         [Test]
-        public void VotingLink_ShouldBeHidden_WhenVotingIsOpen()
+        public void VotingLink_ShouldBeVisible_WhenVotingIsOpen()
         {
             var conference = Substitute.For<IConference>();
             conference.CanVote().Returns(true);
@@ -44,7 +44,7 @@ namespace DDDEastAnglia.Tests.Admin
         }
 
         [Test]
-        public void VotingLink_ShouldBeHidden_WhenTheAgendaIsPublished()
+        public void VotingLink_ShouldBeVisible_WhenTheAgendaIsPublished()
         {
             var conference = Substitute.For<IConference>();
             conference.CanPublishAgenda().Returns(true);
@@ -55,7 +55,7 @@ namespace DDDEastAnglia.Tests.Admin
         }
 
         [Test]
-        public void VotingLink_ShouldBeHidden_WhenRegistrationIsOpen()
+        public void VotingLink_ShouldBeVisible_WhenRegistrationIsOpen()
         {
             var conference = Substitute.For<IConference>();
             conference.CanRegister().Returns(true);
