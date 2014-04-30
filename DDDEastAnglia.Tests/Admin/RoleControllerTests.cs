@@ -1,4 +1,5 @@
-﻿using DDDEastAnglia.Areas.Admin.Models;
+﻿using DDDEastAnglia.Areas.Admin.Controllers;
+using DDDEastAnglia.Areas.Admin.Models;
 using DDDEastAnglia.DataAccess;
 using NSubstitute;
 using NUnit.Framework;
@@ -15,7 +16,7 @@ namespace DDDEastAnglia.Tests.Admin
             // Arrange
             IRoleManager manager = Substitute.For<IRoleManager>();
             IUserProfileRepository userRepo = Substitute.For<IUserProfileRepository>();
-            Areas.Admin.Controllers.RoleController controller = new Areas.Admin.Controllers.RoleController(manager, userRepo);
+            RoleController controller = new RoleController(manager, userRepo);
             manager.IsUserInRole("testuser", "dummyrole").Returns(false);
             ManageRoleModel model = new ManageRoleModel
             {
@@ -37,7 +38,7 @@ namespace DDDEastAnglia.Tests.Admin
             // Arrange
             IRoleManager manager = Substitute.For<IRoleManager>();
             IUserProfileRepository userRepo = Substitute.For<IUserProfileRepository>();
-            Areas.Admin.Controllers.RoleController controller = new Areas.Admin.Controllers.RoleController(manager, userRepo);
+            RoleController controller = new RoleController(manager, userRepo);
             manager.IsUserInRole("testuser", "dummyrole").Returns(true);
             ManageRoleModel model = new ManageRoleModel
             {
@@ -59,7 +60,7 @@ namespace DDDEastAnglia.Tests.Admin
             // Arrange
             IRoleManager manager = Substitute.For<IRoleManager>();
             IUserProfileRepository userRepo = Substitute.For<IUserProfileRepository>();
-            Areas.Admin.Controllers.RoleController controller = new Areas.Admin.Controllers.RoleController(manager, userRepo);
+            RoleController controller = new RoleController(manager, userRepo);
             manager.IsUserInRole("testuser", "dummyrole").Returns(true);
             ManageRoleModel model = new ManageRoleModel
             {
@@ -81,7 +82,7 @@ namespace DDDEastAnglia.Tests.Admin
             // Arrange
             IRoleManager manager = Substitute.For<IRoleManager>();
             IUserProfileRepository userRepo = Substitute.For<IUserProfileRepository>();
-            Areas.Admin.Controllers.RoleController controller = new Areas.Admin.Controllers.RoleController(manager, userRepo);
+            RoleController controller = new RoleController(manager, userRepo);
             manager.IsUserInRole("testuser", "dummyrole").Returns(false);
             ManageRoleModel model = new ManageRoleModel
             {
@@ -103,7 +104,7 @@ namespace DDDEastAnglia.Tests.Admin
             // Arrange
             IRoleManager manager = Substitute.For<IRoleManager>();
             IUserProfileRepository userRepo = Substitute.For<IUserProfileRepository>();
-            Areas.Admin.Controllers.RoleController controller = new Areas.Admin.Controllers.RoleController(manager, userRepo);
+            RoleController controller = new RoleController(manager, userRepo);
             manager.GetUsersCount("dummyrole").Returns(5);
 
             // Act
@@ -119,7 +120,7 @@ namespace DDDEastAnglia.Tests.Admin
             // Arrange
             IRoleManager manager = Substitute.For<IRoleManager>();
             IUserProfileRepository userRepo = Substitute.For<IUserProfileRepository>();
-            Areas.Admin.Controllers.RoleController controller = new Areas.Admin.Controllers.RoleController(manager, userRepo);
+            RoleController controller = new RoleController(manager, userRepo);
             manager.GetUsersCount("dummyrole").Returns(0);
 
             // Act
@@ -135,7 +136,7 @@ namespace DDDEastAnglia.Tests.Admin
             // Arrange
             IRoleManager manager = Substitute.For<IRoleManager>();
             IUserProfileRepository userRepo = Substitute.For<IUserProfileRepository>();
-            Areas.Admin.Controllers.RoleController controller = new Areas.Admin.Controllers.RoleController(manager, userRepo);
+            RoleController controller = new RoleController(manager, userRepo);
             manager.GetUsersCount("dummyrole").Returns(5);
 
             // Act
@@ -151,7 +152,7 @@ namespace DDDEastAnglia.Tests.Admin
             // Arrange
             IRoleManager manager = Substitute.For<IRoleManager>();
             IUserProfileRepository userRepo = Substitute.For<IUserProfileRepository>();
-            Areas.Admin.Controllers.RoleController controller = new Areas.Admin.Controllers.RoleController(manager, userRepo);
+            RoleController controller = new RoleController(manager, userRepo);
             manager.GetUsersCount("dummyrole").Returns(0);
 
             // Act
@@ -167,7 +168,7 @@ namespace DDDEastAnglia.Tests.Admin
             // Arrange
             IRoleManager manager = Substitute.For<IRoleManager>();
             IUserProfileRepository userRepo = Substitute.For<IUserProfileRepository>();
-            Areas.Admin.Controllers.RoleController controller = new Areas.Admin.Controllers.RoleController(manager, userRepo);
+            RoleController controller = new RoleController(manager, userRepo);
             manager.RoleExists("dummyrole").Returns(false);
             CreateRoleModel model = new CreateRoleModel { RoleName = "dummyrole" };
 
@@ -184,7 +185,7 @@ namespace DDDEastAnglia.Tests.Admin
             // Arrange
             IRoleManager manager = Substitute.For<IRoleManager>();
             IUserProfileRepository userRepo = Substitute.For<IUserProfileRepository>();
-            Areas.Admin.Controllers.RoleController controller = new Areas.Admin.Controllers.RoleController(manager, userRepo);
+            RoleController controller = new RoleController(manager, userRepo);
             manager.RoleExists("dummyrole").Returns(true);
             CreateRoleModel model = new CreateRoleModel { RoleName = "dummyrole" };
 
@@ -194,6 +195,5 @@ namespace DDDEastAnglia.Tests.Admin
             // Assert            
             manager.DidNotReceive().CreateRole("dummyrole");
         }
-
     }
 }
