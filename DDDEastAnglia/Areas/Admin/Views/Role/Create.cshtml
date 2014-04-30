@@ -2,7 +2,7 @@
 
 <h2>Create</h2>
 
-@if (Model.FeedbackMessage != null)
+@if (!string.IsNullOrWhiteSpace(Model.FeedbackMessage))
 {
     <div>
         @Model.FeedbackMessage

@@ -7,9 +7,11 @@
     @Html.HiddenFor(m => Model.RoleName)
     <div>
         Are you sure you want to delete the role @Model.RoleName?
-        @if (Model.FeedbackMessage != null)
+        @if (!string.IsNullOrWhiteSpace(Model.FeedbackMessage))
         {
+        <div>
             @Model.FeedbackMessage
+        </div>
         }
     </div>
     <input type="submit" value="Delete role" class="btn btn-primary"/>
