@@ -120,7 +120,7 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
         // GET: /Admin/Role/Create
         public ActionResult Create()
         {
-            CreateRoleModel model = new CreateRoleModel { RoleName = string.Empty };
+            CreateRoleModel model = new CreateRoleModel();
             return View(model);
         }
 
