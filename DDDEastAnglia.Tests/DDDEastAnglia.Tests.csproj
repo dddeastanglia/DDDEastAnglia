@@ -62,6 +62,8 @@
     <Compile Include="Admin\AdminHomeControllerTests.cs" />
     <Compile Include="Admin\VotingControllerTests.cs" />
     <Compile Include="ConferenceHelper.cs" />
+    <Compile Include="ConferenceLoaderBuilder.cs" />
+    <Compile Include="ActionResultExtensions.cs" />
     <Compile Include="Controllers\HomeControllerTests.cs" />
     <Compile Include="Controllers\ResetPasswordControllerTests.cs" />
     <Compile Include="ControllerTestExtensions.cs" />

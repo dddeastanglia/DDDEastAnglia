@@ -1,9 +1,5 @@
-﻿using System.Web.Mvc;
-using DDDEastAnglia.Controllers;
-using DDDEastAnglia.DataAccess;
-using DDDEastAnglia.Domain;
+﻿using DDDEastAnglia.Controllers;
 using DDDEastAnglia.Models;
-using NSubstitute;
 using NUnit.Framework;
 
 namespace DDDEastAnglia.Tests.Controllers
@@ -14,15 +10,12 @@ namespace DDDEastAnglia.Tests.Controllers
         [Test]
         public void SubmitSessionLinks_ShouldBeHidden_WhenSessionSubmissionIsNotOpen()
         {
-            var conference = Substitute.For<IConference>();
-            conference.CanSubmit().Returns(false);
+            var conferenceLoader = new ConferenceLoaderBuilder()
+                                        .WithSessionSubmissionClosed()
+                                        .Build();
 
-            var conferenceLoader = Substitute.For<IConferenceLoader>();
-            conferenceLoader.LoadConference().Returns(conference);
-            var controller = new HomeController(conferenceLoader);
-
-            var result = (ViewResult) controller.About();
-            var model = (AboutViewModel) result.Model;
+            var model = new HomeController(conferenceLoader)
+                            .About().GetViewModel<AboutViewModel>();
 
             Assert.That(model.ShowSessionSubmissionLink, Is.False);
         }
@@ -30,15 +23,12 @@ namespace DDDEastAnglia.Tests.Controllers
         [Test]
         public void SubmitSessionLinks_ShouldBeShown_WhenSessionSubmissionIsOpen()
         {
-            var conference = Substitute.For<IConference>();
-            conference.CanSubmit().Returns(true);
+            var conferenceLoader = new ConferenceLoaderBuilder()
+                                        .WithSessionSubmissionOpen()
+                                        .Build();
 
-            var conferenceLoader = Substitute.For<IConferenceLoader>();
-            conferenceLoader.LoadConference().Returns(conference);
-            var controller = new HomeController(conferenceLoader);
-            
-            var result = (ViewResult) controller.About();
-            var model = (AboutViewModel) result.Model;
+            var model = new HomeController(conferenceLoader)
+                            .About().GetViewModel<AboutViewModel>();
 
             Assert.That(model.ShowSessionSubmissionLink, Is.True);
         }
