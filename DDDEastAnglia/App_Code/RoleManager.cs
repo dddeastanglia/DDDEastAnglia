@@ -69,5 +69,13 @@ namespace DDDEastAnglia
         {
             return Roles.GetUsersInRole(rolename);
         }
+
+        public void RenameRole(string oldname, string newname)
+        {
+            // No such method as rename, so create a new role, copy the users over and then delete the old role
+            Roles.CreateRole(newname);
+            Roles.AddUsersToRole(Roles.GetUsersInRole(oldname), newname);
+            Roles.DeleteRole(oldname, false);
+        }
     }
 }
