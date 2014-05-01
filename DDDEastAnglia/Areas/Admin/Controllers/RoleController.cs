@@ -1,6 +1,7 @@
 ﻿using DDDEastAnglia.Areas.Admin.Models;
 using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.Models;
+using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 
@@ -14,7 +15,16 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
 
         public RoleController(IRoleManager roleManager, IUserProfileRepository userProfileRepository)
         {
+            if (roleManager == null)
+            {
+                throw new ArgumentNullException("roleManager");
+            }
             _manager = roleManager;
+
+            if (userProfileRepository == null)
+            {
+                throw new ArgumentNullException("userProfileRepository");
+            }
             _userProfileRepository = userProfileRepository;
         }
 
