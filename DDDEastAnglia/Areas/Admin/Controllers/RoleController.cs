@@ -74,29 +74,12 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
 
             foreach (RoleUserModel roleUser in model.RoleUsers.Values)
             {
-                AddRemoveRoleMember(model.RoleName, roleUser);
+                _manager.AddRemoveRoleMember(model.RoleName, roleUser);
             }
 
             return View("Manage", model);
         }
 
-        private void AddRemoveRoleMember(string rolename, RoleUserModel roleUser)
-        {
-            if (roleUser.IsMember)
-            {
-                if (!_manager.IsUserInRole(roleUser.Username, rolename))
-                {
-                    _manager.AddUserToRole(roleUser.Username, rolename);
-                }
-            }
-            else
-            {
-                if (_manager.IsUserInRole(roleUser.Username, rolename))
-                {
-                    _manager.RemoveUserFromRole(roleUser.Username, rolename);
-                }
-            }
-        }
 
         // GET: /Admin/Role/Delete
         public ActionResult Delete(string rolename)

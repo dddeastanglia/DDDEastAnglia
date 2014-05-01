@@ -1,4 +1,6 @@
-﻿namespace DDDEastAnglia
+﻿using DDDEastAnglia.Areas.Admin.Models;
+
+namespace DDDEastAnglia
 {
     public interface IRoleManager
     {
@@ -17,5 +19,7 @@
         void DeleteRole(string rolename);
 
         void CreateRole(string rolename);
+
+        void AddRemoveRoleMember(string rolename, RoleUserModel model);
     }
 }
