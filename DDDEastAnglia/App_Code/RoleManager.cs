@@ -1,8 +1,7 @@
-﻿using System.Web.Security;
-
-// RoleManager possibly not the best name for this class
+﻿// RoleManager possibly not the best name for this class
 // Acts as a wrapper around the static System.Web.Security.Roles class
 using DDDEastAnglia.Areas.Admin.Models;
+using System.Web.Security;
 
 namespace DDDEastAnglia
 {
@@ -66,5 +65,9 @@ namespace DDDEastAnglia
             }
         }
 
+        public string[] GetUsersForRole(string rolename)
+        {
+            return Roles.GetUsersInRole(rolename);
+        }
     }
 }

@@ -21,5 +21,7 @@ namespace DDDEastAnglia
         void CreateRole(string rolename);
 
         void AddRemoveRoleMember(string rolename, RoleUserModel model);
+
+        string[] GetUsersForRole(string rolename);
     }
 }
