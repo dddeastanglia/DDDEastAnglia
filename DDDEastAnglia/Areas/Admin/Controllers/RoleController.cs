@@ -91,7 +91,7 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
         // GET: /Admin/Role/Delete
         public ActionResult Delete(string rolename)
         {
-            DeleteRoleModel model = new DeleteRoleModel();
+            RoleModel model = new RoleModel();
 
             int roleMembersCount = _manager.GetUsersCount(rolename);
             if (roleMembersCount > 0)
@@ -120,12 +120,12 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
         // GET: /Admin/Role/Create
         public ActionResult Create()
         {
-            CreateRoleModel model = new CreateRoleModel();
+            RoleModel model = new RoleModel();
             return View(model);
         }
 
         [HttpPost]
-        public ActionResult Create(CreateRoleModel model)
+        public ActionResult Create(RoleModel model)
         {
             if (ModelState.IsValid)
             {

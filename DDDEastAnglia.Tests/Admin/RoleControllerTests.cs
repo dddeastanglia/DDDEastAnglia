@@ -170,7 +170,7 @@ namespace DDDEastAnglia.Tests.Admin
             IUserProfileRepository userRepo = Substitute.For<IUserProfileRepository>();
             RoleController controller = new RoleController(manager, userRepo);
             manager.RoleExists("dummyrole").Returns(false);
-            CreateRoleModel model = new CreateRoleModel { RoleName = "dummyrole" };
+            RoleModel model = new RoleModel { RoleName = "dummyrole" };
 
             // Act
             controller.Create(model);
@@ -187,7 +187,7 @@ namespace DDDEastAnglia.Tests.Admin
             IUserProfileRepository userRepo = Substitute.For<IUserProfileRepository>();
             RoleController controller = new RoleController(manager, userRepo);
             manager.RoleExists("dummyrole").Returns(true);
-            CreateRoleModel model = new CreateRoleModel { RoleName = "dummyrole" };
+            RoleModel model = new RoleModel { RoleName = "dummyrole" };
 
             // Act
             controller.Create(model);
