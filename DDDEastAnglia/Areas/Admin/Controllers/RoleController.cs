@@ -42,7 +42,7 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
         {
             if (_manager.RoleExists(rolename))
             {
-                ManageRoleModel model = new ManageRoleModel { RoleName = rolename, RoleUsers = new SortedList<string, RoleUserModel>() };
+                RoleModel model = new RoleModel { RoleName = rolename, RoleUsers = new SortedList<string, RoleUserModel>() };
 
                 foreach (UserProfile user in _userProfileRepository.GetAllUserProfiles())
                 {
@@ -65,7 +65,7 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult Manage(ManageRoleModel model)
+        public ActionResult Manage(RoleModel model)
         {
             if (!ModelState.IsValid)
             {

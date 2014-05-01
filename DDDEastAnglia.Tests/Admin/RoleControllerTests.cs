@@ -18,7 +18,7 @@ namespace DDDEastAnglia.Tests.Admin
             IUserProfileRepository userRepo = Substitute.For<IUserProfileRepository>();
             RoleController controller = new RoleController(manager, userRepo);
             manager.IsUserInRole("testuser", "dummyrole").Returns(false);
-            ManageRoleModel model = new ManageRoleModel
+            RoleModel model = new RoleModel
             {
                 RoleName = "dummyrole",
                 RoleUsers = new SortedList<string, RoleUserModel>()
@@ -40,7 +40,7 @@ namespace DDDEastAnglia.Tests.Admin
             IUserProfileRepository userRepo = Substitute.For<IUserProfileRepository>();
             RoleController controller = new RoleController(manager, userRepo);
             manager.IsUserInRole("testuser", "dummyrole").Returns(true);
-            ManageRoleModel model = new ManageRoleModel
+            RoleModel model = new RoleModel
             {
                 RoleName = "dummyrole",
                 RoleUsers = new SortedList<string, RoleUserModel>()
@@ -62,7 +62,7 @@ namespace DDDEastAnglia.Tests.Admin
             IUserProfileRepository userRepo = Substitute.For<IUserProfileRepository>();
             RoleController controller = new RoleController(manager, userRepo);
             manager.IsUserInRole("testuser", "dummyrole").Returns(true);
-            ManageRoleModel model = new ManageRoleModel
+            RoleModel model = new RoleModel
             {
                 RoleName = "dummyrole",
                 RoleUsers = new SortedList<string, RoleUserModel>()
@@ -84,7 +84,7 @@ namespace DDDEastAnglia.Tests.Admin
             IUserProfileRepository userRepo = Substitute.For<IUserProfileRepository>();
             RoleController controller = new RoleController(manager, userRepo);
             manager.IsUserInRole("testuser", "dummyrole").Returns(false);
-            ManageRoleModel model = new ManageRoleModel
+            RoleModel model = new RoleModel
             {
                 RoleName = "dummyrole",
                 RoleUsers = new SortedList<string, RoleUserModel>()

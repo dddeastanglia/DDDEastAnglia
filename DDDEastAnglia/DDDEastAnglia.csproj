@@ -307,7 +307,6 @@
     <Compile Include="App_Code\IRoleManager.cs" />
     <Compile Include="App_Code\RoleManager.cs" />
     <Compile Include="Areas\Admin\Models\RoleModel.cs" />
-    <Compile Include="Areas\Admin\Models\ManageRoleModel.cs" />
     <Compile Include="Areas\Admin\Models\RoleUserModel.cs" />
     <Compile Include="Areas\Admin\Models\UserModel.cs" />
     <Compile Include="Areas\Admin\Models\VotingStatsViewModel.cs" />
