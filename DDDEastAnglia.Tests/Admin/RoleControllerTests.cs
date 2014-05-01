@@ -14,7 +14,7 @@ namespace DDDEastAnglia.Tests.Admin
         public void User_That_Is_Not_A_Member_Gets_Added()
         {
             // Arrange
-            IRoleManager manager = Substitute.For<IRoleManager>();
+            IRoleManager manager = CreateRoleManager();
             IUserProfileRepository userRepo = Substitute.For<IUserProfileRepository>();
             RoleController controller = new RoleController(manager, userRepo);
             manager.IsUserInRole("testuser", "dummyrole").Returns(false);
@@ -32,13 +32,13 @@ namespace DDDEastAnglia.Tests.Admin
             manager.Received().AddUserToRole("testuser", "dummyrole");
         }
 
+
         [Test]
         public void User_That_Is_A_Member_Does_Not_Get_Added_Again()
         {
             // Arrange
-            IRoleManager manager = Substitute.For<IRoleManager>();
-            IUserProfileRepository userRepo = Substitute.For<IUserProfileRepository>();
-            RoleController controller = new RoleController(manager, userRepo);
+            IRoleManager manager = CreateRoleManager();
+            RoleController controller = CreateRoleController(manager);
             manager.IsUserInRole("testuser", "dummyrole").Returns(true);
             RoleModel model = new RoleModel
             {
@@ -58,9 +58,8 @@ namespace DDDEastAnglia.Tests.Admin
         public void User_That_Is_A_Member_Gets_Removed()
         {
             // Arrange
-            IRoleManager manager = Substitute.For<IRoleManager>();
-            IUserProfileRepository userRepo = Substitute.For<IUserProfileRepository>();
-            RoleController controller = new RoleController(manager, userRepo);
+            IRoleManager manager = CreateRoleManager();
+            RoleController controller = CreateRoleController(manager);
             manager.IsUserInRole("testuser", "dummyrole").Returns(true);
             RoleModel model = new RoleModel
             {
@@ -80,9 +79,8 @@ namespace DDDEastAnglia.Tests.Admin
         public void User_That_Is_Not_A_Member_Does_Not_Get_Removed()
         {
             // Arrange
-            IRoleManager manager = Substitute.For<IRoleManager>();
-            IUserProfileRepository userRepo = Substitute.For<IUserProfileRepository>();
-            RoleController controller = new RoleController(manager, userRepo);
+            IRoleManager manager = CreateRoleManager();
+            RoleController controller = CreateRoleController(manager);
             manager.IsUserInRole("testuser", "dummyrole").Returns(false);
             RoleModel model = new RoleModel
             {
@@ -102,9 +100,8 @@ namespace DDDEastAnglia.Tests.Admin
         public void Confirmed_Delete_Deletes_A_Populated_Role()
         {
             // Arrange
-            IRoleManager manager = Substitute.For<IRoleManager>();
-            IUserProfileRepository userRepo = Substitute.For<IUserProfileRepository>();
-            RoleController controller = new RoleController(manager, userRepo);
+            IRoleManager manager = CreateRoleManager();
+            RoleController controller = CreateRoleController(manager);
             manager.GetUsersCount("dummyrole").Returns(5);
 
             // Act
@@ -118,9 +115,8 @@ namespace DDDEastAnglia.Tests.Admin
         public void Confirmed_Delete_Deletes_An_Unpopulated_Role()
         {
             // Arrange
-            IRoleManager manager = Substitute.For<IRoleManager>();
-            IUserProfileRepository userRepo = Substitute.For<IUserProfileRepository>();
-            RoleController controller = new RoleController(manager, userRepo);
+            IRoleManager manager = CreateRoleManager();
+            RoleController controller = CreateRoleController(manager);
             manager.GetUsersCount("dummyrole").Returns(0);
 
             // Act
@@ -134,9 +130,8 @@ namespace DDDEastAnglia.Tests.Admin
         public void Dont_Delete_A_Populated_Role_Without_Confirmation()
         {
             // Arrange
-            IRoleManager manager = Substitute.For<IRoleManager>();
-            IUserProfileRepository userRepo = Substitute.For<IUserProfileRepository>();
-            RoleController controller = new RoleController(manager, userRepo);
+            IRoleManager manager = CreateRoleManager();
+            RoleController controller = CreateRoleController(manager);
             manager.GetUsersCount("dummyrole").Returns(5);
 
             // Act
@@ -150,9 +145,8 @@ namespace DDDEastAnglia.Tests.Admin
         public void Delete_An_Empty_Role_Without_Confirmation()
         {
             // Arrange
-            IRoleManager manager = Substitute.For<IRoleManager>();
-            IUserProfileRepository userRepo = Substitute.For<IUserProfileRepository>();
-            RoleController controller = new RoleController(manager, userRepo);
+            IRoleManager manager = CreateRoleManager();
+            RoleController controller = CreateRoleController(manager);
             manager.GetUsersCount("dummyrole").Returns(0);
 
             // Act
@@ -166,9 +160,8 @@ namespace DDDEastAnglia.Tests.Admin
         public void Add_A_New_Role_That_Doesnt_Exist()
         {
             // Arrange
-            IRoleManager manager = Substitute.For<IRoleManager>();
-            IUserProfileRepository userRepo = Substitute.For<IUserProfileRepository>();
-            RoleController controller = new RoleController(manager, userRepo);
+            IRoleManager manager = CreateRoleManager();
+            RoleController controller = CreateRoleController(manager);
             manager.RoleExists("dummyrole").Returns(false);
             RoleModel model = new RoleModel { RoleName = "dummyrole" };
 
@@ -183,9 +176,8 @@ namespace DDDEastAnglia.Tests.Admin
         public void Dont_Add_A_New_Role_That_Already_Exists()
         {
             // Arrange
-            IRoleManager manager = Substitute.For<IRoleManager>();
-            IUserProfileRepository userRepo = Substitute.For<IUserProfileRepository>();
-            RoleController controller = new RoleController(manager, userRepo);
+            IRoleManager manager = CreateRoleManager();
+            RoleController controller = CreateRoleController(manager);
             manager.RoleExists("dummyrole").Returns(true);
             RoleModel model = new RoleModel { RoleName = "dummyrole" };
 
@@ -194,6 +186,19 @@ namespace DDDEastAnglia.Tests.Admin
 
             // Assert            
             manager.DidNotReceive().CreateRole("dummyrole");
+        }
+
+        private static IRoleManager CreateRoleManager()
+        {
+            IRoleManager manager = Substitute.For<IRoleManager>();
+            return manager;
+        }
+
+        private static RoleController CreateRoleController(IRoleManager manager)
+        {
+            IUserProfileRepository userRepo = Substitute.For<IUserProfileRepository>();
+            RoleController controller = new RoleController(manager, userRepo);
+            return controller;
         }
     }
 }
