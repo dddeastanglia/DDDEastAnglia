@@ -250,6 +250,7 @@
     <Content Include="Areas\Admin\Views\Voting\VotesPerHour.cshtml" />
     <Content Include="Content\Site_print.css" />
     <Content Include="Images\sponsors\comparethemarket.png" />
+    <Content Include="Images\sponsors\redgate.png" />
     <Content Include="Scripts\resolveIPAddress.js" />
     <Compile Include="Areas\Admin\Models\VotesForIpAddressViewModel.cs" />
     <Compile Include="Helpers\DnsLookup.cs" />
