@@ -249,6 +249,8 @@
     <Content Include="Areas\Admin\Views\Voting\VotesPerDay.cshtml" />
     <Content Include="Areas\Admin\Views\Voting\VotesPerHour.cshtml" />
     <Content Include="Content\Site_print.css" />
+    <Content Include="Images\googleplaystore.gif" />
+    <Content Include="Images\itunesappstore.gif" />
     <Content Include="Scripts\resolveIPAddress.js" />
     <Compile Include="Areas\Admin\Models\VotesForIpAddressViewModel.cs" />
     <Compile Include="Helpers\DnsLookup.cs" />
