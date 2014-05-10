@@ -500,12 +500,12 @@
     <Content Include="Images\7.jpg" />
     <Content Include="Images\8.jpg" />
     <Content Include="Images\9.jpg" />
-    <Content Include="Images\adrianbanks.jpg" />
-    <Content Include="Images\alastairsmith.jpg" />
-    <Content Include="Images\ianjohnson.jpg" />
+    <Content Include="Images\team\adrianbanks.jpg" />
+    <Content Include="Images\team\alastairsmith.jpg" />
+    <Content Include="Images\team\ianjohnson.jpg" />
     <Content Include="Images\logo-small.png" />
-    <Content Include="Images\philpursglove.png" />
-    <Content Include="Images\simonstevens.jpg" />
+    <Content Include="Images\team\philpursglove.png" />
+    <Content Include="Images\team\simonstevens.jpg" />
     <Content Include="Images\wmd-buttons.png" />
     <Content Include="Areas\Admin\Views\Web.config" />
     <Content Include="Areas\Admin\Views\AdminHome\Index.cshtml" />
