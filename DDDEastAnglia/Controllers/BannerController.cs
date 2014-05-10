@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using DDDEastAnglia.Models.Query;
 
 namespace DDDEastAnglia.Controllers
@@ -9,6 +10,11 @@ namespace DDDEastAnglia.Controllers
 
         public BannerController(IBannerModelQuery bannerQuery)
         {
+            if (bannerQuery == null)
+            {
+                throw new ArgumentNullException("bannerQuery");
+            }
+            
             this.bannerQuery = bannerQuery;
         }
 
