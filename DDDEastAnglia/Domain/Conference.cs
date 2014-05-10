@@ -5,56 +5,61 @@ namespace DDDEastAnglia.Domain
 {
     public class Conference : IConference
     {
-        private readonly int _id;
-        private readonly string _name;
-        private readonly string _shortName;
-        private readonly Dictionary<CalendarEntryType, CalendarEntry> _calendarEntries = new Dictionary<CalendarEntryType, CalendarEntry>();
+        private readonly int id;
+        private readonly string name;
+        private readonly string shortName;
+        private readonly Dictionary<CalendarEntryType, CalendarEntry> calendarEntries = new Dictionary<CalendarEntryType, CalendarEntry>();
 
         public Conference(int id, string name, string shortName)
         {
-            _id = id;
-            _name = name;
-            _shortName = shortName;
-            _calendarEntries.Add(CalendarEntryType.SessionSubmission, new NullCalendarEntry());
-            _calendarEntries.Add(CalendarEntryType.Voting, new NullCalendarEntry());
-            _calendarEntries.Add(CalendarEntryType.AgendaPublished, new NullCalendarEntry());
-            _calendarEntries.Add(CalendarEntryType.Registration, new NullCalendarEntry());
-            _calendarEntries.Add(CalendarEntryType.Conference, new NullCalendarEntry());
+            this.id = id;
+            this.name = name;
+            this.shortName = shortName;
+            calendarEntries.Add(CalendarEntryType.SessionSubmission, new NullCalendarEntry());
+            calendarEntries.Add(CalendarEntryType.Voting, new NullCalendarEntry());
+            calendarEntries.Add(CalendarEntryType.AgendaPublished, new NullCalendarEntry());
+            calendarEntries.Add(CalendarEntryType.Registration, new NullCalendarEntry());
+            calendarEntries.Add(CalendarEntryType.Conference, new NullCalendarEntry());
         }
 
         public int Id
         {
-            get { return _id; }
+            get { return id; }
         }
 
         public bool CanSubmit()
         {
-            return _calendarEntries[CalendarEntryType.SessionSubmission].IsOpen();
+            return calendarEntries[CalendarEntryType.SessionSubmission].IsOpen();
         }
 
         public virtual bool CanVote()
         {
-            return _calendarEntries[CalendarEntryType.Voting].IsOpen();
+            return calendarEntries[CalendarEntryType.Voting].IsOpen();
         }
 
         public bool CanPublishAgenda()
         {
-            return _calendarEntries[CalendarEntryType.AgendaPublished].IsOpen();
+            return calendarEntries[CalendarEntryType.AgendaPublished].IsOpen();
         }
 
         public bool CanRegister()
         {
-            return _calendarEntries[CalendarEntryType.Registration].IsOpen();
+            return calendarEntries[CalendarEntryType.Registration].IsOpen();
+        }
+
+        public bool CanShowSessions()
+        {
+            return CanSubmit() || CanVote() || CanPublishAgenda() || CanRegister();
         }
 
         public void AddToCalendar(CalendarEntry entry)
         {
             var calendarEntryType = entry.GetEntryType();
-            if (calendarEntryType == CalendarEntryType.Unknown)
+            
+            if (calendarEntryType != CalendarEntryType.Unknown)
             {
-                return;
+                calendarEntries[calendarEntryType] = entry;
             }
-            _calendarEntries[calendarEntryType] = entry;
         }
     }
 }

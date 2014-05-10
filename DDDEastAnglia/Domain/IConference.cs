@@ -7,5 +7,6 @@
         bool CanVote();
         bool CanPublishAgenda();
         bool CanRegister();
+        bool CanShowSessions();
     }
 }

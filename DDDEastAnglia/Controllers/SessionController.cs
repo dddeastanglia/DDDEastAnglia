@@ -29,6 +29,12 @@ namespace DDDEastAnglia.Controllers
         public ActionResult Index()
         {
             var conference = conferenceLoader.LoadConference();
+
+            if (!conference.CanShowSessions())
+            {
+                return new HttpNotFoundResult();
+            }
+
             var speakersLookup = userProfileRepository.GetAllUserProfiles().ToDictionary(p => p.UserName, p => p);
             var sessions = sessionRepository.GetAllSessions();
 
