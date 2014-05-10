@@ -5,16 +5,16 @@ namespace DDDEastAnglia.Controllers
 {
     public class BannerController : Controller
     {
-        private readonly IBannerModelQuery _bannerQuery;
+        private readonly IBannerModelQuery bannerQuery;
 
         public BannerController(IBannerModelQuery bannerQuery)
         {
-            _bannerQuery = bannerQuery;
+            this.bannerQuery = bannerQuery;
         }
 
-        public ActionResult Details(string id)
+        public ActionResult Details()
         {
-            return PartialView("_Banner", _bannerQuery.Get(id));
+            return PartialView("_Banner", bannerQuery.Get());
         }
     }
 }

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Linq;
-using DDDEastAnglia.DataAccess.Builders;
-using DDDEastAnglia.DataAccess.SimpleData.Models;
 using DDDEastAnglia.Domain.Calendar;
 using DDDEastAnglia.Models;
 using DDDEastAnglia.Models.Query;
@@ -10,17 +8,11 @@ namespace DDDEastAnglia.DataAccess.SimpleData.Queries
 {
     public class BannerModelQuery : IBannerModelQuery
     {
-        private readonly IBuild<Conference, Domain.Conference> conferenceBuilder;
-        private readonly IConferenceRepository conferenceRepository;
+        private readonly IConferenceLoader conferenceLoader;
         private readonly ICalendarItemRepository calendarItemRepository;
 
-        public BannerModelQuery(IBuild<Conference, Domain.Conference> conferenceBuilder, IConferenceRepository conferenceRepository, ICalendarItemRepository calendarItemRepository)
+        public BannerModelQuery(IConferenceLoader conferenceLoader, ICalendarItemRepository calendarItemRepository)
         {
-            if (conferenceBuilder == null)
-            {
-                throw new ArgumentNullException("conferenceBuilder");
-            }
-
             if (calendarItemRepository == null)
             {
                 throw new ArgumentNullException("calendarItemRepository");
@@ -31,23 +23,15 @@ namespace DDDEastAnglia.DataAccess.SimpleData.Queries
                 throw new ArgumentNullException("calendarItemRepository");
             }
             
-            this.conferenceBuilder = conferenceBuilder;
-            this.conferenceRepository = conferenceRepository;
+            this.conferenceLoader = conferenceLoader;
             this.calendarItemRepository = calendarItemRepository;
         }
 
-        public BannerModel Get(string conferenceShortName)
+        public BannerModel Get()
         {
-            var conference = conferenceRepository.GetByEventShortName(conferenceShortName);
+            var conference = conferenceLoader.LoadConference();
                 
             if (conference == null)
-            {
-                return new BannerModel();
-            }
-                
-            var domainConference = conferenceBuilder.Build(conference);
-                
-            if (domainConference == null)
             {
                 return new BannerModel();
             }
@@ -72,8 +56,8 @@ namespace DDDEastAnglia.DataAccess.SimpleData.Queries
 
             return new BannerModel
             {
-                IsOpenForSubmission = domainConference.CanSubmit(),
-                IsOpenForVoting = domainConference.CanVote(),
+                IsOpenForSubmission = conference.CanSubmit(),
+                IsOpenForVoting = conference.CanVote(),
                 SessionSubmissionCloses = submissionCloses.ToString("R"),
                 VotingCloses = votingCloses.ToString("R")
             };
