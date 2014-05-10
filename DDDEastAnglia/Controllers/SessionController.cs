@@ -32,7 +32,7 @@ namespace DDDEastAnglia.Controllers
 
             if (!conference.CanShowSessions())
             {
-                return new HttpNotFoundResult();
+                return HttpNotFound();
             }
 
             var speakersLookup = userProfileRepository.GetAllUserProfiles().ToDictionary(p => p.UserName, p => p);

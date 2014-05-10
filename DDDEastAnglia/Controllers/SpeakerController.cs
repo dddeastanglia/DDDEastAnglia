@@ -49,7 +49,7 @@ namespace DDDEastAnglia.Controllers
 
             if (!conference.CanShowSpeakers())
             {
-                return new HttpNotFoundResult();
+                return HttpNotFound();
             }
 
             var speakers = new List<SpeakerDisplayModel>();
