@@ -42,6 +42,11 @@ namespace DDDEastAnglia.Controllers
                 }
             }
 
+            if (profile.UserName != User.Identity.Name)
+            {
+                return new HttpUnauthorizedResult();
+            }
+
             if (ModelState.IsValid)
             {
                 userProfileRepository.UpdateUserProfile(profile);

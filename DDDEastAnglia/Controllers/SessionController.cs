@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Web.Mvc;
 using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.Models;
@@ -125,12 +126,24 @@ namespace DDDEastAnglia.Controllers
                 return HttpNotFound();
             }
 
+            if (UserDoesNotOwnSession(User, session))
+            {
+                return new HttpUnauthorizedResult();
+            }
+
             return View(session);
         }
 
         [HttpPost]
         public ActionResult Edit([Bind(Exclude = "Votes")] Session session)
         {
+            var loadedSession = sessionRepository.Get(session.SessionId);
+
+            if (UserDoesNotOwnSession(User, loadedSession))
+            {
+                return new HttpUnauthorizedResult();
+            }
+
             if (ModelState.IsValid)
             {
                 sessionRepository.UpdateSession(session);
@@ -157,6 +170,13 @@ namespace DDDEastAnglia.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
+            Session session = sessionRepository.Get(id);
+
+            if (UserDoesNotOwnSession(User, session))
+            {
+                return new HttpUnauthorizedResult();
+            }
+            
             sessionRepository.DeleteSession(id);
             return RedirectToAction("Index");
         }
@@ -194,6 +214,11 @@ namespace DDDEastAnglia.Controllers
                     Url = sessionUrl
                 };
             return tweetLink;
+        }
+
+        private bool UserDoesNotOwnSession(IPrincipal user, Session session)
+        {
+            return session.SpeakerUserName != user.Identity.Name;
         }
     }
 }
