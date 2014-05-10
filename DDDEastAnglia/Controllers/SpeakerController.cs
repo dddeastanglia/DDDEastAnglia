@@ -45,9 +45,15 @@ namespace DDDEastAnglia.Controllers
 
         public ActionResult Index()
         {
+            var conference = conferenceLoader.LoadConference();
+
+            if (!conference.CanShowSpeakers())
+            {
+                return new HttpNotFoundResult();
+            }
+
             var speakers = new List<SpeakerDisplayModel>();
             var speakerProfiles = userProfileRepository.GetAllUserProfiles();
-            var conference = conferenceLoader.LoadConference();
 
             var sessionLoader = sessionLoaderFactory.Create(conference);
             var userProfileFilter = userProfileFilterFactory.Create(conference);

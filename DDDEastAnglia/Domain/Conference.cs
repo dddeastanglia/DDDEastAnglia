@@ -52,6 +52,11 @@ namespace DDDEastAnglia.Domain
             return CanSubmit() || CanVote() || CanPublishAgenda() || CanRegister();
         }
 
+        public bool CanShowSpeakers()
+        {
+            return CanSubmit() || CanVote() || CanPublishAgenda() || CanRegister();
+        }
+
         public void AddToCalendar(CalendarEntry entry)
         {
             var calendarEntryType = entry.GetEntryType();
