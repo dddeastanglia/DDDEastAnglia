@@ -9,6 +9,7 @@ namespace DDDEastAnglia.Controllers
     public class TimelineController : Controller
     {
         private const string DateOnlyPattern = "dddd d MMMM yyyy";
+        private const string TimeOnlyPattern = "H:mm";
         private const string DateAndTimePattern = "dddd d MMMM yyyy, H:mm";
 
         private readonly ICalendarItemRepository calendarItemRepository;
@@ -21,6 +22,22 @@ namespace DDDEastAnglia.Controllers
             }
             
             this.calendarItemRepository = calendarItemRepository;
+        }
+
+        public ActionResult ConferenceDate()
+        {
+            var conference = calendarItemRepository.GetFromType(CalendarEntryType.Conference);
+            string conferenceDate = conference.StartDate.ToString(DateOnlyPattern);
+            return PartialView("_ConferenceDateTime", conferenceDate);
+        }
+
+        public ActionResult ConferenceTime()
+        {
+            var conference = calendarItemRepository.GetFromType(CalendarEntryType.Conference);
+            string startTime = conference.StartDate.ToString(TimeOnlyPattern);
+            string endTime = conference.EndDate.Value.ToString(TimeOnlyPattern);
+            string conferenceTimes = string.Format("{0} to {1}", startTime, endTime);
+            return PartialView("_ConferenceDateTime", conferenceTimes);
         }
 
         public ActionResult Details()

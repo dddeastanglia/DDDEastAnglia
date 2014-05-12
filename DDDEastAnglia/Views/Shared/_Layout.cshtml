@@ -31,8 +31,11 @@
                 <div class="masthead">
                     <a href="@Url.Action("Index", "Home")"><img src="@Url.Content("~/Images/logo-small.png")" class="pull-left" alt="Developer! Developer! Developer! East Anglia" /></a>
                     <h2>DDD East Anglia</h2>
-                    <p>Cambridge, UK<br />
-                        Saturday 13 September 2014</p>
+                    <p>
+                        Cambridge, UK
+                        <br />
+                        @Html.Action("ConferenceDate", "Timeline")
+                    </p>
                 </div>
             </div>
         </div>
@@ -65,8 +68,9 @@
                             <section class="row-fluid">
                                 <h1>When and Where?</h1>
                                 <p>
-                                    Saturday 13th September 2014<br />
-                                    8:30 to 17:00
+                                    @Html.Action("ConferenceDate", "Timeline")
+                                    <br />
+                                    @Html.Action("ConferenceTime", "Timeline")
                                 </p>
                                 <p>
                                     <a href="http://westroad.org">West Road Concert Hall</a><br />
