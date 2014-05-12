@@ -14,7 +14,7 @@ namespace DDDEastAnglia.Controllers
     [Authorize]
     public class SessionController : Controller
     {
-        private const string DefaultEventName = "DDDEA2013";
+        private const string DefaultEventName = "DDDEA2014";
         private readonly IConferenceRepository conferenceRepository;
         private readonly IUserProfileRepository userProfileRepository;
         private readonly ISessionRepository sessionRepository;
