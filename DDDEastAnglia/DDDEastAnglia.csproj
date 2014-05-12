@@ -226,6 +226,7 @@
     <Compile Include="Areas\Admin\Models\MenuViewModel.cs" />
     <Compile Include="Areas\Admin\Models\VotersPerIPAddressViewModel.cs" />
     <Compile Include="Areas\Admin\Models\VotesPerDayViewModel.cs" />
+    <Compile Include="Controllers\TimelineController.cs" />
     <Compile Include="DataAccess\ConferenceLoader.cs" />
     <Compile Include="DataAccess\SimpleData\CalendarItemRepository.cs" />
     <Compile Include="DataAccess\SimpleData\UserProfileRepository.cs" />
@@ -243,6 +244,7 @@
     <Compile Include="Helpers\ChartDataFormatter.cs" />
     <Compile Include="Helpers\Sessions\UserProfileFilterFactory.cs" />
     <Compile Include="Models\AboutViewModel.cs" />
+    <Compile Include="Models\TimelineModel.cs" />
     <Compile Include="NavigationMenu\NavigationMenuModule.cs" />
     <Compile Include="VotingData\DataProviderFactory.cs" />
     <Content Include="Areas\Admin\Views\Voting\NumberOfUsersWhoHaveCastXVotes.cshtml" />
@@ -621,6 +623,8 @@
     <Content Include="Views\Home\Register.cshtml" />
     <Content Include="Views\NavigationBar\RenderMenu.cshtml" />
     <Content Include="Views\Home\Agenda.cshtml" />
+    <Content Include="Views\Timeline\_Timeline.cshtml" />
+    <Content Include="Views\Timeline\_ConferenceDateTime.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
