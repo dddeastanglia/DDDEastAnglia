@@ -65,6 +65,8 @@
     <Compile Include="Controllers\HomeControllerTests.cs" />
     <Compile Include="Controllers\ProfileControllerTests.cs" />
     <Compile Include="Controllers\ResetPasswordControllerTests.cs" />
+    <Compile Include="Controllers\SessionControllerTests.cs" />
+    <Compile Include="Controllers\SpeakerControllerTests.cs" />
     <Compile Include="ControllerTestExtensions.cs" />
     <Compile Include="Controllers\NavigationBarControllerShould.cs" />
     <Compile Include="DataAccess\Builders\The_Conference_Builder_Should.cs" />
