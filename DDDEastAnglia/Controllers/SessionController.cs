@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Security.Principal;
 using System.Web.Mvc;
 using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.Models;
@@ -105,7 +104,7 @@ namespace DDDEastAnglia.Controllers
 
             if (!conference.CanSubmit())
             {
-                return RedirectToAction("Index");
+                return new HttpUnauthorizedResult();
             }
 
             if (ModelState.IsValid)
@@ -117,7 +116,8 @@ namespace DDDEastAnglia.Controllers
             return View(session);
         }
 
-        public ActionResult Edit(int id = 0)
+        [UserNameFilter("userName")]
+        public ActionResult Edit(string userName, int id = 0)
         {
             Session session = sessionRepository.Get(id);
 
@@ -126,7 +126,7 @@ namespace DDDEastAnglia.Controllers
                 return HttpNotFound();
             }
 
-            if (UserDoesNotOwnSession(User, session))
+            if (UserDoesNotOwnSession(userName, session))
             {
                 return new HttpUnauthorizedResult();
             }
@@ -135,11 +135,12 @@ namespace DDDEastAnglia.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit([Bind(Exclude = "Votes")] Session session)
+        [UserNameFilter("userName")]
+        public ActionResult Edit(string userName, [Bind(Exclude = "Votes")] Session session)
         {
             var loadedSession = sessionRepository.Get(session.SessionId);
 
-            if (UserDoesNotOwnSession(User, loadedSession))
+            if (UserDoesNotOwnSession(userName, loadedSession))
             {
                 return new HttpUnauthorizedResult();
             }
@@ -153,7 +154,8 @@ namespace DDDEastAnglia.Controllers
             return View(session);
         }
 
-        public ActionResult Delete(int id = 0)
+        [UserNameFilter("userName")]
+        public ActionResult Delete(string userName, int id = 0)
         {
             Session session = sessionRepository.Get(id);
 
@@ -162,17 +164,24 @@ namespace DDDEastAnglia.Controllers
                 return HttpNotFound();
             }
 
+            if (UserDoesNotOwnSession(userName, session))
+            {
+                return new HttpUnauthorizedResult();
+            }
+
             var userProfile = userProfileRepository.GetUserProfileByUserName(session.SpeakerUserName);
             var displayModel = CreateDisplayModel(session, userProfile);
             return View(displayModel);
         }
 
-        [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int id)
+        [HttpPost]
+        [ActionName("Delete")]
+        [UserNameFilter("userName")]
+        public ActionResult DeleteConfirmed(string userName, int id)
         {
             Session session = sessionRepository.Get(id);
 
-            if (UserDoesNotOwnSession(User, session))
+            if (UserDoesNotOwnSession(userName, session))
             {
                 return new HttpUnauthorizedResult();
             }
@@ -216,9 +225,9 @@ namespace DDDEastAnglia.Controllers
             return tweetLink;
         }
 
-        private bool UserDoesNotOwnSession(IPrincipal user, Session session)
+        private bool UserDoesNotOwnSession(string userName, Session session)
         {
-            return session.SpeakerUserName != user.Identity.Name;
+            return session.SpeakerUserName != userName;
         }
     }
 }
