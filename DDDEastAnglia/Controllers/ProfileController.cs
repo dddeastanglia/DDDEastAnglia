@@ -21,30 +21,32 @@ namespace DDDEastAnglia.Controllers
         }
 
         [HttpGet]
-        public ActionResult Edit(string message = null)
+        [UserNameFilter("userName")]
+        public ActionResult Edit(string userName, string message = null)
         {
-            UserProfile profile = userProfileRepository.GetUserProfileByUserName(User.Identity.Name);
+            UserProfile profile = userProfileRepository.GetUserProfileByUserName(userName);
             ViewBag.Message = message;
             return View(profile);
         }
 
         [HttpPost]
-        public ActionResult UserProfile(UserProfile profile)
+        [UserNameFilter("userName")]
+        public ActionResult UserProfile(string userName, UserProfile profile)
         {
+            if (profile.UserName != userName)
+            {
+                return new HttpUnauthorizedResult();
+            }
+
             string message = string.Empty;
 
             if (!string.IsNullOrWhiteSpace(profile.WebsiteUrl))
             {
                 if (!Uri.IsWellFormedUriString(string.Format("http://{0}", profile.WebsiteUrl), UriKind.Absolute))
                 {
-                    ModelState.AddModelError(key: "WebsiteUrl", errorMessage: "The website url doesn't appear to be a valid URL!");
-                    message = "The website url doesn't appear to be a valid URL!";
+                    message = "The website url doesn't appear to be a valid URL.";
+                    ModelState.AddModelError(key: "WebsiteUrl", errorMessage: message);
                 }
-            }
-
-            if (profile.UserName != User.Identity.Name)
-            {
-                return new HttpUnauthorizedResult();
             }
 
             if (ModelState.IsValid)
