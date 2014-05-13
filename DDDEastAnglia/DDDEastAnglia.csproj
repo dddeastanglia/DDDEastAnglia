@@ -624,7 +624,6 @@
     <Content Include="Views\NavigationBar\RenderMenu.cshtml" />
     <Content Include="Views\Home\Agenda.cshtml" />
     <Content Include="Views\Timeline\_Timeline.cshtml" />
-    <Content Include="Views\Timeline\_ConferenceDateTime.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

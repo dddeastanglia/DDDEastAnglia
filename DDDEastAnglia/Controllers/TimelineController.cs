@@ -28,7 +28,7 @@ namespace DDDEastAnglia.Controllers
         {
             var conference = calendarItemRepository.GetFromType(CalendarEntryType.Conference);
             string conferenceDate = conference.StartDate.ToString(DateOnlyPattern);
-            return PartialView("_ConferenceDateTime", conferenceDate);
+            return new ContentResult { Content = conferenceDate };
         }
 
         public ActionResult ConferenceTime()
@@ -37,7 +37,7 @@ namespace DDDEastAnglia.Controllers
             string startTime = conference.StartDate.ToString(TimeOnlyPattern);
             string endTime = conference.EndDate.Value.ToString(TimeOnlyPattern);
             string conferenceTimes = string.Format("{0} to {1}", startTime, endTime);
-            return PartialView("_ConferenceDateTime", conferenceTimes);
+            return new ContentResult {Content = conferenceTimes};
         }
 
         public ActionResult Details()
