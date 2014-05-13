@@ -551,7 +551,6 @@
     <Content Include="Scripts\Markdown.Editor.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Compile Include="VersionInfo.cs" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -686,18 +685,6 @@
     <MSBuildCommunityTasksPath>$(SolutionDir)\build\targets\MSCommunityTasks</MSBuildCommunityTasksPath>
   </PropertyGroup>
   <Import Project="$(MSBuildCommunityTasksPath)\MSBuild.Community.Tasks.targets" />
-  <ItemGroup>
-    <VersionInfoFile Include="VersionInfo.cs">
-      <Visible>false</Visible>
-    </VersionInfoFile>
-  </ItemGroup>
-  <Target Name="BeforeBuild">
-    <Message Text="Creating VersionInfo with current SHA1 ($BUILD_VCS_NUMBER)" />
-    <ReadLinesFromFile File="@(VersionInfoFile)">
-      <Output TaskParameter="Lines" ItemName="FileContents" />
-    </ReadLinesFromFile>
-    <FileUpdate Files="@(VersionInfoFile)" Regex="\[unknown\]" ReplacementText="$(BUILD_VCS_NUMBER)" Condition="'$(BUILD_VCS_NUMBER)' != ''" />
-  </Target>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
