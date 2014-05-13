@@ -529,6 +529,7 @@
     <Content Include="Content\font\fontawesome-webfont.eot" />
     <Content Include="Content\font\FontAwesome.otf" />
     <Content Include="Areas\Admin\Views\Voting\DuplicateVotes.cshtml" />
+    <Content Include="Areas\Admin\Views\AdminHome\BannerLinks.cshtml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\html5shiv-printshiv.js" />
