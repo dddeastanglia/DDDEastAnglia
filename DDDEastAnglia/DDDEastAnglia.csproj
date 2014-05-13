@@ -262,6 +262,8 @@
     <Content Include="Images\sponsors\stackoverflow.png" />
     <Content Include="Images\sponsors\TechSmith.png" />
     <Content Include="Images\venue.jpg" />
+    <Content Include="Images\googleplaystore.gif" />
+    <Content Include="Images\itunesappstore.gif" />
     <Content Include="Scripts\resolveIPAddress.js" />
     <Compile Include="Areas\Admin\Models\VotesForIpAddressViewModel.cs" />
     <Compile Include="Helpers\DnsLookup.cs" />
