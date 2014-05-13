@@ -3,10 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using DDDEastAnglia.DataAccess;
-using DDDEastAnglia.DataAccess.SimpleData;
-using DDDEastAnglia.DataAccess.SimpleData.Builders;
-using DDDEastAnglia.DataAccess.SimpleData.Builders.Calendar;
-using DDDEastAnglia.Domain;
 using DDDEastAnglia.Helpers.Sessions;
 using DDDEastAnglia.Models;
 
@@ -14,16 +10,16 @@ namespace DDDEastAnglia.Controllers
 {
     public class SpeakerController : Controller
     {
-        private readonly IConferenceRepository conferenceRepository;
+        private readonly IConferenceLoader conferenceLoader;
         private readonly ISessionLoaderFactory sessionLoaderFactory;
         private readonly IUserProfileRepository userProfileRepository;
         private readonly IUserProfileFilterFactory userProfileFilterFactory;
 
-        public SpeakerController(IConferenceRepository conferenceRepository, ISessionLoaderFactory sessionLoaderFactory, IUserProfileRepository userProfileRepository, IUserProfileFilterFactory userProfileFilterFactory)
+        public SpeakerController(IConferenceLoader conferenceLoader, ISessionLoaderFactory sessionLoaderFactory, IUserProfileRepository userProfileRepository, IUserProfileFilterFactory userProfileFilterFactory)
         {
-            if (conferenceRepository == null)
+            if (conferenceLoader == null)
             {
-                throw new ArgumentNullException("conferenceRepository");
+                throw new ArgumentNullException("conferenceLoader");
             }            
 
             if (sessionLoaderFactory == null)
@@ -41,7 +37,7 @@ namespace DDDEastAnglia.Controllers
                 throw new ArgumentNullException("userProfileFilterFactory");
             }
 
-            this.conferenceRepository = conferenceRepository;
+            this.conferenceLoader = conferenceLoader;
             this.sessionLoaderFactory = sessionLoaderFactory;
             this.userProfileRepository = userProfileRepository;
             this.userProfileFilterFactory = userProfileFilterFactory;
@@ -49,11 +45,18 @@ namespace DDDEastAnglia.Controllers
 
         public ActionResult Index()
         {
+            var conference = conferenceLoader.LoadConference();
+
+            if (!conference.CanShowSpeakers())
+            {
+                return HttpNotFound();
+            }
+
             var speakers = new List<SpeakerDisplayModel>();
             var speakerProfiles = userProfileRepository.GetAllUserProfiles();
 
-            var sessionLoader = sessionLoaderFactory.Create(Get2013Conference());
-            var userProfileFilter = userProfileFilterFactory.Create(Get2013Conference());
+            var sessionLoader = sessionLoaderFactory.Create(conference);
+            var userProfileFilter = userProfileFilterFactory.Create(conference);
             var speakersWhoHaveSubmittedSessions = userProfileFilter.FilterProfiles(speakerProfiles);
 
             foreach (var speakerProfile in speakersWhoHaveSubmittedSessions)
@@ -76,16 +79,11 @@ namespace DDDEastAnglia.Controllers
                 return HttpNotFound();
             }
 
-            var sessionLoader = sessionLoaderFactory.Create(Get2013Conference());
+            var conference = conferenceLoader.LoadConference();
+            var sessionLoader = sessionLoaderFactory.Create(conference);
             var sessions = sessionLoader.LoadSessions(speakerProfile);
             var displayModel = CreateDisplayModel(speakerProfile, sessions);
             return View(displayModel);
-        }
-
-        private IConference Get2013Conference()
-        {
-            var dataConference = conferenceRepository.GetByEventShortName("DDDEA2013");
-            return new ConferenceBuilder(new CalendarItemRepository(), new CalendarEntryBuilder()).Build(dataConference);
         }
 
         private SpeakerDisplayModel CreateDisplayModel(UserProfile userProfile, IEnumerable<Session> sessions)
