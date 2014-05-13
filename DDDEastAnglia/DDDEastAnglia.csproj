@@ -264,6 +264,8 @@
     <Content Include="Images\venue.jpg" />
     <Content Include="Images\googleplaystore.gif" />
     <Content Include="Images\itunesappstore.gif" />
+    <Content Include="Images\sponsors\comparethemarket.png" />
+    <Content Include="Images\sponsors\redgate.png" />
     <Content Include="Scripts\resolveIPAddress.js" />
     <Compile Include="Areas\Admin\Models\VotesForIpAddressViewModel.cs" />
     <Compile Include="Helpers\DnsLookup.cs" />
@@ -524,6 +526,9 @@
     <Content Include="Images\logo-small.png" />
     <Content Include="Images\team\philpursglove.png" />
     <Content Include="Images\team\simonstevens.jpg" />
+    <Content Include="Images\philpursglove.png" />
+    <Content Include="Images\simonstevens.jpg" />
+    <Content Include="Images\sponsors\tinamous.png" />
     <Content Include="Images\wmd-buttons.png" />
     <Content Include="Areas\Admin\Views\Web.config" />
     <Content Include="Areas\Admin\Views\AdminHome\Index.cshtml" />
@@ -629,7 +634,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Images\sponsors\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
