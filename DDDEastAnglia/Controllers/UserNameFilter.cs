@@ -1,3 +1,4 @@
+using System;
 using System.Web.Mvc;
 
 namespace DDDEastAnglia.Controllers
@@ -8,6 +9,16 @@ namespace DDDEastAnglia.Controllers
 
         public UserNameFilter(string userNameParameterName)
         {
+            if (userNameParameterName == null)
+            {
+                throw new ArgumentNullException("userNameParameterName", "A parameter name must be specified");
+            }
+
+            if (string.IsNullOrWhiteSpace(userNameParameterName))
+            {
+                throw new ArgumentException("A parameter name must be specified", "userNameParameterName");
+            }
+            
             this.userNameParameterName = userNameParameterName;
         }
 
