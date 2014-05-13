@@ -84,7 +84,7 @@ namespace DDDEastAnglia.Controllers
 
         private IConference Get2013Conference()
         {
-            var dataConference = conferenceRepository.GetByEventShortName("DDDEA2013");
+            var dataConference = conferenceRepository.GetByEventShortName("DDDEA2014");
             return new ConferenceBuilder(new CalendarItemRepository(), new CalendarEntryBuilder()).Build(dataConference);
         }
 
