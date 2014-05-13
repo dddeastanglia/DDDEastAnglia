@@ -1,9 +1,5 @@
-﻿using System.Web.Mvc;
-using DDDEastAnglia.Areas.Admin.Controllers;
+﻿using DDDEastAnglia.Areas.Admin.Controllers;
 using DDDEastAnglia.Areas.Admin.Models;
-using DDDEastAnglia.DataAccess;
-using DDDEastAnglia.Domain;
-using NSubstitute;
 using NUnit.Framework;
 
 namespace DDDEastAnglia.Tests.Admin
@@ -14,9 +10,10 @@ namespace DDDEastAnglia.Tests.Admin
         [Test]
         public void VotingLink_ShouldBeHidden_ByDefault()
         {
-            var conference = Substitute.For<IConference>();
+            var conferenceLoader = new ConferenceLoaderBuilder().Build();
 
-            var model = GetViewModel(conference);
+            var model = new AdminHomeController(conferenceLoader)
+                            .Index().GetViewModel<MenuViewModel>();
             
             Assert.That(model.ShowVotingStatsLink, Is.False);
         }
@@ -24,10 +21,12 @@ namespace DDDEastAnglia.Tests.Admin
         [Test]
         public void VotingLink_ShouldBeHidden_WhenSessionSubmissionIsOpen()
         {
-            var conference = Substitute.For<IConference>();
-            conference.CanSubmit().Returns(true);
+            var conferenceLoader = new ConferenceLoaderBuilder()
+                                        .WithSessionSubmissionOpen()
+                                        .Build();
 
-            var model = GetViewModel(conference);
+            var model = new AdminHomeController(conferenceLoader)
+                            .Index().GetViewModel<MenuViewModel>();
 
             Assert.That(model.ShowVotingStatsLink, Is.False);
         }
@@ -35,10 +34,12 @@ namespace DDDEastAnglia.Tests.Admin
         [Test]
         public void VotingLink_ShouldBeVisible_WhenVotingIsOpen()
         {
-            var conference = Substitute.For<IConference>();
-            conference.CanVote().Returns(true);
+            var conferenceLoader = new ConferenceLoaderBuilder()
+                                        .WithVotingOpen()
+                                        .Build();
 
-            var model = GetViewModel(conference);
+            var model = new AdminHomeController(conferenceLoader)
+                            .Index().GetViewModel<MenuViewModel>();
 
             Assert.That(model.ShowVotingStatsLink, Is.True);
         }
@@ -46,10 +47,12 @@ namespace DDDEastAnglia.Tests.Admin
         [Test]
         public void VotingLink_ShouldBeVisible_WhenTheAgendaIsPublished()
         {
-            var conference = Substitute.For<IConference>();
-            conference.CanPublishAgenda().Returns(true);
+            var conferenceLoader = new ConferenceLoaderBuilder()
+                                        .WithAgendaPublished()
+                                        .Build();
 
-            var model = GetViewModel(conference);
+            var model = new AdminHomeController(conferenceLoader)
+                            .Index().GetViewModel<MenuViewModel>();
 
             Assert.That(model.ShowVotingStatsLink, Is.True);
         }
@@ -57,23 +60,14 @@ namespace DDDEastAnglia.Tests.Admin
         [Test]
         public void VotingLink_ShouldBeVisible_WhenRegistrationIsOpen()
         {
-            var conference = Substitute.For<IConference>();
-            conference.CanRegister().Returns(true);
+            var conferenceLoader = new ConferenceLoaderBuilder()
+                                        .WithRegistrationOpen()
+                                        .Build();
 
-            var model = GetViewModel(conference);
+            var model = new AdminHomeController(conferenceLoader)
+                            .Index().GetViewModel<MenuViewModel>();
 
             Assert.That(model.ShowVotingStatsLink, Is.True);
-        }
-
-        private MenuViewModel GetViewModel(IConference conference)
-        {
-            var conferenceLoader = Substitute.For<IConferenceLoader>();
-            conferenceLoader.LoadConference().Returns(conference);
-            var controller = new AdminHomeController(conferenceLoader);
-
-            var result = (ViewResult) controller.Index();
-            var model = (MenuViewModel) result.Model;
-            return model;
         }
     }
 }
