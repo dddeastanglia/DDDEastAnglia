@@ -3,11 +3,11 @@ using System.Web.Mvc;
 
 namespace DDDEastAnglia.Controllers
 {
-    public sealed class UserNameFilter : ActionFilterAttribute
+    public sealed class UserNameFilterAttribute : ActionFilterAttribute
     {
         private readonly string userNameParameterName;
 
-        public UserNameFilter(string userNameParameterName)
+        public UserNameFilterAttribute(string userNameParameterName)
         {
             if (userNameParameterName == null)
             {
