@@ -22,9 +22,22 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
 
         public ActionResult Index()
         {
+            var menuViewModel = CreateMenuViewModel();
+            return View(menuViewModel);
+        }
+
+        public ActionResult NavigationLinks()
+        {
+            var menuViewModel = CreateMenuViewModel();
+            return View(menuViewModel);
+        }
+
+        private MenuViewModel CreateMenuViewModel()
+        {
             var conference = conferenceLoader.LoadConference();
             bool showVotingStats = conference.CanVote() || conference.CanPublishAgenda() || conference.CanRegister();
-            return View(new MenuViewModel{ShowVotingStatsLink = showVotingStats});
+            var menuViewModel = new MenuViewModel {ShowVotingStatsLink = showVotingStats};
+            return menuViewModel;
         }
     }
 }
