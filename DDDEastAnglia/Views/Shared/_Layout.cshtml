@@ -31,8 +31,11 @@
                 <div class="masthead">
                     <a href="@Url.Action("Index", "Home")"><img src="@Url.Content("~/Images/logo-small.png")" class="pull-left" alt="Developer! Developer! Developer! East Anglia" /></a>
                     <h2>DDD East Anglia</h2>
-                    <p>Cambridge, UK<br />
-                        Saturday 13 September 2014</p>
+                    <p>
+                        Cambridge, UK
+                        <br />
+                        @Html.Action("ConferenceDate", "Timeline")
+                    </p>
                 </div>
             </div>
         </div>
@@ -65,8 +68,9 @@
                             <section class="row-fluid">
                                 <h1>When and Where?</h1>
                                 <p>
-                                    Saturday 13th September 2014<br />
-                                    8:30 to 17:00
+                                    @Html.Action("ConferenceDate", "Timeline")
+                                    <br />
+                                    @Html.Action("ConferenceTime", "Timeline")
                                 </p>
                                 <p>
                                     <a href="http://westroad.org">West Road Concert Hall</a><br />
@@ -75,17 +79,8 @@
                                     CB3 9DP
                                 </p>
                             </section>
-                            <section>
-                                <h1>Timeline</h1>
-                                <dl>
-                                    <dt><strong>Saturday 17 May 2014:</strong></dt><dd>Session submission opens</dd>
-                                    <dt><strong>Monday 30 June 2014:</strong></dt><dd>Session submission closes</dd>
-                                    <dt><strong>Tuesday 1 July 2014:</strong></dt><dd>Session voting opens</dd>
-                                    <dt><strong>Friday 25 July 2014, midnight:</strong></dt><dd>Session voting closes</dd>
-                                    <dt><strong>Wednesday 6 August 2014:</strong></dt><dd>Agenda announced</dd>
-                                    <dt><strong>Friday 8 August 2014, 13:00:</strong></dt><dd><strong>Registration opens</strong></dd>
-                                </dl>
-                            </section>
+                            
+                            @Html.Action("Details", "Timeline")
                             
                             @Html.Partial("_Sponsors")
                         </div>
