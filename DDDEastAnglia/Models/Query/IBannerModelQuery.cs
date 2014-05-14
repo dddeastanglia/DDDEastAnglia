@@ -2,6 +2,6 @@
 {
     public interface IBannerModelQuery
     {
-        BannerModel Get(string conferenceShortName);
+        BannerModel Get();
     }
 }
