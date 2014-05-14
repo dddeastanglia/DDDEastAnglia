@@ -9,11 +9,6 @@ namespace DDDEastAnglia.Controllers
 
         public UserNameFilterAttribute(string userNameParameterName)
         {
-            if (userNameParameterName == null)
-            {
-                throw new ArgumentNullException("userNameParameterName", "A parameter name must be specified");
-            }
-
             if (string.IsNullOrWhiteSpace(userNameParameterName))
             {
                 throw new ArgumentException("A parameter name must be specified", "userNameParameterName");
