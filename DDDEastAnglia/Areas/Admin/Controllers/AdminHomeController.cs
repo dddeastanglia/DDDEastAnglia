@@ -26,7 +26,7 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
             return View(menuViewModel);
         }
 
-        public ActionResult BannerLinks()
+        public ActionResult NavigationLinks()
         {
             var menuViewModel = CreateMenuViewModel();
             return View(menuViewModel);
