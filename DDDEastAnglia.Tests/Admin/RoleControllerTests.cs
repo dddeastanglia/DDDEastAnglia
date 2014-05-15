@@ -1,6 +1,7 @@
 ﻿using DDDEastAnglia.Areas.Admin.Controllers;
 using DDDEastAnglia.Areas.Admin.Models;
 using DDDEastAnglia.DataAccess;
+using DDDEastAnglia.Models;
 using NSubstitute;
 using NUnit.Framework;
 using System.Collections.Generic;
@@ -11,12 +12,25 @@ namespace DDDEastAnglia.Tests.Admin
     class RoleControllerTests
     {
         [Test]
+        public void Rename_Role_Removes_One_Role_And_Creates_A_New_Role_With_The_Same_Membership()
+        {
+            // Arrange
+            IRoleManager manager = CreateRoleManager();
+            RoleController controller = CreateRoleController(manager);
+            manager.GetAllRoles().Returns(new[] { "dummyrole1" });
+            manager.GetUsersForRole("dummyrole1").Returns(new[] { "testuser1", "testuser2" });
+            RoleModel model = new RoleModel { RoleName = "dummyrole1", NewRoleName = "dummyrole2" };
+            controller.Rename(model);
+
+            manager.Received().RenameRole("dummyrole1", "dummyrole2");
+        }
+
+        [Test]
         public void User_That_Is_Not_A_Member_Gets_Added()
         {
             // Arrange
             IRoleManager manager = CreateRoleManager();
-            IUserProfileRepository userRepo = Substitute.For<IUserProfileRepository>();
-            RoleController controller = new RoleController(manager, userRepo);
+            RoleController controller = CreateRoleController(manager);
             manager.IsUserInRole("testuser", "dummyrole").Returns(false);
             RoleModel model = new RoleModel
             {
@@ -26,12 +40,11 @@ namespace DDDEastAnglia.Tests.Admin
             model.RoleUsers.Add("testuser", new RoleUserModel { IsMember = true, UserId = 999, Username = "testuser" });
 
             // Act
-            controller.Manage(model);
+            controller.AddUsers(model);
 
             // Assert            
             manager.Received().AddUserToRole("testuser", "dummyrole");
         }
-
 
         [Test]
         public void User_That_Is_A_Member_Does_Not_Get_Added_Again()
@@ -48,7 +61,7 @@ namespace DDDEastAnglia.Tests.Admin
             model.RoleUsers.Add("testuser", new RoleUserModel { IsMember = true, UserId = 999, Username = "testuser" });
 
             // Act
-            controller.Manage(model);
+            controller.AddUsers(model);
 
             // Assert            
             manager.DidNotReceive().AddUserToRole("testuser", "dummyrole");
@@ -69,10 +82,10 @@ namespace DDDEastAnglia.Tests.Admin
             model.RoleUsers.Add("testuser", new RoleUserModel { IsMember = false, UserId = 999, Username = "testuser" });
 
             // Act
-            controller.Manage(model);
+            controller.RemoveUsers(model);
 
             // Assert            
-            manager.Received().RemoveUserFromRole("testuser", "dummyrole");
+            manager.Received().AddRemoveRoleMember("dummyrole", new RoleUserModel { IsMember = false, UserId = 999, Username = "testuser" });
         }
 
         [Test]
@@ -90,7 +103,7 @@ namespace DDDEastAnglia.Tests.Admin
             model.RoleUsers.Add("testuser", new RoleUserModel { IsMember = false, UserId = 999, Username = "testuser" });
 
             // Act
-            controller.Manage(model);
+            controller.RemoveUsers(model);
 
             // Assert            
             manager.DidNotReceive().RemoveUserFromRole("testuser", "dummyrole");
@@ -197,6 +210,13 @@ namespace DDDEastAnglia.Tests.Admin
         private static RoleController CreateRoleController(IRoleManager manager)
         {
             IUserProfileRepository userRepo = Substitute.For<IUserProfileRepository>();
+            userRepo.GetAllUserProfiles()
+                .Returns(new List<UserProfile>
+                {
+                    new UserProfile {UserName = "testuser1"},
+                    new UserProfile {UserName = "testuser2"},
+                    new UserProfile {UserName = "testuser3"}
+                });
             RoleController controller = new RoleController(manager, userRepo);
             return controller;
         }
