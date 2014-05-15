@@ -1,6 +1,5 @@
 ﻿using DDDEastAnglia.Areas.Admin.Models;
 using DDDEastAnglia.DataAccess;
-using DDDEastAnglia.Models;
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
@@ -37,48 +36,75 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
             return View(roles);
         }
 
-        // GET: /Admin/Role/Manage
-        public ActionResult Manage(string rolename)
+        public ActionResult Rename(string rolename)
         {
-            if (_manager.RoleExists(rolename))
-            {
-                RoleModel model = new RoleModel { RoleName = rolename, RoleUsers = new SortedList<string, RoleUserModel>() };
-
-                foreach (UserProfile user in _userProfileRepository.GetAllUserProfiles())
-                {
-                    if (_manager.IsUserInRole(user.UserName, rolename))
-                    {
-                        model.RoleUsers.Add(user.UserName,
-                            new RoleUserModel { IsMember = true, UserId = user.UserId, Username = user.UserName });
-                    }
-                    else
-                    {
-                        model.RoleUsers.Add(user.UserName,
-                            new RoleUserModel { IsMember = false, UserId = user.UserId, Username = user.UserName });
-                    }
-                }
-
-                return View(model);
-            }
-
-            return RedirectToAction("Index", "Role");
+            return View(new RoleModel { RoleName = rolename });
         }
 
         [HttpPost]
-        public ActionResult Manage(RoleModel model)
+        public ActionResult Rename(RoleModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                return View("Manage", model);
-            }
-
-            foreach (RoleUserModel roleUser in model.RoleUsers.Values)
-            {
-                _manager.AddRemoveRoleMember(model.RoleName, roleUser);
-            }
-
-            return View("Manage", model);
+            if (!ModelState.IsValid) return View(model);
+            _manager.RenameRole(model.RoleName, model.NewRoleName);
+            return RedirectToAction("Index");
         }
+
+        public ActionResult AddUsers(string rolename)
+        {
+            RoleModel model = new RoleModel { RoleName = rolename };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult AddUsers(RoleModel model)
+        {
+            if (!ModelState.IsValid) return View(model);
+
+        }
+
+        //// GET: /Admin/Role/Manage
+        //public ActionResult Manage(string rolename)
+        //{
+        //    if (_manager.RoleExists(rolename))
+        //    {
+        //        RoleModel model = new RoleModel { RoleName = rolename, RoleUsers = new SortedList<string, RoleUserModel>() };
+
+        //        foreach (UserProfile user in _userProfileRepository.GetAllUserProfiles())
+        //        {
+        //            if (_manager.IsUserInRole(user.UserName, rolename))
+        //            {
+        //                model.RoleUsers.Add(user.UserName,
+        //                    new RoleUserModel { IsMember = true, UserId = user.UserId, Username = user.UserName });
+        //            }
+        //            else
+        //            {
+        //                model.RoleUsers.Add(user.UserName,
+        //                    new RoleUserModel { IsMember = false, UserId = user.UserId, Username = user.UserName });
+        //            }
+        //        }
+
+        //        return View(model);
+        //    }
+
+        //    return RedirectToAction("Index", "Role");
+        //}
+
+        //[HttpPost]
+        //public ActionResult Manage(RoleModel model)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return View("Manage", model);
+        //    }
+
+        //    foreach (RoleUserModel roleUser in model.RoleUsers.Values)
+        //    {
+        //        _manager.AddRemoveRoleMember(model.RoleName, roleUser);
+        //    }
+
+        //    return View("Manage", model);
+        //}
 
 
         // GET: /Admin/Role/Delete

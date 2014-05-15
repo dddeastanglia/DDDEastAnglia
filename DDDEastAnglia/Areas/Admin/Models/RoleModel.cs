@@ -8,6 +8,8 @@ namespace DDDEastAnglia.Areas.Admin.Models
         public string RoleName { get; set; }
         public string FeedbackMessage { get; set; }
 
-        public SortedList<string, RoleUserModel> RoleUsers { get; set; }
+        public SortedList<string, bool> AvailableUsers { get; set; }
+
+        public string NewRoleName { get; set; }
     }
 }
