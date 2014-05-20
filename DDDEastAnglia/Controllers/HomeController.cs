@@ -36,6 +36,13 @@ namespace DDDEastAnglia.Controllers
 
         public ActionResult Accommodation()
         {
+            var conference = conferenceLoader.LoadConference();
+
+            if (!conference.CanRegister())
+            {
+                return RedirectToAction("Index");
+            }
+
             return View();
         }
 
@@ -58,11 +65,25 @@ namespace DDDEastAnglia.Controllers
 
         public ActionResult Register()
         {
+            var conference = conferenceLoader.LoadConference();
+
+            if (!conference.CanRegister())
+            {
+                return RedirectToAction("Index");
+            }
+
             return View();
         }
 
         public ActionResult Agenda()
         {
+            var conference = conferenceLoader.LoadConference();
+
+            if (!conference.CanPublishAgenda())
+            {
+                return RedirectToAction("Index");
+            }
+
             return View();
         }
     }
