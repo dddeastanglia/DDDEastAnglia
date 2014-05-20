@@ -34,9 +34,21 @@ namespace DDDEastAnglia.Tests
             return this;
         }
 
+        public ConferenceLoaderBuilder WithAgendaNotPublished()
+        {
+            conference.CanPublishAgenda().Returns(false);
+            return this;
+        }
+
         public ConferenceLoaderBuilder WithAgendaPublished()
         {
             conference.CanPublishAgenda().Returns(true);
+            return this;
+        }
+
+        public ConferenceLoaderBuilder WithRegistrationNotOpen()
+        {
+            conference.CanRegister().Returns(false);
             return this;
         }
 
