@@ -99,8 +99,7 @@ namespace DDDEastAnglia.Controllers
                     Bio = userProfile.Bio,
                     TwitterHandle = userProfile.TwitterHandle,
                     WebsiteUrl = userProfile.WebsiteUrl,
-                    Sessions = userSessions,
-                    Username = userProfile.UserName
+                    Sessions = userSessions
                 };
         }
     }
