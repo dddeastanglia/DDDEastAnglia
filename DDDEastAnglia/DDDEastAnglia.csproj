@@ -265,6 +265,7 @@
     <Content Include="Images\sponsors\redgate.png" />
     <Content Include="Images\googleplaystore.gif" />
     <Content Include="Images\itunesappstore.gif" />
+    <Content Include="Images\sponsors\skillsmatter.png" />
     <Content Include="Scripts\resolveIPAddress.js" />
     <Compile Include="Areas\Admin\Models\VotesForIpAddressViewModel.cs" />
     <Compile Include="Helpers\DnsLookup.cs" />
