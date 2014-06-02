@@ -1,29 +1,9 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <title>DDD East Anglia @ViewBag.Title</title>
-    <link href="http://www.dddeastanglia.com/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="DDD East Anglia conference website @Html.Action("ConferenceDate", "Timeline")">
-    <meta name="author" content="DDD East Anglia">
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/Markdown")
-    @Scripts.Render("~/bundles/modernizr")
-    @RenderSection("header", false)
+    <head>
+        @Html.Partial("_HeadSection")
+    </head>
 
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="~/Scripts/html5shiv.js"></script>
-      <script src="~/Scripts/html5shiv-printshiv.js"></script>
-    <![endif]-->
-    <!-- Fav and touch icons -->
-    <link rel="apple-touch-icon" sizes="144x144" href="@Url.Content("~/Images/logo-icon-144.png")">
-    <link rel="apple-touch-icon" sizes="114x114" href="@Url.Content("~/Images/logo-icon-114.png")">
-    <link rel="apple-touch-icon" sizes="72x72" href="@Url.Content("~/Images/logo-icon-72.png")">
-    <link rel="apple-touch-icon" href="@Url.Content("~/Images/logo-icon-57.png")">
-    <link rel="image_src" href="@Url.Content("~/Images/logo-small.png")" /> @*this apparently works with embed.ly for Twitter Cards*@
-</head>
     <body>
         @Html.Action("Details", "Banner")
         <div class="container-fluid">
@@ -79,41 +59,27 @@
                                     CB3 9DP
                                 </p>
                             </section>
-                            
+
                             @Html.Action("Details", "Timeline")
-                            
+
                             @Html.Partial("_Sponsors")
                         </div>
                     </div>
                 </div>
-                <hr>
-                <footer>
-                    <p>
-                        &copy; 2013-@DateTime.Now.Year DDD East Anglia
-                        &mdash;
-                        <i class="icon-envelope-alt"></i> <a href="mailto:organisers@dddeastanglia.com">Email</a>
-                        &mdash;
-                        <i class="icon-twitter"></i> <a href="http://twitter.com/DDDEastAnglia" target="_blank">Twitter</a>
-                        &mdash;
-                        <i class="icon-github"></i> <a href="https://github.com/dddeastanglia/DDDEastAnglia/issues" target="_blank">Found a problem?</a>
-                        &mdash;
-                        <i class="icon-globe"></i> <a href="http://dddeastanglia2013.azurewebsites.net">2013 Site</a>
-                    </p>
-                </footer>
+                @Html.Partial("_Footer")
             </div>
         </div><!--/.fluid-container-->
-
         @Scripts.Render("~/bundles/jquery")
         @Scripts.Render("~/bundles/bootstrap")
         @Styles.Render("~/Content/Markdown")
         @RenderSection("scripts", required: false)
-        
+
         <script language="javascript">
             $(document).ready(function () {
                 if ($("#notifications-banner").length <= 0) {
                     return;
                 }
-                
+
                 var eventChangeDateStr = $("#notifications-banner").attr("data-expires");
                 var eventChangeDate = new Date(eventChangeDateStr);
                 var setEventChangeDate = new Date($.cookie("notification-dismissed"));

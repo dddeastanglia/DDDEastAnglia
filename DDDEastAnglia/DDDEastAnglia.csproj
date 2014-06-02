@@ -570,6 +570,12 @@
     <Content Include="Views\Home\Preview.cshtml">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="Views\Shared\_Footer.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\Shared\_HeadSection.cshtml">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
