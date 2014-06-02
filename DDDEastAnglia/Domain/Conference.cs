@@ -15,11 +15,6 @@ namespace DDDEastAnglia.Domain
             this.id = id;
             this.name = name;
             this.shortName = shortName;
-            calendarEntries.Add(CalendarEntryType.SessionSubmission, new NullCalendarEntry());
-            calendarEntries.Add(CalendarEntryType.Voting, new NullCalendarEntry());
-            calendarEntries.Add(CalendarEntryType.AgendaPublished, new NullCalendarEntry());
-            calendarEntries.Add(CalendarEntryType.Registration, new NullCalendarEntry());
-            calendarEntries.Add(CalendarEntryType.Conference, new NullCalendarEntry());
         }
 
         public int Id
@@ -29,32 +24,37 @@ namespace DDDEastAnglia.Domain
 
         public bool CanSubmit()
         {
-            return calendarEntries[CalendarEntryType.SessionSubmission].IsOpen();
+            return !IsPreview() && GetCalendarEntry(CalendarEntryType.SessionSubmission).IsOpen();
         }
 
         public virtual bool CanVote()
         {
-            return calendarEntries[CalendarEntryType.Voting].IsOpen();
+            return !IsPreview() && GetCalendarEntry(CalendarEntryType.Voting).IsOpen();
         }
 
         public bool CanPublishAgenda()
         {
-            return calendarEntries[CalendarEntryType.AgendaPublished].IsOpen();
+            return !IsPreview() && GetCalendarEntry(CalendarEntryType.AgendaPublished).IsOpen();
         }
 
         public bool CanRegister()
         {
-            return calendarEntries[CalendarEntryType.Registration].IsOpen();
+            return !IsPreview() && GetCalendarEntry(CalendarEntryType.Registration).IsOpen();
         }
 
         public bool CanShowSessions()
         {
-            return CanSubmit() || CanVote() || CanPublishAgenda() || CanRegister();
+            return !IsPreview() && (CanSubmit() || CanVote() || CanPublishAgenda() || CanRegister());
         }
 
         public bool CanShowSpeakers()
         {
-            return CanSubmit() || CanVote() || CanPublishAgenda() || CanRegister();
+            return !IsPreview() && (CanSubmit() || CanVote() || CanPublishAgenda() || CanRegister());
+        }
+
+        public bool IsPreview()
+        {
+            return GetCalendarEntry(CalendarEntryType.Preview).IsOpen();
         }
 
         public void AddToCalendar(CalendarEntry entry)
@@ -65,6 +65,14 @@ namespace DDDEastAnglia.Domain
             {
                 calendarEntries[calendarEntryType] = entry;
             }
+        }
+
+        private CalendarEntry GetCalendarEntry(CalendarEntryType calendarEntryType)
+        {
+            CalendarEntry calendarEntry;
+            return calendarEntries.TryGetValue(calendarEntryType, out calendarEntry)
+                ? calendarEntry
+                : new NullCalendarEntry();
         }
     }
 }
