@@ -17,5 +17,12 @@ namespace DDDEastAnglia.Tests
             var viewName = result.RouteValues["action"];
             return viewName.ToString();
         }
+        
+        public static string GetRedirectionUrl(this ActionResult actionResult)
+        {
+            var result = (RedirectResult) actionResult;
+            var redirectionUrl = result.Url;
+            return redirectionUrl;
+        }
     }
 }

@@ -223,6 +223,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\Filters\AllowedWhenConferenceIsInPreviewAttribute.cs" />
+    <Compile Include="App_Start\Filters\ConferenceIsInPreviewFilterAttribute.cs" />
+    <Compile Include="App_Start\Filters\PreviewFilterProvider.cs" />
     <Compile Include="Areas\Admin\Models\MenuViewModel.cs" />
     <Compile Include="Areas\Admin\Models\VotersPerIPAddressViewModel.cs" />
     <Compile Include="Areas\Admin\Models\VotesPerDayViewModel.cs" />
