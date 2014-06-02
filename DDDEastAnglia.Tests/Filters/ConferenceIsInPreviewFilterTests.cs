@@ -25,6 +25,7 @@ namespace DDDEastAnglia.Tests.Filters
         public void Filter_DoesNotRedirectToPreviewPage_WhenTheConferenceIsNotInPreview()
         {
             var conferenceLoader = new ConferenceLoaderBuilder()
+                                        .NotInPreview()
                                         .Build();
             var filterAttribute = new ConferenceIsInPreviewFilterAttribute(conferenceLoader);
             var filterContext = new ActionExecutingContext();

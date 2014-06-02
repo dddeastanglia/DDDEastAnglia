@@ -71,5 +71,17 @@ namespace DDDEastAnglia.Tests.Controllers
 
             Assert.That(viewName, Is.EqualTo("Index"));
         }
+
+        [Test]
+        public void Preview_ShouldRedirectToTheHomePage_WhenTheConferenceIsNotInPreview()
+        {
+            var conferenceLoader = new ConferenceLoaderBuilder()
+                                        .WithSessionSubmissionOpen()
+                                        .Build();
+
+            var result = new HomeController(conferenceLoader).Preview();
+
+            Assert.That(result.GetRedirectionUrl(), Is.EqualTo("~/"));
+        }
     }
 }

@@ -91,6 +91,13 @@ namespace DDDEastAnglia.Controllers
         [AllowedWhenConferenceIsInPreview]
         public ActionResult Preview()
         {
+            var conference = conferenceLoader.LoadConference();
+
+            if (!conference.IsPreview())
+            {
+                return new RedirectResult("~/");
+            }
+
             return View();
         }
     }
