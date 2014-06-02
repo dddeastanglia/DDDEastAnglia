@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 using DDDEastAnglia.DataAccess;
+using DDDEastAnglia.Filters;
 using DDDEastAnglia.Models;
 
 namespace DDDEastAnglia.Controllers
@@ -84,6 +85,12 @@ namespace DDDEastAnglia.Controllers
                 return RedirectToAction("Index");
             }
 
+            return View();
+        }
+
+        [AllowedWhenConferenceIsInPreview]
+        public ActionResult Preview()
+        {
             return View();
         }
     }
