@@ -26,6 +26,8 @@ namespace DDDEastAnglia.Helpers
             Kernel.Bind<ISortAlgorithm>()
                   .To<RandomSort>()
                   .When(request => request.Target.Name.StartsWith("voting"));
+
+            Kernel.Bind<IResetPasswordThingy>().To<WebSecurityWrapper>();
         }
     }
 }
