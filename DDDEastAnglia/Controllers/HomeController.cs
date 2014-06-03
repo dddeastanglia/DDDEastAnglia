@@ -100,5 +100,18 @@ namespace DDDEastAnglia.Controllers
 
             return View();
         }
+
+        [AllowedWhenConferenceIsClosed]
+        public ActionResult Closed()
+        {
+            var conference = conferenceLoader.LoadConference();
+
+            if (!conference.IsClosed())
+            {
+                return new RedirectResult("~/");
+            }
+
+            return View();
+        }
     }
 }

@@ -76,10 +76,22 @@ namespace DDDEastAnglia.Tests.Controllers
         public void Preview_ShouldRedirectToTheHomePage_WhenTheConferenceIsNotInPreview()
         {
             var conferenceLoader = new ConferenceLoaderBuilder()
-                                        .WithSessionSubmissionOpen()
+                                        .NotInPreview()
                                         .Build();
 
             var result = new HomeController(conferenceLoader).Preview();
+
+            Assert.That(result.GetRedirectionUrl(), Is.EqualTo("~/"));
+        }
+    
+        [Test]
+        public void Closed_ShouldRedirectToTheHomePage_WhenTheConferenceIsNotClosed()
+        {
+            var conferenceLoader = new ConferenceLoaderBuilder()
+                                        .WhenNotClosed()
+                                        .Build();
+
+            var result = new HomeController(conferenceLoader).Closed();
 
             Assert.That(result.GetRedirectionUrl(), Is.EqualTo("~/"));
         }

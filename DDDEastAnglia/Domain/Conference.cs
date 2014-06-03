@@ -24,37 +24,47 @@ namespace DDDEastAnglia.Domain
 
         public bool CanSubmit()
         {
-            return !IsPreview() && GetCalendarEntry(CalendarEntryType.SessionSubmission).IsOpen();
+            return IsNotInSpecialMode() && GetCalendarEntry(CalendarEntryType.SessionSubmission).IsOpen();
         }
 
         public virtual bool CanVote()
         {
-            return !IsPreview() && GetCalendarEntry(CalendarEntryType.Voting).IsOpen();
+            return IsNotInSpecialMode() && GetCalendarEntry(CalendarEntryType.Voting).IsOpen();
         }
 
         public bool CanPublishAgenda()
         {
-            return !IsPreview() && GetCalendarEntry(CalendarEntryType.AgendaPublished).IsOpen();
+            return IsNotInSpecialMode() && GetCalendarEntry(CalendarEntryType.AgendaPublished).IsOpen();
         }
 
         public bool CanRegister()
         {
-            return !IsPreview() && GetCalendarEntry(CalendarEntryType.Registration).IsOpen();
+            return IsNotInSpecialMode() && GetCalendarEntry(CalendarEntryType.Registration).IsOpen();
         }
 
         public bool CanShowSessions()
         {
-            return !IsPreview() && (CanSubmit() || CanVote() || CanPublishAgenda() || CanRegister());
+            return CanShowSpeakers();
         }
 
         public bool CanShowSpeakers()
         {
-            return !IsPreview() && (CanSubmit() || CanVote() || CanPublishAgenda() || CanRegister());
+            return IsNotInSpecialMode() && (CanSubmit() || CanVote() || CanPublishAgenda() || CanRegister());
         }
 
         public bool IsPreview()
         {
             return GetCalendarEntry(CalendarEntryType.Preview).IsOpen();
+        }
+
+        public bool IsClosed()
+        {
+            return GetCalendarEntry(CalendarEntryType.Closed).IsOpen();
+        }
+
+        private bool IsNotInSpecialMode()
+        {
+            return !IsPreview() && !IsClosed();
         }
 
         public void AddToCalendar(CalendarEntry entry)

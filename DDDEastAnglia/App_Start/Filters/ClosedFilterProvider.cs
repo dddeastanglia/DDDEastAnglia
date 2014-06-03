@@ -4,16 +4,16 @@ using DDDEastAnglia.DataAccess;
 
 namespace DDDEastAnglia.Filters
 {
-    public class PreviewFilterProvider : FilterProvider
+    public class ClosedFilterProvider : FilterProvider
     {
         public override IEnumerable<Filter> GetFilters(ControllerContext controllerContext, ActionDescriptor actionDescriptor)
         {
-            return GetFilters<AllowedWhenConferenceIsInPreviewAttribute>(controllerContext, actionDescriptor);
+            return GetFilters<AllowedWhenConferenceIsClosedAttribute>(controllerContext, actionDescriptor);
         }
 
         protected override object CreateFilter(IConferenceLoader conferenceLoader)
         {
-            return new ConferenceIsInPreviewFilterAttribute(conferenceLoader);
+            return new ConferenceIsClosedFilterAttribute(conferenceLoader);
         }
     }
 }

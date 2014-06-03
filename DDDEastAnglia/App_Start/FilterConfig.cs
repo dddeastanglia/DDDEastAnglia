@@ -10,6 +10,7 @@ namespace DDDEastAnglia
             filters.Add(new HandleErrorAttribute());
 
             FilterProviders.Providers.Add(new PreviewFilterProvider());
+            FilterProviders.Providers.Add(new ClosedFilterProvider());
         }
     }
 }

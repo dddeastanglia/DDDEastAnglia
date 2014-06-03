@@ -10,5 +10,6 @@
         bool CanShowSessions();
         bool CanShowSpeakers();
         bool IsPreview();
+        bool IsClosed();
     }
 }

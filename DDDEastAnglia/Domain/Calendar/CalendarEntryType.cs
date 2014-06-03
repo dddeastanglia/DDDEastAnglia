@@ -8,6 +8,7 @@ namespace DDDEastAnglia.Domain.Calendar
         AgendaPublished = 3,
         Registration = 4,
         Conference = 5,
-        Preview = 6
+        Preview = 6,
+        Closed = 7
     }
 }
