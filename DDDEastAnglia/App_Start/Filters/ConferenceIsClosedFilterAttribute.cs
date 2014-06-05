@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using DDDEastAnglia.DataAccess;
 
 namespace DDDEastAnglia.Filters
@@ -9,6 +10,11 @@ namespace DDDEastAnglia.Filters
 
         public ConferenceIsClosedFilterAttribute(IConferenceLoader conferenceLoader)
         {
+            if (conferenceLoader == null)
+            {
+                throw new ArgumentNullException("conferenceLoader");
+            }
+
             this.conferenceLoader = conferenceLoader;
         }
 
