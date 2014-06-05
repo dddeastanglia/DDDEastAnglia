@@ -1,8 +1,10 @@
-﻿using System.Web;
+﻿using System.Configuration;
+using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using DDDEastAnglia.DatabaseMigrations;
 using WebMatrix.WebData;
 
 namespace DDDEastAnglia
@@ -19,20 +21,16 @@ namespace DDDEastAnglia
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AuthConfig.RegisterAuth();
 
-            CreateDatabaseIfNecessary();
+            InitialiseDatabase();
         }
 
-        private static void CreateDatabaseIfNecessary()
+        private static void InitialiseDatabase()
         {
-//            Database.SetInitializer(new Initialiser());
-//            using (var context = new DDDEAContext())
-//            {
-//                if (!context.Database.Exists())
-//                {
-//                    context.Database.Initialize(false);
-//                }
-//            }
-            WebSecurity.InitializeDatabaseConnection("DDDEastAnglia", "UserProfile", "UserId", "UserName", autoCreateTables: true);
+            var connectionStringSettings = ConfigurationManager.ConnectionStrings["DDDEastAnglia"];
+            var databaseMigrator = new Migrator(connectionStringSettings.ConnectionString);
+            databaseMigrator.MigrateToLatestSchema();
+
+            WebSecurity.InitializeDatabaseConnection("DDDEastAnglia", "UserProfiles", "UserId", "UserName", autoCreateTables: false);
         }
     }
 }

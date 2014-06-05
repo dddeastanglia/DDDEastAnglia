@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{444686D1-10DB-454D-8120-09B7AC0A71A0}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DDDEastAnglia.DatabaseMigrations</RootNamespace>
     <AssemblyName>DDDEastAnglia.DatabaseMigrations</AssemblyName>
@@ -35,9 +35,9 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="MigrationOptions.cs" />
     <Compile Include="Migrations\InitialDatabase.cs" />
     <Compile Include="Migrator.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

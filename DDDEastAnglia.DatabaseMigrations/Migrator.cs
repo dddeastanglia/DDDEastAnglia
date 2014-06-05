@@ -1,4 +1,4 @@
-﻿using FluentMigrator;
+﻿using System;
 using FluentMigrator.Runner;
 using FluentMigrator.Runner.Announcers;
 using FluentMigrator.Runner.Initialization;
@@ -12,34 +12,30 @@ namespace DDDEastAnglia.DatabaseMigrations
 
         public Migrator(string connectionString)
         {
+            if (connectionString == null)
+            {
+                throw new ArgumentNullException("connectionString");
+            }
+            
             this.connectionString = connectionString;
+        }
+
+        public void MigrateToLatestSchema()
+        {
+            var todaysDate = DateTime.Today.ToString("yyyyMMdd");
+            var todaysSchemaVersion = long.Parse(todaysDate);
+            MigrateTo(todaysSchemaVersion);
         }
 
         public void MigrateTo(long targetVersion)
         {
-            var factory = new SqlServer2012ProcessorFactory();
-            var announcer = new ConsoleAnnouncer
-                                    {
-                                        ShowElapsedTime = true,
-                                        ShowSql = true
-                                    };
-            var options = new MigrationOptions
-                                    {
-                                        PreviewOnly = false, 
-                                        Timeout = 60
-                                    };
-            var processor = factory.Create(connectionString, announcer, options);
+            var options = new MigrationOptions { PreviewOnly = false,  Timeout = 60 };
+            var announcer = new NullAnnouncer();
+            var processor = new SqlServer2012ProcessorFactory().Create(connectionString, announcer, options);
             var migrationContext = new RunnerContext(announcer) { Namespace = "DDDEastAnglia.DatabaseMigrations.Migrations" };
 
             var runner = new MigrationRunner(GetType().Assembly, migrationContext, processor);
             runner.MigrateUp(targetVersion, true);
         }
-    }
-
-    public class MigrationOptions : IMigrationProcessorOptions
-    {
-        public bool PreviewOnly{get;set;}
-        public int Timeout{get;set;}
-        public string ProviderSwitches{get;set;}
     }
 }
