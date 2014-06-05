@@ -1,5 +1,4 @@
-﻿using System.Data;
-using FluentMigrator;
+﻿using FluentMigrator;
 
 namespace DDDEastAnglia.DatabaseMigrations.Migrations
 {
@@ -16,7 +15,7 @@ namespace DDDEastAnglia.DatabaseMigrations.Migrations
             CreateCalendarItemsTable();
             CreateConferencesTable();
             CreateSessionsTable();
-            CreateUserProfileTable();
+            CreateUserProfilesTable();
             CreateVotesTable();
 
             CreateForeignKeys();
@@ -44,9 +43,9 @@ namespace DDDEastAnglia.DatabaseMigrations.Migrations
                         .WithColumn("RoleId").AsInt32().NotNullable().PrimaryKey().Identity()
                         .WithColumn("RoleName").AsString(256).NotNullable();
 
-            Create.Index()
+            Create.UniqueConstraint()
                         .OnTable("webpages_Roles")
-                        .OnColumn("RoleName").Unique();
+                        .Column("RoleName");
         }
 
         private void CreateUsersInRolesTable()
@@ -54,6 +53,10 @@ namespace DDDEastAnglia.DatabaseMigrations.Migrations
             Create.Table("webpages_UsersInRoles")
                         .WithColumn("UserId").AsInt32().NotNullable()
                         .WithColumn("RoleId").AsInt32().NotNullable();
+
+            Create.PrimaryKey()
+                        .OnTable("webpages_UsersInRoles")
+                        .Columns(new[] {"UserId", "RoleId"});
         }
 
         private void CreateOAuthMembershipTable()
@@ -109,9 +112,9 @@ namespace DDDEastAnglia.DatabaseMigrations.Migrations
                         .OnColumn("ConferenceId");
         }
 
-        private void CreateUserProfileTable()
+        private void CreateUserProfilesTable()
         {
-            Create.Table("UserProfile")
+            Create.Table("UserProfiles")
                         .WithColumn("UserId").AsInt32().NotNullable().PrimaryKey().Identity()
                         .WithColumn("UserName").AsString(int.MaxValue).NotNullable()
                         .WithColumn("Name").AsString(int.MaxValue).NotNullable()
@@ -120,7 +123,7 @@ namespace DDDEastAnglia.DatabaseMigrations.Migrations
                         .WithColumn("TwitterHandle").AsString(int.MaxValue).Nullable()
                         .WithColumn("Bio").AsString(int.MaxValue).Nullable()
                         .WithColumn("MobilePhone").AsString(int.MaxValue).Nullable()
-                        .WithColumn("NewSpeaker").AsBoolean().Nullable().WithDefaultValue(false);
+                        .WithColumn("NewSpeaker").AsBoolean().NotNullable().WithDefaultValue(false);
         }
 
         private void CreateVotesTable()
@@ -130,9 +133,9 @@ namespace DDDEastAnglia.DatabaseMigrations.Migrations
                         .WithColumn("SessionId").AsInt32().NotNullable()
                         .WithColumn("CookieId").AsGuid().NotNullable()
                         .WithColumn("TimeRecorded").AsDateTime().NotNullable()
-                        .WithColumn("UserId").AsInt32().NotNullable()
-                        .WithColumn("WebSessionId").AsString(int.MaxValue).Nullable()
+                        .WithColumn("UserId").AsInt32().Nullable()
                         .WithColumn("IPAddress").AsString(int.MaxValue).Nullable()
+                        .WithColumn("WebSessionId").AsString(int.MaxValue).Nullable()
                         .WithColumn("UserAgent").AsString(int.MaxValue).Nullable()
                         .WithColumn("ScreenResolution").AsString(int.MaxValue).Nullable()
                         .WithColumn("Referrer").AsString(int.MaxValue).Nullable();
@@ -142,8 +145,7 @@ namespace DDDEastAnglia.DatabaseMigrations.Migrations
         {
             Create.ForeignKey()
                         .FromTable("CalendarItems").ForeignColumn("ConferenceId")
-                        .ToTable("Conferences").PrimaryColumn("ConferenceId")
-                        .OnDelete(Rule.Cascade);
+                        .ToTable("Conferences").PrimaryColumn("ConferenceId");
 
             Create.ForeignKey()
                         .FromTable("Sessions").ForeignColumn("ConferenceId")
@@ -151,11 +153,11 @@ namespace DDDEastAnglia.DatabaseMigrations.Migrations
 
             Create.ForeignKey()
                         .FromTable("Votes").ForeignColumn("UserId")
-                        .ToTable("UserProfile").PrimaryColumn("UserId");
+                        .ToTable("UserProfiles").PrimaryColumn("UserId");
 
             Create.ForeignKey()
                         .FromTable("webpages_UsersInRoles").ForeignColumn("UserId")
-                        .ToTable("UserProfile").PrimaryColumn("UserId");
+                        .ToTable("UserProfiles").PrimaryColumn("UserId");
 
             Create.ForeignKey()
                         .FromTable("webpages_UsersInRoles").ForeignColumn("RoleId")
@@ -172,7 +174,7 @@ namespace DDDEastAnglia.DatabaseMigrations.Migrations
             Delete.Table("CalendarItems");
             Delete.Table("Conferences");
             Delete.Table("Sessions");
-            Delete.Table("UserProfile");
+            Delete.Table("UserProfiles");
             Delete.Table("Votes");
         }
     }

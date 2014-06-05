@@ -11,7 +11,7 @@ namespace DDDEastAnglia.DataAccess.Commands.Vote
         public string UserAgent { get; set; }
         public string Referrer { get; set; }
         public string WebSessionId { get; set; }
-        public int UserId { get; set; }
+        public int? UserId { get; set; }
         public string ScreenResolution { get; set; }
         public Guid CookieId { get; set; }
     }
