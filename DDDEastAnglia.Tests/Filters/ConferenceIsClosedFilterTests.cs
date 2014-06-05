@@ -13,7 +13,7 @@ namespace DDDEastAnglia.Tests.Filters
             var conferenceLoader = new ConferenceLoaderBuilder()
                                         .WhenClosed()
                                         .Build();
-            var filterAttribute = new ConferenceIsClosedFilterAttribute(conferenceLoader);
+            var filterAttribute = new ConferenceIsClosedFilter(conferenceLoader);
             var filterContext = new ActionExecutingContext();
             
             filterAttribute.OnActionExecuting(filterContext);
@@ -27,7 +27,7 @@ namespace DDDEastAnglia.Tests.Filters
             var conferenceLoader = new ConferenceLoaderBuilder()
                                         .WhenNotClosed()
                                         .Build();
-            var filterAttribute = new ConferenceIsClosedFilterAttribute(conferenceLoader);
+            var filterAttribute = new ConferenceIsClosedFilter(conferenceLoader);
             var filterContext = new ActionExecutingContext();
             
             filterAttribute.OnActionExecuting(filterContext);

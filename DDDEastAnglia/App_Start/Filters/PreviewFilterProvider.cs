@@ -13,7 +13,7 @@ namespace DDDEastAnglia.Filters
 
         protected override object CreateFilter(IConferenceLoader conferenceLoader)
         {
-            return new ConferenceIsInPreviewFilterAttribute(conferenceLoader);
+            return new ConferenceIsInPreviewFilter(conferenceLoader);
         }
     }
 }

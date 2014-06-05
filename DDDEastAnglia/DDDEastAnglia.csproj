@@ -225,8 +225,8 @@
   <ItemGroup>
     <Compile Include="App_Start\Filters\AllowedWhenConferenceIsInPreviewAttribute.cs" />
     <Compile Include="App_Start\Filters\AllowedWhenConferenceIsClosedAttribute.cs" />
-    <Compile Include="App_Start\Filters\ConferenceIsClosedFilterAttribute.cs" />
-    <Compile Include="App_Start\Filters\ConferenceIsInPreviewFilterAttribute.cs" />
+    <Compile Include="App_Start\Filters\ConferenceIsClosedFilter.cs" />
+    <Compile Include="App_Start\Filters\ConferenceIsInPreviewFilter.cs" />
     <Compile Include="App_Start\Filters\ClosedFilterProvider.cs" />
     <Compile Include="App_Start\Filters\FilterProvider.cs" />
     <Compile Include="App_Start\Filters\PreviewFilterProvider.cs" />

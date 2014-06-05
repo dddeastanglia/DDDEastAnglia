@@ -4,17 +4,17 @@ using DDDEastAnglia.DataAccess;
 
 namespace DDDEastAnglia.Filters
 {
-    public class ConferenceIsClosedFilterAttribute : ActionFilterAttribute
+    public class ConferenceIsInPreviewFilter : ActionFilterAttribute
     {
         private readonly IConferenceLoader conferenceLoader;
 
-        public ConferenceIsClosedFilterAttribute(IConferenceLoader conferenceLoader)
+        public ConferenceIsInPreviewFilter(IConferenceLoader conferenceLoader)
         {
             if (conferenceLoader == null)
             {
                 throw new ArgumentNullException("conferenceLoader");
             }
-
+            
             this.conferenceLoader = conferenceLoader;
         }
 
@@ -22,9 +22,9 @@ namespace DDDEastAnglia.Filters
         {
             var conference = conferenceLoader.LoadConference();
 
-            if (conference.IsClosed())
+            if (conference.IsPreview())
             {
-                filterContext.Result = new RedirectResult("~/Closed");
+                filterContext.Result = new RedirectResult("~/Preview");
             }
 
             base.OnActionExecuting(filterContext);

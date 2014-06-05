@@ -13,7 +13,7 @@ namespace DDDEastAnglia.Tests.Filters
             var conferenceLoader = new ConferenceLoaderBuilder()
                                         .InPreview()
                                         .Build();
-            var filterAttribute = new ConferenceIsInPreviewFilterAttribute(conferenceLoader);
+            var filterAttribute = new ConferenceIsInPreviewFilter(conferenceLoader);
             var filterContext = new ActionExecutingContext();
             
             filterAttribute.OnActionExecuting(filterContext);
@@ -27,7 +27,7 @@ namespace DDDEastAnglia.Tests.Filters
             var conferenceLoader = new ConferenceLoaderBuilder()
                                         .NotInPreview()
                                         .Build();
-            var filterAttribute = new ConferenceIsInPreviewFilterAttribute(conferenceLoader);
+            var filterAttribute = new ConferenceIsInPreviewFilter(conferenceLoader);
             var filterContext = new ActionExecutingContext();
             
             filterAttribute.OnActionExecuting(filterContext);

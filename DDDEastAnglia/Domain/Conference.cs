@@ -24,22 +24,22 @@ namespace DDDEastAnglia.Domain
 
         public bool CanSubmit()
         {
-            return IsNotInSpecialMode() && GetCalendarEntry(CalendarEntryType.SessionSubmission).IsOpen();
+            return ConferenceTimelineIsActive() && GetCalendarEntry(CalendarEntryType.SessionSubmission).IsOpen();
         }
 
         public virtual bool CanVote()
         {
-            return IsNotInSpecialMode() && GetCalendarEntry(CalendarEntryType.Voting).IsOpen();
+            return ConferenceTimelineIsActive() && GetCalendarEntry(CalendarEntryType.Voting).IsOpen();
         }
 
         public bool CanPublishAgenda()
         {
-            return IsNotInSpecialMode() && GetCalendarEntry(CalendarEntryType.AgendaPublished).IsOpen();
+            return ConferenceTimelineIsActive() && GetCalendarEntry(CalendarEntryType.AgendaPublished).IsOpen();
         }
 
         public bool CanRegister()
         {
-            return IsNotInSpecialMode() && GetCalendarEntry(CalendarEntryType.Registration).IsOpen();
+            return ConferenceTimelineIsActive() && GetCalendarEntry(CalendarEntryType.Registration).IsOpen();
         }
 
         public bool CanShowSessions()
@@ -49,7 +49,7 @@ namespace DDDEastAnglia.Domain
 
         public bool CanShowSpeakers()
         {
-            return IsNotInSpecialMode() && (CanSubmit() || CanVote() || CanPublishAgenda() || CanRegister());
+            return ConferenceTimelineIsActive() && (CanSubmit() || CanVote() || CanPublishAgenda() || CanRegister());
         }
 
         public bool IsPreview()
@@ -62,7 +62,7 @@ namespace DDDEastAnglia.Domain
             return GetCalendarEntry(CalendarEntryType.Closed).IsOpen();
         }
 
-        private bool IsNotInSpecialMode()
+        private bool ConferenceTimelineIsActive()
         {
             return !IsPreview() && !IsClosed();
         }
