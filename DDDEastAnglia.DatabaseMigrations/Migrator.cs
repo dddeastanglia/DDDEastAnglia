@@ -27,7 +27,7 @@ namespace DDDEastAnglia.DatabaseMigrations
             MigrateTo(todaysSchemaVersion);
         }
 
-        public void MigrateTo(long targetVersion)
+        private void MigrateTo(long targetVersion)
         {
             var options = new MigrationOptions { PreviewOnly = false,  Timeout = 60 };
             var announcer = new NullAnnouncer();
