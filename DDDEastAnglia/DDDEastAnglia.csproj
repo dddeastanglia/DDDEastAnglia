@@ -307,7 +307,6 @@
     <Compile Include="App_Code\IRoleManager.cs" />
     <Compile Include="App_Code\RoleManager.cs" />
     <Compile Include="Areas\Admin\Models\RoleModel.cs" />
-    <Compile Include="Areas\Admin\Models\RoleUserModel.cs" />
     <Compile Include="Areas\Admin\Models\UserModel.cs" />
     <Compile Include="Areas\Admin\Models\VotingStatsViewModel.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
@@ -551,6 +550,8 @@
     <Content Include="Areas\Admin\Views\Role\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Role\Rename.cshtml" />
     <Content Include="Areas\Admin\Views\Role\AddUsers.cshtml" />
+    <Content Include="Areas\Admin\Views\Role\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Role\RemoveUsers.cshtml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\html5shiv-printshiv.js" />
