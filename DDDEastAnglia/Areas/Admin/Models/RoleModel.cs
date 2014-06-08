@@ -11,5 +11,10 @@ namespace DDDEastAnglia.Areas.Admin.Models
         public SortedList<string, bool> AvailableUsers { get; set; }
 
         public string NewRoleName { get; set; }
+
+        public RoleModel()
+        {
+            AvailableUsers = new SortedList<string, bool>();
+        }
     }
 }
