@@ -2,6 +2,7 @@
 using DDDEastAnglia.DataAccess;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace DDDEastAnglia.Areas.Admin.Controllers
@@ -42,7 +43,7 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult Rename(RoleModel model)
+        public ActionResult Rename([Bind(Exclude = "AvailableUsers, FeedbackMessage")]RoleModel model)
         {
             if (!ModelState.IsValid) return View(model);
             _manager.RenameRole(model.RoleName, model.NewRoleName);
@@ -52,60 +53,39 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
         public ActionResult AddUsers(string rolename)
         {
             RoleModel model = new RoleModel { RoleName = rolename };
+            // Get the list of users no currently in the group
+            List<string> roleUserList = _manager.GetUsersForRole(rolename).ToList();
+            List<string> userList = _userProfileRepository.GetAllUserProfiles().Select(n => n.UserName).ToList();
+            List<string> availableUsers = userList.Except(roleUserList).ToList();
+
+            if (availableUsers.Count == 0)
+            {
+                model.FeedbackMessage = "There are no users that can be added to this group";
+            }
+            else
+            {
+                foreach (string availableUser in availableUsers)
+                {
+                    model.AvailableUsers.Add(availableUser, false);
+                }
+            }
 
             return View(model);
         }
 
         [HttpPost]
-        public ActionResult AddUsers(RoleModel model)
+        public ActionResult AddUsers([Bind(Exclude = "NewRoleName,FeedbackMessage")]RoleModel model)
         {
             if (!ModelState.IsValid) return View(model);
-
+            foreach (KeyValuePair<string, bool> availableUser in model.AvailableUsers)
+            {
+                if (availableUser.Value && !_manager.IsUserInRole(availableUser.Key, model.RoleName))
+                {
+                    _manager.AddUserToRole(availableUser.Key, model.RoleName);
+                }
+            }
+            return RedirectToAction("Index");
         }
-
-        //// GET: /Admin/Role/Manage
-        //public ActionResult Manage(string rolename)
-        //{
-        //    if (_manager.RoleExists(rolename))
-        //    {
-        //        RoleModel model = new RoleModel { RoleName = rolename, RoleUsers = new SortedList<string, RoleUserModel>() };
-
-        //        foreach (UserProfile user in _userProfileRepository.GetAllUserProfiles())
-        //        {
-        //            if (_manager.IsUserInRole(user.UserName, rolename))
-        //            {
-        //                model.RoleUsers.Add(user.UserName,
-        //                    new RoleUserModel { IsMember = true, UserId = user.UserId, Username = user.UserName });
-        //            }
-        //            else
-        //            {
-        //                model.RoleUsers.Add(user.UserName,
-        //                    new RoleUserModel { IsMember = false, UserId = user.UserId, Username = user.UserName });
-        //            }
-        //        }
-
-        //        return View(model);
-        //    }
-
-        //    return RedirectToAction("Index", "Role");
-        //}
-
-        //[HttpPost]
-        //public ActionResult Manage(RoleModel model)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return View("Manage", model);
-        //    }
-
-        //    foreach (RoleUserModel roleUser in model.RoleUsers.Values)
-        //    {
-        //        _manager.AddRemoveRoleMember(model.RoleName, roleUser);
-        //    }
-
-        //    return View("Manage", model);
-        //}
-
 
         // GET: /Admin/Role/Delete
         public ActionResult Delete(string rolename)
@@ -159,6 +139,48 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
                 }
             }
 
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Details(string rolename)
+        {
+            RoleModel model = new RoleModel { RoleName = rolename };
+            string[] users = _manager.GetUsersForRole(rolename);
+            foreach (string user in users)
+            {
+                model.AvailableUsers.Add(user, true);
+            }
+            return View(model);
+        }
+
+        public ActionResult RemoveUsers(string rolename)
+        {
+            RoleModel model = new RoleModel { RoleName = rolename };
+            string[] users = _manager.GetUsersForRole(rolename);
+
+            if (!users.Any())
+            {
+                model.FeedbackMessage = "There are no users that can be removed from this role.";
+            }
+            else
+            {
+                foreach (string user in users)
+                {
+                    model.AvailableUsers.Add(user, true);
+                }
+            }
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult RemoveUsers([Bind(Exclude = "NewRoleName,FeedbackMessage")]RoleModel model)
+        {
+            if (!ModelState.IsValid) return View(model);
+            foreach (KeyValuePair<string, bool> availableUser in model.AvailableUsers)
+            {
+                if (!availableUser.Value && _manager.IsUserInRole(availableUser.Key, model.RoleName)) _manager.RemoveUserFromRole(availableUser.Key, model.RoleName);
+            }
             return RedirectToAction("Index");
         }
     }
