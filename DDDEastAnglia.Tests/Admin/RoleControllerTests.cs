@@ -1,4 +1,5 @@
-﻿using DDDEastAnglia.Areas.Admin.Controllers;
+﻿using System.Web.Mvc;
+using DDDEastAnglia.Areas.Admin.Controllers;
 using DDDEastAnglia.Areas.Admin.Models;
 using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.Models;
@@ -199,6 +200,23 @@ namespace DDDEastAnglia.Tests.Admin
 
             // Assert            
             manager.DidNotReceive().CreateRole("dummyrole");
+        }
+
+        [Test]
+        public void Index_View_Returns_List_Of_Roles()
+        {
+            // Arrange
+            IRoleManager manager = CreateRoleManager();
+            RoleController controller = CreateRoleController(manager);
+            manager.GetAllRoles().Returns(new[] { "dummyrole1", "dummyrole2", "dummyrole3" });
+
+            // Act
+            var result = (ViewResult)controller.Index();
+
+            // Assert            
+            Assert.IsInstanceOf<List<string>>(result.Model);
+            Assert.AreEqual(3, ((List<string>)result.Model).Count);
+
         }
 
         private static IRoleManager CreateRoleManager()
