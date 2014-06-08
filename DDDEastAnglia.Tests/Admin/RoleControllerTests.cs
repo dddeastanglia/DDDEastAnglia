@@ -35,9 +35,9 @@ namespace DDDEastAnglia.Tests.Admin
             RoleModel model = new RoleModel
             {
                 RoleName = "dummyrole",
-                RoleUsers = new SortedList<string, RoleUserModel>()
+                AvailableUsers = new SortedList<string, bool>()
             };
-            model.RoleUsers.Add("testuser", new RoleUserModel { IsMember = true, UserId = 999, Username = "testuser" });
+            model.AvailableUsers.Add("testuser", true);
 
             // Act
             controller.AddUsers(model);
@@ -56,9 +56,9 @@ namespace DDDEastAnglia.Tests.Admin
             RoleModel model = new RoleModel
             {
                 RoleName = "dummyrole",
-                RoleUsers = new SortedList<string, RoleUserModel>()
+                AvailableUsers = new SortedList<string, bool>()
             };
-            model.RoleUsers.Add("testuser", new RoleUserModel { IsMember = true, UserId = 999, Username = "testuser" });
+            model.AvailableUsers.Add("testuser", true);
 
             // Act
             controller.AddUsers(model);
@@ -77,15 +77,15 @@ namespace DDDEastAnglia.Tests.Admin
             RoleModel model = new RoleModel
             {
                 RoleName = "dummyrole",
-                RoleUsers = new SortedList<string, RoleUserModel>()
+                AvailableUsers = new SortedList<string, bool>()
             };
-            model.RoleUsers.Add("testuser", new RoleUserModel { IsMember = false, UserId = 999, Username = "testuser" });
+            model.AvailableUsers.Add("testuser", false);
 
             // Act
             controller.RemoveUsers(model);
 
             // Assert            
-            manager.Received().AddRemoveRoleMember("dummyrole", new RoleUserModel { IsMember = false, UserId = 999, Username = "testuser" });
+            manager.Received().RemoveUserFromRole("testuser", "dummyrole");
         }
 
         [Test]
@@ -98,9 +98,9 @@ namespace DDDEastAnglia.Tests.Admin
             RoleModel model = new RoleModel
             {
                 RoleName = "dummyrole",
-                RoleUsers = new SortedList<string, RoleUserModel>()
+                AvailableUsers = new SortedList<string, bool>()
             };
-            model.RoleUsers.Add("testuser", new RoleUserModel { IsMember = false, UserId = 999, Username = "testuser" });
+            model.AvailableUsers.Add("testuser", false);
 
             // Act
             controller.RemoveUsers(model);
