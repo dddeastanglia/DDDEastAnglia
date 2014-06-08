@@ -36,6 +36,5 @@ namespace DDDEastAnglia.Tests.Voting
 
             MessageBus.Received().Send(Arg.Is<RegisterVoteCommand>(command => command.TimeRecorded == SimulatedNow));
         }
-
     }
 }
