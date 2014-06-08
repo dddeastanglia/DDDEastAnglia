@@ -11,25 +11,40 @@ namespace DDDEastAnglia.Controllers
 {
     public class VoteController : Controller
     {
-        private readonly ISessionVoteModelQuery _sessionVoteModelQuery;
-        private readonly IMessageBus _messageBus;
-        private readonly IControllerInformationProvider _controllerInformationProvider; 
+        private readonly IMessageBus messageBus;
+        private readonly ISessionVoteModelQuery sessionVoteModelQuery;
+        private readonly IControllerInformationProvider controllerInformationProvider;
 
-        public VoteController(ISessionVoteModelQuery sessionVoteModelQuery,
-            IMessageBus messageBus,
-            IControllerInformationProvider informationProvider)
+        public VoteController(IMessageBus messageBus, 
+            ISessionVoteModelQuery sessionVoteModelQuery,
+            IControllerInformationProvider controllerInformationProvider)
         {
-            _sessionVoteModelQuery = sessionVoteModelQuery;
-            _messageBus = messageBus;
-            _controllerInformationProvider = informationProvider;
+            if (messageBus == null)
+            {
+                throw new ArgumentNullException("messageBus");
+            }
+            
+            if (sessionVoteModelQuery == null)
+            {
+                throw new ArgumentNullException("sessionVoteModelQuery");
+            }
+
+            if (controllerInformationProvider == null)
+            {
+                throw new ArgumentNullException("controllerInformationProvider");
+            }
+
+            this.messageBus = messageBus;
+            this.sessionVoteModelQuery = sessionVoteModelQuery;
+            this.controllerInformationProvider = controllerInformationProvider;
         }
 
         public ActionResult Status(int id)
         {
-            var cookie = _controllerInformationProvider.GetCookie(VotingCookie.CookieName);
-            var result = _sessionVoteModelQuery.Get(id, GetCookieId(cookie.Value));
-            _controllerInformationProvider.SaveCookie(_controllerInformationProvider.GetCookie(VotingCookie.CookieName));
-            _controllerInformationProvider.SaveCookie(cookie);
+            var cookie = controllerInformationProvider.GetCookie(VotingCookie.CookieName);
+            var result = sessionVoteModelQuery.Get(id, GetCookieId(cookie.Value));
+            controllerInformationProvider.SaveCookie(controllerInformationProvider.GetCookie(VotingCookie.CookieName));
+            controllerInformationProvider.SaveCookie(cookie);
             return result.CanVote ? PartialView(result) as ActionResult : new EmptyResult();
         }
 
@@ -37,31 +52,36 @@ namespace DDDEastAnglia.Controllers
         [AllowCrossSiteJson]
         public ActionResult RegisterVote(int id, VoteModel sessionVoteModel = null)
         {
-            var cookie = _controllerInformationProvider.GetCookie(VotingCookie.CookieName);
-
-            var width = sessionVoteModel != null ? sessionVoteModel.Width : 0;
-            var height = sessionVoteModel != null ? sessionVoteModel.Height : 0;
+            var cookie = controllerInformationProvider.GetCookie(VotingCookie.CookieName);
             
             var vote = new RegisterVoteCommand
                         {
                             SessionId = id,
                             CookieId = GetCookieId(cookie.Value),
-                            TimeRecorded = _controllerInformationProvider.UtcNow,
-                            IPAddress = _controllerInformationProvider.GetIPAddress(),
-                            UserAgent = _controllerInformationProvider.UserAgent,
-                            Referrer = _controllerInformationProvider.Referrer,
-                            WebSessionId = _controllerInformationProvider.SessionId
+                            TimeRecorded = controllerInformationProvider.UtcNow,
+                            IPAddress = controllerInformationProvider.GetIPAddress(),
+                            UserAgent = controllerInformationProvider.UserAgent,
+                            Referrer = controllerInformationProvider.Referrer,
+                            WebSessionId = controllerInformationProvider.SessionId
                         };
-            if (_controllerInformationProvider.IsLoggedIn())
+
+            if (controllerInformationProvider.IsLoggedIn())
             {
-                vote.UserId = _controllerInformationProvider.GetCurrentUser().UserId;
+                vote.UserId = controllerInformationProvider.GetCurrentUser().UserId;
             }
-            if (width != 0 || height != 0)
+
+            if (sessionVoteModel != null)
             {
-                vote.ScreenResolution = string.Format("{0}x{1}", width, height);
+                if (sessionVoteModel.Width != 0 || sessionVoteModel.Height != 0)
+                {
+                    vote.ScreenResolution = string.Format("{0}x{1}", sessionVoteModel.Width, sessionVoteModel.Height);
+                }
+
+                vote.PositionInList = sessionVoteModel.PositionInList;
             }
-            _messageBus.Send(vote);
-            _controllerInformationProvider.SaveCookie(cookie);
+            
+            messageBus.Send(vote);
+            controllerInformationProvider.SaveCookie(cookie);
             return RedirectOrReturnPartialView(id);
         }
 
@@ -69,30 +89,27 @@ namespace DDDEastAnglia.Controllers
         [AllowCrossSiteJson]
         public ActionResult RemoveVote(int id, VoteModel sessionVoteModel = null)
         {
-            var cookie = _controllerInformationProvider.GetCookie(VotingCookie.CookieName);
+            var cookie = controllerInformationProvider.GetCookie(VotingCookie.CookieName);
             var cookieId = GetCookieId(cookie.Value);
-            _messageBus.Send(new DeleteVoteCommand
+            messageBus.Send(new DeleteVoteCommand
                 {
                     SessionId = id,
                     CookieId = cookieId
                 });
-            _controllerInformationProvider.SaveCookie(cookie);
+            
+            controllerInformationProvider.SaveCookie(cookie);
             return RedirectOrReturnPartialView(id);
         }
 
         private Guid GetCookieId(string value)
         {
             Guid guid;
-            if (Guid.TryParse(value, out guid))
-            {
-                return guid;
-            }
-            return Guid.Empty;
+            return Guid.TryParse(value, out guid) ? guid : Guid.Empty;
         }
 
         private ActionResult RedirectOrReturnPartialView(int sessionId)
         {
-            return _controllerInformationProvider.IsAjaxRequest
+            return controllerInformationProvider.IsAjaxRequest
                        ? RedirectToAction("Status", "Vote", new { id = sessionId})
                        : RedirectToAction("Index", "Session");
         }

@@ -18,5 +18,6 @@ namespace DDDEastAnglia.DataAccess.SimpleData.Models
         public string UserAgent { get; set; }
         public string Referrer { get; set; }
         public string ScreenResolution { get; set; }
+        public int PositionInList { get; set; }
     }
 }
