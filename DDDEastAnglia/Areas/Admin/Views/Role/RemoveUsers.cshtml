@@ -1,0 +1,30 @@
+﻿@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@model DDDEastAnglia.Areas.Admin.Models.RoleModel
+           
+<h2>Remove Users</h2>
+<p>
+    Group: @Html.DisplayFor(m => Model.RoleName)
+</p>
+<p>
+    @if (Model.AvailableUsers.Count == 0)
+    {
+        @Html.DisplayFor(m => Model.FeedbackMessage)
+    }
+    else
+    {
+        using (Html.BeginForm("AddUsers", "Role"))
+        {
+            <table>
+                <tr><th>User</th><th>Add to role?</th></tr>
+                @foreach (KeyValuePair<string, bool> availableUser in Model.AvailableUsers)
+                {
+                    <tr><td>@availableUser.Key</td><td>@Html.CheckBoxFor(b => availableUser.Value)</td></tr>
+                }
+            </table>
+            <input type="submit" value="Save" /> <a href="@Url.Action("Details", new {rolename = Model.RoleName})">Cancel</a>
+        }
+    }
+</p>
+

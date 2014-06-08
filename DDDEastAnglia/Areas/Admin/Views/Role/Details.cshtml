@@ -1,0 +1,20 @@
+﻿@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@model DDDEastAnglia.Areas.Admin.Models.RoleModel
+
+<h2>@Model.RoleName</h2>
+
+<ul>
+    @foreach (string user in Model.AvailableUsers.Keys)
+    {
+        <li>@user</li>
+    }
+</ul>
+
+Manage this role:
+<ul>
+    <li><a href="@Url.Action("Rename", "Role", new {rolename = Model.RoleName})">Rename</a></li>
+    <li><a href="@Url.Action("AddUsers", "Role", new {rolename = Model.RoleName})">Add Users</a></li>
+    <li><a href="@Url.Action("RemoveUsers", "Role", new {rolename = Model.RoleName})">Remove Users</a></li>
+</ul>
