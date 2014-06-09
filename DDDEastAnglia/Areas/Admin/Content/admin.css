@@ -81,3 +81,42 @@ th.barchart, td.barchart {
 .span6 {
     height: 220px;
 }
+
+.group-box {
+    position: relative;
+    padding: 35px 15px 15px 15px;
+    border: 1px solid #DDD;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+.group-box:after {
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    padding: 3px 7px;
+    font-weight: bold;
+    background-color: #F5F5F5;
+    border: 1px solid #DDD;
+    -webkit-border-radius: 4px 0 4px 0;
+    -moz-border-radius: 4px 0 4px 0;
+    border-radius: 4px 0 4px 0;
+}
+
+.bio:after {
+    content: "Bio";
+}
+
+.user-details a {
+    text-decoration: none;
+}
+
+.user-details a:hover {
+    text-decoration: underline;
+}
+
+.user-details:after {
+    content: "Details";
+}
