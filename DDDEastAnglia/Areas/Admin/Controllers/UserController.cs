@@ -29,7 +29,6 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
             this.sessionRepository = sessionRepository;
         }
 
-        // GET: /Admin/User/
         public ActionResult Index()
         {
             var users = userProfileRepository.GetAllUserProfiles()
@@ -48,6 +47,12 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
             }
 
             return View(users);
+        }
+
+        public ActionResult Details(int id)
+        {
+            var userProfile = userProfileRepository.GetUserProfileById(id);
+            return View(userProfile);
         }
 
         private static UserModel CreateUserModel(UserProfile profile)

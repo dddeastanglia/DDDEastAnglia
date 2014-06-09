@@ -4,16 +4,6 @@
     ViewBag.Title = "Users";
 }
 
-@section header
-{
-    @Styles.Render("~/Content/admin")
-    <style>
-        .newSpeakerValue {
-            display: none;
-        }
-    </style>
-}
-
 <h2>@ViewBag.Title</h2>
 
 <div class="pull-right">
@@ -54,13 +44,12 @@
             @Html.DisplayFor(modelItem => item.EmailAddress)
         </td><td>
             <i class="@(item.NewSpeaker ? "icon-ok" : "icon-remove")"></i>
-            <span class="newSpeakerValue">@item.NewSpeaker</span>
         </td><td>
             @Html.DisplayFor(modelItem => item.SubmittedSessionCount)
         </td><td>
-            <i class="icon-list-alt"></i> @Html.ActionLink("Details", "Details", "Session", new { id = item.UserId }, new { area = "Admin"})
-            <i class="icon-edit"></i> @Html.ActionLink("Edit", "Edit", "Session", new { id = item.UserId }, new { area = "Admin"}) 
-            <i class="icon-trash"></i> @Html.ActionLink("Delete", "Delete", "Session", new { id = item.UserId }, new { area = "Admin"})
+            <i class="icon-list-alt"></i> @Html.ActionLink("Details", "Details", "User", new { id = item.UserId }, new { area = "Admin"})
+            <i class="icon-edit"></i> @Html.ActionLink("Edit", "Edit", "User", new { id = item.UserId }, new { area = "Admin" }) 
+            <i class="icon-trash"></i> @Html.ActionLink("Delete", "Delete", "User", new { id = item.UserId }, new { area = "Admin" })
         </td></tr>
     }
     </tbody>
