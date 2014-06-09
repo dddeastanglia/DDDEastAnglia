@@ -1,0 +1,23 @@
+﻿@model DDDEastAnglia.Areas.Admin.Models.RoleModel
+
+<h2>Create</h2>
+
+@if (!string.IsNullOrWhiteSpace(Model.FeedbackMessage))
+{
+    <div>
+        @Model.FeedbackMessage
+    </div>
+}
+
+@using (Html.BeginForm("Create", "Role"))
+{
+    <div>
+        New Role: @Html.TextBoxFor(m => Model.RoleName)
+    </div>
+    <div>
+        <input type="submit" value="Create" class="btn btn-primary"/>
+    </div>
+}
+<div>
+    <a href="@Url.Action("Index", "Role")">Return to list</a>
+</div>

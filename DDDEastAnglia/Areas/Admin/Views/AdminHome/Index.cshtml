@@ -7,10 +7,9 @@
 <h2>Admin Index</h2>
 
 <ul>
-    <li>@Html.ActionLink("Users", "Index", "User")</li>
     <li>@Html.ActionLink("Roles", "Index", "Role")</li>
     <li>@Html.ActionLink("Sessions", "Index", "Session")</li>
-    
+    <li>@Html.ActionLink("Users", "Index", "User")</li>
     @if (Model.ShowVotingStatsLink)
     {
         <li>@Html.ActionLink("Voting", "Index", "Voting")</li>

@@ -1,0 +1,19 @@
+﻿@model DDDEastAnglia.Areas.Admin.Models.RoleModel
+
+<h2>Delete</h2>
+
+@using (Html.BeginForm("Delete", "Role"))
+{
+    @Html.HiddenFor(m => Model.RoleName)
+    <div>
+        Are you sure you want to delete the role @Model.RoleName?
+        @if (!string.IsNullOrWhiteSpace(Model.FeedbackMessage))
+        {
+        <div>
+            @Model.FeedbackMessage
+        </div>
+        }
+    </div>
+    <input type="submit" value="Delete role" class="btn btn-primary"/>
+}
+<a href="@Url.Action("Index", "Role")">Return to list</a>

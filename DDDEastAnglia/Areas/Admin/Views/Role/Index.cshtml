@@ -1,0 +1,33 @@
+﻿@model List<string>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Roles</h2>
+
+<table>
+    @foreach (string role in Model)
+    {
+        <tr>
+            <td>@role</td>
+            <td>
+                <a href="@Url.Action("Details", "Role", new {rolename=role})">View</a>
+            </td>
+            <td>
+                <a href="@Url.Action("AddUsers", "Role", new {rolename=role})">Add Users</a>
+            </td>
+            <td>
+                <a href="@Url.Action("RemoveUsers", "Role", new {rolename=role})">Remove Users</a>
+            </td>                
+            <td>
+                <a href="@Url.Action("Rename", "Role", new {rolename=role})">Rename</a>
+            </td>
+            <td>
+                <a href="@Url.Action("Delete","Role",new {rolename=role})">Delete</a>
+            </td>
+        </tr>
+    }
+</table>
+
+<a href="@Url.Action("Create", "Role")">Create a new role</a>

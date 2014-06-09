@@ -22,6 +22,10 @@
     <IISExpressUseClassicPipelineMode />
     <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
     <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
+    <IISExpressAnonymousAuthentication>disabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
@@ -301,6 +305,9 @@
     <Compile Include="VotingData\QueryRunner.cs" />
     <Content Include="Areas\Admin\Content\admin.css" />
     <Compile Include="Areas\Admin\Controllers\VotingController.cs" />
+    <Compile Include="App_Code\IRoleManager.cs" />
+    <Compile Include="App_Code\RoleManager.cs" />
+    <Compile Include="Areas\Admin\Models\RoleModel.cs" />
     <Compile Include="Areas\Admin\Models\UserModel.cs" />
     <Compile Include="Areas\Admin\Models\VotingStatsViewModel.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
@@ -539,6 +546,13 @@
     <Content Include="Content\font\FontAwesome.otf" />
     <Content Include="Areas\Admin\Views\Voting\DuplicateVotes.cshtml" />
     <Content Include="Areas\Admin\Views\AdminHome\NavigationLinks.cshtml" />
+    <Content Include="Areas\Admin\Views\Role\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Role\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Role\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Role\Rename.cshtml" />
+    <Content Include="Areas\Admin\Views\Role\AddUsers.cshtml" />
+    <Content Include="Areas\Admin\Views\Role\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Role\RemoveUsers.cshtml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\html5shiv-printshiv.js" />

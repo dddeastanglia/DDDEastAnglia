@@ -1,0 +1,18 @@
+﻿@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@model DDDEastAnglia.Areas.Admin.Models.RoleModel
+           
+<h2>Rename</h2>
+
+@using (Html.BeginForm("Rename"))
+{
+    <p>
+        Group: @Html.DisplayFor(g => Model.RoleName)
+        @Html.HiddenFor(g => Model.RoleName)
+    </p>
+    <p>
+        New name: @Html.TextBoxFor(g => Model.NewRoleName)
+    </p>
+    <input type="submit" value="Save" /> <a href="@Url.Action("Details", new {rolename = Model.RoleName})">Cancel</a>
+}
