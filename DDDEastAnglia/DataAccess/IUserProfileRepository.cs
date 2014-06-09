@@ -11,5 +11,6 @@ namespace DDDEastAnglia.DataAccess
         UserProfile GetUserProfileByEmailAddress(string emailAddress);
         UserProfile AddUserProfile(UserProfile userProfile);
         void UpdateUserProfile(UserProfile profile);
+        void DeleteUserProfile(int id);
     }
 }
