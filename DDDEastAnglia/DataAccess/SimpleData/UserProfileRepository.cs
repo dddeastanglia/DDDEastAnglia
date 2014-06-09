@@ -37,5 +37,10 @@ namespace DDDEastAnglia.DataAccess.SimpleData
         {
             db.UserProfiles.UpdateByUserId(profile);
         }
+
+        public void DeleteUserProfile(int id)
+        {
+            db.UserProfiles.DeleteByUserId(id);
+        }
     }
 }
