@@ -45,11 +45,13 @@ namespace DDDEastAnglia
             AddScriptBundle(bundles, "~/bundles/resolveIPAddress", "~/Scripts/resolveIPAddress.js");
             AddScriptBundle(bundles, "~/bundles/progressbar", "~/Scripts/progressbar.js");
 
+            AddStyleBundle(bundles, "~/Content/bootstrap",
+                            "~/Content/bootstrap.css",
+                            "~/Content/media-queries.css",
+                            "~/Content/font-awesome.css",
+                            "~/Content/font-awesome-ie7.min.css");
+
             AddStyleBundle(bundles, "~/Content/admin",
-                           "~/Content/bootstrap.css",
-                           "~/Content/media-queries.css",
-                           "~/Content/font-awesome.css",
-                           "~/Content/font-awesome-ie7.min.css",
                            "~/Areas/Admin/Content/admin.css");
 
             AddStyleBundle(bundles, "~/Content/css",
