@@ -52,6 +52,25 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
         public ActionResult Details(int id)
         {
             var userProfile = userProfileRepository.GetUserProfileById(id);
+            return userProfile == null ? (ActionResult) HttpNotFound() : View(userProfile);
+        }
+
+        public ActionResult Edit(int id)
+        {
+            var userProfile = userProfileRepository.GetUserProfileById(id);
+            return userProfile == null ? (ActionResult) HttpNotFound() : View(userProfile);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(UserProfile userProfile)
+        {
+            if (ModelState.IsValid)
+            {
+                userProfileRepository.UpdateUserProfile(userProfile);
+                return RedirectToAction("Index");
+            }
+
             return View(userProfile);
         }
 

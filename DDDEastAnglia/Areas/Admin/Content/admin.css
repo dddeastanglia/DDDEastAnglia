@@ -6,6 +6,10 @@ a { text-decoration: underline; }
 
 a.btn, .dropdown-menu a, a.brand, a [class^="icon-"] { text-decoration: none; }
 
+label:first-letter {
+    text-transform: capitalize;
+}
+
 .table th {
     text-transform: capitalize;
 }

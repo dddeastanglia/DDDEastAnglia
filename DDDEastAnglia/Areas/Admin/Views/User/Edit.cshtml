@@ -1,0 +1,106 @@
+﻿@model DDDEastAnglia.Models.UserProfile
+
+@{
+    ViewBag.Title = @Model.Name;
+}
+
+@section header
+{
+    @Styles.Render("~/Content/Markdown")
+}
+
+<h2>@Model.Name</h2>
+
+@using (Html.BeginForm("Edit", "User", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    @Html.HiddenFor(model => model.UserId)
+
+    <div class="control-group">
+        @Html.LabelFor(m => Model.Name, new { @class = "control-label" })
+        <div class="controls">
+            @Html.TextBoxFor(m => Model.Name, new { autofocus = true })
+            @Html.ValidationMessageFor(m => Model.Name)
+        </div>
+    </div>
+
+    <div class="control-group">
+        @Html.LabelFor(m => Model.UserName, new { @class = "control-label" })
+        <div class="controls">
+            @Html.TextBoxFor(m => Model.UserName)
+            @Html.ValidationMessageFor(m => Model.UserName)
+        </div>
+    </div>
+
+    <div class="control-group">
+        @Html.LabelFor(m => Model.EmailAddress, new { @class = "control-label" })
+        <div class="controls">
+            @Html.TextBoxFor(m => Model.EmailAddress, new { type = "email" })
+            @Html.ValidationMessageFor(m => Model.EmailAddress)
+        </div>
+    </div>
+
+    <div class="control-group">
+        @Html.LabelFor(m => Model.WebsiteUrl, new { @class = "control-label" })
+        <div class="controls">
+            @Html.TextBoxFor(m => Model.WebsiteUrl, new { type = "url" })
+            @Html.ValidationMessageFor(m => Model.WebsiteUrl)
+        </div>
+    </div>
+
+    <div class="control-group">
+        @Html.LabelFor(m => Model.TwitterHandle, new { @class = "control-label" })
+        <div class="controls">
+            <div class="input-prepend">
+                <span class="add-on">@@</span>
+                @Html.TextBoxFor(m => Model.TwitterHandle)
+            </div>
+        </div>
+    </div>
+
+    <div class="control-group">
+        @Html.LabelFor(m => Model.MobilePhone, new { @class = "control-label" })
+        <div class="controls">
+            @Html.TextBoxFor(m => Model.MobilePhone, new { type = "tel" })
+        </div>
+    </div>
+
+    <div class="control-group">
+        @Html.LabelFor(m => Model.Bio, new { @class = "control-label" })
+        <div class="controls">
+            <div id="wmd-button-bar"></div>
+            <div>
+                @Html.TextAreaFor(m => Model.Bio, 10, 80, new { id = "wmd-input" })
+            </div>
+            <div id="wmd-preview"></div>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <div class="controls">
+            @Html.CheckBoxFor(m => Model.NewSpeaker)
+            @Html.LabelFor(m => Model.NewSpeaker, new { @class = "checkbox inline" })
+        </div>
+    </div>
+
+    <div class="control-group">
+        <div class="controls">
+            <input type="submit" class="btn btn-primary" value="Save details" />
+            @Html.ActionLink("Cancel", "Index")
+        </div>
+    </div>
+}
+
+@section Scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/Markdown")
+
+    <script type="text/javascript">
+        var converter = new Markdown.Converter();
+        var editor = new Markdown.Editor(converter);
+        editor.run();
+    </script>
+}
