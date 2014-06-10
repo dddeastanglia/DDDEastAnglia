@@ -41,12 +41,14 @@
         <tr><td>
             @Html.DisplayFor(modelItem => item.Title)
         </td><td>
-            <a href="@Url.Action("Details", "User")">@item.SpeakerUserName</a>
+            @item.SpeakerUserName
         </td><td>
             @Html.DisplayFor(modelItem => item.Votes)
         </td><td class="controls">
             <i class="icon-list-alt"></i> @Html.ActionLink("Details", "Details", new { id = item.SessionId })
+            |     
             <i class="icon-edit"></i> @Html.ActionLink("Edit", "Edit", new { id = item.SessionId }) 
+            |     
             <i class="icon-trash"></i> @Html.ActionLink("Delete", "Delete", new { id = item.SessionId })
         </td></tr>
     }
