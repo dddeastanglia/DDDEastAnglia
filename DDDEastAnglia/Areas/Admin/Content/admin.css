@@ -62,6 +62,10 @@ th.barchart, td.barchart {
     text-decoration: underline;
 }
 
-.user-details:after {
+.user-details:after, .admin-session-details:after {
     content: "Details";
+}
+
+.admin-session-abstract:after {
+    content: "Abstract";
 }
