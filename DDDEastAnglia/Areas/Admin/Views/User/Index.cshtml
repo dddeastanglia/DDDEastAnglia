@@ -48,7 +48,9 @@
             @Html.DisplayFor(modelItem => item.SubmittedSessionCount)
         </td><td>
             <i class="icon-list-alt"></i> @Html.ActionLink("Details", "Details", "User", new { id = item.UserId }, new { area = "Admin"})
+            |
             <i class="icon-edit"></i> @Html.ActionLink("Edit", "Edit", "User", new { id = item.UserId }, new { area = "Admin" }) 
+            |
             <i class="icon-trash"></i> @Html.ActionLink("Delete", "Delete", "User", new { id = item.UserId }, new { area = "Admin" })
         </td></tr>
     }
