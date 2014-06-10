@@ -226,6 +226,7 @@
     <Compile Include="Areas\Admin\Models\MenuViewModel.cs" />
     <Compile Include="Areas\Admin\Models\VotersPerIPAddressViewModel.cs" />
     <Compile Include="Areas\Admin\Models\VotesPerDayViewModel.cs" />
+    <Content Include="Content\common.css" />
     <Compile Include="Controllers\TimelineController.cs" />
     <Compile Include="Controllers\UserNameFilterAttribute.cs" />
     <Compile Include="DataAccess\ConferenceLoader.cs" />
