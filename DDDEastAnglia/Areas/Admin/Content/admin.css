@@ -1,4 +1,8 @@
-﻿.table th {
+﻿body {
+    margin-top: 50px;
+}
+
+.table th {
     text-transform: capitalize;
 }
 
