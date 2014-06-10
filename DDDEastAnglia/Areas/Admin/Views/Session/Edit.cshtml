@@ -1,12 +1,17 @@
 ﻿@model DDDEastAnglia.Models.Session
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = @Model.Title;
 }
 
-<h2>Edit</h2>
+@section header
+{
+    @Styles.Render("~/Content/Markdown")
+}
 
-@using (Html.BeginForm()) 
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm("Edit", "Session", FormMethod.Post, new { @class = "form-horizontal" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
@@ -14,48 +19,48 @@
     @Html.HiddenFor(model => model.SessionId)
     @Html.HiddenFor(model => model.ConferenceId)
 
-    <div class="editor-label">
-        @Html.LabelFor(model => model.Title)
-    </div>
-    <div class="editor-field">
-        @Html.EditorFor(model => model.Title)
-        @Html.ValidationMessageFor(model => model.Title)
-    </div>
-
-    <div class="editor-label">
-        @Html.LabelFor(model => model.Abstract)
-    </div>
-    <div class="editor-field">
-        @Html.EditorFor(model => model.Abstract)
-        @Html.ValidationMessageFor(model => model.Abstract)
+    <div class="control-group">
+        @Html.LabelFor(m => Model.Title, new { @class = "control-label" })
+        <div class="controls">
+            @Html.TextBoxFor(m => Model.Title, new { autofocus = true, @class = "admin-session-title" })
+            @Html.ValidationMessageFor(m => Model.Title)
+        </div>
     </div>
 
-    <div class="editor-label">
-        @Html.LabelFor(model => model.SpeakerUserName)
-    </div>
-    <div class="editor-field">
-        @Html.EditorFor(model => model.SpeakerUserName)
-        @Html.ValidationMessageFor(model => model.SpeakerUserName)
-    </div>
-
-    <div class="editor-label">
-        @Html.LabelFor(model => model.Votes)
-    </div>
-    <div class="editor-field">
-        @Html.EditorFor(model => model.Votes)
-        @Html.ValidationMessageFor(model => model.Votes)
+    <div class="control-group">
+        @Html.LabelFor(m => Model.SpeakerUserName, new { @class = "control-label" })
+        <div class="controls">
+            @Html.TextBoxFor(m => Model.SpeakerUserName)
+        </div>
     </div>
 
-    <p>
-        <input type="submit" class="btn" value="Save" />
-    </p>
+    <div class="control-group">
+        @Html.LabelFor(m => Model.Abstract, new { @class = "control-label" })
+        <div class="controls">
+            <div id="wmd-button-bar"></div>
+            <div>
+                @Html.TextAreaFor(m => Model.Abstract, 10, 80, new { id = "wmd-input" })
+            </div>
+            <div id="wmd-preview"></div>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <div class="controls">
+            <input type="submit" class="btn btn-primary" value="Save details" />
+            @Html.ActionLink("Cancel", "Index")
+        </div>
+    </div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Scripts 
 {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/Markdown")
+
+    <script type="text/javascript">
+            var converter = new Markdown.Converter();
+            var editor = new Markdown.Editor(converter);
+            editor.run();
+    </script>
 }
