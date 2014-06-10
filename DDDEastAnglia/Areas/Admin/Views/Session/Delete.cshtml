@@ -1,46 +1,18 @@
 ﻿@model DDDEastAnglia.Models.Session
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = string.Format("Delete {0}?", Model.Title);
 }
 
-<h2>Delete</h2>
+<h2>@ViewBag.Title</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<p>Deleting a session cannot be undone. Are you <em>really</em> sure you want to delete this session?</p>
 
-<div class="display-label">
-        @Html.DisplayNameFor(model => model.Title)
-</div>
-<div class="display-field">
-    @Html.DisplayFor(model => model.Title)
-</div>
-
-<div class="display-label">
-        @Html.DisplayNameFor(model => model.Abstract)
-</div>
-<div class="display-field">
-    @Html.DisplayFor(model => model.Abstract)
-</div>
-
-<div class="display-label">
-        @Html.DisplayNameFor(model => model.SpeakerUserName)
-</div>
-<div class="display-field">
-    @Html.DisplayFor(model => model.SpeakerUserName)
-</div>
-
-<div class="display-label">
-        @Html.DisplayNameFor(model => model.Votes)
-</div>
-<div class="display-field">
-    @Html.DisplayFor(model => model.Votes)
-</div>
-
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     <p>
-        <input type="submit" class="btn" value="Delete" /> |
-        @Html.ActionLink("Back to List", "Index")
+        <input type="submit" class="btn btn-danger" value="Delete session" />
+        @Html.ActionLink("Cancel", "Index")
     </p>
 }
