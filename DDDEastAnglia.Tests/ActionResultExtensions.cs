@@ -17,5 +17,11 @@ namespace DDDEastAnglia.Tests
             var viewName = result.RouteValues["action"];
             return viewName.ToString();
         }
+
+        public static int GetHttpStatusCode(this ActionResult actionResult)
+        {
+            var httpStatusCodeResult = (HttpStatusCodeResult) actionResult;
+            return httpStatusCodeResult.StatusCode;
+        }
     }
 }
