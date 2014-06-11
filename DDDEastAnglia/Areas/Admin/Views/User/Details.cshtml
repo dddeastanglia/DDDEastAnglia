@@ -30,6 +30,11 @@
     }
     
     <p>New Speaker <i class="@(Model.NewSpeaker ? "icon-ok" : "icon-remove")"></i></p>
+    
+    @if (Model.JoinedAt.HasValue)
+    {
+        <p>Joined on: @Model.JoinedAt.Value.ToString("f")</p>
+    }
 </section>
 
 @if (!string.IsNullOrWhiteSpace(@Model.Bio))

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using DDDEastAnglia.Helpers;
 
@@ -36,6 +37,8 @@ namespace DDDEastAnglia.Models
         
         [DisplayName("new speaker (have not spoken at a DDD event before)")]
         public bool NewSpeaker { get; set; }
+
+        public DateTimeOffset? JoinedAt { get; set; }
 
         public string GravatarUrl(int size = 50)
         {
