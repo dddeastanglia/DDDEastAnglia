@@ -27,7 +27,7 @@ namespace DDDEastAnglia.Tests.Voting
         public void Save_My_UserId_With_The_Vote()
         {
             Controller.RegisterVote(SessionIdToVoteFor);
-            MessageBus.Received().Send(Arg.Is<RegisterVoteCommand>(command => command.UserId == 0));
+            MessageBus.Received().Send(Arg.Is<RegisterVoteCommand>(command => !command.UserId.HasValue));
         }
     }
 }

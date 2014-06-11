@@ -651,6 +651,12 @@
       <SubType>Designer</SubType>
     </ExcludeFromPackageFiles>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DDDEastAnglia.DatabaseMigrations\DDDEastAnglia.DatabaseMigrations.csproj">
+      <Project>{444686d1-10db-454d-8120-09b7ac0a71a0}</Project>
+      <Name>DDDEastAnglia.DatabaseMigrations</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <!--This works for publishing web applications through Web Deploy 3.0 -->
     <ExcludeFilesFromDeployment>

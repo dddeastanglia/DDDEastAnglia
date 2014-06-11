@@ -12,12 +12,11 @@ namespace DDDEastAnglia.DataAccess.SimpleData.Models
         public Guid CookieId { get; set; }
         [Required]
         public DateTime TimeRecorded { get; set; }
-        public int UserId { get; set; } // just in case they are logged in
+        public int? UserId { get; set; } // just in case they are logged in
         public string IPAddress { get; set; }
         public string WebSessionId { get; set; }
         public string UserAgent { get; set; }
         public string Referrer { get; set; }
         public string ScreenResolution { get; set; }
-
     }
 }
