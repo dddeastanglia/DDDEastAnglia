@@ -1,5 +1,4 @@
-﻿@using DDDEastAnglia.Models
-@model SpeakerDisplayModel
+﻿@model DDDEastAnglia.Models.SpeakerDisplayModel
 
 <div class="span12 speaker @(Model.IsCurrentUser ? "speaker-own" : "")">
     @if (Model.IsCurrentUser)
@@ -10,7 +9,7 @@
             </span>
         </div>
     }
-    <h3 id="@Model.Username"><img src="@Html.Raw(@Model.GravatarUrl)" alt="@Html.Raw(@Model.Name)"/> @Model.Name</h3>
+    <h3 id="@Model.Name"><img src="@Html.Raw(@Model.GravatarUrl)" alt="@Html.Raw(@Model.Name)"/> @Model.Name</h3>
     <section class="links">
         @if (!string.IsNullOrWhiteSpace(@Model.WebsiteUrl))
         {

@@ -16,6 +16,5 @@ namespace DDDEastAnglia.Models
         public string WebsiteUrl { get; set; }
         public string GravatarUrl { get; set; }
         public Dictionary<int, string> Sessions { get; set; }
-        public string Username { get; set; }
     }
 }
