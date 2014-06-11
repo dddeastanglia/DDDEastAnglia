@@ -247,6 +247,7 @@
     <Compile Include="Models\AboutViewModel.cs" />
     <Compile Include="Models\TimelineModel.cs" />
     <Compile Include="NavigationMenu\NavigationMenuModule.cs" />
+    <Compile Include="Helpers\Email\EmailModule.cs" />
     <Compile Include="VotingData\DataProviderFactory.cs" />
     <Content Include="Areas\Admin\Views\Voting\NumberOfUsersWhoHaveCastXVotes.cshtml" />
     <Content Include="Areas\Admin\Views\Voting\VotesPerDay.cshtml" />
@@ -352,7 +353,6 @@
     <Compile Include="Domain\IConference.cs" />
     <Compile Include="Helpers\AlphabeticalSort.cs" />
     <Compile Include="Helpers\Context\HttpContextControllerInformationProvider.cs" />
-    <Compile Include="Helpers\Email\ResetPasswordEmailSenderFactory.cs" />
     <Compile Include="Helpers\IResetPasswordThingy.cs" />
     <Compile Include="Helpers\ISessionSorter.cs" />
     <Compile Include="Helpers\ISortAlgorithm.cs" />

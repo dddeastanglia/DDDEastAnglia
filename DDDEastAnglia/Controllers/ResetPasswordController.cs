@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Web.Mvc;
 using DDDEastAnglia.DataAccess;
-using DDDEastAnglia.DataAccess.SimpleData;
 using DDDEastAnglia.Helpers;
 using DDDEastAnglia.Helpers.Email;
 using DDDEastAnglia.Models;
@@ -13,9 +12,6 @@ namespace DDDEastAnglia.Controllers
         private readonly IUserProfileRepository userProfileRepository;
         private readonly IResetPasswordThingy resetPasswordThingy;
         private readonly IResetPasswordEmailSender resetPasswordEmailSender;
-
-        public ResetPasswordController() : this(new UserProfileRepository(), new WebSecurityWrapper(), ResetPasswordEmailSenderFactory.Create())
-        { }
 
         public ResetPasswordController(IUserProfileRepository userProfileRepository, IResetPasswordThingy resetPasswordThingy, IResetPasswordEmailSender resetPasswordEmailSender)
         {

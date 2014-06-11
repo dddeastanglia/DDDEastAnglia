@@ -6,20 +6,21 @@ namespace DDDEastAnglia.Helpers.Email.SendGrid
 {
     public class SendGridEmailSender : IEmailSender
     {
-        private readonly IMailHostSettings hostSettings;
+        private readonly IMailHostSettingsProvider hostSettingsProvider;
 
-        public SendGridEmailSender(IMailHostSettings hostSettings)
+        public SendGridEmailSender(IMailHostSettingsProvider hostSettingsProvider)
         {
-            if (hostSettings == null)
+            if (hostSettingsProvider == null)
             {
-                throw new ArgumentNullException("hostSettings");
+                throw new ArgumentNullException("hostSettingsProvider");
             }
-            
-            this.hostSettings = hostSettings;
+
+            this.hostSettingsProvider = hostSettingsProvider;
         }
 
         public void Send(IMailMessage message)
         {
+            var hostSettings = hostSettingsProvider.GetSettings();
             var credentials = new NetworkCredential(hostSettings.Username, hostSettings.Password);
             SMTP instance = SMTP.GetInstance(credentials, hostSettings.Host, hostSettings.Port);
             
