@@ -11,7 +11,7 @@
     
     @if (Model.SubmittedAt.HasValue)
     {
-        <p>Submitted on: @Model.SubmittedAt</p>
+        <p>Submitted on: @Model.SubmittedAt.Value.ToString("f")</p>
     }
 </section>
 
