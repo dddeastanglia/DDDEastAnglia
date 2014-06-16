@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Admin\AdminHomeControllerTests.cs" />
+    <Compile Include="Admin\SessionControllerTests.cs" />
     <Compile Include="Admin\VotingControllerTests.cs" />
     <Compile Include="ConferenceHelper.cs" />
     <Compile Include="ConferenceLoaderBuilder.cs" />
