@@ -41,11 +41,11 @@
         </td><td>
             @Html.DisplayFor(modelItem => item.Votes)
         </td><td class="controls">
-            <i class="icon-list-alt"></i> @Html.ActionLink("Details", "Details", new { id = item.SessionId })
+            <span><i class="icon-list-alt"></i> @Html.ActionLink("Details", "Details", new { id = item.SessionId })</span>
             |     
-            <i class="icon-edit"></i> @Html.ActionLink("Edit", "Edit", new { id = item.SessionId }) 
-            |     
-            <i class="icon-trash"></i> @Html.ActionLink("Delete", "Delete", new { id = item.SessionId })
+            <span><i class="icon-edit"></i> @Html.ActionLink("Edit", "Edit", new { id = item.SessionId })</span>
+            |
+            <span><i class="icon-trash"></i> @Html.ActionLink("Delete", "Delete", new { id = item.SessionId })</span>
         </td></tr>
     }
     </tbody>
