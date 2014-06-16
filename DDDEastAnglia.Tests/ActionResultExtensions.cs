@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Net;
+using System.Web.Mvc;
 
 namespace DDDEastAnglia.Tests
 {
@@ -18,10 +19,10 @@ namespace DDDEastAnglia.Tests
             return viewName.ToString();
         }
 
-        public static int GetHttpStatusCode(this ActionResult actionResult)
+        public static HttpStatusCode GetHttpStatusCode(this ActionResult actionResult)
         {
             var httpStatusCodeResult = (HttpStatusCodeResult) actionResult;
-            return httpStatusCodeResult.StatusCode;
+            return (HttpStatusCode) httpStatusCodeResult.StatusCode;
         }
     }
 }

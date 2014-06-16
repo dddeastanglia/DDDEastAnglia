@@ -34,7 +34,7 @@ namespace DDDEastAnglia.Tests.Admin
 
             var actionResult = controller.Details(123);
 
-            Assert.That(actionResult.GetHttpStatusCode(), Is.EqualTo((int) HttpStatusCode.NotFound));
+            Assert.That(actionResult.GetHttpStatusCode(), Is.EqualTo(HttpStatusCode.NotFound));
         }
 
         [Test]
@@ -61,7 +61,7 @@ namespace DDDEastAnglia.Tests.Admin
 
             var actionResult = controller.Edit(123);
 
-            Assert.That(actionResult.GetHttpStatusCode(), Is.EqualTo((int) HttpStatusCode.NotFound));
+            Assert.That(actionResult.GetHttpStatusCode(), Is.EqualTo(HttpStatusCode.NotFound));
         }
 
         [Test]
@@ -114,7 +114,7 @@ namespace DDDEastAnglia.Tests.Admin
 
             var actionResult = controller.Delete(123);
 
-            Assert.That(actionResult.GetHttpStatusCode(), Is.EqualTo((int) HttpStatusCode.NotFound));
+            Assert.That(actionResult.GetHttpStatusCode(), Is.EqualTo(HttpStatusCode.NotFound));
         }
 
         [Test]
