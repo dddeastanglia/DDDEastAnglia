@@ -14,6 +14,7 @@ namespace DDDEastAnglia.DataAccess.SimpleData
                                     .BindDefaultInterfaces()
                                     .Configure(binding => binding.InRequestScope()));
             Kernel.Bind<IConferenceLoader>().To<ConferenceLoader>().InRequestScope();
+            Kernel.Bind<ISpeakerRepository>().To<SpeakerRepository>().InRequestScope();
         }
     }
 }

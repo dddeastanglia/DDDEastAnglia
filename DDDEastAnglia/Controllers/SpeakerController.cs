@@ -95,8 +95,8 @@ namespace DDDEastAnglia.Controllers
                 {
                     IsCurrentUser = isCurrentUser,
                     Name = userProfile.Name,
-                    GravatarUrl = userProfile.GravatarUrl(),
                     Bio = userProfile.Bio,
+                    GravatarUrl = userProfile.GravatarUrl(),
                     TwitterHandle = userProfile.TwitterHandle,
                     WebsiteUrl = userProfile.WebsiteUrl,
                     Sessions = userSessions
