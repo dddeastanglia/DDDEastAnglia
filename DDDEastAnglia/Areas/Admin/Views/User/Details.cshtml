@@ -40,7 +40,7 @@
 @if (!string.IsNullOrWhiteSpace(@Model.Bio))
 {
     <div class="group-box bio">
-        @Model.Bio
+        @Html.MarkdownFor(model => Model.Bio)
     </div>
 }
 
