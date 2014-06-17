@@ -4,6 +4,11 @@
     ViewBag.Title = @Model.Title;
 }
 
+@section header
+{
+    @Styles.Render("~/Content/Markdown")
+}
+
 <h2>@Model.Title</h2>
 
 <section class="group-box admin-session-details">
@@ -16,7 +21,7 @@
 </section>
 
 <div class="group-box admin-session-abstract">
-    @Model.Abstract
+    @Html.MarkdownFor(model => Model.Abstract)
 </div>
 
 
@@ -27,3 +32,8 @@
     |
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+@section Scripts
+{
+    @Scripts.Render("~/bundles/Markdown")
+}
