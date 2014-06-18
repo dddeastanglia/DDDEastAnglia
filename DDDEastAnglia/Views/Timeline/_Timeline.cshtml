@@ -3,22 +3,22 @@
 <section>
     <h1>Timeline</h1>
     <dl>
-        <dt><strong>@Model.SubmissionOpens:</strong></dt>
-        <dd>Session submission opens</dd>
+        <dt class="@(Model.SubmissionPeriodPassed ? "passedTimelinePeriod" : "")"><strong>@Model.SubmissionOpens:</strong></dt>
+        <dd class="@(Model.SubmissionPeriodPassed ? "passedTimelinePeriod" : "")">Session submission opens</dd>
 
-        <dt><strong>@Model.SubmissionCloses:</strong></dt>
-        <dd>Session submission closes</dd>
+        <dt class="@(Model.SubmissionPeriodPassed ? "passedTimelinePeriod" : "")"><strong>@Model.SubmissionCloses:</strong></dt>
+        <dd class="@(Model.SubmissionPeriodPassed ? "passedTimelinePeriod" : "")">Session submission closes</dd>
 
-        <dt><strong>@Model.VotingOpens:</strong></dt>
-        <dd>Session voting opens</dd>
+        <dt class="@(Model.VotingPeriodPassed ? "passedTimelinePeriod" : "")"><strong>@Model.VotingOpens:</strong></dt>
+        <dd class="@(Model.VotingPeriodPassed ? "passedTimelinePeriod" : "")">Session voting opens</dd>
 
-        <dt><strong>@Model.VotingCloses:</strong></dt>
-        <dd>Session voting closes</dd>
+        <dt class="@(Model.VotingPeriodPassed ? "passedTimelinePeriod" : "")"><strong>@Model.VotingCloses:</strong></dt>
+        <dd class="@(Model.VotingPeriodPassed ? "passedTimelinePeriod" : "")">Session voting closes</dd>
 
-        <dt><strong>@Model.AgendaAnnounced:</strong></dt>
-        <dd>Agenda announced</dd>
+        <dt class="@(Model.AgendaPeriodPassed ? "passedTimelinePeriod" : "")"><strong>@Model.AgendaAnnounced:</strong></dt>
+        <dd class="@(Model.AgendaPeriodPassed ? "passedTimelinePeriod" : "")">Agenda announced</dd>
 
-        <dt><strong>@Model.RegistrationOpens:</strong></dt>
-        <dd><strong>Registration opens</strong></dd>
+        <dt class="@(Model.RegistrationPeriodPassed ? "passedTimelinePeriod" : "")"><strong>@Model.RegistrationOpens:</strong></dt>
+        <dd class="@(Model.RegistrationPeriodPassed ? "passedTimelinePeriod" : "")"><strong>Registration opens</strong></dd>
     </dl>
 </section>

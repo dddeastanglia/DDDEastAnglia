@@ -244,6 +244,8 @@
     <Compile Include="Helpers\Sessions\SubmittedSessionProfileFilter.cs" />
     <Compile Include="Helpers\ChartDataFormatter.cs" />
     <Compile Include="Helpers\Sessions\UserProfileFilterFactory.cs" />
+    <Compile Include="IDateTimeOffsetProvider.cs" />
+    <Compile Include="LocalDateTimeOffsetProvider.cs" />
     <Compile Include="Models\AboutViewModel.cs" />
     <Compile Include="Models\TimelineModel.cs" />
     <Compile Include="NavigationMenu\NavigationMenuModule.cs" />

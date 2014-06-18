@@ -61,9 +61,11 @@
   <ItemGroup>
     <Compile Include="Admin\AdminHomeControllerTests.cs" />
     <Compile Include="Admin\VotingControllerTests.cs" />
+    <Compile Include="CannedResponseDateTimeOffsetProvider.cs" />
     <Compile Include="ConferenceHelper.cs" />
     <Compile Include="ConferenceLoaderBuilder.cs" />
     <Compile Include="ActionResultExtensions.cs" />
+    <Compile Include="Controllers\TimelineControllerTests.cs" />
     <Compile Include="Controllers\HomeControllerTests.cs" />
     <Compile Include="Controllers\ProfileControllerTests.cs" />
     <Compile Include="Controllers\ResetPasswordControllerTests.cs" />

@@ -13,15 +13,22 @@ namespace DDDEastAnglia.Controllers
         private const string DateAndTimePattern = "dddd d MMMM yyyy, H:mm";
 
         private readonly ICalendarItemRepository calendarItemRepository;
+        private readonly IDateTimeOffsetProvider dateTimeOffsetProvider;
 
-        public TimelineController(ICalendarItemRepository calendarItemRepository)
+        public TimelineController(ICalendarItemRepository calendarItemRepository, IDateTimeOffsetProvider dateTimeOffsetProvider)
         {
             if (calendarItemRepository == null)
             {
                 throw new ArgumentNullException("calendarItemRepository");
             }
+
+            if (dateTimeOffsetProvider == null)
+            {
+                throw new ArgumentNullException("dateTimeOffsetProvider");
+            }
             
             this.calendarItemRepository = calendarItemRepository;
+            this.dateTimeOffsetProvider = dateTimeOffsetProvider;
         }
 
         public ActionResult ConferenceDate()
@@ -54,10 +61,20 @@ namespace DDDEastAnglia.Controllers
                 VotingOpens = FormatStartDate(voting.StartDate),
                 VotingCloses = FormatEndDate(voting.EndDate),
                 AgendaAnnounced = FormatStartDate(agendaPublished.StartDate),
-                RegistrationOpens = FormatStartDate(registraion.StartDate)
+                RegistrationOpens = FormatStartDate(registraion.StartDate),
+
+                SubmissionPeriodPassed = HasDatePassed(sessionSubmission.EndDate.Value),
+                VotingPeriodPassed = HasDatePassed(voting.EndDate.Value),
+                AgendaPeriodPassed = HasDatePassed(registraion.StartDate),
+                RegistrationPeriodPassed = HasDatePassed(registraion.EndDate.Value)
             };
             
             return PartialView("_Timeline", model);
+        }
+
+        private bool HasDatePassed(DateTimeOffset dateTime)
+        {
+            return dateTimeOffsetProvider.CurrentDateTime() > dateTime;
         }
 
         private string FormatStartDate(DateTimeOffset startDateTime)

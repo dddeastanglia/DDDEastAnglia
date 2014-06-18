@@ -6,7 +6,7 @@ namespace DDDEastAnglia.Tests
     {
         public static T GetViewModel<T>(this ActionResult actionResult)
         {
-            var result = (ViewResult) actionResult;
+            var result = (ViewResultBase) actionResult;
             var model = (T) result.Model;
             return model;
         }
