@@ -8,7 +8,7 @@ namespace DDDEastAnglia.DatabaseMigrations.Migrations
         public override void Up()
         {
             Alter.Table("Votes")
-                    .AddColumn("PosisionInList").AsInt32().Nullable();
+                    .AddColumn("PositionInList").AsInt32().NotNullable();
         }
 
         public override void Down()
