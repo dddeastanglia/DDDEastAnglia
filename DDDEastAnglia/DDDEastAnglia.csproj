@@ -223,12 +223,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Areas\Admin\Controllers\SpeakerController.cs" />
     <Compile Include="Areas\Admin\Models\MenuViewModel.cs" />
+    <Compile Include="Areas\Admin\Models\SpeakerModel.cs" />
     <Compile Include="Areas\Admin\Models\VotersPerIPAddressViewModel.cs" />
     <Compile Include="Areas\Admin\Models\VotesPerDayViewModel.cs" />
+    <Content Include="Content\common.css" />
     <Compile Include="Controllers\TimelineController.cs" />
     <Compile Include="Controllers\UserNameFilterAttribute.cs" />
     <Compile Include="DataAccess\ConferenceLoader.cs" />
+    <Compile Include="DataAccess\ISpeakerRepository.cs" />
+    <Compile Include="DataAccess\SpeakerRepository.cs" />
     <Compile Include="DataAccess\SimpleData\CalendarItemRepository.cs" />
     <Compile Include="DataAccess\SimpleData\UserProfileRepository.cs" />
     <Compile Include="DataAccess\ICalendarItemRepository.cs" />
@@ -246,6 +251,7 @@
     <Compile Include="Helpers\Sessions\UserProfileFilterFactory.cs" />
     <Compile Include="Models\AboutViewModel.cs" />
     <Compile Include="Models\TimelineModel.cs" />
+    <Compile Include="Models\SpeakerProfile.cs" />
     <Compile Include="NavigationMenu\NavigationMenuModule.cs" />
     <Compile Include="Helpers\Email\EmailModule.cs" />
     <Compile Include="VotingData\DataProviderFactory.cs" />
@@ -543,6 +549,10 @@
     <Content Include="Content\font\FontAwesome.otf" />
     <Content Include="Areas\Admin\Views\Voting\DuplicateVotes.cshtml" />
     <Content Include="Areas\Admin\Views\AdminHome\NavigationLinks.cshtml" />
+    <Content Include="Areas\Admin\Views\User\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\User\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\User\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Speaker\Index.cshtml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\html5shiv-printshiv.js" />

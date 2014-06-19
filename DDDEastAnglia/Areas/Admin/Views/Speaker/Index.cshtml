@@ -1,25 +1,22 @@
-﻿@model IEnumerable<DDDEastAnglia.Areas.Admin.Models.UserModel>
+﻿@model IEnumerable<DDDEastAnglia.Areas.Admin.Models.SpeakerModel>
 
 @{
-    ViewBag.Title = "Users";
+    ViewBag.Title = "Speakers";
 }
 
 <h2>@ViewBag.Title</h2>
 
 <div class="pull-right">
-    <strong>@Model.Count() users</strong>
+    <strong>@Model.Count() speakers</strong>
 </div>
 
-<table id="usersTable" class="table table-striped table-hover table-condensed">
+<table id="speakersTable" class="table table-striped table-hover table-condensed">
     <thead>
         <tr><th>
             @Html.DisplayNameFor(model => model.UserName)
             <span class="icon"></span>
         </th><th>
             @Html.DisplayNameFor(model => model.Name)
-            <span class="icon"></span>
-        </th><th>
-            @Html.DisplayNameFor(model => model.EmailAddress)
             <span class="icon"></span>
         </th><th>
             @Html.DisplayNameFor(model => model.NewSpeaker)
@@ -41,17 +38,15 @@
         </td><td>
             @Html.DisplayFor(modelItem => item.Name)
         </td><td>
-            @Html.DisplayFor(modelItem => item.EmailAddress)
-        </td><td>
             <i class="@(item.NewSpeaker ? "icon-ok" : "icon-remove")"></i>
         </td><td>
             @Html.DisplayFor(modelItem => item.SubmittedSessionCount)
-        </td><td>
-            <i class="icon-list-alt"></i> @Html.ActionLink("Details", "Details", "User", new { id = item.UserId }, new { area = "Admin"})
+        </td><td class="controls">
+            <span><i class="icon-list-alt"></i> @Html.ActionLink("Details", "Details", "User", new { id = item.UserId }, new { area = "Admin" })</span>     
             |
-            <i class="icon-edit"></i> @Html.ActionLink("Edit", "Edit", "User", new { id = item.UserId }, new { area = "Admin" }) 
+            <span><i class="icon-edit"></i> @Html.ActionLink("Edit", "Edit", "User", new { id = item.UserId }, new { area = "Admin" })</span>
             |
-            <i class="icon-trash"></i> @Html.ActionLink("Delete", "Delete", "User", new { id = item.UserId }, new { area = "Admin" })
+            <span><i class="icon-trash"></i> @Html.ActionLink("Delete", "Delete", "User", new { id = item.UserId }, new { area = "Admin" })</span>
         </td></tr>
     }
     </tbody>
@@ -63,7 +58,7 @@
 
     <script language="javascript">
         $(document).ready(function() {
-            $("#usersTable").tablesorter({ headers: { 5: { sorter: false } }});
+            $("#speakersTable").tablesorter({ headers: { 4: { sorter: false } }});
         });
     </script>
 }

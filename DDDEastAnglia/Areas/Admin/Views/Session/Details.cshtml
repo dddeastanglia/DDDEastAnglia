@@ -1,40 +1,40 @@
 ﻿@model DDDEastAnglia.Models.Session
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = @Model.Title;
 }
 
 <h2>Details</h2>
 
 <div class="display-label">
-        @Html.DisplayNameFor(model => model.Title)
+    @Html.DisplayNameFor(model => model.Title)
 </div>
 <div class="display-field">
     @Html.DisplayFor(model => model.Title)
 </div>
 
 <div class="display-label">
-        @Html.DisplayNameFor(model => model.Abstract)
+    @Html.DisplayNameFor(model => model.Abstract)
 </div>
 <div class="display-field">
     @Html.DisplayFor(model => model.Abstract)
 </div>
 
 <div class="display-label">
-        @Html.DisplayNameFor(model => model.SpeakerUserName)
+    @Html.DisplayNameFor(model => model.SpeakerUserName)
 </div>
 <div class="display-field">
     @Html.DisplayFor(model => model.SpeakerUserName)
 </div>
 
 <div class="display-label">
-        @Html.DisplayNameFor(model => model.Votes)
+    @Html.DisplayNameFor(model => model.Votes)
 </div>
 <div class="display-field">
     @Html.DisplayFor(model => model.Votes)
 </div>
 
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.SessionId }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.SessionId }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

@@ -8,7 +8,8 @@ namespace DDDEastAnglia.Models
     {
         [Key]
         public int UserId { get; set; }
-        
+
+        [Required]
         [DisplayName("username")]
         public string UserName { get; set; }
 
@@ -33,7 +34,7 @@ namespace DDDEastAnglia.Models
         [DisplayName("mobile phone number (will not be displayed publicly)")]
         public string MobilePhone { get; set; }
         
-        [DisplayName("I am a new speaker (have not spoken at a DDD event before)")]
+        [DisplayName("new speaker (have not spoken at a DDD event before)")]
         public bool NewSpeaker { get; set; }
 
         public string GravatarUrl(int size = 50)

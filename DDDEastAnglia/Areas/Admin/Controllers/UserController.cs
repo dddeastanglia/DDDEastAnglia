@@ -29,7 +29,6 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
             this.sessionRepository = sessionRepository;
         }
 
-        // GET: /Admin/User/
         public ActionResult Index()
         {
             var users = userProfileRepository.GetAllUserProfiles()
@@ -48,6 +47,45 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
             }
 
             return View(users);
+        }
+
+        public ActionResult Details(int id)
+        {
+            var userProfile = userProfileRepository.GetUserProfileById(id);
+            return userProfile == null ? (ActionResult) HttpNotFound() : View(userProfile);
+        }
+
+        public ActionResult Edit(int id)
+        {
+            var userProfile = userProfileRepository.GetUserProfileById(id);
+            return userProfile == null ? (ActionResult) HttpNotFound() : View(userProfile);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(UserProfile userProfile)
+        {
+            if (ModelState.IsValid)
+            {
+                userProfileRepository.UpdateUserProfile(userProfile);
+                return RedirectToAction("Index");
+            }
+
+            return View(userProfile);
+        }
+
+        public ActionResult Delete(int id)
+        {
+            var userProfile = userProfileRepository.GetUserProfileById(id);
+            return userProfile == null ? (ActionResult) HttpNotFound() : View(userProfile);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            userProfileRepository.DeleteUserProfile(id);
+            return RedirectToAction("Index");
         }
 
         private static UserModel CreateUserModel(UserProfile profile)
