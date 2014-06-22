@@ -28,7 +28,6 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
             this.voteRepository = voteRepository;
         }
 
-        // GET: /Admin/Session/
         public ActionResult Index()
         {
             var votesGroupedBySessionId = voteRepository.GetAllVotes().GroupBy(v => v.SessionId).ToDictionary(g => g.Key, g => g.Count());
@@ -45,21 +44,18 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
             return View(orderedSessions);
         }
 
-        // GET: /Admin/Session/Details/5
-        public ActionResult Details(int id = 0)
+        public ActionResult Details(int id)
         {
             var session = sessionRepository.Get(id);
             return session == null ? (ActionResult) HttpNotFound() : View(session);
         }
 
-        // GET: /Admin/Session/Edit/5
-        public ActionResult Edit(int id = 0)
+        public ActionResult Edit(int id)
         {
             var session = sessionRepository.Get(id);
             return session == null ? (ActionResult) HttpNotFound() : View(session);
         }
 
-        // POST: /Admin/Session/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Session session)
@@ -73,14 +69,12 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
             return View(session);
         }
 
-        // GET: /Admin/Session/Delete/5
         public ActionResult Delete(int id = 0)
         {
             var session = sessionRepository.Get(id);
             return session == null ? (ActionResult) HttpNotFound() : View(session);
         }
 
-        // POST: /Admin/Session/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

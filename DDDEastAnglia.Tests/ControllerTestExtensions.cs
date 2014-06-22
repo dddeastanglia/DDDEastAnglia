@@ -8,6 +8,11 @@ namespace DDDEastAnglia.Tests
 {
     public static class ControllerTestExtensions
     {
+        public static void CreateModelStateError(this Controller controller)
+        {
+            controller.ModelState.AddModelError("an error", "there was an error");
+        }
+
         /// <summary>
         /// Sets up a controller so that it has an HttpContext and a Url property.
         /// </summary>
