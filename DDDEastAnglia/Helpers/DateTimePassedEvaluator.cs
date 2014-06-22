@@ -23,7 +23,7 @@ namespace DDDEastAnglia.Helpers
 
         public bool HasDatePassed(DateTimeOffset dateTime)
         {
-            return dateTimeOffsetProvider.CurrentDateTime() > dateTime;
+            return dateTimeOffsetProvider.CurrentDateTime() >= dateTime;
         }
     }
 }
