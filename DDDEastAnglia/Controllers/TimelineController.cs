@@ -2,47 +2,52 @@
 using System.Web.Mvc;
 using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.Domain.Calendar;
+using DDDEastAnglia.Helpers;
 using DDDEastAnglia.Models;
 
 namespace DDDEastAnglia.Controllers
 {
     public class TimelineController : Controller
     {
-        private const string DateOnlyPattern = "dddd d MMMM yyyy";
-        private const string TimeOnlyPattern = "H:mm";
-        private const string DateAndTimePattern = "dddd d MMMM yyyy, H:mm";
 
         private readonly ICalendarItemRepository calendarItemRepository;
-        private readonly IDateTimeOffsetProvider dateTimeOffsetProvider;
+        private readonly IDateTimeFormatter dateTimeFormatter;
+        private readonly IDateTimePassedEvaluator dateTimePassedEvaluator;
 
-        public TimelineController(ICalendarItemRepository calendarItemRepository, IDateTimeOffsetProvider dateTimeOffsetProvider)
+        public TimelineController(ICalendarItemRepository calendarItemRepository, IDateTimeFormatter dateTimeFormatter, IDateTimePassedEvaluator dateTimePassedEvaluator)
         {
             if (calendarItemRepository == null)
             {
                 throw new ArgumentNullException("calendarItemRepository");
             }
 
-            if (dateTimeOffsetProvider == null)
+            if (dateTimeFormatter == null)
             {
-                throw new ArgumentNullException("dateTimeOffsetProvider");
+                throw new ArgumentNullException("dateTimeFormatter");
+            }
+
+            if (dateTimePassedEvaluator == null)
+            {
+                throw new ArgumentNullException("dateTimePassedEvaluator");
             }
             
             this.calendarItemRepository = calendarItemRepository;
-            this.dateTimeOffsetProvider = dateTimeOffsetProvider;
+            this.dateTimeFormatter = dateTimeFormatter;
+            this.dateTimePassedEvaluator = dateTimePassedEvaluator;
         }
 
         public ActionResult ConferenceDate()
         {
             var conference = calendarItemRepository.GetFromType(CalendarEntryType.Conference);
-            string conferenceDate = conference.StartDate.ToString(DateOnlyPattern);
-            return new ContentResult { Content = conferenceDate };
+            string conferenceDate = dateTimeFormatter.FormatDate(conference.StartDate);
+            return new ContentResult {Content = conferenceDate};
         }
 
         public ActionResult ConferenceTime()
         {
             var conference = calendarItemRepository.GetFromType(CalendarEntryType.Conference);
-            string startTime = conference.StartDate.ToString(TimeOnlyPattern);
-            string endTime = conference.EndDate.Value.ToString(TimeOnlyPattern);
+            string startTime = dateTimeFormatter.FormatTime(conference.StartDate);
+            string endTime = dateTimeFormatter.FormatTime(conference.EndDate.Value);
             string conferenceTimes = string.Format("{0} to {1}", startTime, endTime);
             return new ContentResult {Content = conferenceTimes};
         }
@@ -58,69 +63,37 @@ namespace DDDEastAnglia.Controllers
             {
                 SessionSubmissionOpens = new TimelineItemModel
                 {
-                    PeriodDate = FormatStartDate(sessionSubmission.StartDate),
-                    PeriodPassed = HasDatePassed(sessionSubmission.StartDate)
+                    PeriodDate = dateTimeFormatter.FormatStartDate(sessionSubmission.StartDate),
+                    PeriodPassed = dateTimePassedEvaluator.HasDatePassed(sessionSubmission.EndDate.Value)
                 },
                 SessionSubmissionCloses = new TimelineItemModel
                 {
-                    PeriodDate = FormatEndDate(sessionSubmission.EndDate),
-                    PeriodPassed = HasDatePassed(sessionSubmission.EndDate.Value)
+                    PeriodDate = dateTimeFormatter.FormatEndDate(sessionSubmission.EndDate),
+                    PeriodPassed = dateTimePassedEvaluator.HasDatePassed(sessionSubmission.EndDate.Value)
                 },
                 VotingOpens = new TimelineItemModel
                 {
-                    PeriodDate = FormatStartDate(voting.StartDate),
-                    PeriodPassed = HasDatePassed(voting.StartDate)
+                    PeriodDate = dateTimeFormatter.FormatStartDate(voting.StartDate),
+                    PeriodPassed = dateTimePassedEvaluator.HasDatePassed(voting.EndDate.Value)
                 },
                 VotingCloses = new TimelineItemModel
                 {
-                    PeriodDate = FormatEndDate(voting.EndDate),
-                    PeriodPassed = HasDatePassed(voting.EndDate.Value)
+                    PeriodDate = dateTimeFormatter.FormatEndDate(voting.EndDate),
+                    PeriodPassed = dateTimePassedEvaluator.HasDatePassed(voting.EndDate.Value)
                 },
                 AgendaAnnounced = new TimelineItemModel
                 {
-                    PeriodDate = FormatStartDate(agendaPublished.StartDate),
-                    PeriodPassed = HasDatePassed(registraion.StartDate)
+                    PeriodDate = dateTimeFormatter.FormatStartDate(agendaPublished.StartDate),
+                    PeriodPassed = dateTimePassedEvaluator.HasDatePassed(registraion.StartDate)
                 },
                 RegistrationOpens = new TimelineItemModel
                 {
-                    PeriodDate = FormatStartDate(registraion.StartDate),
-                    PeriodPassed = HasDatePassed(registraion.EndDate.Value)
+                    PeriodDate = dateTimeFormatter.FormatStartDate(registraion.StartDate),
+                    PeriodPassed = dateTimePassedEvaluator.HasDatePassed(registraion.EndDate.Value)
                 }
             };
             
             return PartialView("_Timeline", model);
-        }
-
-        private bool HasDatePassed(DateTimeOffset dateTime)
-        {
-            return dateTimeOffsetProvider.CurrentDateTime() > dateTime;
-        }
-
-        private string FormatStartDate(DateTimeOffset startDateTime)
-        {
-            var timeOfDay = startDateTime.TimeOfDay;
-            return timeOfDay.Hours == 0
-                        ? startDateTime.ToString(DateOnlyPattern)
-                        : startDateTime.ToString(DateAndTimePattern);
-        }
-
-        private string FormatEndDate(DateTimeOffset? endDateTime)
-        {
-            if (endDateTime == null)
-            {
-                return string.Empty;
-            }
-
-            var endDateTimeValue = endDateTime.Value;
-            var timeOfDay = endDateTimeValue.TimeOfDay;
-
-            // if the end time is midnight, we need to subtract a little to push it back to the previous date
-            if (timeOfDay.Hours == 0 && timeOfDay.Minutes == 0 && timeOfDay.Seconds == 0)
-            {
-                endDateTimeValue = endDateTimeValue - new TimeSpan(0, 0, 1);
-            }
-
-            return endDateTimeValue.ToString(DateOnlyPattern);
         }
     }
 }
