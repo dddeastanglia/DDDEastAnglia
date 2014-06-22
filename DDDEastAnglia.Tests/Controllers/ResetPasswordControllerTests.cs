@@ -82,47 +82,25 @@ namespace DDDEastAnglia.Tests.Controllers
         }
 
         [Test]
-        public void TestThat_ResetPassword_AddsAValidationError_WhenTheModelHasAValidUserName_ButTheUserProfileCouldNotBeFound()
-        {
-            var controller = new ResetPasswordController(Substitute.For<IUserProfileRepository>(), Substitute.For<IResetPasswordThingy>(), Substitute.For<IResetPasswordEmailSender>());
-
-            var model = new ResetPasswordStepOneModel {UserName = "bob"};
-            controller.ResetPassword(model);
-
-            Assert.That(controller.ModelState.Count, Is.EqualTo(1));
-        }
-
-        [Test]
-        public void TestThat_ResetPassword_RedirectsBackToStepOne_WhenTheModelHasAValidUserName_ButTheUserProfileCouldNotBeFound()
+        public void TestThat_ResetPassword_RedirectsToStepTwo_WhenTheModelHasAValidUserName_ButTheUserProfileCouldNotBeFound()
         {
             var controller = new ResetPasswordController(Substitute.For<IUserProfileRepository>(), Substitute.For<IResetPasswordThingy>(), Substitute.For<IResetPasswordEmailSender>());
 
             var model = new ResetPasswordStepOneModel {UserName = "bob"};
             var result = (ViewResult) controller.ResetPassword(model);
 
-            Assert.That(result.ViewName, Is.EqualTo("Step1"));
+            Assert.That(result.ViewName, Is.EqualTo("Step2"));
         }
 
         [Test]
-        public void TestThat_ResetPassword_AddsAValidationError_WhenTheModelHasAValidEmailAddress_ButTheUserProfileCouldNotBeFound()
-        {
-            var controller = new ResetPasswordController(Substitute.For<IUserProfileRepository>(), Substitute.For<IResetPasswordThingy>(), Substitute.For<IResetPasswordEmailSender>());
-
-            var model = new ResetPasswordStepOneModel {EmailAddress = "bob@example.com"};
-            controller.ResetPassword(model);
-
-            Assert.That(controller.ModelState.Count, Is.EqualTo(1));
-        }
-
-        [Test]
-        public void TestThat_ResetPassword_RedirectsBackToStepOne_WhenTheModelHasAValidEmailAddress_ButTheUserProfileCouldNotBeFound()
+        public void TestThat_ResetPassword_RedirectsToStepTwo_WhenTheModelHasAValidEmailAddress_ButTheUserProfileCouldNotBeFound()
         {
             var controller = new ResetPasswordController(Substitute.For<IUserProfileRepository>(), Substitute.For<IResetPasswordThingy>(), Substitute.For<IResetPasswordEmailSender>());
 
             var model = new ResetPasswordStepOneModel {EmailAddress = "bob@example.com"};
             var result = (ViewResult) controller.ResetPassword(model);
 
-            Assert.That(result.ViewName, Is.EqualTo("Step1"));
+            Assert.That(result.ViewName, Is.EqualTo("Step2"));
         }
 
         [Test]
