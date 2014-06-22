@@ -59,38 +59,50 @@ namespace DDDEastAnglia.Controllers
             var agendaPublished = calendarItemRepository.GetFromType(CalendarEntryType.AgendaPublished);
             var registraion = calendarItemRepository.GetFromType(CalendarEntryType.Registration);
 
+            var sessionSubmissionOpens = new TimelineItemModel
+            {
+                PeriodDate = dateTimeFormatter.FormatStartDate(sessionSubmission.StartDate),
+                PeriodPassed = dateTimePassedEvaluator.HasDatePassed(sessionSubmission.EndDate.Value)
+            };
+
+            var sessionSubmissionCloses = new TimelineItemModel
+            {
+                PeriodDate = dateTimeFormatter.FormatEndDate(sessionSubmission.EndDate),
+                PeriodPassed = dateTimePassedEvaluator.HasDatePassed(sessionSubmission.EndDate.Value)
+            };
+
+            var votingOpens = new TimelineItemModel
+            {
+                PeriodDate = dateTimeFormatter.FormatStartDate(voting.StartDate),
+                PeriodPassed = dateTimePassedEvaluator.HasDatePassed(voting.EndDate.Value)
+            };
+            
+            var votingCloses = new TimelineItemModel
+            {
+                PeriodDate = dateTimeFormatter.FormatEndDate(voting.EndDate),
+                PeriodPassed = dateTimePassedEvaluator.HasDatePassed(voting.EndDate.Value)
+            };
+            
+            var agendaAnnounced = new TimelineItemModel
+            {
+                PeriodDate = dateTimeFormatter.FormatStartDate(agendaPublished.StartDate),
+                PeriodPassed = dateTimePassedEvaluator.HasDatePassed(registraion.StartDate)
+            };
+            
+            var registrationOpens = new TimelineItemModel
+            {
+                PeriodDate = dateTimeFormatter.FormatStartDate(registraion.StartDate),
+                PeriodPassed = dateTimePassedEvaluator.HasDatePassed(registraion.EndDate.Value)
+            };
+
             var model = new TimelineModel
             {
-                SessionSubmissionOpens = new TimelineItemModel
-                {
-                    PeriodDate = dateTimeFormatter.FormatStartDate(sessionSubmission.StartDate),
-                    PeriodPassed = dateTimePassedEvaluator.HasDatePassed(sessionSubmission.EndDate.Value)
-                },
-                SessionSubmissionCloses = new TimelineItemModel
-                {
-                    PeriodDate = dateTimeFormatter.FormatEndDate(sessionSubmission.EndDate),
-                    PeriodPassed = dateTimePassedEvaluator.HasDatePassed(sessionSubmission.EndDate.Value)
-                },
-                VotingOpens = new TimelineItemModel
-                {
-                    PeriodDate = dateTimeFormatter.FormatStartDate(voting.StartDate),
-                    PeriodPassed = dateTimePassedEvaluator.HasDatePassed(voting.EndDate.Value)
-                },
-                VotingCloses = new TimelineItemModel
-                {
-                    PeriodDate = dateTimeFormatter.FormatEndDate(voting.EndDate),
-                    PeriodPassed = dateTimePassedEvaluator.HasDatePassed(voting.EndDate.Value)
-                },
-                AgendaAnnounced = new TimelineItemModel
-                {
-                    PeriodDate = dateTimeFormatter.FormatStartDate(agendaPublished.StartDate),
-                    PeriodPassed = dateTimePassedEvaluator.HasDatePassed(registraion.StartDate)
-                },
-                RegistrationOpens = new TimelineItemModel
-                {
-                    PeriodDate = dateTimeFormatter.FormatStartDate(registraion.StartDate),
-                    PeriodPassed = dateTimePassedEvaluator.HasDatePassed(registraion.EndDate.Value)
-                }
+                SessionSubmissionOpens = sessionSubmissionOpens,
+                SessionSubmissionCloses = sessionSubmissionCloses,
+                VotingOpens = votingOpens,
+                VotingCloses = votingCloses,
+                AgendaAnnounced = agendaAnnounced,
+                RegistrationOpens = registrationOpens
             };
             
             return PartialView("_Timeline", model);
