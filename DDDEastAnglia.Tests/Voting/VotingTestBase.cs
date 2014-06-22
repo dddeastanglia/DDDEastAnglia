@@ -28,7 +28,7 @@ namespace DDDEastAnglia.Tests.Voting
             _messageBus = Substitute.For<IMessageBus>();
             SetExpectations(_messageBus);
 
-            Controller = new VoteController(_sessionVoteModelQuery, _messageBus, _controllerInformationProvider);
+            Controller = new VoteController(_messageBus, _sessionVoteModelQuery, _controllerInformationProvider);
         }
 
         protected IMessageBus MessageBus { get { return _messageBus; } }

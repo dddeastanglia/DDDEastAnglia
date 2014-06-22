@@ -14,5 +14,6 @@ namespace DDDEastAnglia.DataAccess.Commands.Vote
         public int? UserId { get; set; }
         public string ScreenResolution { get; set; }
         public Guid CookieId { get; set; }
+        public int PositionInList { get; set; }
     }
 }

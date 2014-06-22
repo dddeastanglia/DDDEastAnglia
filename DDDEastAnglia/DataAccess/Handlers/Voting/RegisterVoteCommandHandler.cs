@@ -39,7 +39,8 @@ namespace DDDEastAnglia.DataAccess.Handlers.Voting
                 TimeRecorded = message.TimeRecorded,
                 UserAgent = message.UserAgent,
                 UserId = message.UserId,
-                WebSessionId = message.WebSessionId
+                WebSessionId = message.WebSessionId,
+                PositionInList = message.PositionInList
             });
         }
     }
