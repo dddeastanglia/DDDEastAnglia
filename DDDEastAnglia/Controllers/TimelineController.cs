@@ -56,17 +56,36 @@ namespace DDDEastAnglia.Controllers
 
             var model = new TimelineModel
             {
-                SubmissionOpens = FormatStartDate(sessionSubmission.StartDate),
-                SubmissionCloses = FormatEndDate(sessionSubmission.EndDate),
-                VotingOpens = FormatStartDate(voting.StartDate),
-                VotingCloses = FormatEndDate(voting.EndDate),
-                AgendaAnnounced = FormatStartDate(agendaPublished.StartDate),
-                RegistrationOpens = FormatStartDate(registraion.StartDate),
-
-                SubmissionPeriodPassed = HasDatePassed(sessionSubmission.EndDate.Value),
-                VotingPeriodPassed = HasDatePassed(voting.EndDate.Value),
-                AgendaPeriodPassed = HasDatePassed(registraion.StartDate),
-                RegistrationPeriodPassed = HasDatePassed(registraion.EndDate.Value)
+                SessionSubmissionOpens = new TimelineItemModel
+                {
+                    PeriodDate = FormatStartDate(sessionSubmission.StartDate),
+                    PeriodPassed = HasDatePassed(sessionSubmission.StartDate)
+                },
+                SessionSubmissionCloses = new TimelineItemModel
+                {
+                    PeriodDate = FormatEndDate(sessionSubmission.EndDate),
+                    PeriodPassed = HasDatePassed(sessionSubmission.EndDate.Value)
+                },
+                VotingOpens = new TimelineItemModel
+                {
+                    PeriodDate = FormatStartDate(voting.StartDate),
+                    PeriodPassed = HasDatePassed(voting.StartDate)
+                },
+                VotingCloses = new TimelineItemModel
+                {
+                    PeriodDate = FormatEndDate(voting.EndDate),
+                    PeriodPassed = HasDatePassed(voting.EndDate.Value)
+                },
+                AgendaAnnounced = new TimelineItemModel
+                {
+                    PeriodDate = FormatStartDate(agendaPublished.StartDate),
+                    PeriodPassed = HasDatePassed(registraion.StartDate)
+                },
+                RegistrationOpens = new TimelineItemModel
+                {
+                    PeriodDate = FormatStartDate(registraion.StartDate),
+                    PeriodPassed = HasDatePassed(registraion.EndDate.Value)
+                }
             };
             
             return PartialView("_Timeline", model);

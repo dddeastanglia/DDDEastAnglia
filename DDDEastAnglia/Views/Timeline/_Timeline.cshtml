@@ -3,22 +3,11 @@
 <section>
     <h1>Timeline</h1>
     <dl>
-        <dt class="@(Model.SubmissionPeriodPassed ? "passedTimelinePeriod" : "")"><strong>@Model.SubmissionOpens:</strong></dt>
-        <dd class="@(Model.SubmissionPeriodPassed ? "passedTimelinePeriod" : "")">Session submission opens</dd>
-
-        <dt class="@(Model.SubmissionPeriodPassed ? "passedTimelinePeriod" : "")"><strong>@Model.SubmissionCloses:</strong></dt>
-        <dd class="@(Model.SubmissionPeriodPassed ? "passedTimelinePeriod" : "")">Session submission closes</dd>
-
-        <dt class="@(Model.VotingPeriodPassed ? "passedTimelinePeriod" : "")"><strong>@Model.VotingOpens:</strong></dt>
-        <dd class="@(Model.VotingPeriodPassed ? "passedTimelinePeriod" : "")">Session voting opens</dd>
-
-        <dt class="@(Model.VotingPeriodPassed ? "passedTimelinePeriod" : "")"><strong>@Model.VotingCloses:</strong></dt>
-        <dd class="@(Model.VotingPeriodPassed ? "passedTimelinePeriod" : "")">Session voting closes</dd>
-
-        <dt class="@(Model.AgendaPeriodPassed ? "passedTimelinePeriod" : "")"><strong>@Model.AgendaAnnounced:</strong></dt>
-        <dd class="@(Model.AgendaPeriodPassed ? "passedTimelinePeriod" : "")">Agenda announced</dd>
-
-        <dt class="@(Model.RegistrationPeriodPassed ? "passedTimelinePeriod" : "")"><strong>@Model.RegistrationOpens:</strong></dt>
-        <dd class="@(Model.RegistrationPeriodPassed ? "passedTimelinePeriod" : "")"><strong>Registration opens</strong></dd>
+        @Html.Partial("_TimelineItem", Model.SessionSubmissionOpens, new ViewDataDictionary {{"Label", "Session submission opens"}})
+        @Html.Partial("_TimelineItem", Model.SessionSubmissionCloses, new ViewDataDictionary { { "Label", "Session submission closes" } })
+        @Html.Partial("_TimelineItem", Model.VotingOpens, new ViewDataDictionary { { "Label", "Session voting opens" } })
+        @Html.Partial("_TimelineItem", Model.VotingCloses, new ViewDataDictionary { { "Label", "Session voting closes" } })
+        @Html.Partial("_TimelineItem", Model.AgendaAnnounced, new ViewDataDictionary { { "Label", "Agenda announced" } })
+        @Html.Partial("_TimelineItem", Model.RegistrationOpens, new ViewDataDictionary { { "Label", "Registration opens" } })
     </dl>
 </section>
