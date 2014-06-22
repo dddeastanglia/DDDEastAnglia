@@ -1,9 +1,8 @@
 ﻿@if (Request.IsAuthenticated)
 {
-    <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#">
-        <i class="icon-user"></i> @User.Identity.Name
-        <span class="caret"></span>
-    </a>
+    <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-user"></i> @User.Identity.Name <b class="caret"></b></a>
+    </li>
     <ul class="dropdown-menu">
         <li>@Html.ActionLink("Edit Profile", "Edit", "Profile")</li>
         <li>@Html.ActionLink("Change Password", "ChangePassword", "Account")</li>
