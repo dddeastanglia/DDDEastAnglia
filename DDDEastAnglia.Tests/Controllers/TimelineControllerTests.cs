@@ -129,7 +129,8 @@ namespace DDDEastAnglia.Tests.Controllers
 
         private TimelineController SetUpController(PeriodPassed periodPassed)
         {
-            var start = new DateTimeOffset(DateTime.Now, TimeSpan.FromHours(1));
+            var now = DateTime.Now;
+            var start = new DateTimeOffset(now.Year, now.Month, now.Day, now.Hour, now.Minute, now.Second, TimeSpan.FromHours(1));
             var end = start + TimeSpan.FromDays(1);
             var calendarItem = new CalendarItem { StartDate = start, EndDate = end };
             var calendarItemRepository = Substitute.For<ICalendarItemRepository>();
