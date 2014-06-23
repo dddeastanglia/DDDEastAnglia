@@ -70,8 +70,8 @@ namespace DDDEastAnglia.Controllers
 
             if (profile == null)
             {
-                ModelState.AddModelError("", "Could not reset password.");
-                return View("Step1");
+                // could't find the user, but don't want to give that away
+                return View("Step2");
             }
 
             string passwordResetToken = resetPasswordThingy.GeneratePasswordResetToken(profile.UserName, 120);
