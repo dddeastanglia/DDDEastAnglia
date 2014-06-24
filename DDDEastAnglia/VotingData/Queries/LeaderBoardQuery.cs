@@ -30,7 +30,7 @@ s.SessionId AS SessionId, s.Title AS SessionTitle, u.UserId AS SpeakerUserId,
 u.Name AS SpeakerName, COUNT(v.SessionId) AS VoteCount
 FROM Sessions s
 JOIN Votes v ON v.SessionId = s.SessionId
-JOIN UserProfile u ON u.UserName = s.SpeakerUserName
+JOIN UserProfiles u ON u.UserName = s.SpeakerUserName
 GROUP BY s.SessionId, s.Title, u.UserId, u.Name
 ORDER BY VoteCount DESC";
 
@@ -42,7 +42,7 @@ WITH CTE AS
 	u.Name AS SpeakerName, COUNT(v.SessionId) AS VoteCount
 	FROM Sessions s
 	JOIN Votes v ON v.SessionId = s.SessionId
-	JOIN UserProfile u ON u.UserName = s.SpeakerUserName
+	JOIN UserProfiles u ON u.UserName = s.SpeakerUserName
 	GROUP BY s.SessionId, s.Title, u.UserId, u.Name
 )
 SELECT {0} row_number() OVER (ORDER BY VoteCount DESC) AS Position, 
