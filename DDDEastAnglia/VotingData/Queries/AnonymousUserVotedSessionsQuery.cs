@@ -18,7 +18,7 @@ namespace DDDEastAnglia.VotingData.Queries
             {
                 return string.Format(@"
 SELECT s.SessionId AS SessionId, s.Title AS SessionTitle, p.UserId AS SpeakerUserId, p.Name AS SpeakerName
-FROM Votes v, Sessions s, UserProfile p
+FROM Votes v, Sessions s, UserProfiles p
 WHERE v.SessionId = s.SessionId
 AND s.SpeakerUserName = p.UserName
 AND v.CookieId = '{0}'

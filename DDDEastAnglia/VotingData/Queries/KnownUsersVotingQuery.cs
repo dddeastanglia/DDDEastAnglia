@@ -25,7 +25,7 @@ namespace DDDEastAnglia.VotingData.Queries
             {
                 return @"
 SELECT v.UserId, p.Name, p.UserName, p.EmailAddress, COUNT(v.UserId) AS VoteCount FROM Votes v
-JOIN UserProfile p ON v.UserId = p.UserId
+JOIN UserProfiles p ON v.UserId = p.UserId
 WHERE v.UserId <> 0
 GROUP BY v.UserId, p.Name, p.Username, p.EmailAddress
 ORDER BY VoteCount DESC";

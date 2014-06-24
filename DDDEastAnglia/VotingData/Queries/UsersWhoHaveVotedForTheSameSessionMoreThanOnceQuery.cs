@@ -25,7 +25,7 @@ namespace DDDEastAnglia.VotingData.Queries
             {
                 return @"
 SELECT CookieId, V.UserId, P.EmailAddress, V.SessionId, S.Title AS SessionTitle, SP.UserId AS SpeakerUserId, SP.Name AS SpeakerName, COUNT(CookieId) AS VoteCount 
-FROM Sessions S, UserProfile SP, Votes V LEFT OUTER JOIN UserProfile P
+FROM Sessions S, UserProfiles SP, Votes V LEFT OUTER JOIN UserProfiles P
 ON V.UserId = P.UserId
 WHERE S.SessionId = V.SessionId
 AND S.SpeakerUserName = SP.UserName
