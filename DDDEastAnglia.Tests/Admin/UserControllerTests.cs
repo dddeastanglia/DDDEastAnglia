@@ -15,14 +15,12 @@ namespace DDDEastAnglia.Tests.Admin
         {
             const int userId = 123;
             var userProfileRepository = Substitute.For<IUserProfileRepository>();
-            userProfileRepository.GetUserProfileById(userId).Returns(new UserProfile {UserId = userId});
             var sessionRepository = Substitute.For<ISessionRepository>();
             var controller = new UserController(userProfileRepository, sessionRepository);
 
-            var actionResult = controller.Details(userId);
+            controller.Details(userId);
 
-            var model = actionResult.GetViewModel<UserProfile>();
-            Assert.That(model.UserId, Is.EqualTo(userId));
+            userProfileRepository.Received().GetUserProfileById(userId);
         }
 
         [Test]
@@ -42,14 +40,12 @@ namespace DDDEastAnglia.Tests.Admin
         {
             const int userId = 123;
             var userProfileRepository = Substitute.For<IUserProfileRepository>();
-            userProfileRepository.GetUserProfileById(userId).Returns(new UserProfile { UserId = userId });
             var sessionRepository = Substitute.For<ISessionRepository>();
             var controller = new UserController(userProfileRepository, sessionRepository);
 
-            var actionResult = controller.Edit(userId);
+            controller.Edit(userId);
 
-            var model = actionResult.GetViewModel<UserProfile>();
-            Assert.That(model.UserId, Is.EqualTo(userId));
+            userProfileRepository.Received().GetUserProfileById(userId); 
         }
 
         [Test]
@@ -95,14 +91,12 @@ namespace DDDEastAnglia.Tests.Admin
         {
             const int userId = 123;
             var userProfileRepository = Substitute.For<IUserProfileRepository>();
-            userProfileRepository.GetUserProfileById(userId).Returns(new UserProfile { UserId = userId });
             var sessionRepository = Substitute.For<ISessionRepository>();
             var controller = new UserController(userProfileRepository, sessionRepository);
 
-            var actionResult = controller.Delete(userId);
+            controller.Delete(userId);
 
-            var model = actionResult.GetViewModel<UserProfile>();
-            Assert.That(model.UserId, Is.EqualTo(userId));
+            userProfileRepository.Received().GetUserProfileById(userId);
         }
 
         [Test]
