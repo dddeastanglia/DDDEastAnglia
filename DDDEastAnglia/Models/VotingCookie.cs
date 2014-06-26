@@ -1,51 +1,47 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using DDDEastAnglia.DataAccess;
+using DDDEastAnglia.Domain.Calendar;
 
 namespace DDDEastAnglia.Models
 {
     public class VotingCookie
     {
-        public const string CookieName = "DDDEA2014.Voting";
-        public static readonly DateTime DefaultExpiry = new DateTime(2013, 5, 25);
-        private readonly List<int> _sessionsVotedFor = new List<int>();
+        private readonly IConferenceLoader conferenceLoader;
+        private readonly ICalendarItemRepository calendarItemRepository;
 
-        public VotingCookie(Guid id, IEnumerable<int> sessionsVotedFor)
+        public VotingCookie(IConferenceLoader conferenceLoader, ICalendarItemRepository calendarItemRepository)
         {
-            Id = id;
-            Name = CookieName;
-            Expires = DefaultExpiry;
-            _sessionsVotedFor.AddRange(sessionsVotedFor);
-        }
-
-        public string Name { get; set; }
-        public DateTime Expires { get; set; }
-        public IEnumerable<int> SessionsVotedFor { get { return _sessionsVotedFor.AsReadOnly(); } }
-        public Guid Id { get; private set; }
-
-
-        public bool Contains(int sessionId)
-        {
-            return _sessionsVotedFor.Contains(sessionId);
-        }
-
-        public void Add(int sessionId)
-        {
-            if (_sessionsVotedFor.Contains(sessionId))
+            if (conferenceLoader == null)
             {
-                return;
+                throw new ArgumentNullException("conferenceLoader");
             }
-            _sessionsVotedFor.Add(sessionId);
+            
+            if (calendarItemRepository == null)
+            {
+                throw new ArgumentNullException("calendarItemRepository");
+            }
+
+            this.conferenceLoader = conferenceLoader;
+            this.calendarItemRepository = calendarItemRepository;
         }
 
-        public void Remove(int sessionId)
+        public string CookieName
         {
-            if (!_sessionsVotedFor.Contains(sessionId))
+            get
             {
-                return;
+                var conference = conferenceLoader.LoadConference();
+                return string.Format("{0}.Voting", conference.ShortName);
             }
-            _sessionsVotedFor.Remove(sessionId);
+        }
+
+        public DateTime DefaultExpiry
+        {
+            get
+            {
+                var votingPeriod = calendarItemRepository.GetFromType(CalendarEntryType.Voting);
+                var cookieExpiry = votingPeriod.EndDate.Value + TimeSpan.FromDays(1);
+                return cookieExpiry.DateTime;
+            }
         }
     }
 }

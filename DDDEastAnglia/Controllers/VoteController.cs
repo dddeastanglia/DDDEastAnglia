@@ -11,14 +11,15 @@ namespace DDDEastAnglia.Controllers
 {
     public class VoteController : Controller
     {
+        private readonly VotingCookie votingCookie;
         private readonly ISessionVoteModelQuery _sessionVoteModelQuery;
         private readonly IMessageBus _messageBus;
         private readonly IControllerInformationProvider _controllerInformationProvider; 
 
-        public VoteController(ISessionVoteModelQuery sessionVoteModelQuery,
-            IMessageBus messageBus,
-            IControllerInformationProvider informationProvider)
+        public VoteController(VotingCookie votingCookie, ISessionVoteModelQuery sessionVoteModelQuery,
+                                IMessageBus messageBus, IControllerInformationProvider informationProvider)
         {
+            this.votingCookie = votingCookie;
             _sessionVoteModelQuery = sessionVoteModelQuery;
             _messageBus = messageBus;
             _controllerInformationProvider = informationProvider;
@@ -26,9 +27,9 @@ namespace DDDEastAnglia.Controllers
 
         public ActionResult Status(int id)
         {
-            var cookie = _controllerInformationProvider.GetCookie(VotingCookie.CookieName);
+            var cookieName = votingCookie.CookieName;
+            var cookie = _controllerInformationProvider.GetCookie(cookieName);
             var result = _sessionVoteModelQuery.Get(id, GetCookieId(cookie.Value));
-            _controllerInformationProvider.SaveCookie(_controllerInformationProvider.GetCookie(VotingCookie.CookieName));
             _controllerInformationProvider.SaveCookie(cookie);
             return result.CanVote ? PartialView(result) as ActionResult : new EmptyResult();
         }
@@ -37,7 +38,7 @@ namespace DDDEastAnglia.Controllers
         [AllowCrossSiteJson]
         public ActionResult RegisterVote(int id, VoteModel sessionVoteModel = null)
         {
-            var cookie = _controllerInformationProvider.GetCookie(VotingCookie.CookieName);
+            var cookie = _controllerInformationProvider.GetCookie(votingCookie.CookieName);
 
             var width = sessionVoteModel != null ? sessionVoteModel.Width : 0;
             var height = sessionVoteModel != null ? sessionVoteModel.Height : 0;
@@ -69,7 +70,7 @@ namespace DDDEastAnglia.Controllers
         [AllowCrossSiteJson]
         public ActionResult RemoveVote(int id, VoteModel sessionVoteModel = null)
         {
-            var cookie = _controllerInformationProvider.GetCookie(VotingCookie.CookieName);
+            var cookie = _controllerInformationProvider.GetCookie(votingCookie.CookieName);
             var cookieId = GetCookieId(cookie.Value);
             _messageBus.Send(new DeleteVoteCommand
                 {
