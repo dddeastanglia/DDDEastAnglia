@@ -203,6 +203,7 @@
 
 .voting {
     display: inline-block;
+    margin-left: 20px;
 }
 
 .form-search {
