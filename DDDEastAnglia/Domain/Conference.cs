@@ -27,6 +27,16 @@ namespace DDDEastAnglia.Domain
             get { return id; }
         }
 
+        public string Name
+        {
+            get { return name; }
+        }
+
+        public string ShortName
+        {
+            get { return shortName; }
+        }
+
         public bool CanSubmit()
         {
             return calendarEntries[CalendarEntryType.SessionSubmission].IsOpen();
