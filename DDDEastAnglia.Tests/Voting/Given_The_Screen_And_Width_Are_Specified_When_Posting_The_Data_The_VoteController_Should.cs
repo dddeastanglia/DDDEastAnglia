@@ -12,15 +12,11 @@ namespace DDDEastAnglia.Tests.Voting
     public class Given_The_Screen_And_Width_Are_Specified_When_Posting_The_Data_The_VoteController_Should : VotingTestBase
     {
         private const int SessionIdToVoteFor = 1;
-        private const int SessionIdToRemove = 2;
-
-        private readonly HttpCookie _httpCookie = new HttpCookie(VotingCookie.CookieName, CookieId.ToString());
-        private static readonly Guid CookieId = Guid.NewGuid();
 
         protected override void SetExpectations(IControllerInformationProvider controllerInformationProvider)
         {
-            base.SetExpectations(controllerInformationProvider);
-            controllerInformationProvider.GetCookie(Arg.Any<string>()).Returns(_httpCookie);
+            var cookie = new HttpCookie(VotingCookie.CookieName, Guid.NewGuid().ToString());
+            controllerInformationProvider.GetCookie(Arg.Any<string>()).Returns(cookie);
         }
 
         [Test]

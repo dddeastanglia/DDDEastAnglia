@@ -11,14 +11,19 @@ namespace DDDEastAnglia.Controllers
 {
     public class VoteController : Controller
     {
-        private readonly VotingCookie votingCookie;
+        private readonly IVotingCookie votingCookie;
         private readonly ISessionVoteModelQuery _sessionVoteModelQuery;
         private readonly IMessageBus _messageBus;
         private readonly IControllerInformationProvider _controllerInformationProvider; 
 
-        public VoteController(VotingCookie votingCookie, ISessionVoteModelQuery sessionVoteModelQuery,
+        public VoteController(IVotingCookie votingCookie, ISessionVoteModelQuery sessionVoteModelQuery,
                                 IMessageBus messageBus, IControllerInformationProvider informationProvider)
         {
+            if (votingCookie == null)
+            {
+                throw new ArgumentNullException("votingCookie");
+            }
+            
             this.votingCookie = votingCookie;
             _sessionVoteModelQuery = sessionVoteModelQuery;
             _messageBus = messageBus;
