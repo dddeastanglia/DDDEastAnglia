@@ -2,9 +2,15 @@
 using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.Domain.Calendar;
 
-namespace DDDEastAnglia.Models
+namespace DDDEastAnglia
 {
-    public class VotingCookie
+    public interface IVotingCookie
+    {
+        string CookieName { get; }
+        DateTime DefaultExpiry { get; }
+    }
+
+    public class VotingCookie : IVotingCookie
     {
         private readonly IConferenceLoader conferenceLoader;
         private readonly ICalendarItemRepository calendarItemRepository;

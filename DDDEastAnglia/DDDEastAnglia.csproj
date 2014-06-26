@@ -426,7 +426,7 @@
     <Content Include="Scripts\voting.js" />
     <Compile Include="Models\VoteModel.cs" />
     <Compile Include="Mvc\Attributes\AllowCrossSiteJsonAttribute.cs" />
-    <Compile Include="Models\VotingCookie.cs" />
+    <Compile Include="VotingCookie.cs" />
     <Content Include="Scripts\searchfilter.js" />
     <Content Include="App_Code\HTMLExtensions.cs" />
     <Compile Include="App_Start\AuthConfig.cs" />
