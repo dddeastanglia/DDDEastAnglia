@@ -26,16 +26,21 @@
 
     @if (!string.IsNullOrWhiteSpace(@Model.MobilePhone))
     {
-        <p><i class="icon-mobile-phone"></i> @Model.MobilePhone</p>
+        <p><i class="icon-phone"></i> @Model.MobilePhone</p>
     }
     
     <p>New Speaker <i class="@(Model.NewSpeaker ? "icon-ok" : "icon-remove")"></i></p>
+    
+    @if (Model.JoinedAt.HasValue)
+    {
+        <p>Joined on: @Model.JoinedAt.Value.ToString("f")</p>
+    }
 </section>
 
 @if (!string.IsNullOrWhiteSpace(@Model.Bio))
 {
     <div class="group-box bio">
-        @Model.Bio
+        @Html.MarkdownFor(model => Model.Bio)
     </div>
 }
 

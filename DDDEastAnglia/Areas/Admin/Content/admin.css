@@ -28,6 +28,10 @@
     text-align: right;
 }
 
+.table td.controls span {
+    white-space: nowrap;
+}
+
 th.barchart, td.barchart {
     width: 50%;
 }
