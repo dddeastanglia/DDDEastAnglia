@@ -30,7 +30,6 @@ namespace DDDEastAnglia.App_Start
             var kernel = new StandardKernel();
             kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
             kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
-            kernel.Bind<IVotingCookie>().To<VotingCookie>();
             
             RegisterServices(kernel);
             return kernel;
