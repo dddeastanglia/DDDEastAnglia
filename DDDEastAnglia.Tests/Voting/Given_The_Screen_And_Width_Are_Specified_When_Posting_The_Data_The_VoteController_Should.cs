@@ -1,7 +1,4 @@
-﻿using System;
-using System.Web;
-using DDDEastAnglia.DataAccess.Commands.Vote;
-using DDDEastAnglia.Helpers;
+﻿using DDDEastAnglia.DataAccess.Commands.Vote;
 using DDDEastAnglia.Models;
 using NSubstitute;
 using NUnit.Framework;
@@ -12,16 +9,6 @@ namespace DDDEastAnglia.Tests.Voting
     public class Given_The_Screen_And_Width_Are_Specified_When_Posting_The_Data_The_VoteController_Should : VotingTestBase
     {
         private const int SessionIdToVoteFor = 1;
-        private const int SessionIdToRemove = 2;
-
-        private readonly HttpCookie _httpCookie = new HttpCookie(VotingCookie.CookieName, CookieId.ToString());
-        private static readonly Guid CookieId = Guid.NewGuid();
-
-        protected override void SetExpectations(IControllerInformationProvider controllerInformationProvider)
-        {
-            base.SetExpectations(controllerInformationProvider);
-            controllerInformationProvider.GetCookie(Arg.Any<string>()).Returns(_httpCookie);
-        }
 
         [Test]
         public void Save_The_Screen_Resolution_With_The_Vote()

@@ -231,6 +231,7 @@
     <Content Include="Content\common.css" />
     <Compile Include="Controllers\TimelineController.cs" />
     <Compile Include="Controllers\UserNameFilterAttribute.cs" />
+    <Compile Include="DataAccess\CachingVotingCookieFactory.cs" />
     <Compile Include="DataAccess\ConferenceLoader.cs" />
     <Compile Include="DataAccess\ISpeakerRepository.cs" />
     <Compile Include="DataAccess\SpeakerRepository.cs" />
@@ -238,6 +239,7 @@
     <Compile Include="DataAccess\SimpleData\UserProfileRepository.cs" />
     <Compile Include="DataAccess\ICalendarItemRepository.cs" />
     <Compile Include="DataAccess\IUserProfileRepository.cs" />
+    <Compile Include="DataAccess\VotingCookieFactory.cs" />
     <Compile Include="GlimpseSecurityPolicy.cs" />
     <Compile Include="Helpers\Sessions\AllSessionsLoader.cs" />
     <Compile Include="Helpers\Sessions\ISessionLoader.cs" />
@@ -433,7 +435,7 @@
     <Content Include="Scripts\voting.js" />
     <Compile Include="Models\VoteModel.cs" />
     <Compile Include="Mvc\Attributes\AllowCrossSiteJsonAttribute.cs" />
-    <Compile Include="Models\VotingCookie.cs" />
+    <Compile Include="VotingCookie.cs" />
     <Content Include="Scripts\searchfilter.js" />
     <Content Include="App_Code\HTMLExtensions.cs" />
     <Compile Include="App_Start\AuthConfig.cs" />

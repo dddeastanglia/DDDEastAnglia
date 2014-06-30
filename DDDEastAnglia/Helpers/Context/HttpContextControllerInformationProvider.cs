@@ -11,21 +11,29 @@ namespace DDDEastAnglia.Helpers.Context
 {
     public class HttpContextControllerInformationProvider : IControllerInformationProvider
     {
+        private readonly IVotingCookieFactory votingCookieFactory;
         private readonly IUserProfileRepository userProfileRepository;
 
-        public HttpContextControllerInformationProvider(IUserProfileRepository userProfileRepository)
+        public HttpContextControllerInformationProvider(IVotingCookieFactory votingCookieFactory, IUserProfileRepository userProfileRepository)
         {
+            if (votingCookieFactory == null)
+            {
+                throw new ArgumentNullException("votingCookieFactory");
+            }
+            
             if (userProfileRepository == null)
             {
                 throw new ArgumentNullException("userProfileRepository");
             }
-            
+
+            this.votingCookieFactory = votingCookieFactory;
             this.userProfileRepository = userProfileRepository;
         }
 
         private static readonly Regex IPV4AddressMatch = new Regex(@"\b(?<IPAddress>((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))\b", RegexOptions.Compiled);
 
         public string UserAgent { get { return HttpContext.Current.Request.UserAgent; } }
+
         public string Referrer 
         { 
             get
@@ -34,10 +42,7 @@ namespace DDDEastAnglia.Helpers.Context
             }
         }
 
-        public string SessionId
-        {
-            get { return HttpContext.Current.Session.SessionID; }
-        }
+        public string SessionId { get { return HttpContext.Current.Session.SessionID; } }
 
         public bool IsAjaxRequest { get { return new HttpRequestWrapper(HttpContext.Current.Request).IsAjaxRequest(); } }
 
@@ -62,16 +67,18 @@ namespace DDDEastAnglia.Helpers.Context
 
         public DateTime UtcNow { get { return DateTime.UtcNow; } }
 
-        public HttpCookie GetCookie(string cookieName)
+        public VotingCookie GetVotingCookie()
         {
-            var httpCookie = HttpContext.Current.Request.Cookies[cookieName] ??
-                             new HttpCookie(cookieName, Guid.NewGuid().ToString());
-            httpCookie.Expires = VotingCookie.DefaultExpiry;
-            return httpCookie;
+            var votingCookie = votingCookieFactory.Create();
+            var httpCookie = HttpContext.Current.Request.Cookies[votingCookie.Name]
+                                ?? new HttpCookie(votingCookie.Name, Guid.NewGuid().ToString());
+            votingCookie.Id = Guid.Parse(httpCookie.Value);
+            return votingCookie;
         }
 
-        public void SaveCookie(HttpCookie httpCookie)
+        public void SaveVotingCookie(VotingCookie cookie)
         {
+            var httpCookie = new HttpCookie(cookie.Name, cookie.Id.ToString()) {Expires = cookie.Expiry};
             HttpContext.Current.Response.SetCookie(httpCookie);
         }
 

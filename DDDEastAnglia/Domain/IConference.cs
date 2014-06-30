@@ -3,6 +3,8 @@
     public interface IConference
     {
         int Id{get;}
+        string Name{get;}
+        string ShortName{get;}
         bool CanSubmit();
         bool CanVote();
         bool CanPublishAgenda();

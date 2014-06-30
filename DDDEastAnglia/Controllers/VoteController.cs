@@ -23,7 +23,7 @@ namespace DDDEastAnglia.Controllers
             {
                 throw new ArgumentNullException("messageBus");
             }
-            
+
             if (sessionVoteModelQuery == null)
             {
                 throw new ArgumentNullException("sessionVoteModelQuery");
@@ -41,10 +41,9 @@ namespace DDDEastAnglia.Controllers
 
         public ActionResult Status(int id)
         {
-            var cookie = controllerInformationProvider.GetCookie(VotingCookie.CookieName);
-            var result = sessionVoteModelQuery.Get(id, GetCookieId(cookie.Value));
-            controllerInformationProvider.SaveCookie(controllerInformationProvider.GetCookie(VotingCookie.CookieName));
-            controllerInformationProvider.SaveCookie(cookie);
+            var cookie = controllerInformationProvider.GetVotingCookie();
+            var result = sessionVoteModelQuery.Get(id, cookie.Id);
+            controllerInformationProvider.SaveVotingCookie(cookie);
             return result.CanVote ? PartialView(result) as ActionResult : new EmptyResult();
         }
 
@@ -52,12 +51,12 @@ namespace DDDEastAnglia.Controllers
         [AllowCrossSiteJson]
         public ActionResult RegisterVote(int id, VoteModel sessionVoteModel = null)
         {
-            var cookie = controllerInformationProvider.GetCookie(VotingCookie.CookieName);
-            
+            var cookie = controllerInformationProvider.GetVotingCookie();
+
             var vote = new RegisterVoteCommand
                         {
                             SessionId = id,
-                            CookieId = GetCookieId(cookie.Value),
+                            CookieId = cookie.Id,
                             TimeRecorded = controllerInformationProvider.UtcNow,
                             IPAddress = controllerInformationProvider.GetIPAddress(),
                             UserAgent = controllerInformationProvider.UserAgent,
@@ -81,7 +80,7 @@ namespace DDDEastAnglia.Controllers
             }
             
             messageBus.Send(vote);
-            controllerInformationProvider.SaveCookie(cookie);
+            controllerInformationProvider.SaveVotingCookie(cookie);
             return RedirectOrReturnPartialView(id);
         }
 
@@ -89,22 +88,16 @@ namespace DDDEastAnglia.Controllers
         [AllowCrossSiteJson]
         public ActionResult RemoveVote(int id, VoteModel sessionVoteModel = null)
         {
-            var cookie = controllerInformationProvider.GetCookie(VotingCookie.CookieName);
-            var cookieId = GetCookieId(cookie.Value);
+            var cookie = controllerInformationProvider.GetVotingCookie();
+            var cookieId = cookie.Id;
             messageBus.Send(new DeleteVoteCommand
                 {
                     SessionId = id,
                     CookieId = cookieId
                 });
             
-            controllerInformationProvider.SaveCookie(cookie);
+            controllerInformationProvider.SaveVotingCookie(cookie);
             return RedirectOrReturnPartialView(id);
-        }
-
-        private Guid GetCookieId(string value)
-        {
-            Guid guid;
-            return Guid.TryParse(value, out guid) ? guid : Guid.Empty;
         }
 
         private ActionResult RedirectOrReturnPartialView(int sessionId)

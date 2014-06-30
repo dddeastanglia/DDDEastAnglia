@@ -8,46 +8,37 @@ using NUnit.Framework;
 
 namespace DDDEastAnglia.Tests.Voting
 {
-    public class VotingTestBase
+    public abstract class VotingTestBase
     {
+        protected const string CookieName = "COOKIE_NAME";
+        protected readonly Guid CookieId = Guid.NewGuid();
+
         protected VoteController Controller;
-        private IControllerInformationProvider _controllerInformationProvider;
-        private ISessionVoteModelQuery _sessionVoteModelQuery;
-        private IMessageBus _messageBus;
+        protected IMessageBus MessageBus;
         protected DateTime SimulatedNow;
+        protected IControllerInformationProvider ControllerInformationProvider;
+        
+        private ISessionVoteModelQuery sessionVoteModelQuery;
 
         [SetUp]
         public void BeforeEachTest()
         {
-            _controllerInformationProvider = Substitute.For<IControllerInformationProvider>();
-            SetExpectations(_controllerInformationProvider);
+            SimulatedNow = DateTime.UtcNow;
 
-            _sessionVoteModelQuery = Substitute.For<ISessionVoteModelQuery>();
-            SetExpectations(_sessionVoteModelQuery);
+            ControllerInformationProvider = Substitute.For<IControllerInformationProvider>();
+            ControllerInformationProvider.UtcNow.Returns(SimulatedNow);
+            SetExpectations(ControllerInformationProvider);
 
-            _messageBus = Substitute.For<IMessageBus>();
-            SetExpectations(_messageBus);
+            var cookie = new VotingCookie {Name = CookieName, Id = CookieId};
+            ControllerInformationProvider.GetVotingCookie().Returns(cookie);
 
-            Controller = new VoteController(_messageBus, _sessionVoteModelQuery, _controllerInformationProvider);
+            sessionVoteModelQuery = Substitute.For<ISessionVoteModelQuery>();
+            MessageBus = Substitute.For<IMessageBus>();
+
+            Controller = new VoteController(MessageBus, sessionVoteModelQuery, ControllerInformationProvider);
         }
-
-        protected IMessageBus MessageBus { get { return _messageBus; } }
 
         protected virtual void SetExpectations(IControllerInformationProvider controllerInformationProvider)
-        {
-            SimulatedNow = DateTime.UtcNow;
-            controllerInformationProvider.UtcNow.Returns(SimulatedNow);
-        }
-
-        protected virtual void SetExpectations(ISessionVoteModelQuery sessionVoteModelQuery)
-        {
-            
-        }
-
-        protected virtual void SetExpectations(IMessageBus messageBus)
-        {
-            
-        }
-
+        { }
     }
 }

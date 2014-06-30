@@ -208,6 +208,8 @@ footer span {
 
 .voting {
     display: inline-block;
+    width: 120px;
+    text-align: right;
 }
 
 .form-search {
