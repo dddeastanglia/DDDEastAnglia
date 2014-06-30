@@ -15,6 +15,8 @@ namespace DDDEastAnglia.DataAccess.SimpleData
                                     .Configure(binding => binding.InRequestScope()));
             Kernel.Bind<IConferenceLoader>().To<ConferenceLoader>().InRequestScope();
             Kernel.Bind<ISpeakerRepository>().To<SpeakerRepository>().InRequestScope();
+            Kernel.Bind<IVotingCookieFactory>().To<CachingVotingCookieFactory>().InRequestScope();
+            Kernel.Bind<IVotingCookieFactory>().To<VotingCookieFactory>().WhenInjectedInto<CachingVotingCookieFactory>().InRequestScope();
         }
     }
 }

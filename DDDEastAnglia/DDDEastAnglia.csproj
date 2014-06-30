@@ -231,6 +231,7 @@
     <Content Include="Content\common.css" />
     <Compile Include="Controllers\TimelineController.cs" />
     <Compile Include="Controllers\UserNameFilterAttribute.cs" />
+    <Compile Include="DataAccess\CachingVotingCookieFactory.cs" />
     <Compile Include="DataAccess\ConferenceLoader.cs" />
     <Compile Include="DataAccess\ISpeakerRepository.cs" />
     <Compile Include="DataAccess\SpeakerRepository.cs" />

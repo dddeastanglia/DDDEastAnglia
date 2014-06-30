@@ -1,6 +1,5 @@
 using System;
 using System.Web;
-using DDDEastAnglia.DataAccess;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using Ninject;
 using Ninject.Web.Common;
@@ -31,7 +30,6 @@ namespace DDDEastAnglia.App_Start
             var kernel = new StandardKernel();
             kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
             kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
-            kernel.Bind<IVotingCookieFactory>().To<VotingCookieFactory>();
             
             RegisterServices(kernel);
             return kernel;
