@@ -67,7 +67,7 @@ namespace DDDEastAnglia.Helpers.Context
 
         public DateTime UtcNow { get { return DateTime.UtcNow; } }
 
-        public HttpCookie GetCookie()
+        public HttpCookie GetVotingCookie()
         {
             var votingCookie = votingCookieFactory.Create();
             var httpCookie = HttpContext.Current.Request.Cookies[votingCookie.Name]
@@ -76,7 +76,7 @@ namespace DDDEastAnglia.Helpers.Context
             return httpCookie;
         }
 
-        public void SaveCookie(HttpCookie httpCookie)
+        public void SaveVotingCookie(HttpCookie httpCookie)
         {
             HttpContext.Current.Response.SetCookie(httpCookie);
         }

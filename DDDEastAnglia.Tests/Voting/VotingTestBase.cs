@@ -31,7 +31,7 @@ namespace DDDEastAnglia.Tests.Voting
             SetExpectations(ControllerInformationProvider);
 
             var cookie = new HttpCookie(CookieName, CookieId.ToString());
-            ControllerInformationProvider.GetCookie().Returns(cookie);
+            ControllerInformationProvider.GetVotingCookie().Returns(cookie);
 
             sessionVoteModelQuery = Substitute.For<ISessionVoteModelQuery>();
             MessageBus = Substitute.For<IMessageBus>();

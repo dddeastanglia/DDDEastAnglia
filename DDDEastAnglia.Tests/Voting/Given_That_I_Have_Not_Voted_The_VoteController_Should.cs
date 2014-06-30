@@ -22,14 +22,14 @@ namespace DDDEastAnglia.Tests.Voting
         public void Set_A_Cookie_When_Trying_To_Remove_A_Session()
         {
             Controller.RemoveVote(KnownSessionId);
-            ControllerInformationProvider.Received().SaveCookie(Arg.Is<HttpCookie>(cookie => cookie.Value == CookieId.ToString()));
+            ControllerInformationProvider.Received().SaveVotingCookie(Arg.Is<HttpCookie>(cookie => cookie.Value == CookieId.ToString()));
         }
 
         [Test]
         public void Set_An_Empty_Cookie_When_Trying_To_Add_An_Unknown_Session()
         {
             Controller.RegisterVote(UnknownSessionId);
-            ControllerInformationProvider.Received().SaveCookie(Arg.Is<HttpCookie>(cookie => cookie.Value == CookieId.ToString()));
+            ControllerInformationProvider.Received().SaveVotingCookie(Arg.Is<HttpCookie>(cookie => cookie.Value == CookieId.ToString()));
         }
 
         [Test]

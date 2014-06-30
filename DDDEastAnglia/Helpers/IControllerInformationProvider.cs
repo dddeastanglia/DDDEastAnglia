@@ -14,7 +14,7 @@ namespace DDDEastAnglia.Helpers
         bool IsLoggedIn();
         UserProfile GetCurrentUser();
         DateTime UtcNow { get; }
-        HttpCookie GetCookie();
-        void SaveCookie(HttpCookie httpCookie);
+        HttpCookie GetVotingCookie();
+        void SaveVotingCookie(HttpCookie httpCookie);
     }
 }

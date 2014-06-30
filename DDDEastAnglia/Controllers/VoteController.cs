@@ -25,9 +25,9 @@ namespace DDDEastAnglia.Controllers
 
         public ActionResult Status(int id)
         {
-            var cookie = _controllerInformationProvider.GetCookie();
+            var cookie = _controllerInformationProvider.GetVotingCookie();
             var result = _sessionVoteModelQuery.Get(id, GetCookieId(cookie.Value));
-            _controllerInformationProvider.SaveCookie(cookie);
+            _controllerInformationProvider.SaveVotingCookie(cookie);
             return result.CanVote ? PartialView(result) as ActionResult : new EmptyResult();
         }
 
@@ -35,7 +35,7 @@ namespace DDDEastAnglia.Controllers
         [AllowCrossSiteJson]
         public ActionResult RegisterVote(int id, VoteModel sessionVoteModel = null)
         {
-            var cookie = _controllerInformationProvider.GetCookie();
+            var cookie = _controllerInformationProvider.GetVotingCookie();
 
             var width = sessionVoteModel != null ? sessionVoteModel.Width : 0;
             var height = sessionVoteModel != null ? sessionVoteModel.Height : 0;
@@ -59,7 +59,7 @@ namespace DDDEastAnglia.Controllers
                 vote.ScreenResolution = string.Format("{0}x{1}", width, height);
             }
             _messageBus.Send(vote);
-            _controllerInformationProvider.SaveCookie(cookie);
+            _controllerInformationProvider.SaveVotingCookie(cookie);
             return RedirectOrReturnPartialView(id);
         }
 
@@ -67,14 +67,14 @@ namespace DDDEastAnglia.Controllers
         [AllowCrossSiteJson]
         public ActionResult RemoveVote(int id, VoteModel sessionVoteModel = null)
         {
-            var cookie = _controllerInformationProvider.GetCookie();
+            var cookie = _controllerInformationProvider.GetVotingCookie();
             var cookieId = GetCookieId(cookie.Value);
             _messageBus.Send(new DeleteVoteCommand
                 {
                     SessionId = id,
                     CookieId = cookieId
                 });
-            _controllerInformationProvider.SaveCookie(cookie);
+            _controllerInformationProvider.SaveVotingCookie(cookie);
             return RedirectOrReturnPartialView(id);
         }
 
