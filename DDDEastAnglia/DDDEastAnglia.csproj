@@ -238,6 +238,7 @@
     <Compile Include="DataAccess\SimpleData\UserProfileRepository.cs" />
     <Compile Include="DataAccess\ICalendarItemRepository.cs" />
     <Compile Include="DataAccess\IUserProfileRepository.cs" />
+    <Compile Include="DataAccess\VotingCookieFactory.cs" />
     <Compile Include="GlimpseSecurityPolicy.cs" />
     <Compile Include="Helpers\Sessions\AllSessionsLoader.cs" />
     <Compile Include="Helpers\Sessions\ISessionLoader.cs" />
