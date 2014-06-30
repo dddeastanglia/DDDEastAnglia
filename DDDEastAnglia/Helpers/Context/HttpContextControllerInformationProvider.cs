@@ -67,17 +67,18 @@ namespace DDDEastAnglia.Helpers.Context
 
         public DateTime UtcNow { get { return DateTime.UtcNow; } }
 
-        public HttpCookie GetVotingCookie()
+        public VotingCookie GetVotingCookie()
         {
             var votingCookie = votingCookieFactory.Create();
             var httpCookie = HttpContext.Current.Request.Cookies[votingCookie.Name]
                                 ?? new HttpCookie(votingCookie.Name, Guid.NewGuid().ToString());
-            httpCookie.Expires = votingCookie.Expiry;
-            return httpCookie;
+            votingCookie.Id = Guid.Parse(httpCookie.Value);
+            return votingCookie;
         }
 
-        public void SaveVotingCookie(HttpCookie httpCookie)
+        public void SaveVotingCookie(VotingCookie cookie)
         {
+            var httpCookie = new HttpCookie(cookie.Name, cookie.Id.ToString()) {Expires = cookie.Expiry};
             HttpContext.Current.Response.SetCookie(httpCookie);
         }
 

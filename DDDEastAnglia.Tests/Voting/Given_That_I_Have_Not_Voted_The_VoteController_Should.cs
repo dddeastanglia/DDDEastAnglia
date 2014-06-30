@@ -1,5 +1,4 @@
-﻿using System.Web;
-using DDDEastAnglia.DataAccess.Commands.Vote;
+﻿using DDDEastAnglia.DataAccess.Commands.Vote;
 using NSubstitute;
 using NUnit.Framework;
 
@@ -22,14 +21,14 @@ namespace DDDEastAnglia.Tests.Voting
         public void Set_A_Cookie_When_Trying_To_Remove_A_Session()
         {
             Controller.RemoveVote(KnownSessionId);
-            ControllerInformationProvider.Received().SaveVotingCookie(Arg.Is<HttpCookie>(cookie => cookie.Value == CookieId.ToString()));
+            ControllerInformationProvider.Received().SaveVotingCookie(Arg.Is<VotingCookie>(cookie => cookie.Id == CookieId));
         }
 
         [Test]
         public void Set_An_Empty_Cookie_When_Trying_To_Add_An_Unknown_Session()
         {
             Controller.RegisterVote(UnknownSessionId);
-            ControllerInformationProvider.Received().SaveVotingCookie(Arg.Is<HttpCookie>(cookie => cookie.Value == CookieId.ToString()));
+            ControllerInformationProvider.Received().SaveVotingCookie(Arg.Is<VotingCookie>(cookie => cookie.Id == CookieId));
         }
 
         [Test]

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Web;
 using DDDEastAnglia.Models;
 
 namespace DDDEastAnglia.Helpers
@@ -14,7 +13,7 @@ namespace DDDEastAnglia.Helpers
         bool IsLoggedIn();
         UserProfile GetCurrentUser();
         DateTime UtcNow { get; }
-        HttpCookie GetVotingCookie();
-        void SaveVotingCookie(HttpCookie httpCookie);
+        VotingCookie GetVotingCookie();
+        void SaveVotingCookie(VotingCookie cookie);
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.DataAccess.Commands.Vote;
 using DDDEastAnglia.DataAccess.MessageBus;
@@ -26,7 +25,7 @@ namespace DDDEastAnglia.Controllers
         public ActionResult Status(int id)
         {
             var cookie = _controllerInformationProvider.GetVotingCookie();
-            var result = _sessionVoteModelQuery.Get(id, GetCookieId(cookie.Value));
+            var result = _sessionVoteModelQuery.Get(id, cookie.Id);
             _controllerInformationProvider.SaveVotingCookie(cookie);
             return result.CanVote ? PartialView(result) as ActionResult : new EmptyResult();
         }
@@ -43,7 +42,7 @@ namespace DDDEastAnglia.Controllers
             var vote = new RegisterVoteCommand
                         {
                             SessionId = id,
-                            CookieId = GetCookieId(cookie.Value),
+                            CookieId = cookie.Id,
                             TimeRecorded = _controllerInformationProvider.UtcNow,
                             IPAddress = _controllerInformationProvider.GetIPAddress(),
                             UserAgent = _controllerInformationProvider.UserAgent,
@@ -68,7 +67,7 @@ namespace DDDEastAnglia.Controllers
         public ActionResult RemoveVote(int id, VoteModel sessionVoteModel = null)
         {
             var cookie = _controllerInformationProvider.GetVotingCookie();
-            var cookieId = GetCookieId(cookie.Value);
+            var cookieId = cookie.Id;
             _messageBus.Send(new DeleteVoteCommand
                 {
                     SessionId = id,
@@ -76,16 +75,6 @@ namespace DDDEastAnglia.Controllers
                 });
             _controllerInformationProvider.SaveVotingCookie(cookie);
             return RedirectOrReturnPartialView(id);
-        }
-
-        private Guid GetCookieId(string value)
-        {
-            Guid guid;
-            if (Guid.TryParse(value, out guid))
-            {
-                return guid;
-            }
-            return Guid.Empty;
         }
 
         private ActionResult RedirectOrReturnPartialView(int sessionId)

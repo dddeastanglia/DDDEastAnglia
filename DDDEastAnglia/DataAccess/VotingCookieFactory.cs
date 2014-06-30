@@ -33,7 +33,10 @@ namespace DDDEastAnglia.DataAccess
         {
             var cookieName = GetCookieName();
             var cookieExpiry = GetCookieExpiryDate();
-            return new VotingCookie(cookieName, cookieExpiry);
+            return new VotingCookie {
+                Name = cookieName,
+                Expiry = cookieExpiry
+            };
         }
 
         private string GetCookieName()

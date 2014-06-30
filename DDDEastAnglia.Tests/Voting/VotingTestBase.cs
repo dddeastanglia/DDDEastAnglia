@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Web;
 using DDDEastAnglia.Controllers;
 using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.DataAccess.MessageBus;
@@ -30,7 +29,7 @@ namespace DDDEastAnglia.Tests.Voting
             ControllerInformationProvider.UtcNow.Returns(SimulatedNow);
             SetExpectations(ControllerInformationProvider);
 
-            var cookie = new HttpCookie(CookieName, CookieId.ToString());
+            var cookie = new VotingCookie {Name = CookieName, Id = CookieId};
             ControllerInformationProvider.GetVotingCookie().Returns(cookie);
 
             sessionVoteModelQuery = Substitute.For<ISessionVoteModelQuery>();
