@@ -1,53 +1,24 @@
 ﻿using System;
-using DDDEastAnglia.DataAccess;
-using DDDEastAnglia.Domain.Calendar;
 
 namespace DDDEastAnglia
 {
-    public interface IVotingCookie
+    public sealed class VotingCookie
     {
-        string CookieName { get; }
-        DateTime DefaultExpiry { get; }
-    }
+        public string Name { get { return name; } }
+        private readonly string name;
 
-    public class VotingCookie : IVotingCookie
-    {
-        private readonly IConferenceLoader conferenceLoader;
-        private readonly ICalendarItemRepository calendarItemRepository;
+        public DateTime Expiry { get { return expiry; } }
+        private readonly DateTime expiry;
 
-        public VotingCookie(IConferenceLoader conferenceLoader, ICalendarItemRepository calendarItemRepository)
+        public VotingCookie(string name, DateTime expiry)
         {
-            if (conferenceLoader == null)
+            if (name == null)
             {
-                throw new ArgumentNullException("conferenceLoader");
+                throw new ArgumentNullException("name");
             }
             
-            if (calendarItemRepository == null)
-            {
-                throw new ArgumentNullException("calendarItemRepository");
-            }
-
-            this.conferenceLoader = conferenceLoader;
-            this.calendarItemRepository = calendarItemRepository;
-        }
-
-        public string CookieName
-        {
-            get
-            {
-                var conference = conferenceLoader.LoadConference();
-                return string.Format("{0}.Voting", conference.ShortName);
-            }
-        }
-
-        public DateTime DefaultExpiry
-        {
-            get
-            {
-                var votingPeriod = calendarItemRepository.GetFromType(CalendarEntryType.Voting);
-                var cookieExpiry = votingPeriod.EndDate.Value + TimeSpan.FromDays(1);
-                return cookieExpiry.DateTime;
-            }
+            this.name = name;
+            this.expiry = expiry;
         }
     }
 }
