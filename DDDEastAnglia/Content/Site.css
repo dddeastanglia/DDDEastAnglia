@@ -1,3 +1,7 @@
+footer span {
+    white-space: nowrap;
+}
+
 .dropdown-menu a, a.carousel-control { text-decoration: none; }
 
 .carousel-caption a { color: white; }
@@ -18,6 +22,7 @@
 .masthead img { margin-right: 10px; }
 
 .navbar { margin-bottom: 10px; }
+
 .btn.btn-navbar {
     float: left;
     margin-left: 0;
