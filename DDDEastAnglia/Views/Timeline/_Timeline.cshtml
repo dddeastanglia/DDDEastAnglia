@@ -3,22 +3,11 @@
 <section>
     <h1>Timeline</h1>
     <dl>
-        <dt><strong>@Model.SubmissionOpens:</strong></dt>
-        <dd>Session submission opens</dd>
-
-        <dt><strong>@Model.SubmissionCloses:</strong></dt>
-        <dd>Session submission closes</dd>
-
-        <dt><strong>@Model.VotingOpens:</strong></dt>
-        <dd>Session voting opens</dd>
-
-        <dt><strong>@Model.VotingCloses:</strong></dt>
-        <dd>Session voting closes</dd>
-
-        <dt><strong>@Model.AgendaAnnounced:</strong></dt>
-        <dd>Agenda announced</dd>
-
-        <dt><strong>@Model.RegistrationOpens:</strong></dt>
-        <dd><strong>Registration opens</strong></dd>
+        @Html.Partial("_TimelineItem", Model.SessionSubmissionOpens, new ViewDataDictionary {{"Label", "Session submission opens"}})
+        @Html.Partial("_TimelineItem", Model.SessionSubmissionCloses, new ViewDataDictionary { { "Label", "Session submission closes" } })
+        @Html.Partial("_TimelineItem", Model.VotingOpens, new ViewDataDictionary { { "Label", "Session voting opens" } })
+        @Html.Partial("_TimelineItem", Model.VotingCloses, new ViewDataDictionary { { "Label", "Session voting closes" } })
+        @Html.Partial("_TimelineItem", Model.AgendaAnnounced, new ViewDataDictionary { { "Label", "Agenda announced" } })
+        @Html.Partial("_TimelineItem", Model.RegistrationOpens, new ViewDataDictionary { { "Label", "Registration opens" } })
     </dl>
 </section>

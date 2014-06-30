@@ -62,9 +62,11 @@
     <Compile Include="Admin\AdminHomeControllerTests.cs" />
     <Compile Include="Admin\SessionControllerTests.cs" />
     <Compile Include="Admin\VotingControllerTests.cs" />
+    <Compile Include="CannedResponseDateTimeOffsetProvider.cs" />
     <Compile Include="ConferenceHelper.cs" />
     <Compile Include="ConferenceLoaderBuilder.cs" />
     <Compile Include="ActionResultExtensions.cs" />
+    <Compile Include="Controllers\TimelineControllerTests.cs" />
     <Compile Include="Controllers\HomeControllerTests.cs" />
     <Compile Include="Controllers\ProfileControllerTests.cs" />
     <Compile Include="Controllers\ResetPasswordControllerTests.cs" />
@@ -90,6 +92,7 @@
     <Compile Include="Domain\Conferences\Given_That_No_CalendarEntries_Have_Been_Recorded_The_Conference_Should.cs" />
     <Compile Include="Domain\Conferences\Given_The_Agenda_Is_Published_And_Registration_Is_Open_The_Conference_Should.cs" />
     <Compile Include="Domain\Conferences\Given_The_Agenda_Is_Published_The_Conference_Should.cs" />
+    <Compile Include="Helpers\DateTimePassedEvaluatorTests.cs" />
     <Compile Include="Helpers\Given_A_List_Of_Items_RandomShuffle_Should.cs" />
     <Compile Include="Helpers\Email\ResetPasswordEmailSender_Should.cs" />
     <Compile Include="Helpers\Email\SendGrid\SendGridMessageWrapper_Should.cs" />

@@ -248,3 +248,8 @@
     font-weight: bold;
     margin-right: 5px;
 }
+
+.passedTimelinePeriod {
+    text-decoration: line-through;
+    color: #a9a9a9;
+}
