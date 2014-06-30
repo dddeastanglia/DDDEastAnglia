@@ -11,14 +11,14 @@ namespace DDDEastAnglia.Helpers.Context
 {
     public class HttpContextControllerInformationProvider : IControllerInformationProvider
     {
-        private readonly VotingCookie votingCookie;
+        private readonly IVotingCookieFactory votingCookieFactory;
         private readonly IUserProfileRepository userProfileRepository;
 
-        public HttpContextControllerInformationProvider(VotingCookie votingCookie, IUserProfileRepository userProfileRepository)
+        public HttpContextControllerInformationProvider(IVotingCookieFactory votingCookieFactory, IUserProfileRepository userProfileRepository)
         {
-            if (votingCookie == null)
+            if (votingCookieFactory == null)
             {
-                throw new ArgumentNullException("votingCookie");
+                throw new ArgumentNullException("votingCookieFactory");
             }
             
             if (userProfileRepository == null)
@@ -26,7 +26,7 @@ namespace DDDEastAnglia.Helpers.Context
                 throw new ArgumentNullException("userProfileRepository");
             }
 
-            this.votingCookie = votingCookie;
+            this.votingCookieFactory = votingCookieFactory;
             this.userProfileRepository = userProfileRepository;
         }
 
@@ -67,11 +67,12 @@ namespace DDDEastAnglia.Helpers.Context
 
         public DateTime UtcNow { get { return DateTime.UtcNow; } }
 
-        public HttpCookie GetCookie(string cookieName)
+        public HttpCookie GetCookie()
         {
-            var httpCookie = HttpContext.Current.Request.Cookies[cookieName] 
-                                ?? new HttpCookie(cookieName, Guid.NewGuid().ToString());
-            httpCookie.Expires = votingCookie.DefaultExpiry;
+            var votingCookie = votingCookieFactory.Create();
+            var httpCookie = HttpContext.Current.Request.Cookies[votingCookie.Name]
+                                ?? new HttpCookie(votingCookie.Name, Guid.NewGuid().ToString());
+            httpCookie.Expires = votingCookie.Expiry;
             return httpCookie;
         }
 
