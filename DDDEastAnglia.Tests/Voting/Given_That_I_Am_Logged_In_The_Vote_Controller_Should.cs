@@ -1,6 +1,4 @@
-﻿using System;
-using System.Web;
-using DDDEastAnglia.DataAccess.Commands.Vote;
+﻿using DDDEastAnglia.DataAccess.Commands.Vote;
 using DDDEastAnglia.Helpers;
 using DDDEastAnglia.Models;
 using NSubstitute;
@@ -16,8 +14,6 @@ namespace DDDEastAnglia.Tests.Voting
 
         protected override void SetExpectations(IControllerInformationProvider controllerInformationProvider)
         {
-            var cookie = new HttpCookie(VotingCookie.CookieName, Guid.NewGuid().ToString());
-            controllerInformationProvider.GetCookie(Arg.Any<string>()).Returns(cookie);
             controllerInformationProvider.IsLoggedIn().Returns(true);
             controllerInformationProvider.GetCurrentUser().Returns(userProfile);
         }

@@ -1,7 +1,5 @@
-﻿using System;
-using System.Web;
+﻿using System.Web;
 using DDDEastAnglia.DataAccess.Commands.Vote;
-using DDDEastAnglia.Helpers;
 using NSubstitute;
 using NUnit.Framework;
 
@@ -12,14 +10,6 @@ namespace DDDEastAnglia.Tests.Voting
     {
         private const int KnownSessionId = 1;
         private const int UnknownSessionId = 10;
-        private readonly Guid cookieId = Guid.NewGuid();
-
-        protected override void SetExpectations(IControllerInformationProvider controllerInformationProvider)
-        {
-            string cookieName = VotingCookie.CookieName;
-            var cookie = new HttpCookie(cookieName, cookieId.ToString());
-            ControllerInformationProvider.GetCookie(Arg.Is<string>(s => s == cookieName)).Returns(cookie);
-        }
 
         [Test]
         public void Register_A_Vote_For_A_Session()
@@ -32,14 +22,14 @@ namespace DDDEastAnglia.Tests.Voting
         public void Set_A_Cookie_When_Trying_To_Remove_A_Session()
         {
             Controller.RemoveVote(KnownSessionId);
-            ControllerInformationProvider.Received().SaveCookie(Arg.Is<HttpCookie>(cookie => cookie.Value == cookieId.ToString()));
+            ControllerInformationProvider.Received().SaveCookie(Arg.Is<HttpCookie>(cookie => cookie.Value == CookieId.ToString()));
         }
 
         [Test]
         public void Set_An_Empty_Cookie_When_Trying_To_Add_An_Unknown_Session()
         {
             Controller.RegisterVote(UnknownSessionId);
-            ControllerInformationProvider.Received().SaveCookie(Arg.Is<HttpCookie>(cookie => cookie.Value == cookieId.ToString()));
+            ControllerInformationProvider.Received().SaveCookie(Arg.Is<HttpCookie>(cookie => cookie.Value == CookieId.ToString()));
         }
 
         [Test]

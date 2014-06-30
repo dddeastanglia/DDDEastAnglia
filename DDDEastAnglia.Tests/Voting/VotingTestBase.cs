@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web;
 using DDDEastAnglia.Controllers;
 using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.DataAccess.MessageBus;
@@ -10,7 +11,9 @@ namespace DDDEastAnglia.Tests.Voting
 {
     public abstract class VotingTestBase
     {
-        protected IVotingCookie VotingCookie;
+        protected const string CookieName = "COOKIE_NAME";
+        protected readonly Guid CookieId = Guid.NewGuid();
+
         protected VoteController Controller;
         protected IMessageBus MessageBus;
         protected DateTime SimulatedNow;
@@ -23,20 +26,20 @@ namespace DDDEastAnglia.Tests.Voting
         {
             SimulatedNow = DateTime.UtcNow;
 
-            VotingCookie = Substitute.For<IVotingCookie>();
-            VotingCookie.CookieName.Returns("DDDEACookieName");
-            VotingCookie.DefaultExpiry.Returns(SimulatedNow);
-
             ControllerInformationProvider = Substitute.For<IControllerInformationProvider>();
             ControllerInformationProvider.UtcNow.Returns(SimulatedNow);
             SetExpectations(ControllerInformationProvider);
 
+            var cookie = new HttpCookie(CookieName, CookieId.ToString());
+            ControllerInformationProvider.GetCookie().Returns(cookie);
+
             sessionVoteModelQuery = Substitute.For<ISessionVoteModelQuery>();
             MessageBus = Substitute.For<IMessageBus>();
 
-            Controller = new VoteController(VotingCookie, sessionVoteModelQuery, MessageBus, ControllerInformationProvider);
+            Controller = new VoteController(sessionVoteModelQuery, MessageBus, ControllerInformationProvider);
         }
 
-        protected abstract void SetExpectations(IControllerInformationProvider controllerInformationProvider);
+        protected virtual void SetExpectations(IControllerInformationProvider controllerInformationProvider)
+        { }
     }
 }
