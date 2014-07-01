@@ -22,7 +22,7 @@ FROM Votes v, Sessions s, UserProfiles p
 WHERE v.SessionId = s.SessionId
 AND s.SpeakerUserName = p.UserName
 AND v.CookieId = '{0}'
-AND v.UserId = 0
+AND v.UserId IS NULL
 ORDER BY SpeakerName",
                    cookieId);
             }

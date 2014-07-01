@@ -26,7 +26,7 @@ namespace DDDEastAnglia.VotingData.Queries
                 return @"
 SELECT CookieId, COUNT(CookieId) AS VoteCount 
 FROM Votes
-WHERE UserId = 0
+WHERE UserId IS NULL
 GROUP BY CookieId
 ORDER BY VoteCount DESC
 ";
