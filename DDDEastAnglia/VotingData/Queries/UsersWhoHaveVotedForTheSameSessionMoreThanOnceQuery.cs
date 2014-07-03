@@ -60,7 +60,8 @@ ORDER BY VoteCount DESC";
             public DuplicateVoteModel Create(IDataReader reader)
             {
                 Guid cookieId = reader.GetGuid(reader.GetOrdinal("CookieId"));
-                int userId = reader.GetInt32(reader.GetOrdinal("UserId"));
+                int userIdField = reader.GetOrdinal("UserId");
+                int? userId = reader.IsDBNull(userIdField) ? (int?) null : reader.GetInt32(userIdField);
                 int emailAddressOrdinal = reader.GetOrdinal("EmailAddress");
                 string emailAddress = reader.IsDBNull(emailAddressOrdinal) ? null : reader.GetString(emailAddressOrdinal);
                 
@@ -72,13 +73,13 @@ ORDER BY VoteCount DESC";
                 
                 int numberOfVotes = reader.GetInt32(reader.GetOrdinal("VoteCount"));
 
-                bool userIsUnknown = userId == 0;
+                bool userIsUnknown = !userId.HasValue;
                 string gravatar = gravatarUrl.GetUrl(userIsUnknown ? cookieId.ToString() : emailAddress, useIdenticon: userIsUnknown);
 
                 return new DuplicateVoteModel
                     {
                         CookieId = cookieId,
-                        UserId = userId == 0 ? (int?) null : userId,
+                        UserId = userId,
                         GravatarUrl = gravatar,
                         SessionId = sessionId,
                         SessionTitle = sessionTitle,
