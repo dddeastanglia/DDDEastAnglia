@@ -43,6 +43,7 @@ namespace DDDEastAnglia
 
             AddScriptBundle(bundles, "~/bundles/voting", "~/Scripts/voting.js");
             AddScriptBundle(bundles, "~/bundles/resolveIPAddress", "~/Scripts/resolveIPAddress.js");
+            AddScriptBundle(bundles, "~/bundles/gravatar", "~/Scripts/gravatar.js");
             AddScriptBundle(bundles, "~/bundles/progressbar", "~/Scripts/progressbar.js");
 
             AddStyleBundle(bundles, "~/Content/common",

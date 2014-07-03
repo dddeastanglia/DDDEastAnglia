@@ -229,6 +229,7 @@
     <Compile Include="Areas\Admin\Models\VotersPerIPAddressViewModel.cs" />
     <Compile Include="Areas\Admin\Models\VotesPerDayViewModel.cs" />
     <Content Include="Content\common.css" />
+    <Compile Include="Controllers\GravatarController.cs" />
     <Compile Include="Controllers\TimelineController.cs" />
     <Compile Include="Controllers\UserNameFilterAttribute.cs" />
     <Compile Include="DataAccess\CachingVotingCookieFactory.cs" />
@@ -261,6 +262,7 @@
     <Compile Include="Models\SpeakerProfile.cs" />
     <Compile Include="NavigationMenu\NavigationMenuModule.cs" />
     <Compile Include="Helpers\Email\EmailModule.cs" />
+    <Content Include="Scripts\gravatar.js" />
     <Compile Include="VotingData\DataProviderFactory.cs" />
     <Content Include="Areas\Admin\Views\Voting\NumberOfUsersWhoHaveCastXVotes.cshtml" />
     <Content Include="Areas\Admin\Views\Voting\VotesPerDay.cshtml" />
