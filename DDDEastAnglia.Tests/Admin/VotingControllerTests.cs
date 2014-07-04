@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Web.Mvc;
 using DDDEastAnglia.Areas.Admin.Controllers;
 using DDDEastAnglia.Areas.Admin.Models;
 using DDDEastAnglia.DataAccess;
@@ -62,8 +61,7 @@ namespace DDDEastAnglia.Tests.Admin
             dataProvider.GetNumberOfDaysOfVoting().Returns(numberOfDaysVoting);
             var controller = new VotingController(Substitute.For<IConferenceLoader>(), dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
 
-            var result = (ViewResult) controller.Index();
-            var model = (VotingStatsViewModel) result.Model;
+            var model = controller.Index().GetViewModel<VotingStatsViewModel>();
 
             Assert.That(model.VotingCompletePercentage, Is.EqualTo(expectedPercentageCompletion));
         }
@@ -76,8 +74,7 @@ namespace DDDEastAnglia.Tests.Admin
             dataProvider.GetNumberOfDaysOfVoting().Returns(10);
             var controller = new VotingController(Substitute.For<IConferenceLoader>(), dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
 
-            var result = (ViewResult) controller.Index();
-            var model = (VotingStatsViewModel) result.Model;
+            var model = controller.Index().GetViewModel<VotingStatsViewModel>();
 
             Assert.That(model.VotingCompletePercentage, Is.EqualTo(100));
         }
@@ -90,8 +87,7 @@ namespace DDDEastAnglia.Tests.Admin
             dataProvider.GetNumberOfDaysOfVoting().Returns(10);
             var controller = new VotingController(Substitute.For<IConferenceLoader>(), dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
 
-            var result = (ViewResult) controller.Index();
-            var model = (VotingStatsViewModel) result.Model;
+            var model = controller.Index().GetViewModel<VotingStatsViewModel>();
 
             Assert.That(model.NumberOfDaysOfVotingPassed, Is.EqualTo(10));
         }
@@ -103,9 +99,8 @@ namespace DDDEastAnglia.Tests.Admin
             var sessions = new[] {new SessionLeaderBoardEntry {NumberOfVotes = 2}, new SessionLeaderBoardEntry {NumberOfVotes = 4}};
             dataProvider.GetLeaderBoard(Arg.Any<int>(), Arg.Any<bool>()).Returns(sessions);
             var controller = new VotingController(Substitute.For<IConferenceLoader>(), dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
-            
-            var result = (ViewResult) controller.Leaderboard();
-            var model = (LeaderboardViewModel) result.Model;
+
+            var model = controller.Leaderboard().GetViewModel<LeaderboardViewModel>();
             
             Assert.That(model.HighestVoteCount, Is.EqualTo(4));
         }
@@ -141,9 +136,8 @@ namespace DDDEastAnglia.Tests.Admin
             var sessions = new[] {new SessionLeaderBoardEntry(), new SessionLeaderBoardEntry()};
             dataProvider.GetLeaderBoard(Arg.Any<int>(), Arg.Any<bool>()).Returns(sessions);
             var controller = new VotingController(Substitute.For<IConferenceLoader>(), dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
-            
-            var result = (ViewResult) controller.Leaderboard();
-            var model = (LeaderboardViewModel) result.Model;
+
+            var model = controller.Leaderboard().GetViewModel<LeaderboardViewModel>();
             
             CollectionAssert.AreEquivalent(sessions, model.Sessions);
         }
@@ -187,9 +181,8 @@ namespace DDDEastAnglia.Tests.Admin
             var votes = new[] {new VotesForIPAddressModel {NumberOfVotes = 2}, new VotesForIPAddressModel {NumberOfVotes = 4}};
             dataProvider.GetDistinctIPAddresses().Returns(votes);
             var controller = new VotingController(Substitute.For<IConferenceLoader>(), dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
-            
-            var result = (ViewResult) controller.IPAddresses();
-            var model = (IPAddressStatsViewModel) result.Model;
+
+            var model = controller.IPAddresses().GetViewModel<IPAddressStatsViewModel>();
             
             Assert.That(model.HighestVoteCount, Is.EqualTo(4));
         }
@@ -201,9 +194,8 @@ namespace DDDEastAnglia.Tests.Admin
             var votes = new[] {new VotesForIPAddressModel(), new VotesForIPAddressModel()};
             dataProvider.GetDistinctIPAddresses().Returns(votes);
             var controller = new VotingController(Substitute.For<IConferenceLoader>(), dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
-            
-            var result = (ViewResult) controller.IPAddresses();
-            var model = (IPAddressStatsViewModel) result.Model;
+
+            var model = controller.IPAddresses().GetViewModel<IPAddressStatsViewModel>();
             
             CollectionAssert.AreEquivalent(votes, model.IPAddresses);
         }
@@ -231,8 +223,7 @@ namespace DDDEastAnglia.Tests.Admin
             chartDataConverter.ToChartData(Arg.Any<IList<DateTimeVoteModel>>()).Returns(chartData);
             var controller = new VotingController(Substitute.For<IConferenceLoader>(), dataProvider, Substitute.For<IDnsLookup>(), chartDataConverter);
 
-            var result = (ViewResult) controller.VotesPerDay();
-            var model = (VotesPerDayViewModel) result.Model;
+            var model = controller.VotesPerDay().GetViewModel<VotesPerDayViewModel>();
 
             CollectionAssert.AreEquivalent(chartData, model.DayByDay);
             CollectionAssert.AreEquivalent(chartData, model.Cumulative);
@@ -261,8 +252,7 @@ namespace DDDEastAnglia.Tests.Admin
             chartDataConverter.ToChartData(Arg.Any<IList<DateTimeVoteModel>>()).Returns(chartData);
             var controller = new VotingController(Substitute.For<IConferenceLoader>(), dataProvider, Substitute.For<IDnsLookup>(), chartDataConverter);
 
-            var result = (ViewResult) controller.VotesPerHour();
-            var model = (long[][]) result.Model;
+            var model = controller.VotesPerHour().GetViewModel<long[][]>();
 
             CollectionAssert.AreEquivalent(chartData, model);
         }
@@ -290,8 +280,7 @@ namespace DDDEastAnglia.Tests.Admin
             chartDataConverter.ToChartData(Arg.Any<IList<NumberOfUsersWithVotesModel>>()).Returns(chartData);
             var controller = new VotingController(Substitute.For<IConferenceLoader>(), dataProvider, Substitute.For<IDnsLookup>(), chartDataConverter);
 
-            var result = (ViewResult) controller.NumberOfUsersWhoHaveCastXVotes();
-            var model = (long[][]) result.Model;
+            var model = controller.NumberOfUsersWhoHaveCastXVotes().GetViewModel<long[][]>();
 
             CollectionAssert.AreEquivalent(chartData, model);
         }
@@ -303,9 +292,8 @@ namespace DDDEastAnglia.Tests.Admin
             var voters = new[] {new IPAddressVoterModel {NumberOfVoters = 2}, new IPAddressVoterModel {NumberOfVoters = 4}};
             dataProvider.GetVotersPerIPAddress().Returns(voters);
             var controller = new VotingController(Substitute.For<IConferenceLoader>(), dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
-            
-            var result = (ViewResult) controller.VotersPerIPAddress();
-            var model = (VotersPerIPAddressViewModel) result.Model;
+
+            var model = controller.VotersPerIPAddress().GetViewModel<VotersPerIPAddressViewModel>();
             
             Assert.That(model.HighestNumberOfVoters, Is.EqualTo(4));
         }
@@ -318,8 +306,7 @@ namespace DDDEastAnglia.Tests.Admin
             dataProvider.GetVotersPerIPAddress().Returns(voters);
             var controller = new VotingController(Substitute.For<IConferenceLoader>(), dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
 
-            var result = (ViewResult) controller.VotersPerIPAddress();
-            var model = (VotersPerIPAddressViewModel) result.Model;
+            var model = controller.VotersPerIPAddress().GetViewModel<VotersPerIPAddressViewModel>();
             
             CollectionAssert.AreEquivalent(voters, model.IPAddressVoters);
         }
@@ -340,9 +327,8 @@ namespace DDDEastAnglia.Tests.Admin
             var votes = new[] {new CookieVoteModel(), new CookieVoteModel()};
             dataProvider.GetVotesPerIPAddress(Arg.Any<string>()).Returns(votes);
             var controller = new VotingController(Substitute.For<IConferenceLoader>(), dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
-            
-            var result = (ViewResult) controller.VotesForIPAddress("1.2.3.4");
-            var model = (VotesForIpAddressViewModel) result.Model;
+
+            var model = controller.VotesForIPAddress("1.2.3.4").GetViewModel<VotesForIpAddressViewModel>();
             
             Assert.That(model.IPAddress, Is.EqualTo("1.2.3.4"));
         }
@@ -354,9 +340,8 @@ namespace DDDEastAnglia.Tests.Admin
             var votes = new[] {new CookieVoteModel {NumberOfVotes = 2}, new CookieVoteModel {NumberOfVotes = 4}};
             dataProvider.GetVotesPerIPAddress(Arg.Any<string>()).Returns(votes);
             var controller = new VotingController(Substitute.For<IConferenceLoader>(), dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
-            
-            var result = (ViewResult) controller.VotesForIPAddress("1.2.3.4");
-            var model = (VotesForIpAddressViewModel) result.Model;
+
+            var model = controller.VotesForIPAddress("1.2.3.4").GetViewModel<VotesForIpAddressViewModel>();
             
             Assert.That(model.HighestNumberOfVotes, Is.EqualTo(4));
         }
@@ -369,8 +354,7 @@ namespace DDDEastAnglia.Tests.Admin
             dataProvider.GetVotesPerIPAddress(Arg.Any<string>()).Returns(votes);
             var controller = new VotingController(Substitute.For<IConferenceLoader>(), dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
 
-            var result = (ViewResult) controller.VotesForIPAddress("1.2.3.4");
-            var model = (VotesForIpAddressViewModel) result.Model;
+            var model = controller.VotesForIPAddress("1.2.3.4").GetViewModel<VotesForIpAddressViewModel>();
             
             CollectionAssert.AreEquivalent(votes, model.DistinctVotes);
         }
