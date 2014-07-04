@@ -5,6 +5,11 @@
         int Id{get;}
         string Name{get;}
         string ShortName{get;}
+
+        int NumberOfTimeSlots{get;}
+        int NumberOfTracks{get;}
+        int TotalNumberOfSessions{get;}
+
         bool CanSubmit();
         bool CanVote();
         bool CanPublishAgenda();
