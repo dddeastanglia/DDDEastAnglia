@@ -8,15 +8,23 @@ namespace DDDEastAnglia.Tests
 {
     public class VotingControllerBuilder
     {
+        private IConferenceLoader conferenceLoader;
         private IDataProvider dataProvider;
         private IDnsLookup dnsLookup;
         private IChartDataConverter chartDataConverter;
 
         public VotingControllerBuilder()
         {
+            conferenceLoader = Substitute.For<IConferenceLoader>();
             dataProvider = Substitute.For<IDataProvider>();
             dnsLookup = Substitute.For<IDnsLookup>();
             chartDataConverter = Substitute.For<IChartDataConverter>();
+        }
+
+        public VotingControllerBuilder WithConferenceLoader(IConferenceLoader conferenceLoader)
+        {
+            this.conferenceLoader = conferenceLoader;
+            return this;
         }
 
         public VotingControllerBuilder WithDataProvider(IDataProvider dataProvider)
@@ -39,7 +47,6 @@ namespace DDDEastAnglia.Tests
 
         public VotingController Build()
         {
-            var conferenceLoader = Substitute.For<IConferenceLoader>();
             return new VotingController(conferenceLoader, dataProvider, dnsLookup, chartDataConverter);
         }
     }

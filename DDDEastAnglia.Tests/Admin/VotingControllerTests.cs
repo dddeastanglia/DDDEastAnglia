@@ -82,8 +82,7 @@ namespace DDDEastAnglia.Tests.Admin
         }
 
         [Test]
-        public void
-            TestThat_Index_DoesNotCalculateTheNumberOfDaysOfVotingPassedGreaterThanTheTotalNumberOfAllowableVotingDays()
+        public void TestThat_Index_DoesNotCalculateTheNumberOfDaysOfVotingPassedGreaterThanTheTotalNumberOfAllowableVotingDays()
         {
             var dataProvider = new DataProviderBuilder()
                                         .WithNumberOfDaysSinceVotingOpened(25)
@@ -94,6 +93,17 @@ namespace DDDEastAnglia.Tests.Admin
             var model = controller.Index().GetViewModel<VotingStatsViewModel>();
 
             Assert.That(model.NumberOfDaysOfVotingPassed, Is.EqualTo(10));
+        }
+
+        [Test]
+        public void TestThat_Leaderboard_SetsTheCorrectNumberOfTotalSessionsForTheConference()
+        {
+            var conferenceLoader = new ConferenceLoaderBuilder().WithTotalNumberOfSessions(12).Build();
+            var controller = new VotingControllerBuilder().WithConferenceLoader(conferenceLoader).Build();
+
+            var model = controller.Index().GetViewModel<VotingStatsViewModel>();
+            
+            Assert.That(model.TotalNumberOfSessions, Is.EqualTo(12));
         }
 
         [Test]

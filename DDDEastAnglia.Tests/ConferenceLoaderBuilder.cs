@@ -58,6 +58,12 @@ namespace DDDEastAnglia.Tests
             return this;
         }
 
+        public ConferenceLoaderBuilder WithTotalNumberOfSessions(int numberOfSessions)
+        {
+            conference.TotalNumberOfSessions.Returns(numberOfSessions);
+            return this;
+        }
+
         public IConferenceLoader Build()
         {
             return conferenceLoader;
