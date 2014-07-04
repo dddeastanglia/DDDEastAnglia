@@ -233,7 +233,10 @@
     <Compile Include="Controllers\UserNameFilterAttribute.cs" />
     <Compile Include="DataAccess\CachingVotingCookieFactory.cs" />
     <Compile Include="DataAccess\ConferenceLoader.cs" />
+    <Compile Include="DataAccess\IAccountLoginMethodQuery.cs" />
     <Compile Include="DataAccess\ISpeakerRepository.cs" />
+    <Compile Include="Models\LoginMethods.cs" />
+    <Compile Include="DataAccess\SimpleData\Queries\AccountLoginMethodQuery.cs" />
     <Compile Include="DataAccess\SpeakerRepository.cs" />
     <Compile Include="DataAccess\SimpleData\CalendarItemRepository.cs" />
     <Compile Include="DataAccess\SimpleData\UserProfileRepository.cs" />
@@ -562,6 +565,7 @@
     <Content Include="Areas\Admin\Views\User\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\User\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Speaker\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\User\_LoginMethods.cshtml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\html5shiv-printshiv.js" />
