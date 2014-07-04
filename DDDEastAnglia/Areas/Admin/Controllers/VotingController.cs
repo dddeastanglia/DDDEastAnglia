@@ -17,9 +17,6 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
         private readonly IDnsLookup dnsLookup;
         private readonly IChartDataConverter chartDataConverter;
 
-        public VotingController() : this(DataProviderFactory.Create(), new DnsLookup(), new ChartDataConverter())
-        {}
-
         public VotingController(IDataProvider dataProvider, IDnsLookup dnsLookup, IChartDataConverter chartDataConverter)
         {
             if (dataProvider == null)

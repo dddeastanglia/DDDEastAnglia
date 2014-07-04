@@ -261,7 +261,6 @@
     <Compile Include="Models\SpeakerProfile.cs" />
     <Compile Include="NavigationMenu\NavigationMenuModule.cs" />
     <Compile Include="Helpers\Email\EmailModule.cs" />
-    <Compile Include="VotingData\DataProviderFactory.cs" />
     <Content Include="Areas\Admin\Views\Voting\NumberOfUsersWhoHaveCastXVotes.cshtml" />
     <Content Include="Areas\Admin\Views\Voting\VotesPerDay.cshtml" />
     <Content Include="Areas\Admin\Views\Voting\VotesPerHour.cshtml" />
