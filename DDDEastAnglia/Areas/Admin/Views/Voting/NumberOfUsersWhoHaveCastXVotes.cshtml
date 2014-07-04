@@ -13,6 +13,7 @@
 
     <script>
         $(document).ready(function() {
+            var numberOfSessions = @ViewBag.NumberOfSessions;
             var data = [{
                 color: "#C00",
                 data: @JsonConvert.SerializeObject(Model)
@@ -28,7 +29,7 @@
                     hoverable: true,
                     backgroundColor: { colors: ["#fff", "#eee"] },
                     markings: [
-                        { xaxis: { from: 15, to: 15 }, color: "#444", label: "Number of slots in agenda" }
+                        { xaxis: { from: numberOfSessions, to: numberOfSessions }, color: "#444", label: "Number of slots in agenda" }
                     ]
                 },
                 xaxis: {
