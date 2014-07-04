@@ -2,7 +2,7 @@
 
 namespace DDDEastAnglia.DatabaseMigrations.Migrations
 {
-    [Migration(20140705)]
+    [Migration(20140704)]
     public class AddTrackInformationToConferencesTable : Migration
     {
         public override void Up()
@@ -10,6 +10,8 @@ namespace DDDEastAnglia.DatabaseMigrations.Migrations
             Alter.Table("Conferences")
                     .AddColumn("NumberOfTimeSlots").AsInt32().NotNullable().WithDefaultValue(0)
                     .AddColumn("NumberOfTracks").AsInt32().NotNullable().WithDefaultValue(0);
+
+            Execute.Sql("UPDATE [dbo].[Conferences] SET [NumberOfTimeSlots] = 5, [NumberOfTracks] = 5");
         }
 
         public override void Down()
