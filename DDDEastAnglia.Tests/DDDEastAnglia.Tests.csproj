@@ -60,8 +60,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Admin\AdminHomeControllerTests.cs" />
+    <Compile Include="ChartDataConverterBuilder.cs" />
+    <Compile Include="DataProviderBuilder.cs" />
     <Compile Include="Admin\SessionControllerTests.cs" />
     <Compile Include="Admin\UserControllerTests.cs" />
+    <Compile Include="DnsLookupBuilder.cs" />
+    <Compile Include="VotingControllerBuilder.cs" />
     <Compile Include="Admin\VotingControllerTests.cs" />
     <Compile Include="CannedResponseDateTimeOffsetProvider.cs" />
     <Compile Include="ConferenceHelper.cs" />
