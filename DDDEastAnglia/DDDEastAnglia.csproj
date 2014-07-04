@@ -290,6 +290,7 @@
     <Compile Include="Helpers\DnsLookup.cs" />
     <Content Include="Scripts\progressbar.js" />
     <Compile Include="Helpers\GravatarUrl.cs" />
+    <Compile Include="VotingData\ConnectionStringProvider.cs" />
     <Compile Include="VotingData\Models\CookieVoteModel.cs" />
     <Compile Include="VotingData\Models\AnonymousUserVoteCountModel.cs" />
     <Compile Include="VotingData\Models\DateTimeVoteModel.cs" />
