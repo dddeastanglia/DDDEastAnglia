@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using DDDEastAnglia.Areas.Admin.Controllers;
 using DDDEastAnglia.Areas.Admin.Models;
+using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.Helpers;
 using DDDEastAnglia.VotingData;
 using DDDEastAnglia.VotingData.Models;
@@ -15,27 +16,39 @@ namespace DDDEastAnglia.Tests.Admin
     public sealed class VotingControllerTests
     {
         [Test]
-        public void TestThat_Ctor_ThrowsAnException_WhenTheSuppliedDataProviderIsNull()
+        public void TestThat_Ctor_ThrowsAnException_WhenTheSuppliedConferenceLoaderIsNull()
         {
+            var dataProvider = Substitute.For<IDataProvider>();
             var dnsLookup = Substitute.For<IDnsLookup>();
             var chartDataConverter = Substitute.For<IChartDataConverter>();
-            Assert.Throws<ArgumentNullException>(() => new VotingController(null, dnsLookup, chartDataConverter));
+            Assert.Throws<ArgumentNullException>(() => new VotingController(null, dataProvider, dnsLookup, chartDataConverter));
+        }
+
+        [Test]
+        public void TestThat_Ctor_ThrowsAnException_WhenTheSuppliedDataProviderIsNull()
+        {
+            var conferenceLoader = Substitute.For<IConferenceLoader>();
+            var dnsLookup = Substitute.For<IDnsLookup>();
+            var chartDataConverter = Substitute.For<IChartDataConverter>();
+            Assert.Throws<ArgumentNullException>(() => new VotingController(conferenceLoader, null, dnsLookup, chartDataConverter));
         }
 
         [Test]
         public void TestThat_Ctor_ThrowsAnException_WhenTheSuppliedDnsLookupIsNull()
         {
+            var conferenceLoader = Substitute.For<IConferenceLoader>();
             var dataProvider = Substitute.For<IDataProvider>();
             var chartDataConverter = Substitute.For<IChartDataConverter>();
-            Assert.Throws<ArgumentNullException>(() => new VotingController(dataProvider, null, chartDataConverter));
+            Assert.Throws<ArgumentNullException>(() => new VotingController(conferenceLoader, dataProvider, null, chartDataConverter));
         }
 
         [Test]
         public void TestThat_Ctor_ThrowsAnException_WhenTheSuppliedChartDataConverterIsNull()
         {
+            var conferenceLoader = Substitute.For<IConferenceLoader>();
             var dataProvider = Substitute.For<IDataProvider>();
             var dnsLookup = Substitute.For<IDnsLookup>();
-            Assert.Throws<ArgumentNullException>(() => new VotingController(dataProvider, dnsLookup, null));
+            Assert.Throws<ArgumentNullException>(() => new VotingController(conferenceLoader, dataProvider, dnsLookup, null));
         }
 
         [TestCase(10, 10, 100)]
@@ -47,7 +60,7 @@ namespace DDDEastAnglia.Tests.Admin
             var dataProvider = Substitute.For<IDataProvider>();
             dataProvider.GetNumberOfDaysSinceVotingOpened().Returns(numberOfDaysSinceVotingOpened);
             dataProvider.GetNumberOfDaysOfVoting().Returns(numberOfDaysVoting);
-            var controller = new VotingController(dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
+            var controller = new VotingController(Substitute.For<IConferenceLoader>(), dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
 
             var result = (ViewResult) controller.Index();
             var model = (VotingStatsViewModel) result.Model;
@@ -61,7 +74,7 @@ namespace DDDEastAnglia.Tests.Admin
             var dataProvider = Substitute.For<IDataProvider>();
             dataProvider.GetNumberOfDaysSinceVotingOpened().Returns(25);
             dataProvider.GetNumberOfDaysOfVoting().Returns(10);
-            var controller = new VotingController(dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
+            var controller = new VotingController(Substitute.For<IConferenceLoader>(), dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
 
             var result = (ViewResult) controller.Index();
             var model = (VotingStatsViewModel) result.Model;
@@ -75,7 +88,7 @@ namespace DDDEastAnglia.Tests.Admin
             var dataProvider = Substitute.For<IDataProvider>();
             dataProvider.GetNumberOfDaysSinceVotingOpened().Returns(25);
             dataProvider.GetNumberOfDaysOfVoting().Returns(10);
-            var controller = new VotingController(dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
+            var controller = new VotingController(Substitute.For<IConferenceLoader>(), dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
 
             var result = (ViewResult) controller.Index();
             var model = (VotingStatsViewModel) result.Model;
@@ -89,7 +102,7 @@ namespace DDDEastAnglia.Tests.Admin
             var dataProvider = Substitute.For<IDataProvider>();
             var sessions = new[] {new SessionLeaderBoardEntry {NumberOfVotes = 2}, new SessionLeaderBoardEntry {NumberOfVotes = 4}};
             dataProvider.GetLeaderBoard(Arg.Any<int>(), Arg.Any<bool>()).Returns(sessions);
-            var controller = new VotingController(dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
+            var controller = new VotingController(Substitute.For<IConferenceLoader>(), dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
             
             var result = (ViewResult) controller.Leaderboard();
             var model = (LeaderboardViewModel) result.Model;
@@ -102,7 +115,7 @@ namespace DDDEastAnglia.Tests.Admin
         {
             var dataProvider = Substitute.For<IDataProvider>();
             dataProvider.GetLeaderBoard(Arg.Any<int>(), Arg.Any<bool>()).Returns(new[] {new SessionLeaderBoardEntry()});
-            var controller = new VotingController(dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
+            var controller = new VotingController(Substitute.For<IConferenceLoader>(), dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
             
             controller.Leaderboard(123);
 
@@ -114,7 +127,7 @@ namespace DDDEastAnglia.Tests.Admin
         {
             var dataProvider = Substitute.For<IDataProvider>();
             dataProvider.GetLeaderBoard(Arg.Any<int>(), Arg.Any<bool>()).Returns(new[] {new SessionLeaderBoardEntry()});
-            var controller = new VotingController(dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
+            var controller = new VotingController(Substitute.For<IConferenceLoader>(), dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
             
             controller.Leaderboard(123, false);
 
@@ -127,7 +140,7 @@ namespace DDDEastAnglia.Tests.Admin
             var dataProvider = Substitute.For<IDataProvider>();
             var sessions = new[] {new SessionLeaderBoardEntry(), new SessionLeaderBoardEntry()};
             dataProvider.GetLeaderBoard(Arg.Any<int>(), Arg.Any<bool>()).Returns(sessions);
-            var controller = new VotingController(dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
+            var controller = new VotingController(Substitute.For<IConferenceLoader>(), dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
             
             var result = (ViewResult) controller.Leaderboard();
             var model = (LeaderboardViewModel) result.Model;
@@ -140,7 +153,7 @@ namespace DDDEastAnglia.Tests.Admin
         [TestCase("  ")]
         public void TestThat_LookupIPAddress_ThrowsAnException_WhenTheSuppliedIPAddressIsInavlid(string ipAddress)
         {
-            var controller = new VotingController(Substitute.For<IDataProvider>(), Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
+            var controller = new VotingController(Substitute.For<IConferenceLoader>(), Substitute.For<IDataProvider>(), Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
             Assert.Throws<ArgumentException>(() => controller.LookupIPAddress(ipAddress));
         }
 
@@ -148,7 +161,7 @@ namespace DDDEastAnglia.Tests.Admin
         public void TestThat_LookupIPAddress_ResolvesTheIPAddress_UsingTheDnsLookup()
         {
             var dnsLookup = Substitute.For<IDnsLookup>();
-            var controller = new VotingController(Substitute.For<IDataProvider>(), dnsLookup, Substitute.For<IChartDataConverter>());
+            var controller = new VotingController(Substitute.For<IConferenceLoader>(), Substitute.For<IDataProvider>(), dnsLookup, Substitute.For<IChartDataConverter>());
 
             controller.LookupIPAddress("1.2.3.4");
 
@@ -160,7 +173,7 @@ namespace DDDEastAnglia.Tests.Admin
         {
             var dnsLookup = Substitute.For<IDnsLookup>();
             dnsLookup.Resolve("1.2.3.4").Returns("some website");
-            var controller = new VotingController(Substitute.For<IDataProvider>(), dnsLookup, Substitute.For<IChartDataConverter>());
+            var controller = new VotingController(Substitute.For<IConferenceLoader>(), Substitute.For<IDataProvider>(), dnsLookup, Substitute.For<IChartDataConverter>());
 
             var result = controller.LookupIPAddress("1.2.3.4");
 
@@ -173,7 +186,7 @@ namespace DDDEastAnglia.Tests.Admin
             var dataProvider = Substitute.For<IDataProvider>();
             var votes = new[] {new VotesForIPAddressModel {NumberOfVotes = 2}, new VotesForIPAddressModel {NumberOfVotes = 4}};
             dataProvider.GetDistinctIPAddresses().Returns(votes);
-            var controller = new VotingController(dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
+            var controller = new VotingController(Substitute.For<IConferenceLoader>(), dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
             
             var result = (ViewResult) controller.IPAddresses();
             var model = (IPAddressStatsViewModel) result.Model;
@@ -187,7 +200,7 @@ namespace DDDEastAnglia.Tests.Admin
             var dataProvider = Substitute.For<IDataProvider>();
             var votes = new[] {new VotesForIPAddressModel(), new VotesForIPAddressModel()};
             dataProvider.GetDistinctIPAddresses().Returns(votes);
-            var controller = new VotingController(dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
+            var controller = new VotingController(Substitute.For<IConferenceLoader>(), dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
             
             var result = (ViewResult) controller.IPAddresses();
             var model = (IPAddressStatsViewModel) result.Model;
@@ -202,7 +215,7 @@ namespace DDDEastAnglia.Tests.Admin
             var votes = new[] {new DateTimeVoteModel()};
             dataProvider.GetVotesPerDay().Returns(votes);
             var chartDataConverter = Substitute.For<IChartDataConverter>();
-            var controller = new VotingController(dataProvider, Substitute.For<IDnsLookup>(), chartDataConverter);
+            var controller = new VotingController(Substitute.For<IConferenceLoader>(), dataProvider, Substitute.For<IDnsLookup>(), chartDataConverter);
 
             controller.VotesPerDay();
 
@@ -216,7 +229,7 @@ namespace DDDEastAnglia.Tests.Admin
             var chartDataConverter = Substitute.For<IChartDataConverter>();
             long[][] chartData = new long[2][];
             chartDataConverter.ToChartData(Arg.Any<IList<DateTimeVoteModel>>()).Returns(chartData);
-            var controller = new VotingController(dataProvider, Substitute.For<IDnsLookup>(), chartDataConverter);
+            var controller = new VotingController(Substitute.For<IConferenceLoader>(), dataProvider, Substitute.For<IDnsLookup>(), chartDataConverter);
 
             var result = (ViewResult) controller.VotesPerDay();
             var model = (VotesPerDayViewModel) result.Model;
@@ -232,7 +245,7 @@ namespace DDDEastAnglia.Tests.Admin
             var votes = new[] {new DateTimeVoteModel()};
             dataProvider.GetVotesPerHour().Returns(votes);
             var chartDataConverter = Substitute.For<IChartDataConverter>();
-            var controller = new VotingController(dataProvider, Substitute.For<IDnsLookup>(), chartDataConverter);
+            var controller = new VotingController(Substitute.For<IConferenceLoader>(), dataProvider, Substitute.For<IDnsLookup>(), chartDataConverter);
 
             controller.VotesPerHour();
 
@@ -246,7 +259,7 @@ namespace DDDEastAnglia.Tests.Admin
             var chartDataConverter = Substitute.For<IChartDataConverter>();
             long[][] chartData = new long[2][];
             chartDataConverter.ToChartData(Arg.Any<IList<DateTimeVoteModel>>()).Returns(chartData);
-            var controller = new VotingController(dataProvider, Substitute.For<IDnsLookup>(), chartDataConverter);
+            var controller = new VotingController(Substitute.For<IConferenceLoader>(), dataProvider, Substitute.For<IDnsLookup>(), chartDataConverter);
 
             var result = (ViewResult) controller.VotesPerHour();
             var model = (long[][]) result.Model;
@@ -261,7 +274,7 @@ namespace DDDEastAnglia.Tests.Admin
             var voteCounts = new[] {new NumberOfUsersWithVotesModel()};
             dataProvider.GetNumberOfVotesCastCounts().Returns(voteCounts);
             var chartDataConverter = Substitute.For<IChartDataConverter>();
-            var controller = new VotingController(dataProvider, Substitute.For<IDnsLookup>(), chartDataConverter);
+            var controller = new VotingController(Substitute.For<IConferenceLoader>(), dataProvider, Substitute.For<IDnsLookup>(), chartDataConverter);
 
             controller.NumberOfUsersWhoHaveCastXVotes();
 
@@ -275,7 +288,7 @@ namespace DDDEastAnglia.Tests.Admin
             var chartDataConverter = Substitute.For<IChartDataConverter>();
             long[][] chartData = new long[2][];
             chartDataConverter.ToChartData(Arg.Any<IList<NumberOfUsersWithVotesModel>>()).Returns(chartData);
-            var controller = new VotingController(dataProvider, Substitute.For<IDnsLookup>(), chartDataConverter);
+            var controller = new VotingController(Substitute.For<IConferenceLoader>(), dataProvider, Substitute.For<IDnsLookup>(), chartDataConverter);
 
             var result = (ViewResult) controller.NumberOfUsersWhoHaveCastXVotes();
             var model = (long[][]) result.Model;
@@ -289,7 +302,7 @@ namespace DDDEastAnglia.Tests.Admin
             var dataProvider = Substitute.For<IDataProvider>();
             var voters = new[] {new IPAddressVoterModel {NumberOfVoters = 2}, new IPAddressVoterModel {NumberOfVoters = 4}};
             dataProvider.GetVotersPerIPAddress().Returns(voters);
-            var controller = new VotingController(dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
+            var controller = new VotingController(Substitute.For<IConferenceLoader>(), dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
             
             var result = (ViewResult) controller.VotersPerIPAddress();
             var model = (VotersPerIPAddressViewModel) result.Model;
@@ -303,7 +316,7 @@ namespace DDDEastAnglia.Tests.Admin
             var dataProvider = Substitute.For<IDataProvider>();
             var voters = new[] {new IPAddressVoterModel(), new IPAddressVoterModel()};
             dataProvider.GetVotersPerIPAddress().Returns(voters);
-            var controller = new VotingController(dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
+            var controller = new VotingController(Substitute.For<IConferenceLoader>(), dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
 
             var result = (ViewResult) controller.VotersPerIPAddress();
             var model = (VotersPerIPAddressViewModel) result.Model;
@@ -316,7 +329,7 @@ namespace DDDEastAnglia.Tests.Admin
         [TestCase("  ")]
         public void TestThat_VotesForIPAddress_ThrowsAnException_WhenTheSuppliedIPAddressIsInavlid(string ipAddress)
         {
-            var controller = new VotingController(Substitute.For<IDataProvider>(), Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
+            var controller = new VotingController(Substitute.For<IConferenceLoader>(), Substitute.For<IDataProvider>(), Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
             Assert.Throws<ArgumentException>(() => controller.VotesForIPAddress(ipAddress));
         }
 
@@ -326,7 +339,7 @@ namespace DDDEastAnglia.Tests.Admin
             var dataProvider = Substitute.For<IDataProvider>();
             var votes = new[] {new CookieVoteModel(), new CookieVoteModel()};
             dataProvider.GetVotesPerIPAddress(Arg.Any<string>()).Returns(votes);
-            var controller = new VotingController(dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
+            var controller = new VotingController(Substitute.For<IConferenceLoader>(), dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
             
             var result = (ViewResult) controller.VotesForIPAddress("1.2.3.4");
             var model = (VotesForIpAddressViewModel) result.Model;
@@ -340,7 +353,7 @@ namespace DDDEastAnglia.Tests.Admin
             var dataProvider = Substitute.For<IDataProvider>();
             var votes = new[] {new CookieVoteModel {NumberOfVotes = 2}, new CookieVoteModel {NumberOfVotes = 4}};
             dataProvider.GetVotesPerIPAddress(Arg.Any<string>()).Returns(votes);
-            var controller = new VotingController(dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
+            var controller = new VotingController(Substitute.For<IConferenceLoader>(), dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
             
             var result = (ViewResult) controller.VotesForIPAddress("1.2.3.4");
             var model = (VotesForIpAddressViewModel) result.Model;
@@ -354,7 +367,7 @@ namespace DDDEastAnglia.Tests.Admin
             var dataProvider = Substitute.For<IDataProvider>();
             var votes = new[] {new CookieVoteModel(), new CookieVoteModel()};
             dataProvider.GetVotesPerIPAddress(Arg.Any<string>()).Returns(votes);
-            var controller = new VotingController(dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
+            var controller = new VotingController(Substitute.For<IConferenceLoader>(), dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
 
             var result = (ViewResult) controller.VotesForIPAddress("1.2.3.4");
             var model = (VotesForIpAddressViewModel) result.Model;
@@ -366,7 +379,7 @@ namespace DDDEastAnglia.Tests.Admin
         public void TestThat_KnownUserVotes_GetsItsDataFromTheDataProvider()
         {
             var dataProvider = Substitute.For<IDataProvider>();
-            var controller = new VotingController(dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
+            var controller = new VotingController(Substitute.For<IConferenceLoader>(), dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
 
             controller.KnownUserVotes();
 
@@ -377,7 +390,7 @@ namespace DDDEastAnglia.Tests.Admin
         public void TestThat_GetSessionsVotedForByKnownUser_ObtainsTheSessionsForTheSpecifiedUser()
         {
             var dataProvider = Substitute.For<IDataProvider>();
-            var controller = new VotingController(dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
+            var controller = new VotingController(Substitute.For<IConferenceLoader>(), dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
 
             controller.GetSessionsVotedForByKnownUser(1234);
 
@@ -388,7 +401,7 @@ namespace DDDEastAnglia.Tests.Admin
         public void TestThat_AnonymousUserVotes_GetsItsDataFromTheDataProvider()
         {
             var dataProvider = Substitute.For<IDataProvider>();
-            var controller = new VotingController(dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
+            var controller = new VotingController(Substitute.For<IConferenceLoader>(), dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
 
             controller.AnonymousUserVotes();
 
@@ -399,7 +412,7 @@ namespace DDDEastAnglia.Tests.Admin
         public void TestThat_GetSessionsVotedForByAnonymousUser_ObtainsTheSessionsForTheSpecifiedCookieId()
         {
             var dataProvider = Substitute.For<IDataProvider>();
-            var controller = new VotingController(dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
+            var controller = new VotingController(Substitute.For<IConferenceLoader>(), dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
             var cookieId = Guid.NewGuid();
 
             controller.GetSessionsVotedForByAnonymousUser(cookieId);
