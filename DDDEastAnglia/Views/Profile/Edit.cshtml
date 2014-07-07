@@ -31,7 +31,7 @@
     <div class="control-group">
         @Html.LabelFor(m => Model.EmailAddress, new { @class = "control-label" })
         <div class="controls">
-            @Html.TextBoxFor(m => Model.EmailAddress, new { type = "email" })
+            @Html.TextBoxFor(m => Model.EmailAddress, new { type = "email", id = "emailTextBox", @onblur = "onEmailChanged();" })
             @Html.ValidationMessageFor(m => Model.EmailAddress)
         </div>
     </div>
@@ -61,6 +61,14 @@
     </div>
 
     <div class="control-group">
+        <span class="control-label">Picture</span>
+        <div class="controls">
+            <img id="profilePicture" src="@Model.GravatarUrl()"/>
+            <em>This image is provided by <a href="http://www.gravatar.com" target="_blank">Gravatar</a>, based on your email address.</em>
+        </div>
+    </div>
+    
+    <div class="control-group">
         @Html.LabelFor(m => Model.Bio, new { @class = "control-label" })
         <div class="controls">
             <div id="wmd-button-bar"></div>
@@ -89,10 +97,18 @@
 @section Scripts 
 {
     @Scripts.Render("~/bundles/jqueryval")
-}
+    @Scripts.Render("~/bundles/gravatar")
 
-<script type="text/javascript">
-    var converter = new Markdown.Converter();
-    var editor = new Markdown.Editor(converter);
-    editor.run();
-</script>
+    <script type="text/javascript">
+        function onEmailChanged() {
+            var emailAddress = $("#emailTextBox").val();
+            updateGravatarPicture('@Url.Action("Url", "Gravatar")', emailAddress, "profilePicture");
+        }
+    </script>
+
+    <script type="text/javascript">
+        var converter = new Markdown.Converter();
+        var editor = new Markdown.Editor(converter);
+        editor.run();
+    </script>
+}
