@@ -74,7 +74,10 @@ GO
 ALTER TABLE [dbo].[UserProfiles] DROP CONSTRAINT [df_EmptyStringEmailAddress]
 GO
 
-ALTER TABLE [dbo].[UserProfiles] ALTER COLUMN [UserName] [nvarchar] (max) NOT NULL
+ALTER TABLE [dbo].[UserProfiles] ALTER COLUMN [UserName] [nvarchar] (max) NULL
+GO
+
+ALTER TABLE [dbo].[UserProfiles] ALTER COLUMN [EmailAddress] [nvarchar] (max) NULL
 GO
 
 ALTER TABLE [dbo].[UserProfiles] DROP CONSTRAINT [df_NewSpeakerFalse]
@@ -104,7 +107,7 @@ GO
 -- webpages_Membership
 CREATE TABLE [dbo].[webpages_Membership_new]
 (
-[UserId] [int] NOT NULL IDENTITY(1, 1),
+[UserId] [int] NOT NULL,
 [CreateDate] [datetime] NULL,
 [ConfirmationToken] [nvarchar] (128) NULL,
 [IsConfirmed] [bit] NULL CONSTRAINT [DF_webpages_Membership_IsConfirmed] DEFAULT ((0)),
@@ -118,9 +121,6 @@ CREATE TABLE [dbo].[webpages_Membership_new]
 )
 GO
 
-SET IDENTITY_INSERT [dbo].[webpages_Membership_new] ON
-GO
-
 INSERT INTO [dbo].[webpages_Membership_new]
 (
 [UserId], [CreateDate], [ConfirmationToken], [IsConfirmed], [LastPasswordFailureDate], [PasswordFailuresSinceLastSuccess],
@@ -129,9 +129,6 @@ INSERT INTO [dbo].[webpages_Membership_new]
     SELECT [UserId], [CreateDate], [ConfirmationToken], [IsConfirmed], [LastPasswordFailureDate], [PasswordFailuresSinceLastSuccess],
 			[Password], [PasswordChangedDate], [PasswordSalt], [PasswordVerificationToken], [PasswordVerificationTokenExpirationDate]
     FROM [dbo].[webpages_Membership]
-GO
-
-SET IDENTITY_INSERT [dbo].[webpages_Membership_new] OFF
 GO
 
 DROP TABLE [dbo].[webpages_Membership]
