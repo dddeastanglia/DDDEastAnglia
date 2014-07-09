@@ -5,13 +5,13 @@
         <span class="caret"></span>
     </a>
     <ul class="dropdown-menu">
-        <li>@Html.ActionLink("Edit Profile", "Edit", "Profile")</li>
-        <li>@Html.ActionLink("Change Password", "ChangePassword", "Account")</li>
-        <li>@Html.ActionLink("Manage Logins", "ManageLogins", "Account")</li>
+        <li>@Html.ActionLink("Edit Profile", "Edit", "Profile", new { area = "" }, null)</li>
+        <li>@Html.ActionLink("Change Password", "ChangePassword", "Account", new { area = "" }, null)</li>
+        <li>@Html.ActionLink("Manage Logins", "ManageLogins", "Account", new { area = "" }, null)</li>
 
         <li class="divider"></li>
         <li>
-            @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+            @using (Html.BeginForm("LogOff", "Account", new { area = "" }, FormMethod.Post, new { id = "logoutForm" }))
             {
                 @Html.AntiForgeryToken()
                 <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
