@@ -4,10 +4,7 @@
     ViewBag.Title = "Sessions";
 }
 
-@section header
-{
-    @Styles.Render("~/Content/admin")
-}
+@Html.Partial("_SearchBox", new ViewDataDictionary { { "containerClass", "tbody tr" }, { "childSelector", "td" } })
 
 <h2>@ViewBag.Title</h2>
 
@@ -53,6 +50,7 @@
 
 @section scripts
 {
+    @Scripts.Render("~/bundles/searchfilter")
     @Scripts.Render("~/bundles/tablesorter")
 
     <script language="javascript">

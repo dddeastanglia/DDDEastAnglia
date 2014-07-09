@@ -4,6 +4,8 @@
     ViewBag.Title = "Speakers";
 }
 
+@Html.Partial("_SearchBox", new ViewDataDictionary { { "containerClass", "tbody tr" }, { "childSelector", "td" } })
+
 <h2>@ViewBag.Title</h2>
 
 <div class="pull-right">
@@ -54,6 +56,7 @@
 
 @section scripts
 {
+    @Scripts.Render("~/bundles/searchfilter")
     @Scripts.Render("~/bundles/tablesorter")
 
     <script language="javascript">
