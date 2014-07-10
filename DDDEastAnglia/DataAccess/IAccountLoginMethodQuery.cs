@@ -1,9 +1,10 @@
-﻿using DDDEastAnglia.Models;
+﻿using System.Collections.Generic;
+using DDDEastAnglia.Models;
 
 namespace DDDEastAnglia.DataAccess
 {
     public interface IAccountLoginMethodQuery
     {
-        LoginMethods GetLoginMethods(int userId);
+        IEnumerable<LoginMethod> GetLoginMethods(int userId);
     }
 }
