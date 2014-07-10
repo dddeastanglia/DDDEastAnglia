@@ -11,13 +11,19 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
     public class UserController : Controller
     {
         private readonly IUserProfileRepository userProfileRepository;
+        private readonly IAccountLoginMethodQuery accountLoginMethodQuery;
         private readonly ISessionRepository sessionRepository;
 
-        public UserController(IUserProfileRepository userProfileRepository, ISessionRepository sessionRepository)
+        public UserController(IUserProfileRepository userProfileRepository, IAccountLoginMethodQuery accountLoginMethodQuery, ISessionRepository sessionRepository)
         {
             if (userProfileRepository == null)
             {
                 throw new ArgumentNullException("userProfileRepository");
+            }
+
+            if (accountLoginMethodQuery == null)
+            {
+                throw new ArgumentNullException("accountLoginMethodQuery");
             }
 
             if (sessionRepository == null)
@@ -26,6 +32,7 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
             }
             
             this.userProfileRepository = userProfileRepository;
+            this.accountLoginMethodQuery = accountLoginMethodQuery;
             this.sessionRepository = sessionRepository;
         }
 
@@ -52,7 +59,14 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
         public ActionResult Details(int id)
         {
             var userProfile = userProfileRepository.GetUserProfileById(id);
-            return userProfile == null ? (ActionResult) HttpNotFound() : View(userProfile);
+
+            if (userProfile == null)
+            {
+                return HttpNotFound();
+            }
+
+            userProfile.LoginMethods = accountLoginMethodQuery.GetLoginMethods(id);
+            return View(userProfile);
         }
 
         public ActionResult Edit(int id)

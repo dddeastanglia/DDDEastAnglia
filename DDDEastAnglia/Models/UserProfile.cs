@@ -40,6 +40,8 @@ namespace DDDEastAnglia.Models
 
         public DateTimeOffset? JoinedAt { get; set; }
 
+        public LoginMethods LoginMethods { get; set; }
+
         public string GravatarUrl(int size = 50)
         {
             return new GravatarUrl().GetUrl(EmailAddress, size: size);
