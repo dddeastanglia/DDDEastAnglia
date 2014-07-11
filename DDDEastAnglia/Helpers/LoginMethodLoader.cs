@@ -5,7 +5,7 @@ using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.DataAccess.Builders;
 using DDDEastAnglia.Models;
 
-namespace DDDEastAnglia
+namespace DDDEastAnglia.Helpers
 {
     public interface ILoginMethodLoader
     {

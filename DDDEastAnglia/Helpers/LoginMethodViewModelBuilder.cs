@@ -2,7 +2,7 @@
 using DDDEastAnglia.DataAccess.Builders;
 using DDDEastAnglia.Models;
 
-namespace DDDEastAnglia
+namespace DDDEastAnglia.Helpers
 {
     public class LoginMethodViewModelBuilder : IBuild<LoginMethod, LoginMethodViewModel>
     {
