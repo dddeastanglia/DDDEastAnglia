@@ -41,7 +41,7 @@ namespace DDDEastAnglia.Models
 
         public DateTimeOffset? JoinedAt { get; set; }
 
-        public IEnumerable<LoginMethod> LoginMethods { get; set; }
+        public IEnumerable<LoginMethodViewModel> LoginMethods { get; set; }
 
         public string GravatarUrl(int size = 50)
         {

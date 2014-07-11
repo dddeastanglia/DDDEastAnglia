@@ -1,24 +1,6 @@
-﻿@model System.Collections.Generic.IEnumerable<DDDEastAnglia.Models.LoginMethod>
+﻿@model System.Collections.Generic.IEnumerable<DDDEastAnglia.Models.LoginMethodViewModel>
 
 @foreach (var loginMethod in Model)
 {
-    if (loginMethod.ProviderName == "dddea")
-    {
-        <i class="icon-user" title="DDDEA Account"></i>
-    }
-
-    if (loginMethod.ProviderName == "github")
-    {
-        <i class="icon-github" title="GitHub"></i>
-    }
-
-    if (loginMethod.ProviderName == "twitter")
-    {
-        <i class="icon-twitter" title="Twitter"></i>
-    }
-
-    if (loginMethod.ProviderName == "google")
-    {
-        <i class="icon-google-plus" title="Google"></i>
-    }
+    <i class="@loginMethod.Icon" title="@loginMethod.Name"></i>
 }

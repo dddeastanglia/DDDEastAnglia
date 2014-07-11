@@ -110,9 +110,9 @@ namespace DDDEastAnglia.Tests.Admin
         private UserController CreateController()
         {
             userProfileRepository = Substitute.For<IUserProfileRepository>();
-            var accountLoginMethodQuery = Substitute.For<IAccountLoginMethodQuery>();
+            var loginMethodLoader = Substitute.For<ILoginMethodLoader>();
             var sessionRepository = Substitute.For<ISessionRepository>();
-            return new UserController(userProfileRepository, accountLoginMethodQuery, sessionRepository);
+            return new UserController(userProfileRepository, loginMethodLoader, sessionRepository);
         }
     }
 }
