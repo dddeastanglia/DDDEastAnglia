@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using DDDEastAnglia.Helpers;
@@ -39,6 +40,8 @@ namespace DDDEastAnglia.Models
         public bool NewSpeaker { get; set; }
 
         public DateTimeOffset? JoinedAt { get; set; }
+
+        public IEnumerable<LoginMethodViewModel> LoginMethods { get; set; }
 
         public string GravatarUrl(int size = 50)
         {

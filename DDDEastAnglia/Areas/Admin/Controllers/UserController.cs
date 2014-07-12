@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web.Mvc;
 using DDDEastAnglia.Areas.Admin.Models;
 using DDDEastAnglia.DataAccess;
+using DDDEastAnglia.Helpers;
 using DDDEastAnglia.Models;
 
 namespace DDDEastAnglia.Areas.Admin.Controllers
@@ -11,13 +12,19 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
     public class UserController : Controller
     {
         private readonly IUserProfileRepository userProfileRepository;
+        private readonly ILoginMethodLoader loginMethodLoader;
         private readonly ISessionRepository sessionRepository;
 
-        public UserController(IUserProfileRepository userProfileRepository, ISessionRepository sessionRepository)
+        public UserController(IUserProfileRepository userProfileRepository, ILoginMethodLoader loginMethodLoader, ISessionRepository sessionRepository)
         {
             if (userProfileRepository == null)
             {
                 throw new ArgumentNullException("userProfileRepository");
+            }
+
+            if (loginMethodLoader == null)
+            {
+                throw new ArgumentNullException("loginMethodLoader");
             }
 
             if (sessionRepository == null)
@@ -26,6 +33,7 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
             }
             
             this.userProfileRepository = userProfileRepository;
+            this.loginMethodLoader = loginMethodLoader;
             this.sessionRepository = sessionRepository;
         }
 
@@ -52,7 +60,14 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
         public ActionResult Details(int id)
         {
             var userProfile = userProfileRepository.GetUserProfileById(id);
-            return userProfile == null ? (ActionResult) HttpNotFound() : View(userProfile);
+
+            if (userProfile == null)
+            {
+                return HttpNotFound();
+            }
+
+            userProfile.LoginMethods = loginMethodLoader.GetLoginMethods(id);
+            return View(userProfile);
         }
 
         public ActionResult Edit(int id)

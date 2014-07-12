@@ -1,0 +1,6 @@
+﻿@model IEnumerable<DDDEastAnglia.Models.LoginMethodViewModel>
+
+@foreach (var loginMethod in Model)
+{
+    <i class="@loginMethod.Icon" title="@loginMethod.Name"></i>
+}
