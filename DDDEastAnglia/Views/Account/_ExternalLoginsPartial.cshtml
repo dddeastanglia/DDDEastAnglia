@@ -1,0 +1,49 @@
+﻿@model IEnumerable<DDDEastAnglia.Models.LoginMethodViewModel>
+
+@if (Model.Any())
+{
+    foreach (var loginMethod in Model)
+    {
+        <div style="margin-bottom: 10px;">
+            <span style="line-height: 30px;">
+                <i class="@loginMethod.Icon"></i> @loginMethod.Name
+            </span>
+
+            <span style="position: absolute; left: 150px;">
+                @if (loginMethod.ProviderUserId == null)
+                {
+                    using (Html.BeginForm("ExternalLogin", "Account", new {ViewBag.ReturnUrl}))
+                    {
+                        @Html.AntiForgeryToken()
+                        <button type="submit" 
+                                class="btn btn-success" 
+                                name="provider"
+                                value="@loginMethod.ProviderName"
+                                title="Log in using @loginMethod.Name">
+                            <i class="icon-plus"></i> Add
+                        </button>
+                    }
+                }
+                else
+                {
+                    using (Html.BeginForm("DisassociateLogin", "Account"))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.Hidden("name", loginMethod.Name)
+                        @Html.Hidden("provider", loginMethod.ProviderName)
+                        @Html.Hidden("providerUserId", loginMethod.ProviderUserId)
+                        <button type="submit" @(ViewBag.DisableRemoveButtons ? "" : "disabled='disabled'")
+                                class="btn btn-danger"
+                                title="@(ViewBag.DisableRemoveButtons ? "Remove this login from your account" : "This login cannot be removed because it is your primary login method")">
+                            <i class="icon-remove"></i> Remove
+                        </button>
+                    }
+                }
+            </span>
+        </div>
+    }
+}
+else
+{
+    <text>There are no alternative logins available.</text>
+}

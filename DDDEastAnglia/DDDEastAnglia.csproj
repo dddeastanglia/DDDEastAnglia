@@ -633,8 +633,6 @@
     <Content Include="Content\Site.css" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
-    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
-    <Content Include="Views\Account\_RemoveExternalLoginsPartial.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\ManageLogins.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
@@ -680,6 +678,7 @@
     <Content Include="Views\Timeline\_TimelineItem.cshtml" />
     <Content Include="Views\Home\Closed.cshtml" />
     <Content Include="Views\Account\_ExternalLoginMethodsPartial.cshtml" />
+    <Content Include="Views\Account\_ExternalLoginsPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

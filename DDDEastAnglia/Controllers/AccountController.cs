@@ -149,23 +149,29 @@ namespace DDDEastAnglia.Controllers
         }
 
         [ChildActionOnly]
-        public ActionResult RemoveExternalLogins()
+        public ActionResult ExternalLogins(string returnUrl)
         {
-            var externalLogins = externalLoginsProvider.GetForUser(User.Identity.Name);
+            var allExternalLogins = externalLoginsProvider.GetAllAvailable();
+            var usersExternalLogins = externalLoginsProvider.GetForUser(User.Identity.Name).ToList();
+            var usersProviderToUserId = usersExternalLogins.ToDictionary(l => l.ProviderName, l => l.ProviderUserId);
+
+            foreach (var externalLogin in allExternalLogins)
+            {
+                string providerUserId;
+
+                if (usersProviderToUserId.TryGetValue(externalLogin.ProviderName, out providerUserId))
+                {
+                    externalLogin.ProviderUserId = providerUserId;
+                }
+            }
+
             bool hasLocalAccount = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
-            ViewBag.DisableRemoveButtons = hasLocalAccount || externalLogins.Count() > 1;
-            return PartialView("_RemoveExternalLoginsPartial", externalLogins);
-        }
 
-        [AllowAnonymous]
-        [ChildActionOnly]
-        public ActionResult ExternalLoginsList(string returnUrl)
-        {
             ViewBag.ReturnUrl = returnUrl;
-            var externalLogins = externalLoginsProvider.GetAllAvailable();
-            return PartialView("_ExternalLoginsListPartial", externalLogins);
+            ViewBag.DisableRemoveButtons = hasLocalAccount || usersExternalLogins.Count() > 1;
+            return PartialView("_ExternalLoginsPartial", allExternalLogins);
         }
-
+        
         [AllowAnonymous]
         [ChildActionOnly]
         public ActionResult ExternalLoginMethods()
