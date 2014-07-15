@@ -9,26 +9,26 @@ namespace DDDEastAnglia.Helpers.LoginMethods
 {
     public class ExternalLoginsProvider
     {
-        private readonly IOAuthClientInfo oauthClientInfo;
+        private readonly IOAuthClientInfo oAuthClientInfo;
 
-        public ExternalLoginsProvider(IOAuthClientInfo oauthClientInfo)
+        public ExternalLoginsProvider(IOAuthClientInfo oAuthClientInfo)
         {
-            if (oauthClientInfo == null)
+            if (oAuthClientInfo == null)
             {
-                throw new ArgumentNullException("oauthClientInfo");
+                throw new ArgumentNullException("oAuthClientInfo");
             }
             
-            this.oauthClientInfo = oauthClientInfo;
+            this.oAuthClientInfo = oAuthClientInfo;
         }
 
         public IEnumerable<LoginMethod> GetForUser(string userName)
         {
-            var accounts = oauthClientInfo.GetAccountsFromUserName(userName);
+            var accounts = oAuthClientInfo.GetAccountsFromUserName(userName);
             var externalLogins = new List<LoginMethod>();
 
             foreach (OAuthAccount account in accounts)
             {
-                var clientData = oauthClientInfo.GetOAuthClientData(account.Provider);
+                var clientData = oAuthClientInfo.GetOAuthClientData(account.Provider);
 
                 externalLogins.Add(new LoginMethod
                 {
@@ -43,7 +43,7 @@ namespace DDDEastAnglia.Helpers.LoginMethods
 
         public IEnumerable<LoginMethod> GetAllAvailable()
         {
-            var authenticationClientDatas = oauthClientInfo.RegisteredClientData();
+            var authenticationClientDatas = oAuthClientInfo.RegisteredClientData();
             var externalLogins = new List<LoginMethod>();
 
             foreach (var externalLogin in authenticationClientDatas)

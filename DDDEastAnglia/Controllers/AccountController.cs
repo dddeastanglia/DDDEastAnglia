@@ -3,7 +3,9 @@ using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
 using DDDEastAnglia.DataAccess;
+using DDDEastAnglia.DataAccess.Builders;
 using DDDEastAnglia.Helpers.LoginMethods;
+using DDDEastAnglia.Helpers.Security;
 using DotNetOpenAuth.AspNet;
 using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
@@ -15,22 +17,39 @@ namespace DDDEastAnglia.Controllers
     public class AccountController : Controller
     {
         private readonly IUserProfileRepository userProfileRepository;
+        private readonly IBuild<LoginMethod, LoginMethodViewModel> loginMethodViewModelBuilder;
         private readonly ExternalLoginsProvider externalLoginsProvider;
+        private readonly IOAuthClientInfo oAuthClientInfo;
 
-        public AccountController(IUserProfileRepository userProfileRepository, ExternalLoginsProvider externalLoginsProvider)
+        public AccountController(IUserProfileRepository userProfileRepository, 
+            IBuild<LoginMethod, LoginMethodViewModel> loginMethodViewModelBuilder,
+            ExternalLoginsProvider externalLoginsProvider, 
+            IOAuthClientInfo oAuthClientInfo)
         {
             if (userProfileRepository == null)
             {
                 throw new ArgumentNullException("userProfileRepository");
             }
 
+            if (loginMethodViewModelBuilder == null)
+            {
+                throw new ArgumentNullException("loginMethodViewModelBuilder");
+            }
+
             if (externalLoginsProvider == null)
             {
                 throw new ArgumentNullException("externalLoginsProvider");
             }
-            
+
+            if (oAuthClientInfo == null)
+            {
+                throw new ArgumentNullException("oAuthClientInfo");
+            }
+
             this.userProfileRepository = userProfileRepository;
+            this.loginMethodViewModelBuilder = loginMethodViewModelBuilder;
             this.externalLoginsProvider = externalLoginsProvider;
+            this.oAuthClientInfo = oAuthClientInfo;
         }
 
         [AllowAnonymous]
@@ -104,7 +123,7 @@ namespace DDDEastAnglia.Controllers
         [HttpGet]
         public ActionResult ChangePassword(string message = null)
         {
-            ViewBag.HasLocalAccount = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
+            ViewBag.HasLocalAccount = oAuthClientInfo.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
             ViewBag.Message = message;
             return View("ChangePassword");
         }
@@ -113,7 +132,7 @@ namespace DDDEastAnglia.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ChangePassword(LocalPasswordModel model)
         {
-            bool hasLocalAccount = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
+            bool hasLocalAccount = oAuthClientInfo.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
             ViewBag.HasLocalAccount = hasLocalAccount;
 
             if (hasLocalAccount)
@@ -142,7 +161,7 @@ namespace DDDEastAnglia.Controllers
         [HttpGet]
         public ActionResult ManageLogins(string message = null)
         {
-            ViewBag.HasLocalAccount = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
+            ViewBag.HasLocalAccount = oAuthClientInfo.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
             ViewBag.Message = message;
             ViewBag.ReturnUrl = Url.Action("ManageLogins");
             return View("ManageLogins");
@@ -165,11 +184,12 @@ namespace DDDEastAnglia.Controllers
                 }
             }
 
-            bool hasLocalAccount = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
+            bool hasLocalAccount = oAuthClientInfo.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
 
             ViewBag.ReturnUrl = returnUrl;
             ViewBag.DisableRemoveButtons = hasLocalAccount || usersExternalLogins.Count() > 1;
-            return PartialView("_ExternalLoginsPartial", allExternalLogins);
+            var viewModels = allExternalLogins.Select(loginMethodViewModelBuilder.Build);
+            return PartialView("_ExternalLoginsPartial", viewModels);
         }
         
         [AllowAnonymous]
@@ -177,7 +197,8 @@ namespace DDDEastAnglia.Controllers
         public ActionResult ExternalLoginMethods()
         {
             var externalLogins = externalLoginsProvider.GetAllAvailable();
-            return PartialView("_ExternalLoginMethodsPartial", externalLogins);
+            var viewModels = externalLogins.Select(loginMethodViewModelBuilder.Build);
+            return PartialView("_ExternalLoginMethodsPartial", viewModels);
         }
 
         [AllowAnonymous]
@@ -186,24 +207,25 @@ namespace DDDEastAnglia.Controllers
         {
             ViewBag.ReturnUrl = returnUrl;
             var externalLogins = externalLoginsProvider.GetAllAvailable();
-            return PartialView("_ExternalLoginButtonsPartial", externalLogins);
+            var viewModels = externalLogins.Select(loginMethodViewModelBuilder.Build);
+            return PartialView("_ExternalLoginButtonsPartial", viewModels);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult DisassociateLogin(string name, string provider, string providerUserId)
         {
-            string ownerAccount = OAuthWebSecurity.GetUserName(provider, providerUserId);
+            string ownerAccount = oAuthClientInfo.GetUserName(provider, providerUserId);
             string message = null;
 
             if (ownerAccount == User.Identity.Name)
             {
-                bool hasLocalAccount = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
-                var externalLogins = OAuthWebSecurity.GetAccountsFromUserName(User.Identity.Name);
+                bool hasLocalAccount = oAuthClientInfo.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
+                var externalLogins = oAuthClientInfo.GetAccountsFromUserName(User.Identity.Name);
 
                 if (hasLocalAccount || externalLogins.Count > 1)
                 {
-                    OAuthWebSecurity.DeleteAccount(provider, providerUserId);
+                    oAuthClientInfo.DeleteAccount(provider, providerUserId);
                     message = string.Format("Your {0} login has been removed successfully.", name);
                 }
             }
@@ -222,14 +244,14 @@ namespace DDDEastAnglia.Controllers
         [AllowAnonymous]
         public ActionResult ExternalLoginCallback(string returnUrl)
         {
-            AuthenticationResult result = OAuthWebSecurity.VerifyAuthentication(Url.Action("ExternalLoginCallback", new { ReturnUrl = returnUrl }));
+            AuthenticationResult result = oAuthClientInfo.VerifyAuthentication(Url.Action("ExternalLoginCallback", new { ReturnUrl = returnUrl }));
 
             if (!result.IsSuccessful)
             {
                 return RedirectToAction("ExternalLoginFailure");
             }
 
-            if (OAuthWebSecurity.Login(result.Provider, result.ProviderUserId, createPersistentCookie: false))
+            if (oAuthClientInfo.Login(result.Provider, result.ProviderUserId, createPersistentCookie: false))
             {
                 return RedirectToLocal(returnUrl);
             }
@@ -237,13 +259,13 @@ namespace DDDEastAnglia.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 // If the current user is logged in add the new account
-                OAuthWebSecurity.CreateOrUpdateAccount(result.Provider, result.ProviderUserId, User.Identity.Name);
+                oAuthClientInfo.CreateOrUpdateAccount(result.Provider, result.ProviderUserId, User.Identity.Name);
                 return RedirectToLocal(returnUrl);
             }
 
             // User is new, ask for their desired membership name
-            string loginData = OAuthWebSecurity.SerializeProviderUserId(result.Provider, result.ProviderUserId);
-            ViewBag.ProviderDisplayName = OAuthWebSecurity.GetOAuthClientData(result.Provider).DisplayName;
+            string loginData = oAuthClientInfo.SerializeProviderUserId(result.Provider, result.ProviderUserId);
+            ViewBag.ProviderDisplayName = oAuthClientInfo.GetOAuthClientData(result.Provider).DisplayName;
             ViewBag.ReturnUrl = returnUrl;
             return View("ExternalLoginConfirmation", new RegisterExternalLoginModel { UserName = result.UserName, ExternalLoginData = loginData });
         }
@@ -256,7 +278,7 @@ namespace DDDEastAnglia.Controllers
             string provider;
             string providerUserId;
 
-            if (User.Identity.IsAuthenticated || !OAuthWebSecurity.TryDeserializeProviderUserId(model.ExternalLoginData, out provider, out providerUserId))
+            if (User.Identity.IsAuthenticated || !oAuthClientInfo.TryDeserializeProviderUserId(model.ExternalLoginData, out provider, out providerUserId))
             {
                 return RedirectToAction("ManageLogins");
             }
@@ -273,8 +295,8 @@ namespace DDDEastAnglia.Controllers
                     var userProfile = new UserProfile { UserName = model.UserName, Name = model.Name, EmailAddress = model.EmailAddress };
                     userProfileRepository.AddUserProfile(userProfile);
 
-                    OAuthWebSecurity.CreateOrUpdateAccount(provider, providerUserId, model.UserName);
-                    OAuthWebSecurity.Login(provider, providerUserId, createPersistentCookie: false);
+                    oAuthClientInfo.CreateOrUpdateAccount(provider, providerUserId, model.UserName);
+                    oAuthClientInfo.Login(provider, providerUserId, createPersistentCookie: false);
 
                     return RedirectToLocal(returnUrl);
                 }
@@ -282,7 +304,7 @@ namespace DDDEastAnglia.Controllers
                 ModelState.AddModelError("UserName", ErrorCodeToString(MembershipCreateStatus.DuplicateUserName));
             }
 
-            ViewBag.ProviderDisplayName = OAuthWebSecurity.GetOAuthClientData(provider).DisplayName;
+            ViewBag.ProviderDisplayName = oAuthClientInfo.GetOAuthClientData(provider).DisplayName;
             ViewBag.ReturnUrl = returnUrl;
             return View(model);
         }
