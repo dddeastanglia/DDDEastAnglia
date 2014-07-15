@@ -2,13 +2,13 @@
 using DDDEastAnglia.DataAccess.Builders;
 using DDDEastAnglia.Models;
 
-namespace DDDEastAnglia.Helpers
+namespace DDDEastAnglia.Helpers.LoginMethods
 {
     public class LoginMethodViewModelBuilder : IBuild<LoginMethod, LoginMethodViewModel>
     {
-        private readonly OauthLoginIconProvider oauthLoginIconProvider;
+        private readonly LoginMethodIconProvider oauthLoginIconProvider;
 
-        public LoginMethodViewModelBuilder(OauthLoginIconProvider oauthLoginIconProvider)
+        public LoginMethodViewModelBuilder(LoginMethodIconProvider oauthLoginIconProvider)
         {
             if (oauthLoginIconProvider == null)
             {

@@ -1,6 +1,6 @@
-﻿namespace DDDEastAnglia.Helpers
+﻿namespace DDDEastAnglia.Helpers.LoginMethods
 {
-    public class OauthLoginIconProvider
+    public class LoginMethodIconProvider
     {
         public string GetIcon(string providerName)
         {
