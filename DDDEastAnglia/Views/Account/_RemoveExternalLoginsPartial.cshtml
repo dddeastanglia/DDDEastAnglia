@@ -2,21 +2,21 @@
 
 @if (Model.Any())
 {
-    foreach (var externalLogin in Model)
+    foreach (var loginMethod in Model)
     {
         <div>
             @using (Html.BeginForm("DisassociateLogin", "Account"))
             {
                 <span style="line-height: 30px;">
-                    <i class="@externalLogin.Icon"></i> @externalLogin.Name
+                    <i class="@loginMethod.Icon"></i> @loginMethod.Name
                 </span>
                 
                 if (ViewBag.ShowRemoveButtons)
                 {
                     <span style="position: absolute; left: 150px;">
                         @Html.AntiForgeryToken()
-                        @Html.Hidden("provider", externalLogin.ProviderName)
-                        @Html.Hidden("providerUserId", externalLogin.ProviderUserId)
+                        @Html.Hidden("provider", loginMethod.ProviderName)
+                        @Html.Hidden("providerUserId", loginMethod.ProviderUserId)
                         <input type="submit" class="btn btn-danger" value="Remove" title="Remove this login from your account" />
                     </span>
                 }
