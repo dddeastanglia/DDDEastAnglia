@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using DDDEastAnglia.Models;
+using Microsoft.Web.WebPages.OAuth;
 using Simple.Data;
 
 namespace DDDEastAnglia.DataAccess.SimpleData.Queries
@@ -16,15 +17,15 @@ namespace DDDEastAnglia.DataAccess.SimpleData.Queries
 
             if (dddeaLogin != null)
             {
-                loginMethods.Add(new LoginMethod("dddea"));
+                loginMethods.Add(new LoginMethod("dddea", "DDDEA Account"));
             }
             
             List<string> oauthLoginProviders = db.webpages_OAuthMembership.FindAllByUserId(userId)
                                                  .Select(db.webpages_OAuthMembership.Provider).ToScalarList<string>();
 
-            var oauthLogins = new[] {"github", "twitter", "google"}
-                                .Where(oauthLoginProviders.Contains)
-                                .Select(providerName => new LoginMethod(providerName));
+            var availableOauthProviders = OAuthWebSecurity.RegisteredClientData;
+            var oauthLogins = availableOauthProviders.Where(p => oauthLoginProviders.Contains(p.AuthenticationClient.ProviderName))
+                                                     .Select(p => new LoginMethod(p.AuthenticationClient.ProviderName, p.DisplayName));
             loginMethods.AddRange(oauthLogins);
 
             return loginMethods;

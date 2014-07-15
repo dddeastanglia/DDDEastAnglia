@@ -1,5 +1,4 @@
-﻿using System;
-using DDDEastAnglia.DataAccess.Builders;
+﻿using DDDEastAnglia.DataAccess.Builders;
 using DDDEastAnglia.Models;
 
 namespace DDDEastAnglia.Helpers
@@ -8,20 +7,28 @@ namespace DDDEastAnglia.Helpers
     {
         public LoginMethodViewModel Build(LoginMethod loginMethod)
         {
+            var viewModel = new LoginMethodViewModel {Name = loginMethod.DisplayName};
+            
             switch (loginMethod.ProviderName)
             {
                 case "dddea":
-                    return new LoginMethodViewModel { Name = "DDDEA Account", Icon = "icon-user" };
+                    viewModel.Icon = "icon-user";
+                    break;
                 case "github":
-                    return new LoginMethodViewModel { Name = "GitHub", Icon = "icon-github" };
+                    viewModel.Icon = "icon-github";
+                    break;
                 case "twitter":
-                    return new LoginMethodViewModel { Name = "Twitter", Icon = "icon-twitter" };
+                    viewModel.Icon = "icon-twitter";
+                    break;
                 case "google":
-                    return new LoginMethodViewModel { Name = "Google", Icon = "icon-google-plus" };
+                    viewModel.Icon = "icon-google-plus";
+                    break;
                 default:
-                    string message = string.Format("Unknown login method '{0}'", loginMethod.ProviderName);
-                    throw new NotSupportedException(message);
+                    viewModel.Icon = "icon-question-sign";
+                    break;
             }
+
+            return viewModel;
         }
     }
 }
