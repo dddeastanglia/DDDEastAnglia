@@ -35,7 +35,6 @@ namespace DDDEastAnglia.Controllers
             this.externalLoginsProvider = externalLoginsProvider;
         }
 
-        // GET: /Account/Login
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
@@ -43,7 +42,6 @@ namespace DDDEastAnglia.Controllers
             return View();
         }
 
-        // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -59,7 +57,6 @@ namespace DDDEastAnglia.Controllers
             return View(model);
         }
 
-        // POST: /Account/LogOff
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
@@ -69,14 +66,12 @@ namespace DDDEastAnglia.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        // GET: /Account/Register
         [AllowAnonymous]
         public ActionResult Register()
         {
             return View();
         }
 
-        // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -199,7 +194,6 @@ namespace DDDEastAnglia.Controllers
             return RedirectToAction("ManageLogins", new { Message = message });
         }
 
-        // POST: /Account/ExternalLogin
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -208,7 +202,6 @@ namespace DDDEastAnglia.Controllers
             return new ExternalLoginResult(provider, Url.Action("ExternalLoginCallback", new { ReturnUrl = returnUrl }));
         }
 
-        // GET: /Account/ExternalLoginCallback
         [AllowAnonymous]
         public ActionResult ExternalLoginCallback(string returnUrl)
         {
@@ -238,7 +231,6 @@ namespace DDDEastAnglia.Controllers
             return View("ExternalLoginConfirmation", new RegisterExternalLoginModel { UserName = result.UserName, ExternalLoginData = loginData });
         }
 
-        // POST: /Account/ExternalLoginConfirmation
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -278,7 +270,6 @@ namespace DDDEastAnglia.Controllers
             return View(model);
         }
 
-        // GET: /Account/ExternalLoginFailure
         [AllowAnonymous]
         public ActionResult ExternalLoginFailure()
         {
