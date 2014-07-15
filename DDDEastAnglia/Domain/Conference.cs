@@ -8,13 +8,17 @@ namespace DDDEastAnglia.Domain
         private readonly int id;
         private readonly string name;
         private readonly string shortName;
+        private readonly int numberOfTimeSlots;
+        private readonly int numberOfTracks;
         private readonly Dictionary<CalendarEntryType, CalendarEntry> calendarEntries = new Dictionary<CalendarEntryType, CalendarEntry>();
 
-        public Conference(int id, string name, string shortName)
+        public Conference(int id, string name, string shortName, int numberOfTimeSlots = 0, int numberOfTracks = 0)
         {
             this.id = id;
             this.name = name;
             this.shortName = shortName;
+            this.numberOfTimeSlots = numberOfTimeSlots;
+            this.numberOfTracks = numberOfTracks;
             calendarEntries.Add(CalendarEntryType.SessionSubmission, new NullCalendarEntry());
             calendarEntries.Add(CalendarEntryType.Voting, new NullCalendarEntry());
             calendarEntries.Add(CalendarEntryType.AgendaPublished, new NullCalendarEntry());
@@ -36,6 +40,18 @@ namespace DDDEastAnglia.Domain
         {
             get { return shortName; }
         }
+
+        public int NumberOfTimeSlots
+        {
+            get { return numberOfTimeSlots; }
+        }
+
+        public int NumberOfTracks
+        {
+            get { return numberOfTracks; }
+        }
+
+        public int TotalNumberOfSessions { get { return NumberOfTimeSlots * NumberOfTracks; } }
 
         public bool CanSubmit()
         {

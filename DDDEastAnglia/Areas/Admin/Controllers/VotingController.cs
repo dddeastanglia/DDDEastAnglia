@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using DDDEastAnglia.Areas.Admin.Models;
+using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.Helpers;
 using DDDEastAnglia.Mvc.Attributes;
 using DDDEastAnglia.VotingData;
@@ -13,15 +14,18 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
     [Authorize(Roles = "Administrator")]
     public class VotingController : Controller
     {
+        private readonly IConferenceLoader conferenceLoader;
         private readonly IDataProvider dataProvider;
         private readonly IDnsLookup dnsLookup;
         private readonly IChartDataConverter chartDataConverter;
 
-        public VotingController() : this(DataProviderFactory.Create(), new DnsLookup(), new ChartDataConverter())
-        {}
-
-        public VotingController(IDataProvider dataProvider, IDnsLookup dnsLookup, IChartDataConverter chartDataConverter)
+        public VotingController(IConferenceLoader conferenceLoader, IDataProvider dataProvider, IDnsLookup dnsLookup, IChartDataConverter chartDataConverter)
         {
+            if (conferenceLoader == null)
+            {
+                throw new ArgumentNullException("conferenceLoader");
+            }
+
             if (dataProvider == null)
             {
                 throw new ArgumentNullException("dataProvider");
@@ -37,6 +41,7 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
                 throw new ArgumentNullException("chartDataConverter");
             }
 
+            this.conferenceLoader = conferenceLoader;
             this.dataProvider = dataProvider;
             this.dnsLookup = dnsLookup;
             this.chartDataConverter = chartDataConverter;
@@ -44,20 +49,22 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
 
         public ActionResult Index()
         {
+            int numberOfSessions = conferenceLoader.LoadConference().TotalNumberOfSessions;
             int numberOfDaysOfVoting = dataProvider.GetNumberOfDaysOfVoting();
             int numberOfDaysOfVotingPassed = Math.Min(numberOfDaysOfVoting, dataProvider.GetNumberOfDaysSinceVotingOpened());
-            int votingPercentComplete = (int) (numberOfDaysOfVotingPassed * 1.0f / numberOfDaysOfVoting * 100);
+            int votingPercentComplete = (int)(numberOfDaysOfVotingPassed * 1.0f / numberOfDaysOfVoting * 100);
             var model = new VotingStatsViewModel
-                {
-                    TotalVotes = dataProvider.GetTotalVoteCount(),
-                    NumberOfUsersWhoHaveVoted = dataProvider.GetNumberOfUsersWhoHaveVoted(),
-                    NumberOfDaysOfVoting = numberOfDaysOfVoting,
-                    NumberOfDaysOfVotingPassed = numberOfDaysOfVotingPassed,
-                    NumberOfDaysOfVotingRemaining = dataProvider.GetNumberOfDaysUntilVotingCloses(),
-                    VotingCompletePercentage = votingPercentComplete,
-                    VotingStartDate = dataProvider.GetVotingStartDate(),
-                    VotingEndDate = dataProvider.GetVotingEndDate(),
-                };
+            {
+                TotalVotes = dataProvider.GetTotalVoteCount(),
+                NumberOfUsersWhoHaveVoted = dataProvider.GetNumberOfUsersWhoHaveVoted(),
+                NumberOfDaysOfVoting = numberOfDaysOfVoting,
+                NumberOfDaysOfVotingPassed = numberOfDaysOfVotingPassed,
+                NumberOfDaysOfVotingRemaining = dataProvider.GetNumberOfDaysUntilVotingCloses(),
+                VotingCompletePercentage = votingPercentComplete,
+                VotingStartDate = dataProvider.GetVotingStartDate(),
+                VotingEndDate = dataProvider.GetVotingEndDate(),
+                TotalNumberOfSessions = numberOfSessions
+            };
             return View(model);
         }
 
@@ -66,10 +73,10 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
             var leaderboardSessions = dataProvider.GetLeaderBoard(limit, allowDuplicateSpeakers);
             var highestVoteCount = leaderboardSessions.Max(s => s.NumberOfVotes);
             var model = new LeaderboardViewModel
-                {
-                    HighestVoteCount = highestVoteCount,
-                    Sessions = leaderboardSessions
-                };
+            {
+                HighestVoteCount = highestVoteCount,
+                Sessions = leaderboardSessions
+            };
             return View(model);
         }
 
@@ -78,10 +85,10 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
             var ipAddresses = dataProvider.GetDistinctIPAddresses();
             var highestVoteCount = ipAddresses.Max(s => s.NumberOfVotes);
             var model = new IPAddressStatsViewModel
-                {
-                    HighestVoteCount = highestVoteCount,
-                    IPAddresses = ipAddresses
-                };
+            {
+                HighestVoteCount = highestVoteCount,
+                IPAddresses = ipAddresses
+            };
             return View(model);
         }
 
@@ -93,7 +100,7 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
             {
                 throw new ArgumentException("ipAddress");
             }
-            
+
             string hostName = dnsLookup.Resolve(ipAddress);
             return Content(hostName);
         }
@@ -105,7 +112,7 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
 
             var cumulativeVotesPerDayData = WorkOutCumulativeVotes(votesPerDay);
 
-            var viewModel = new VotesPerDayViewModel {DayByDay = votesPerDayData, Cumulative = cumulativeVotesPerDayData};
+            var viewModel = new VotesPerDayViewModel { DayByDay = votesPerDayData, Cumulative = cumulativeVotesPerDayData };
             return View(viewModel);
         }
 
@@ -117,7 +124,7 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
             foreach (var dateTimeVoteModel in votesPerDay)
             {
                 totalVotes += dateTimeVoteModel.VoteCount;
-                var model = new DateTimeVoteModel {Date = dateTimeVoteModel.Date, VoteCount = totalVotes};
+                var model = new DateTimeVoteModel { Date = dateTimeVoteModel.Date, VoteCount = totalVotes };
                 cumulativeVotesPerDay.Add(model);
             }
 
@@ -134,6 +141,7 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
 
         public ActionResult NumberOfUsersWhoHaveCastXVotes()
         {
+            ViewBag.NumberOfSessions = conferenceLoader.LoadConference().TotalNumberOfSessions;
             var numberOfVotesCastCounts = dataProvider.GetNumberOfVotesCastCounts();
             var chartData = chartDataConverter.ToChartData(numberOfVotesCastCounts);
             return View(chartData);
@@ -144,10 +152,10 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
             var votersPerIPAddress = dataProvider.GetVotersPerIPAddress();
             int highestNumberOfVoters = votersPerIPAddress.Max(v => v.NumberOfVoters);
             var model = new VotersPerIPAddressViewModel
-                {
-                    HighestNumberOfVoters = highestNumberOfVoters,
-                    IPAddressVoters = votersPerIPAddress
-                };
+            {
+                HighestNumberOfVoters = highestNumberOfVoters,
+                IPAddressVoters = votersPerIPAddress
+            };
             return View(model);
         }
 
@@ -157,15 +165,15 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
             {
                 throw new ArgumentException("ipAddress");
             }
-            
+
             var votesForIPAddress = dataProvider.GetVotesPerIPAddress(ipAddress);
             int highestNumberOfVotes = votesForIPAddress.Max(v => v.NumberOfVotes);
             var model = new VotesForIpAddressViewModel
-                {
-                    IPAddress = ipAddress,
-                    HighestNumberOfVotes = highestNumberOfVotes,
-                    DistinctVotes = votesForIPAddress
-                };
+            {
+                IPAddress = ipAddress,
+                HighestNumberOfVotes = highestNumberOfVotes,
+                DistinctVotes = votesForIPAddress
+            };
             return View(model);
         }
 

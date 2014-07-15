@@ -11,6 +11,10 @@ namespace DDDEastAnglia.DataAccess.SimpleData.Models
         [Required]
         public string ShortName { get; set; }
 
+        public int NumberOfTracks { get; set; }
+        
+        public int NumberOfTimeSlots { get; set; }
+
         public List<CalendarItem> CalendarItems { get; set; }
     }
 }

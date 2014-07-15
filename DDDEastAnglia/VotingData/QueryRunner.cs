@@ -9,14 +9,14 @@ namespace DDDEastAnglia.VotingData
     {
         private readonly string connectionString;
 
-        public QueryRunner(string connectionString)
+        public QueryRunner(ConnectionStringProvider connectionStringProvider)
         {
-            if (connectionString == null)
+            if (connectionStringProvider == null)
             {
-                throw new ArgumentNullException("connectionString");
+                throw new ArgumentNullException("connectionStringProvider");
             }
-            
-            this.connectionString = connectionString;
+
+            this.connectionString = connectionStringProvider.GetConnectionString();
         }
 
         public IList<T> RunQuery<T>(IQuery<T> query)

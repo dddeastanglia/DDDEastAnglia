@@ -17,5 +17,6 @@ namespace DDDEastAnglia.Areas.Admin.Models
         public int VotingCompletePercentage{get;set;}
         public DateTime VotingStartDate{get;set;}
         public DateTime VotingEndDate{get;set;}
+        public int TotalNumberOfSessions{get;set;}
     }
 }

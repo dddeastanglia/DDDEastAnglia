@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Web.Mvc;
 using DDDEastAnglia.Areas.Admin.Controllers;
 using DDDEastAnglia.Areas.Admin.Models;
+using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.Helpers;
 using DDDEastAnglia.VotingData;
 using DDDEastAnglia.VotingData.Models;
@@ -15,56 +14,69 @@ namespace DDDEastAnglia.Tests.Admin
     public sealed class VotingControllerTests
     {
         [Test]
-        public void TestThat_Ctor_ThrowsAnException_WhenTheSuppliedDataProviderIsNull()
+        public void TestThat_Ctor_ThrowsAnException_WhenTheSuppliedConferenceLoaderIsNull()
         {
+            var dataProvider = Substitute.For<IDataProvider>();
             var dnsLookup = Substitute.For<IDnsLookup>();
             var chartDataConverter = Substitute.For<IChartDataConverter>();
-            Assert.Throws<ArgumentNullException>(() => new VotingController(null, dnsLookup, chartDataConverter));
+            Assert.Throws<ArgumentNullException>(() => new VotingController(null, dataProvider, dnsLookup, chartDataConverter));
+        }
+
+        [Test]
+        public void TestThat_Ctor_ThrowsAnException_WhenTheSuppliedDataProviderIsNull()
+        {
+            var conferenceLoader = Substitute.For<IConferenceLoader>();
+            var dnsLookup = Substitute.For<IDnsLookup>();
+            var chartDataConverter = Substitute.For<IChartDataConverter>();
+            Assert.Throws<ArgumentNullException>(() => new VotingController(conferenceLoader, null, dnsLookup, chartDataConverter));
         }
 
         [Test]
         public void TestThat_Ctor_ThrowsAnException_WhenTheSuppliedDnsLookupIsNull()
         {
+            var conferenceLoader = Substitute.For<IConferenceLoader>();
             var dataProvider = Substitute.For<IDataProvider>();
             var chartDataConverter = Substitute.For<IChartDataConverter>();
-            Assert.Throws<ArgumentNullException>(() => new VotingController(dataProvider, null, chartDataConverter));
+            Assert.Throws<ArgumentNullException>(() => new VotingController(conferenceLoader, dataProvider, null, chartDataConverter));
         }
 
         [Test]
         public void TestThat_Ctor_ThrowsAnException_WhenTheSuppliedChartDataConverterIsNull()
         {
+            var conferenceLoader = Substitute.For<IConferenceLoader>();
             var dataProvider = Substitute.For<IDataProvider>();
             var dnsLookup = Substitute.For<IDnsLookup>();
-            Assert.Throws<ArgumentNullException>(() => new VotingController(dataProvider, dnsLookup, null));
+            Assert.Throws<ArgumentNullException>(() => new VotingController(conferenceLoader, dataProvider, dnsLookup, null));
         }
 
         [TestCase(10, 10, 100)]
         [TestCase(6, 10, 60)]
         [TestCase(1, 4, 25)]
         [TestCase(1, 6, 16)]
-        public void TestThat_Index_CalculatesTheCorrectPercentage_ForTheDurationThroughTheVotingPeriod(int numberOfDaysSinceVotingOpened, int numberOfDaysVoting, int expectedPercentageCompletion)
+        public void TestThat_Index_CalculatesTheCorrectPercentage_ForTheDurationThroughTheVotingPeriod(
+            int numberOfDaysSinceVotingOpened, int numberOfDaysVoting, int expectedPercentageCompletion)
         {
-            var dataProvider = Substitute.For<IDataProvider>();
-            dataProvider.GetNumberOfDaysSinceVotingOpened().Returns(numberOfDaysSinceVotingOpened);
-            dataProvider.GetNumberOfDaysOfVoting().Returns(numberOfDaysVoting);
-            var controller = new VotingController(dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
+            var dataProvider = new DataProviderBuilder()
+                                        .WithNumberOfDaysSinceVotingOpened(numberOfDaysSinceVotingOpened)
+                                        .WithNumberOfDaysOfVoting(numberOfDaysVoting)
+                                        .Build();
+            var controller = new VotingControllerBuilder().WithDataProvider(dataProvider).Build();
 
-            var result = (ViewResult) controller.Index();
-            var model = (VotingStatsViewModel) result.Model;
+            var model = controller.Index().GetViewModel<VotingStatsViewModel>();
 
             Assert.That(model.VotingCompletePercentage, Is.EqualTo(expectedPercentageCompletion));
         }
-        
+
         [TestCase]
         public void TestThat_Index_DoesNotCalculateGreaterThanOneHunderdPercent_ForTheDurationThroughTheVotingPeriod()
         {
-            var dataProvider = Substitute.For<IDataProvider>();
-            dataProvider.GetNumberOfDaysSinceVotingOpened().Returns(25);
-            dataProvider.GetNumberOfDaysOfVoting().Returns(10);
-            var controller = new VotingController(dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
+            var dataProvider = new DataProviderBuilder()
+                                        .WithNumberOfDaysSinceVotingOpened(25)
+                                        .WithNumberOfDaysOfVoting(10)
+                                        .Build();
+            var controller = new VotingControllerBuilder().WithDataProvider(dataProvider).Build();
 
-            var result = (ViewResult) controller.Index();
-            var model = (VotingStatsViewModel) result.Model;
+            var model = controller.Index().GetViewModel<VotingStatsViewModel>();
 
             Assert.That(model.VotingCompletePercentage, Is.EqualTo(100));
         }
@@ -72,38 +84,46 @@ namespace DDDEastAnglia.Tests.Admin
         [Test]
         public void TestThat_Index_DoesNotCalculateTheNumberOfDaysOfVotingPassedGreaterThanTheTotalNumberOfAllowableVotingDays()
         {
-            var dataProvider = Substitute.For<IDataProvider>();
-            dataProvider.GetNumberOfDaysSinceVotingOpened().Returns(25);
-            dataProvider.GetNumberOfDaysOfVoting().Returns(10);
-            var controller = new VotingController(dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
+            var dataProvider = new DataProviderBuilder()
+                                        .WithNumberOfDaysSinceVotingOpened(25)
+                                        .WithNumberOfDaysOfVoting(10)
+                                        .Build();
+            var controller = new VotingControllerBuilder().WithDataProvider(dataProvider).Build();
 
-            var result = (ViewResult) controller.Index();
-            var model = (VotingStatsViewModel) result.Model;
+            var model = controller.Index().GetViewModel<VotingStatsViewModel>();
 
             Assert.That(model.NumberOfDaysOfVotingPassed, Is.EqualTo(10));
         }
 
         [Test]
+        public void TestThat_Leaderboard_SetsTheCorrectNumberOfTotalSessionsForTheConference()
+        {
+            var conferenceLoader = new ConferenceLoaderBuilder().WithTotalNumberOfSessions(12).Build();
+            var controller = new VotingControllerBuilder().WithConferenceLoader(conferenceLoader).Build();
+
+            var model = controller.Index().GetViewModel<VotingStatsViewModel>();
+            
+            Assert.That(model.TotalNumberOfSessions, Is.EqualTo(12));
+        }
+
+        [Test]
         public void TestThat_Leaderboard_SetsTheHighestOccuringNumberOfVotesOnTheModel()
         {
-            var dataProvider = Substitute.For<IDataProvider>();
             var sessions = new[] {new SessionLeaderBoardEntry {NumberOfVotes = 2}, new SessionLeaderBoardEntry {NumberOfVotes = 4}};
-            dataProvider.GetLeaderBoard(Arg.Any<int>(), Arg.Any<bool>()).Returns(sessions);
-            var controller = new VotingController(dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
-            
-            var result = (ViewResult) controller.Leaderboard();
-            var model = (LeaderboardViewModel) result.Model;
-            
+            var dataProvider = new DataProviderBuilder().WithLeaderboard(sessions).Build();
+            var controller = new VotingControllerBuilder().WithDataProvider(dataProvider).Build();
+
+            var model = controller.Leaderboard().GetViewModel<LeaderboardViewModel>();
+
             Assert.That(model.HighestVoteCount, Is.EqualTo(4));
         }
 
         [Test]
         public void TestThat_Leaderboard_LimitsTheNumberOfSessions()
         {
-            var dataProvider = Substitute.For<IDataProvider>();
-            dataProvider.GetLeaderBoard(Arg.Any<int>(), Arg.Any<bool>()).Returns(new[] {new SessionLeaderBoardEntry()});
-            var controller = new VotingController(dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
-            
+            var dataProvider = new DataProviderBuilder().WithLeaderboard(new[] {new SessionLeaderBoardEntry()}).Build();
+            var controller = new VotingControllerBuilder().WithDataProvider(dataProvider).Build();
+
             controller.Leaderboard(123);
 
             dataProvider.Received().GetLeaderBoard(123, Arg.Any<bool>());
@@ -112,10 +132,9 @@ namespace DDDEastAnglia.Tests.Admin
         [Test]
         public void TestThat_Leaderboard_ForbidsDuplicateSpeakers()
         {
-            var dataProvider = Substitute.For<IDataProvider>();
-            dataProvider.GetLeaderBoard(Arg.Any<int>(), Arg.Any<bool>()).Returns(new[] {new SessionLeaderBoardEntry()});
-            var controller = new VotingController(dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
-            
+            var dataProvider = new DataProviderBuilder().WithLeaderboard(new[] {new SessionLeaderBoardEntry()}).Build();
+            var controller = new VotingControllerBuilder().WithDataProvider(dataProvider).Build();
+
             controller.Leaderboard(123, false);
 
             dataProvider.Received().GetLeaderBoard(Arg.Any<int>(), false);
@@ -124,14 +143,12 @@ namespace DDDEastAnglia.Tests.Admin
         [Test]
         public void TestThat_Leaderboard_SetsTheSessionsObtainedFromTheDataProviderOnTheModel()
         {
-            var dataProvider = Substitute.For<IDataProvider>();
             var sessions = new[] {new SessionLeaderBoardEntry(), new SessionLeaderBoardEntry()};
-            dataProvider.GetLeaderBoard(Arg.Any<int>(), Arg.Any<bool>()).Returns(sessions);
-            var controller = new VotingController(dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
-            
-            var result = (ViewResult) controller.Leaderboard();
-            var model = (LeaderboardViewModel) result.Model;
-            
+            var dataProvider = new DataProviderBuilder().WithLeaderboard(sessions).Build();
+            var controller = new VotingControllerBuilder().WithDataProvider(dataProvider).Build();
+
+            var model = controller.Leaderboard().GetViewModel<LeaderboardViewModel>();
+
             CollectionAssert.AreEquivalent(sessions, model.Sessions);
         }
 
@@ -140,15 +157,15 @@ namespace DDDEastAnglia.Tests.Admin
         [TestCase("  ")]
         public void TestThat_LookupIPAddress_ThrowsAnException_WhenTheSuppliedIPAddressIsInavlid(string ipAddress)
         {
-            var controller = new VotingController(Substitute.For<IDataProvider>(), Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
+            var controller = new VotingControllerBuilder().Build();
             Assert.Throws<ArgumentException>(() => controller.LookupIPAddress(ipAddress));
         }
 
         [Test]
         public void TestThat_LookupIPAddress_ResolvesTheIPAddress_UsingTheDnsLookup()
         {
-            var dnsLookup = Substitute.For<IDnsLookup>();
-            var controller = new VotingController(Substitute.For<IDataProvider>(), dnsLookup, Substitute.For<IChartDataConverter>());
+            var dnsLookup = new DnsLookupBuilder().Build();
+            var controller = new VotingControllerBuilder().WithDnsLookup(dnsLookup).Build();
 
             controller.LookupIPAddress("1.2.3.4");
 
@@ -158,9 +175,8 @@ namespace DDDEastAnglia.Tests.Admin
         [Test]
         public void TestThat_LookupIPAddress_ReturnsTheIPAddressResolvedByTheDnsLookup()
         {
-            var dnsLookup = Substitute.For<IDnsLookup>();
-            dnsLookup.Resolve("1.2.3.4").Returns("some website");
-            var controller = new VotingController(Substitute.For<IDataProvider>(), dnsLookup, Substitute.For<IChartDataConverter>());
+            var dnsLookup = new DnsLookupBuilder().WithIPAddressResolvingTo("1.2.3.4", "some website").Build();
+            var controller = new VotingControllerBuilder().WithDnsLookup(dnsLookup).Build();
 
             var result = controller.LookupIPAddress("1.2.3.4");
 
@@ -170,39 +186,37 @@ namespace DDDEastAnglia.Tests.Admin
         [Test]
         public void TestThat_IPAddresses_SetsTheHighestOccuringNumberOfVotesOnTheModel()
         {
-            var dataProvider = Substitute.For<IDataProvider>();
             var votes = new[] {new VotesForIPAddressModel {NumberOfVotes = 2}, new VotesForIPAddressModel {NumberOfVotes = 4}};
-            dataProvider.GetDistinctIPAddresses().Returns(votes);
-            var controller = new VotingController(dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
-            
-            var result = (ViewResult) controller.IPAddresses();
-            var model = (IPAddressStatsViewModel) result.Model;
-            
+            var dataProvider = new DataProviderBuilder().WithVotesForDistinctIPAddresses(votes).Build();
+            var controller = new VotingControllerBuilder().WithDataProvider(dataProvider).Build();
+
+            var model = controller.IPAddresses().GetViewModel<IPAddressStatsViewModel>();
+
             Assert.That(model.HighestVoteCount, Is.EqualTo(4));
         }
 
         [Test]
         public void TestThat_IPAddresses_SetsTheSessionsObtainedFromTheDataProviderOnTheModel()
         {
-            var dataProvider = Substitute.For<IDataProvider>();
             var votes = new[] {new VotesForIPAddressModel(), new VotesForIPAddressModel()};
-            dataProvider.GetDistinctIPAddresses().Returns(votes);
-            var controller = new VotingController(dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
-            
-            var result = (ViewResult) controller.IPAddresses();
-            var model = (IPAddressStatsViewModel) result.Model;
-            
+            var dataProvider = new DataProviderBuilder().WithVotesForDistinctIPAddresses(votes).Build();
+            var controller = new VotingControllerBuilder().WithDataProvider(dataProvider).Build();
+
+            var model = controller.IPAddresses().GetViewModel<IPAddressStatsViewModel>();
+
             CollectionAssert.AreEquivalent(votes, model.IPAddresses);
         }
 
         [Test]
         public void TestThat_VotesPerDay_UsesTheDataObtainedFromTheDataProvider_ToCreateTheChartData()
         {
-            var dataProvider = Substitute.For<IDataProvider>();
             var votes = new[] {new DateTimeVoteModel()};
-            dataProvider.GetVotesPerDay().Returns(votes);
-            var chartDataConverter = Substitute.For<IChartDataConverter>();
-            var controller = new VotingController(dataProvider, Substitute.For<IDnsLookup>(), chartDataConverter);
+            var dataProvider = new DataProviderBuilder().WithVotesPerDay(votes).Build();
+            var chartDataConverter = new ChartDataConverterBuilder().Build();
+            var controller = new VotingControllerBuilder()
+                                    .WithDataProvider(dataProvider)
+                                    .WithChartDataConverter(chartDataConverter)
+                                    .Build();
 
             controller.VotesPerDay();
 
@@ -212,14 +226,11 @@ namespace DDDEastAnglia.Tests.Admin
         [Test]
         public void TestThat_VotesPerDay_PassesTheCorrectChartDataToTheView()
         {
-            var dataProvider = Substitute.For<IDataProvider>();
-            var chartDataConverter = Substitute.For<IChartDataConverter>();
             long[][] chartData = new long[2][];
-            chartDataConverter.ToChartData(Arg.Any<IList<DateTimeVoteModel>>()).Returns(chartData);
-            var controller = new VotingController(dataProvider, Substitute.For<IDnsLookup>(), chartDataConverter);
+            var chartDataConverter = new ChartDataConverterBuilder().WithChartDataPerDay(chartData).Build();
+            var controller = new VotingControllerBuilder().WithChartDataConverter(chartDataConverter).Build();
 
-            var result = (ViewResult) controller.VotesPerDay();
-            var model = (VotesPerDayViewModel) result.Model;
+            var model = controller.VotesPerDay().GetViewModel<VotesPerDayViewModel>();
 
             CollectionAssert.AreEquivalent(chartData, model.DayByDay);
             CollectionAssert.AreEquivalent(chartData, model.Cumulative);
@@ -228,11 +239,13 @@ namespace DDDEastAnglia.Tests.Admin
         [Test]
         public void TestThat_VotesPerHour_UsesTheDataObtainedFromTheDataProvider_ToCreateTheChartData()
         {
-            var dataProvider = Substitute.For<IDataProvider>();
             var votes = new[] {new DateTimeVoteModel()};
-            dataProvider.GetVotesPerHour().Returns(votes);
-            var chartDataConverter = Substitute.For<IChartDataConverter>();
-            var controller = new VotingController(dataProvider, Substitute.For<IDnsLookup>(), chartDataConverter);
+            var dataProvider = new DataProviderBuilder().WithVotesPerHour(votes).Build();
+            var chartDataConverter = new ChartDataConverterBuilder().Build();
+            var controller = new VotingControllerBuilder()
+                                    .WithDataProvider(dataProvider)
+                                    .WithChartDataConverter(chartDataConverter)
+                                    .Build();
 
             controller.VotesPerHour();
 
@@ -240,16 +253,13 @@ namespace DDDEastAnglia.Tests.Admin
         }
 
         [Test]
-        public void TestThat_VotesPerHour_PassesTheChartDataToTheView()
+        public void TestThat_VotesPerHour_PassesTheCorrectChartDataToTheView()
         {
-            var dataProvider = Substitute.For<IDataProvider>();
-            var chartDataConverter = Substitute.For<IChartDataConverter>();
             long[][] chartData = new long[2][];
-            chartDataConverter.ToChartData(Arg.Any<IList<DateTimeVoteModel>>()).Returns(chartData);
-            var controller = new VotingController(dataProvider, Substitute.For<IDnsLookup>(), chartDataConverter);
+            var chartDataConverter = new ChartDataConverterBuilder().WithChartDataPerHour(chartData).Build();
+            var controller = new VotingControllerBuilder().WithChartDataConverter(chartDataConverter).Build();
 
-            var result = (ViewResult) controller.VotesPerHour();
-            var model = (long[][]) result.Model;
+            var model = controller.VotesPerHour().GetViewModel<long[][]>();
 
             CollectionAssert.AreEquivalent(chartData, model);
         }
@@ -257,11 +267,12 @@ namespace DDDEastAnglia.Tests.Admin
         [Test]
         public void TestThat_NumberOfUsersWhoHaveCastXVotes_UsesTheDataObtainedFromTheDataProvider_ToCreateTheChartData()
         {
-            var dataProvider = Substitute.For<IDataProvider>();
             var voteCounts = new[] {new NumberOfUsersWithVotesModel()};
-            dataProvider.GetNumberOfVotesCastCounts().Returns(voteCounts);
-            var chartDataConverter = Substitute.For<IChartDataConverter>();
-            var controller = new VotingController(dataProvider, Substitute.For<IDnsLookup>(), chartDataConverter);
+            var dataProvider = new DataProviderBuilder().WithNumberOfVotesCastCounts(voteCounts).Build();
+            var chartDataConverter = new ChartDataConverterBuilder().Build();
+            var controller = new VotingControllerBuilder().WithDataProvider(dataProvider)
+                                    .WithChartDataConverter(chartDataConverter)
+                                    .Build();
 
             controller.NumberOfUsersWhoHaveCastXVotes();
 
@@ -269,16 +280,13 @@ namespace DDDEastAnglia.Tests.Admin
         }
 
         [Test]
-        public void TestThat_NumberOfUsersWhoHaveCastXVotes_PassesTheChartDataToTheView()
+        public void TestThat_NumberOfUsersWhoHaveCastXVotes_PassesTheCorrectChartDataToTheView()
         {
-            var dataProvider = Substitute.For<IDataProvider>();
-            var chartDataConverter = Substitute.For<IChartDataConverter>();
             long[][] chartData = new long[2][];
-            chartDataConverter.ToChartData(Arg.Any<IList<NumberOfUsersWithVotesModel>>()).Returns(chartData);
-            var controller = new VotingController(dataProvider, Substitute.For<IDnsLookup>(), chartDataConverter);
+            var chartDataConverter = new ChartDataConverterBuilder().WithChartDataPerUser(chartData).Build();
+            var controller = new VotingControllerBuilder().WithChartDataConverter(chartDataConverter).Build();
 
-            var result = (ViewResult) controller.NumberOfUsersWhoHaveCastXVotes();
-            var model = (long[][]) result.Model;
+            var model = controller.NumberOfUsersWhoHaveCastXVotes().GetViewModel<long[][]>();
 
             CollectionAssert.AreEquivalent(chartData, model);
         }
@@ -286,28 +294,24 @@ namespace DDDEastAnglia.Tests.Admin
         [Test]
         public void TestThat_VotersPerIPAddress_SetsTheHighestOccuringNumberOfVotersOnTheModel()
         {
-            var dataProvider = Substitute.For<IDataProvider>();
             var voters = new[] {new IPAddressVoterModel {NumberOfVoters = 2}, new IPAddressVoterModel {NumberOfVoters = 4}};
-            dataProvider.GetVotersPerIPAddress().Returns(voters);
-            var controller = new VotingController(dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
-            
-            var result = (ViewResult) controller.VotersPerIPAddress();
-            var model = (VotersPerIPAddressViewModel) result.Model;
-            
+            var dataProvider = new DataProviderBuilder().WithVotersForIPAddresses(voters).Build();
+            var controller = new VotingControllerBuilder().WithDataProvider(dataProvider).Build();
+
+            var model = controller.VotersPerIPAddress().GetViewModel<VotersPerIPAddressViewModel>();
+
             Assert.That(model.HighestNumberOfVoters, Is.EqualTo(4));
         }
 
         [Test]
         public void TestThat_VotersPerIPAddress_SetsTheVotersObtainedFromTheDataProviderOnTheModel()
         {
-            var dataProvider = Substitute.For<IDataProvider>();
             var voters = new[] {new IPAddressVoterModel(), new IPAddressVoterModel()};
-            dataProvider.GetVotersPerIPAddress().Returns(voters);
-            var controller = new VotingController(dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
+            var dataProvider = new DataProviderBuilder().WithVotersForIPAddresses(voters).Build();
+            var controller = new VotingControllerBuilder().WithDataProvider(dataProvider).Build();
 
-            var result = (ViewResult) controller.VotersPerIPAddress();
-            var model = (VotersPerIPAddressViewModel) result.Model;
-            
+            var model = controller.VotersPerIPAddress().GetViewModel<VotersPerIPAddressViewModel>();
+
             CollectionAssert.AreEquivalent(voters, model.IPAddressVoters);
         }
 
@@ -316,57 +320,51 @@ namespace DDDEastAnglia.Tests.Admin
         [TestCase("  ")]
         public void TestThat_VotesForIPAddress_ThrowsAnException_WhenTheSuppliedIPAddressIsInavlid(string ipAddress)
         {
-            var controller = new VotingController(Substitute.For<IDataProvider>(), Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
+            var controller = new VotingControllerBuilder().Build();
             Assert.Throws<ArgumentException>(() => controller.VotesForIPAddress(ipAddress));
         }
 
         [Test]
         public void TestThat_VotesForIPAddress_SetsTheIPAddressOnTheModel()
         {
-            var dataProvider = Substitute.For<IDataProvider>();
             var votes = new[] {new CookieVoteModel(), new CookieVoteModel()};
-            dataProvider.GetVotesPerIPAddress(Arg.Any<string>()).Returns(votes);
-            var controller = new VotingController(dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
-            
-            var result = (ViewResult) controller.VotesForIPAddress("1.2.3.4");
-            var model = (VotesForIpAddressViewModel) result.Model;
-            
+            var dataProvider = new DataProviderBuilder().WithVotesForIPAddresses(votes).Build();
+            var controller = new VotingControllerBuilder().WithDataProvider(dataProvider).Build();
+
+            var model = controller.VotesForIPAddress("1.2.3.4").GetViewModel<VotesForIpAddressViewModel>();
+
             Assert.That(model.IPAddress, Is.EqualTo("1.2.3.4"));
         }
 
         [Test]
         public void TestThat_VotesForIPAddress_SetsTheHighestOccuringNumberOfVotesOnTheModel()
         {
-            var dataProvider = Substitute.For<IDataProvider>();
             var votes = new[] {new CookieVoteModel {NumberOfVotes = 2}, new CookieVoteModel {NumberOfVotes = 4}};
-            dataProvider.GetVotesPerIPAddress(Arg.Any<string>()).Returns(votes);
-            var controller = new VotingController(dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
-            
-            var result = (ViewResult) controller.VotesForIPAddress("1.2.3.4");
-            var model = (VotesForIpAddressViewModel) result.Model;
-            
+            var dataProvider = new DataProviderBuilder().WithVotesForIPAddresses(votes).Build();
+            var controller = new VotingControllerBuilder().WithDataProvider(dataProvider).Build();
+
+            var model = controller.VotesForIPAddress("1.2.3.4").GetViewModel<VotesForIpAddressViewModel>();
+
             Assert.That(model.HighestNumberOfVotes, Is.EqualTo(4));
         }
 
         [Test]
         public void TestThat_VotesForIPAddress_SetsTheVotesObtainedFromTheDataProviderOnTheModel()
         {
-            var dataProvider = Substitute.For<IDataProvider>();
             var votes = new[] {new CookieVoteModel(), new CookieVoteModel()};
-            dataProvider.GetVotesPerIPAddress(Arg.Any<string>()).Returns(votes);
-            var controller = new VotingController(dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
+            var dataProvider = new DataProviderBuilder().WithVotesForIPAddresses(votes).Build();
+            var controller = new VotingControllerBuilder().WithDataProvider(dataProvider).Build();
 
-            var result = (ViewResult) controller.VotesForIPAddress("1.2.3.4");
-            var model = (VotesForIpAddressViewModel) result.Model;
-            
+            var model = controller.VotesForIPAddress("1.2.3.4").GetViewModel<VotesForIpAddressViewModel>();
+
             CollectionAssert.AreEquivalent(votes, model.DistinctVotes);
         }
 
         [Test]
         public void TestThat_KnownUserVotes_GetsItsDataFromTheDataProvider()
         {
-            var dataProvider = Substitute.For<IDataProvider>();
-            var controller = new VotingController(dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
+            var dataProvider = new DataProviderBuilder().Build();
+            var controller = new VotingControllerBuilder().WithDataProvider(dataProvider).Build();
 
             controller.KnownUserVotes();
 
@@ -376,8 +374,8 @@ namespace DDDEastAnglia.Tests.Admin
         [Test]
         public void TestThat_GetSessionsVotedForByKnownUser_ObtainsTheSessionsForTheSpecifiedUser()
         {
-            var dataProvider = Substitute.For<IDataProvider>();
-            var controller = new VotingController(dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
+            var dataProvider = new DataProviderBuilder().Build();
+            var controller = new VotingControllerBuilder().WithDataProvider(dataProvider).Build();
 
             controller.GetSessionsVotedForByKnownUser(1234);
 
@@ -387,8 +385,8 @@ namespace DDDEastAnglia.Tests.Admin
         [Test]
         public void TestThat_AnonymousUserVotes_GetsItsDataFromTheDataProvider()
         {
-            var dataProvider = Substitute.For<IDataProvider>();
-            var controller = new VotingController(dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
+            var dataProvider = new DataProviderBuilder().Build();
+            var controller = new VotingControllerBuilder().WithDataProvider(dataProvider).Build();
 
             controller.AnonymousUserVotes();
 
@@ -398,8 +396,8 @@ namespace DDDEastAnglia.Tests.Admin
         [Test]
         public void TestThat_GetSessionsVotedForByAnonymousUser_ObtainsTheSessionsForTheSpecifiedCookieId()
         {
-            var dataProvider = Substitute.For<IDataProvider>();
-            var controller = new VotingController(dataProvider, Substitute.For<IDnsLookup>(), Substitute.For<IChartDataConverter>());
+            var dataProvider = new DataProviderBuilder().Build();
+            var controller = new VotingControllerBuilder().WithDataProvider(dataProvider).Build();
             var cookieId = Guid.NewGuid();
 
             controller.GetSessionsVotedForByAnonymousUser(cookieId);
