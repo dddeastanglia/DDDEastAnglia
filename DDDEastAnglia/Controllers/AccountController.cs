@@ -4,6 +4,7 @@ using System.Transactions;
 using System.Web.Mvc;
 using System.Web.Security;
 using DDDEastAnglia.DataAccess;
+using DDDEastAnglia.Helpers;
 using DotNetOpenAuth.AspNet;
 using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
@@ -16,15 +17,22 @@ namespace DDDEastAnglia.Controllers
     public class AccountController : Controller
     {
         private readonly IUserProfileRepository userProfileRepository;
+        private readonly OauthLoginIconProvider oauthLoginIconProvider;
 
-        public AccountController(IUserProfileRepository userProfileRepository)
+        public AccountController(IUserProfileRepository userProfileRepository, OauthLoginIconProvider oauthLoginIconProvider)
         {
             if (userProfileRepository == null)
             {
                 throw new ArgumentNullException("userProfileRepository");
             }
+
+            if (oauthLoginIconProvider == null)
+            {
+                throw new ArgumentNullException("oauthLoginIconProvider");
+            }
             
             this.userProfileRepository = userProfileRepository;
+            this.oauthLoginIconProvider = oauthLoginIconProvider;
         }
 
         // GET: /Account/Login
@@ -151,21 +159,23 @@ namespace DDDEastAnglia.Controllers
         public ActionResult RemoveExternalLogins()
         {
             var accounts = OAuthWebSecurity.GetAccountsFromUserName(User.Identity.Name);
-            var externalLogins = new List<ExternalLogin>();
+            var externalLogins = new List<LoginMethodViewModel>();
 
             foreach (OAuthAccount account in accounts)
             {
                 var clientData = OAuthWebSecurity.GetOAuthClientData(account.Provider);
 
-                externalLogins.Add(new ExternalLogin
+                externalLogins.Add(new LoginMethodViewModel
                 {
-                    Provider = account.Provider,
-                    ProviderDisplayName = clientData.DisplayName,
+                    Name = clientData.DisplayName,
+                    ProviderName = account.Provider,
                     ProviderUserId = account.ProviderUserId,
+                    Icon = oauthLoginIconProvider.GetIcon(account.Provider) 
                 });
             }
 
-            ViewBag.ShowRemoveButton = externalLogins.Count > 1 || OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
+            bool hasLocalAccount = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
+            ViewBag.ShowRemoveButtons = externalLogins.Count > 1 || hasLocalAccount;
             return PartialView("_RemoveExternalLoginsPartial", externalLogins);
         }
 
