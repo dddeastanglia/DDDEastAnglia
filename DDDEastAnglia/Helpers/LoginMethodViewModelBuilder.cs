@@ -1,34 +1,32 @@
-﻿using DDDEastAnglia.DataAccess.Builders;
+﻿using System;
+using DDDEastAnglia.DataAccess.Builders;
 using DDDEastAnglia.Models;
 
 namespace DDDEastAnglia.Helpers
 {
     public class LoginMethodViewModelBuilder : IBuild<LoginMethod, LoginMethodViewModel>
     {
+        private readonly OauthLoginIconProvider oauthLoginIconProvider;
+
+        public LoginMethodViewModelBuilder(OauthLoginIconProvider oauthLoginIconProvider)
+        {
+            if (oauthLoginIconProvider == null)
+            {
+                throw new ArgumentNullException("oauthLoginIconProvider");
+            }
+            
+            this.oauthLoginIconProvider = oauthLoginIconProvider;
+        }
+
         public LoginMethodViewModel Build(LoginMethod loginMethod)
         {
-            var viewModel = new LoginMethodViewModel {Name = loginMethod.DisplayName};
-            
-            switch (loginMethod.ProviderName)
+            return new LoginMethodViewModel
             {
-                case "dddea":
-                    viewModel.Icon = "icon-user";
-                    break;
-                case "github":
-                    viewModel.Icon = "icon-github";
-                    break;
-                case "twitter":
-                    viewModel.Icon = "icon-twitter";
-                    break;
-                case "google":
-                    viewModel.Icon = "icon-google-plus";
-                    break;
-                default:
-                    viewModel.Icon = "icon-question-sign";
-                    break;
-            }
-
-            return viewModel;
+                Name = loginMethod.DisplayName,
+                ProviderName = loginMethod.ProviderName,
+                ProviderUserId = loginMethod.ProviderUserId,
+                Icon = oauthLoginIconProvider.GetIcon(loginMethod.ProviderName)
+            };
         }
     }
 }
