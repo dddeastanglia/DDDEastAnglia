@@ -180,6 +180,15 @@ namespace DDDEastAnglia.Controllers
             return PartialView("_ExternalLoginMethodsPartial", externalLogins);
         }
 
+        [AllowAnonymous]
+        [ChildActionOnly]
+        public ActionResult ExternalLoginButtons(string returnUrl)
+        {
+            ViewBag.ReturnUrl = returnUrl;
+            var externalLogins = externalLoginsProvider.GetAllAvailable();
+            return PartialView("_ExternalLoginButtonsPartial", externalLogins);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult DisassociateLogin(string name, string provider, string providerUserId)

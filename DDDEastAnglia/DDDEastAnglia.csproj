@@ -679,6 +679,7 @@
     <Content Include="Views\Home\Closed.cshtml" />
     <Content Include="Views\Account\_ExternalLoginMethodsPartial.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsPartial.cshtml" />
+    <Content Include="Views\Account\_ExternalLoginButtonsPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
