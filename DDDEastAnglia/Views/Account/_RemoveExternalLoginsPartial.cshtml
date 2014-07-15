@@ -7,14 +7,18 @@
         <div>
             @using (Html.BeginForm("DisassociateLogin", "Account"))
             {
-                <i class="@externalLogin.Icon"></i> @externalLogin.Name
-
+                <span style="line-height: 30px;">
+                    <i class="@externalLogin.Icon"></i> @externalLogin.Name
+                </span>
+                
                 if (ViewBag.ShowRemoveButtons)
                 {
-                    @Html.AntiForgeryToken()
-                    @Html.Hidden("provider", externalLogin.ProviderName)
-                    @Html.Hidden("providerUserId", externalLogin.ProviderUserId)
-                    <input type="submit" class="btn btn-danger" value="Remove" title="Remove this login from your account" />
+                    <span style="position: absolute; left: 150px;">
+                        @Html.AntiForgeryToken()
+                        @Html.Hidden("provider", externalLogin.ProviderName)
+                        @Html.Hidden("providerUserId", externalLogin.ProviderUserId)
+                        <input type="submit" class="btn btn-danger" value="Remove" title="Remove this login from your account" />
+                    </span>
                 }
             }
         </div>
