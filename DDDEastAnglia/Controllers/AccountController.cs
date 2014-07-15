@@ -164,7 +164,8 @@ namespace DDDEastAnglia.Controllers
         public ActionResult ExternalLoginsList(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
-            return PartialView("_ExternalLoginsListPartial", OAuthWebSecurity.RegisteredClientData);
+            var externalLogins = externalLoginsProvider.GetAllAvailable();
+            return PartialView("_ExternalLoginsListPartial", externalLogins);
         }
 
         [HttpPost]

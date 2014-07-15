@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using DDDEastAnglia.Models;
 using Microsoft.Web.WebPages.OAuth;
 
@@ -37,7 +38,27 @@ namespace DDDEastAnglia.Helpers.LoginMethods
                 });
             }
 
-            return externalLogins;
+            return externalLogins.OrderBy(l => l.Name);
+        }
+
+        public IEnumerable<LoginMethodViewModel> GetAllAvailable()
+        {
+            var authenticationClientDatas = OAuthWebSecurity.RegisteredClientData;
+            var externalLogins = new List<LoginMethodViewModel>();
+
+            foreach (var externalLogin in authenticationClientDatas)
+            {
+                var provider = externalLogin.AuthenticationClient.ProviderName;
+
+                externalLogins.Add(new LoginMethodViewModel
+                {
+                    Name = externalLogin.DisplayName,
+                    ProviderName = provider,
+                    Icon = oauthLoginIconProvider.GetIcon(provider)
+                });
+            }
+
+            return externalLogins.OrderBy(l => l.Name);
         }
     }
 }
