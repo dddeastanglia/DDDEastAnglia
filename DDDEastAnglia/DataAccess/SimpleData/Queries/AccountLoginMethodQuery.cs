@@ -17,7 +17,7 @@ namespace DDDEastAnglia.DataAccess.SimpleData.Queries
 
             if (dddeaLogin != null)
             {
-                loginMethods.Add(new LoginMethod("dddea", "DDDEA Account"));
+                loginMethods.Add(new LoginMethod {ProviderName = "dddea", DisplayName = "DDDEA Account"});
             }
             
             List<string> oauthLoginProviders = db.webpages_OAuthMembership.FindAllByUserId(userId)
@@ -25,7 +25,7 @@ namespace DDDEastAnglia.DataAccess.SimpleData.Queries
 
             var availableOauthProviders = OAuthWebSecurity.RegisteredClientData;
             var oauthLogins = availableOauthProviders.Where(p => oauthLoginProviders.Contains(p.AuthenticationClient.ProviderName))
-                                                     .Select(p => new LoginMethod(p.AuthenticationClient.ProviderName, p.DisplayName));
+                                                     .Select(p => new LoginMethod {ProviderName = p.AuthenticationClient.ProviderName, DisplayName = p.DisplayName});
             loginMethods.AddRange(oauthLogins);
 
             return loginMethods;
