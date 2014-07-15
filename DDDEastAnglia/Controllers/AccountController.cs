@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using System.Transactions;
 using System.Web.Mvc;
 using System.Web.Security;
 using DDDEastAnglia.DataAccess;
@@ -9,7 +8,6 @@ using DotNetOpenAuth.AspNet;
 using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
 using DDDEastAnglia.Models;
-using IsolationLevel = System.Transactions.IsolationLevel;
 
 namespace DDDEastAnglia.Controllers
 {
@@ -155,7 +153,7 @@ namespace DDDEastAnglia.Controllers
         {
             var externalLogins = externalLoginsProvider.GetForUser(User.Identity.Name);
             bool hasLocalAccount = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
-            ViewBag.ShowRemoveButtons = externalLogins.Any() || hasLocalAccount;
+            ViewBag.DisableRemoveButtons = hasLocalAccount || externalLogins.Count() > 1;
             return PartialView("_RemoveExternalLoginsPartial", externalLogins);
         }
 
@@ -170,25 +168,20 @@ namespace DDDEastAnglia.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult DisassociateLogin(string provider, string providerUserId)
+        public ActionResult DisassociateLogin(string name, string provider, string providerUserId)
         {
             string ownerAccount = OAuthWebSecurity.GetUserName(provider, providerUserId);
             string message = null;
 
-            // Only disassociate the account if the currently logged in user is the owner
             if (ownerAccount == User.Identity.Name)
             {
-                // Use a transaction to prevent the user from deleting their last login credential
-                using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.Serializable }))
-                {
-                    bool hasLocalAccount = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
+                bool hasLocalAccount = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
+                var externalLogins = OAuthWebSecurity.GetAccountsFromUserName(User.Identity.Name);
 
-                    if (hasLocalAccount || OAuthWebSecurity.GetAccountsFromUserName(User.Identity.Name).Count > 1)
-                    {
-                        OAuthWebSecurity.DeleteAccount(provider, providerUserId);
-                        scope.Complete();
-                        message = "The external login has been removed successfully.";
-                    }
+                if (hasLocalAccount || externalLogins.Count > 1)
+                {
+                    OAuthWebSecurity.DeleteAccount(provider, providerUserId);
+                    message = string.Format("Your {0} login has been removed successfully.", name);
                 }
             }
 

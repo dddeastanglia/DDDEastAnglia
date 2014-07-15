@@ -11,15 +11,18 @@
                     <i class="@loginMethod.Icon"></i> @loginMethod.Name
                 </span>
                 
-                if (ViewBag.ShowRemoveButtons)
-                {
-                    <span style="position: absolute; left: 150px;">
-                        @Html.AntiForgeryToken()
-                        @Html.Hidden("provider", loginMethod.ProviderName)
-                        @Html.Hidden("providerUserId", loginMethod.ProviderUserId)
-                        <button type="submit" class="btn btn-danger" title="Remove this login from your account"><i class="icon-remove"></i> Remove</button>
-                    </span>
-                }
+                <span style="position: absolute; left: 150px;">
+                    @Html.AntiForgeryToken()
+                    @Html.Hidden("name", loginMethod.Name)
+                    @Html.Hidden("provider", loginMethod.ProviderName)
+                    @Html.Hidden("providerUserId", loginMethod.ProviderUserId)
+                    <button type="submit" @(ViewBag.DisableRemoveButtons ? "" : "disabled='disabled'")
+                            class="btn btn-danger"
+                            title="@(ViewBag.DisableRemoveButtons ? "Remove this login from your account" : "This login cannot be removed because it is your primary login method")">
+                        <i class="icon-remove"></i> Remove
+                    </button>
+
+                </span>
             }
         </div>
     }
