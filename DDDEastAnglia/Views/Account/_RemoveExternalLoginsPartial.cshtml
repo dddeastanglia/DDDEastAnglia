@@ -17,7 +17,7 @@
                         @Html.AntiForgeryToken()
                         @Html.Hidden("provider", loginMethod.ProviderName)
                         @Html.Hidden("providerUserId", loginMethod.ProviderUserId)
-                        <input type="submit" class="btn btn-danger" value="Remove" title="Remove this login from your account" />
+                        <button type="submit" class="btn btn-danger" title="Remove this login from your account"><i class="icon-remove"></i> Remove</button>
                     </span>
                 }
             }
