@@ -1,4 +1,4 @@
-﻿namespace DDDEastAnglia.Helpers
+﻿namespace DDDEastAnglia.Helpers.Security
 {
     public interface IResetPasswordThingy
     {

@@ -4,6 +4,7 @@ using DDDEastAnglia.Controllers;
 using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.Helpers;
 using DDDEastAnglia.Helpers.Email;
+using DDDEastAnglia.Helpers.Security;
 using DDDEastAnglia.Models;
 using NSubstitute;
 using NUnit.Framework;

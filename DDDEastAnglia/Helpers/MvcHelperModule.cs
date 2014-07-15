@@ -1,4 +1,5 @@
-﻿using Ninject.Modules;
+﻿using DDDEastAnglia.Helpers.Security;
+using Ninject.Modules;
 using Ninject.Extensions.Conventions;
 
 namespace DDDEastAnglia.Helpers

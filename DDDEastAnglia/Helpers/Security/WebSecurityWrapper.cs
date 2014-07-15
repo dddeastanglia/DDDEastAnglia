@@ -1,6 +1,6 @@
 ﻿using WebMatrix.WebData;
 
-namespace DDDEastAnglia.Helpers
+namespace DDDEastAnglia.Helpers.Security
 {
     public class WebSecurityWrapper : IResetPasswordThingy
     {
