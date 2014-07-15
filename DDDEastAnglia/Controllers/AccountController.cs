@@ -166,6 +166,14 @@ namespace DDDEastAnglia.Controllers
             return PartialView("_ExternalLoginsListPartial", externalLogins);
         }
 
+        [AllowAnonymous]
+        [ChildActionOnly]
+        public ActionResult ExternalLoginMethods()
+        {
+            var externalLogins = externalLoginsProvider.GetAllAvailable();
+            return PartialView("_ExternalLoginMethodsPartial", externalLogins);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult DisassociateLogin(string name, string provider, string providerUserId)

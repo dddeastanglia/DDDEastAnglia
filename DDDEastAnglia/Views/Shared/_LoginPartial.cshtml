@@ -26,27 +26,7 @@ else
         <span class="caret"></span>
     </a>
     <ul class="dropdown-menu">
-        <li>
-            @using (Html.BeginForm("ExternalLogin", "Account", new { provider = "GitHub", returnUrl = Url.Action("Index", "Home") }, FormMethod.Post, new { id = "githubLoginform" }))
-            {
-                @Html.AntiForgeryToken()
-                <a href="javascript:document.getElementById('githubLoginform').submit();" id="githubLoginLink"><i class="icon-github"></i> Log in with GitHub</a>
-            }
-        </li>
-        <li>
-            @using (Html.BeginForm("ExternalLogin", "Account", new { provider = "Twitter", returnUrl = Url.Action("Index", "Home") }, FormMethod.Post, new { id = "twitterLoginForm" }))
-            {
-                @Html.AntiForgeryToken()
-                <a href="javascript:document.getElementById('twitterLoginForm').submit();" id="twitterLoginLink"><i class="icon-twitter"></i> Log in with Twitter</a>
-            }
-        </li>
-        <li>
-            @using (Html.BeginForm("ExternalLogin", "Account", new { provider = "Google", returnUrl = Url.Action("Index", "Home") }, FormMethod.Post, new { id = "googleLoginForm" }))
-            {
-                @Html.AntiForgeryToken()
-                <a href="javascript:document.getElementById('googleLoginForm').submit();" id="googleLoginLink"><i class="icon-google-plus"></i> Log in with Google</a>
-            }
-        </li>
+        @Html.Action("ExternalLoginMethods", "Account")
         <li>
             <a href="@Url.Action("Login", "Account")"><i class="icon-user"></i> Log in with DDDEA account</a>
         </li>

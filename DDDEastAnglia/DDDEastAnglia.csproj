@@ -679,6 +679,7 @@
     <Content Include="Views\Timeline\_Timeline.cshtml" />
     <Content Include="Views\Timeline\_TimelineItem.cshtml" />
     <Content Include="Views\Home\Closed.cshtml" />
+    <Content Include="Views\Account\_ExternalLoginMethodsPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

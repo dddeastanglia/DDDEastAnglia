@@ -1,0 +1,12 @@
+﻿@model IEnumerable<DDDEastAnglia.Models.LoginMethodViewModel>
+
+@foreach (var externalLogin in Model)
+{
+    <li>
+        @using (Html.BeginForm("ExternalLogin", "Account", new { provider = externalLogin.ProviderName, returnUrl = Url.Action("Index", "Home") }, FormMethod.Post, new { id = externalLogin.ProviderName + "Loginform" }))
+        {
+            @Html.AntiForgeryToken()
+            <a href="javascript:document.getElementById('@externalLogin.ProviderName' + 'Loginform').submit();"><i class="@externalLogin.Icon"></i> Log in with @externalLogin.Name</a>
+        }
+    </li>
+}
