@@ -29,6 +29,7 @@ namespace DDDEastAnglia.Helpers
                   .When(request => request.Target.Name.StartsWith("voting"));
 
             Kernel.Bind<IResetPasswordThingy>().To<WebSecurityWrapper>();
+            Kernel.Bind<IOAuthClientInfo>().To<OAuthWebSecurityWrapper>();
         }
     }
 }
