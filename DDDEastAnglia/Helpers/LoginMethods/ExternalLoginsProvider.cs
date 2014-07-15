@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using DDDEastAnglia.Helpers.Security;
 using DDDEastAnglia.Models;
 using Microsoft.Web.WebPages.OAuth;
 
@@ -8,57 +9,55 @@ namespace DDDEastAnglia.Helpers.LoginMethods
 {
     public class ExternalLoginsProvider
     {
-        private readonly LoginMethodIconProvider oauthLoginIconProvider;
+        private readonly IOAuthClientInfo oauthClientInfo;
 
-        public ExternalLoginsProvider(LoginMethodIconProvider oauthLoginIconProvider)
+        public ExternalLoginsProvider(IOAuthClientInfo oauthClientInfo)
         {
-            if (oauthLoginIconProvider == null)
+            if (oauthClientInfo == null)
             {
-                throw new ArgumentNullException("oauthLoginIconProvider");
+                throw new ArgumentNullException("oauthClientInfo");
             }
             
-            this.oauthLoginIconProvider = oauthLoginIconProvider;
+            this.oauthClientInfo = oauthClientInfo;
         }
 
-        public IEnumerable<LoginMethodViewModel> GetForUser(string userName)
+        public IEnumerable<LoginMethod> GetForUser(string userName)
         {
-            var accounts = OAuthWebSecurity.GetAccountsFromUserName(userName);
-            var externalLogins = new List<LoginMethodViewModel>();
+            var accounts = oauthClientInfo.GetAccountsFromUserName(userName);
+            var externalLogins = new List<LoginMethod>();
 
             foreach (OAuthAccount account in accounts)
             {
-                var clientData = OAuthWebSecurity.GetOAuthClientData(account.Provider);
+                var clientData = oauthClientInfo.GetOAuthClientData(account.Provider);
 
-                externalLogins.Add(new LoginMethodViewModel
+                externalLogins.Add(new LoginMethod
                 {
-                    Name = clientData.DisplayName,
+                    DisplayName = clientData.DisplayName,
                     ProviderName = account.Provider,
-                    ProviderUserId = account.ProviderUserId,
-                    Icon = oauthLoginIconProvider.GetIcon(account.Provider)
+                    ProviderUserId = account.ProviderUserId
                 });
             }
 
-            return externalLogins.OrderBy(l => l.Name);
+            return externalLogins.OrderBy(l => l.DisplayName);
         }
 
-        public IEnumerable<LoginMethodViewModel> GetAllAvailable()
+        public IEnumerable<LoginMethod> GetAllAvailable()
         {
-            var authenticationClientDatas = OAuthWebSecurity.RegisteredClientData;
-            var externalLogins = new List<LoginMethodViewModel>();
+            var authenticationClientDatas = oauthClientInfo.RegisteredClientData();
+            var externalLogins = new List<LoginMethod>();
 
             foreach (var externalLogin in authenticationClientDatas)
             {
                 var provider = externalLogin.AuthenticationClient.ProviderName;
 
-                externalLogins.Add(new LoginMethodViewModel
+                externalLogins.Add(new LoginMethod
                 {
-                    Name = externalLogin.DisplayName,
-                    ProviderName = provider,
-                    Icon = oauthLoginIconProvider.GetIcon(provider)
+                    DisplayName = externalLogin.DisplayName,
+                    ProviderName = provider
                 });
             }
 
-            return externalLogins.OrderBy(l => l.Name);
+            return externalLogins.OrderBy(l => l.DisplayName);
         }
     }
 }
