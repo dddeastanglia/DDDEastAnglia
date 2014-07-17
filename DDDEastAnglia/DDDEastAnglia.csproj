@@ -311,6 +311,7 @@
     <Compile Include="VotingData\Models\DuplicateVoteModel.cs" />
     <Compile Include="VotingData\Models\NumberOfUsersWithVotesModel.cs" />
     <Compile Include="VotingData\Models\SessionVoterModel.cs" />
+    <Compile Include="VotingData\Models\VotersPerIPAddressForSessionModel.cs" />
     <Compile Include="VotingData\Models\VotesForIPAddressModel.cs" />
     <Compile Include="VotingData\Models\IPAddressVoterModel.cs" />
     <Compile Include="VotingData\Models\SessionLeaderBoardEntry.cs" />
@@ -327,6 +328,7 @@
     <Compile Include="VotingData\Queries\UsersWhoHaveVotedForTheSameSessionMoreThanOnceQuery.cs" />
     <Compile Include="VotingData\Queries\VotedSessionModelFactory.cs" />
     <Compile Include="VotingData\Queries\VotersForSessionQuery.cs" />
+    <Compile Include="VotingData\Queries\VotersPerIPAddressForSessionQuery.cs" />
     <Compile Include="VotingData\Queries\VotersPerIPAddressQuery.cs" />
     <Compile Include="VotingData\Queries\VotesPerIPAddressQuery.cs" />
     <Compile Include="VotingData\QueryRunner.cs" />
@@ -576,6 +578,8 @@
     <Content Include="Areas\Admin\Views\User\_LoginMethods.cshtml" />
     <Content Include="Areas\Admin\Views\Voting\VotersForSessions.cshtml" />
     <Content Include="Areas\Admin\Views\Voting\_UsersVotedForSession.cshtml" />
+    <Content Include="Areas\Admin\Views\Voting\_IPAddressesVotedForSession.cshtml" />
+    <Content Include="Areas\Admin\Views\Voting\IPAddressesThatVotedForSessions.cshtml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\html5shiv-printshiv.js" />

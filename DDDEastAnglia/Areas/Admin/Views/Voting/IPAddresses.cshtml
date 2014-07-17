@@ -24,7 +24,7 @@
             @Html.DisplayFor(modelItem => item.IPAddress)
             
             <div>
-                <a id="link@(item.IPAddress.Replace(".", "-"))" href="#" onclick="javascript:resolveIP('link@(item.IPAddress.Replace(".", "-"))', '@item.IPAddress', 'resolved@(item.IPAddress.Replace(".", "-"))');return false;" title="Resolve IP address"><i class="icon-search"></i></a>
+                <a id="iplink@(item.IPAddress.Replace(".", "-"))" href="#" onclick="javascript:resolveIP('iplink@(item.IPAddress.Replace(".", "-"))', '@item.IPAddress', 'resolved@(item.IPAddress.Replace(".", "-"))');return false;" title="Resolve IP address"><i class="icon-search"></i></a>
                 <span id="resolved@(item.IPAddress.Replace(".", "-"))"></span>
             </div>
         </td><td>

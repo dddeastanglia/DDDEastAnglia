@@ -1,0 +1,27 @@
+﻿@model IList<DDDEastAnglia.VotingData.Models.VotersPerIPAddressForSessionModel>
+
+<table class="table table-striped table-hover table-condensed table-bordered">
+    <thead>
+        <tr><th>
+            IP Address
+            <a id="resolveAllLink" class="pull-right" href="#" onclick="javascript:resolveAllIPAddresses(this); return false;"><i class="icon-search"></i> Resolve all IP addresses</a>
+        </th><th>
+            Number of Votes
+        </th></tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr><td>
+            @item.IPAddress
+
+            <div>
+                <a id="iplink@(item.IPAddress.Replace(".", "-"))" href="#" onclick="javascript:resolveIP('iplink@(item.IPAddress.Replace(".", "-"))', '@item.IPAddress', 'resolved@(item.IPAddress.Replace(".", "-"))');return false;" title="Resolve IP address"><i class="icon-search"></i></a>
+                <span id="resolved@(item.IPAddress.Replace(".", "-"))"></span>
+            </div>
+        </td><td>
+            @item.NumberOfVotes
+        </td></tr>
+    }
+    </tbody>
+</table>

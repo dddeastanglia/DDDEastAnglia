@@ -1,6 +1,6 @@
 ﻿function resolveAllIPAddresses(sender) {
     $('#' + sender.id).animate({ opacity: "0.0" });
-    $('a[id^="link"]').each(function () {
+    $('a[id^="iplink"]').each(function () {
         $(this).click();
     });
 }

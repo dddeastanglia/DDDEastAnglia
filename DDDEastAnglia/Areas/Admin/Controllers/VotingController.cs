@@ -225,5 +225,19 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
             var sortedVoters = votersForSession.OrderBy(v => v.IsAnonymous).ThenBy(v => v.UserIdentifier);
             return PartialView("_UsersVotedForSession", sortedVoters);
         }
+
+        public ActionResult IPAddressesThatVotedForSessions()
+        {
+            var leaderboardSessions = dataProvider.GetLeaderBoard(int.MaxValue, true);
+            return View(leaderboardSessions);
+        }
+
+        [HttpPost]
+        [AllowCrossSiteJson]
+        public ActionResult GetIPAddressesWhoVotedForSession(int sessionId)
+        {
+            var ipAddressesThatVotedForSession = dataProvider.GetIPAddressesThatVotedForSession(sessionId);
+            return PartialView("_IPAddressesVotedForSession", ipAddressesThatVotedForSession);
+        }
     }
 }
