@@ -6,16 +6,16 @@
 
 <h2>Delete a submitted session</h2>
 
+<p>Please confirm that you want to delete the following session</p>
+
+@Html.Partial("_SessionDetailsPartial", Model)
+
+<p class="alert alert-danger">
+    Deleting a session cannot be undone. Please be sure that you wish to delete this session before continuing.
+</p>
+
 @using (Html.BeginForm())
 {
-    <p>Please confirm that you want to delete the following session</p>
-        
-    @Html.Partial("_SessionDetailsPartial", Model)
-
-    <p class="alert alert-danger">
-        Deleting a session cannot be undone. Please be sure that you wish to delete this session before continuing.
-    </p>
-
     <p>
         <input type="submit" class="btn btn-danger" value="Delete this session" />
         @Html.ActionLink("Cancel", "Index")
