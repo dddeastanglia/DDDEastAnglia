@@ -10,7 +10,7 @@
         {
             <tr><td>
                 <img src="@item.GravatarUrl" width="32" height="32" alt="@item.Name" title="@item.Name"/>
-                <a id="link@(item.UserId)" href="#" onclick="javascript:expand('@item.UserId'); return false;"><i id="icon@(item.UserId)" class="icon-chevron-right"></i> @item.Name</a>
+                    <a id="link@(item.UserId)" href="#" onclick="javascript:expandNode('@item.UserId'); return false;"><i id="icon@(item.UserId)" class="icon-chevron-right"></i> @item.Name</a>
                 <div class="votedSessions" id="placeholder@(item.UserId)"></div>
             </td><td>
                 <div class="pull-right">@item.NumberOfVotes votes</div>
@@ -21,33 +21,12 @@
 
 @section scripts
 {
+    @Scripts.Render("~/bundles/expandCollapse")
+
     <script>
-        function expand(userId) {
+        function expandNode(userId) {
             var postUrl = '@Url.Action("GetSessionsVotedForByKnownUser")';
-            $.post(
-                postUrl,
-                { userId: userId }
-            ).done(function (data) {
-                var loadingIcon = $('#icon' + userId);
-                loadingIcon.replaceWith('<i id="icon' + userId + '" class="icon-spin icon-spinner"></i>');
-                var output = $('#placeholder' + userId);
-                output.hide();
-                output.html(data);
-                output.fadeIn('fast');
-                var link = $('#link' + userId);
-                link.attr("onclick", "javascript:collapse('" + userId + "');");
-                loadingIcon = $('#icon' + userId);
-                loadingIcon.replaceWith('<i id="icon' + userId + '" class="icon-chevron-down"></i>');
-            });
-        }
-        
-        function collapse(userId) {
-            var output = $('#placeholder' + userId);
-            output.fadeOut('fast');
-            var link = $('#link' + userId);
-            link.attr("onclick", "javascript:expand('" + userId + "');");
-            var loadingIcon = $('#icon' + userId);
-            loadingIcon.replaceWith('<i id="icon' + userId + '" class="icon-chevron-right"></i>');
+            expand(userId, postUrl, { userId: userId });
         }
     </script>
 }

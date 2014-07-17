@@ -298,6 +298,7 @@
     <Compile Include="Helpers\DnsLookup.cs" />
     <Content Include="Scripts\progressbar.js" />
     <Compile Include="Helpers\GravatarUrl.cs" />
+    <Content Include="Scripts\expandCollapse.js" />
     <Compile Include="VotingData\ConnectionStringProvider.cs" />
     <Compile Include="VotingData\Models\CookieVoteModel.cs" />
     <Compile Include="VotingData\Models\AnonymousUserVoteCountModel.cs" />
