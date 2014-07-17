@@ -1,0 +1,58 @@
+﻿@model IList<DDDEastAnglia.VotingData.Models.SessionLeaderBoardEntry>
+
+<h2>Voters for each session</h2>
+
+<p>This shows who voted for each session.</p>
+
+<table class="table table-striped table-hover table-condensed">
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <a id="link@(item.SessionId)" href="#" onclick="javascript:expand('@item.SessionId'); return false;"><i id="icon@(item.SessionId)" class="icon-chevron-right"></i> @item.SessionTitle</a>
+                    <div class="votedSessions" id="placeholder@(item.SessionId)"></div>
+                </td>
+                <td>
+                    @item.SpeakerName
+                </td>
+                <td>
+                    <div class="pull-right">@item.NumberOfVotes votes</div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section scripts
+{
+    <script>
+        function expand(sessionId) {
+            var postUrl = '@Url.Action("GetUsersWhoVotedForSession")';
+            $.post(
+                postUrl,
+                { sessionId: sessionId }
+            ).done(function (data) {
+                var loadingIcon = $('#icon' + sessionId);
+                loadingIcon.replaceWith('<i id="icon' + sessionId + '" class="icon-spin icon-spinner"></i>');
+                var output = $('#placeholder' + sessionId);
+                output.hide();
+                output.html(data);
+                output.fadeIn('fast');
+                var link = $('#link' + sessionId);
+                link.attr("onclick", "javascript:collapse('" + sessionId + "');");
+                loadingIcon = $('#icon' + sessionId);
+                loadingIcon.replaceWith('<i id="icon' + sessionId + '" class="icon-chevron-down"></i>');
+            });
+        }
+
+        function collapse(sessionId) {
+            var output = $('#placeholder' + sessionId);
+            output.fadeOut('fast');
+            var link = $('#link' + sessionId);
+            link.attr("onclick", "javascript:expand('" + sessionId + "');");
+            var loadingIcon = $('#icon' + sessionId);
+            loadingIcon.replaceWith('<i id="icon' + sessionId + '" class="icon-chevron-right"></i>');
+        }
+    </script>
+}

@@ -210,5 +210,20 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
             var duplicateVotes = dataProvider.GetDuplicateVotes();
             return View(duplicateVotes);
         }
+
+        public ActionResult VotersForSessions()
+        {
+            var leaderboardSessions = dataProvider.GetLeaderBoard(int.MaxValue, true);
+            return View(leaderboardSessions);
+        }
+
+        [HttpPost]
+        [AllowCrossSiteJson]
+        public ActionResult GetUsersWhoVotedForSession(int sessionId)
+        {
+            var votersForSession = dataProvider.GetVotersForSession(sessionId);
+            var sortedVoters = votersForSession.OrderBy(v => v.IsAnonymous).ThenBy(v => v.UserIdentifier);
+            return PartialView("_UsersVotedForSession", sortedVoters);
+        }
     }
 }

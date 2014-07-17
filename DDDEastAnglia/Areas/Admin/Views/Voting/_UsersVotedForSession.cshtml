@@ -1,0 +1,11 @@
+﻿@model IEnumerable<DDDEastAnglia.VotingData.Models.SessionVoterModel>
+
+<table class="table table-striped table-hover table-condensed table-bordered">
+    @foreach (var item in Model)
+    {
+        <tr><td>
+            <img src="@item.GravatarUrl" width="32" height="32" alt="@item.UserIdentifier" title="@item.UserIdentifier" />
+            @item.UserIdentifier
+        </td></tr>
+    }
+</table>
