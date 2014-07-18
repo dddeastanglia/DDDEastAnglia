@@ -4,7 +4,7 @@
     ViewBag.Title = "Sessions";
 }
 
-@Html.Partial("_SearchBox", new ViewDataDictionary { { "containerClass", "tbody tr" }, { "childSelector", "td" } })
+@Html.Partial("_SearchBox", new ViewDataDictionary { { "containerClass", "tbody tr" }, { "childSelector", "td:not(.controls)" } })
 
 <h2>@ViewBag.Title</h2>
 
