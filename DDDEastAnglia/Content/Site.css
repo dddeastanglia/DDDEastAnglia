@@ -146,6 +146,7 @@ footer span {
 .session-details h3 {
     margin-top: 0;
     margin-bottom: 5px;
+    margin-right: 120px;
     padding-bottom: 2px;
 }
 
@@ -208,8 +209,6 @@ footer span {
 
 .voting {
     display: inline-block;
-    width: 120px;
-    text-align: right;
 }
 
 .form-search {
