@@ -13,6 +13,7 @@
         bool CanSubmit();
         bool CanVote();
         bool CanPublishAgenda();
+        bool AgendaBeingPrepared();
         bool CanRegister();
         bool CanShowSessions();
         bool CanShowSpeakers();

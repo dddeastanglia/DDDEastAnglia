@@ -63,6 +63,12 @@ namespace DDDEastAnglia.Domain
             return calendarEntries[CalendarEntryType.Voting].IsOpen();
         }
 
+        public bool AgendaBeingPrepared()
+        {
+            return calendarEntries[CalendarEntryType.Voting].HasPassed()
+                    && calendarEntries[CalendarEntryType.AgendaPublished].YetToOpen();
+        }
+
         public bool CanPublishAgenda()
         {
             return calendarEntries[CalendarEntryType.AgendaPublished].IsOpen();
