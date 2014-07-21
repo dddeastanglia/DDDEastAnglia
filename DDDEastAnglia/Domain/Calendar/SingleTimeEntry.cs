@@ -4,12 +4,12 @@ namespace DDDEastAnglia.Domain.Calendar
 {
     public class SingleTimeEntry : CalendarEntry
     {
-        private readonly DateTimeOffset _startDate;
+        private readonly DateTimeOffset startDate;
 
         public SingleTimeEntry(int calendarItemId, CalendarEntryType entryType, string description, bool isPublic, bool isAuthorised, DateTimeOffset startDate)
             : base(calendarItemId, entryType, description, isPublic, isAuthorised)
         {
-            _startDate = startDate;
+            this.startDate = startDate;
         }
 
         public override bool IsOpen()
@@ -19,7 +19,7 @@ namespace DDDEastAnglia.Domain.Calendar
 
         public override bool HasPassed()
         {
-            return IsAuthorised() && _startDate.UtcDateTime <= DateTime.UtcNow;
+            return IsAuthorised() && startDate.UtcDateTime <= DateTime.UtcNow;
         }
 
         public override bool YetToOpen()

@@ -2,29 +2,29 @@ namespace DDDEastAnglia.Domain.Calendar
 {
     public abstract class CalendarEntry
     {
-        private readonly int _id;
-        private readonly CalendarEntryType _entryType;
-        private readonly string _description;
-        private readonly bool _isPublic;
-        private readonly bool _isAuthorised;
+        private readonly int id;
+        private readonly CalendarEntryType entryType;
+        private readonly string description;
+        private readonly bool isPublic;
+        private readonly bool isAuthorised;
 
         protected CalendarEntry(int id, CalendarEntryType entryType, string description, bool isPublic, bool isAuthorised)
         {
-            _id = id;
-            _entryType = entryType;
-            _description = description;
-            _isPublic = isPublic;
-            _isAuthorised = isAuthorised;
+            this.id = id;
+            this.entryType = entryType;
+            this.description = description;
+            this.isPublic = isPublic;
+            this.isAuthorised = isAuthorised;
         }
 
         public bool IsAuthorised()
         {
-            return _isAuthorised;
+            return isAuthorised;
         }
 
         public CalendarEntryType GetEntryType()
         {
-            return _entryType;
+            return entryType;
         }
 
         public abstract bool IsOpen();
