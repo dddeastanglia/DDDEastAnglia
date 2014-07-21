@@ -28,5 +28,7 @@ namespace DDDEastAnglia.Domain.Calendar
         }
 
         public abstract bool IsOpen();
+        public abstract bool HasPassed();
+        public abstract bool YetToOpen();
     }
 }

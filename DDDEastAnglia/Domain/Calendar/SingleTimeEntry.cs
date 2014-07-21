@@ -14,7 +14,17 @@ namespace DDDEastAnglia.Domain.Calendar
 
         public override bool IsOpen()
         {
+            return HasPassed();
+        }
+
+        public override bool HasPassed()
+        {
             return IsAuthorised() && _startDate.UtcDateTime <= DateTime.UtcNow;
+        }
+
+        public override bool YetToOpen()
+        {
+            return !HasPassed();
         }
     }
 }
