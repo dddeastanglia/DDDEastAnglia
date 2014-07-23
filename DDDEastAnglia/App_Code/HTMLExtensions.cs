@@ -47,4 +47,9 @@ public static class HTMLExtensions
     {
         return displayCondition ? htmlHelper.ActionLink(linkText, actionName, controllerName) : new MvcHtmlString(linkText);
     }
+
+    public static string IpAddressToId(this HtmlHelper htmlHelper, string ipAddress)
+    {
+        return ipAddress.Replace(".", "-");
+    }
 }

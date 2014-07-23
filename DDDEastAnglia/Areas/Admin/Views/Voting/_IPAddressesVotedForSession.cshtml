@@ -16,8 +16,8 @@
             @item.IPAddress
 
             <div>
-                <a id="iplink@(item.IPAddress.Replace(".", "-"))" href="#" onclick="javascript:resolveIP('iplink@(item.IPAddress.Replace(".", "-"))', '@item.IPAddress', 'resolved@(item.IPAddress.Replace(".", "-"))');return false;" title="Resolve IP address"><i class="icon-search"></i></a>
-                <span id="resolved@(item.IPAddress.Replace(".", "-"))"></span>
+                <a id="iplink@(Html.IpAddressToId(item.IPAddress))" href="#" onclick="javascript:resolveIP('iplink@(Html.IpAddressToId(item.IPAddress))', '@item.IPAddress', 'resolved@(item.IPAddress.Replace(".", "-"))');return false;" title="Resolve IP address"><i class="icon-search"></i></a>
+                <span id="resolved@(Html.IpAddressToId(item.IPAddress))"></span>
             </div>
         </td><td>
             @item.NumberOfVotes
