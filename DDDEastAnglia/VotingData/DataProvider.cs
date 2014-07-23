@@ -21,7 +21,7 @@ namespace DDDEastAnglia.VotingData
         int GetNumberOfUsersWhoHaveVoted();
         IList<SessionLeaderBoardEntry> GetLeaderBoard(int limit, bool allowDuplicateSpeakers);
         IList<VotesForIPAddressModel> GetDistinctIPAddresses();
-        IList<DateTimeVoteModel> GetVotesPerDay();
+        IList<DateTimeVoteModel> GetVotesPerDate();
         IList<DateTimeVoteModel> GetVotesPerHour();
         IList<NumberOfUsersWithVotesModel> GetNumberOfVotesCastCounts();
         IList<IPAddressVoterModel> GetVotersPerIPAddress();
@@ -126,7 +126,7 @@ namespace DDDEastAnglia.VotingData
             return distinctIPAddresses;
         }
 
-        public IList<DateTimeVoteModel> GetVotesPerDay()
+        public IList<DateTimeVoteModel> GetVotesPerDate()
         {
             var dateToCountDictionary = voteRepository.GetAllVotes()
                                                 .GroupBy(v => v.TimeRecorded.Date)

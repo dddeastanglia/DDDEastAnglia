@@ -227,8 +227,9 @@
     <Compile Include="Areas\Admin\Models\MenuViewModel.cs" />
     <Compile Include="Areas\Admin\Models\SpeakerModel.cs" />
     <Compile Include="Areas\Admin\Models\VotersPerIPAddressViewModel.cs" />
-    <Compile Include="Areas\Admin\Models\VotesPerDayViewModel.cs" />
+    <Compile Include="Areas\Admin\Models\VotesPerDateViewModel.cs" />
     <Content Include="Content\common.css" />
+    <Compile Include="Areas\Admin\Models\VotesPerDayViewModel.cs" />
     <Compile Include="Controllers\GravatarController.cs" />
     <Compile Include="Controllers\TimelineController.cs" />
     <Compile Include="Controllers\UserNameFilterAttribute.cs" />
@@ -270,7 +271,7 @@
     <Compile Include="Helpers\Email\EmailModule.cs" />
     <Content Include="Scripts\gravatar.js" />
     <Content Include="Areas\Admin\Views\Voting\NumberOfUsersWhoHaveCastXVotes.cshtml" />
-    <Content Include="Areas\Admin\Views\Voting\VotesPerDay.cshtml" />
+    <Content Include="Areas\Admin\Views\Voting\VotesPerDate.cshtml" />
     <Content Include="Areas\Admin\Views\Voting\VotesPerHour.cshtml" />
     <Content Include="Content\Site_print.css" />
     <Content Include="Images\carousel\1.jpg" />
@@ -307,6 +308,7 @@
     <Compile Include="Helpers\JavaScriptDateTimes.cs" />
     <Compile Include="VotingData\DataProvider.cs" />
     <Compile Include="VotingData\IQueryResultObjectFactory.cs" />
+    <Compile Include="VotingData\Models\DayOfWeekVoteModel.cs" />
     <Compile Include="VotingData\Models\DuplicateVoteModel.cs" />
     <Compile Include="VotingData\Models\NumberOfUsersWithVotesModel.cs" />
     <Compile Include="VotingData\Models\VotesForIPAddressModel.cs" />
@@ -571,6 +573,7 @@
     <Content Include="Areas\Admin\Views\User\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Speaker\Index.cshtml" />
     <Content Include="Areas\Admin\Views\User\_LoginMethods.cshtml" />
+    <Content Include="Areas\Admin\Views\Voting\VotesPerDay.cshtml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\html5shiv-printshiv.js" />

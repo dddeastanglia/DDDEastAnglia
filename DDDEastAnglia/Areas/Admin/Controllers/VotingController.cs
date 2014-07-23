@@ -105,14 +105,14 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
             return Content(hostName);
         }
 
-        public ActionResult VotesPerDay()
+        public ActionResult VotesPerDate()
         {
-            var votesPerDay = dataProvider.GetVotesPerDay();
-            var votesPerDayData = chartDataConverter.ToChartData(votesPerDay);
+            var votesPerDate = dataProvider.GetVotesPerDate();
+            var votesPerDayData = chartDataConverter.ToChartData(votesPerDate);
 
-            var cumulativeVotesPerDayData = WorkOutCumulativeVotes(votesPerDay);
+            var cumulativeVotesPerDayData = WorkOutCumulativeVotes(votesPerDate);
 
-            var viewModel = new VotesPerDayViewModel { DayByDay = votesPerDayData, Cumulative = cumulativeVotesPerDayData };
+            var viewModel = new VotesPerDateViewModel { DayByDay = votesPerDayData, Cumulative = cumulativeVotesPerDayData };
             return View(viewModel);
         }
 

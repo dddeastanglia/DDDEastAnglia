@@ -230,7 +230,7 @@ namespace DDDEastAnglia.Tests.Admin
             var chartDataConverter = new ChartDataConverterBuilder().WithChartDataPerDay(chartData).Build();
             var controller = new VotingControllerBuilder().WithChartDataConverter(chartDataConverter).Build();
 
-            var model = controller.VotesPerDay().GetViewModel<VotesPerDayViewModel>();
+            var model = controller.VotesPerDay().GetViewModel<VotesPerDateViewModel>();
 
             CollectionAssert.AreEquivalent(chartData, model.DayByDay);
             CollectionAssert.AreEquivalent(chartData, model.Cumulative);
