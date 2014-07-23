@@ -1,10 +1,9 @@
-﻿@using DDDEastAnglia.Helpers
-@using Newtonsoft.Json
-@model DDDEastAnglia.Areas.Admin.Models.VotesPerDayViewModel
+﻿@using Newtonsoft.Json
+@model long[][]
 
 <h2>Votes Per Day</h2>
 
-<p>This chart shows the number of votes cast for each day that voting has been open. The vertical bar represents today.</p>
+<p>This charts shows the distribution of votes against the day that the vote was cast.</p>
 
 <div id="chart" style="width:100%;height:600px;"></div>
 
@@ -15,38 +14,31 @@
     <script>
         $(document).ready(function() {
             var data = [
-                {
-                    label: "Votes per day",
-                    color: "#C00",
-                    data: @JsonConvert.SerializeObject(Model.DayByDay)
-                },
-                {
-                    label: "Cumulative votes",
-                    color: "#0C0",
-                    data: @JsonConvert.SerializeObject(Model.Cumulative)
+            {
+                color: "#C00",
+                data: @Html.Raw(JsonConvert.SerializeObject(Model))
                 }
             ];
 
+            var ticks = [[0, "Sunday"], [1, "Monday"], [2, "Tuesday"], [3, "Wednesday"], [4, "Thursday"], [5, "Friday"], [6, "Saturday"]];
             var options = {
                 series: {
-                    lines: { show: true },
-                    points: { show: true },
-                    shadowSize: 2
+                    bars: { show: true }
+                },
+                bars: {
+                    align: "center",
+                    barWidth: 0.75
                 },
                 xaxis: {
-                    axisLabel: "Date",
-                    mode: "time",
-                    timeformat: "%d/%m/%Y"
+                    axisLabel: "Day of week",
+                    ticks: ticks
                 },
                 yaxis: {
                     axisLabel: "Number of votes"
                 },
                 grid: {
                     hoverable: true,
-                    backgroundColor: { colors: ["#fff", "#eee"] },
-                    markings: [
-                        { xaxis: { from: @DateTime.UtcNow.GetJavascriptTimestamp(), to: @DateTime.UtcNow.GetJavascriptTimestamp() }, color: "#444", label: "Today" }
-                    ]
+                    backgroundColor: { colors: ["#fff", "#eee"] }
                 }
             };
 
@@ -60,7 +52,7 @@
                     left: x + 5,
                     border: "1px solid #444",
                     padding: "2px",
-                    "background-color": "#00C",
+                    "background-color": "#c00",
                     color: "white",
                     opacity: 0.90
                 }).appendTo("body").fadeIn(200);

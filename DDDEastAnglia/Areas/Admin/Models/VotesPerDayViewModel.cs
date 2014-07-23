@@ -2,7 +2,7 @@
 {
     public class VotesPerDayViewModel
     {
-        public long[][] DayByDay{get;set;}
-        public long[][] Cumulative{get;set;}
+        public string DayOfWeek { get; set; }
+        public int NumberOfVotes { get; set; }
     }
 }

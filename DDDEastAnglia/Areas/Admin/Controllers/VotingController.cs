@@ -132,6 +132,13 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
             return cumulativeVotesPerDayData;
         }
 
+        public ActionResult VotesPerDay()
+        {
+            var votesPerDay = dataProvider.GetVotesPerDay();
+            var chartData = chartDataConverter.ToChartData(votesPerDay);
+            return View(chartData);
+        }
+
         public ActionResult VotesPerHour()
         {
             var votesPerHour = dataProvider.GetVotesPerHour();
