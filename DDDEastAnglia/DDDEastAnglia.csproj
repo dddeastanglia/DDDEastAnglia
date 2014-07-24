@@ -575,6 +575,9 @@
     <Content Include="Areas\Admin\Views\Speaker\Index.cshtml" />
     <Content Include="Areas\Admin\Views\User\_LoginMethods.cshtml" />
     <Content Include="Areas\Admin\Views\Voting\VotesPerDay.cshtml" />
+    <Content Include="Scripts\flot\hoverTooltip.js">
+      <SubType>Code</SubType>
+    </Content>
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\html5shiv-printshiv.js" />
