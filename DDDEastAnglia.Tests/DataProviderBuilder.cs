@@ -44,7 +44,7 @@ namespace DDDEastAnglia.Tests
             return this;
         }
             
-        public DataProviderBuilder WithVotesPerDay(DateTimeVoteModel[] votes)
+        public DataProviderBuilder WithVotesPerDate(DateTimeVoteModel[] votes)
         {
             dataProvider.GetVotesPerDate().Returns(votes);
             return this;

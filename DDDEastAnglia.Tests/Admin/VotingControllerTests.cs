@@ -208,29 +208,29 @@ namespace DDDEastAnglia.Tests.Admin
         }
 
         [Test]
-        public void TestThat_VotesPerDay_UsesTheDataObtainedFromTheDataProvider_ToCreateTheChartData()
+        public void TestThat_VotesPerDatey_UsesTheDataObtainedFromTheDataProvider_ToCreateTheChartData()
         {
             var votes = new[] {new DateTimeVoteModel()};
-            var dataProvider = new DataProviderBuilder().WithVotesPerDay(votes).Build();
+            var dataProvider = new DataProviderBuilder().WithVotesPerDate(votes).Build();
             var chartDataConverter = new ChartDataConverterBuilder().Build();
             var controller = new VotingControllerBuilder()
                                     .WithDataProvider(dataProvider)
                                     .WithChartDataConverter(chartDataConverter)
                                     .Build();
 
-            controller.VotesPerDay();
+            controller.VotesPerDate();
 
-            chartDataConverter.Received().ToChartData(votes);
+            chartDataConverter.Received().ToChartData(votes, Arg.Any<Func<DateTimeVoteModel, long>>());
         }
 
         [Test]
-        public void TestThat_VotesPerDay_PassesTheCorrectChartDataToTheView()
+        public void TestThat_VotesPerDate_PassesTheCorrectChartDataToTheView()
         {
             long[][] chartData = new long[2][];
             var chartDataConverter = new ChartDataConverterBuilder().WithChartDataPerDay(chartData).Build();
             var controller = new VotingControllerBuilder().WithChartDataConverter(chartDataConverter).Build();
 
-            var model = controller.VotesPerDay().GetViewModel<VotesPerDateViewModel>();
+            var model = controller.VotesPerDate().GetViewModel<VotesPerDateViewModel>();
 
             CollectionAssert.AreEquivalent(chartData, model.DayByDay);
             CollectionAssert.AreEquivalent(chartData, model.Cumulative);
@@ -249,7 +249,7 @@ namespace DDDEastAnglia.Tests.Admin
 
             controller.VotesPerHour();
 
-            chartDataConverter.Received().ToChartData(votes);
+            chartDataConverter.Received().ToChartData(votes, Arg.Any<Func<DateTimeVoteModel, long>>());
         }
 
         [Test]

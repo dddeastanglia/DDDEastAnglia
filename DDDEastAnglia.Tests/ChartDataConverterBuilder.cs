@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using DDDEastAnglia.Helpers;
 using DDDEastAnglia.VotingData.Models;
 using NSubstitute;
@@ -16,13 +17,13 @@ namespace DDDEastAnglia.Tests
 
         public ChartDataConverterBuilder WithChartDataPerHour(long[][] chartData)
         {
-            chartDataConverter.ToChartData(Arg.Any<IList<DateTimeVoteModel>>()).Returns(chartData);
+            chartDataConverter.ToChartData(Arg.Any<IList<DateTimeVoteModel>>(), Arg.Any<Func<DateTimeVoteModel, long>>()).Returns(chartData);
             return this;
         }
 
         public ChartDataConverterBuilder WithChartDataPerDay(long[][] chartData)
         {
-            chartDataConverter.ToChartData(Arg.Any<IList<DateTimeVoteModel>>()).Returns(chartData);
+            chartDataConverter.ToChartData(Arg.Any<IList<DateTimeVoteModel>>(), Arg.Any<Func<DateTimeVoteModel, long>>()).Returns(chartData);
             return this;
         }
 
