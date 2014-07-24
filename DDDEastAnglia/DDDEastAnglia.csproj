@@ -269,6 +269,7 @@
     <Compile Include="Models\SpeakerProfile.cs" />
     <Compile Include="NavigationMenu\NavigationMenuModule.cs" />
     <Compile Include="Helpers\Email\EmailModule.cs" />
+    <Content Include="Scripts\flot\jquery.flot.axislabel.js" />
     <Content Include="Scripts\gravatar.js" />
     <Content Include="Areas\Admin\Views\Voting\NumberOfUsersWhoHaveCastXVotes.cshtml" />
     <Content Include="Areas\Admin\Views\Voting\VotesPerDate.cshtml" />
