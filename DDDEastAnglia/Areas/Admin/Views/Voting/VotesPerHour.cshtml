@@ -20,14 +20,15 @@
 
             var options = {
                 series: {
-                    lines: { show: true },
-                    points: { show: true },
+                    bars: { show: true },
                     shadowSize: 2
                 },
+                bars: {
+                    align: "center",
+                    barWidth: 0.9
+                },
                 xaxis: {
-                    axisLabel: "Hour",
-                    mode: "time",
-                    timeformat: "%H"
+                    axisLabel: "Hour"
                 },
                 yaxis: {
                     axisLabel: "Number of votes"
@@ -44,8 +45,8 @@
                 $("<div id='tooltip'>" + contents + "</div>").css({
                     position: "absolute",
                     display: "none",
-                    top: y - 30,
-                    left: x + 5,
+                    top: y -30,
+                    left: x - 15,
                     border: "1px solid #444",
                     padding: "2px",
                     "background-color": "#c00",

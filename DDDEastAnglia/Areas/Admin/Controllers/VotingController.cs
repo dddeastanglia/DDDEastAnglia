@@ -108,7 +108,7 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
         public ActionResult VotesPerDate()
         {
             var votesPerDate = dataProvider.GetVotesPerDate();
-            var votesPerDayData = chartDataConverter.ToChartData(votesPerDate);
+            var votesPerDayData = chartDataConverter.ToChartData(votesPerDate, v => v.Date.GetJavascriptTimestamp());
 
             var cumulativeVotesPerDayData = WorkOutCumulativeVotes(votesPerDate);
 
@@ -128,7 +128,7 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
                 cumulativeVotesPerDay.Add(model);
             }
 
-            var cumulativeVotesPerDayData = chartDataConverter.ToChartData(cumulativeVotesPerDay);
+            var cumulativeVotesPerDayData = chartDataConverter.ToChartData(cumulativeVotesPerDay, v => v.Date.GetJavascriptTimestamp());
             return cumulativeVotesPerDayData;
         }
 
@@ -142,7 +142,7 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
         public ActionResult VotesPerHour()
         {
             var votesPerHour = dataProvider.GetVotesPerHour();
-            var chartData = chartDataConverter.ToChartData(votesPerHour);
+            var chartData = chartDataConverter.ToChartData(votesPerHour, v => v.Date.Hour);
             return View(chartData);
         }
 
