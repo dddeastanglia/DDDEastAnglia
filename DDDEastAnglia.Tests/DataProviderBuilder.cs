@@ -50,6 +50,12 @@ namespace DDDEastAnglia.Tests
             return this;
         }
 
+        public DataProviderBuilder WithVotesPerDay(DayOfWeekVoteModel[] votes)
+        {
+            dataProvider.GetVotesPerDay().Returns(votes);
+            return this;
+        }
+
         public DataProviderBuilder WithVotesPerHour(DateTimeVoteModel[] votes)
         {
             dataProvider.GetVotesPerHour().Returns(votes);

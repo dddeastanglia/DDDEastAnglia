@@ -23,6 +23,12 @@ namespace DDDEastAnglia.Tests
 
         public ChartDataConverterBuilder WithChartDataPerDay(long[][] chartData)
         {
+            chartDataConverter.ToChartData(Arg.Any<IList<DayOfWeekVoteModel>>()).Returns(chartData);
+            return this;
+        }
+
+        public ChartDataConverterBuilder WithChartDataPerDate(long[][] chartData)
+        {
             chartDataConverter.ToChartData(Arg.Any<IList<DateTimeVoteModel>>(), Arg.Any<Func<DateTimeVoteModel, long>>()).Returns(chartData);
             return this;
         }
