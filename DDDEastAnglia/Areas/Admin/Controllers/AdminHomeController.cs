@@ -35,7 +35,7 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
         private MenuViewModel CreateMenuViewModel()
         {
             var conference = conferenceLoader.LoadConference();
-            bool showVotingStats = conference.CanVote() || conference.CanPublishAgenda() || conference.CanRegister();
+            bool showVotingStats = conference.CanVote() || conference.AgendaBeingPrepared() || conference.CanPublishAgenda() || conference.CanRegister();
             var menuViewModel = new MenuViewModel {ShowVotingStatsLink = showVotingStats};
             return menuViewModel;
         }
