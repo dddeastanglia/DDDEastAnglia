@@ -195,7 +195,6 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
             return View(anonymousUserVotes);
         }
 
-        [HttpPost]
         [AllowCrossSiteJson]
         public ActionResult GetSessionsVotedForByAnonymousUser(Guid cookieId)
         {
