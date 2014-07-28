@@ -228,7 +228,6 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
             return View(leaderboardSessions);
         }
 
-        [HttpPost]
         [AllowCrossSiteJson]
         public ActionResult GetIPAddressesWhoVotedForSession(int sessionId)
         {

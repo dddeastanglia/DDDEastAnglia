@@ -31,8 +31,8 @@
 
     <script>
         function expandNode(sessionId) {
-            var postUrl = '@Url.Action("GetIPAddressesWhoVotedForSession")';
-            expand(sessionId, postUrl, { sessionId: sessionId });
+            var url = '@Url.Action("GetIPAddressesWhoVotedForSession")';
+            expand(sessionId, url, { sessionId: sessionId });
         }
 
         function resolveIP(linkId, address, outputId) {
