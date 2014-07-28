@@ -1,4 +1,5 @@
-﻿@model IList<DDDEastAnglia.VotingData.Models.VotersPerIPAddressForSessionModel>
+﻿@using Microsoft.Ajax.Utilities
+@model IList<DDDEastAnglia.VotingData.Models.VotersPerIPAddressForSessionModel>
 
 <table class="table table-striped table-hover table-condensed table-bordered">
     <thead>
@@ -12,12 +13,14 @@
     <tbody>
     @foreach (var item in Model)
     {
+        var id = Html.IpAddressToId(item.IPAddress + "_" + Guid.NewGuid());
+        
         <tr><td>
             @item.IPAddress
 
             <div>
-                <a id="iplink@(Html.IpAddressToId(item.IPAddress))" href="#" onclick="javascript:resolveIP('iplink@(Html.IpAddressToId(item.IPAddress))', '@item.IPAddress', 'resolved@(item.IPAddress.Replace(".", "-"))');return false;" title="Resolve IP address"><i class="icon-search"></i></a>
-                <span id="resolved@(Html.IpAddressToId(item.IPAddress))"></span>
+                <a id="iplink@(id)" href="#" onclick="javascript:resolveIP('iplink@(id)', '@item.IPAddress', 'resolved@(id)');return false;" title="Resolve IP address"><i class="icon-search"></i></a>
+                <span id="resolved@(id)"></span>
             </div>
         </td><td>
             @item.NumberOfVotes
