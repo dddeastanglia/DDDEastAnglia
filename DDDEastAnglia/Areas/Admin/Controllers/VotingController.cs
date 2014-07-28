@@ -92,7 +92,6 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
             return View(model);
         }
 
-        [HttpPost]
         [AllowCrossSiteJson]
         public ContentResult LookupIPAddress(string ipAddress)
         {

@@ -41,8 +41,8 @@
     @Scripts.Render("~/bundles/progressbar")
     <script>
         function resolveIP(linkId, address, outputId) {
-            var postUrl = '@Url.Action("LookupIPAddress")';
-            resolveIPAddress(linkId, address, outputId, postUrl);
+            var url = '@Url.Action("LookupIPAddress")';
+            resolveIPAddress(linkId, address, outputId, url);
         }
     </script>
 }

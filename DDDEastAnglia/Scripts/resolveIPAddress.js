@@ -5,11 +5,11 @@
     });
 }
 
-function resolveIPAddress(linkId, address, outputId, postUrl) {
+function resolveIPAddress(linkId, address, outputId, url) {
     var link = $('#' + linkId);
     link.replaceWith('<i id="' + linkId + '" class="icon-spin icon-spinner"></i>');
-    $.post(
-        postUrl,
+    $.get(
+        url,
         { ipAddress: address }
     ).done(function (data) {
         var loadingIcon = $('#' + linkId);

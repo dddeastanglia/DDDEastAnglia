@@ -34,7 +34,7 @@
     @Scripts.Render("~/bundles/progressbar")
 
     <script>
-        var postUrl = '@Url.Action("LookupIPAddress")';
-        resolveIPAddress('loadingicon', '@Model.IPAddress', 'hostname', postUrl);
+        var url = '@Url.Action("LookupIPAddress")';
+        resolveIPAddress('loadingicon', '@Model.IPAddress', 'hostname', url);
     </script>
 }
