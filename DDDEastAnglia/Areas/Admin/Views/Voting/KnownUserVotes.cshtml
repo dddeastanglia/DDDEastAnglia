@@ -25,8 +25,8 @@
 
     <script>
         function expandNode(userId) {
-            var postUrl = '@Url.Action("GetSessionsVotedForByKnownUser")';
-            expand(userId, postUrl, { userId: userId });
+            var url = '@Url.Action("GetSessionsVotedForByKnownUser")';
+            expand(userId, url, { userId: userId });
         }
     </script>
 }

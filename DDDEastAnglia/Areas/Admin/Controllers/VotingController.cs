@@ -182,7 +182,6 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
             return View(knownUserVotes);
         }
 
-        [HttpPost]
         [AllowCrossSiteJson]
         public ActionResult GetSessionsVotedForByKnownUser(int userId)
         {
