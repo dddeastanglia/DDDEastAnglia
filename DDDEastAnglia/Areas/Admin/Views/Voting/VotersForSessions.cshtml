@@ -30,8 +30,8 @@
 
     <script>
         function expandNode(sessionId) {
-            var postUrl = '@Url.Action("GetUsersWhoVotedForSession")';
-            expand(sessionId, postUrl, { sessionId: sessionId });
+            var url = '@Url.Action("GetUsersWhoVotedForSession")';
+            expand(sessionId, url, { sessionId: sessionId });
         }
     </script>
 }
