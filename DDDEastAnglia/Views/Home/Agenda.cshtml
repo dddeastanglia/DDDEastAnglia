@@ -5,221 +5,223 @@
 @Styles.Render("~/Content/Site_print")
 
 <style>
-    table, th, td {
+    table, th, td{
         border: 1px solid black;
-    }
+                 }
 
-    tr > td:first-child {
+    tr > td:first-child{
         font-weight: bold;
-    }
+                       }
 
-    th, td {
+    th, td{
         padding: 4px;
         vertical-align: top;
         width: 32%;
-    }
+          }
 
-    .timeCell {
+    .timeCell{
         width: 4%;
-    }
+             }
 
-    .nonSession {
+    .nonSession{
         background-color: #f5f5f5;
-    }
+               }
 
-    .sessionTitle {
+    .sessionTitle{
         font-weight: bold;
-    }
+                 }
 
-    .speakerName {
+    .speakerName{
         font-size: smaller;
-    }
+                }
 </style>
 
 <h2>@ViewBag.Title</h2>
 
 <table>
-    <tr>
-        <th class="timeCell"/>
-        <th>Room 1</th>
-        <th>Room 2</th>
-        <th>Room 3</th>
-        <th>Room 4</th>
-        <th>Room 5</th>
-    </tr>
+<tr>
+    <th class="timeCell"/>
+    <th>Room 1</th>
+    <th>Room 2</th>
+    <th>Room 3</th>
+    <th>Room 4</th>
+    <th>Room 5</th>
+</tr>
 
-    <tr class="nonSession">
-        <td class="timeCell">08:30</td>
-        <td colspan="5">Registration, tea/coffee/pastries (sponsored by [logo])</td>
-    </tr>
+<tr class="nonSession">
+    <td class="timeCell">08:30</td>
+    <td colspan="5">Registration, tea/coffee/pastries (sponsored by [logo])</td>
+</tr>
     
-    <tr class="nonSession">
-        <td class="timeCell">09:00</td>
-        <td colspan="5">Welcome &amp; Housekeeping</td>
-    </tr>
+<tr class="nonSession">
+    <td class="timeCell">09:00</td>
+    <td colspan="5">Welcome &amp; Housekeeping</td>
+</tr>
     
-    <tr>
-        <td class="timeCell">09:15</td>
-        <td>
-            @Html.ActionLink("OWIN, Katana and ASP.NET vNext: eliminating the pain of IIS", "Details", "Session", new { id = 4124}, new { @class = "sessionTitle" })
-             <br/>
-            "David Simner"
-        </td>
-        <td>
-            @Html.ActionLink("An Introduction to SOLID", "Details", "Session", new {id = 101}, new { @class = "sessionTitle" })
-             />
-            Colin Mackay
-        </td>
-        <td>
-            @Html.ActionLink("An Actor's Life for Me – An introduction to the TPL Dataflow Library and asynchronous programming blocks", "Details", "Session", new {id=1109}, new { @class = "sessionTitle" })
-            <br />
-            Liam Westley
-        </td>
-        <td>
-            @Html.ActionLink("A Unit Testing Swiss Army Knife", "Details", "Session", new {id = 2117}, new { @class = "sessionTitle" })
-            <br />
-            Adam Kosinski
-        </td>
-        <td>
-            @Html.ActionLink("Taking your craft seriously with F#", "Details", "Session", new {id=3132}, new { @class = "sessionTitle" })
-            <br />
-            Tomas Petricek
-        </td>
-    </tr>
+<tr>
+    <td class="timeCell">09:15</td>
+    <td>
+    @Html.ActionLink("OWIN, Katana and ASP.NET vNext: eliminating the pain of IIS", "Details", "Session", new {id = 4124}, new {@class = "sessionTitle"})
+    <br/>
+    @Html.ActionLink("David Simner", "Details", "Speaker", new {id = 11}, new {@class = "speakerName"})
+    </td>
+    <td>
+        @Html.ActionLink("An Introduction to SOLID", "Details", "Session", new {id = 101}, new {@class = "sessionTitle"})
+        <br />
+        @Html.ActionLink("Colin Mackay", "Details", "Speaker", new {id = 298}, new {@class = "speakerName"})
+    </td>
+    <td>
+        @Html.ActionLink("An Actor's Life for Me – An introduction to the TPL Dataflow Library and asynchronous programming blocks", "Details", "Session", new {id = 1109}, new {@class = "sessionTitle"})
+        <br />
+        @Html.ActionLink("Liam Westley", "Details", "Speaker", new {id = 62}, new {@class = "speakerName"})
+    </td>
+    <td>
+        @Html.ActionLink("A Unit Testing Swiss Army Knife", "Details", "Session", new {id = 2117}, new {@class = "sessionTitle"})
+        <br />
+        @Html.ActionLink("Adam Kosinski", "Details", "Speaker", new {id = 3324}, new {@class = "speakerName"})
+    </td>
+    <td>
+    @Html.ActionLink("Taking your craft seriously with F#", "Details", "Session", new {id = 3132}, new {@class = "sessionTitle"})
+    <br />
+    @Html.ActionLink("Tomas Petricek", "Details", "Speaker", new {id = 4332}, new {@class = "speakerName"})
+    </td>
+</tr>
 
-    <tr class="nonSession">
-        <td class="timeCell">10:15</td>
-        <td colspan="5">Break</td>
-    </tr>
+<tr class="nonSession">
+    <td class="timeCell">10:15</td>
+    <td colspan="5">Break</td>
+</tr>
     
-    <tr>
-        <td class="timeCell">10:30</td>
-        <td>
-            @Html.ActionLink("Functional DDD","Details","Session", new {id=1108}, new { @class = "sessionTitle" })
-             />
-            Alessandro Melchiori
-        </td>
-        <td>
-            @Html.ActionLink("Building Skynet: Machine learning for software developers","Details","Session", new {id=2107}, new { @class = "sessionTitle" })
-            <br />
-            Anthony Brown
-        </td>
-        <td>
-            @Html.ActionLink("Embracing DevOps at JUST EAT, within a Microsoft platform", "Details", "Session", new {id=2115}, new { @class = "sessionTitle" })
-            <br />
-            Pete Mounce
-        </td>
-        <td>
-            @Html.ActionLink("Super charging your JavaScript development experience", "Details", "Session", new {id = 102}, new { @class = "sessionTitle" })
-            <br />
-            Chris Canal
-        </td>
-        <td>
-            @Html.ActionLink("Beyond responsive design - UI for the modern web application", "Details", "Session", new { id = 1106 }, new { @class = "sessionTitle" })
-            <br />
-            Pete Smith
-        </td>
-    </tr>
+<tr>
+    <td class="timeCell">10:30</td>
+    <td>
+        @Html.ActionLink("Functional DDD", "Details", "Session", new {id = 1108}, new {@class = "sessionTitle"})
+        <br />
+        @Html.ActionLink("Alessandro Melchiori", "Details", "Speaker", new {id = 2312}, new {@class = "speakerName"})
+    </td>
+    <td>
+        @Html.ActionLink("Building Skynet: Machine learning for software developers", "Details", "Session", new {id = 2107}, new {@class = "sessionTitle"})
+        <br />
+        @Html.ActionLink("Anthony Brown", "Details", "Speaker", new {id = 293}, new {@class = "speakerName"})
+    </td>
+    <td>
+        @Html.ActionLink("Embracing DevOps at JUST EAT, within a Microsoft platform", "Details", "Session", new {id = 2115}, new {@class = "sessionTitle"})
+        <br />
+        @Html.ActionLink("Peter Mounce", "Details", "Speaker", new {id = 3323}, new {@class = "speakerName"})
+    </td>
+    <td>
+        @Html.ActionLink("Super charging your JavaScript development experience", "Details", "Session", new {id = 102}, new {@class = "sessionTitle"})
+        <br />
+        @Html.ActionLink("Chris Canal", "Details", "Speaker", new {id = 302}, new {@class = "speakerName"})
+    </td>
+    <td>
+        @Html.ActionLink("Beyond responsive design - UI for the modern web application", "Details", "Session", new {id = 1106}, new {@class = "sessionTitle"})
+        <br />
+        @Html.ActionLink("Pete Smith", "Details", "Speaker", new {id = 1313}, new {@class = "speakerName"})
+    </td>
+</tr>
     
-    <tr class="nonSession">
-        <td class="timeCell">11:30</td>
-        <td colspan="5">Break</td>
-    </tr>
+<tr class="nonSession">
+    <td class="timeCell">11:30</td>
+    <td colspan="5">Break</td>
+</tr>
     
-    <tr>
-        <td class="timeCell">11:45</td>
-        <td>
-            @Html.ActionLink("So you want to be a Tech Lead? 10 things you need to do to succeed.", "Details", "Session", new { id = 3139 }, new { @class = "sessionTitle" })
-            <br />
-            Joel Hammond-Turner
-        </td>
-        <td>
-            @Html.ActionLink("Decoupling from ASP.NET - Hexagonal Architectures in .NET", "Details", "Session", new { id = 1107 }, new { @class = "sessionTitle" })
-            <br />
-            Ian Cooper
-        </td>
-        <td>
-            @Html.ActionLink("Performance is a Feature!", "Details", "Session", new { id = 3140 }, new { @class = "sessionTitle" })
-            <br />
-            Matt Warren
-        </td>
-        <td>
-            @Html.ActionLink("All Your Types Are Belong To Us", "Details", "Session", new { id = 1114 }, new { @class = "sessionTitle" })
-             />
-            Phil Trelford
-        </td>
-        <td>
-            @Html.ActionLink("Disney-Driven Development", "Details", "Session", new { id = 2113 }, new { @class = "sessionTitle" })
-            <br />
-            Melinda Seckington
-        </td>
-    </tr>
+<tr>
+    <td class="timeCell">11:45</td>
+    <td>
+        @Html.ActionLink("So you want to be a Tech Lead? 10 things you need to do to succeed.", "Details", "Session", new {id = 3139}, new {@class = "sessionTitle"})
+        <br />
+        @Html.ActionLink("Joel Hammond-Turner", "Details", "Speaker", new {id = 23}, new {@class = "speakerName"})
+    </td>
+    <td>
+        @Html.ActionLink("Decoupling from ASP.NET - Hexagonal Architectures in .NET", "Details", "Session", new {id = 1107}, new {@class = "sessionTitle"})
+        <br />
+        @Html.ActionLink("Ian Cooper", "Details", "Speaker", new {id = 2311}, new {@class = "speakerName"})
+    </td>
+    <td>
+        @Html.ActionLink("Performance is a Feature!", "Details", "Session", new {id = 3140}, new {@class = "sessionTitle"})
+        <br />
+        @Html.ActionLink("Matt Warren", "Details", "Speaker", new {id = 2316}, new {@class = "speakerName"})
+    </td>
+    <td>
+        @Html.ActionLink("All Your Types Are Belong To Us", "Details", "Session", new {id = 1114}, new {@class = "sessionTitle"})
+        <br />
+        @Html.ActionLink("Phil Trelford", "Details", "Speaker", new {id = 34}, new {@class = "speakerName"})
+    </td>
+    <td>
+        @Html.ActionLink("Disney-Driven Development", "Details", "Session", new {id = 2113}, new {@class = "sessionTitle"})
+        <br />
+        @Html.ActionLink("Melinda Seckington", "Details", "Speaker", new {id = 3320}, new {@class = "speakerName"})
+    </td>
+</tr>
     
-    <tr class="nonSession">
-        <td class="timeCell">12:45</td>
-        <td colspan="5">Lunch, Grok Talks</td>
-    </tr>
+<tr class="nonSession">
+    <td class="timeCell">12:45</td>
+    <td colspan="5">Lunch, Grok Talks</td>
+</tr>
     
-    <tr>
-        <td class="timeCell">14:00</td>
-        <td>
-            @Html.ActionLink("The vNext Big Thing", "Details", "Session", new { id = 3125 }, new { @class = "sessionTitle" })
-            <br />
-            Mark Rendle
-        </td>
-        <td>
-            @Html.ActionLink("NServiceBus: introduction to a message based distributed architecture", "Details", "Session", new { id = 107 }, new { @class = "sessionTitle" })
-            <br />
-            Mauro Servienti
-        </td>
-        <td>
-            @Html.ActionLink("Keeping it responsive - cross-platform MVVM with ReactiveUI", "Details", "Session", new { id = 2109 }, new { @class = "sessionTitle" })
-            <br />
-            Sam Hogarth
-        </td>
-        <td>
-            @Html.ActionLink("Github Automation", "Details", "Session", new { id = 104 }, new { @class = "sessionTitle" })
-            <br />
-            Forbes Lindsay
-        </td>
-        <td>
-            @Html.ActionLink("Data Science for Fun and Profit", "Details", "Session", new { id = 3127 }, new { @class = "sessionTitle" })
-            <br />
-            Gary Short
-        </td>
-    </tr>
+<tr>
+    <td class="timeCell">14:00</td>
+    <td>
+        @Html.ActionLink("The vNext Big Thing", "Details", "Session", new {id = 3125}, new {@class = "sessionTitle"})
+        <br />
+        @Html.ActionLink("Mark Rendle", "Details", "Speaker", new {id = 48}, new {@class = "speakerName"})
+    </td>
+    <td>
+        @Html.ActionLink("NServiceBus: introduction to a message based distributed architecture", "Details", "Session", new {id = 107}, new {@class = "sessionTitle"})
+        <br />
+        @Html.ActionLink("Mauro Servienti", "Details", "Speaker", new {id = 309}, new {@class = "speakerName"})
+    </td>
+    <td>
+        @Html.ActionLink("Keeping it responsive - cross-platform MVVM with ReactiveUI", "Details", "Session", new {id = 2109}, new {@class = "sessionTitle"})
+        <br />
+        @Html.ActionLink("Sam Hogarth", "Details", "Speaker", new {id = 2314}, new {@class = "speakerName"})
+    </td>
+    <td>
+        @Html.ActionLink("Github Automation", "Details", "Session", new {id = 104}, new {@class = "sessionTitle"})
+        <br />
+        @Html.ActionLink("Forbes Lindsay", "Details", "Speaker", new {id = 303}, new {@class = "speakerName"})
+    </td>
+    <td>
+        @Html.ActionLink("Data Science for Fun and Profit", "Details", "Session", new {id = 3127}, new {@class = "sessionTitle"})
+        <br />
+        @Html.ActionLink("Gary Short", "Details", "Speaker", new {id = 30}, new {@class = "speakerName"})
+    </td>
+</tr>
 
-    <tr class="nonSession">
-        <td class="timeCell">15:00</td>
-        <td colspan="5">Break</td>
-    </tr>
+<tr class="nonSession">
+    <td class="timeCell">15:00</td>
+    <td colspan="5">Break</td>
+</tr>
     
-    <tr>
-        <td class="timeCell">15:15</td>
-        <td>
-            @Html.ActionLink("Architecture - why so serious?", "Details", "Session", new { id = 4133 }, new { @class = "sessionTitle" })
-            <br />
-            Barbara Fusinska
-        </td>
+<tr>
+    <td class="timeCell">15:15</td>
+    <td>
+        @Html.ActionLink("Architecture - why so serious?", "Details", "Session", new {id = 4133}, new {@class = "sessionTitle"})
+    <br />
+        @Html.ActionLink("Barbara Fusinska", "Details", "Speaker", new {id=3322}, new { @class = "speakerName" })
+
+
+    </td>
         <td>
             @Html.ActionLink("What Developers Need To Know About Visual Design", "Details", "Session", new { id = 2111 }, new { @class = "sessionTitle" })
             <br />
-            Ben Hall
-        </td>
+            @Html.ActionLink("Ben Hall","Details","Speaker", new {id=3319}, new { @class = "speakerName" })
+            /td>
         <td>
             @Html.ActionLink("Using F# for Line of Business Applications", "Details", "Session", new { id = 108 }, new { @class = "sessionTitle" })
             <br />
-            Ian Russell
+            @Html.ActionLink("Ian Russell", "Details", "Speaker", new { id = 53 }, new { @class = "speakerName" })
         </td>
         <td>
             @Html.ActionLink("Scream If You Want To Go Faster", "Details", "Session", new { id = 4135 }, new { @class = "sessionTitle" })
             <br />
-            Bart Read
+            @Html.ActionLink("Bart Read", "Details", "Speaker", new { id = 5333 }, new { @class = "speakerName" })
         </td>
         <td>
             @Html.ActionLink("Build Great Software for the Enterprise and Love it", "Details", "Session", new { id = 3129 }, new { @class = "sessionTitle" })
             <br />
-            Kendall Miller
+            @Html.ActionLink("Kendall Miller", "Details", "Speaker", new { id = 4331 }, new { @class = "speakerName" })
         </td>
     </tr>
 
