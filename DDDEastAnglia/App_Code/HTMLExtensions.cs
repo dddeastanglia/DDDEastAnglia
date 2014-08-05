@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Linq.Expressions;
+using System.Security.Policy;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
+using System.Web.Routing;
 using DDDEastAnglia.Models;
 using MarkdownSharp;
+using Microsoft.Ajax.Utilities;
 
 public static class HTMLExtensions
 {
@@ -46,5 +50,15 @@ public static class HTMLExtensions
     public static MvcHtmlString ActionLink(this HtmlHelper htmlHelper, string linkText, string actionName, string controllerName, bool displayCondition)
     {
         return displayCondition ? htmlHelper.ActionLink(linkText, actionName, controllerName) : new MvcHtmlString(linkText);
+    }
+
+    public static MvcHtmlString SessionLink(this HtmlHelper htmlHelper, int sessionId, string linkText)
+    {
+        return htmlHelper.ActionLink(linkText, "Details", "Session", new {id=sessionId}, new { @class="sessionTitle" });
+    }
+
+    public static MvcHtmlString SpeakerLink(this HtmlHelper htmlHelper, int speakerId, string speakerName)
+    {
+        return htmlHelper.ActionLink(speakerName, "Details", "Speaker", new {id=speakerId}, new { @class = "speakerName" });
     }
 }
