@@ -269,6 +269,7 @@
     <Compile Include="NavigationMenu\NavigationMenuModule.cs" />
     <Compile Include="Helpers\Email\EmailModule.cs" />
     <Content Include="Images\sponsors\ecmselection.png" />
+    <Content Include="Images\sponsors\ndclondon.png" />
     <Content Include="Scripts\gravatar.js" />
     <Content Include="Areas\Admin\Views\Voting\NumberOfUsersWhoHaveCastXVotes.cshtml" />
     <Content Include="Areas\Admin\Views\Voting\VotesPerDay.cshtml" />
