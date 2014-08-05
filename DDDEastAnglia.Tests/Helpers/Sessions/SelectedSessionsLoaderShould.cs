@@ -39,14 +39,14 @@ namespace DDDEastAnglia.Tests.Helpers.Sessions
         public void OnlyReturnSelectedSessionsForTheSpecifiedSpeaker()
         {
             var sessionRepository = Substitute.For<ISessionRepository>();
-            var session1 = new Session {SpeakerUserName = "bob", SessionId = 1234};
-            var session3 = new Session {SpeakerUserName = "bob", SessionId = 44};
-            sessionRepository.GetSessionsSubmittedBy("bob").Returns(new[] { session1, new Session { SpeakerUserName = "bob" }, session3 });
+            var session1 = new Session {SpeakerUserName = "bob", SessionId = 123456};
+            var session3 = new Session {SpeakerUserName = "bob", SessionId = 102};
+            sessionRepository.GetSessionsSubmittedBy("bob").Returns(new[] { session1, new Session { SpeakerUserName = "fred" }, session3 });
             var sessionsLoader = new SelectedSessionsLoader(sessionRepository);
 
             var sessions = sessionsLoader.LoadSessions(new UserProfile {UserName = "bob"});
 
-            CollectionAssert.AreEqual(new[] {session3}, sessions);
+            Assert.That(sessions, Is.EquivalentTo(new[] {session3}));
         }
     }
 }

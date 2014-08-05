@@ -10,21 +10,31 @@ namespace DDDEastAnglia.Helpers.Sessions
             {
                 return new[]
                     {
-                                48, // Mark Rendle
-                                62, // Liam Westley
-                                53, // Ian Russell
-                                66, // George Adamson
-                                76, // Randolph Burt,
-                                85, // Chris O'Dell
-                                11, // David Simner
-                                78, // Kevin Boyle
-                                59, // Rob Ashton
-                                29, // Ben Hall
-                                82, // Ashic Mahtab
-                                75, // Isaac Abraham
-                                20, // Dave Sussman
-                                47, // Thomas Petricek
-                                23 // Joel Hammond-Turner
+                        11,     // David Simner
+                        303,    // Forbes Lindsay
+                        62,     // Liam Westley
+                        3324,   // Adam Kosinski
+                        4332,   // Tomas Petricek
+                        2312,   // Alessandro Melchiori
+                        293,    // Anthony Brown
+                        3323,   // Peter Mounce
+                        302,    // Chris Canal
+                        1313,   // Pete Smith
+                        23,     // Joel Hammond-Turner
+                        2311,   // Ian Cooper
+                        2316,   // Matt Warren
+                        34,     // Phil Trelford
+                        3320,   // Melinda Seckington
+                        48,     // Mark Rendle
+                        309,    // Mauro Servienti
+                        2314,   // Sam Hogarth
+                        4328,   // Stephen Harrison
+                        30,     // Gary Short
+                        3322,   // Barbara Fusinska
+                        3319,   // Ben Hall
+                        53,     // Ian Russell
+                        5333,   // Bart Read
+                        4331    // Kendall Miller
                     };
             }
         }
@@ -35,21 +45,31 @@ namespace DDDEastAnglia.Helpers.Sessions
             {
                 return new[]
                     {
-                                44, // Mark Rendle
-                                75, // Liam Westley
-                                46, // Ian Russell
-                                92, // George Adamson
-                                64, // Randolph Burt,
-                                88, // Chris O'Dell
-                                22, // David Simner
-                                68, // Kevin Boyle
-                                55, // Rob Ashton
-                                21, // Ben Hall
-                                77, // Ashic Mahtab
-                                63, // Isaac Abraham
-                                13, // Dave Sussman
-                                42, // Thomas Petricek
-                                16 // Joel Hammond-Turner
+                        4124,   // David Simner
+                        104,    // Forbes Lindsay
+                        1109,   // Liam Westley
+                        2117,   // Adam Kosinski
+                        3132,   // Tomas Petricek
+                        1108,   // Alessandro Melchiori
+                        2107,   // Anthony Brown
+                        2115,   // Peter Mounce
+                        102,    // Chris Canal
+                        1106,   // Pete Smith
+                        3139,   // Joel Hammond-Turner
+                        1107,   // Ian Cooper
+                        3140,   // Matt Warren
+                        1114,   // Phil Trelford
+                        2113,   // Melinda Seckington
+                        3125,   // Mark Rendle
+                        107,    // Mauro Servienti
+                        2109,   // Sam Hogarth
+                        3119,   // Stephen Harrison
+                        3127,   // Gary Short
+                        4133,   // Barbara Fusinska
+                        2111,   // Ben Hall
+                        108,    // Ian Russell
+                        4135,   // Bart Read
+                        3129    // Kendall Miller
                     };
             }
         }
