@@ -13,6 +13,7 @@ namespace DDDEastAnglia
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            routes.MapRoute("Register", "Register", new { controller = "Home", action = "Register" });
             routes.MapRoute("Agenda", "Agenda", new { controller = "Home", action = "Agenda" });
             routes.MapRoute("Venue", "Venue", new {controller = "Home", action = "Venue"});
 
