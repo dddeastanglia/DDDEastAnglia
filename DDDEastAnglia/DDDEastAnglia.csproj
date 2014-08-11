@@ -268,6 +268,7 @@
     <Compile Include="Models\SpeakerProfile.cs" />
     <Compile Include="NavigationMenu\NavigationMenuModule.cs" />
     <Compile Include="Helpers\Email\EmailModule.cs" />
+    <Content Include="Images\hotels\doubletree-hilton.jpg" />
     <Content Include="Images\hotels\premierinn-a14-j32.jpg" />
     <Content Include="Images\hotels\travelodge-cambridge-central.jpg" />
     <Content Include="Images\hotels\travelodge-newmarket-road.jpg" />
