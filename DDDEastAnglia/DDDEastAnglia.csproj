@@ -268,6 +268,9 @@
     <Compile Include="Models\SpeakerProfile.cs" />
     <Compile Include="NavigationMenu\NavigationMenuModule.cs" />
     <Compile Include="Helpers\Email\EmailModule.cs" />
+    <Content Include="Images\hotels\travelodge-newmarket-road.jpg" />
+    <Content Include="Images\hotels\travelodge-orchard-park.jpg" />
+    <Content Include="Images\hotels\university-arms.jpg" />
     <Content Include="Images\sponsors\ecmselection.png" />
     <Content Include="Images\sponsors\ndclondon.png" />
     <Content Include="Scripts\gravatar.js" />
