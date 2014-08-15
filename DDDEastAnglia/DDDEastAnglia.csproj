@@ -238,6 +238,7 @@
     <Compile Include="DataAccess\ISpeakerRepository.cs" />
     <Compile Include="Helpers\LoginMethodLoader.cs" />
     <Compile Include="Helpers\LoginMethodViewModelBuilder.cs" />
+    <Compile Include="Helpers\Sessions\SelectedSessions.cs" />
     <Compile Include="Models\LoginMethod.cs" />
     <Compile Include="DataAccess\SimpleData\Queries\AccountLoginMethodQuery.cs" />
     <Compile Include="DataAccess\SpeakerRepository.cs" />
@@ -250,7 +251,6 @@
     <Compile Include="Helpers\Sessions\AllSessionsLoader.cs" />
     <Compile Include="Helpers\Sessions\ISessionLoader.cs" />
     <Compile Include="Helpers\Sessions\IUserProfileFilter.cs" />
-    <Compile Include="Helpers\Sessions\SelectedSessions.cs" />
     <Compile Include="Helpers\Sessions\SelectedSessionsLoader.cs" />
     <Compile Include="Helpers\Sessions\SelectedSpeakerProfileFilter.cs" />
     <Compile Include="Helpers\Sessions\SessionLoaderFactory.cs" />
@@ -268,6 +268,15 @@
     <Compile Include="Models\SpeakerProfile.cs" />
     <Compile Include="NavigationMenu\NavigationMenuModule.cs" />
     <Compile Include="Helpers\Email\EmailModule.cs" />
+    <Content Include="Images\googleplaystore.gif" />
+    <Content Include="Images\hotels\doubletree-hilton.jpg" />
+    <Content Include="Images\hotels\premierinn-a14-j32.jpg" />
+    <Content Include="Images\hotels\travelodge-cambridge-central.jpg" />
+    <Content Include="Images\hotels\travelodge-newmarket-road.jpg" />
+    <Content Include="Images\hotels\travelodge-orchard-park.jpg" />
+    <Content Include="Images\hotels\university-arms.jpg" />
+    <Content Include="Images\hotels\varsity.jpg" />
+    <Content Include="Images\itunesappstore.gif" />
     <Content Include="Images\sponsors\ecmselection.png" />
     <Content Include="Images\sponsors\ndclondon.png" />
     <Content Include="Scripts\gravatar.js" />
@@ -282,16 +291,12 @@
     <Content Include="Images\carousel\5.jpg" />
     <Content Include="Images\carousel\6.jpg" />
     <Content Include="Images\carousel\7.jpg" />
-    <Content Include="Images\googleplaystore.gif" />
-    <Content Include="Images\itunesappstore.gif" />
     <Content Include="Images\sponsors\comparethemarket.png" />
     <Content Include="Images\sponsors\CRedit360.png" />
     <Content Include="Images\sponsors\equalexperts.png" />
     <Content Include="Images\sponsors\github.png" />
     <Content Include="Images\sponsors\pluralsight.png" />
     <Content Include="Images\sponsors\redgate.png" />
-    <Content Include="Images\googleplaystore.gif" />
-    <Content Include="Images\itunesappstore.gif" />
     <Content Include="Images\sponsors\skillsmatter.png" />
     <Content Include="Images\venue.jpg" />
     <Content Include="Images\sponsors\techsmith.png" />
@@ -428,9 +433,6 @@
     <Content Include="ForgottenPasswordTemplate.html" />
     <Content Include="Content\font-awesome-ie7.css" />
     <Content Include="Content\font-awesome.min.css" />
-    <Content Include="Images\hotel-newmarket-road.jpg" />
-    <Content Include="Images\hotel-orchard-park.jpg" />
-    <Content Include="Images\hotel-university-arms.jpg" />
     <Content Include="Images\logo-icon-114.png" />
     <Content Include="Images\logo-icon-144.png" />
     <Content Include="Images\logo-icon-57.png" />
@@ -672,12 +674,6 @@
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <ItemGroup>
     <!-- This works for packaging web applications from Visual Studio -->
-    <ExcludeFromPackageFiles Include="App_Readme\glimpse.mvc3.readme.txt">
-      <FromTarget>Project</FromTarget>
-    </ExcludeFromPackageFiles>
-    <ExcludeFromPackageFiles Include="App_Readme\glimpse.readme.txt">
-      <FromTarget>Project</FromTarget>
-    </ExcludeFromPackageFiles>
     <ExcludeFromPackageFiles Include="appSettingsSecret.config">
       <FromTarget>Project</FromTarget>
       <SubType>Designer</SubType>
