@@ -279,6 +279,7 @@
     <Content Include="Images\itunesappstore.gif" />
     <Content Include="Images\sponsors\ecmselection.png" />
     <Content Include="Images\sponsors\ndclondon.png" />
+    <Content Include="Images\sponsors\zudio.png" />
     <Content Include="Scripts\gravatar.js" />
     <Content Include="Areas\Admin\Views\Voting\NumberOfUsersWhoHaveCastXVotes.cshtml" />
     <Content Include="Areas\Admin\Views\Voting\VotesPerDay.cshtml" />
