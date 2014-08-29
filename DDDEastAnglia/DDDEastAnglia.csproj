@@ -47,27 +47,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Elmah">
-      <HintPath>..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
-    </Reference>
-    <Reference Include="Elmah.Mvc">
-      <HintPath>..\packages\Elmah.MVC.2.0.2\lib\net40\Elmah.Mvc.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
-    <Reference Include="Glimpse.AspNet">
-      <HintPath>..\packages\Glimpse.AspNet.1.8.0\lib\net45\Glimpse.AspNet.dll</HintPath>
-    </Reference>
-    <Reference Include="Glimpse.Core">
-      <HintPath>..\packages\Glimpse.1.8.2\lib\net45\Glimpse.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Glimpse.Mvc4">
-      <HintPath>..\packages\Glimpse.Mvc4.1.5.3\lib\net40\Glimpse.Mvc4.dll</HintPath>
-    </Reference>
     <Reference Include="MarkdownSharp">
       <HintPath>..\packages\MarkdownSharp.1.13.0.0\lib\35\MarkdownSharp.dll</HintPath>
     </Reference>
@@ -593,8 +572,6 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\knockout-2.1.0.debug.js" />
-    <Content Include="Scripts\knockout-2.1.0.js" />
     <Content Include="Scripts\Markdown.Converter.js" />
     <Content Include="Scripts\Markdown.Editor.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
@@ -609,7 +586,6 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Content\Site.css" />
-    <Content Include="Scripts\_references.js" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
