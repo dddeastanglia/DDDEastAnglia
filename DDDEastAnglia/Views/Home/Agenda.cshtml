@@ -5,6 +5,13 @@
 @Styles.Render("~/Content/Site_print")
 
 <style>
+    hr {
+        height: 1px;
+        background: black;
+        border: 1px;
+        margin: 5px 0;
+    }
+
     table, th, td {
         border: 1px solid black;
     }
@@ -26,6 +33,12 @@
 
     .nonSession {
         background-color: #f5f5f5;
+    }
+
+    .nonSession td img {
+        vertical-align: middle;
+        height: auto;
+        width: auto;
     }
 
     .sessionTitle {
@@ -53,8 +66,9 @@
     <td class="timeCell">08:30</td>
     <td colspan="5">
         Registration
-        <br />
-        Refreshments (sponsored by <a href="http://careers.comparethemarket.com">Compare the Market</a>)
+        <hr />
+        <span>Refreshments sponsored by</span>
+        <a href="http://careers.comparethemarket.com"><img src="~/images/sponsors/agenda/comparethemarket.png"/></a>
     </td>
 </tr>
     
@@ -170,9 +184,9 @@
     <td class="timeCell">12:55</td>
     <td colspan="5">
         Lunch
-        <br />
-        Grok Talks (sponsored by
-        <a href="http://huddle.com">Huddle</a>)
+        <hr />
+        <span>Grok Talks sponsored by</span>
+        <a href="http://huddle.com"><img src="~/Images/sponsors/agenda/huddle.png"/></a>
     </td>
 </tr>
     
@@ -256,7 +270,8 @@
 <tr class="nonSession">
     <td class="timeCell">17:00</td>
     <td colspan="5">
-        Drinks Reception (sponsored by <a href="http://dev.red-gate.com">Red Gate</a>)
+        <span>Drinks Reception sponsored by</span>
+        <a href="http://dev.red-gate.com"><img src="~/Images/sponsors/agenda/redgate.png"/></a>
     </td>
 </tr>
 <tr class="nonSession">
