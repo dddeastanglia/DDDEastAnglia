@@ -2,10 +2,70 @@
     ViewBag.Title = "Home Page";
 }
 
+<style>
+    h4 {
+        margin-top: 25px;
+    }
+</style>
+
 <div class="row-fluid">
     <div class="span12">
         <h1>Welcome to DDD East Anglia!</h1>
         
+        <div class="well">
+            <h3>@Html.DDDEastAnglia() is over for 2014</h3>
+            <p>
+                Thanks to all of the speakers, sponsors, helpers and attendees for their help
+                and support in making @Html.DDDEastAnglia() a successful and enjoyable day.
+                Photos from the event can be found on our <a href="http://www.flickr.com/dddeastanglia">Flickr page</a>.
+            </p>
+            
+            <p>
+                <strong>We'll be back in 2015!</strong> Keep an eye on this site, or <a href="http://twitter.com/DDDEastAnglia">follow us on Twitter</a>
+                for more information as it becomes available.
+            </p>
+
+            <h4>Reviews</h4>
+            <p>
+                You can read some reviews of @Html.DDDEastAnglia() 2014 in the following blog posts:
+
+                <ul>
+                    <li><a href="http://blog.craigtp.co.uk/post/DDD-East-Anglia-2014-Review">Craig Phillips - DDD East Anglia 2014 Review</a></li>
+                    <li><a href="http://trelford.com/blog/post/dddea.aspx">Phil Trelford - DDD East Anglia 2014</a></li>
+                    <li><a href="http://www.andrewroberthall.co.uk/tech/ddd-ea-summary">Andrew Hall - DDD EA Summary</a></li>
+                </ul>
+            </p>
+
+            <h4>Slides/Code</h4>
+            <p>
+                Slides and/or code for some of the talks can be found at the following links:
+
+                <ul>
+                    <li><a href="https://github.com/westleyl/DDDEastAnglia2014-Actor">An Actor's Life for Me – An introduction to the TPL Dataflow Library and asynchronous programming blocks (Liam Westley)</a></li>
+                    <li><a href="http://www.davidsimner.me.uk/2014/09/owin-katana-and-asp-net-vnext-eliminating-the-pain-of-iis">OWIN, Katana and ASP.NET vNext: eliminating the pain of IIS (David Simner)</a></li>
+                    <li><a href="https://github.com/tpetricek/Documents/tree/master/Talks%202014/Serious%20Craft%20(New%20York)">Taking your craft seriously with F# (Tomas Petricek)</a></li>
+                    
+                    <li><a href="https://speakerdeck.com/petemounce/embracing-devops-at-just-eat-within-a-microsoft-platform">Embracing DevOps at JUST EAT, within a Microsoft platform (Peter Mounce)</a></li>
+                    <li><a href="http://www.slideshare.net/bruinbrown/machine-learning-39043196">Building Skynet: Machine learning for software developers (Anthony Brown)</a></li>
+                    <li><a href="http://www.slideshare.net/melkio/functional-ddd">Functional Domain Driven Design (Alessandro Melchiori)</a></li>
+                    <li><a href="http://www.slideshare.net/roysvork/beyond-responsive-design-ui-for-the-modern-web-application-39133154">Beyond responsive design - UI for the modern web application (Pete Smith)</a> [<a href="https://github.com/Roysvork/BeyondResponsiveDesign">Code</a>]</li>
+
+                    <li><a href="http://t.co/r543fG0IVy">So you want to be a Tech Lead? 10 things you need to do to succeed. (Joel Hammond-Turner)</a></li>
+                    <li><a href="http://www.slideshare.net/ptrelford/all-your-types-are-belong-to-us">All Your Types Are Belong To Us (Phil Trelford)</a></li>
+                    
+                    <li><a href="https://github.com/sh1989/ReactiveFlickr">Keeping it responsive - cross-platform MVVM with ReactiveUI (Sam Hogarth)</a></li>
+                    <li><a href="http://www.slideshare.net/mauroservienti/nservicebus-building-a-distributed-system-based-on-a-messaging-infrastructure">NServiceBus: introduction to a message based distributed architecture (Mauro Servienti)</a></li>
+                    <li><a href="https://github.com/theconch/conch">The vNext Big Thing (Mark Rendle)</a></li>
+                    <li><a href="http://www.slideshare.net/TinamousSteve/a-brief-introduction-to-making-your-own-internet-of-things-thing">A Brief Introduction to Making your own (Internet of Things) Thing (Stephen Harrison)</a></li>
+                    <li><a href="https://github.com/garyshort/DDDEA_Slides">Data Science For Fun and Profit (Gary Short)</a></li>
+                    
+                    <li><a href="https://github.com/ijrussell/DDDEA2014_FSHARPLOB">Using F# for Line of Business Applications (Ian Russell)</a></li>
+                    <li><a href="http://blog.benhall.me.uk/2014/09/slides-from-dddea-on-what-developers-need-to-know-about-visual-design/">What Developers Need To Know About Visual Design (Ben Hall)</a></li>
+                    <li><a href="http://www.slideshare.net/barbarafusinska/architecture-why-so-serious">Architecture - why so serious? (Barbara Fusinska)</a> [<a href="https://github.com/BasiaFusinska/LetsGoOut">Code</a>]</li>
+                </ul>
+            </p>
+        </div>
+
         <p>
             @Html.DDDEastAnglia() will be returning to Cambridge on @Html.Action("ConferenceDate", "Timeline") at Cambridge University's West Road Concert Hall.
             Like all <abbr title="Developer! Developer! Developer!">DDD</abbr> community events, @Html.DDDEastAnglia() is free
