@@ -208,9 +208,38 @@ namespace DDDEastAnglia.Tests.Admin
         }
 
         [Test]
-        public void TestThat_VotesPerDay_UsesTheDataObtainedFromTheDataProvider_ToCreateTheChartData()
+        public void TestThat_VotesPerDate_UsesTheDataObtainedFromTheDataProvider_ToCreateTheChartData()
         {
             var votes = new[] {new DateTimeVoteModel()};
+            var dataProvider = new DataProviderBuilder().WithVotesPerDate(votes).Build();
+            var chartDataConverter = new ChartDataConverterBuilder().Build();
+            var controller = new VotingControllerBuilder()
+                                    .WithDataProvider(dataProvider)
+                                    .WithChartDataConverter(chartDataConverter)
+                                    .Build();
+
+            controller.VotesPerDate();
+
+            chartDataConverter.Received().ToChartData(votes, Arg.Any<Func<DateTimeVoteModel, long>>());
+        }
+
+        [Test]
+        public void TestThat_VotesPerDate_PassesTheCorrectChartDataToTheView()
+        {
+            long[][] chartData = new long[2][];
+            var chartDataConverter = new ChartDataConverterBuilder().WithChartDataPerDate(chartData).Build();
+            var controller = new VotingControllerBuilder().WithChartDataConverter(chartDataConverter).Build();
+
+            var model = controller.VotesPerDate().GetViewModel<VotesPerDateViewModel>();
+
+            CollectionAssert.AreEquivalent(chartData, model.DayByDay);
+            CollectionAssert.AreEquivalent(chartData, model.Cumulative);
+        }
+
+        [Test]
+        public void TestThat_VotesPerDay_UsesTheDataObtainedFromTheDataProvider_ToCreateTheChartData()
+        {
+            var votes = new[] { new DayOfWeekVoteModel() };
             var dataProvider = new DataProviderBuilder().WithVotesPerDay(votes).Build();
             var chartDataConverter = new ChartDataConverterBuilder().Build();
             var controller = new VotingControllerBuilder()
@@ -230,10 +259,9 @@ namespace DDDEastAnglia.Tests.Admin
             var chartDataConverter = new ChartDataConverterBuilder().WithChartDataPerDay(chartData).Build();
             var controller = new VotingControllerBuilder().WithChartDataConverter(chartDataConverter).Build();
 
-            var model = controller.VotesPerDay().GetViewModel<VotesPerDayViewModel>();
+            var model = controller.VotesPerDay().GetViewModel<long[][]>();
 
-            CollectionAssert.AreEquivalent(chartData, model.DayByDay);
-            CollectionAssert.AreEquivalent(chartData, model.Cumulative);
+            CollectionAssert.AreEquivalent(chartData, model);
         }
 
         [Test]
@@ -249,7 +277,7 @@ namespace DDDEastAnglia.Tests.Admin
 
             controller.VotesPerHour();
 
-            chartDataConverter.Received().ToChartData(votes);
+            chartDataConverter.Received().ToChartData(votes, Arg.Any<Func<DateTimeVoteModel, long>>());
         }
 
         [Test]

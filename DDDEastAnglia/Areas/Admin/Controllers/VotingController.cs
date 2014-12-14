@@ -105,14 +105,14 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
             return Content(hostName);
         }
 
-        public ActionResult VotesPerDay()
+        public ActionResult VotesPerDate()
         {
-            var votesPerDay = dataProvider.GetVotesPerDay();
-            var votesPerDayData = chartDataConverter.ToChartData(votesPerDay);
+            var votesPerDate = dataProvider.GetVotesPerDate();
+            var votesPerDayData = chartDataConverter.ToChartData(votesPerDate, v => v.Date.GetJavascriptTimestamp());
 
-            var cumulativeVotesPerDayData = WorkOutCumulativeVotes(votesPerDay);
+            var cumulativeVotesPerDayData = WorkOutCumulativeVotes(votesPerDate);
 
-            var viewModel = new VotesPerDayViewModel { DayByDay = votesPerDayData, Cumulative = cumulativeVotesPerDayData };
+            var viewModel = new VotesPerDateViewModel { DayByDay = votesPerDayData, Cumulative = cumulativeVotesPerDayData };
             return View(viewModel);
         }
 
@@ -128,14 +128,21 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
                 cumulativeVotesPerDay.Add(model);
             }
 
-            var cumulativeVotesPerDayData = chartDataConverter.ToChartData(cumulativeVotesPerDay);
+            var cumulativeVotesPerDayData = chartDataConverter.ToChartData(cumulativeVotesPerDay, v => v.Date.GetJavascriptTimestamp());
             return cumulativeVotesPerDayData;
+        }
+
+        public ActionResult VotesPerDay()
+        {
+            var votesPerDay = dataProvider.GetVotesPerDay();
+            var chartData = chartDataConverter.ToChartData(votesPerDay);
+            return View(chartData);
         }
 
         public ActionResult VotesPerHour()
         {
             var votesPerHour = dataProvider.GetVotesPerHour();
-            var chartData = chartDataConverter.ToChartData(votesPerHour);
+            var chartData = chartDataConverter.ToChartData(votesPerHour, v => v.Date.Hour);
             return View(chartData);
         }
 

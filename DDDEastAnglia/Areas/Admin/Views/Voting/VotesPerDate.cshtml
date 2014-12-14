@@ -1,0 +1,57 @@
+﻿@using DDDEastAnglia.Helpers
+@using Newtonsoft.Json
+@model DDDEastAnglia.Areas.Admin.Models.VotesPerDateViewModel
+
+<h2>Votes Per Date</h2>
+
+<p>This chart shows the number of votes cast for each day that voting has been open. The vertical bar represents today.</p>
+
+<div id="chart" style="width:100%;height:600px;"></div>
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/flot")
+
+    <script>
+        $(document).ready(function() {
+            var data = [
+                {
+                    label: "Votes per date",
+                    color: "#C00",
+                    data: @JsonConvert.SerializeObject(Model.DayByDay)
+                },
+                {
+                    label: "Cumulative votes",
+                    color: "#0C0",
+                    data: @JsonConvert.SerializeObject(Model.Cumulative)
+                }
+            ];
+
+            var options = {
+                series: {
+                    lines: { show: true },
+                    points: { show: true },
+                    shadowSize: 2
+                },
+                xaxis: {
+                    axisLabel: "Date",
+                    mode: "time",
+                    timeformat: "%d/%m/%Y"
+                },
+                yaxis: {
+                    axisLabel: "Number of votes"
+                },
+                grid: {
+                    hoverable: true,
+                    backgroundColor: { colors: ["#fff", "#eee"] },
+                    markings: [
+                        { xaxis: { from: @DateTime.UtcNow.GetJavascriptTimestamp(), to: @DateTime.UtcNow.GetJavascriptTimestamp() }, color: "#444", label: "Today" }
+                    ]
+                }
+            };
+
+            $.plot($("#chart"), data, options);
+            $(window).resize(function() {$.plot($('#chart'), data, options);});
+        });
+    </script>
+}

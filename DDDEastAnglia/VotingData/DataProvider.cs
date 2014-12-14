@@ -21,7 +21,8 @@ namespace DDDEastAnglia.VotingData
         int GetNumberOfUsersWhoHaveVoted();
         IList<SessionLeaderBoardEntry> GetLeaderBoard(int limit, bool allowDuplicateSpeakers);
         IList<VotesForIPAddressModel> GetDistinctIPAddresses();
-        IList<DateTimeVoteModel> GetVotesPerDay();
+        IList<DateTimeVoteModel> GetVotesPerDate();
+        IList<DayOfWeekVoteModel> GetVotesPerDay();
         IList<DateTimeVoteModel> GetVotesPerHour();
         IList<NumberOfUsersWithVotesModel> GetNumberOfVotesCastCounts();
         IList<IPAddressVoterModel> GetVotersPerIPAddress();
@@ -126,7 +127,7 @@ namespace DDDEastAnglia.VotingData
             return distinctIPAddresses;
         }
 
-        public IList<DateTimeVoteModel> GetVotesPerDay()
+        public IList<DateTimeVoteModel> GetVotesPerDate()
         {
             var dateToCountDictionary = voteRepository.GetAllVotes()
                                                 .GroupBy(v => v.TimeRecorded.Date)
@@ -143,6 +144,31 @@ namespace DDDEastAnglia.VotingData
                 var model = new DateTimeVoteModel
                     {
                         Date = day, 
+                        VoteCount = count
+                    };
+                dateTimeVoteModels.Add(model);
+            }
+
+            return dateTimeVoteModels;
+        }
+
+        public IList<DayOfWeekVoteModel> GetVotesPerDay()
+        {
+            var dateToCountDictionary = voteRepository.GetAllVotes()
+                                                .GroupBy(v => v.TimeRecorded.DayOfWeek)
+                                                .ToDictionary(g => g.Key, g => g.Count());
+
+            var dateTimeVoteModels = new List<DayOfWeekVoteModel>();
+
+            var days = (DayOfWeek[]) Enum.GetValues(typeof(DayOfWeek));
+
+            foreach (var day in days)
+            {
+                int count;
+                dateToCountDictionary.TryGetValue(day, out count);
+                var model = new DayOfWeekVoteModel
+                    {
+                        Day = day, 
                         VoteCount = count
                     };
                 dateTimeVoteModels.Add(model);
