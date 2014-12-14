@@ -92,7 +92,6 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
             return View(model);
         }
 
-        [HttpPost]
         [AllowCrossSiteJson]
         public ContentResult LookupIPAddress(string ipAddress)
         {
@@ -190,7 +189,6 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
             return View(knownUserVotes);
         }
 
-        [HttpPost]
         [AllowCrossSiteJson]
         public ActionResult GetSessionsVotedForByKnownUser(int userId)
         {
@@ -204,7 +202,6 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
             return View(anonymousUserVotes);
         }
 
-        [HttpPost]
         [AllowCrossSiteJson]
         public ActionResult GetSessionsVotedForByAnonymousUser(Guid cookieId)
         {
@@ -216,6 +213,33 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
         {
             var duplicateVotes = dataProvider.GetDuplicateVotes();
             return View(duplicateVotes);
+        }
+
+        public ActionResult VotersForSessions()
+        {
+            var leaderboardSessions = dataProvider.GetLeaderBoard(int.MaxValue, true);
+            return View(leaderboardSessions);
+        }
+
+        [AllowCrossSiteJson]
+        public ActionResult GetUsersWhoVotedForSession(int sessionId)
+        {
+            var votersForSession = dataProvider.GetVotersForSession(sessionId);
+            var sortedVoters = votersForSession.OrderBy(v => v.IsAnonymous).ThenBy(v => v.UserIdentifier);
+            return PartialView("_UsersVotedForSession", sortedVoters);
+        }
+
+        public ActionResult IPAddressesThatVotedForSessions()
+        {
+            var leaderboardSessions = dataProvider.GetLeaderBoard(int.MaxValue, true);
+            return View(leaderboardSessions);
+        }
+
+        [AllowCrossSiteJson]
+        public ActionResult GetIPAddressesWhoVotedForSession(int sessionId)
+        {
+            var ipAddressesThatVotedForSession = dataProvider.GetIPAddressesThatVotedForSession(sessionId);
+            return PartialView("_IPAddressesVotedForSession", ipAddressesThatVotedForSession);
         }
     }
 }

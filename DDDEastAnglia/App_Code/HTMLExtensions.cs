@@ -57,4 +57,9 @@ public static class HTMLExtensions
     {
         return htmlHelper.ActionLink(speakerName, "Details", "Speaker", new { id = speakerId }, new { @class = "speakerName" });
     }
+    
+    public static string IpAddressToId(this HtmlHelper htmlHelper, string ipAddress)
+    {
+        return ipAddress.Replace(".", "-");
+    }
 }

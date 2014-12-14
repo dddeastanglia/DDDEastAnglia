@@ -24,11 +24,11 @@
             @Html.DisplayFor(modelItem => item.IPAddress)
             
             <div>
-                <a id="link@(item.IPAddress.Replace(".", "-"))" href="#" onclick="javascript:resolveIP('link@(item.IPAddress.Replace(".", "-"))', '@item.IPAddress', 'resolved@(item.IPAddress.Replace(".", "-"))');return false;" title="Resolve IP address"><i class="icon-search"></i></a>
-                <span id="resolved@(item.IPAddress.Replace(".", "-"))"></span>
+                <a id="link@(Html.IpAddressToId(item.IPAddress))" href="#" onclick="javascript:resolveIP('link@(Html.IpAddressToId(item.IPAddress))', '@item.IPAddress', 'resolved@(item.IPAddress.Replace(".", "-"))');return false;" title="Resolve IP address"><i class="icon-search"></i></a>
+                <span id="resolved@(Html.IpAddressToId(item.IPAddress))"></span>
             </div>
         </td><td>
-            <div id="progressbar@(item.IPAddress)" data-value-max="@Model.HighestNumberOfVoters" data-value-current="@item.NumberOfVoters"></div>
+            <div id="progressbar@(Html.IpAddressToId(item.IPAddress))" data-value-max="@Model.HighestNumberOfVoters" data-value-current="@item.NumberOfVoters"></div>
             @Html.ActionLink(item.NumberOfVoters.ToString(), "VotesForIPAddress", new { ipAddress = item.IPAddress})
         </td></tr>
     }
@@ -41,8 +41,8 @@
     @Scripts.Render("~/bundles/progressbar")
     <script>
         function resolveIP(linkId, address, outputId) {
-            var postUrl = '@Url.Action("LookupIPAddress")';
-            resolveIPAddress(linkId, address, outputId, postUrl);
+            var url = '@Url.Action("LookupIPAddress")';
+            resolveIPAddress(linkId, address, outputId, url);
         }
     </script>
 }

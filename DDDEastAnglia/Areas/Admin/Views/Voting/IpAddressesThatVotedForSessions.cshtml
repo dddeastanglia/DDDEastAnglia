@@ -1,0 +1,43 @@
+﻿@model IList<DDDEastAnglia.VotingData.Models.SessionLeaderBoardEntry>
+
+<h2>Votes from IP addresses for each session</h2>
+
+<p>This shows which IP addresses have voted for each session.</p>
+
+<table class="table table-striped table-hover table-condensed">
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <a id="link@(item.SessionId)" href="#" onclick="javascript:expandNode('@item.SessionId'); return false;"><i id="icon@(item.SessionId)" class="icon-chevron-right"></i> @item.SessionTitle</a>
+                    <div class="votedSessions" id="placeholder@(item.SessionId)"></div>
+                </td>
+                <td>
+                    @item.SpeakerName
+                </td>
+                <td>
+                    <div class="pull-right">@item.NumberOfVotes votes</div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/expandCollapse")
+    @Scripts.Render("~/bundles/resolveIPAddress")
+
+    <script>
+        function expandNode(sessionId) {
+            var url = '@Url.Action("GetIPAddressesWhoVotedForSession")';
+            expand(sessionId, url, { sessionId: sessionId });
+        }
+
+        function resolveIP(linkId, address, outputId) {
+            var url = '@Url.Action("LookupIPAddress")';
+            resolveIPAddress(linkId, address, outputId, url);
+        }
+    </script>
+}

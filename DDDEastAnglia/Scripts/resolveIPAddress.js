@@ -1,15 +1,15 @@
 ﻿function resolveAllIPAddresses(sender) {
     $('#' + sender.id).animate({ opacity: "0.0" });
-    $('a[id^="link"]').each(function () {
+    $('a[id^="iplink"]').each(function () {
         $(this).click();
     });
 }
 
-function resolveIPAddress(linkId, address, outputId, postUrl) {
+function resolveIPAddress(linkId, address, outputId, url) {
     var link = $('#' + linkId);
     link.replaceWith('<i id="' + linkId + '" class="icon-spin icon-spinner"></i>');
-    $.post(
-        postUrl,
+    $.get(
+        url,
         { ipAddress: address }
     ).done(function (data) {
         var loadingIcon = $('#' + linkId);

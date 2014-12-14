@@ -10,7 +10,7 @@
         {
             <tr><td>
                 <img src="@item.GravatarUrl" width="32" height="32" />
-                <a id="link@(item.CookieId)" href="#" onclick="javascript:expand('@item.CookieId'); return false;"><i id="icon@(item.CookieId)" class="icon-chevron-right"></i> @item.CookieId</a>
+                    <a id="link@(item.CookieId)" href="#" onclick="javascript:expandNode('@item.CookieId'); return false;"><i id="icon@(item.CookieId)" class="icon-chevron-right"></i> @item.CookieId</a>
                 <div class="votedSessions" id="placeholder@(item.CookieId)"></div>
             </td><td>
                 <div class="pull-right">@item.NumberOfVotes votes</div>
@@ -21,33 +21,13 @@
 
 @section scripts
 {
+    @Scripts.Render("~/bundles/expandCollapse")
+
     <script>
-        function expand(cookieId) {
-            var postUrl = '@Url.Action("GetSessionsVotedForByAnonymousUser")';
-            $.post(
-                postUrl,
-                { cookieId: cookieId }
-            ).done(function (data) {
-                var loadingIcon = $('#icon' + cookieId);
-                loadingIcon.replaceWith('<i id="icon' + cookieId + '" class="icon-spin icon-spinner"></i>');
-                var output = $('#placeholder' + cookieId);
-                output.hide();
-                output.html(data);
-                output.fadeIn('fast');
-                var link = $('#link' + cookieId);
-                link.attr("onclick", "javascript:collapse('" + cookieId + "');");
-                loadingIcon = $('#icon' + cookieId);
-                loadingIcon.replaceWith('<i id="icon' + cookieId + '" class="icon-chevron-down"></i>');
-            });
-        }
-        
-        function collapse(cookieId) {
-            var output = $('#placeholder' + cookieId);
-            output.fadeOut('fast');
-            var link = $('#link' + cookieId);
-            link.attr("onclick", "javascript:expand('" + cookieId + "');");
-            var loadingIcon = $('#icon' + cookieId);
-            loadingIcon.replaceWith('<i id="icon' + cookieId + '" class="icon-chevron-right"></i>');
+        function expandNode(cookieId) {
+            var url = '@Url.Action("GetSessionsVotedForByAnonymousUser")';
+            expand(cookieId, url, { cookieId: cookieId });
         }
     </script>
 }
+

@@ -32,6 +32,8 @@ namespace DDDEastAnglia.VotingData
         IList<AnonymousUserVoteCountModel> GetAnonymousUserVotes();
         IList<VotedSessionModel> GetVotedForSessions(Guid cookieId);
         IList<DuplicateVoteModel> GetDuplicateVotes();
+        IList<SessionVoterModel> GetVotersForSession(int sessionId);
+        IList<VotersPerIPAddressForSessionModel> GetIPAddressesThatVotedForSession(int sessionId);
     }
 
     public class DataProvider : IDataProvider
@@ -244,6 +246,18 @@ namespace DDDEastAnglia.VotingData
         {
             var duplicateVotes = queryRunner.RunQuery(new UsersWhoHaveVotedForTheSameSessionMoreThanOnceQuery(new GravatarUrl()));
             return duplicateVotes;
+        }
+
+        public IList<SessionVoterModel> GetVotersForSession(int sessionId)
+        {
+            var votersForSession = queryRunner.RunQuery(new VotersForSessionQuery(new GravatarUrl(), sessionId));
+            return votersForSession;
+        }
+
+        public IList<VotersPerIPAddressForSessionModel> GetIPAddressesThatVotedForSession(int sessionId)
+        {
+            var ipAddressesThatVotedForSession = queryRunner.RunQuery(new VotersPerIPAddressForSessionQuery(sessionId));
+            return ipAddressesThatVotedForSession;
         }
     }
 }

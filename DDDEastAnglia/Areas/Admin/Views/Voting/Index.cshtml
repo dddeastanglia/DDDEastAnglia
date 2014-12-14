@@ -50,6 +50,7 @@
                 <li>@Html.ActionLink("Votes for the top sessions with no duplicate speakers", "Leaderboard", new {limit = Model.TotalNumberOfSessions, allowDuplicateSpeakers = false})</li>
                 <li>@Html.ActionLink("Votes for the top sessions", "Leaderboard", new {limit = Model.TotalNumberOfSessions})</li>
                 <li>@Html.ActionLink("Votes for all sessions", "Leaderboard")</li>
+                <li>@Html.ActionLink("Voters for each session", "VotersForSessions")</li>
             </ul>
         </div>
     </div>
@@ -72,6 +73,7 @@
             <ul>
                 <li>@Html.ActionLink("Votes per IP address", "IPAddresses")</li>
                 <li>@Html.ActionLink("Voters per IP address", "VotersPerIPAddress")</li>
+                <li>@Html.ActionLink("IP addresses that voted for each session", "IPAddressesThatVotedForSessions")</li>
             </ul>
         </div>
     </div>
