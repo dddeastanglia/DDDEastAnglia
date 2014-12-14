@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Web.Mvc;
 using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.DataAccess.SimpleData;
@@ -23,7 +25,7 @@ namespace DDDEastAnglia.Filters
 
             var controllerType = controllerContext.Controller.GetType();
             var allowedInPreviewDefinedOnController = HasExcludeFromFilterAttributeDefined<T>(controllerType);
-            var allowedInPreviewDefinedOnAction = HasExcludeFromFilterAttributeDefined<T>(controllerType.GetMethod(actionDescriptor.ActionName));
+            var allowedInPreviewDefinedOnAction = HasExcludeFromFilterAttributeDefined<T>(FigureOutAppropriateAction(controllerType, actionDescriptor.ActionName));
 
             // we don't need to apply the filter if there is an attribute specifically allowing the action to bypass the filter
             if (allowedInPreviewDefinedOnController || allowedInPreviewDefinedOnAction)
@@ -40,6 +42,13 @@ namespace DDDEastAnglia.Filters
         {
             T[] customAttributes = source.GetCustomAttributes(typeof(T), true);
             return customAttributes.Any();
+        }
+
+        private MethodInfo FigureOutAppropriateAction(Type controllerType, string actionName)
+        {
+            // if there is a matching action, then assume the one with the fewest number of parameters is the best match
+            var methods = controllerType.GetMethods().Where(m => m.Name == actionName).OrderBy(m => m.GetParameters().Count());
+            return methods.First();
         }
     }
 }
