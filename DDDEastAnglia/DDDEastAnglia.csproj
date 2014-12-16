@@ -203,6 +203,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Areas\Admin\Controllers\SpeakerController.cs" />
+    <Compile Include="App_Start\Filters\AllowedWhenConferenceIsInPreviewAttribute.cs" />
+    <Compile Include="App_Start\Filters\AllowedWhenConferenceIsClosedAttribute.cs" />
+    <Compile Include="App_Start\Filters\ConferenceIsClosedFilter.cs" />
+    <Compile Include="App_Start\Filters\ConferenceIsInPreviewFilter.cs" />
+    <Compile Include="App_Start\Filters\ClosedFilterProvider.cs" />
+    <Compile Include="App_Start\Filters\FilterProvider.cs" />
+    <Compile Include="App_Start\Filters\PreviewFilterProvider.cs" />
     <Compile Include="Areas\Admin\Models\MenuViewModel.cs" />
     <Compile Include="Areas\Admin\Models\SpeakerModel.cs" />
     <Compile Include="Areas\Admin\Models\VotersPerIPAddressViewModel.cs" />
@@ -280,6 +287,9 @@
     <Content Include="Images\carousel\5.jpg" />
     <Content Include="Images\carousel\6.jpg" />
     <Content Include="Images\carousel\7.jpg" />
+    <Content Include="Images\googleplaystore.gif" />
+    <Content Include="Images\itunesappstore.gif" />
+    <Content Include="Images\logo-large.png" />
     <Content Include="Images\sponsors\comparethemarket.png" />
     <Content Include="Images\sponsors\CRedit360.png" />
     <Content Include="Images\sponsors\equalexperts.png" />
@@ -598,6 +608,15 @@
     <Content Include="Scripts\Markdown.Editor.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Views\Home\Preview.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\Shared\_Footer.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\Shared\_HeadSection.cshtml">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -655,6 +674,7 @@
     <Content Include="Views\Home\Agenda.cshtml" />
     <Content Include="Views\Timeline\_Timeline.cshtml" />
     <Content Include="Views\Timeline\_TimelineItem.cshtml" />
+    <Content Include="Views\Home\Closed.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

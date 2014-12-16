@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 using DDDEastAnglia.DataAccess;
+using DDDEastAnglia.Filters;
 using DDDEastAnglia.Models;
 
 namespace DDDEastAnglia.Controllers
@@ -82,6 +83,32 @@ namespace DDDEastAnglia.Controllers
             if (!conference.CanPublishAgenda())
             {
                 return RedirectToAction("Index");
+            }
+
+            return View();
+        }
+
+        [AllowedWhenConferenceIsInPreview]
+        public ActionResult Preview()
+        {
+            var conference = conferenceLoader.LoadConference();
+
+            if (!conference.IsPreview())
+            {
+                return new RedirectResult("~/");
+            }
+
+            return View();
+        }
+
+        [AllowedWhenConferenceIsClosed]
+        public ActionResult Closed()
+        {
+            var conference = conferenceLoader.LoadConference();
+
+            if (!conference.IsClosed())
+            {
+                return new RedirectResult("~/");
             }
 
             return View();

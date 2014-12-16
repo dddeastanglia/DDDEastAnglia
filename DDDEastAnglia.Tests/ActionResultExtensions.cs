@@ -24,5 +24,12 @@ namespace DDDEastAnglia.Tests
             var httpStatusCodeResult = (HttpStatusCodeResult) actionResult;
             return (HttpStatusCode) httpStatusCodeResult.StatusCode;
         }
+
+        public static string GetRedirectionUrl(this ActionResult actionResult)
+        {
+            var result = (RedirectResult) actionResult;
+            var redirectionUrl = result.Url;
+            return redirectionUrl;
+        }
     }
 }

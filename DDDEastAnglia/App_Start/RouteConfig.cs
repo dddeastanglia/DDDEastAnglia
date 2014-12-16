@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Routing;
 
 namespace DDDEastAnglia
@@ -13,6 +9,8 @@ namespace DDDEastAnglia
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            routes.MapRoute("Closed", "Closed", new { controller = "Home", action = "Closed" });
+            routes.MapRoute("Preview", "Preview", new { controller = "Home", action = "Preview" });
             routes.MapRoute("Register", "Register", new { controller = "Home", action = "Register" });
             routes.MapRoute("Agenda", "Agenda", new { controller = "Home", action = "Agenda" });
             routes.MapRoute("Venue", "Venue", new {controller = "Home", action = "Venue"});

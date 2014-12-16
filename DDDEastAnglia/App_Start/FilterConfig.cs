@@ -1,5 +1,5 @@
-﻿using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using DDDEastAnglia.Filters;
 
 namespace DDDEastAnglia
 {
@@ -8,6 +8,9 @@ namespace DDDEastAnglia
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
+
+            FilterProviders.Providers.Add(new PreviewFilterProvider());
+            FilterProviders.Providers.Add(new ClosedFilterProvider());
         }
     }
 }

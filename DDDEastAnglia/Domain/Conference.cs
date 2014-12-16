@@ -19,11 +19,6 @@ namespace DDDEastAnglia.Domain
             this.shortName = shortName;
             this.numberOfTimeSlots = numberOfTimeSlots;
             this.numberOfTracks = numberOfTracks;
-            calendarEntries.Add(CalendarEntryType.SessionSubmission, new NullCalendarEntry());
-            calendarEntries.Add(CalendarEntryType.Voting, new NullCalendarEntry());
-            calendarEntries.Add(CalendarEntryType.AgendaPublished, new NullCalendarEntry());
-            calendarEntries.Add(CalendarEntryType.Registration, new NullCalendarEntry());
-            calendarEntries.Add(CalendarEntryType.Conference, new NullCalendarEntry());
         }
 
         public int Id
@@ -55,12 +50,12 @@ namespace DDDEastAnglia.Domain
 
         public bool CanSubmit()
         {
-            return calendarEntries[CalendarEntryType.SessionSubmission].IsOpen();
+            return ConferenceTimelineIsActive() && GetCalendarEntry(CalendarEntryType.SessionSubmission).IsOpen();
         }
 
         public virtual bool CanVote()
         {
-            return calendarEntries[CalendarEntryType.Voting].IsOpen();
+            return ConferenceTimelineIsActive() && GetCalendarEntry(CalendarEntryType.Voting).IsOpen();
         }
 
         public bool AgendaBeingPrepared()
@@ -71,22 +66,37 @@ namespace DDDEastAnglia.Domain
 
         public bool CanPublishAgenda()
         {
-            return calendarEntries[CalendarEntryType.AgendaPublished].IsOpen();
+            return ConferenceTimelineIsActive() && GetCalendarEntry(CalendarEntryType.AgendaPublished).IsOpen();
         }
 
         public bool CanRegister()
         {
-            return calendarEntries[CalendarEntryType.Registration].IsOpen();
+            return ConferenceTimelineIsActive() && GetCalendarEntry(CalendarEntryType.Registration).IsOpen();
         }
 
         public bool CanShowSessions()
         {
-            return CanSubmit() || CanVote() || CanPublishAgenda() || CanRegister();
+            return CanShowSpeakers();
         }
 
         public bool CanShowSpeakers()
         {
-            return CanSubmit() || CanVote() || CanPublishAgenda() || CanRegister();
+            return ConferenceTimelineIsActive() && (CanSubmit() || CanVote() || CanPublishAgenda() || CanRegister());
+        }
+
+        public bool IsPreview()
+        {
+            return GetCalendarEntry(CalendarEntryType.Preview).IsOpen();
+        }
+
+        public bool IsClosed()
+        {
+            return GetCalendarEntry(CalendarEntryType.Closed).IsOpen();
+        }
+
+        private bool ConferenceTimelineIsActive()
+        {
+            return !IsPreview() && !IsClosed();
         }
 
         public void AddToCalendar(CalendarEntry entry)
@@ -97,6 +107,14 @@ namespace DDDEastAnglia.Domain
             {
                 calendarEntries[calendarEntryType] = entry;
             }
+        }
+
+        private CalendarEntry GetCalendarEntry(CalendarEntryType calendarEntryType)
+        {
+            CalendarEntry calendarEntry;
+            return calendarEntries.TryGetValue(calendarEntryType, out calendarEntry)
+                ? calendarEntry
+                : new NullCalendarEntry();
         }
     }
 }

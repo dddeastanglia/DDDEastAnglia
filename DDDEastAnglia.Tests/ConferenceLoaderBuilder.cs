@@ -64,6 +64,30 @@ namespace DDDEastAnglia.Tests
             return this;
         }
 
+        public ConferenceLoaderBuilder NotInPreview()
+        {
+            conference.IsPreview().Returns(false);
+            return this;
+        }
+
+        public ConferenceLoaderBuilder InPreview()
+        {
+            conference.IsPreview().Returns(true);
+            return this;
+        }
+
+        public ConferenceLoaderBuilder WhenNotClosed()
+        {
+            conference.IsClosed().Returns(false);
+            return this;
+        }
+
+        public ConferenceLoaderBuilder WhenClosed()
+        {
+            conference.IsClosed().Returns(true);
+            return this;
+        }
+
         public IConferenceLoader Build()
         {
             return conferenceLoader;
