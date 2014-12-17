@@ -223,10 +223,7 @@
     <Compile Include="DataAccess\ConferenceLoader.cs" />
     <Compile Include="DataAccess\IAccountLoginMethodQuery.cs" />
     <Compile Include="DataAccess\ISpeakerRepository.cs" />
-    <Compile Include="Helpers\LoginMethodLoader.cs" />
-    <Compile Include="Helpers\LoginMethodViewModelBuilder.cs" />
     <Compile Include="Helpers\Sessions\SelectedSessions.cs" />
-    <Compile Include="Helpers\OauthLoginIconProvider.cs" />
     <Compile Include="Helpers\LoginMethods\ExternalLoginsProvider.cs" />
     <Compile Include="Helpers\LoginMethods\LoginMethodLoader.cs" />
     <Compile Include="Helpers\LoginMethods\LoginMethodViewModelBuilder.cs" />
