@@ -97,3 +97,21 @@ fieldset {
     -moz-border-radius: 4px 0 4px 0;
     border-radius: 4px 0 4px 0;
 }
+
+#oldsites-footer-menu {
+    display: inline-block;
+    text-decoration: underline;
+}
+
+#oldsites-footer-menu ul {
+    display: none;
+    list-style: none;
+    margin-left: 0;
+    padding-left: 10px;
+    width: 120px;
+    position: absolute;
+}
+
+#oldsites-footer-menu div:hover > ul {
+    display: inline-block;
+}
