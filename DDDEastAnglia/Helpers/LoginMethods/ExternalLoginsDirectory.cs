@@ -7,17 +7,17 @@ using Microsoft.Web.WebPages.OAuth;
 
 namespace DDDEastAnglia.Helpers.LoginMethods
 {
-    public class ExternalLoginsProvider
+    public class ExternalLoginsDirectory
     {
         private readonly IOAuthClientInfo oAuthClientInfo;
 
-        public ExternalLoginsProvider(IOAuthClientInfo oAuthClientInfo)
+        public ExternalLoginsDirectory(IOAuthClientInfo oAuthClientInfo)
         {
             if (oAuthClientInfo == null)
             {
                 throw new ArgumentNullException("oAuthClientInfo");
             }
-            
+
             this.oAuthClientInfo = oAuthClientInfo;
         }
 

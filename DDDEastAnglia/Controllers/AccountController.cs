@@ -18,12 +18,12 @@ namespace DDDEastAnglia.Controllers
     {
         private readonly IUserProfileRepository userProfileRepository;
         private readonly IBuild<LoginMethod, LoginMethodViewModel> loginMethodViewModelBuilder;
-        private readonly ExternalLoginsProvider externalLoginsProvider;
+        private readonly ExternalLoginsDirectory externalLoginsDirectory;
         private readonly IOAuthClientInfo oAuthClientInfo;
 
         public AccountController(IUserProfileRepository userProfileRepository, 
             IBuild<LoginMethod, LoginMethodViewModel> loginMethodViewModelBuilder,
-            ExternalLoginsProvider externalLoginsProvider, 
+            ExternalLoginsDirectory externalLoginsDirectory, 
             IOAuthClientInfo oAuthClientInfo)
         {
             if (userProfileRepository == null)
@@ -36,9 +36,9 @@ namespace DDDEastAnglia.Controllers
                 throw new ArgumentNullException("loginMethodViewModelBuilder");
             }
 
-            if (externalLoginsProvider == null)
+            if (externalLoginsDirectory == null)
             {
-                throw new ArgumentNullException("externalLoginsProvider");
+                throw new ArgumentNullException("externalLoginsDirectory");
             }
 
             if (oAuthClientInfo == null)
@@ -48,7 +48,7 @@ namespace DDDEastAnglia.Controllers
 
             this.userProfileRepository = userProfileRepository;
             this.loginMethodViewModelBuilder = loginMethodViewModelBuilder;
-            this.externalLoginsProvider = externalLoginsProvider;
+            this.externalLoginsDirectory = externalLoginsDirectory;
             this.oAuthClientInfo = oAuthClientInfo;
         }
 
@@ -170,8 +170,8 @@ namespace DDDEastAnglia.Controllers
         [ChildActionOnly]
         public ActionResult ExternalLogins(string returnUrl)
         {
-            var allExternalLogins = externalLoginsProvider.GetAllAvailable();
-            var usersExternalLogins = externalLoginsProvider.GetForUser(User.Identity.Name).ToList();
+            var allExternalLogins = externalLoginsDirectory.GetAllAvailable();
+            var usersExternalLogins = externalLoginsDirectory.GetForUser(User.Identity.Name).ToList();
             var usersProviderToUserId = usersExternalLogins.ToDictionary(l => l.ProviderName, l => l.ProviderUserId);
 
             foreach (var externalLogin in allExternalLogins)
@@ -196,7 +196,7 @@ namespace DDDEastAnglia.Controllers
         [ChildActionOnly]
         public ActionResult ExternalLoginMethods()
         {
-            var externalLogins = externalLoginsProvider.GetAllAvailable();
+            var externalLogins = externalLoginsDirectory.GetAllAvailable();
             var viewModels = externalLogins.Select(loginMethodViewModelBuilder.Build);
             return PartialView("_ExternalLoginMethodsPartial", viewModels);
         }
@@ -206,7 +206,7 @@ namespace DDDEastAnglia.Controllers
         public ActionResult ExternalLoginButtons(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
-            var externalLogins = externalLoginsProvider.GetAllAvailable();
+            var externalLogins = externalLoginsDirectory.GetAllAvailable();
             var viewModels = externalLogins.Select(loginMethodViewModelBuilder.Build);
             return PartialView("_ExternalLoginButtonsPartial", viewModels);
         }
