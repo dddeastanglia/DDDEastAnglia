@@ -11,8 +11,7 @@ namespace DDDEastAnglia.Tests.Helpers.LoginMethods
         [Test]
         public void GetIcon_ReturnsTheConfiguredIconForOAuthProvider()
         {
-            var appSettingsProvider = Substitute.For<IAppSettingsProvider>();
-            appSettingsProvider.GetSetting(LoginMethodIconProvider.AppSettingsKeyPrefix + "test").Returns("test-icon");
+            var appSettingsProvider = CreateAppSettingsProvider("test", "test-icon");
             var iconProvider = new LoginMethodIconProvider(appSettingsProvider);
 
             string icon = iconProvider.GetIcon("test");
@@ -23,13 +22,19 @@ namespace DDDEastAnglia.Tests.Helpers.LoginMethods
         [Test]
         public void GetIcon_ReturnsTheUnknownIconForAnUnknownOAuthProvider()
         {
-            var appSettingsProvider = Substitute.For<IAppSettingsProvider>();
-            appSettingsProvider.GetSetting(LoginMethodIconProvider.AppSettingsKeyPrefix + LoginMethodIconProvider.UnknownProviderKeyName).Returns("unknown-icon");
+            var appSettingsProvider = CreateAppSettingsProvider(LoginMethodIconProvider.UnknownProviderKeyName, "unknown-icon");
             var iconProvider = new LoginMethodIconProvider(appSettingsProvider);
 
             string icon = iconProvider.GetIcon("test");
 
             Assert.That(icon, Is.EqualTo("unknown-icon"));
+        }
+
+        private IAppSettingsProvider CreateAppSettingsProvider(string providerName, string icon)
+        {
+            var appSettingsProvider = Substitute.For<IAppSettingsProvider>();
+            appSettingsProvider.GetSetting(LoginMethodIconProvider.AppSettingsKeyPrefix + providerName).Returns(icon);
+            return appSettingsProvider;
         }
     }
 }
