@@ -41,7 +41,6 @@ namespace DDDEastAnglia.Controllers
             var conference = conferenceLoader.LoadConference();
             bool showLinksForSubmittedSessions = !conference.CanPublishAgenda() && (conference.CanSubmit() || conference.CanVote());
             
-            // TODO: Only show speaker link after agenda publish
             var links = new List<NavigationMenuLinkViewModel>
                 {
                     CreateLink("Home", "Home", "Index"), 
