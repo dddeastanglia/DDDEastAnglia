@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc;
-using DDDEastAnglia.DataAccess;
+﻿using DDDEastAnglia.DataAccess;
+using DDDEastAnglia.Helpers;
 using DDDEastAnglia.Models;
 using DDDEastAnglia.Mvc.Attributes;
-using DDDEastAnglia.Helpers;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace DDDEastAnglia.Controllers
 {
@@ -45,6 +45,7 @@ namespace DDDEastAnglia.Controllers
                 var profile = speakersLookup[session.SpeakerUserName];
                 var displayModel = CreateDisplayModel(session, profile);
                 allSessions.Add(displayModel);
+                displayModel.ShowSpeakerDetails = conference.CanPublishAgenda();
             }
 
             sessionSorter.SortSessions(conference, allSessions);
@@ -60,6 +61,8 @@ namespace DDDEastAnglia.Controllers
         [AllowAnonymous]
         public ActionResult Details(int id = 0)
         {
+            var conference = conferenceLoader.LoadConference();
+
             Session session = sessionRepository.Get(id);
 
             if (session == null)
@@ -70,6 +73,7 @@ namespace DDDEastAnglia.Controllers
             var userProfile = userProfileRepository.GetUserProfileByUserName(session.SpeakerUserName);
             var displayModel = CreateDisplayModel(session, userProfile);
             displayModel.SpeakerGravatarUrl = userProfile.GravatarUrl();
+            displayModel.ShowSpeakerDetails = conference.CanPublishAgenda();
             return View(displayModel);
         }
 
@@ -94,7 +98,7 @@ namespace DDDEastAnglia.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View(new Session {SpeakerUserName = userProfile.UserName, ConferenceId = conference.Id});
+            return View(new Session { SpeakerUserName = userProfile.UserName, ConferenceId = conference.Id });
         }
 
         [HttpPost]
@@ -110,7 +114,7 @@ namespace DDDEastAnglia.Controllers
             if (ModelState.IsValid)
             {
                 var addedSession = sessionRepository.AddSession(session);
-                return RedirectToAction("Details", new {id = addedSession.SessionId});
+                return RedirectToAction("Details", new { id = addedSession.SessionId });
             }
 
             return View(session);
@@ -185,7 +189,7 @@ namespace DDDEastAnglia.Controllers
             {
                 return new HttpUnauthorizedResult();
             }
-            
+
             sessionRepository.DeleteSession(id);
             return RedirectToAction("Index");
         }
@@ -194,7 +198,7 @@ namespace DDDEastAnglia.Controllers
         {
             var isUsersSession = Request.IsAuthenticated && session.SpeakerUserName == User.Identity.Name;
             var tweetLink = CreateTweetLink(isUsersSession, session.Title,
-                                            Url.Action("Details", "Session", new {id = session.SessionId},
+                                            Url.Action("Details", "Session", new { id = session.SessionId },
                                                        Request.Url.Scheme));
 
             var displayModel = new SessionDisplayModel
