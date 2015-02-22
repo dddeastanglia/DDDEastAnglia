@@ -5,25 +5,18 @@
 }
 
 <h2>@Html.DisplayFor(model => model.SessionTitle)</h2>
-
-<div>
-    @if (Model.SpeakerGravatarUrl != null)
-    {
-        <img src="@Model.SpeakerGravatarUrl" alt="@Model.SpeakerName"  />
-    }
-    <a href="@Url.Action("Details", "Speaker", new { id = Model.SpeakerId })">@(string.IsNullOrWhiteSpace(Model.SpeakerName) ? Model.SpeakerUserName : Model.SpeakerName)</a>
-</div>
-
+@if (Model.ShowSpeakerDetails)
+{
+    <div>
+        @if (Model.SpeakerGravatarUrl != null)
+        {
+            <img src="@Model.SpeakerGravatarUrl" alt="@Model.SpeakerName"  />
+        }
+        <a href="@Url.Action("Details", "Speaker", new {id = Model.SpeakerId})">@(string.IsNullOrWhiteSpace(Model.SpeakerName) ? Model.SpeakerUserName : Model.SpeakerName)</a>
+    </div>
+}
 <div class="tweet-session">
-    @if (User.Identity.Name == Model.SpeakerUserName)
-    {
-        @Html.TweetButton("Check out my session for #dddea - " + Model.SessionTitle, Request.Url)
-    }
-    else
-    {
         @Html.TweetButton("Check out this session for #dddea - " + Model.SessionTitle, Request.Url)
-    }
-
 </div>
 
 <div class="abstract">
