@@ -1,16 +1,16 @@
-﻿using System;
-using System.Security.Principal;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Routing;
-using DDDEastAnglia.Controllers;
+﻿using DDDEastAnglia.Controllers;
 using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.Domain;
 using DDDEastAnglia.Models;
 using DDDEastAnglia.NavigationMenu;
 using NSubstitute;
 using NUnit.Framework;
+using System;
 using System.Linq;
+using System.Security.Principal;
+using System.Web;
+using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace DDDEastAnglia.Tests.Controllers
 {
@@ -93,7 +93,7 @@ namespace DDDEastAnglia.Tests.Controllers
         [Test]
         public void SetTheAdminLinkToVisible_WhenTheUserIsInTheAdministratorRole()
         {
-            var controller = CreateController(userRoles: new[] {"administrator"});
+            var controller = CreateController(userRoles: new[] { "administrator" });
 
             var result = controller.RenderMenu();
 
@@ -157,36 +157,36 @@ namespace DDDEastAnglia.Tests.Controllers
         }
 
         [Test]
-        public void SetTheSpeakersLinkToVisible_WhenTheEventReportsThatSessionVotingIsOpen()
+        public void SetTheSpeakersLinkToNotVisible_WhenTheEventReportsThatSessionVotingIsOpen()
         {
             var controller = CreateController(conference => conference.CanVote().Returns(true));
 
             var result = controller.RenderMenu();
 
             var agendaLink = FindLink(result, "Speakers");
-            Assert.IsTrue(agendaLink.IsVisible);
+            Assert.IsFalse(agendaLink.IsVisible);
         }
 
         [Test]
-        public void SetTheSpeakersLinkToVisible_WhenTheEventReportsThatSessionSubmissionIsOpen()
+        public void SetTheSpeakersLinkToNotVisible_WhenTheEventReportsThatSessionSubmissionIsOpen()
         {
             var controller = CreateController(conference => conference.CanSubmit().Returns(true));
 
             var result = controller.RenderMenu();
 
             var agendaLink = FindLink(result, "Speakers");
-            Assert.IsTrue(agendaLink.IsVisible);
+            Assert.IsFalse(agendaLink.IsVisible);
         }
 
         [Test]
-        public void SetTheSpeakersLinkToNotVisible_WhenTheEventReportsThatTheAgendaIsPublished()
+        public void SetTheSpeakersLinkToVisible_WhenTheEventReportsThatTheAgendaIsPublished()
         {
             var controller = CreateController(conference => conference.CanPublishAgenda().Returns(true));
 
             var result = controller.RenderMenu();
 
             var agendaLink = FindLink(result, "Speakers");
-            Assert.IsFalse(agendaLink.IsVisible);
+            Assert.IsTrue(agendaLink.IsVisible);
         }
 
         [Test]
@@ -235,15 +235,15 @@ namespace DDDEastAnglia.Tests.Controllers
 
         private NavigationMenuLinkViewModel FindLink(ActionResult result, string linkText)
         {
-            var partialResult =(PartialViewResult) result;
-            var model = (NavigationMenuViewModel) partialResult.Model;
+            var partialResult = (PartialViewResult)result;
+            var model = (NavigationMenuViewModel)partialResult.Model;
             var link = model.Links.Single(l => l.LinkText == linkText);
             return link;
         }
 
-        private NavigationBarController CreateController(Action<IConference> conferenceSetupCallback = null, 
-                                                            string[] userRoles = null, 
-                                                            string currentControllerName = "some controller", 
+        private NavigationBarController CreateController(Action<IConference> conferenceSetupCallback = null,
+                                                            string[] userRoles = null,
+                                                            string currentControllerName = "some controller",
                                                             string currentActionName = "some action")
         {
             var conference = Substitute.For<IConference>();
@@ -257,12 +257,12 @@ namespace DDDEastAnglia.Tests.Controllers
 
             var conferenceLoader = Substitute.For<IConferenceLoader>();
             conferenceLoader.LoadConference().Returns(conference);
-            
+
             var routeData = new RouteData();
             routeData.Values.Add("controller", currentControllerName);
             routeData.Values.Add("action", currentActionName);
 
-            var requestContext = new RequestContext {RouteData = routeData};
+            var requestContext = new RequestContext { RouteData = routeData };
 
             var menuStateFactory = Substitute.For<IMenuStateFactory>();
             menuStateFactory.Create(Arg.Any<RouteData>()).Returns(new MenuState(routeData));
@@ -270,12 +270,12 @@ namespace DDDEastAnglia.Tests.Controllers
             urlHelperFactory.Create(Arg.Any<RequestContext>()).Returns(new UrlHelper(requestContext));
 
             var controllerContext = new ControllerContext();
-            routeData.DataTokens["ParentActionViewContext"] = new ViewContext {RouteData = routeData};
+            routeData.DataTokens["ParentActionViewContext"] = new ViewContext { RouteData = routeData };
             controllerContext.RouteData = routeData;
             controllerContext.HttpContext = Substitute.For<HttpContextBase>();
             controllerContext.HttpContext.User.Returns(user);
             controllerContext.RequestContext = requestContext;
-            return new NavigationBarController(conferenceLoader, menuStateFactory, urlHelperFactory) {ControllerContext = controllerContext};
+            return new NavigationBarController(conferenceLoader, menuStateFactory, urlHelperFactory) { ControllerContext = controllerContext };
         }
     }
 }
