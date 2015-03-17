@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc;
-using DDDEastAnglia.DataAccess;
+﻿using DDDEastAnglia.DataAccess;
+using DDDEastAnglia.Helpers;
+using DDDEastAnglia.Helpers.Email;
 using DDDEastAnglia.Models;
 using DDDEastAnglia.Mvc.Attributes;
-using DDDEastAnglia.Helpers;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace DDDEastAnglia.Controllers
 {
@@ -15,13 +16,17 @@ namespace DDDEastAnglia.Controllers
         private readonly IUserProfileRepository userProfileRepository;
         private readonly ISessionRepository sessionRepository;
         private readonly ISessionSorter sessionSorter;
+        private readonly IEmailSender emailSender;
+        private readonly ISessionSubmissionMessageFactory messageFactory;
 
-        public SessionController(IConferenceLoader conferenceLoader, IUserProfileRepository userProfileRepository, ISessionRepository sessionRepository, ISessionSorter sorter)
+        public SessionController(IConferenceLoader conferenceLoader, IUserProfileRepository userProfileRepository, ISessionRepository sessionRepository, ISessionSorter sorter, IEmailSender emailSender, ISessionSubmissionMessageFactory messageFactory)
         {
             this.conferenceLoader = conferenceLoader;
             this.userProfileRepository = userProfileRepository;
             this.sessionRepository = sessionRepository;
             sessionSorter = sorter;
+            this.emailSender = emailSender;
+            this.messageFactory = messageFactory;
         }
 
         [AllowAnonymous]
@@ -94,7 +99,7 @@ namespace DDDEastAnglia.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View(new Session {SpeakerUserName = userProfile.UserName, ConferenceId = conference.Id});
+            return View(new Session { SpeakerUserName = userProfile.UserName, ConferenceId = conference.Id });
         }
 
         [HttpPost]
@@ -110,7 +115,16 @@ namespace DDDEastAnglia.Controllers
             if (ModelState.IsValid)
             {
                 var addedSession = sessionRepository.AddSession(session);
-                return RedirectToAction("Details", new {id = addedSession.SessionId});
+
+                UserProfile speakerProfile = userProfileRepository.GetUserProfileByUserName(User.Identity.Name);
+                string htmlTemplatePath = Server.MapPath("~/SessionSubmissionTemplate.html");
+                string textTemplatePath = Server.MapPath("~/SessionSubmissionTemplate.txt");
+
+                IMailMessage sessionSubmissionMessage = messageFactory.Create(htmlTemplatePath, textTemplatePath, session,
+                    speakerProfile, false);
+                emailSender.Send(sessionSubmissionMessage);
+
+                return RedirectToAction("Details", new { id = addedSession.SessionId });
             }
 
             return View(session);
@@ -148,6 +162,15 @@ namespace DDDEastAnglia.Controllers
             if (ModelState.IsValid)
             {
                 sessionRepository.UpdateSession(session);
+
+                UserProfile speakerProfile = userProfileRepository.GetUserProfileByUserName(User.Identity.Name);
+                string htmlTemplatePath = Server.MapPath("~/SessionSubmissionTemplate.html");
+                string textTemplatePath = Server.MapPath("~/SessionSubmissionTemplate.txt");
+
+                IMailMessage sessionUpdateMessage = messageFactory.Create(htmlTemplatePath, textTemplatePath, session,
+                    speakerProfile, true);
+                emailSender.Send(sessionUpdateMessage);
+
                 return RedirectToAction("Index");
             }
 
@@ -185,7 +208,7 @@ namespace DDDEastAnglia.Controllers
             {
                 return new HttpUnauthorizedResult();
             }
-            
+
             sessionRepository.DeleteSession(id);
             return RedirectToAction("Index");
         }
@@ -194,7 +217,7 @@ namespace DDDEastAnglia.Controllers
         {
             var isUsersSession = Request.IsAuthenticated && session.SpeakerUserName == User.Identity.Name;
             var tweetLink = CreateTweetLink(isUsersSession, session.Title,
-                                            Url.Action("Details", "Session", new {id = session.SessionId},
+                                            Url.Action("Details", "Session", new { id = session.SessionId },
                                                        Request.Url.Scheme));
 
             var displayModel = new SessionDisplayModel

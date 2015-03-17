@@ -1,0 +1,7 @@
+﻿Thanks for submitting a session for DDD East Anglia!
+        
+Here's a copy of your session abstract for your records:
+Title: [SessionTitle]
+[SessionAbstract]
+
+You can contact us at organisers@dddeastanglia.com.
