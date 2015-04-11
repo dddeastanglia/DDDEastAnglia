@@ -4,7 +4,8 @@ using NSubstitute;
 using NUnit.Framework;
 using System;
 using System.Net.Mail;
-using MailMessage = DDDEastAnglia.Helpers.Email.MailMessage;
+using DDDEastAnglia.Services.Messenger.Email;
+using MailMessage = DDDEastAnglia.Services.Messenger.Email.MailMessage;
 
 namespace DDDEastAnglia.Tests.Helpers.Email
 {
@@ -62,8 +63,7 @@ namespace DDDEastAnglia.Tests.Helpers.Email
                 From = new MailAddress(@"""DDD East Anglia"" <admin@dddeastanglia.com>"),
                 To = new MailAddress("user@dddeastanglia.com"),
                 Subject = "DDD East Anglia Password Reset Request",
-                Html = expectedContent,
-                Text = expectedContent
+                Body = expectedContent
             };
 
             var emailSender = Substitute.For<IPostman>();

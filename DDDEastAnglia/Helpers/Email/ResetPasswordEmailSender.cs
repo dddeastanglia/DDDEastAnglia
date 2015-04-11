@@ -1,6 +1,8 @@
 ﻿using DDDEastAnglia.Helpers.File;
 using System;
 using System.Net.Mail;
+using DDDEastAnglia.Services.Messenger.Email;
+using MailMessage = DDDEastAnglia.Services.Messenger.Email.MailMessage;
 
 namespace DDDEastAnglia.Helpers.Email
 {
@@ -47,7 +49,7 @@ namespace DDDEastAnglia.Helpers.Email
             var html = htmlTemplate.Replace(ResetLinkToken, resetPasswordUrl);
             var text = textTemplate.Replace(ResetLinkToken, resetPasswordUrl);
 
-            var message = new MailMessage() { From = from, To = to, Subject = ResetEmailSubject, Html = html, Text = text };
+            var message = new MailMessage() { From = from, To = to, Subject = ResetEmailSubject, Body = text };
             postman.Deliver(message);
         }
     }

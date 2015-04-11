@@ -5,6 +5,7 @@ using DDDEastAnglia.Models;
 using NSubstitute;
 using NUnit.Framework;
 using System;
+using DDDEastAnglia.Services.Messenger.Email;
 
 namespace DDDEastAnglia.Tests.Helpers.Email
 {
@@ -74,24 +75,6 @@ namespace DDDEastAnglia.Tests.Helpers.Email
         }
 
         [Test]
-        public void SubstituteTheSessionAbstract_IntoTheHtmlTemplate()
-        {
-            var fileContentsProvider = Substitute.For<IFileContentsProvider>();
-            var session = new Session { Abstract = "abstract" };
-            var profile = new UserProfile { EmailAddress = "speaker@dddeastanglia.com" };
-
-            SessionSubmissionMessageFactory factory = new SessionSubmissionMessageFactory(fileContentsProvider);
-            const string contentTemplate = "test {0} email";
-            string content = string.Format(contentTemplate, session.Abstract);
-            fileContentsProvider.GetFileContents("htmlTemplatePath").ReturnsForAnyArgs(content);
-
-            MailMessage result = factory.Create("htmlTemplatePath", "textTemplatePath", session, profile, false);
-
-            string expectedContent = string.Format(contentTemplate, "abstract");
-            Assert.AreEqual(expectedContent, result.Html);
-        }
-
-        [Test]
         public void SubstituteTheSessionAbstract_IntoTheTextTemplate()
         {
             var fileContentsProvider = Substitute.For<IFileContentsProvider>();
@@ -106,7 +89,7 @@ namespace DDDEastAnglia.Tests.Helpers.Email
             MailMessage result = factory.Create("htmlTemplatePath", "textTemplatePath", session, profile, false);
 
             string expectedContent = string.Format(contentTemplate, "abstract");
-            Assert.AreEqual(expectedContent, result.Text);
+            Assert.AreEqual(expectedContent, result.Body);
         }
 
         [Test]

@@ -1,12 +1,14 @@
-﻿using DDDEastAnglia.DataAccess;
-using DDDEastAnglia.Helpers;
-using DDDEastAnglia.Helpers.Email;
-using DDDEastAnglia.Helpers.File;
-using DDDEastAnglia.Models;
-using DDDEastAnglia.Mvc.Attributes;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using DDDEastAnglia.DataAccess;
+using DDDEastAnglia.Helpers;
+using DDDEastAnglia.Helpers.Email;
+using DDDEastAnglia.Models;
+using DDDEastAnglia.Mvc.Attributes;
+using DDDEastAnglia.Services.Messenger;
+using DDDEastAnglia.Services.Messenger.Email;
+using DDDEastAnglia.Services.Messenger.Email.Templates;
 
 namespace DDDEastAnglia.Controllers
 {
@@ -119,16 +121,10 @@ namespace DDDEastAnglia.Controllers
 
                 UserProfile speakerProfile = userProfileRepository.GetUserProfileByUserName(User.Identity.Name);
                 // TODO Add as resources or in the database so we can abstract the filesystem
-                string htmlTemplatePath = Server.MapPath("~/SessionSubmissionTemplate.html");
                 string textTemplatePath = Server.MapPath("~/SessionSubmissionTemplate.txt");
 
-                var fileContentsProvider = new FileContentsProvider();
-                var plainTextMailTemplate = new TokenSubstitutingMailTemplate(textTemplatePath, fileContentsProvider);
-                var htmlMailTemplate = new HtmlMailTemplate(
-                    plainTextMailTemplate,
-                    fileContentsProvider.GetFileContents(Server.MapPath("~/EmailTemplate.html")));
-
-                new SessionCreationMailMessenger(postman, plainTextMailTemplate, htmlMailTemplate).Notify(speakerProfile, addedSession);
+                var sessionCreatedMailTemplate = SessionCreatedMailTemplate.Create(textTemplatePath, addedSession);
+                new SessionCreationMailMessenger(postman, sessionCreatedMailTemplate).Notify(speakerProfile, addedSession);
 
                 return RedirectToAction("Details", new { id = addedSession.SessionId });
             }

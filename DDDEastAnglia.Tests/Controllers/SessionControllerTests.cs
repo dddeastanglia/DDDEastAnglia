@@ -7,6 +7,7 @@ using DDDEastAnglia.Models;
 using NSubstitute;
 using NUnit.Framework;
 using System.Web.Mvc;
+using DDDEastAnglia.Services.Messenger.Email;
 
 namespace DDDEastAnglia.Tests.Controllers
 {

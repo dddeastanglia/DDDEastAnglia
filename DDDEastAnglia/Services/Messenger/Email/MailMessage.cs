@@ -1,12 +1,12 @@
 ﻿using System.Net.Mail;
 
-namespace DDDEastAnglia.Helpers.Email
+namespace DDDEastAnglia.Services.Messenger.Email
 {
     public class MailMessage
     {
         protected bool Equals(MailMessage other)
         {
-            return Equals(From, other.From) && Equals(To, other.To) && string.Equals(Subject, other.Subject) && string.Equals(Html, other.Html) && string.Equals(Text, other.Text);
+            return Equals(From, other.From) && Equals(To, other.To) && string.Equals(Subject, other.Subject) && string.Equals(Body, other.Body);
         }
 
         public override bool Equals(object obj)
@@ -24,8 +24,7 @@ namespace DDDEastAnglia.Helpers.Email
                 int hashCode = (From != null ? From.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (To != null ? To.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (Subject != null ? Subject.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (Html != null ? Html.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (Text != null ? Text.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Body != null ? Body.GetHashCode() : 0);
                 return hashCode;
             }
         }
@@ -33,7 +32,6 @@ namespace DDDEastAnglia.Helpers.Email
         public MailAddress From { get; set; }
         public MailAddress To { get; set; }
         public string Subject { get; set; }
-        public string Html { get; set; }
-        public string Text { get; set; }
+        public string Body { get; set; }
     }
 }

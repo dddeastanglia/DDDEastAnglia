@@ -1,6 +1,6 @@
 ﻿using DDDEastAnglia.Models;
 
-namespace DDDEastAnglia.Helpers
+namespace DDDEastAnglia.Services.Messenger
 {
     public interface IMessenger<in T>
     {

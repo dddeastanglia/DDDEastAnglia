@@ -1,4 +1,4 @@
-﻿namespace DDDEastAnglia.Helpers.Email
+﻿namespace DDDEastAnglia.Services.Messenger.Email
 {
     public interface IPostman
     {
