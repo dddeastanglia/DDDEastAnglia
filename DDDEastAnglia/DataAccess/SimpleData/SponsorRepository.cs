@@ -13,9 +13,14 @@ namespace DDDEastAnglia.DataAccess.SimpleData
             return db.Sponsors.All();
         }
 
-        public void Add(Sponsor sponsor)
+        public void AddSponsor(Sponsor sponsor)
         {
             db.Sponsors.Insert(sponsor);
+        }
+
+        public Sponsor GetSponsor(int sponsorId)
+        {
+            return db.Sponsors.FindBySponsorId(sponsorId);
         }
     }
 }

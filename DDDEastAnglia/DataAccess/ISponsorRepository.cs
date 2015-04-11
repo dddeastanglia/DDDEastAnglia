@@ -6,6 +6,7 @@ namespace DDDEastAnglia.DataAccess
     public interface ISponsorRepository
     {
         IEnumerable<Sponsor> GetAllSponsors();
-        void Add(Sponsor sponsor);
+        void AddSponsor(Sponsor sponsor);
+        Sponsor GetSponsor(int sponsorId);
     }
 }
