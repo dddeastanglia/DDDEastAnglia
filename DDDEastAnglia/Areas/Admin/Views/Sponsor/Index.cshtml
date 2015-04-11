@@ -46,7 +46,6 @@
         </td><td>
             @sponsor.SponsorshipAmount
         </td><td>
-        </td><td>
             @(sponsor.PaymentDate != null ? sponsor.PaymentDate.Value.ToString("D") : "")
         </td><td>
             <img src='@Url.Action("Logo", new { sponsorId = @sponsor.SponsorId })' />
