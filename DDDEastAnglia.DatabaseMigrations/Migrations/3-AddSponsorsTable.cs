@@ -12,7 +12,8 @@ namespace DDDEastAnglia.DatabaseMigrations.Migrations
                 .WithColumn("Name").AsString(50).NotNullable()
                 .WithColumn("Url").AsString(255).NotNullable()
                 .WithColumn("SponsorshipAmount").AsInt32().Nullable()
-                .WithColumn("Logo").AsBinary().NotNullable();
+                .WithColumn("Logo").AsBinary(int.MaxValue).NotNullable()
+                .WithColumn("PaymentDate").AsDateTime().Nullable();
         }
 
         public override void Down()
