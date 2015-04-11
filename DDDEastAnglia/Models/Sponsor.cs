@@ -1,4 +1,6 @@
-﻿namespace DDDEastAnglia.Models
+﻿using System;
+
+namespace DDDEastAnglia.Models
 {
     public class Sponsor
     {
@@ -7,5 +9,6 @@
         public string Url { get; set; }
         public int SponsorshipAmount { get; set; }
         public byte[] Logo { get; set; }
+        public DateTime? PaymentDate { get; set; }
     }
 }
