@@ -1,13 +1,56 @@
 ﻿@model IEnumerable<DDDEastAnglia.Areas.Admin.Models.SponsorModel>
 
-<h2>Hello!!!</h2>
+<h2>Sponsors</h2>
 
-@foreach (var sponsor in Model)
-{
-  @sponsor.Name
-    <br />
-  @sponsor.Url
-  <br/>
-  <br/>
-  <br/>
-}
+<div class="pull-left">
+    <span class="icon-plus-sign"></span>
+    @Html.ActionLink("Add new sponsor", "Create")
+</div>
+
+<div class="pull-right">
+    <strong>@Model.Count() sponsors</strong>
+</div>
+
+<table id="sponsorsTable" class="table table-striped table-hover table-condensed">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+                <span class="icon"></span>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Url)
+                <span class="icon"></span>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SponsorshipAmount)
+                <span class="icon"></span>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaymentDate)
+                <span class="icon"></span>
+            </th>
+            <th>
+                &nbsp;
+            </th>
+        </tr>
+    </thead>
+
+    <tbody>
+    @foreach (var sponsor in Model)
+    {
+        <tr><td>
+            @sponsor.Name
+        </td><td>
+            <a href="@sponsor.Url">@sponsor.Url</a>
+        </td><td>
+            @sponsor.SponsorshipAmount
+        </td><td>
+        </td><td>
+            @(sponsor.PaymentDate != null ? sponsor.PaymentDate.Value.ToString("D") : "")
+        </td><td>
+            <img src='@Url.Action("Logo", new { sponsorId = @sponsor.SponsorId })' />
+        </td></tr>
+    }
+    </tbody>
+</table>
