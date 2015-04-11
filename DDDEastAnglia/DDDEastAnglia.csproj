@@ -210,8 +210,10 @@
     <Compile Include="App_Start\Filters\ClosedFilterProvider.cs" />
     <Compile Include="App_Start\Filters\FilterProvider.cs" />
     <Compile Include="App_Start\Filters\PreviewFilterProvider.cs" />
+    <Compile Include="Areas\Admin\Controllers\SponsorController.cs" />
     <Compile Include="Areas\Admin\Models\MenuViewModel.cs" />
     <Compile Include="Areas\Admin\Models\SpeakerModel.cs" />
+    <Compile Include="Areas\Admin\Models\SponsorModel.cs" />
     <Compile Include="Areas\Admin\Models\VotersPerIPAddressViewModel.cs" />
     <Compile Include="Areas\Admin\Models\VotesPerDateViewModel.cs" />
     <Content Include="Content\common.css" />
@@ -223,6 +225,9 @@
     <Compile Include="DataAccess\ConferenceLoader.cs" />
     <Compile Include="DataAccess\IAccountLoginMethodQuery.cs" />
     <Compile Include="DataAccess\ISpeakerRepository.cs" />
+    <Compile Include="DataAccess\ISponsorRepository.cs" />
+    <Compile Include="Models\Sponsor.cs" />
+    <Compile Include="DataAccess\SimpleData\SponsorRepository.cs" />
     <Compile Include="Helpers\LoginMethodLoader.cs" />
     <Compile Include="Helpers\LoginMethodViewModelBuilder.cs" />
     <Compile Include="Helpers\Sessions\SelectedSessions.cs" />
@@ -588,6 +593,7 @@
     <Content Include="Areas\Admin\Views\Voting\_UsersVotedForSession.cshtml" />
     <Content Include="Areas\Admin\Views\Voting\_IPAddressesVotedForSession.cshtml" />
     <Content Include="Areas\Admin\Views\Voting\IPAddressesThatVotedForSessions.cshtml" />
+    <Content Include="Areas\Admin\Views\Sponsor\Index.cshtml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\html5shiv-printshiv.js" />
