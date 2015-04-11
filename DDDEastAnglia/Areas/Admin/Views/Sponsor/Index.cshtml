@@ -27,6 +27,10 @@
                 <span class="icon"></span>
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.ShowPublicly)
+                <span class="icon"></span>
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.PaymentDate)
                 <span class="icon"></span>
             </th>
@@ -45,6 +49,8 @@
             <a href="@sponsor.Url">@sponsor.Url</a>
         </td><td>
             @sponsor.SponsorshipAmount
+        </td><td>
+            <i class="@(sponsor.ShowPublicly ? "icon-ok" : "icon-remove")"></i>
         </td><td>
             @(sponsor.PaymentDate != null ? sponsor.PaymentDate.Value.ToString("D") : "[Not Yet Received]")
         </td><td>

@@ -78,7 +78,8 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
                 Name = sponsor.Name,
                 Url = sponsor.Url,
                 SponsorshipAmount = sponsor.SponsorshipAmount,
-                PaymentDate = sponsor.PaymentDate
+                PaymentDate = sponsor.PaymentDate,
+                ShowPublicly = sponsor.ShowPublicly
             };
         }
 
@@ -90,7 +91,8 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
                 Url = sponsorModel.Url,
                 SponsorshipAmount = sponsorModel.SponsorshipAmount,
                 Logo = GetLogoFromRequest(),
-                PaymentDate = sponsorModel.PaymentDate
+                PaymentDate = sponsorModel.PaymentDate,
+                ShowPublicly = sponsorModel.ShowPublicly
             };
         }
     }

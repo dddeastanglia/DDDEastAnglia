@@ -18,5 +18,8 @@ namespace DDDEastAnglia.Areas.Admin.Models
 
         [DisplayName("Sponsorship Recieved On")]
         public DateTime? PaymentDate { get; set; }
+
+        [DisplayName("Show Publicly?")]
+        public bool ShowPublicly { get; set; }
     }
 }

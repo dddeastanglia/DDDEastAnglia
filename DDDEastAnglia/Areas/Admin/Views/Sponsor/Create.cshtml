@@ -51,6 +51,13 @@
 
     <div class="control-group">
         <div class="controls">
+            @Html.CheckBoxFor(m => Model.ShowPublicly)
+            @Html.LabelFor(m => Model.ShowPublicly, new { @class = "checkbox inline" })
+        </div>
+    </div>
+
+    <div class="control-group">
+        <div class="controls">
             <input type="submit" class="btn btn-primary" value="Save details" />
             @Html.ActionLink("Cancel", "Index")
         </div>

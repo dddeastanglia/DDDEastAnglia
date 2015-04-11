@@ -10,5 +10,6 @@ namespace DDDEastAnglia.Models
         public int SponsorshipAmount { get; set; }
         public byte[] Logo { get; set; }
         public DateTime? PaymentDate { get; set; }
+        public bool ShowPublicly { get; set; }
     }
 }
