@@ -1,63 +1,9 @@
-﻿<section id="sponsors">
+﻿@model IEnumerable<DDDEastAnglia.Controllers.SponsorsController.SponsorSidebarModel>
+<section id="sponsors">
     <h1>Sponsors</h1>
-
-    <div class="sponsor">
-        <a href="http://careers.comparethemarket.com"><img src="@Url.Content("~/Images/sponsors/comparethemarket.png")" /></a>
+    @foreach (var sponsor in Model)
+    {<div class="sponsor">
+        <a href="@sponsor.Url"><img src="@sponsor.Logo" /></a>
     </div>
-
-    <div class="sponsor">
-        <a href="http://redg.at/11xaIPC"><img src="@Url.Content("~/Images/sponsors/redgate.png")" /></a>
-    </div>
-
-    <div class="sponsor">
-        <a href="http://www.ndc-london.com/"><img src="@Url.Content("~/Images/sponsors/ndclondon.png")" /></a>
-    </div>
-
-    <div class="sponsor">
-        <a href="http://www.techsmith.com"><img src="@Url.Content("~/Images/sponsors/techsmith.png")" /></a>
-    </div>
-
-    <div class="sponsor">
-        <a href="http://www.tinamous.com"><img src="@Url.Content("~/Images/sponsors/tinamous.png")" /></a>
-    </div>
-
-    <div class="sponsor">
-        <a href="http://www.credit360.com/dddeastanglia"><img src="@Url.Content("~/Images/sponsors/CRedit360.png")" /></a>
-    </div>
-
-    <div class="sponsor">
-        <a href="http://www.equalexperts.com"><img src="@Url.Content("~/Images/sponsors/equalexperts.png")" /></a>
-    </div>
-
-    <div class="sponsor">
-        <a href="http://www.huddle.com"><img src="@Url.Content("~/Images/sponsors/huddle.png")" /></a>
-    </div>
-
-    <div class="sponsor">
-        <a href="http://www.blackdotsolutions.co.uk"><img src="@Url.Content("~/Images/sponsors/blackdotsolutions.png")" /></a>
-    </div>
-
-    <div class="sponsor">
-        <a href="http://www.github.com"><img src="@Url.Content("~/Images/sponsors/github.png")" /></a>
-    </div>
-
-    <div class="sponsor">
-        <a href="http://www.devexpress.com"><img src="@Url.Content("~/Images/sponsors/devexpress.png")" /></a>
-    </div>
-
-    <div class="sponsor">
-        <a href="https://zud.io"><img src="@Url.Content("~/Images/sponsors/zudio.png")" /></a>
-    </div>
-
-    <div class="sponsor">
-        <a href="http://www.pluralsight.com"><img src="@Url.Content("~/Images/sponsors/pluralsight.png")" /></a>
-    </div>
-
-    <div class="sponsor">
-        <a href="http://www.skillsmatter.com"><img src="@Url.Content("~/Images/sponsors/skillsmatter.png")" /></a>
-    </div>
-
-    <div class="sponsor">
-        <a href="http://www.ecmselection.co.uk"><img src="@Url.Content("~/Images/sponsors/ecmselection.png")" /></a>
-    </div>
+    }
 </section>

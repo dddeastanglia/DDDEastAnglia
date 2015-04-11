@@ -47,7 +47,7 @@ namespace DDDEastAnglia.Filters
         private MethodInfo FigureOutAppropriateAction(Type controllerType, string actionName)
         {
             // if there is a matching action, then assume the one with the fewest number of parameters is the best match
-            var methods = controllerType.GetMethods().Where(m => m.Name == actionName).OrderBy(m => m.GetParameters().Count());
+            var methods = controllerType.GetMethods().Where(m => m.Name.Equals(actionName, StringComparison.OrdinalIgnoreCase)).OrderBy(m => m.GetParameters().Count());
             return methods.First();
         }
     }

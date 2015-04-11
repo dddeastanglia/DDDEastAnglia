@@ -219,6 +219,7 @@
     <Content Include="Content\common.css" />
     <Compile Include="Areas\Admin\Models\VotesPerDayViewModel.cs" />
     <Compile Include="Controllers\GravatarController.cs" />
+    <Compile Include="Controllers\SponsorsController.cs" />
     <Compile Include="Controllers\TimelineController.cs" />
     <Compile Include="Controllers\UserNameFilterAttribute.cs" />
     <Compile Include="DataAccess\CachingVotingCookieFactory.cs" />
