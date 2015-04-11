@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.Filters;
@@ -10,16 +11,18 @@ namespace DDDEastAnglia.Controllers
     {
         private readonly IConferenceLoader conferenceLoader;
         private ISponsorRepository sponsorRepository;
+        private ISponsorSorter sponsorSorter;
 
-        public HomeController(IConferenceLoader conferenceLoader, ISponsorRepository sponsorRepository)
+        public HomeController(IConferenceLoader conferenceLoader, ISponsorRepository sponsorRepository, ISponsorSorter sponsorSorter)
         {
             if (conferenceLoader == null)
             {
                 throw new ArgumentNullException("conferenceLoader");
             }
-            
+
             this.conferenceLoader = conferenceLoader;
             this.sponsorRepository = sponsorRepository;
+            this.sponsorSorter = sponsorSorter;
         }
 
         public ActionResult Index()
@@ -56,14 +59,16 @@ namespace DDDEastAnglia.Controllers
 
         public ActionResult Sponsors()
         {
-            return View();
+            var sponsors = sponsorSorter.Sort(sponsorRepository.GetAllSponsors())
+                .Select(x => new SponsorModel { Name = x.Name, SponsorId = x.SponsorId, Url = x.Url });
+            return View(sponsors);
         }
 
         public ActionResult About()
         {
             var conference = conferenceLoader.LoadConference();
             var showSessionSubmissionLink = conference.CanSubmit();
-            return View(new AboutViewModel{ShowSessionSubmissionLink = showSessionSubmissionLink});
+            return View(new AboutViewModel { ShowSessionSubmissionLink = showSessionSubmissionLink });
         }
 
         public ActionResult Register()

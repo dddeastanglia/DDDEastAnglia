@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.Mvc;
 using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.Models;
@@ -9,10 +8,12 @@ namespace DDDEastAnglia.Controllers
     public class SponsorController : Controller
     {
         readonly ISponsorRepository sponsorRepository;
+        readonly ISponsorSorter sponsorSorter;
 
-        public SponsorController(ISponsorRepository sponsorRepository)
+        public SponsorController(ISponsorRepository sponsorRepository, ISponsorSorter sponsorSorter)
         {
             this.sponsorRepository = sponsorRepository;
+            this.sponsorSorter = sponsorSorter;
         }
 
         public ActionResult Logo(int sponsorId)
@@ -24,17 +25,7 @@ namespace DDDEastAnglia.Controllers
         [ChildActionOnly]
         public ActionResult Sidebar()
         {
-            return PartialView("_Sponsors", GetSponsors());
-        }
-
-        private IEnumerable<SponsorModel> GetSponsors()
-        {
-            var allSponsors = sponsorRepository
-                .GetAllSponsors()
-                .OrderByDescending(s => s.SponsorshipAmount).ThenBy(s => s.PaymentDate)
-                .Select(x => new SponsorModel {Name = x.Name, SponsorId = x.SponsorId, Url = x.Url})
-                ;
-            return allSponsors;
+            return PartialView("_Sponsors", sponsorSorter.Sort(sponsorRepository.GetAllSponsors()).Select(x => new SponsorModel { Name = x.Name, SponsorId = x.SponsorId, Url = x.Url }));
         }
     }
 }
