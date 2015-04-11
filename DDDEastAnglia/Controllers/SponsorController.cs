@@ -21,11 +21,6 @@ namespace DDDEastAnglia.Controllers
             return File(sponsor.Logo, "image/png");
         }
 
-        public ActionResult Index()
-        {
-            return View(GetSponsors());
-        }
-
         [ChildActionOnly]
         public ActionResult Sidebar()
         {

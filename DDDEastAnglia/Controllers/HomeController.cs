@@ -9,8 +9,9 @@ namespace DDDEastAnglia.Controllers
     public class HomeController : Controller
     {
         private readonly IConferenceLoader conferenceLoader;
+        private ISponsorRepository sponsorRepository;
 
-        public HomeController(IConferenceLoader conferenceLoader)
+        public HomeController(IConferenceLoader conferenceLoader, ISponsorRepository sponsorRepository)
         {
             if (conferenceLoader == null)
             {
@@ -18,6 +19,7 @@ namespace DDDEastAnglia.Controllers
             }
             
             this.conferenceLoader = conferenceLoader;
+            this.sponsorRepository = sponsorRepository;
         }
 
         public ActionResult Index()
@@ -52,15 +54,15 @@ namespace DDDEastAnglia.Controllers
             return View();
         }
 
-        //public ActionResult Sponsors()
-        //{
-        //    return View();
-        //}
+        public ActionResult Sponsors()
+        {
+            return View();
+        }
 
         public ActionResult About()
         {
             var conference = conferenceLoader.LoadConference();
-            bool showSessionSubmissionLink = conference.CanSubmit();
+            var showSessionSubmissionLink = conference.CanSubmit();
             return View(new AboutViewModel{ShowSessionSubmissionLink = showSessionSubmissionLink});
         }
 
