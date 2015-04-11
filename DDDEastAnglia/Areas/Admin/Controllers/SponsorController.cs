@@ -11,25 +11,31 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
     public class SponsorController : Controller
     {
         private readonly ISponsorRepository sponsorRepository;
+        private readonly ISponsorSorter sponsorSorter;
 
-        public SponsorController(ISponsorRepository sponsorRepository)
+        public SponsorController(ISponsorRepository sponsorRepository, ISponsorSorter sponsorSorter)
         {
             if (sponsorRepository == null)
             {
                 throw new ArgumentNullException("sponsorRepository");
             }
 
+            if (sponsorRepository == null)
+            {
+                throw new ArgumentNullException("sponsorRepository");
+            }
+
             this.sponsorRepository = sponsorRepository;
+            this.sponsorSorter = sponsorSorter;
         }
 
         public ActionResult Index()
         {
-            var sponsors = sponsorRepository.GetAllSponsors()
-                                    .Select(CreateSponsorModel)
-                                    .OrderByDescending(s => s.SponsorshipAmount)
-                                    .ThenBy(s => s.PaymentDate)
-                                    .ToList();
-            return View(sponsors);
+            var sponsors = sponsorRepository.GetAllSponsors();
+            var sortedSponsors = sponsorSorter.Sort(sponsors)
+                                              .Select(CreateSponsorModel)
+                                              .ToList();
+            return View(sortedSponsors);
         }
 
         public ActionResult Create()
