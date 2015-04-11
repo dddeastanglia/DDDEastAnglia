@@ -46,7 +46,7 @@
         </td><td>
             @sponsor.SponsorshipAmount
         </td><td>
-            @(sponsor.PaymentDate != null ? sponsor.PaymentDate.Value.ToString("D") : "")
+            @(sponsor.PaymentDate != null ? sponsor.PaymentDate.Value.ToString("D") : "[Not Yet Received]")
         </td><td>
             <img src='@Url.Action("Logo", new { sponsorId = @sponsor.SponsorId })' />
         </td></tr>
