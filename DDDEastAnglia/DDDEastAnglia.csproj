@@ -219,7 +219,7 @@
     <Content Include="Content\common.css" />
     <Compile Include="Areas\Admin\Models\VotesPerDayViewModel.cs" />
     <Compile Include="Controllers\GravatarController.cs" />
-    <Compile Include="Controllers\SponsorsController.cs" />
+    <Compile Include="Controllers\SponsorController.cs" />
     <Compile Include="Controllers\TimelineController.cs" />
     <Compile Include="Controllers\UserNameFilterAttribute.cs" />
     <Compile Include="DataAccess\CachingVotingCookieFactory.cs" />
@@ -259,6 +259,7 @@
     <Compile Include="LocalDateTimeOffsetProvider.cs" />
     <Compile Include="Models\AboutViewModel.cs" />
     <Compile Include="Models\LoginMethodViewModel.cs" />
+    <Compile Include="Models\SponsorModel.cs" />
     <Compile Include="Models\TimelineItemModel.cs" />
     <Compile Include="Models\TimelineModel.cs" />
     <Compile Include="Models\SpeakerProfile.cs" />
@@ -661,7 +662,6 @@
     <Content Include="Views\Session\Delete.cshtml" />
     <Content Include="Views\Home\Venue.cshtml" />
     <Content Include="Views\Home\Team.cshtml" />
-    <Content Include="Views\Home\Sponsors.cshtml" />
     <Content Include="Views\Shared\_GoogleAnalytics.cshtml" />
     <Content Include="Views\Speaker\Index.cshtml" />
     <Content Include="Views\Account\Registered.cshtml" />
@@ -687,6 +687,7 @@
     <Content Include="Views\Timeline\_Timeline.cshtml" />
     <Content Include="Views\Timeline\_TimelineItem.cshtml" />
     <Content Include="Views\Home\Closed.cshtml" />
+    <Content Include="Views\Sponsor\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

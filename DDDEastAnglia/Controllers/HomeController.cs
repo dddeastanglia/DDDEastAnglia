@@ -52,10 +52,10 @@ namespace DDDEastAnglia.Controllers
             return View();
         }
 
-        public ActionResult Sponsors()
-        {
-            return View();
-        }
+        //public ActionResult Sponsors()
+        //{
+        //    return View();
+        //}
 
         public ActionResult About()
         {

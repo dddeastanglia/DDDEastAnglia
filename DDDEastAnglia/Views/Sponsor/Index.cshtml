@@ -1,0 +1,19 @@
+﻿@model IEnumerable<DDDEastAnglia.Models.SponsorModel>
+
+@{
+    ViewBag.Title = "Our Sponsors";
+}
+
+<h2>@ViewBag.Title</h2>
+<p>We would like to extend our thanks to our generous sponsors without whose support @Html.DDDEastAnglia() would not be possible.</p>
+
+<p>If you would like to sponsor @Html.DDDEastAnglia(), please @Html.ActionLink("get in touch", "Contact", "Home").</p>
+
+@foreach (var sponsor in Model)
+{<div class="sponsor span5">
+        <a href="@sponsor.Url">
+            <img src="@Url.Action("Logo", "Sponsor", new { sponsorId = sponsor.SponsorId })" />
+        </a>
+    </div>
+}
+
