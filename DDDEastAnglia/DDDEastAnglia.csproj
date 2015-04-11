@@ -594,7 +594,7 @@
     <Content Include="Areas\Admin\Views\Voting\_IPAddressesVotedForSession.cshtml" />
     <Content Include="Areas\Admin\Views\Voting\IPAddressesThatVotedForSessions.cshtml" />
     <Content Include="Areas\Admin\Views\Sponsor\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Sponsor\Add.cshtml" />
+    <Content Include="Areas\Admin\Views\Sponsor\Create.cshtml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\html5shiv-printshiv.js" />

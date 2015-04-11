@@ -1,22 +1,11 @@
 ﻿@model DDDEastAnglia.Areas.Admin.Models.SponsorModel
 
-@{
-    ViewBag.Title = @Model.Name;
-}
-
-@section header
-{
-    @Styles.Render("~/Content/Markdown")
-}
-
 <h2>Add Sponsor</h2>
 
-@using (Html.BeginForm("Add", "Sponsor", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Create", "Sponsor", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
-
-    @Html.HiddenFor(model => model.SponsorId)
 
     <div class="control-group">
         @Html.LabelFor(m => Model.Name, new { @class = "control-label" })
@@ -42,6 +31,14 @@
                 @Html.TextBoxFor(m => Model.SponsorshipAmount)
             </div>
             @Html.ValidationMessageFor(m => Model.SponsorshipAmount)
+        </div>
+    </div>
+
+    <div class="control-group">
+        @Html.LabelFor(m => Model.PaymentDate, new { @class = "control-label" })
+        <div class="controls">
+            @Html.TextBoxFor(m => Model.PaymentDate, new { type = "date" })
+            @Html.ValidationMessageFor(m => Model.PaymentDate)
         </div>
     </div>
 
