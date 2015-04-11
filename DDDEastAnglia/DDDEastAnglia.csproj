@@ -220,6 +220,7 @@
     <Compile Include="Areas\Admin\Models\VotesPerDayViewModel.cs" />
     <Compile Include="Controllers\GravatarController.cs" />
     <Compile Include="Controllers\SponsorController.cs" />
+    <Compile Include="Controllers\SponsorModelQuery.cs" />
     <Compile Include="Controllers\TimelineController.cs" />
     <Compile Include="Controllers\UserNameFilterAttribute.cs" />
     <Compile Include="DataAccess\CachingVotingCookieFactory.cs" />

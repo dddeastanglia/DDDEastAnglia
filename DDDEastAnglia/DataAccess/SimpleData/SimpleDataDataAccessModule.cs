@@ -1,4 +1,5 @@
-﻿using Ninject.Extensions.Conventions;
+﻿using DDDEastAnglia.Controllers;
+using Ninject.Extensions.Conventions;
 using Ninject.Modules;
 using Ninject.Web.Common;
 
@@ -16,6 +17,7 @@ namespace DDDEastAnglia.DataAccess.SimpleData
             Kernel.Bind<IConferenceLoader>().To<ConferenceLoader>().InRequestScope();
             Kernel.Bind<ISpeakerRepository>().To<SpeakerRepository>().InRequestScope();
             Kernel.Bind<ISponsorSorter>().To<DefaultSponsorSorter>().InRequestScope();
+            Kernel.Bind<SponsorModelQuery>().To<SponsorModelQuery>().InRequestScope();
             Kernel.Bind<IVotingCookieFactory>().To<CachingVotingCookieFactory>().InRequestScope();
             Kernel.Bind<IVotingCookieFactory>().To<VotingCookieFactory>().WhenInjectedInto<CachingVotingCookieFactory>().InRequestScope();
         }

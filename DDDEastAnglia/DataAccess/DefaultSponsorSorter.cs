@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using DDDEastAnglia.DataAccess.SimpleData.Models;
-using DDDEastAnglia.Models;
 
 namespace DDDEastAnglia.DataAccess
 {

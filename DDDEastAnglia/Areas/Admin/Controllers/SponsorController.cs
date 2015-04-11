@@ -15,9 +15,9 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
     public class SponsorController : Controller
     {
         private readonly ISponsorRepository sponsorRepository;
-        private readonly ISponsorSorter sponsorSorter;
+        private readonly SponsorSorter sponsorSorter;
 
-        public SponsorController(ISponsorRepository sponsorRepository, ISponsorSorter sponsorSorter)
+        public SponsorController(ISponsorRepository sponsorRepository, SponsorSorter sponsorSorter)
         {
             if (sponsorRepository == null)
             {

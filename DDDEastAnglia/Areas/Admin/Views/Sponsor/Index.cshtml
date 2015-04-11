@@ -57,7 +57,7 @@
         </td><td>
             @(sponsor.PaymentDate != null ? sponsor.PaymentDate.Value.ToString("D") : "[Not Yet Received]")
         </td><td>
-            <img src='@Url.Action("Logo", "Sponsors", new { sponsorId = @sponsor.SponsorId, area = "" })' />
+            <img src='@Url.Action("Logo", "Sponsor", new { sponsorId = @sponsor.SponsorId, area = "" })' />
         </td>
         <td class="controls">
             <span><i class="icon-trash"></i> @Html.ActionLink("Delete", "Delete", "Sponsor", new { id = sponsor.SponsorId }, new { area = "Admin" })</span>

@@ -1,19 +1,17 @@
-﻿using System.Linq;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using DDDEastAnglia.DataAccess;
-using DDDEastAnglia.Models;
 
 namespace DDDEastAnglia.Controllers
 {
     public class SponsorController : Controller
     {
-        readonly ISponsorRepository sponsorRepository;
-        readonly ISponsorSorter sponsorSorter;
+        private readonly SponsorModelQuery sponsorModelQuery;
+        private readonly ISponsorRepository sponsorRepository;
 
-        public SponsorController(ISponsorRepository sponsorRepository, ISponsorSorter sponsorSorter)
+        public SponsorController(SponsorModelQuery sponsorModelQuery, ISponsorRepository sponsorRepository)
         {
+            this.sponsorModelQuery = sponsorModelQuery;
             this.sponsorRepository = sponsorRepository;
-            this.sponsorSorter = sponsorSorter;
         }
 
         public ActionResult Logo(int sponsorId)
@@ -25,7 +23,7 @@ namespace DDDEastAnglia.Controllers
         [ChildActionOnly]
         public ActionResult Sidebar()
         {
-            return PartialView("_Sponsors", sponsorSorter.Sort(sponsorRepository.GetAllSponsors()).Select(x => new SponsorModel { Name = x.Name, SponsorId = x.SponsorId, Url = x.Url }));
+            return PartialView("_Sponsors", sponsorModelQuery.Get());
         }
     }
 }

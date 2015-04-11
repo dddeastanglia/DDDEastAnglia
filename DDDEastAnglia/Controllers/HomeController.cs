@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Web.Mvc;
 using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.Filters;
@@ -10,10 +9,9 @@ namespace DDDEastAnglia.Controllers
     public class HomeController : Controller
     {
         private readonly IConferenceLoader conferenceLoader;
-        private ISponsorRepository sponsorRepository;
-        private ISponsorSorter sponsorSorter;
+        private readonly SponsorModelQuery sponsorModelQuery;
 
-        public HomeController(IConferenceLoader conferenceLoader, ISponsorRepository sponsorRepository, ISponsorSorter sponsorSorter)
+        public HomeController(IConferenceLoader conferenceLoader, SponsorModelQuery sponsorModelQuery)
         {
             if (conferenceLoader == null)
             {
@@ -21,8 +19,7 @@ namespace DDDEastAnglia.Controllers
             }
 
             this.conferenceLoader = conferenceLoader;
-            this.sponsorRepository = sponsorRepository;
-            this.sponsorSorter = sponsorSorter;
+            this.sponsorModelQuery = sponsorModelQuery;
         }
 
         public ActionResult Index()
@@ -59,9 +56,7 @@ namespace DDDEastAnglia.Controllers
 
         public ActionResult Sponsors()
         {
-            var sponsors = sponsorSorter.Sort(sponsorRepository.GetAllSponsors())
-                .Select(x => new SponsorModel { Name = x.Name, SponsorId = x.SponsorId, Url = x.Url });
-            return View(sponsors);
+            return View(sponsorModelQuery.Get());
         }
 
         public ActionResult About()
