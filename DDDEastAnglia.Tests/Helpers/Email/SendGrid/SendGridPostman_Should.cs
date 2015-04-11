@@ -1,13 +1,15 @@
 ﻿using System;
+using System.Net.Mail;
 using DDDEastAnglia.Helpers.Email;
 using DDDEastAnglia.Helpers.Email.SendGrid;
 using NSubstitute;
 using NUnit.Framework;
+using MailMessage = DDDEastAnglia.Services.Messenger.Email.MailMessage;
 
 namespace DDDEastAnglia.Tests.Helpers.Email.SendGrid
 {
     [TestFixture]
-    public class SendGridEmailSender_Should
+    public class SendGridPostman_Should
     {
         [Test]
         public void ThrowAnExceptionWhenConstructed_WhenTheSuppliedMailHostSettingsIsNull()

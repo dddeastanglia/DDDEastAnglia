@@ -66,8 +66,8 @@
     <Compile Include="Admin\UserControllerTests.cs" />
     <Compile Include="DnsLookupBuilder.cs" />
     <Compile Include="Helpers\Email\SendGrid\HtmlRendererFacts.cs" />
-    <Compile Include="Helpers\Email\SessionSubmissionMessageFactory_Should.cs" />
     <Compile Include="Services\Messengers\Email\SessionSubmissionMessengerFacts.cs" />
+    <Compile Include="Services\Messengers\Email\Templates\SessionUpdatedMailTemplateFacts.cs" />
     <Compile Include="Services\Messengers\Email\Templates\SessionCreatedMailTemplateFacts.cs" />
     <Compile Include="VotingControllerBuilder.cs" />
     <Compile Include="Admin\VotingControllerTests.cs" />
@@ -106,7 +106,7 @@
     <Compile Include="Filters\ConferenceIsInPreviewFilterTests.cs" />
     <Compile Include="Helpers\Given_A_List_Of_Items_RandomShuffle_Should.cs" />
     <Compile Include="Helpers\Email\ResetPasswordEmailSender_Should.cs" />
-    <Compile Include="Helpers\Email\SendGrid\SendGridEmailSender_Should.cs" />
+    <Compile Include="Helpers\Email\SendGrid\SendGridPostman_Should.cs" />
     <Compile Include="Helpers\Email\Smtp\SmtpHostSettingsProvider_Should.cs" />
     <Compile Include="Helpers\Email\Smtp\SmtpHostSettings_Should.cs" />
     <Compile Include="Helpers\Given_An_IPV4_Address_MatchIPAddress_Should.cs" />
@@ -145,6 +145,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Services\Messengers\Email\Templates\SessionUpdated.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Services\Messengers\Email\Templates\SessionCreated.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

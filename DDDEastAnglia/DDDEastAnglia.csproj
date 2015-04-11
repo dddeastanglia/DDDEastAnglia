@@ -224,9 +224,9 @@
     <Compile Include="DataAccess\IAccountLoginMethodQuery.cs" />
     <Compile Include="DataAccess\ISpeakerRepository.cs" />
     <Compile Include="Helpers\Email\SendGrid\IRenderer.cs" />
-    <Compile Include="Helpers\Email\SessionSubmissionMessageFactory.cs" />
     <Compile Include="Helpers\Email\SendGrid\HtmlRenderer.cs" />
     <Compile Include="Helpers\IMailTemplate.cs" />
+    <Compile Include="Services\Messenger\Email\Templates\SessionUpdatedMailTemplate.cs" />
     <Compile Include="Services\Messenger\IMessenger.cs" />
     <Compile Include="Helpers\LoginMethodLoader.cs" />
     <Compile Include="Helpers\LoginMethodViewModelBuilder.cs" />
@@ -235,7 +235,7 @@
     <Compile Include="Helpers\SessionCreatedMailTemplate.cs" />
     <Compile Include="Helpers\SessionCreationMailMessenger.cs" />
     <Compile Include="Services\Messenger\Email\Templates\SessionCreatedMailTemplate.cs" />
-    <Compile Include="Services\Messenger\Email\SessionCreationMailMessenger.cs" />
+    <Compile Include="Services\Messenger\Email\EmailMessenger.cs" />
     <Compile Include="Helpers\TokenSubstitutingMailTemplate.cs" />
     <Compile Include="Models\LoginMethod.cs" />
     <Compile Include="DataAccess\SimpleData\Queries\AccountLoginMethodQuery.cs" />

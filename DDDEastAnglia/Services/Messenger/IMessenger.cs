@@ -2,8 +2,8 @@
 
 namespace DDDEastAnglia.Services.Messenger
 {
-    public interface IMessenger<in T>
+    public interface IMessenger
     {
-        void Notify(UserProfile user, T message);
+        void Notify(UserProfile user);
     }
 }

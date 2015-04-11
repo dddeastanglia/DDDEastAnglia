@@ -6,7 +6,7 @@ using NUnit.Framework;
 namespace DDDEastAnglia.Tests.Services.Messengers.Email.Templates
 {
     [TestFixture]
-    public class SessionCreatedMailTemplateFacts
+    public class SessionUpdatedMailTemplateFacts
     {
         [TestFixture]
         public class The_Template_Should
@@ -46,7 +46,7 @@ namespace DDDEastAnglia.Tests.Services.Messengers.Email.Templates
 
             private static IMailTemplate CreateSut(string title = "", string @abstract = "")
             {
-                var template = SessionCreatedMailTemplate.Create(@"Services\Messengers\Email\Templates\SessionCreated.txt",
+                var template = SessionUpdatedMailTemplate.Create(@"Services\Messengers\Email\Templates\SessionUpdated.txt",
                     new Session
                     {
                         Title = title,

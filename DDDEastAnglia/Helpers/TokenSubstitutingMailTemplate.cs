@@ -5,16 +5,23 @@ namespace DDDEastAnglia.Helpers
 {
     public abstract class TokenSubstitutingMailTemplate : IMailTemplate
     {
+        private readonly string templateSubject;
         private readonly string templateContent;
         private readonly IDictionary<string, string> substitutions = new Dictionary<string, string>();
 
-        protected TokenSubstitutingMailTemplate(string templateContent)
+        protected TokenSubstitutingMailTemplate(string templateSubject, string templateContent)
         {
+            if (templateSubject == null)
+            {
+                throw new ArgumentNullException("templateSubject");
+            }
+
             if (string.IsNullOrWhiteSpace(templateContent))
             {
                 throw new ArgumentNullException("templateContent");
             }
 
+            this.templateSubject = templateSubject;
             this.templateContent = templateContent;
         }
 
@@ -23,15 +30,25 @@ namespace DDDEastAnglia.Helpers
             substitutions[token] = substitution;
         }
 
-        public string Render()
+        public string RenderBody()
         {
-            var content = templateContent;
+            return MakeSubstitutions(templateContent);
+        }
+
+        public string RenderSubjectLine()
+        {
+            return MakeSubstitutions(templateSubject);
+        }
+
+        private string MakeSubstitutions(string text)
+        {
+            var returnValue = text;
             foreach (var token in substitutions)
             {
-                content = content.Replace(token.Key, token.Value);
+                returnValue = returnValue.Replace(token.Key, token.Value);
             }
 
-            return content;
+            return returnValue;
         }
     }
 }

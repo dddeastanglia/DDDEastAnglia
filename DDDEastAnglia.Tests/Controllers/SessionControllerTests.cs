@@ -2,7 +2,6 @@
 using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.Domain;
 using DDDEastAnglia.Helpers;
-using DDDEastAnglia.Helpers.Email;
 using DDDEastAnglia.Models;
 using NSubstitute;
 using NUnit.Framework;
@@ -88,7 +87,7 @@ namespace DDDEastAnglia.Tests.Controllers
             {
                 var conferenceLoader = Substitute.For<IConferenceLoader>();
                 conferenceLoader.LoadConference().Returns(conference);
-                var controller = new SessionController(conferenceLoader, Substitute.For<IUserProfileRepository>(), Substitute.For<ISessionRepository>(), Substitute.For<ISessionSorter>(), Substitute.For<IPostman>(), Substitute.For<ISessionSubmissionMessageFactory>());
+                var controller = new SessionController(conferenceLoader, Substitute.For<IUserProfileRepository>(), Substitute.For<ISessionRepository>(), Substitute.For<ISessionSorter>(), Substitute.For<IPostman>());
                 return controller;
             }
 
@@ -96,7 +95,7 @@ namespace DDDEastAnglia.Tests.Controllers
             {
                 var sessionRepository = Substitute.For<ISessionRepository>();
                 sessionRepository.Get(session.SessionId).Returns(session);
-                var controller = new SessionController(Substitute.For<IConferenceLoader>(), Substitute.For<IUserProfileRepository>(), sessionRepository, Substitute.For<ISessionSorter>(), Substitute.For<IPostman>(), Substitute.For<ISessionSubmissionMessageFactory>());
+                var controller = new SessionController(Substitute.For<IConferenceLoader>(), Substitute.For<IUserProfileRepository>(), sessionRepository, Substitute.For<ISessionSorter>(), Substitute.For<IPostman>());
                 return controller;
             }
         }

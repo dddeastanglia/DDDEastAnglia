@@ -5,12 +5,14 @@ using DDDEastAnglia.Models;
 
 namespace DDDEastAnglia.Services.Messenger.Email
 {
-    public class SessionCreationMailMessenger : IMessenger<Session>
+    public class EmailMessenger : IMessenger
     {
+        private static readonly MailAddress FromAddress = new MailAddress("admin@dddeastanglia.com", "DDD East Anglia");
+
         private readonly IPostman postman;
         private readonly IMailTemplate mailTemplate;
 
-        public SessionCreationMailMessenger(IPostman postman, IMailTemplate mailTemplate)
+        public EmailMessenger(IPostman postman, IMailTemplate mailTemplate)
         {
             if (postman == null)
             {
@@ -26,14 +28,14 @@ namespace DDDEastAnglia.Services.Messenger.Email
             this.mailTemplate = mailTemplate;
         }
 
-        public void Notify(UserProfile user, Session session)
+        public void Notify(UserProfile user)
         {
             MailMessage message = new MailMessage
             {
-                To = new MailAddress(user.EmailAddress),
-                From = new MailAddress("admin@dddeastanglia.com", "DDD East Anglia"),
-                Subject = "DDD East Anglia Session Submission: " + session.Title,
-                Body = mailTemplate.Render()
+                To = new MailAddress(user.EmailAddress, user.Name),
+                From = FromAddress,
+                Subject = mailTemplate.RenderSubjectLine(),
+                Body = mailTemplate.RenderBody()
             };
 
             postman.Deliver(message);

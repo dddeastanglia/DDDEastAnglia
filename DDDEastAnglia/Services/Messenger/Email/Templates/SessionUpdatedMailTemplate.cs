@@ -4,20 +4,20 @@ using DDDEastAnglia.Models;
 
 namespace DDDEastAnglia.Services.Messenger.Email.Templates
 {
-    public class SessionCreatedMailTemplate : TokenSubstitutingMailTemplate
+    public class SessionUpdatedMailTemplate : TokenSubstitutingMailTemplate
     {
         private const string SessionAbstractToken = "[SessionAbstract]";
         private const string SessionTitleToken = "[SessionTitle]";
 
-        private const string MailSubject = "DDD East Anglia Session Submission: " + SessionTitleToken;
+        private const string MailSubject = "DDD East Anglia Updated Session: " + SessionTitleToken;
 
-        private SessionCreatedMailTemplate(string templateContent) : base(MailSubject, templateContent)
+        private SessionUpdatedMailTemplate(string templateContent) : base(MailSubject, templateContent)
         {
         }
 
         public static IMailTemplate Create(string templatePath, Session session)
         {
-            var template = new SessionCreatedMailTemplate(new FileContentsProvider().GetFileContents(templatePath));
+            var template = new SessionUpdatedMailTemplate(new FileContentsProvider().GetFileContents(templatePath));
             template.AddTokenSubstitution(SessionTitleToken, session.Title);
             template.AddTokenSubstitution(SessionAbstractToken, session.Abstract);
 
