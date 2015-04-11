@@ -3,7 +3,9 @@
     <h1>Sponsors</h1>
     @foreach (var sponsor in Model)
     {<div class="sponsor">
-        <a href="@sponsor.Url"><img src="@sponsor.Logo" /></a>
+         <a href="@sponsor.Url">
+             <img src="@Url.Action("Logo", "Sponsors", new { sponsorId = sponsor.SponsorId })" />
+         </a>
     </div>
     }
 </section>

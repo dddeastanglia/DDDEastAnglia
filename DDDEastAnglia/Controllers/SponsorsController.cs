@@ -9,20 +9,30 @@ namespace DDDEastAnglia.Controllers
         public class SponsorSidebarModel
         {
             public string Name { get; set; }
-            public string Logo { get; set; }
+            public int SponsorId { get; set; }
             public string Url { get; set; }
         }
-        readonly ISponsorRepository _sponsorRepository;
+        readonly ISponsorRepository sponsorRepository;
 
         public SponsorsController(ISponsorRepository sponsorRepository)
         {
-            _sponsorRepository = sponsorRepository;
+            this.sponsorRepository = sponsorRepository;
+        }
+
+        public ActionResult Logo(int sponsorId)
+        {
+            var sponsor = sponsorRepository.GetSponsor(sponsorId);
+            return File(sponsor.Logo, "image/png");
         }
 
         [ChildActionOnly]
         public ActionResult Sidebar()
         {
-            var allSponsors = _sponsorRepository.GetAllSponsors().Select(x => new SponsorSidebarModel { Name = x.Name, Logo = "", Url = x.Url });
+            var allSponsors = sponsorRepository
+                .GetAllSponsors()
+                .OrderByDescending(s => s.SponsorshipAmount).ThenBy(s => s.PaymentDate)
+                .Select(x => new SponsorSidebarModel { Name = x.Name, SponsorId = x.SponsorId, Url = x.Url })
+                ;
             return PartialView("_Sponsors", allSponsors);
         }
     }
