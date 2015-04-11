@@ -1,0 +1,66 @@
+﻿@model DDDEastAnglia.Areas.Admin.Models.SponsorModel
+
+@{
+    ViewBag.Title = @Model.Name;
+}
+
+@section header
+{
+    @Styles.Render("~/Content/Markdown")
+}
+
+<h2>Add Sponsor</h2>
+
+@using (Html.BeginForm("Add", "Sponsor", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    @Html.HiddenFor(model => model.SponsorId)
+
+    <div class="control-group">
+        @Html.LabelFor(m => Model.Name, new { @class = "control-label" })
+        <div class="controls">
+            @Html.TextBoxFor(m => Model.Name, new { autofocus = true })
+            @Html.ValidationMessageFor(m => Model.Name)
+        </div>
+    </div>
+
+    <div class="control-group">
+        @Html.LabelFor(m => Model.Url, new { @class = "control-label" })
+        <div class="controls">
+            @Html.TextBoxFor(m => Model.Url, new { type = "url" })
+            @Html.ValidationMessageFor(m => Model.Url)
+        </div>
+    </div>
+
+    <div class="control-group">
+        @Html.LabelFor(m => Model.SponsorshipAmount, new { @class = "control-label" })
+        <div class="controls">
+            <div class="input-prepend">
+                <span class="add-on">£</span>
+                @Html.TextBoxFor(m => Model.SponsorshipAmount)
+            </div>
+            @Html.ValidationMessageFor(m => Model.SponsorshipAmount)
+        </div>
+    </div>
+
+    <div class="control-group">
+        @Html.Label("Url", new { @class = "control-label" })
+        <div class="controls">
+            <input type="file" name="Logo" />
+        </div>
+    </div>
+
+    <div class="control-group">
+        <div class="controls">
+            <input type="submit" class="btn btn-primary" value="Save details" />
+            @Html.ActionLink("Cancel", "Index")
+        </div>
+    </div>
+}
+
+@section Scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}

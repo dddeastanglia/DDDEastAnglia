@@ -5,5 +5,6 @@
         public int SponsorId { get; set; }
         public string Name { get; set; }
         public string Url { get; set; }
+        public int SponsorshipAmount { get; set; }
     }
 }

@@ -1,5 +1,8 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Web;
 using System.Web.Mvc;
 using DDDEastAnglia.Areas.Admin.Models;
 using DDDEastAnglia.DataAccess;
@@ -29,13 +32,47 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
             return View(sponsors);
         }
 
+        [HttpGet]
+        public ActionResult Add()
+        {
+            return View(new SponsorModel());
+        }
+
+        [HttpPost]
+        public ActionResult Add(SponsorModel sponsor)
+        {
+            sponsorRepository.Add(Map(sponsor));
+            return RedirectToAction("Index");
+        }
+
+        private Sponsor Map(SponsorModel sponsorModel)
+        {
+            return new Sponsor
+            {
+                Name = sponsorModel.Name,
+                Url = sponsorModel.Url,
+                SponsorshipAmount = sponsorModel.SponsorshipAmount,
+                Logo = GetLogoFromRequest()
+            };
+        }
+
+        private byte[] GetLogoFromRequest()
+        {
+            var file = Request.Files["Logo"];
+            var ms = new MemoryStream();
+            file.InputStream.CopyTo(ms);
+            return ms.ToArray();
+
+        }
+
         private SponsorModel CreateSponsorModel(Sponsor sponsor)
         {
             return new SponsorModel
             {
                 SponsorId = sponsor.SponsorId,
                 Name = sponsor.Name,
-                Url = sponsor.Url
+                Url = sponsor.Url,
+                SponsorshipAmount = sponsor.SponsorshipAmount
             };
         }
     }

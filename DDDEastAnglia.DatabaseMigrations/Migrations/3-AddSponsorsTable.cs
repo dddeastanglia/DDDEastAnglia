@@ -8,7 +8,7 @@ namespace DDDEastAnglia.DatabaseMigrations.Migrations
         public override void Up()
         {
             Create.Table("Sponsors")
-                .WithColumn("SponsorId").AsInt32().NotNullable().PrimaryKey()
+                .WithColumn("SponsorId").AsInt32().NotNullable().Identity().PrimaryKey()
                 .WithColumn("Name").AsString(50).NotNullable()
                 .WithColumn("Url").AsString(255).NotNullable()
                 .WithColumn("SponsorshipAmount").AsInt32().Nullable()
