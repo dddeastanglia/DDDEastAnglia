@@ -1,6 +1,7 @@
 ﻿using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.Helpers;
 using DDDEastAnglia.Helpers.Email;
+using DDDEastAnglia.Helpers.File;
 using DDDEastAnglia.Models;
 using DDDEastAnglia.Mvc.Attributes;
 using System.Collections.Generic;
@@ -16,16 +17,16 @@ namespace DDDEastAnglia.Controllers
         private readonly IUserProfileRepository userProfileRepository;
         private readonly ISessionRepository sessionRepository;
         private readonly ISessionSorter sessionSorter;
-        private readonly IEmailSender emailSender;
+        private readonly IPostman postman;
         private readonly ISessionSubmissionMessageFactory messageFactory;
 
-        public SessionController(IConferenceLoader conferenceLoader, IUserProfileRepository userProfileRepository, ISessionRepository sessionRepository, ISessionSorter sorter, IEmailSender emailSender, ISessionSubmissionMessageFactory messageFactory)
+        public SessionController(IConferenceLoader conferenceLoader, IUserProfileRepository userProfileRepository, ISessionRepository sessionRepository, ISessionSorter sorter, IPostman postman, ISessionSubmissionMessageFactory messageFactory)
         {
             this.conferenceLoader = conferenceLoader;
             this.userProfileRepository = userProfileRepository;
             this.sessionRepository = sessionRepository;
             sessionSorter = sorter;
-            this.emailSender = emailSender;
+            this.postman = postman;
             this.messageFactory = messageFactory;
         }
 
@@ -117,12 +118,17 @@ namespace DDDEastAnglia.Controllers
                 var addedSession = sessionRepository.AddSession(session);
 
                 UserProfile speakerProfile = userProfileRepository.GetUserProfileByUserName(User.Identity.Name);
+                // TODO Add as resources or in the database so we can abstract the filesystem
                 string htmlTemplatePath = Server.MapPath("~/SessionSubmissionTemplate.html");
                 string textTemplatePath = Server.MapPath("~/SessionSubmissionTemplate.txt");
 
-                IMailMessage sessionSubmissionMessage = messageFactory.Create(htmlTemplatePath, textTemplatePath, session,
-                    speakerProfile, false);
-                emailSender.Send(sessionSubmissionMessage);
+                var fileContentsProvider = new FileContentsProvider();
+                var plainTextMailTemplate = new TokenSubstitutingMailTemplate(textTemplatePath, fileContentsProvider);
+                var htmlMailTemplate = new HtmlMailTemplate(
+                    plainTextMailTemplate,
+                    fileContentsProvider.GetFileContents(Server.MapPath("~/EmailTemplate.html")));
+
+                new SessionCreationMailMessenger(postman, plainTextMailTemplate, htmlMailTemplate).Notify(speakerProfile, addedSession);
 
                 return RedirectToAction("Details", new { id = addedSession.SessionId });
             }
@@ -167,9 +173,9 @@ namespace DDDEastAnglia.Controllers
                 string htmlTemplatePath = Server.MapPath("~/SessionSubmissionTemplate.html");
                 string textTemplatePath = Server.MapPath("~/SessionSubmissionTemplate.txt");
 
-                IMailMessage sessionUpdateMessage = messageFactory.Create(htmlTemplatePath, textTemplatePath, session,
+                MailMessage sessionUpdateMessage = messageFactory.Create(htmlTemplatePath, textTemplatePath, session,
                     speakerProfile, true);
-                emailSender.Send(sessionUpdateMessage);
+                postman.Deliver(sessionUpdateMessage);
 
                 return RedirectToAction("Index");
             }

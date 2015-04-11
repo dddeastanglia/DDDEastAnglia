@@ -87,7 +87,7 @@ namespace DDDEastAnglia.Tests.Controllers
             {
                 var conferenceLoader = Substitute.For<IConferenceLoader>();
                 conferenceLoader.LoadConference().Returns(conference);
-                var controller = new SessionController(conferenceLoader, Substitute.For<IUserProfileRepository>(), Substitute.For<ISessionRepository>(), Substitute.For<ISessionSorter>(), Substitute.For<IEmailSender>(), Substitute.For<ISessionSubmissionMessageFactory>());
+                var controller = new SessionController(conferenceLoader, Substitute.For<IUserProfileRepository>(), Substitute.For<ISessionRepository>(), Substitute.For<ISessionSorter>(), Substitute.For<IPostman>(), Substitute.For<ISessionSubmissionMessageFactory>());
                 return controller;
             }
 
@@ -95,7 +95,7 @@ namespace DDDEastAnglia.Tests.Controllers
             {
                 var sessionRepository = Substitute.For<ISessionRepository>();
                 sessionRepository.Get(session.SessionId).Returns(session);
-                var controller = new SessionController(Substitute.For<IConferenceLoader>(), Substitute.For<IUserProfileRepository>(), sessionRepository, Substitute.For<ISessionSorter>(), Substitute.For<IEmailSender>(), Substitute.For<ISessionSubmissionMessageFactory>());
+                var controller = new SessionController(Substitute.For<IConferenceLoader>(), Substitute.For<IUserProfileRepository>(), sessionRepository, Substitute.For<ISessionSorter>(), Substitute.For<IPostman>(), Substitute.For<ISessionSubmissionMessageFactory>());
                 return controller;
             }
         }

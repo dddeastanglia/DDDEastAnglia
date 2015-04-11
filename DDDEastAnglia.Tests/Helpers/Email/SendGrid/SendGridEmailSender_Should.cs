@@ -10,7 +10,7 @@ namespace DDDEastAnglia.Tests.Helpers.Email.SendGrid
         [Test]
         public void ThrowAnExceptionWhenConstructed_WhenTheSuppliedMailHostSettingsIsNull()
         {
-            Assert.Throws<ArgumentNullException>(() => new SendGridEmailSender(null));
+            Assert.Throws<ArgumentNullException>(() => new SendGridPostman(null));
         }
     }
 }

@@ -1,14 +1,15 @@
-﻿using System;
+﻿using SendGridMail.Transport;
+using System;
 using System.Net;
-using SendGridMail.Transport;
+using System.Net.Mail;
 
 namespace DDDEastAnglia.Helpers.Email.SendGrid
 {
-    public class SendGridEmailSender : IEmailSender
+    public class SendGridPostman : IPostman
     {
         private readonly IMailHostSettingsProvider hostSettingsProvider;
 
-        public SendGridEmailSender(IMailHostSettingsProvider hostSettingsProvider)
+        public SendGridPostman(IMailHostSettingsProvider hostSettingsProvider)
         {
             if (hostSettingsProvider == null)
             {
@@ -18,15 +19,21 @@ namespace DDDEastAnglia.Helpers.Email.SendGrid
             this.hostSettingsProvider = hostSettingsProvider;
         }
 
-        public void Send(IMailMessage message)
+        public void Deliver(MailMessage message)
         {
             var hostSettings = hostSettingsProvider.GetSettings();
             var credentials = new NetworkCredential(hostSettings.Username, hostSettings.Password);
             SMTP instance = SMTP.GetInstance(credentials, hostSettings.Host, hostSettings.Port);
-            
-            // don't like this, but will do for now
-            var sendGridMessageWrapper = (SendGridMessageWrapper) message;
-            instance.Deliver(sendGridMessageWrapper.SendGrid);
+
+            var sendGrid = SendGridMail.SendGrid.GetInstance(
+                message.From,
+                new[] { message.To },
+                new MailAddress[0],
+                new MailAddress[0],
+                message.Subject,
+                message.Html,
+                message.Text);
+            instance.Deliver(sendGrid);
         }
     }
 }

@@ -103,7 +103,6 @@
     <Compile Include="Filters\ConferenceIsInPreviewFilterTests.cs" />
     <Compile Include="Helpers\Given_A_List_Of_Items_RandomShuffle_Should.cs" />
     <Compile Include="Helpers\Email\ResetPasswordEmailSender_Should.cs" />
-    <Compile Include="Helpers\Email\SendGrid\SendGridMessageWrapper_Should.cs" />
     <Compile Include="Helpers\Email\SendGrid\SendGridEmailSender_Should.cs" />
     <Compile Include="Helpers\Email\Smtp\SmtpHostSettingsProvider_Should.cs" />
     <Compile Include="Helpers\Email\Smtp\SmtpHostSettings_Should.cs" />
