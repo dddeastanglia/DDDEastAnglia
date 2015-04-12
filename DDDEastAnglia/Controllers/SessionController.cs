@@ -1,12 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc;
-using DDDEastAnglia.DataAccess;
+﻿using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.Helpers;
 using DDDEastAnglia.Models;
 using DDDEastAnglia.Mvc.Attributes;
-using DDDEastAnglia.Services.Messenger.Email;
 using DDDEastAnglia.Services.Messenger.Email.Templates;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace DDDEastAnglia.Controllers
 {
@@ -17,15 +16,15 @@ namespace DDDEastAnglia.Controllers
         private readonly IUserProfileRepository userProfileRepository;
         private readonly ISessionRepository sessionRepository;
         private readonly ISessionSorter sessionSorter;
-        private readonly IPostman postman;
+        private readonly EmailMessengerFactory emailMessengerFactory;
 
-        public SessionController(IConferenceLoader conferenceLoader, IUserProfileRepository userProfileRepository, ISessionRepository sessionRepository, ISessionSorter sorter, IPostman postman)
+        public SessionController(IConferenceLoader conferenceLoader, IUserProfileRepository userProfileRepository, ISessionRepository sessionRepository, ISessionSorter sorter, EmailMessengerFactory messengerFactory)
         {
             this.conferenceLoader = conferenceLoader;
             this.userProfileRepository = userProfileRepository;
             this.sessionRepository = sessionRepository;
             sessionSorter = sorter;
-            this.postman = postman;
+            emailMessengerFactory = messengerFactory;
         }
 
         [AllowAnonymous]
@@ -120,7 +119,7 @@ namespace DDDEastAnglia.Controllers
                 string textTemplatePath = Server.MapPath("~/SessionSubmissionTemplate.txt");
 
                 var sessionCreatedMailTemplate = SessionCreatedMailTemplate.Create(textTemplatePath, addedSession);
-                new EmailMessenger(postman, sessionCreatedMailTemplate).Notify(speakerProfile);
+                emailMessengerFactory.CreateEmailMessenger(sessionCreatedMailTemplate).Notify(speakerProfile);
 
                 return RedirectToAction("Details", new { id = addedSession.SessionId });
             }
@@ -165,7 +164,7 @@ namespace DDDEastAnglia.Controllers
                 string textTemplatePath = Server.MapPath("~/SessionSubmissionTemplate.txt");
 
                 var mailTemplate = SessionUpdatedMailTemplate.Create(textTemplatePath, session);
-                new EmailMessenger(postman, mailTemplate).Notify(speakerProfile);
+                emailMessengerFactory.CreateEmailMessenger(mailTemplate).Notify(speakerProfile);
 
                 return RedirectToAction("Index");
             }

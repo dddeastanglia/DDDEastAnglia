@@ -216,6 +216,7 @@
     <Compile Include="Areas\Admin\Models\VotesPerDateViewModel.cs" />
     <Content Include="Content\common.css" />
     <Compile Include="Areas\Admin\Models\VotesPerDayViewModel.cs" />
+    <Compile Include="Controllers\EmailMessengerFactory.cs" />
     <Compile Include="Controllers\GravatarController.cs" />
     <Compile Include="Controllers\TimelineController.cs" />
     <Compile Include="Controllers\UserNameFilterAttribute.cs" />
@@ -226,6 +227,7 @@
     <Compile Include="Helpers\Email\SendGrid\IRenderer.cs" />
     <Compile Include="Helpers\Email\SendGrid\HtmlRenderer.cs" />
     <Compile Include="Helpers\IMailTemplate.cs" />
+    <Compile Include="Services\Messenger\Email\Templates\PasswordResetMailTemplate.cs" />
     <Compile Include="Services\Messenger\Email\Templates\SessionUpdatedMailTemplate.cs" />
     <Compile Include="Services\Messenger\IMessenger.cs" />
     <Compile Include="Helpers\LoginMethodLoader.cs" />

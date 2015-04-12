@@ -1,9 +1,10 @@
-﻿using System;
-using System.Web.Mvc;
-using DDDEastAnglia.DataAccess;
+﻿using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.Helpers;
-using DDDEastAnglia.Helpers.Email;
 using DDDEastAnglia.Models;
+using DDDEastAnglia.Services.Messenger.Email;
+using DDDEastAnglia.Services.Messenger.Email.Templates;
+using System;
+using System.Web.Mvc;
 
 namespace DDDEastAnglia.Controllers
 {
@@ -11,9 +12,10 @@ namespace DDDEastAnglia.Controllers
     {
         private readonly IUserProfileRepository userProfileRepository;
         private readonly IResetPasswordThingy resetPasswordThingy;
-        private readonly IResetPasswordEmailSender resetPasswordEmailSender;
+        private readonly IPostman postman;
+        private readonly EmailMessengerFactory emailMessengerFactory;
 
-        public ResetPasswordController(IUserProfileRepository userProfileRepository, IResetPasswordThingy resetPasswordThingy, IResetPasswordEmailSender resetPasswordEmailSender)
+        public ResetPasswordController(IUserProfileRepository userProfileRepository, IResetPasswordThingy resetPasswordThingy, IPostman postman, EmailMessengerFactory emailMessengerFactory)
         {
             if (userProfileRepository == null)
             {
@@ -24,15 +26,21 @@ namespace DDDEastAnglia.Controllers
             {
                 throw new ArgumentNullException("resetPasswordThingy");
             }
-            
-            if (resetPasswordEmailSender == null)
+
+            if (postman == null)
             {
-                throw new ArgumentNullException("resetPasswordEmailSender");
+                throw new ArgumentNullException("postman");
+            }
+
+            if (emailMessengerFactory == null)
+            {
+                throw new ArgumentNullException("emailMessengerFactory");
             }
 
             this.userProfileRepository = userProfileRepository;
             this.resetPasswordThingy = resetPasswordThingy;
-            this.resetPasswordEmailSender = resetPasswordEmailSender;
+            this.postman = postman;
+            this.emailMessengerFactory = emailMessengerFactory;
         }
 
         [HttpGet]
@@ -75,11 +83,11 @@ namespace DDDEastAnglia.Controllers
             }
 
             string passwordResetToken = resetPasswordThingy.GeneratePasswordResetToken(profile.UserName, 120);
-            SendEmailToUser(profile.EmailAddress, passwordResetToken);
+            SendEmailToUser(profile, passwordResetToken);
 
             return View("Step2");
         }
-         
+
         [HttpGet]
         [AllowAnonymous]
         public virtual ActionResult EmailConfirmation(string token)
@@ -102,7 +110,7 @@ namespace DDDEastAnglia.Controllers
             {
                 return RedirectToAction("Complete", new { Message = "Your password has been changed successfully. Please log in using your new password." });
             }
-            
+
             ModelState.AddModelError("", "There was an error resetting your password.");
             return View("Step3", model);
         }
@@ -115,13 +123,15 @@ namespace DDDEastAnglia.Controllers
             return View("Step4");
         }
 
-        private void SendEmailToUser(string emailAddress, string passwordResetToken)
+        private void SendEmailToUser(UserProfile profile, string passwordResetToken)
         {
             string protocol = Request.Url.Scheme;
             string resetUrl = Url.Action("EmailConfirmation", "ResetPassword", new { token = passwordResetToken }, protocol);
-            string htmlTemplatePath = Server.MapPath("~/ForgottenPasswordTemplate.html");
+
             string textTemplatePath = Server.MapPath("~/ForgottenPasswordTemplate.txt");
-            resetPasswordEmailSender.SendEmail(htmlTemplatePath, textTemplatePath, emailAddress, resetUrl);
-        }    
+
+            var mailTemplate = PasswordResetMailTemplate.Create(textTemplatePath, resetUrl);
+            emailMessengerFactory.CreateEmailMessenger(mailTemplate).Notify(profile);
+        }
     }
 }

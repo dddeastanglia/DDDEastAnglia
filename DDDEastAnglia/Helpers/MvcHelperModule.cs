@@ -1,5 +1,6 @@
-﻿using Ninject.Modules;
+﻿using DDDEastAnglia.Helpers.Email.SendGrid;
 using Ninject.Extensions.Conventions;
+using Ninject.Modules;
 
 namespace DDDEastAnglia.Helpers
 {
@@ -17,6 +18,7 @@ namespace DDDEastAnglia.Helpers
                                     .InNamespaceOf<IControllerInformationProvider>()
                                     .Excluding<AlphabeticalSort>()
                                     .Excluding<RandomSort>()
+                                    .Excluding<HtmlRenderer>()
                                     .BindDefaultInterfaces()
                                     .Configure(binding => binding.InSingletonScope()));
             Kernel.Bind<ISortAlgorithm>()
