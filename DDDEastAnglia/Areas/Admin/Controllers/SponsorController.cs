@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using DDDEastAnglia.Areas.Admin.Models;
 using DDDEastAnglia.DataAccess;
@@ -70,11 +71,9 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
             return File(sponsor.Logo, "image/png");
         }
 
-        private byte[] GetLogoFromRequest()
+        private byte[] GetLogo(HttpPostedFileBase file)
         {
-            var file = Request.Files["Logo"];
-
-            if (file == null)
+            if (file == null || file.ContentLength == 0)
             {
                 return null;
             }
@@ -104,7 +103,7 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
                 Name = sponsorModel.Name,
                 Url = sponsorModel.Url,
                 SponsorshipAmount = sponsorModel.SponsorshipAmount,
-                Logo = GetLogoFromRequest(),
+                Logo = GetLogo(sponsorModel.Logo),
                 PaymentDate = sponsorModel.PaymentDate,
                 ShowPublicly = sponsorModel.ShowPublicly
             };
