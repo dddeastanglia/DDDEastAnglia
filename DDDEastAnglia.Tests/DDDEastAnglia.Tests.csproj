@@ -61,6 +61,7 @@
   <ItemGroup>
     <Compile Include="Admin\AdminHomeControllerTests.cs" />
     <Compile Include="ChartDataConverterBuilder.cs" />
+    <Compile Include="DataAccess\SponsorSorterTests.cs" />
     <Compile Include="DataProviderBuilder.cs" />
     <Compile Include="Admin\SessionControllerTests.cs" />
     <Compile Include="Admin\UserControllerTests.cs" />
