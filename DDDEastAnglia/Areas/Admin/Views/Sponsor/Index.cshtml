@@ -35,7 +35,7 @@
                 <span class="icon"></span>
             </th>
             <th>
-                &nbsp;
+                Logo
             </th>
         </tr>
     </thead>
@@ -59,3 +59,14 @@
     }
     </tbody>
 </table>
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/tablesorter")
+
+    <script language="javascript">
+        $(document).ready(function() {
+            $("#sponsorsTable").tablesorter({ headers: { 5: { sorter: false } } });
+        });
+    </script>
+}
