@@ -50,6 +50,20 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult Delete(int id)
+        {
+            var sponsor = sponsorRepository.GetSponsor(id);
+            return sponsor == null ? (ActionResult)HttpNotFound() : View(sponsor);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            sponsorRepository.DeleteSponsor(id);
+            return RedirectToAction("Index");
+        }
+
         public ActionResult Logo(int sponsorId)
         {
             var sponsor = sponsorRepository.GetSponsor(sponsorId);

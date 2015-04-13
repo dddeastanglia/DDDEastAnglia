@@ -8,5 +8,6 @@ namespace DDDEastAnglia.DataAccess
         IEnumerable<Sponsor> GetAllSponsors();
         void AddSponsor(Sponsor sponsor);
         Sponsor GetSponsor(int sponsorId);
+        void DeleteSponsor(int sponsorId);
     }
 }

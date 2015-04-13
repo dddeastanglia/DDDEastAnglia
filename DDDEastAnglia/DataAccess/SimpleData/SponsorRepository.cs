@@ -22,5 +22,10 @@ namespace DDDEastAnglia.DataAccess.SimpleData
         {
             return db.Sponsors.FindBySponsorId(sponsorId);
         }
+
+        public void DeleteSponsor(int sponsorId)
+        {
+            db.Sponsors.DeleteBySponsorId(sponsorId);
+        }
     }
 }
