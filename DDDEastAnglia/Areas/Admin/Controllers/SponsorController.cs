@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using DDDEastAnglia.Areas.Admin.Models;
 using DDDEastAnglia.DataAccess;
+using DDDEastAnglia.Helpers;
 using DDDEastAnglia.Models;
 
 namespace DDDEastAnglia.Areas.Admin.Controllers
@@ -71,18 +74,6 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
             return File(sponsor.Logo, "image/png");
         }
 
-        private byte[] GetLogo(HttpPostedFileBase file)
-        {
-            if (file == null || file.ContentLength == 0)
-            {
-                return null;
-            }
-
-            var ms = new MemoryStream();
-            file.InputStream.CopyTo(ms);
-            return ms.ToArray();
-        }
-
         private SponsorModel CreateSponsorModel(Sponsor sponsor)
         {
             return new SponsorModel
@@ -107,6 +98,23 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
                 PaymentDate = sponsorModel.PaymentDate,
                 ShowPublicly = sponsorModel.ShowPublicly
             };
+        }
+
+        private byte[] GetLogo(HttpPostedFileBase file)
+        {
+            if (file == null || file.ContentLength == 0)
+            {
+                return null;
+            }
+
+            const int maximumWidthOfLogo = 280;
+            const int maximumHeightOfLogo = 200;
+            var constrainedImage = new Bitmap(file.InputStream)
+                                            .ContrainToWidthOf(maximumWidthOfLogo)
+                                            .ContrainToHeightOf(maximumHeightOfLogo);
+            var ms = new MemoryStream();
+            constrainedImage.Save(ms, ImageFormat.Png);
+            return ms.ToArray();
         }
     }
 }
