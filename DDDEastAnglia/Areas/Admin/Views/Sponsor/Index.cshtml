@@ -60,10 +60,6 @@
             <img src='@Url.Action("Logo", new { sponsorId = @sponsor.SponsorId })' />
         </td>
         <td class="controls">
-            <span><i class="icon-list-alt"></i> @Html.ActionLink("Details", "Details", "Sponsor", new { id = sponsor.SponsorId }, new { area = "Admin" })</span>
-            |
-            <span><i class="icon-edit"></i> @Html.ActionLink("Edit", "Edit", "Sponsor", new { id = sponsor.SponsorId }, new { area = "Admin" })</span>
-            |
             <span><i class="icon-trash"></i> @Html.ActionLink("Delete", "Delete", "Sponsor", new { id = sponsor.SponsorId }, new { area = "Admin" })</span>
         </td></tr>
     }
