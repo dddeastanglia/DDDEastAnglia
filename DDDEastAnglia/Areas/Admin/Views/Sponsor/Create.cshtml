@@ -45,7 +45,8 @@
     <div class="control-group">
         @Html.Label("Logo", new { @class = "control-label" })
         <div class="controls">
-            <input type="file" name="Logo" />
+            <input type="file" name="Logo" data-val="true" data-val-required="A logo must be supplied." />
+            @Html.ValidationMessage("Logo")
         </div>
     </div>
 
