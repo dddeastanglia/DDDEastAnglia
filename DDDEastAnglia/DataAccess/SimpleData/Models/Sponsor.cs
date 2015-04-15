@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DDDEastAnglia.Models
+namespace DDDEastAnglia.DataAccess.SimpleData.Models
 {
     public class Sponsor
     {

@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using DDDEastAnglia.Areas.Admin.Models;
 using DDDEastAnglia.DataAccess;
+using DDDEastAnglia.DataAccess.SimpleData.Models;
 using DDDEastAnglia.Helpers;
 using DDDEastAnglia.Models;
 

@@ -229,7 +229,7 @@
     <Compile Include="DataAccess\ISponsorSorter.cs" />
     <Compile Include="DataAccess\DefaultSponsorSorter.cs" />
     <Compile Include="Helpers\ImageResizeExtensions.cs" />
-    <Compile Include="Models\Sponsor.cs" />
+    <Compile Include="DataAccess\SimpleData\Models\Sponsor.cs" />
     <Compile Include="DataAccess\SimpleData\SponsorRepository.cs" />
     <Compile Include="Helpers\LoginMethodLoader.cs" />
     <Compile Include="Helpers\LoginMethodViewModelBuilder.cs" />
