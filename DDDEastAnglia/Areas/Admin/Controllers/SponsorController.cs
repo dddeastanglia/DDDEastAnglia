@@ -110,8 +110,8 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
             const int maximumWidthOfLogo = 280;
             const int maximumHeightOfLogo = 200;
             var constrainedImage = new Bitmap(file.InputStream)
-                                            .ContrainToWidthOf(maximumWidthOfLogo)
-                                            .ContrainToHeightOf(maximumHeightOfLogo);
+                                            .ConstrainToWidthOf(maximumWidthOfLogo)
+                                            .ConstrainToHeightOf(maximumHeightOfLogo);
             var ms = new MemoryStream();
             constrainedImage.Save(ms, ImageFormat.Png);
             return ms.ToArray();
