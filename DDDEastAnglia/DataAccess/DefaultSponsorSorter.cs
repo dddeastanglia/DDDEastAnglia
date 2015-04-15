@@ -5,12 +5,7 @@ using DDDEastAnglia.Models;
 
 namespace DDDEastAnglia.DataAccess
 {
-    public interface ISponsorSorter
-    {
-        IEnumerable<Sponsor> Sort(IEnumerable<Sponsor> sponsors);
-    }
-
-    public class SponsorSorter : ISponsorSorter
+    public sealed class DefaultSponsorSorter : ISponsorSorter
     {
         public IEnumerable<Sponsor> Sort(IEnumerable<Sponsor> sponsors)
         {

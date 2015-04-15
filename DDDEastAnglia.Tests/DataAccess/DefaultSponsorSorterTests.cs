@@ -6,7 +6,7 @@ using NUnit.Framework;
 namespace DDDEastAnglia.Tests.DataAccess
 {
     [TestFixture]
-    public sealed class SponsorSorterTests
+    public sealed class DefaultSponsorSorterTests
     {
         [Test]
         public void SponsorsAreOrderedByAmount_WithHighestAmountFirst()
@@ -14,7 +14,7 @@ namespace DDDEastAnglia.Tests.DataAccess
             var poorSponsor = new Sponsor { SponsorshipAmount = 100 };
             var averageSponsor = new Sponsor { SponsorshipAmount = 1000 };
             var richSponsor = new Sponsor { SponsorshipAmount = 100000 };
-            var sorter = new SponsorSorter();
+            var sorter = new DefaultSponsorSorter();
 
             var sortedSponsors = sorter.Sort(new[] { averageSponsor, richSponsor, poorSponsor });
 
@@ -27,7 +27,7 @@ namespace DDDEastAnglia.Tests.DataAccess
             var earlySponsor = new Sponsor { SponsorshipAmount = 100, PaymentDate = new DateTime(2015, 4, 1) };
             var sponsor = new Sponsor { SponsorshipAmount = 100, PaymentDate = new DateTime(2015, 4, 15) };
             var lastMinuteSponsor = new Sponsor { SponsorshipAmount = 100, PaymentDate = new DateTime(2015, 4, 30) };
-            var sorter = new SponsorSorter();
+            var sorter = new DefaultSponsorSorter();
 
             var sortedSponsors = sorter.Sort(new[] { sponsor, lastMinuteSponsor, earlySponsor });
 
