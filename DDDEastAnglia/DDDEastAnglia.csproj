@@ -274,6 +274,8 @@
     <Content Include="Images\sponsors\huddle.png" />
     <Content Include="Images\sponsors\ndclondon.png" />
     <Content Include="Images\sponsors\zudio.png" />
+    <Content Include="Images\team\davecraft.jpg" />
+    <Content Include="Images\team\joncanning.jpg" />
     <Content Include="Scripts\flot\jquery.flot.axislabel.js" />
     <Content Include="Scripts\gravatar.js" />
     <Content Include="Areas\Admin\Views\Voting\NumberOfUsersWhoHaveCastXVotes.cshtml" />
@@ -546,10 +548,8 @@
     <Content Include="Global.asax" />
     <Content Include="Images\team\adrianbanks.jpg" />
     <Content Include="Images\team\alastairsmith.jpg" />
-    <Content Include="Images\team\ianjohnson.jpg" />
     <Content Include="Images\logo-small.png" />
     <Content Include="Images\team\philpursglove.png" />
-    <Content Include="Images\team\simonstevens.jpg" />
     <Content Include="Images\sponsors\tinamous.png" />
     <Content Include="Images\wmd-buttons.png" />
     <Content Include="Areas\Admin\Views\Web.config" />
