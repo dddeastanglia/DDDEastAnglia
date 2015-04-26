@@ -255,6 +255,7 @@
     <Compile Include="Models\SpeakerProfile.cs" />
     <Compile Include="NavigationMenu\NavigationMenuModule.cs" />
     <Compile Include="Helpers\Email\EmailModule.cs" />
+    <Content Include="Images\carousel\8.jpg" />
     <Content Include="Images\googleplaystore.gif" />
     <Content Include="Images\hotels\doubletree-hilton.jpg" />
     <Content Include="Images\hotels\premierinn-a14-j32.jpg" />
