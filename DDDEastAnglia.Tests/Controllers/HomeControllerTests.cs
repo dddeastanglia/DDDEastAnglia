@@ -1,5 +1,4 @@
-﻿using DDDEastAnglia.Controllers;
-using DDDEastAnglia.Models;
+﻿using DDDEastAnglia.Models;
 using NUnit.Framework;
 
 namespace DDDEastAnglia.Tests.Controllers
@@ -14,8 +13,10 @@ namespace DDDEastAnglia.Tests.Controllers
                                         .WithSessionSubmissionClosed()
                                         .Build();
 
-            var model = new HomeController(conferenceLoader)
-                            .About().GetViewModel<AboutViewModel>();
+            var model = new HomeControllerBuilder()
+                                .WithConferenceLoader(conferenceLoader)
+                                .Build()
+                                .About().GetViewModel<AboutViewModel>();
 
             Assert.That(model.ShowSessionSubmissionLink, Is.False);
         }
@@ -27,7 +28,9 @@ namespace DDDEastAnglia.Tests.Controllers
                                         .WithSessionSubmissionOpen()
                                         .Build();
 
-            var model = new HomeController(conferenceLoader)
+            var model = new HomeControllerBuilder()
+                            .WithConferenceLoader(conferenceLoader)
+                            .Build()
                             .About().GetViewModel<AboutViewModel>();
 
             Assert.That(model.ShowSessionSubmissionLink, Is.True);
@@ -40,7 +43,7 @@ namespace DDDEastAnglia.Tests.Controllers
                                         .WithAgendaNotPublished()
                                         .Build();
 
-            var controller = new HomeController(conferenceLoader);
+            var controller = new HomeControllerBuilder().WithConferenceLoader(conferenceLoader).Build();
             var viewName = controller.Agenda().GetRedirectionViewName();
 
             Assert.That(viewName, Is.EqualTo("Index"));
@@ -53,7 +56,7 @@ namespace DDDEastAnglia.Tests.Controllers
                                         .WithRegistrationNotOpen()
                                         .Build();
 
-            var controller = new HomeController(conferenceLoader);
+            var controller = new HomeControllerBuilder().WithConferenceLoader(conferenceLoader).Build();
             var viewName = controller.Agenda().GetRedirectionViewName();
 
             Assert.That(viewName, Is.EqualTo("Index"));
@@ -66,7 +69,7 @@ namespace DDDEastAnglia.Tests.Controllers
                                         .WithRegistrationNotOpen()
                                         .Build();
 
-            var controller = new HomeController(conferenceLoader);
+            var controller = new HomeControllerBuilder().WithConferenceLoader(conferenceLoader).Build();
             var viewName = controller.Agenda().GetRedirectionViewName();
 
             Assert.That(viewName, Is.EqualTo("Index"));
@@ -79,11 +82,11 @@ namespace DDDEastAnglia.Tests.Controllers
                                         .NotInPreview()
                                         .Build();
 
-            var result = new HomeController(conferenceLoader).Preview();
+            var result = new HomeControllerBuilder().WithConferenceLoader(conferenceLoader).Build().Preview();
 
             Assert.That(result.GetRedirectionUrl(), Is.EqualTo("~/"));
         }
-    
+
         [Test]
         public void Closed_ShouldRedirectToTheHomePage_WhenTheConferenceIsNotClosed()
         {
@@ -91,7 +94,7 @@ namespace DDDEastAnglia.Tests.Controllers
                                         .WhenNotClosed()
                                         .Build();
 
-            var result = new HomeController(conferenceLoader).Closed();
+            var result = new HomeControllerBuilder().WithConferenceLoader(conferenceLoader).Build().Closed();
 
             Assert.That(result.GetRedirectionUrl(), Is.EqualTo("~/"));
         }

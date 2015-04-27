@@ -5,7 +5,15 @@ using DDDEastAnglia.DataAccess.SimpleData.Models;
 
 namespace DDDEastAnglia.DataAccess
 {
-    public sealed class DefaultSponsorSorter : ISponsorSorter
+    public static class SponsorExtensions
+    {
+        public static IEnumerable<Sponsor> OrderBySponsorSorter(this IEnumerable<Sponsor> sponsors)
+        {
+            return new DefaultSponsorSorter().Sort(sponsors);
+        }
+    }
+
+    public class DefaultSponsorSorter : ISponsorSorter
     {
         public IEnumerable<Sponsor> Sort(IEnumerable<Sponsor> sponsors)
         {

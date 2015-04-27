@@ -1,25 +1,24 @@
 ﻿using System.Web.Mvc;
-using DDDEastAnglia.DataAccess;
+using DDDEastAnglia.Domain;
 
 namespace DDDEastAnglia.Controllers
 {
     public class SponsorController : Controller
     {
         private readonly SponsorModelQuery sponsorModelQuery;
-        private readonly ISponsorRepository sponsorRepository;
+        private readonly SponsorLogoService sponsorLogoService;
 
-        public SponsorController(SponsorModelQuery sponsorModelQuery, ISponsorRepository sponsorRepository)
+        public SponsorController(SponsorModelQuery sponsorModelQuery, SponsorLogoService sponsorLogoService)
         {
             this.sponsorModelQuery = sponsorModelQuery;
-            this.sponsorRepository = sponsorRepository;
+            this.sponsorLogoService = sponsorLogoService;
         }
 
         public ActionResult Logo(int sponsorId)
         {
-            var sponsor = sponsorRepository.GetSponsor(sponsorId);
-            return File(sponsor.Logo, "image/png");
+            return sponsorLogoService.Get(sponsorId);
         }
-
+        
         [ChildActionOnly]
         public ActionResult Sidebar()
         {

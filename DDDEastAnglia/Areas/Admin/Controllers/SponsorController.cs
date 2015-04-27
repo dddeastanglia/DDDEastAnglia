@@ -15,9 +15,9 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
     public class SponsorController : Controller
     {
         private readonly ISponsorRepository sponsorRepository;
-        private readonly SponsorSorter sponsorSorter;
+        private readonly DefaultSponsorSorter _defaultSponsorSorter;
 
-        public SponsorController(ISponsorRepository sponsorRepository, SponsorSorter sponsorSorter)
+        public SponsorController(ISponsorRepository sponsorRepository, DefaultSponsorSorter _defaultSponsorSorter)
         {
             if (sponsorRepository == null)
             {
@@ -30,13 +30,13 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
             }
 
             this.sponsorRepository = sponsorRepository;
-            this.sponsorSorter = sponsorSorter;
+            this._defaultSponsorSorter = _defaultSponsorSorter;
         }
 
         public ActionResult Index()
         {
             var sponsors = sponsorRepository.GetAllSponsors();
-            var sortedSponsors = sponsorSorter.Sort(sponsors)
+            var sortedSponsors = _defaultSponsorSorter.Sort(sponsors)
                                               .Select(CreateSponsorModel)
                                               .ToList();
             return View(sortedSponsors);
