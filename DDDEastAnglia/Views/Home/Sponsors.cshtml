@@ -11,7 +11,8 @@
 <p>If you would like to sponsor @Html.DDDEastAnglia(), please @Html.ActionLink("get in touch", "Contact", "Home").</p>
 
 @foreach (var sponsor in Model)
-{<div class="sponsor span5">
+{
+    <div class="sponsor span5">
         <a href="@sponsor.Url">
             <img src="@Url.Action("Logo", "Sponsor", new { sponsorId = sponsor.SponsorId })" />
         </a>

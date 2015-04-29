@@ -2,10 +2,11 @@
 <section id="sponsors">
     <h1>Sponsors</h1>
     @foreach (var sponsor in Model)
-    {<div class="sponsor">
-         <a href="@sponsor.Url">
-             <img src="@Url.Action("Logo", "Sponsor", new { sponsorId = sponsor.SponsorId })" />
-         </a>
-    </div>
+    {
+        <div class="sponsor">
+             <a href="@sponsor.Url">
+                 <img src="@Url.Action("Logo", "Sponsor", new { sponsorId = sponsor.SponsorId })" />
+             </a>
+        </div>
     }
 </section>
