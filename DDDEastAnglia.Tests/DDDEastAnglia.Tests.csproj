@@ -63,7 +63,6 @@
     <Compile Include="Admin\AdminHomeControllerTests.cs" />
     <Compile Include="ChartDataConverterBuilder.cs" />
     <Compile Include="DataAccess\DefaultSponsorSorterTests.cs" />
-    <Compile Include="Controllers\HomeControllerBuilder.cs" />
     <Compile Include="DataProviderBuilder.cs" />
     <Compile Include="Admin\SessionControllerTests.cs" />
     <Compile Include="Admin\UserControllerTests.cs" />
@@ -77,7 +76,6 @@
     <Compile Include="InMemoryRepository.cs" />
     <Compile Include="InMemorySponsorRepository.cs" />
     <Compile Include="SponsorBuilder.cs" />
-    <Compile Include="SponsorModelQueryBuilder.cs" />
     <Compile Include="VotingControllerBuilder.cs" />
     <Compile Include="Admin\VotingControllerTests.cs" />
     <Compile Include="CannedResponseDateTimeOffsetProvider.cs" />

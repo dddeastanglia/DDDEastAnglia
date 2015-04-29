@@ -9,8 +9,8 @@ namespace DDDEastAnglia.Tests.Sponsors.sponsor_list
         public Sponsors_who_havent_paid_yet()
         {
             Given_unpaid_sponsor(name: "waiting for budget");
-            Given_sponsor(name: "all paid up", amount: 200);
-            Given_sponsor(name: "big Spender", amount: 1500);
+            Given_standard_sponsor(name: "all paid up");
+            Given_premium_sponsor(name: "big Spender");
             When_getting_sponsor_list();
         }
 

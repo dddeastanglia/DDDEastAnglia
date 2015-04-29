@@ -1,21 +1,37 @@
-using System.Web.Mvc;
+using System;
 using DDDEastAnglia.DataAccess;
 
 namespace DDDEastAnglia.Controllers
 {
     public class SponsorLogoService
     {
-        private readonly ISponsorRepository sponsorRepository;
+        private readonly ISponsorRepository _sponsorRepository;
 
         public SponsorLogoService(ISponsorRepository sponsorRepository)
         {
-            this.sponsorRepository = sponsorRepository;
+            if (sponsorRepository == null)
+            {
+                throw new ArgumentNullException("sponsorRepository");
+            }
+            _sponsorRepository = sponsorRepository;
         }
 
-        public FileContentResult Get(int sponsorId)
+        public Image Get(int sponsorId)
         {
-            var sponsor = sponsorRepository.GetSponsor(sponsorId);
-            return new FileContentResult(sponsor.Logo, "image/png");
+            var sponsor = _sponsorRepository.GetSponsor(sponsorId);
+            return new Image(sponsor.Logo, "image/png");
+        }
+
+        public class Image
+        {
+            public byte[] Data { get; private set; }
+            public string ContentType { get; private set; }
+
+            public Image(byte[] data, string contentType)
+            {
+                Data = data;
+                ContentType = contentType;
+            }
         }
     }
 }

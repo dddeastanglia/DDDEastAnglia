@@ -1,24 +1,29 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using DDDEastAnglia.Areas.Admin.Models;
 using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.DataAccess.SimpleData.Models;
-using DDDEastAnglia.Models;
 
 namespace DDDEastAnglia.Controllers
 {
     public class SponsorModelQuery
     {
-        private readonly ISponsorRepository sponsorRepository;
+        private readonly ISponsorRepository _sponsorRepository;
 
         public SponsorModelQuery(ISponsorRepository sponsorRepository)
         {
-            this.sponsorRepository = sponsorRepository;
+            if (sponsorRepository == null)
+            {
+                throw new ArgumentNullException("sponsorRepository");
+            }
+            _sponsorRepository = sponsorRepository;
         }
 
         public IEnumerable<SponsorModel> Get()
         {
             var sponsors =
-                sponsorRepository
+                _sponsorRepository
                     .GetAllSponsors()
                     .Where(x => x.ShowPublicly)
                     .OrderBySponsorSorter();

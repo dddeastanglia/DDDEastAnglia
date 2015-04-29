@@ -8,8 +8,8 @@ namespace DDDEastAnglia.Tests.Sponsors.sponsor_list
     {
         public sponsors_with_same_amount_paid()
         {
-            Given_sponsor(name: "paid nearer the event", paymentDate: 1.October(2015));
-            Given_sponsor(name: "paid first", paymentDate: 1.January(2015));
+            Given_premium_sponsor(name: "paid nearer the event", paymentDate: 1.October(2015));
+            Given_premium_sponsor(name: "paid first", paymentDate: 1.January(2015));
             When_getting_sponsor_list();
         }
 

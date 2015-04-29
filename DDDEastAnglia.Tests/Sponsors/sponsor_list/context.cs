@@ -1,42 +1,65 @@
 ﻿using System;
 using System.Collections.Generic;
+using DDDEastAnglia.Areas.Admin.Models;
 using DDDEastAnglia.Controllers;
 using DDDEastAnglia.DataAccess;
-using DDDEastAnglia.Models;
 
 namespace DDDEastAnglia.Tests.Sponsors.sponsor_list
 {
     public class context
     {
-        protected ISponsorRepository sponsorRepository;
         protected IEnumerable<SponsorModel> sponsor_list;
-        private SponsorModelQuery sponsorModelQuery;
+        private readonly SponsorModelQuery _sponsorModelQuery;
+        private readonly ISponsorRepository _sponsorRepository;
 
         public context()
         {
-            sponsorRepository = new InMemorySponsorRepository();
-            sponsorModelQuery = new SponsorModelQuery(sponsorRepository);
+            _sponsorRepository = new InMemorySponsorRepository();
+            _sponsorModelQuery = new SponsorModelQuery(_sponsorRepository);
         }
 
-        protected void Given_sponsor(string name, int amount = 0, bool showPublically = true, DateTime? paymentDate = null)
+        protected void Given_premium_sponsor(string name, DateTime? paymentDate = null)
         {
-            var sponsorBuilder = new SponsorBuilder()
-                .WithName(name)
-                .WithShowPublicly(showPublically)
-                .WithSponsorshipAmount(amount)
-                .WithPaymentDate(paymentDate);
-            
-            sponsorRepository.AddSponsor(sponsorBuilder.Build());
+            var sponsor = new SponsorBuilder()
+                .PremiumSponsor(name)
+                .WithPaymentDate(paymentDate)
+                .Build();
+
+            _sponsorRepository.AddSponsor(sponsor);
+        }
+
+        protected void Given_gold_sponsor(string name, DateTime? paymentDate = null)
+        {
+            var sponsor = new SponsorBuilder()
+                .GoldSponsor(name)
+                .WithPaymentDate(paymentDate)
+                .Build();
+
+            _sponsorRepository.AddSponsor(sponsor);
+        }
+
+        protected void Given_standard_sponsor(string name, DateTime? paymentDate = null)
+        {
+            var sponsor = new SponsorBuilder()
+                .StandardSponsor(name)
+                .WithPaymentDate(paymentDate)
+                .Build();
+
+            _sponsorRepository.AddSponsor(sponsor);
         }
 
         protected void Given_unpaid_sponsor(string name)
         {
-            Given_sponsor(name, 0, false);
+            var sponsor = new SponsorBuilder()
+                .UnPaidSponsor(name)
+                .Build();
+
+            _sponsorRepository.AddSponsor(sponsor);
         }
 
         protected void When_getting_sponsor_list()
         {
-            sponsor_list = sponsorModelQuery.Get();
+            sponsor_list = _sponsorModelQuery.Get();
         }
     }
 }

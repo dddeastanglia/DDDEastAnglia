@@ -13,7 +13,7 @@ namespace DDDEastAnglia.DataAccess
         }
     }
 
-    public class DefaultSponsorSorter : ISponsorSorter
+    public sealed class DefaultSponsorSorter
     {
         public IEnumerable<Sponsor> Sort(IEnumerable<Sponsor> sponsors)
         {

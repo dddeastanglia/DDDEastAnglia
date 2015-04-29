@@ -4,40 +4,45 @@ using System.Collections.Generic;
 
 namespace DDDEastAnglia.Tests
 {
-    internal class InMemoryRepository<T>
+    internal class InMemoryRepository<T> where T : class
     {
-        private readonly Func<T, int> keyFunc;
-        private readonly ConcurrentDictionary<int, T> store = new ConcurrentDictionary<int, T>();
+        private readonly Func<T, int> _primaryKeyFinder;
+        private readonly ConcurrentDictionary<int, T> _store = new ConcurrentDictionary<int, T>();
 
-        public InMemoryRepository(Func<T, int> keyFunc)
+        public InMemoryRepository(Func<T, int> primaryKeyFinder)
         {
-            this.keyFunc = keyFunc;
+            if (primaryKeyFinder == null)
+            {
+                throw new ArgumentNullException("primaryKeyFinder");
+            }
+
+            _primaryKeyFinder = primaryKeyFinder;
         }
 
         public void Save(T entity)
         {
-            var key = keyFunc(entity);
-            if (key == 0)
+            var primaryKey = _primaryKeyFinder(entity);
+            if (primaryKey == 0)
             {
-                key = store.Count + 1;
+                primaryKey = _store.Count + 1;
             }
-            store.AddOrUpdate(key, e => entity, (k, e) => entity);
+            _store.AddOrUpdate(primaryKey, e => entity, (k, e) => entity);
         }
 
         public void Delete(int key)
         {
             T value;
-            store.TryRemove(key, out value);
+            _store.TryRemove(key, out value);
         }
 
         public IEnumerable<T> GetAll()
         {
-            return store.Values;
+            return _store.Values;
         }
 
         public T Get(int key)
         {
-            return store.ContainsKey(key) ? store[key] : default(T);
+            return _store.ContainsKey(key) ? _store[key] : default(T);
         }
     }
 }

@@ -8,9 +8,9 @@ namespace DDDEastAnglia.Tests.Sponsors.sponsor_list
     {
         public Sponsors_with_different_paid_amounts()
         {
-            Given_sponsor(name: "middleOfTheRoad", amount: 1000);
-            Given_sponsor(name: "Cheapest", amount: 200);
-            Given_sponsor(name: "big Spender", amount: 1500);
+            Given_gold_sponsor(name: "middleOfTheRoad");
+            Given_standard_sponsor(name: "Cheapest");
+            Given_premium_sponsor(name: "big Spender");
             When_getting_sponsor_list();
         }
 

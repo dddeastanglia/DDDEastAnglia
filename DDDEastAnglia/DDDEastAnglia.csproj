@@ -229,7 +229,6 @@
     <Compile Include="DataAccess\IAccountLoginMethodQuery.cs" />
     <Compile Include="DataAccess\ISpeakerRepository.cs" />
     <Compile Include="DataAccess\ISponsorRepository.cs" />
-    <Compile Include="DataAccess\ISponsorSorter.cs" />
     <Compile Include="DataAccess\DefaultSponsorSorter.cs" />
     <Compile Include="Helpers\ImageResizeExtensions.cs" />
     <Compile Include="DataAccess\SimpleData\Models\Sponsor.cs" />
@@ -261,7 +260,6 @@
     <Compile Include="LocalDateTimeOffsetProvider.cs" />
     <Compile Include="Models\AboutViewModel.cs" />
     <Compile Include="Models\LoginMethodViewModel.cs" />
-    <Compile Include="Models\SponsorModel.cs" />
     <Compile Include="Models\TimelineItemModel.cs" />
     <Compile Include="Models\TimelineModel.cs" />
     <Compile Include="Models\SpeakerProfile.cs" />

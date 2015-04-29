@@ -5,50 +5,67 @@ namespace DDDEastAnglia.Tests
 {
     internal class SponsorBuilder
     {
-        private byte[] logo;
-        private string name;
-        private DateTime? paymentDate;
-        private bool showPublicly = true;
-        private int sponsorId;
-        private int sponsorshipAmount;
-        private string url;
+        private readonly byte[] _logo;
+        private string _name = "Sponsor";
+        private DateTime? _paymentDate = DateTime.UtcNow;
+        private bool _showPublicly = true;
+        private int _sponsorId;
+        private int _sponsorshipAmount = 1000;
+        private string _url = "http://Sponsor.com";
 
-        public Sponsor Build()
+        public SponsorBuilder()
         {
-            return new Sponsor
-            {
-                Logo = this.logo,
-                Name = this.name,
-                PaymentDate = this.paymentDate,
-                ShowPublicly = this.showPublicly,
-                SponsorId = this.sponsorId,
-                SponsorshipAmount = this.sponsorshipAmount,
-                Url = this.url
-            };
+
         }
-
-        public SponsorBuilder WithName(string name)
+        
+        public SponsorBuilder UnPaidSponsor(string name)
         {
-            this.name = name;
+            _showPublicly = false;
+            _sponsorshipAmount = 0;
+            _name = name;
             return this;
         }
 
-        public SponsorBuilder WithSponsorshipAmount(int sponsorshipAmount)
+        public SponsorBuilder PremiumSponsor(string name)
         {
-            this.sponsorshipAmount = sponsorshipAmount;
+            _showPublicly = true;
+            _sponsorshipAmount = 2000;
+            _name = name;
             return this;
         }
 
-        public SponsorBuilder WithShowPublicly(bool showPublicly)
+        public SponsorBuilder GoldSponsor(string name)
         {
-            this.showPublicly = showPublicly;
+            _name = name;
+            _sponsorshipAmount = 1000;
+            return this;
+        }
+
+        public SponsorBuilder StandardSponsor(string name)
+        {
+            _name = name;
+            _sponsorshipAmount = 500;
             return this;
         }
 
         public SponsorBuilder WithPaymentDate(DateTime? paymentDate)
         {
-            this.paymentDate = paymentDate;
+            this._paymentDate = paymentDate;
             return this;
+        }
+
+        public Sponsor Build()
+        {
+            return new Sponsor
+            {
+                Logo = _logo,
+                Name = _name,
+                PaymentDate = _paymentDate,
+                ShowPublicly = _showPublicly,
+                SponsorId = _sponsorId,
+                SponsorshipAmount = _sponsorshipAmount,
+                Url = _url
+            };
         }
     }
 }
