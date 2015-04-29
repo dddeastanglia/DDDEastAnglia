@@ -69,10 +69,10 @@
     <Compile Include="DateExtensions.cs" />
     <Compile Include="DnsLookupBuilder.cs" />
     <Compile Include="Helpers\ImageResizeExtensionsTests.cs" />
-    <Compile Include="Sponsors\sponsor_list\context.cs" />
-    <Compile Include="Sponsors\sponsor_list\Sponsors_who_havent_paid_yet.cs" />
-    <Compile Include="Sponsors\sponsor_list\sponsors_with_different_paid_amounts.cs" />
-    <Compile Include="Sponsors\sponsor_list\sponsors_with_same_amount_paid.cs" />
+    <Compile Include="Sponsors\Query\Context.cs" />
+    <Compile Include="Sponsors\Query\Sponsors_who_havent_paid_yet.cs" />
+    <Compile Include="Sponsors\Query\Sponsors_with_different_paid_amounts.cs" />
+    <Compile Include="Sponsors\Query\Sponsors_with_same_amount_paid.cs" />
     <Compile Include="InMemoryRepository.cs" />
     <Compile Include="InMemorySponsorRepository.cs" />
     <Compile Include="SponsorBuilder.cs" />

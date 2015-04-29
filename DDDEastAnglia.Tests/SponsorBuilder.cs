@@ -12,11 +12,6 @@ namespace DDDEastAnglia.Tests
         private int _sponsorId;
         private int _sponsorshipAmount = 1000;
         private string _url = "http://Sponsor.com";
-
-        public SponsorBuilder()
-        {
-
-        }
         
         public SponsorBuilder UnPaidSponsor(string name)
         {

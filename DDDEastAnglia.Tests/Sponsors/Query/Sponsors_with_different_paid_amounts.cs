@@ -1,10 +1,10 @@
 using System.Linq;
 using NUnit.Framework;
 
-namespace DDDEastAnglia.Tests.Sponsors.sponsor_list
+namespace DDDEastAnglia.Tests.Sponsors.Query
 {
     [TestFixture]
-    public sealed class Sponsors_with_different_paid_amounts : context
+    public sealed class Sponsors_with_different_paid_amounts : Context
     {
         public Sponsors_with_different_paid_amounts()
         {
@@ -17,7 +17,7 @@ namespace DDDEastAnglia.Tests.Sponsors.sponsor_list
         [Test]
         public void Sponsors_are_ordered_by_amount_desc()
         {
-            var names = sponsor_list.Select(sm => sm.Name);
+            var names = SponsorList.Select(sm => sm.Name);
             CollectionAssert.AreEqual(new[] { "big Spender", "middleOfTheRoad", "Cheapest" }, names);
         }
     }

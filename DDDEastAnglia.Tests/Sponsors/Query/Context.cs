@@ -4,15 +4,15 @@ using DDDEastAnglia.Areas.Admin.Models;
 using DDDEastAnglia.Controllers;
 using DDDEastAnglia.DataAccess;
 
-namespace DDDEastAnglia.Tests.Sponsors.sponsor_list
+namespace DDDEastAnglia.Tests.Sponsors.Query
 {
-    public class context
+    public class Context
     {
-        protected IEnumerable<SponsorModel> sponsor_list;
+        protected IEnumerable<SponsorModel> SponsorList;
         private readonly SponsorModelQuery _sponsorModelQuery;
         private readonly ISponsorRepository _sponsorRepository;
 
-        public context()
+        public Context()
         {
             _sponsorRepository = new InMemorySponsorRepository();
             _sponsorModelQuery = new SponsorModelQuery(_sponsorRepository);
@@ -59,7 +59,7 @@ namespace DDDEastAnglia.Tests.Sponsors.sponsor_list
 
         protected void When_getting_sponsor_list()
         {
-            sponsor_list = _sponsorModelQuery.Get();
+            SponsorList = _sponsorModelQuery.Get();
         }
     }
 }
