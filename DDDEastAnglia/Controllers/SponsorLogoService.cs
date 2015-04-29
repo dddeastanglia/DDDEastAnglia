@@ -5,7 +5,7 @@ namespace DDDEastAnglia.Controllers
 {
     public class SponsorLogoService
     {
-        private readonly ISponsorRepository _sponsorRepository;
+        private readonly ISponsorRepository sponsorRepository;
 
         public SponsorLogoService(ISponsorRepository sponsorRepository)
         {
@@ -13,12 +13,12 @@ namespace DDDEastAnglia.Controllers
             {
                 throw new ArgumentNullException("sponsorRepository");
             }
-            _sponsorRepository = sponsorRepository;
+            this.sponsorRepository = sponsorRepository;
         }
 
         public Image Get(int sponsorId)
         {
-            var sponsor = _sponsorRepository.GetSponsor(sponsorId);
+            var sponsor = sponsorRepository.GetSponsor(sponsorId);
             return new Image(sponsor.Logo, "image/png");
         }
 

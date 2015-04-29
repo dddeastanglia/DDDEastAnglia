@@ -5,8 +5,8 @@ namespace DDDEastAnglia.Controllers
 {
     public class SponsorController : Controller
     {
-        private readonly SponsorModelQuery _sponsorModelQuery;
-        private readonly SponsorLogoService _sponsorLogoService;
+        private readonly SponsorModelQuery sponsorModelQuery;
+        private readonly SponsorLogoService sponsorLogoService;
 
         public SponsorController(SponsorModelQuery sponsorModelQuery, SponsorLogoService sponsorLogoService)
         {
@@ -18,20 +18,20 @@ namespace DDDEastAnglia.Controllers
             {
                 throw new ArgumentNullException("sponsorLogoService");
             }
-            _sponsorModelQuery = sponsorModelQuery;
-            _sponsorLogoService = sponsorLogoService;
+            this.sponsorModelQuery = sponsorModelQuery;
+            this.sponsorLogoService = sponsorLogoService;
         }
 
         public ActionResult Logo(int sponsorId)
         {
-            var image = _sponsorLogoService.Get(sponsorId);
+            var image = sponsorLogoService.Get(sponsorId);
             return new FileContentResult(image.Data, image.ContentType);
         }
 
         [ChildActionOnly]
         public ActionResult Sidebar()
         {
-            return PartialView("_Sponsors", _sponsorModelQuery.Get());
+            return PartialView("_Sponsors", sponsorModelQuery.Get());
         }
     }
 }

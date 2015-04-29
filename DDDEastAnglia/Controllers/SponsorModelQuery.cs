@@ -9,7 +9,7 @@ namespace DDDEastAnglia.Controllers
 {
     public class SponsorModelQuery
     {
-        private readonly ISponsorRepository _sponsorRepository;
+        private readonly ISponsorRepository sponsorRepository;
 
         public SponsorModelQuery(ISponsorRepository sponsorRepository)
         {
@@ -17,13 +17,13 @@ namespace DDDEastAnglia.Controllers
             {
                 throw new ArgumentNullException("sponsorRepository");
             }
-            _sponsorRepository = sponsorRepository;
+            this.sponsorRepository = sponsorRepository;
         }
 
         public IEnumerable<SponsorModel> Get()
         {
             var sponsors =
-                _sponsorRepository
+                sponsorRepository
                     .GetAllSponsors()
                     .Where(x => x.ShowPublicly)
                     .OrderBySponsorSorter();
