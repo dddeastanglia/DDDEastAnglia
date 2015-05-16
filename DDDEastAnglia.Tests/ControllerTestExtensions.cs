@@ -31,6 +31,8 @@ namespace DDDEastAnglia.Tests
 
         public static void SetupWithAuthenticatedUser(this Controller controller, UserProfile user)
         {
+            if (user == null) return;
+
             var userIdentity = Substitute.For<IIdentity>();
             userIdentity.Name.Returns(user.UserName);
 

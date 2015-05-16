@@ -1,5 +1,4 @@
-﻿using System.Net.Mail;
-using DDDEastAnglia.Controllers;
+﻿using DDDEastAnglia.Controllers;
 using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.Helpers;
 using DDDEastAnglia.Models;
@@ -9,7 +8,7 @@ using NUnit.Framework;
 using System;
 using System.Web.Mvc;
 using DDDEastAnglia.Services.Messenger.Email.Templates;
-using MailMessage = DDDEastAnglia.Services.Messenger.Email.MailMessage;
+using MailMessage = DDDEastAnglia.Tests.Helpers.Email.MailMessage;
 
 namespace DDDEastAnglia.Tests.Controllers
 {
@@ -141,7 +140,7 @@ namespace DDDEastAnglia.Tests.Controllers
             var model = new ResetPasswordStepOneModel { UserName = "bob" };
             controller.ResetPassword(model);
 
-            var expectedMessage = FromTemplate(PasswordResetMailTemplate.Create(string.Empty), userProfile);
+            var expectedMessage = MailMessage.FromTemplate(PasswordResetMailTemplate.Create(string.Empty), userProfile);
             postman.Received().Deliver(expectedMessage);
         }
 
@@ -158,7 +157,7 @@ namespace DDDEastAnglia.Tests.Controllers
             var model = new ResetPasswordStepOneModel { EmailAddress = "bob@example.com" };
             controller.ResetPassword(model);
 
-            var expectedMessage = FromTemplate(PasswordResetMailTemplate.Create(string.Empty), userProfile);
+            var expectedMessage = MailMessage.FromTemplate(PasswordResetMailTemplate.Create(string.Empty), userProfile);
             postman.Received().Deliver(expectedMessage);
         }
 
@@ -238,17 +237,6 @@ namespace DDDEastAnglia.Tests.Controllers
             var result = (RedirectToRouteResult)controller.SaveNewPassword(new ResetPasswordStepThreeModel());
 
             Assert.That(result.RouteValues["action"], Is.EqualTo("Complete"));
-        }
-
-        private MailMessage FromTemplate(IMailTemplate mailTemplate, UserProfile userProfile)
-        {
-            return new MailMessage
-            {
-                To = new MailAddress(userProfile.EmailAddress, userProfile.Name),
-                From = new MailAddress("admin@dddeastanglia.com", "DDD East Anglia"),
-                Subject = mailTemplate.RenderSubjectLine(),
-                Body = mailTemplate.RenderBody()
-            };
         }
     }
 }
