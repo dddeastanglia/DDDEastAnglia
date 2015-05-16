@@ -1,6 +1,6 @@
 ﻿namespace DDDEastAnglia.Helpers
 {
-    public interface IResetPasswordThingy
+    public interface IResetPasswordService
     {
         string GeneratePasswordResetToken(string username, int tokenExpirationInMinutesFromNow);
         bool ResetPassword(string passwordResetToken, string newPassword);

@@ -10,19 +10,19 @@ namespace DDDEastAnglia.Controllers
     public class ResetPasswordController : Controller
     {
         private readonly IUserProfileRepository userProfileRepository;
-        private readonly IResetPasswordThingy resetPasswordThingy;
+        private readonly IResetPasswordService resetPasswordService;
         private readonly EmailMessengerFactory emailMessengerFactory;
 
-        public ResetPasswordController(IUserProfileRepository userProfileRepository, IResetPasswordThingy resetPasswordThingy, EmailMessengerFactory emailMessengerFactory)
+        public ResetPasswordController(IUserProfileRepository userProfileRepository, IResetPasswordService resetPasswordService, EmailMessengerFactory emailMessengerFactory)
         {
             if (userProfileRepository == null)
             {
                 throw new ArgumentNullException("userProfileRepository");
             }
 
-            if (resetPasswordThingy == null)
+            if (resetPasswordService == null)
             {
-                throw new ArgumentNullException("resetPasswordThingy");
+                throw new ArgumentNullException("resetPasswordService");
             }
 
             if (emailMessengerFactory == null)
@@ -31,7 +31,7 @@ namespace DDDEastAnglia.Controllers
             }
 
             this.userProfileRepository = userProfileRepository;
-            this.resetPasswordThingy = resetPasswordThingy;
+            this.resetPasswordService = resetPasswordService;
             this.emailMessengerFactory = emailMessengerFactory;
         }
 
@@ -74,7 +74,7 @@ namespace DDDEastAnglia.Controllers
                 return View("Step2");
             }
 
-            string passwordResetToken = resetPasswordThingy.GeneratePasswordResetToken(profile.UserName, 120);
+            string passwordResetToken = resetPasswordService.GeneratePasswordResetToken(profile.UserName, 120);
             SendEmailToUser(profile, passwordResetToken);
 
             return View("Step2");
@@ -96,7 +96,7 @@ namespace DDDEastAnglia.Controllers
                 return View("Step3", model);
             }
 
-            bool passwordWasReset = resetPasswordThingy.ResetPassword(model.ResetToken, model.Password);
+            bool passwordWasReset = resetPasswordService.ResetPassword(model.ResetToken, model.Password);
 
             if (passwordWasReset)
             {

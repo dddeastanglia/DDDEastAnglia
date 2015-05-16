@@ -29,7 +29,7 @@ namespace DDDEastAnglia.Helpers
                   .To<RandomSort>()
                   .When(request => request.Target.Name.StartsWith("voting"));
 
-            Kernel.Bind<IResetPasswordThingy>().To<WebSecurityWrapper>();
+            Kernel.Bind<IResetPasswordService>().To<WebSecurityWrapper>();
         }
     }
 }

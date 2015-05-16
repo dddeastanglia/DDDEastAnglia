@@ -421,7 +421,7 @@
     <Compile Include="Domain\IConference.cs" />
     <Compile Include="Helpers\AlphabeticalSort.cs" />
     <Compile Include="Helpers\Context\HttpContextControllerInformationProvider.cs" />
-    <Compile Include="Helpers\IResetPasswordThingy.cs" />
+    <Compile Include="Helpers\IResetPasswordService.cs" />
     <Compile Include="Helpers\ISessionSorter.cs" />
     <Compile Include="Helpers\ISortAlgorithm.cs" />
     <Compile Include="Helpers\ListExtensions.cs" />
