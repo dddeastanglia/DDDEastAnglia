@@ -2,20 +2,15 @@
 
 namespace DDDEastAnglia.Services.Messenger.Email.Templates
 {
-    public class PasswordResetMailTemplate : TokenSubstitutingMailTemplate
+    public static class PasswordResetMailTemplate
     {
         private const string PasswordResetUrlToken = "[resetLink]";
 
         private const string MailSubject = "DDD East Anglia Password Reset Request";
 
-        private PasswordResetMailTemplate(string templateContent)
-            : base(MailSubject, templateContent)
-        {
-        }
-
         public static IMailTemplate Create(string passwordResetUrl)
         {
-            var template = new PasswordResetMailTemplate(Emails.ResetPasswordRequest);
+            var template = new TokenSubstitutingMailTemplate(MailSubject, Emails.ResetPasswordRequest);
             template.AddTokenSubstitution(PasswordResetUrlToken, passwordResetUrl);
 
             return template;

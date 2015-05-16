@@ -3,13 +3,13 @@ using System.Collections.Generic;
 
 namespace DDDEastAnglia.Helpers
 {
-    public abstract class TokenSubstitutingMailTemplate : IMailTemplate
+    public class TokenSubstitutingMailTemplate : IMailTemplate
     {
         private readonly string templateSubject;
         private readonly string templateContent;
         private readonly IDictionary<string, string> substitutions = new Dictionary<string, string>();
 
-        protected TokenSubstitutingMailTemplate(string templateSubject, string templateContent)
+        public TokenSubstitutingMailTemplate(string templateSubject, string templateContent)
         {
             if (templateSubject == null)
             {
@@ -25,7 +25,7 @@ namespace DDDEastAnglia.Helpers
             this.templateContent = templateContent;
         }
 
-        protected void AddTokenSubstitution(string token, string substitution)
+        public void AddTokenSubstitution(string token, string substitution)
         {
             substitutions[token] = substitution;
         }
