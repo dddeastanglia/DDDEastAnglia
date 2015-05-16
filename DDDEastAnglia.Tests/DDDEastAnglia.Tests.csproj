@@ -105,7 +105,6 @@
     <Compile Include="Filters\ConferenceIsClosedFilterTests.cs" />
     <Compile Include="Filters\ConferenceIsInPreviewFilterTests.cs" />
     <Compile Include="Helpers\Given_A_List_Of_Items_RandomShuffle_Should.cs" />
-    <Compile Include="Helpers\Email\ResetPasswordEmailSender_Should.cs" />
     <Compile Include="Helpers\Email\SendGrid\SendGridPostman_Should.cs" />
     <Compile Include="Helpers\Email\Smtp\SmtpHostSettingsProvider_Should.cs" />
     <Compile Include="Helpers\Email\Smtp\SmtpHostSettings_Should.cs" />

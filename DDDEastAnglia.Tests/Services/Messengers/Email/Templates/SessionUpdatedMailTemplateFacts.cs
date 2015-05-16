@@ -46,8 +46,7 @@ namespace DDDEastAnglia.Tests.Services.Messengers.Email.Templates
 
             private static IMailTemplate CreateSut(string title = "", string @abstract = "")
             {
-                var template = SessionUpdatedMailTemplate.Create(@"Services\Messengers\Email\Templates\SessionUpdated.txt",
-                    new Session
+                var template = SessionUpdatedMailTemplate.Create(new Session
                     {
                         Title = title,
                         Abstract = @abstract

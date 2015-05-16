@@ -115,10 +115,8 @@ namespace DDDEastAnglia.Controllers
                 var addedSession = sessionRepository.AddSession(session);
 
                 UserProfile speakerProfile = userProfileRepository.GetUserProfileByUserName(User.Identity.Name);
-                // TODO Add as resources or in the database so we can abstract the filesystem
-                string textTemplatePath = Server.MapPath("~/SessionSubmissionTemplate.txt");
-
-                var sessionCreatedMailTemplate = SessionCreatedMailTemplate.Create(textTemplatePath, addedSession);
+                
+                var sessionCreatedMailTemplate = SessionCreatedMailTemplate.Create(addedSession);
                 emailMessengerFactory.CreateEmailMessenger(sessionCreatedMailTemplate).Notify(speakerProfile);
 
                 return RedirectToAction("Details", new { id = addedSession.SessionId });
@@ -161,9 +159,8 @@ namespace DDDEastAnglia.Controllers
                 sessionRepository.UpdateSession(session);
 
                 UserProfile speakerProfile = userProfileRepository.GetUserProfileByUserName(User.Identity.Name);
-                string textTemplatePath = Server.MapPath("~/SessionSubmissionTemplate.txt");
-
-                var mailTemplate = SessionUpdatedMailTemplate.Create(textTemplatePath, session);
+                
+                var mailTemplate = SessionUpdatedMailTemplate.Create(session);
                 emailMessengerFactory.CreateEmailMessenger(mailTemplate).Notify(speakerProfile);
 
                 return RedirectToAction("Index");

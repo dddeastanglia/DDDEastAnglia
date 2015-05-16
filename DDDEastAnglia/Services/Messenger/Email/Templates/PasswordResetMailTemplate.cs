@@ -1,5 +1,4 @@
 ﻿using DDDEastAnglia.Helpers;
-using DDDEastAnglia.Helpers.File;
 
 namespace DDDEastAnglia.Services.Messenger.Email.Templates
 {
@@ -14,9 +13,9 @@ namespace DDDEastAnglia.Services.Messenger.Email.Templates
         {
         }
 
-        public static IMailTemplate Create(string templatePath, string passwordResetUrl)
+        public static IMailTemplate Create(string passwordResetUrl)
         {
-            var template = new PasswordResetMailTemplate(new FileContentsProvider().GetFileContents(templatePath));
+            var template = new PasswordResetMailTemplate(Emails.ResetPasswordRequest);
             template.AddTokenSubstitution(PasswordResetUrlToken, passwordResetUrl);
 
             return template;
