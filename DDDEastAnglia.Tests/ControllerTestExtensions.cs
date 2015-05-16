@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using DDDEastAnglia.Models;
 using NSubstitute;
 
 namespace DDDEastAnglia.Tests
@@ -25,6 +27,20 @@ namespace DDDEastAnglia.Tests
             var controllerContext = new ControllerContext {HttpContext = httpContext};
             controller.ControllerContext = controllerContext;
             controller.Url = new UrlHelper(new RequestContext(controller.HttpContext, new RouteData()), RouteTable.Routes);
+        }
+
+        public static void SetupWithAuthenticatedUser(this Controller controller, UserProfile user)
+        {
+            var userIdentity = Substitute.For<IIdentity>();
+            userIdentity.Name.Returns(user.UserName);
+
+            var userPrincipal = Substitute.For<IPrincipal>();
+            userPrincipal.Identity.Returns(userIdentity);
+
+            var httpContext = Substitute.For<HttpContextBase>();
+            httpContext.User.Returns(userPrincipal);
+
+            controller.ControllerContext = new ControllerContext {  HttpContext = httpContext };
         }
     }
 }
