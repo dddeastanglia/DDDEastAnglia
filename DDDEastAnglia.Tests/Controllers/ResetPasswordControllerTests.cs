@@ -132,7 +132,8 @@ namespace DDDEastAnglia.Tests.Controllers
         public void TestThat_ResetPassword_SendsAnEmailToTheUser_WhenAValidUserIsFound_FromAUserName()
         {
             var userProfileRepository = Substitute.For<IUserProfileRepository>();
-            userProfileRepository.GetUserProfileByUserName("bob").Returns(new UserProfile { UserName = "bob", EmailAddress = "bob@example.com" });
+            var userProfile = new UserProfile { UserName = "bob", EmailAddress = "bob@example.com" };
+            userProfileRepository.GetUserProfileByUserName("bob").Returns(userProfile);
             var postman = Substitute.For<IPostman>();
             var controller = new ResetPasswordController(userProfileRepository, Substitute.For<IResetPasswordThingy>(), new EmailMessengerFactory(postman));
             controller.SetupWithHttpContextAndUrlHelper();
@@ -140,14 +141,16 @@ namespace DDDEastAnglia.Tests.Controllers
             var model = new ResetPasswordStepOneModel { UserName = "bob" };
             controller.ResetPassword(model);
 
-            postman.Received().Deliver(new MailMessage(){To = new MailAddress("bob@example.com")});
+            var expectedMessage = FromTemplate(PasswordResetMailTemplate.Create(string.Empty), userProfile);
+            postman.Received().Deliver(expectedMessage);
         }
 
         [Test]
         public void TestThat_ResetPassword_SendsAnEmailToTheUser_WhenAValidUserIsFound_FromAnEmailAddress()
         {
             var userProfileRepository = Substitute.For<IUserProfileRepository>();
-            userProfileRepository.GetUserProfileByEmailAddress("bob@example.com").Returns(new UserProfile { UserName = "bob", EmailAddress = "bob@example.com" });
+            var userProfile = new UserProfile { UserName = "bob", EmailAddress = "bob@example.com" };
+            userProfileRepository.GetUserProfileByEmailAddress("bob@example.com").Returns(userProfile);
             var postman = Substitute.For<IPostman>();
             var controller = new ResetPasswordController(userProfileRepository, Substitute.For<IResetPasswordThingy>(), new EmailMessengerFactory(postman));
             controller.SetupWithHttpContextAndUrlHelper();
@@ -155,7 +158,8 @@ namespace DDDEastAnglia.Tests.Controllers
             var model = new ResetPasswordStepOneModel { EmailAddress = "bob@example.com" };
             controller.ResetPassword(model);
 
-            postman.Received().Deliver(new MailMessage() {To = new MailAddress("bob@example.com")});
+            var expectedMessage = FromTemplate(PasswordResetMailTemplate.Create(string.Empty), userProfile);
+            postman.Received().Deliver(expectedMessage);
         }
 
         [Test]
@@ -234,6 +238,17 @@ namespace DDDEastAnglia.Tests.Controllers
             var result = (RedirectToRouteResult)controller.SaveNewPassword(new ResetPasswordStepThreeModel());
 
             Assert.That(result.RouteValues["action"], Is.EqualTo("Complete"));
+        }
+
+        private MailMessage FromTemplate(IMailTemplate mailTemplate, UserProfile userProfile)
+        {
+            return new MailMessage
+            {
+                To = new MailAddress(userProfile.EmailAddress, userProfile.Name),
+                From = new MailAddress("admin@dddeastanglia.com", "DDD East Anglia"),
+                Subject = mailTemplate.RenderSubjectLine(),
+                Body = mailTemplate.RenderBody()
+            };
         }
     }
 }
