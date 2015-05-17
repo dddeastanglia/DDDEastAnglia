@@ -18,13 +18,13 @@ namespace DDDEastAnglia.Tests.Controllers
         [Test]
         public void TestThat_Ctor_ThrowsAnException_WhenTheSuppliedContextIsNull()
         {
-            var resetPasswordThingy = Substitute.For<IResetPasswordService>();
+            var resetPasswordService = Substitute.For<IResetPasswordService>();
             var postman = Substitute.For<IPostman>();
-            Assert.Throws<ArgumentNullException>(() => new ResetPasswordController(null, resetPasswordThingy, new EmailMessengerFactory(postman)));
+            Assert.Throws<ArgumentNullException>(() => new ResetPasswordController(null, resetPasswordService, new EmailMessengerFactory(postman)));
         }
 
         [Test]
-        public void TestThat_Ctor_ThrowsAnException_WhenTheSuppliedResetPasswordThingyIsNull()
+        public void TestThat_Ctor_ThrowsAnException_WhenTheSuppliedResetPasswordServiceIsNull()
         {
             var userProfileRepository = Substitute.For<IUserProfileRepository>();
             var postman = Substitute.For<IPostman>();
@@ -102,14 +102,14 @@ namespace DDDEastAnglia.Tests.Controllers
         {
             var userProfileRepository = Substitute.For<IUserProfileRepository>();
             userProfileRepository.GetUserProfileByUserName("bob").Returns(new UserProfile { UserName = "bob", EmailAddress = "bob@example.com" });
-            var resetPasswordThingy = Substitute.For<IResetPasswordService>();
-            var controller = new ResetPasswordController(userProfileRepository, resetPasswordThingy, new EmailMessengerFactory(Substitute.For<IPostman>()));
+            var resetPasswordService = Substitute.For<IResetPasswordService>();
+            var controller = new ResetPasswordController(userProfileRepository, resetPasswordService, new EmailMessengerFactory(Substitute.For<IPostman>()));
             controller.SetupWithHttpContextAndUrlHelper();
 
             var model = new ResetPasswordStepOneModel { UserName = "bob" };
             controller.ResetPassword(model);
 
-            resetPasswordThingy.Received().GeneratePasswordResetToken("bob", Arg.Any<int>());
+            resetPasswordService.Received().GeneratePasswordResetToken("bob", Arg.Any<int>());
         }
 
         [Test]
@@ -117,14 +117,14 @@ namespace DDDEastAnglia.Tests.Controllers
         {
             var userProfileRepository = Substitute.For<IUserProfileRepository>();
             userProfileRepository.GetUserProfileByEmailAddress("bob@example.com").Returns(new UserProfile { UserName = "bob", EmailAddress = "bob@example.com" });
-            var resetPasswordThingy = Substitute.For<IResetPasswordService>();
-            var controller = new ResetPasswordController(userProfileRepository, resetPasswordThingy, new EmailMessengerFactory(Substitute.For<IPostman>()));
+            var resetPasswordService = Substitute.For<IResetPasswordService>();
+            var controller = new ResetPasswordController(userProfileRepository, resetPasswordService, new EmailMessengerFactory(Substitute.For<IPostman>()));
             controller.SetupWithHttpContextAndUrlHelper();
 
             var model = new ResetPasswordStepOneModel { EmailAddress = "bob@example.com" };
             controller.ResetPassword(model);
 
-            resetPasswordThingy.Received().GeneratePasswordResetToken("bob", Arg.Any<int>());
+            resetPasswordService.Received().GeneratePasswordResetToken("bob", Arg.Any<int>());
         }
 
         [Test]
@@ -206,9 +206,9 @@ namespace DDDEastAnglia.Tests.Controllers
         [Test]
         public void TestThat_SaveNewPassword_AddsAnError_WhenThePasswordCouldNotBeChanged()
         {
-            var resetPasswordThingy = Substitute.For<IResetPasswordService>();
-            resetPasswordThingy.ResetPassword(Arg.Any<string>(), Arg.Any<string>()).Returns(false);
-            var controller = new ResetPasswordController(Substitute.For<IUserProfileRepository>(), resetPasswordThingy, new EmailMessengerFactory(Substitute.For<IPostman>()));
+            var resetPasswordService = Substitute.For<IResetPasswordService>();
+            resetPasswordService.ResetPassword(Arg.Any<string>(), Arg.Any<string>()).Returns(false);
+            var controller = new ResetPasswordController(Substitute.For<IUserProfileRepository>(), resetPasswordService, new EmailMessengerFactory(Substitute.For<IPostman>()));
 
             controller.SaveNewPassword(new ResetPasswordStepThreeModel());
 
@@ -218,9 +218,9 @@ namespace DDDEastAnglia.Tests.Controllers
         [Test]
         public void TestThat_SaveNewPassword_RedirectsToStepThree_WhenThePasswordCouldNotBeChanged()
         {
-            var resetPasswordThingy = Substitute.For<IResetPasswordService>();
-            resetPasswordThingy.ResetPassword(Arg.Any<string>(), Arg.Any<string>()).Returns(false);
-            var controller = new ResetPasswordController(Substitute.For<IUserProfileRepository>(), resetPasswordThingy, new EmailMessengerFactory(Substitute.For<IPostman>()));
+            var resetPasswordService = Substitute.For<IResetPasswordService>();
+            resetPasswordService.ResetPassword(Arg.Any<string>(), Arg.Any<string>()).Returns(false);
+            var controller = new ResetPasswordController(Substitute.For<IUserProfileRepository>(), resetPasswordService, new EmailMessengerFactory(Substitute.For<IPostman>()));
 
             var result = (ViewResult)controller.SaveNewPassword(new ResetPasswordStepThreeModel());
 
@@ -230,9 +230,9 @@ namespace DDDEastAnglia.Tests.Controllers
         [Test]
         public void TestThat_SaveNewPassword_RedirectsToCompletions_WhenThePasswordWasBeChanged()
         {
-            var resetPasswordThingy = Substitute.For<IResetPasswordService>();
-            resetPasswordThingy.ResetPassword(Arg.Any<string>(), Arg.Any<string>()).Returns(true);
-            var controller = new ResetPasswordController(Substitute.For<IUserProfileRepository>(), resetPasswordThingy, new EmailMessengerFactory(Substitute.For<IPostman>()));
+            var resetPasswordService = Substitute.For<IResetPasswordService>();
+            resetPasswordService.ResetPassword(Arg.Any<string>(), Arg.Any<string>()).Returns(true);
+            var controller = new ResetPasswordController(Substitute.For<IUserProfileRepository>(), resetPasswordService, new EmailMessengerFactory(Substitute.For<IPostman>()));
 
             var result = (RedirectToRouteResult)controller.SaveNewPassword(new ResetPasswordStepThreeModel());
 
