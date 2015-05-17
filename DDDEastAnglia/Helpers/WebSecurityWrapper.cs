@@ -2,7 +2,7 @@
 
 namespace DDDEastAnglia.Helpers
 {
-    public class WebSecurityWrapper : IResetPasswordThingy
+    public class WebSecurityWrapper : IResetPasswordService
     {
         public string GeneratePasswordResetToken(string username, int tokenExpirationInMinutesFromNow)
         {

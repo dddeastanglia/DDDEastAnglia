@@ -216,6 +216,7 @@
     <Compile Include="Areas\Admin\Models\VotesPerDateViewModel.cs" />
     <Content Include="Content\common.css" />
     <Compile Include="Areas\Admin\Models\VotesPerDayViewModel.cs" />
+    <Compile Include="Controllers\EmailMessengerFactory.cs" />
     <Compile Include="Controllers\GravatarController.cs" />
     <Compile Include="Controllers\TimelineController.cs" />
     <Compile Include="Controllers\UserNameFilterAttribute.cs" />
@@ -223,9 +224,26 @@
     <Compile Include="DataAccess\ConferenceLoader.cs" />
     <Compile Include="DataAccess\IAccountLoginMethodQuery.cs" />
     <Compile Include="DataAccess\ISpeakerRepository.cs" />
+    <Compile Include="Emails.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Emails.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\Email\SendGrid\IRenderer.cs" />
+    <Compile Include="Helpers\Email\SendGrid\HtmlRenderer.cs" />
+    <Compile Include="Helpers\IMailTemplate.cs" />
+    <Compile Include="Services\Messenger\Email\Templates\PasswordResetMailTemplate.cs" />
+    <Compile Include="Services\Messenger\Email\Templates\SessionUpdatedMailTemplate.cs" />
+    <Compile Include="Services\Messenger\IMessenger.cs" />
     <Compile Include="Helpers\LoginMethodLoader.cs" />
     <Compile Include="Helpers\LoginMethodViewModelBuilder.cs" />
     <Compile Include="Helpers\Sessions\SelectedSessions.cs" />
+    <Compile Include="Helpers\MarkdownConvertingMailTemplate.cs" />
+    <Compile Include="Helpers\SessionCreatedMailTemplate.cs" />
+    <Compile Include="Helpers\SessionCreationMailMessenger.cs" />
+    <Compile Include="Services\Messenger\Email\Templates\SessionCreatedMailTemplate.cs" />
+    <Compile Include="Services\Messenger\Email\EmailMessenger.cs" />
+    <Compile Include="Helpers\TokenSubstitutingMailTemplate.cs" />
     <Compile Include="Models\LoginMethod.cs" />
     <Compile Include="DataAccess\SimpleData\Queries\AccountLoginMethodQuery.cs" />
     <Compile Include="DataAccess\SpeakerRepository.cs" />
@@ -271,6 +289,14 @@
     <Content Include="Images\sponsors\agenda\redgate.png" />
     <Content Include="Images\sponsors\blackdotsolutions.png" />
     <Content Include="Images\sponsors\devexpress.png" />
+    <Content Include="SessionSubmissionTemplate.html" />
+    <Content Include="EmailTemplate.html" />
+    <EmbeddedResource Include="Emails.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Emails.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EmailTemplate.html" />
+    <Content Include="SessionSubmissionTemplate.txt" />
     <Content Include="Images\sponsors\ecmselection.png" />
     <Content Include="Images\sponsors\huddle.png" />
     <Content Include="Images\sponsors\ndclondon.png" />
@@ -395,22 +421,16 @@
     <Compile Include="Domain\IConference.cs" />
     <Compile Include="Helpers\AlphabeticalSort.cs" />
     <Compile Include="Helpers\Context\HttpContextControllerInformationProvider.cs" />
-    <Compile Include="Helpers\IResetPasswordThingy.cs" />
+    <Compile Include="Helpers\IResetPasswordService.cs" />
     <Compile Include="Helpers\ISessionSorter.cs" />
     <Compile Include="Helpers\ISortAlgorithm.cs" />
     <Compile Include="Helpers\ListExtensions.cs" />
     <Compile Include="Helpers\AppSettings\IAppSettingsProvider.cs" />
-    <Compile Include="Helpers\File\FileContentsProvider.cs" />
-    <Compile Include="Helpers\Email\IEmailSender.cs" />
-    <Compile Include="Helpers\File\IFileContentsProvider.cs" />
+    <Compile Include="Services\Messenger\Email\IPostman.cs" />
     <Compile Include="Helpers\Email\IMailHostSettingsProvider.cs" />
-    <Compile Include="Helpers\Email\IMailMessage.cs" />
-    <Compile Include="Helpers\Email\IMessageFactory.cs" />
-    <Compile Include="Helpers\Email\SendGrid\SendGridMessageFactory.cs" />
     <Compile Include="Helpers\Email\Smtp\SmtpHostSettingsProvider.cs" />
-    <Compile Include="Helpers\Email\ResetPasswordEmailSender.cs" />
-    <Compile Include="Helpers\Email\SendGrid\SendGridEmailSender.cs" />
-    <Compile Include="Helpers\Email\SendGrid\SendGridMessageWrapper.cs" />
+    <Compile Include="Helpers\Email\SendGrid\SendGridPostman.cs" />
+    <Compile Include="Services\Messenger\Email\MailMessage.cs" />
     <Compile Include="Helpers\AppSettings\WebConfigurationAppSettingsProvider.cs" />
     <Compile Include="Helpers\IControllerInformationProvider.cs" />
     <Compile Include="Helpers\Email\IMailHostSettings.cs" />

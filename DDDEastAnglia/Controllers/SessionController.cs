@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc;
-using DDDEastAnglia.DataAccess;
+﻿using DDDEastAnglia.DataAccess;
+using DDDEastAnglia.Helpers;
 using DDDEastAnglia.Models;
 using DDDEastAnglia.Mvc.Attributes;
-using DDDEastAnglia.Helpers;
+using DDDEastAnglia.Services.Messenger.Email.Templates;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace DDDEastAnglia.Controllers
 {
@@ -15,13 +16,15 @@ namespace DDDEastAnglia.Controllers
         private readonly IUserProfileRepository userProfileRepository;
         private readonly ISessionRepository sessionRepository;
         private readonly ISessionSorter sessionSorter;
+        private readonly EmailMessengerFactory emailMessengerFactory;
 
-        public SessionController(IConferenceLoader conferenceLoader, IUserProfileRepository userProfileRepository, ISessionRepository sessionRepository, ISessionSorter sorter)
+        public SessionController(IConferenceLoader conferenceLoader, IUserProfileRepository userProfileRepository, ISessionRepository sessionRepository, ISessionSorter sorter, EmailMessengerFactory messengerFactory)
         {
             this.conferenceLoader = conferenceLoader;
             this.userProfileRepository = userProfileRepository;
             this.sessionRepository = sessionRepository;
             sessionSorter = sorter;
+            emailMessengerFactory = messengerFactory;
         }
 
         [AllowAnonymous]
@@ -94,7 +97,7 @@ namespace DDDEastAnglia.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View(new Session {SpeakerUserName = userProfile.UserName, ConferenceId = conference.Id});
+            return View(new Session { SpeakerUserName = userProfile.UserName, ConferenceId = conference.Id });
         }
 
         [HttpPost]
@@ -110,7 +113,13 @@ namespace DDDEastAnglia.Controllers
             if (ModelState.IsValid)
             {
                 var addedSession = sessionRepository.AddSession(session);
-                return RedirectToAction("Details", new {id = addedSession.SessionId});
+
+                UserProfile speakerProfile = userProfileRepository.GetUserProfileByUserName(User.Identity.Name);
+                
+                var sessionCreatedMailTemplate = SessionCreatedMailTemplate.Create(addedSession);
+                emailMessengerFactory.CreateEmailMessenger(sessionCreatedMailTemplate).Notify(speakerProfile);
+
+                return RedirectToAction("Details", new { id = addedSession.SessionId });
             }
 
             return View(session);
@@ -148,6 +157,12 @@ namespace DDDEastAnglia.Controllers
             if (ModelState.IsValid)
             {
                 sessionRepository.UpdateSession(session);
+
+                UserProfile speakerProfile = userProfileRepository.GetUserProfileByUserName(User.Identity.Name);
+                
+                var mailTemplate = SessionUpdatedMailTemplate.Create(session);
+                emailMessengerFactory.CreateEmailMessenger(mailTemplate).Notify(speakerProfile);
+
                 return RedirectToAction("Index");
             }
 
@@ -185,7 +200,7 @@ namespace DDDEastAnglia.Controllers
             {
                 return new HttpUnauthorizedResult();
             }
-            
+
             sessionRepository.DeleteSession(id);
             return RedirectToAction("Index");
         }
@@ -194,7 +209,7 @@ namespace DDDEastAnglia.Controllers
         {
             var isUsersSession = Request.IsAuthenticated && session.SpeakerUserName == User.Identity.Name;
             var tweetLink = CreateTweetLink(isUsersSession, session.Title,
-                                            Url.Action("Details", "Session", new {id = session.SessionId},
+                                            Url.Action("Details", "Session", new { id = session.SessionId },
                                                        Request.Url.Scheme));
 
             var displayModel = new SessionDisplayModel

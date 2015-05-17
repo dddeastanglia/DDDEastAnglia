@@ -4,7 +4,7 @@ using DDDEastAnglia.Helpers;
 using DDDEastAnglia.VotingData;
 using NSubstitute;
 
-namespace DDDEastAnglia.Tests
+namespace DDDEastAnglia.Tests.Builders
 {
     public class VotingControllerBuilder
     {

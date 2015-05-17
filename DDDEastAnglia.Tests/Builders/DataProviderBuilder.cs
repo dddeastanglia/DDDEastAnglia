@@ -3,7 +3,7 @@ using DDDEastAnglia.VotingData;
 using DDDEastAnglia.VotingData.Models;
 using NSubstitute;
 
-namespace DDDEastAnglia.Tests
+namespace DDDEastAnglia.Tests.Builders
 {
     public class DataProviderBuilder
     {

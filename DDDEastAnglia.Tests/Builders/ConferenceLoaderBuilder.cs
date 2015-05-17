@@ -2,7 +2,7 @@
 using DDDEastAnglia.Domain;
 using NSubstitute;
 
-namespace DDDEastAnglia.Tests
+namespace DDDEastAnglia.Tests.Builders
 {
     public class ConferenceLoaderBuilder
     {
