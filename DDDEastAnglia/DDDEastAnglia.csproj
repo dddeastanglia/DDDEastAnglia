@@ -26,6 +26,7 @@
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <TargetFrameworkProfile />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -238,9 +239,6 @@
     <Compile Include="Helpers\LoginMethodLoader.cs" />
     <Compile Include="Helpers\LoginMethodViewModelBuilder.cs" />
     <Compile Include="Helpers\Sessions\SelectedSessions.cs" />
-    <Compile Include="Helpers\MarkdownConvertingMailTemplate.cs" />
-    <Compile Include="Helpers\SessionCreatedMailTemplate.cs" />
-    <Compile Include="Helpers\SessionCreationMailMessenger.cs" />
     <Compile Include="Services\Messenger\Email\Templates\SessionCreatedMailTemplate.cs" />
     <Compile Include="Services\Messenger\Email\EmailMessenger.cs" />
     <Compile Include="Helpers\TokenSubstitutingMailTemplate.cs" />
@@ -289,14 +287,11 @@
     <Content Include="Images\sponsors\agenda\redgate.png" />
     <Content Include="Images\sponsors\blackdotsolutions.png" />
     <Content Include="Images\sponsors\devexpress.png" />
-    <Content Include="SessionSubmissionTemplate.html" />
-    <Content Include="EmailTemplate.html" />
     <EmbeddedResource Include="Emails.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Emails.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="EmailTemplate.html" />
-    <Content Include="SessionSubmissionTemplate.txt" />
     <Content Include="Images\sponsors\ecmselection.png" />
     <Content Include="Images\sponsors\huddle.png" />
     <Content Include="Images\sponsors\ndclondon.png" />
@@ -457,8 +452,6 @@
     <Compile Include="Models\SessionTweetLink.cs" />
     <Compile Include="Models\SessionVoteModel.cs" />
     <Compile Include="Models\SpeakerDisplayModel.cs" />
-    <Content Include="ForgottenPasswordTemplate.txt" />
-    <Content Include="ForgottenPasswordTemplate.html" />
     <Content Include="Content\font-awesome-ie7.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Images\logo-icon-114.png" />
