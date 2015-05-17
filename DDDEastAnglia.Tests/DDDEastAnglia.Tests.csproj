@@ -68,7 +68,7 @@
     <Compile Include="Builders\DnsLookupBuilder.cs" />
     <Compile Include="Helpers\Email\MailMessage.cs" />
     <Compile Include="Helpers\Email\SendGrid\HtmlRendererFacts.cs" />
-    <Compile Include="Services\Messengers\Email\SessionSubmissionMessengerFacts.cs" />
+    <Compile Include="Services\Messengers\Email\EmailMessengerFacts.cs" />
     <Compile Include="Services\Messengers\Email\Templates\SessionUpdatedMailTemplateFacts.cs" />
     <Compile Include="Services\Messengers\Email\Templates\SessionCreatedMailTemplateFacts.cs" />
     <Compile Include="Builders\VotingControllerBuilder.cs" />
@@ -144,14 +144,6 @@
       <Project>{48C1973C-2ED3-40FD-8393-2884088229F3}</Project>
       <Name>DDDEastAnglia</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Services\Messengers\Email\Templates\SessionUpdated.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Services\Messengers\Email\Templates\SessionCreated.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

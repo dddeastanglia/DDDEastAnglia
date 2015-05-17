@@ -9,7 +9,7 @@ using MailMessage = DDDEastAnglia.Services.Messenger.Email.MailMessage;
 namespace DDDEastAnglia.Tests.Services.Messengers.Email
 {
     [TestFixture]
-    public class SessionSubmittedMailMessengerFacts
+    public class EmailMessengerFacts
     {
         [TestFixture]
         public class Notify_Should

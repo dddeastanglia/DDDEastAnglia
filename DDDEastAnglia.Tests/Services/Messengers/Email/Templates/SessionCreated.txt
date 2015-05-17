@@ -1,2 +1,0 @@
-﻿Title: [SessionTitle]
-Abstract: [SessionAbstract]

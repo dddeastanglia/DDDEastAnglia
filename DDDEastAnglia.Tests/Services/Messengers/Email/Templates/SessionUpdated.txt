@@ -1,4 +1,0 @@
-﻿Updated!
-
-Title: [SessionTitle]
-Abstract: [SessionAbstract]
