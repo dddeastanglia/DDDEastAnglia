@@ -2,9 +2,9 @@
 using DDDEastAnglia.Helpers;
 using DDDEastAnglia.Models;
 using DDDEastAnglia.Services.Messenger.Email;
+using DDDEastAnglia.Tests.Helpers.Email;
 using NSubstitute;
 using NUnit.Framework;
-using MailMessage = DDDEastAnglia.Services.Messenger.Email.MailMessage;
 
 namespace DDDEastAnglia.Tests.Services.Messengers.Email
 {
@@ -25,7 +25,7 @@ namespace DDDEastAnglia.Tests.Services.Messengers.Email
                 var messenger = new EmailMessenger(postman, template);
                 messenger.Notify(new UserProfile {EmailAddress = "speaker@dddeastanglia.com"});
 
-                var message = new MailMessage
+                var message = new TestMailMessage
                 {
                     From = new MailAddress("admin@dddeastanglia.com", "DDD East Anglia"),
                     To = new MailAddress("speaker@dddeastanglia.com"),
@@ -33,7 +33,7 @@ namespace DDDEastAnglia.Tests.Services.Messengers.Email
                     Body = "Message body"
                 };
 
-                postman.Received(1).Deliver(Arg.Is<MailMessage>(m => Helpers.Email.MailMessage.Equals(m, message)));
+                postman.Received(1).Deliver(message);
             }
         }
     }

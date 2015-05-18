@@ -1,4 +1,5 @@
-﻿using System.Net.Mail;
+﻿using System;
+using System.Net.Mail;
 using DDDEastAnglia.Helpers;
 using DDDEastAnglia.Models;
 using Site = DDDEastAnglia.Services.Messenger.Email;
@@ -17,8 +18,16 @@ namespace DDDEastAnglia.Tests.Helpers.Email
                 Body = mailTemplate.RenderBody()
             };
         }
+    }
 
-        public static bool Equals(Site.MailMessage x, Site.MailMessage y)
+    internal class TestMailMessage : Site.MailMessage
+    {
+        public override bool Equals(object obj)
+        {
+            return Equals(this, obj as Site.MailMessage);
+        }
+
+        private static bool Equals(Site.MailMessage x, Site.MailMessage y)
         {
             if (ReferenceEquals(x, y))
             {
@@ -32,28 +41,20 @@ namespace DDDEastAnglia.Tests.Helpers.Email
 
             return Equals(x.From, y.From)
                    && Equals(x.To, y.To)
-                   && string.Equals(x.Subject, y.Subject)
-                   && string.Equals(x.Body, y.Body);
+                   && String.Equals(x.Subject, y.Subject)
+                   && String.Equals(x.Body, y.Body);
         }
 
-        private class TestMailMessage : Site.MailMessage
+        public override int GetHashCode()
         {
-            public override bool Equals(object obj)
+            unchecked
             {
-                return MailMessage.Equals(this, obj as Site.MailMessage);
-            }
-
-            public override int GetHashCode()
-            {
-                unchecked
-                {
-                    int hashCode = 17;
-                    hashCode = hashCode * 19 + (From != null ? From.GetHashCode() : 0);
-                    hashCode = hashCode * 19 + (To != null ? To.GetHashCode() : 0);
-                    hashCode = hashCode * 19 + (Subject != null ? Subject.GetHashCode() : 0);
-                    hashCode = hashCode * 19 + (Body != null ? Body.GetHashCode() : 0);
-                    return hashCode;
-                }
+                int hashCode = 17;
+                hashCode = hashCode * 19 + (From != null ? From.GetHashCode() : 0);
+                hashCode = hashCode * 19 + (To != null ? To.GetHashCode() : 0);
+                hashCode = hashCode * 19 + (Subject != null ? Subject.GetHashCode() : 0);
+                hashCode = hashCode * 19 + (Body != null ? Body.GetHashCode() : 0);
+                return hashCode;
             }
         }
     }
