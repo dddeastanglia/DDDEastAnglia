@@ -12,9 +12,9 @@ namespace DDDEastAnglia.Tests.Helpers.Email.SendGrid
             [Test]
             public void Convert_Markdown_To_HTML()
             {
-                var sut = CreateSut();
+                var htmlRenderer = CreateSut();
 
-                var renderedHtml = sut.Render("*italicised text*");
+                var renderedHtml = htmlRenderer.Render("*italicised text*");
 
                 Assert.That(renderedHtml, Contains.Substring("<p><em>italicised text</em></p>"));
             }
@@ -22,9 +22,9 @@ namespace DDDEastAnglia.Tests.Helpers.Email.SendGrid
             [Test]
             public void Wrap_The_Content_In_An_HTML_Envelope()
             {
-                var sut = CreateSut();
+                var htmlRenderer = CreateSut();
 
-                var renderedHtml = sut.Render("");
+                var renderedHtml = htmlRenderer.Render("");
 
                 Assert.That(renderedHtml, Is.Not.StringContaining("[MessageBody]"));
                 Assert.That(renderedHtml, Is.StringStarting("<html><body>"));
