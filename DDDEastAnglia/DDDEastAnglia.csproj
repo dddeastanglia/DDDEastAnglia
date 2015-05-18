@@ -230,6 +230,7 @@
     <Compile Include="DataAccess\ISpeakerRepository.cs" />
     <Compile Include="DataAccess\ISponsorRepository.cs" />
     <Compile Include="DataAccess\DefaultSponsorSorter.cs" />
+    <Compile Include="Models\SponsorLogo.cs" />
     <Compile Include="Helpers\ImageResizeExtensions.cs" />
     <Compile Include="DataAccess\SimpleData\Models\Sponsor.cs" />
     <Compile Include="DataAccess\SimpleData\SponsorRepository.cs" />

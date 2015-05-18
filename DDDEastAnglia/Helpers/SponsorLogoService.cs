@@ -1,11 +1,12 @@
 using System;
 using DDDEastAnglia.DataAccess;
+using DDDEastAnglia.Models;
 
 namespace DDDEastAnglia.Helpers
 {
     public interface ISponsorLogoService
     {
-        Image Get(int sponsorId);
+        SponsorLogo Get(int sponsorId);
     }
 
     public class SponsorLogoService : ISponsorLogoService
@@ -18,26 +19,14 @@ namespace DDDEastAnglia.Helpers
             {
                 throw new ArgumentNullException("sponsorRepository");
             }
+
             this.sponsorRepository = sponsorRepository;
         }
 
-        public Image Get(int sponsorId)
+        public SponsorLogo Get(int sponsorId)
         {
             var sponsor = sponsorRepository.GetSponsor(sponsorId);
-            return new Image(sponsor.Logo, "image/png");
-        }
-        
-    }
-
-    public class Image
-    {
-        public byte[] Data { get; private set; }
-        public string ContentType { get; private set; }
-
-        public Image(byte[] data, string contentType)
-        {
-            Data = data;
-            ContentType = contentType;
+            return new SponsorLogo(sponsor.Logo, "image/png");
         }
     }
 }
