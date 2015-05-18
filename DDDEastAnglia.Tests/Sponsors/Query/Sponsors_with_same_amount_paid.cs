@@ -1,4 +1,5 @@
 using System.Linq;
+using Humanizer;
 using NUnit.Framework;
 
 namespace DDDEastAnglia.Tests.Sponsors.Query
@@ -8,8 +9,8 @@ namespace DDDEastAnglia.Tests.Sponsors.Query
     {
         public Sponsors_with_same_amount_paid()
         {
-            Given_premium_sponsor(name: "paid nearer the event", paymentDate: 1.October(2015));
-            Given_premium_sponsor(name: "paid first", paymentDate: 1.January(2015));
+            Given_premium_sponsor(name: "paid nearer the event", paymentDate: On.October.The1st.In(2015));
+            Given_premium_sponsor(name: "paid first", paymentDate: On.January.The1st.In(2015));
             When_getting_sponsor_list();
         }
 
@@ -19,7 +20,6 @@ namespace DDDEastAnglia.Tests.Sponsors.Query
             var names = SponsorList.Select(sm => sm.Name).ToList();
             Assert.That(names[0], Is.EqualTo("paid first"));
             Assert.That(names[1], Is.EqualTo("paid nearer the event"));
-            
         }
     }
 }
