@@ -1,9 +1,14 @@
 using System;
 using DDDEastAnglia.DataAccess;
 
-namespace DDDEastAnglia.Controllers
+namespace DDDEastAnglia.Helpers
 {
-    public class SponsorLogoService
+    public interface ISponsorLogoService
+    {
+        Image Get(int sponsorId);
+    }
+
+    public class SponsorLogoService : ISponsorLogoService
     {
         private readonly ISponsorRepository sponsorRepository;
 
@@ -21,17 +26,18 @@ namespace DDDEastAnglia.Controllers
             var sponsor = sponsorRepository.GetSponsor(sponsorId);
             return new Image(sponsor.Logo, "image/png");
         }
+        
+    }
 
-        public class Image
+    public class Image
+    {
+        public byte[] Data { get; private set; }
+        public string ContentType { get; private set; }
+
+        public Image(byte[] data, string contentType)
         {
-            public byte[] Data { get; private set; }
-            public string ContentType { get; private set; }
-
-            public Image(byte[] data, string contentType)
-            {
-                Data = data;
-                ContentType = contentType;
-            }
+            Data = data;
+            ContentType = contentType;
         }
     }
 }

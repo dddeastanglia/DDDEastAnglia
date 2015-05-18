@@ -1,24 +1,27 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
+using DDDEastAnglia.Areas.Admin.Models;
+using DDDEastAnglia.Helpers;
 
 namespace DDDEastAnglia.Controllers
 {
     public class SponsorController : Controller
     {
-        private readonly SponsorModelQuery sponsorModelQuery;
-        private readonly SponsorLogoService sponsorLogoService;
+        private readonly IViewModelQuery<IEnumerable<SponsorModel>> sponsorsQuery;
+        private readonly ISponsorLogoService sponsorLogoService;
 
-        public SponsorController(SponsorModelQuery sponsorModelQuery, SponsorLogoService sponsorLogoService)
+        public SponsorController(IViewModelQuery<IEnumerable<SponsorModel>> sponsorsQuery, ISponsorLogoService sponsorLogoService)
         {
-            if (sponsorModelQuery == null)
+            if (sponsorsQuery == null)
             {
-                throw new ArgumentNullException("sponsorModelQuery");
+                throw new ArgumentNullException("sponsorsQuery");
             }
             if (sponsorLogoService == null)
             {
                 throw new ArgumentNullException("sponsorLogoService");
             }
-            this.sponsorModelQuery = sponsorModelQuery;
+            this.sponsorsQuery = sponsorsQuery;
             this.sponsorLogoService = sponsorLogoService;
         }
 
@@ -31,7 +34,7 @@ namespace DDDEastAnglia.Controllers
         [ChildActionOnly]
         public ActionResult Sidebar()
         {
-            return PartialView("_Sponsors", sponsorModelQuery.Get());
+            return PartialView("_Sponsors", sponsorsQuery.Get());
         }
     }
 }

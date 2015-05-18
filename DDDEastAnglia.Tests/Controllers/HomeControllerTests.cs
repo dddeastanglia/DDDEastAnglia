@@ -102,7 +102,7 @@ namespace DDDEastAnglia.Tests.Controllers
 
         private HomeController CreateSUT(IConferenceLoader conferenceLoader)
         {
-            var sponsorModelQuery = new SponsorModelQuery(new InMemorySponsorRepository());
+            var sponsorModelQuery = new AllPublicSponsors(new InMemorySponsorRepository(), new DefaultSponsorSorter());
             return new HomeController(conferenceLoader, sponsorModelQuery);
         }
     }

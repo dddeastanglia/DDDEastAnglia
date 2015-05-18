@@ -5,7 +5,7 @@ namespace DDDEastAnglia.Helpers
 {
     public static class ImageResizeExtensions
     {
-        public static Image ConstrainToWidthOf(this Image image, int width)
+        public static System.Drawing.Image ConstrainToWidthOf(this System.Drawing.Image image, int width)
         {
             if (image.Width <= width)
             {
@@ -17,7 +17,7 @@ namespace DDDEastAnglia.Helpers
             return ScaleImage(image, width, newHeight);
         }
 
-        public static Image ConstrainToHeightOf(this Image image, int height)
+        public static System.Drawing.Image ConstrainToHeightOf(this System.Drawing.Image image, int height)
         {
             if (image.Height <= height)
             {
@@ -29,7 +29,7 @@ namespace DDDEastAnglia.Helpers
             return ScaleImage(image, newWidth, height);
         }
 
-        private static Image ScaleImage(Image image, int width, int height)
+        private static System.Drawing.Image ScaleImage(System.Drawing.Image image, int width, int height)
         {
             var scaledImage = new Bitmap(image, width, height);
             image.Dispose();

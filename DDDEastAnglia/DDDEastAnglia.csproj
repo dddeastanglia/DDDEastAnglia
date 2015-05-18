@@ -219,9 +219,9 @@
     <Content Include="Content\common.css" />
     <Compile Include="Areas\Admin\Models\VotesPerDayViewModel.cs" />
     <Compile Include="Controllers\GravatarController.cs" />
+    <Compile Include="Controllers\IViewModelQuery.cs" />
     <Compile Include="Controllers\SponsorController.cs" />
-    <Compile Include="Controllers\SponsorLogoService.cs" />
-    <Compile Include="Controllers\SponsorModelQuery.cs" />
+    <Compile Include="Controllers\AllPublicSponsors.cs" />
     <Compile Include="Controllers\TimelineController.cs" />
     <Compile Include="Controllers\UserNameFilterAttribute.cs" />
     <Compile Include="DataAccess\CachingVotingCookieFactory.cs" />
@@ -236,6 +236,7 @@
     <Compile Include="Helpers\LoginMethodLoader.cs" />
     <Compile Include="Helpers\LoginMethodViewModelBuilder.cs" />
     <Compile Include="Helpers\Sessions\SelectedSessions.cs" />
+    <Compile Include="Helpers\SponsorLogoService.cs" />
     <Compile Include="Models\LoginMethod.cs" />
     <Compile Include="DataAccess\SimpleData\Queries\AccountLoginMethodQuery.cs" />
     <Compile Include="DataAccess\SpeakerRepository.cs" />

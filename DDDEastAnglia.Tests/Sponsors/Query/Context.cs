@@ -9,13 +9,13 @@ namespace DDDEastAnglia.Tests.Sponsors.Query
     public class Context
     {
         protected IEnumerable<SponsorModel> SponsorList;
-        private readonly SponsorModelQuery sponsorModelQuery;
+        private readonly AllPublicSponsors allPublicSponsors;
         private readonly ISponsorRepository sponsorRepository;
 
         public Context()
         {
             sponsorRepository = new InMemorySponsorRepository();
-            sponsorModelQuery = new SponsorModelQuery(sponsorRepository);
+            allPublicSponsors = new AllPublicSponsors(sponsorRepository, new DefaultSponsorSorter());
         }
 
         protected void Given_premium_sponsor(string name, DateTime? paymentDate = null)
@@ -59,7 +59,7 @@ namespace DDDEastAnglia.Tests.Sponsors.Query
 
         protected void When_getting_sponsor_list()
         {
-            SponsorList = sponsorModelQuery.Get();
+            SponsorList = allPublicSponsors.Get();
         }
     }
 }

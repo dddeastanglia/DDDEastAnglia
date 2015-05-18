@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
+using DDDEastAnglia.Areas.Admin.Models;
 using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.Filters;
 using DDDEastAnglia.Models;
@@ -9,17 +11,21 @@ namespace DDDEastAnglia.Controllers
     public class HomeController : Controller
     {
         private readonly IConferenceLoader conferenceLoader;
-        private readonly SponsorModelQuery sponsorModelQuery;
+        private readonly IViewModelQuery<IEnumerable<SponsorModel>> sponsorsQuery;
 
-        public HomeController(IConferenceLoader conferenceLoader, SponsorModelQuery sponsorModelQuery)
+        public HomeController(IConferenceLoader conferenceLoader, IViewModelQuery<IEnumerable<SponsorModel>> sponsorsQuery)
         {
             if (conferenceLoader == null)
             {
                 throw new ArgumentNullException("conferenceLoader");
             }
+            if (sponsorsQuery == null)
+            {
+                throw new ArgumentNullException("sponsorsQuery");
+            }
 
             this.conferenceLoader = conferenceLoader;
-            this.sponsorModelQuery = sponsorModelQuery;
+            this.sponsorsQuery = sponsorsQuery;
         }
 
         public ActionResult Index()
@@ -56,7 +62,7 @@ namespace DDDEastAnglia.Controllers
 
         public ActionResult Sponsors()
         {
-            return View(sponsorModelQuery.Get());
+            return View(sponsorsQuery.Get());
         }
 
         public ActionResult About()

@@ -7,28 +7,34 @@ using DDDEastAnglia.DataAccess.SimpleData.Models;
 
 namespace DDDEastAnglia.Controllers
 {
-    public class SponsorModelQuery
+    public class AllPublicSponsors : IViewModelQuery<IEnumerable<SponsorModel>>
     {
         private readonly ISponsorRepository sponsorRepository;
+        private readonly ISponsorSorter sponsorSorter;
 
-        public SponsorModelQuery(ISponsorRepository sponsorRepository)
+        public AllPublicSponsors(ISponsorRepository sponsorRepository, ISponsorSorter sponsorSorter)
         {
             if (sponsorRepository == null)
             {
                 throw new ArgumentNullException("sponsorRepository");
             }
+            if (sponsorSorter == null)
+            {
+                throw new ArgumentNullException("sponsorSorter");
+            }
             this.sponsorRepository = sponsorRepository;
+            this.sponsorSorter = sponsorSorter;
         }
 
         public IEnumerable<SponsorModel> Get()
         {
-            var sponsors =
-                sponsorRepository
-                    .GetAllSponsors()
-                    .Where(x => x.ShowPublicly)
-                    .OrderBySponsorSorter();
+            var publicSponsors = sponsorRepository
+                .GetAllSponsors()
+                .Where(x => x.ShowPublicly);
 
-            return sponsors.Select(ToViewModel);
+            return sponsorSorter
+                .Sort(publicSponsors)
+                .Select(ToViewModel);
         }
 
         private SponsorModel ToViewModel(Sponsor sponsor)
