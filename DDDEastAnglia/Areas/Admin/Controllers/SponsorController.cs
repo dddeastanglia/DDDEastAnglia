@@ -24,9 +24,9 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
                 throw new ArgumentNullException("sponsorRepository");
             }
 
-            if (sponsorRepository == null)
+            if (defaultSponsorSorter == null)
             {
-                throw new ArgumentNullException("sponsorRepository");
+                throw new ArgumentNullException("defaultSponsorSorter");
             }
 
             this.sponsorRepository = sponsorRepository;
