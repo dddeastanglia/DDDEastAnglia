@@ -33,7 +33,7 @@ namespace DDDEastAnglia.Tests.Services.Messengers.Email
                     Body = "Message body"
                 };
 
-                postman.Received(1).Deliver(message);
+                postman.Received(1).Deliver(Arg.Is<MailMessage>(m => Helpers.Email.MailMessage.Equals(m, message)));
             }
         }
     }
