@@ -76,57 +76,53 @@ namespace DDDEastAnglia.Tests.Controllers
             Assert.That(result, Is.InstanceOf<HttpUnauthorizedResult>());
         }
 
-        [TestFixture]
-        public class EmailTests
+        [Test]
+        public void ShouldEmailTheUserTheirSubmission_WhenCreating()
         {
-            private static readonly IPostman postman = Substitute.For<IPostman>();
-
-            [Test]
-            public void ShouldEmailTheUserTheirSubmission_WhenCreating()
+            var postman = Substitute.For<IPostman>();
+            var bob = new UserProfile { Name = "Bob", EmailAddress = "bob@example.com", UserName = "bob" };
+            var session = new Session
             {
-                var bob = new UserProfile { Name = "Bob", EmailAddress = "bob@example.com", UserName = "bob" };
-                var session = new Session
-                {
-                    Title = "Bob's awesome session",
-                    Abstract = "This is going to be awesome!"
-                };
+                Title = "Bob's awesome session",
+                Abstract = "This is going to be awesome!"
+            };
 
-                var controller = new SessionControllerBuilder()
-                    .WithPostman(postman)
-                    .WhenSubmissionsAreOpen()
-                    .ForUser(bob)
-                    .Submitting(session)
-                    .Build();
+            var controller = new SessionControllerBuilder()
+                .WithPostman(postman)
+                .WhenSubmissionsAreOpen()
+                .ForUser(bob)
+                .Submitting(session)
+                .Build();
 
-                controller.Create(session);
+            controller.Create(session);
 
-                var expectedMailMessage = MailMessage.FromTemplate(SessionCreatedMailTemplate.Create(session), bob);
-                postman.Received().Deliver(expectedMailMessage);
-            }
+            var expectedMailMessage = MailMessage.FromTemplate(SessionCreatedMailTemplate.Create(session), bob);
+            postman.Received().Deliver(expectedMailMessage);
+        }
 
-            [Test]
-            public void ShouldEmailTheUserTheirUpdatedSubmission_WhenEditing()
+        [Test]
+        public void ShouldEmailTheUserTheirUpdatedSubmission_WhenEditing()
+        {
+            var postman = Substitute.For<IPostman>();
+            var bob = new UserProfile { Name = "Bob", EmailAddress = "bob@example.com", UserName = "bob" };
+            var session = new Session
             {
-                var bob = new UserProfile { Name = "Bob", EmailAddress = "bob@example.com", UserName = "bob" };
-                var session = new Session
-                {
-                    Title = "Bob's even more awesome session",
-                    Abstract = "Just wait until you see it!",
-                    SpeakerUserName = bob.UserName,
-                    SessionId = 1
-                };
+                Title = "Bob's even more awesome session",
+                Abstract = "Just wait until you see it!",
+                SpeakerUserName = bob.UserName,
+                SessionId = 1
+            };
+            
+            var controller = new SessionControllerBuilder()
+                .WithPostman(postman)
+                .ForUser(bob)
+                .Updating(session)
+                .Build();
 
-                var controller = new SessionControllerBuilder()
-                    .WithPostman(postman)
-                    .ForUser(bob)
-                    .Updating(session)
-                    .Build();
+            controller.Edit(bob.UserName, session);
 
-                controller.Edit(bob.UserName, session);
-
-                var expectedMailMessage = MailMessage.FromTemplate(SessionUpdatedMailTemplate.Create(session), bob);
-                postman.Received().Deliver(expectedMailMessage);
-            }
+            var expectedMailMessage = MailMessage.FromTemplate(SessionUpdatedMailTemplate.Create(session), bob);
+            postman.Received().Deliver(expectedMailMessage);
         }
     }
 }
