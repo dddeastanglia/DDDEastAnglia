@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using DDDEastAnglia.DataAccess;
 using DotNetOpenAuth.AspNet;
+using DotNetOpenAuth.GoogleOAuth2;
 using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
 using DDDEastAnglia.Models;
@@ -217,6 +218,7 @@ namespace DDDEastAnglia.Controllers
         [AllowAnonymous]
         public ActionResult ExternalLoginCallback(string returnUrl)
         {
+            GoogleOAuth2Client.RewriteRequest();
             AuthenticationResult result = OAuthWebSecurity.VerifyAuthentication(Url.Action("ExternalLoginCallback", new { ReturnUrl = returnUrl }));
 
             if (!result.IsSuccessful)
