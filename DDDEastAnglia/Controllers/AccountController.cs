@@ -241,6 +241,7 @@ namespace DDDEastAnglia.Controllers
             // User is new, ask for their desired membership name
             string loginData = OAuthWebSecurity.SerializeProviderUserId(result.Provider, result.ProviderUserId);
             ViewBag.ProviderDisplayName = OAuthWebSecurity.GetOAuthClientData(result.Provider).DisplayName;
+            ViewBag.ProviderUserId = result.ProviderUserId;
             ViewBag.ReturnUrl = returnUrl;
             return View("ExternalLoginConfirmation", new RegisterExternalLoginModel { UserName = result.UserName, ExternalLoginData = loginData });
         }
