@@ -1,11 +1,11 @@
-﻿using System.Web.Mvc;
-using DDDEastAnglia.Controllers;
-using DDDEastAnglia.DataAccess;
-using DDDEastAnglia.Domain;
-using DDDEastAnglia.Helpers;
-using DDDEastAnglia.Models;
+﻿using DDDEastAnglia.Models;
+using DDDEastAnglia.Services.Messenger.Email;
 using NSubstitute;
 using NUnit.Framework;
+using System.Web.Mvc;
+using DDDEastAnglia.Services.Messenger.Email.Templates;
+using DDDEastAnglia.Tests.Builders;
+using MailMessage = DDDEastAnglia.Tests.Helpers.Email.MailMessage;
 
 namespace DDDEastAnglia.Tests.Controllers
 {
@@ -15,9 +15,7 @@ namespace DDDEastAnglia.Tests.Controllers
         [Test]
         public void CannotSeeSessionList_WhenTheConferenceSaysThatSessionsCannotBeShown()
         {
-            var conference = Substitute.For<IConference>();
-            conference.CanShowSessions().Returns(false);
-            var controller = SessionControllerFactory.Create(conference);
+            var controller = new SessionControllerBuilder().Build();
 
             var result = controller.Index();
 
@@ -27,9 +25,7 @@ namespace DDDEastAnglia.Tests.Controllers
         [Test]
         public void CannotSubmitASession_WhenSessionSubmissionIsClosed()
         {
-            var conference = Substitute.For<IConference>();
-            conference.CanSubmit().Returns(false);
-            var controller = SessionControllerFactory.Create(conference);
+            var controller = new SessionControllerBuilder().Build();
 
             var result = controller.Create(new Session());
 
@@ -40,7 +36,7 @@ namespace DDDEastAnglia.Tests.Controllers
         public void CannotBeginToEditASession_WhenTheSessionBelongsToAnotherUser()
         {
             var session = new Session { SessionId = 1, SpeakerUserName = "bob" };
-            var controller = SessionControllerFactory.Create(session);
+            var controller = new SessionControllerBuilder().Updating(session).Build();
 
             var result = controller.Edit("fred", 1);
 
@@ -50,8 +46,8 @@ namespace DDDEastAnglia.Tests.Controllers
         [Test]
         public void CannotSaveAnEditToASession_WhenTheSessionBelongsToAnotherUser()
         {
-            var session = new Session {SessionId = 1, SpeakerUserName = "bob"};
-            var controller = SessionControllerFactory.Create(session);
+            var session = new Session { SessionId = 1, SpeakerUserName = "bob" };
+            var controller = new SessionControllerBuilder().Updating(session).Build();
 
             var result = controller.Edit("fred", session);
 
@@ -62,7 +58,7 @@ namespace DDDEastAnglia.Tests.Controllers
         public void CannotBeginToDeleteASession_WhenTheSessionBelongsToAnotherUser()
         {
             var session = new Session { SessionId = 1, SpeakerUserName = "bob" };
-            var controller = SessionControllerFactory.Create(session);
+            var controller = new SessionControllerBuilder().Updating(session).Build();
 
             var result = controller.Delete("fred", 1);
 
@@ -73,30 +69,60 @@ namespace DDDEastAnglia.Tests.Controllers
         public void CannotConfirmToDeleteASession_WhenTheSessionBelongsToAnotherUser()
         {
             var session = new Session { SessionId = 1, SpeakerUserName = "bob" };
-            var controller = SessionControllerFactory.Create(session);
+            var controller = new SessionControllerBuilder().Updating(session).Build();
 
             var result = controller.DeleteConfirmed("fred", 1);
 
             Assert.That(result, Is.InstanceOf<HttpUnauthorizedResult>());
         }
 
-        private static class SessionControllerFactory
+        [Test]
+        public void ShouldEmailTheUserTheirSubmission_WhenCreating()
         {
-            public static SessionController Create(IConference conference)
+            var postman = Substitute.For<IPostman>();
+            var bob = new UserProfile { Name = "Bob", EmailAddress = "bob@example.com", UserName = "bob" };
+            var session = new Session
             {
-                var conferenceLoader = Substitute.For<IConferenceLoader>();
-                conferenceLoader.LoadConference().Returns(conference);
-                var controller = new SessionController(conferenceLoader, Substitute.For<IUserProfileRepository>(), Substitute.For<ISessionRepository>(), Substitute.For<ISessionSorter>());
-                return controller;
-            }
+                Title = "Bob's awesome session",
+                Abstract = "This is going to be awesome!"
+            };
 
-            public static SessionController Create(Session session)
+            var controller = new SessionControllerBuilder()
+                .WithPostman(postman)
+                .WhenSubmissionsAreOpen()
+                .ForUser(bob)
+                .Submitting(session)
+                .Build();
+
+            controller.Create(session);
+
+            var expectedMailMessage = MailMessage.FromTemplate(SessionCreatedMailTemplate.Create(session), bob);
+            postman.Received().Deliver(expectedMailMessage);
+        }
+
+        [Test]
+        public void ShouldEmailTheUserTheirUpdatedSubmission_WhenEditing()
+        {
+            var postman = Substitute.For<IPostman>();
+            var bob = new UserProfile { Name = "Bob", EmailAddress = "bob@example.com", UserName = "bob" };
+            var session = new Session
             {
-                var sessionRepository = Substitute.For<ISessionRepository>();
-                sessionRepository.Get(session.SessionId).Returns(session);
-                var controller = new SessionController(Substitute.For<IConferenceLoader>(), Substitute.For<IUserProfileRepository>(), sessionRepository, Substitute.For<ISessionSorter>());
-                return controller;
-            }
+                Title = "Bob's even more awesome session",
+                Abstract = "Just wait until you see it!",
+                SpeakerUserName = bob.UserName,
+                SessionId = 1
+            };
+            
+            var controller = new SessionControllerBuilder()
+                .WithPostman(postman)
+                .ForUser(bob)
+                .Updating(session)
+                .Build();
+
+            controller.Edit(bob.UserName, session);
+
+            var expectedMailMessage = MailMessage.FromTemplate(SessionUpdatedMailTemplate.Create(session), bob);
+            postman.Received().Deliver(expectedMailMessage);
         }
     }
 }
