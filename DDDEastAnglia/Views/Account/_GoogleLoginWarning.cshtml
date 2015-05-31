@@ -1,0 +1,26 @@
+﻿@if (string.Equals("google", ViewBag.ProviderDisplayName, StringComparison.InvariantCultureIgnoreCase))
+{
+    <div class="alert alert-danger">
+        <p>
+            <strong>tl;dr</strong>
+            <br />
+            If you were expecting to be logged in using Google but have got here instead, please
+            <a href="mailto:loginfix@dddeastanglia.com?subject=Failed Google login&body=@ViewBag.ProviderUserId">contact us</a>
+            stating your <strong>email address</strong> and this number: <strong>@ViewBag.ProviderUserId</strong>
+            and we will fix your existing login for you.
+        </p>
+
+        <p>
+            <strong>Longer Version</strong>
+            <br />
+            Google have recently <a href="https://support.google.com/accounts/answer/6206245?p=openid&rd=1">turned off</a>
+            their OpenID 2.0 authentication. In doing so, the Google login for @Html.DDDEastAnglia() was broken. This has
+            now been fixed to use Google's new OAuth2 login mechanism. Unfortunately, there is not a way to automatically
+            upgrade user accounts from one form to the other. By giving us the info requested above, we can manually upgrade
+            your account, allowing you to log into your existing profile.
+            <br />
+            <br />
+            Sorry for the hassle.
+        </p>
+    </div>
+}
