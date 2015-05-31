@@ -134,8 +134,10 @@ You can contact us at organisers@dddeastanglia.com.</value>
   <data name="SessionSubmission" xml:space="preserve">
     <value>Thanks for submitting a session for DDD East Anglia!
         
-Here's a copy of your session abstract for your records:
-Title: [SessionTitle]
+Here's a copy of your session details for your records:
+
+[SessionTitle]
+
 [SessionAbstract]
 
 You can contact us at organisers@dddeastanglia.com.</value>
