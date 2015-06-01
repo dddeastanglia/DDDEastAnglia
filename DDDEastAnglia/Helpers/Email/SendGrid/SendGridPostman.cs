@@ -40,7 +40,7 @@ namespace DDDEastAnglia.Helpers.Email.SendGrid
                 new MailAddress[0],
                 new MailAddress[0],
                 message.Subject,
-                htmlRenderer.Render(message.Body),
+                message.Body,//htmlRenderer.Render(),
                 message.Body);
             instance.Deliver(sendGrid);
         }
