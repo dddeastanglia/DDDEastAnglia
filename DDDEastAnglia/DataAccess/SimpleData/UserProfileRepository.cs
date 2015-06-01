@@ -25,7 +25,7 @@ namespace DDDEastAnglia.DataAccess.SimpleData
 
         public UserProfile GetUserProfileByEmailAddress(string emailAddress)
         {
-            return db.UserProfiles.FindUserByEmailAddress(emailAddress);
+            return db.UserProfiles.FindByEmailAddress(emailAddress);
         }
 
         public UserProfile AddUserProfile(UserProfile userProfile)
