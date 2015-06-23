@@ -295,21 +295,11 @@
     <Content Include="Images\hotels\university-arms.jpg" />
     <Content Include="Images\hotels\varsity.jpg" />
     <Content Include="Images\itunesappstore.gif" />
-    <Content Include="Images\sponsors\agenda\comparethemarket.png" />
-    <Content Include="Images\sponsors\agenda\devexpress.png" />
-    <Content Include="Images\sponsors\agenda\huddle.png" />
-    <Content Include="Images\sponsors\agenda\redgate.png" />
-    <Content Include="Images\sponsors\blackdotsolutions.png" />
-    <Content Include="Images\sponsors\devexpress.png" />
     <EmbeddedResource Include="Emails.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Emails.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="EmailTemplate.html" />
-    <Content Include="Images\sponsors\ecmselection.png" />
-    <Content Include="Images\sponsors\huddle.png" />
-    <Content Include="Images\sponsors\ndclondon.png" />
-    <Content Include="Images\sponsors\zudio.png" />
     <Content Include="Images\team\davecraft.jpg" />
     <Content Include="Images\team\joncanning.jpg" />
     <Content Include="Scripts\flot\jquery.flot.axislabel.js" />
@@ -328,15 +318,7 @@
     <Content Include="Images\googleplaystore.gif" />
     <Content Include="Images\itunesappstore.gif" />
     <Content Include="Images\logo-large.png" />
-    <Content Include="Images\sponsors\comparethemarket.png" />
-    <Content Include="Images\sponsors\CRedit360.png" />
-    <Content Include="Images\sponsors\equalexperts.png" />
-    <Content Include="Images\sponsors\github.png" />
-    <Content Include="Images\sponsors\pluralsight.png" />
-    <Content Include="Images\sponsors\redgate.png" />
-    <Content Include="Images\sponsors\skillsmatter.png" />
     <Content Include="Images\venue.jpg" />
-    <Content Include="Images\sponsors\techsmith.png" />
     <Content Include="Scripts\resolveIPAddress.js" />
     <Compile Include="Areas\Admin\Models\VotesForIpAddressViewModel.cs" />
     <Compile Include="Helpers\DnsLookup.cs" />
@@ -578,7 +560,6 @@
     <Content Include="Images\team\alastairsmith.jpg" />
     <Content Include="Images\logo-small.png" />
     <Content Include="Images\team\philpursglove.png" />
-    <Content Include="Images\sponsors\tinamous.png" />
     <Content Include="Images\wmd-buttons.png" />
     <Content Include="Areas\Admin\Views\Web.config" />
     <Content Include="Areas\Admin\Views\AdminHome\Index.cshtml" />
