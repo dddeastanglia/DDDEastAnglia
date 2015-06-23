@@ -50,6 +50,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
@@ -72,6 +73,12 @@
     <Compile Include="Services\Messengers\Email\Templates\SessionUpdatedMailTemplateFacts.cs" />
     <Compile Include="Services\Messengers\Email\Templates\SessionCreatedMailTemplateFacts.cs" />
     <Compile Include="Builders\VotingControllerBuilder.cs" />
+    <Compile Include="ChartDataConverterBuilder.cs" />
+    <Compile Include="DataAccess\DefaultSponsorSorterTests.cs" />
+    <Compile Include="DataProviderBuilder.cs" />
+    <Compile Include="DnsLookupBuilder.cs" />
+    <Compile Include="Helpers\ImageResizeExtensionsTests.cs" />
+    <Compile Include="VotingControllerBuilder.cs" />
     <Compile Include="Admin\VotingControllerTests.cs" />
     <Compile Include="CannedResponseDateTimeOffsetProvider.cs" />
     <Compile Include="ConferenceHelper.cs" />

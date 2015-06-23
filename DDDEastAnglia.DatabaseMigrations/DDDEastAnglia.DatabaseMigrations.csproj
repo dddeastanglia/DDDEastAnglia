@@ -39,6 +39,7 @@
     <Compile Include="Migrations\1-AddPositionFieldToVotesTable.cs" />
     <Compile Include="Migrations\0-InitialDatabase.cs" />
     <Compile Include="Migrations\2-AddTrackInformationToConferencesTable.cs" />
+    <Compile Include="Migrations\3-AddSponsorsTable.cs" />
     <Compile Include="Migrator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
