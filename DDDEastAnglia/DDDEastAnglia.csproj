@@ -221,6 +221,9 @@
     <Compile Include="Areas\Admin\Models\VotesPerDayViewModel.cs" />
     <Compile Include="Controllers\EmailMessengerFactory.cs" />
     <Compile Include="Controllers\GravatarController.cs" />
+    <Compile Include="Controllers\IViewModelQuery.cs" />
+    <Compile Include="Controllers\SponsorController.cs" />
+    <Compile Include="Controllers\AllPublicSponsors.cs" />
     <Compile Include="Controllers\TimelineController.cs" />
     <Compile Include="Controllers\UserNameFilterAttribute.cs" />
     <Compile Include="DataAccess\CachingVotingCookieFactory.cs" />
@@ -239,8 +242,8 @@
     <Compile Include="Services\Messenger\Email\Templates\SessionUpdatedMailTemplate.cs" />
     <Compile Include="Services\Messenger\IMessenger.cs" />
     <Compile Include="DataAccess\ISponsorRepository.cs" />
-    <Compile Include="DataAccess\ISponsorSorter.cs" />
     <Compile Include="DataAccess\DefaultSponsorSorter.cs" />
+    <Compile Include="Models\SponsorLogo.cs" />
     <Compile Include="Helpers\ImageResizeExtensions.cs" />
     <Compile Include="DataAccess\SimpleData\Models\Sponsor.cs" />
     <Compile Include="DataAccess\SimpleData\SponsorRepository.cs" />
@@ -250,6 +253,7 @@
     <Compile Include="Services\Messenger\Email\Templates\SessionCreatedMailTemplate.cs" />
     <Compile Include="Services\Messenger\Email\EmailMessenger.cs" />
     <Compile Include="Helpers\TokenSubstitutingMailTemplate.cs" />
+    <Compile Include="Helpers\SponsorLogoService.cs" />
     <Compile Include="Models\LoginMethod.cs" />
     <Compile Include="DataAccess\SimpleData\Queries\AccountLoginMethodQuery.cs" />
     <Compile Include="DataAccess\SpeakerRepository.cs" />
@@ -676,7 +680,6 @@
     <Content Include="Views\Session\Delete.cshtml" />
     <Content Include="Views\Home\Venue.cshtml" />
     <Content Include="Views\Home\Team.cshtml" />
-    <Content Include="Views\Home\Sponsors.cshtml" />
     <Content Include="Views\Shared\_GoogleAnalytics.cshtml" />
     <Content Include="Views\Speaker\Index.cshtml" />
     <Content Include="Views\Account\Registered.cshtml" />
@@ -702,6 +705,7 @@
     <Content Include="Views\Timeline\_Timeline.cshtml" />
     <Content Include="Views\Timeline\_TimelineItem.cshtml" />
     <Content Include="Views\Home\Closed.cshtml" />
+    <Content Include="Views\Home\Sponsors.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

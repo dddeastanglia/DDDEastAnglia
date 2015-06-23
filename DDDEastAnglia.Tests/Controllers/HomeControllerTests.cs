@@ -1,4 +1,5 @@
 ﻿using DDDEastAnglia.Controllers;
+using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.Models;
 using DDDEastAnglia.Tests.Builders;
 using NUnit.Framework;
@@ -14,9 +15,9 @@ namespace DDDEastAnglia.Tests.Controllers
             var conferenceLoader = new ConferenceLoaderBuilder()
                                         .WithSessionSubmissionClosed()
                                         .Build();
+            var homeController = CreateHomeController(conferenceLoader);
 
-            var model = new HomeController(conferenceLoader)
-                            .About().GetViewModel<AboutViewModel>();
+            var model = homeController.About().GetViewModel<AboutViewModel>();
 
             Assert.That(model.ShowSessionSubmissionLink, Is.False);
         }
@@ -27,9 +28,9 @@ namespace DDDEastAnglia.Tests.Controllers
             var conferenceLoader = new ConferenceLoaderBuilder()
                                         .WithSessionSubmissionOpen()
                                         .Build();
+            var homeController = CreateHomeController(conferenceLoader);
 
-            var model = new HomeController(conferenceLoader)
-                            .About().GetViewModel<AboutViewModel>();
+            var model = homeController.About().GetViewModel<AboutViewModel>();
 
             Assert.That(model.ShowSessionSubmissionLink, Is.True);
         }
@@ -40,9 +41,9 @@ namespace DDDEastAnglia.Tests.Controllers
             var conferenceLoader = new ConferenceLoaderBuilder()
                                         .WithAgendaNotPublished()
                                         .Build();
+            var homeController = CreateHomeController(conferenceLoader);
 
-            var controller = new HomeController(conferenceLoader);
-            var viewName = controller.Agenda().GetRedirectionViewName();
+            var viewName = homeController.Agenda().GetRedirectionViewName();
 
             Assert.That(viewName, Is.EqualTo("Index"));
         }
@@ -53,9 +54,9 @@ namespace DDDEastAnglia.Tests.Controllers
             var conferenceLoader = new ConferenceLoaderBuilder()
                                         .WithRegistrationNotOpen()
                                         .Build();
+            var homeController = CreateHomeController(conferenceLoader);
 
-            var controller = new HomeController(conferenceLoader);
-            var viewName = controller.Agenda().GetRedirectionViewName();
+            var viewName = homeController.Agenda().GetRedirectionViewName();
 
             Assert.That(viewName, Is.EqualTo("Index"));
         }
@@ -66,9 +67,9 @@ namespace DDDEastAnglia.Tests.Controllers
             var conferenceLoader = new ConferenceLoaderBuilder()
                                         .WithRegistrationNotOpen()
                                         .Build();
+            var homeController = CreateHomeController(conferenceLoader);
 
-            var controller = new HomeController(conferenceLoader);
-            var viewName = controller.Agenda().GetRedirectionViewName();
+            var viewName = homeController.Agenda().GetRedirectionViewName();
 
             Assert.That(viewName, Is.EqualTo("Index"));
         }
@@ -79,22 +80,30 @@ namespace DDDEastAnglia.Tests.Controllers
             var conferenceLoader = new ConferenceLoaderBuilder()
                                         .NotInPreview()
                                         .Build();
+            var homeController = CreateHomeController(conferenceLoader);
 
-            var result = new HomeController(conferenceLoader).Preview();
+            var result = homeController.Preview();
 
             Assert.That(result.GetRedirectionUrl(), Is.EqualTo("~/"));
         }
-    
+
         [Test]
         public void Closed_ShouldRedirectToTheHomePage_WhenTheConferenceIsNotClosed()
         {
             var conferenceLoader = new ConferenceLoaderBuilder()
                                         .WhenNotClosed()
                                         .Build();
+            var homeController = CreateHomeController(conferenceLoader);
 
-            var result = new HomeController(conferenceLoader).Closed();
+            var result = homeController.Closed();
 
             Assert.That(result.GetRedirectionUrl(), Is.EqualTo("~/"));
+        }
+
+        private HomeController CreateHomeController(IConferenceLoader conferenceLoader)
+        {
+            var sponsorModelQuery = new AllPublicSponsors(new InMemorySponsorRepository(), new DefaultSponsorSorter());
+            return new HomeController(conferenceLoader, sponsorModelQuery);
         }
     }
 }

@@ -1,107 +1,108 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-    <head>
-        @Html.Partial("_HeadSection")
-    </head>
+<head>
+    @Html.Partial("_HeadSection")
+</head>
 
-    <body>
-        @Html.Action("Details", "Banner")
+<body>
+    @Html.Action("Details", "Banner")
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="masthead">
+                <a href="@Url.Action("Index", "Home")"><img src="@Url.Content("~/Images/logo-small.png")" class="pull-left" alt="Developer! Developer! Developer! East Anglia" /></a>
+                <h2>DDD East Anglia</h2>
+                <p>
+                    Cambridge, UK
+                    <br />
+                    @Html.Action("ConferenceDate", "Timeline")
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="navbar navbar-static-top">
+        <div class="navbar-inner">
+            <div class="container-fluid">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                <div class="btn-group pull-right">
+                    @Html.Partial("_LoginPartial")
+                </div>
+                @Html.Action("RenderMenu", "NavigationBar")
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
         <div class="container-fluid">
             <div class="row-fluid">
-                <div class="masthead">
-                    <a href="@Url.Action("Index", "Home")"><img src="@Url.Content("~/Images/logo-small.png")" class="pull-left" alt="Developer! Developer! Developer! East Anglia" /></a>
-                    <h2>DDD East Anglia</h2>
-                    <p>
-                        Cambridge, UK
-                        <br />
-                        @Html.Action("ConferenceDate", "Timeline")
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="navbar navbar-static-top">
-            <div class="navbar-inner">
-                <div class="container-fluid">
-                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </a>
-                    <div class="btn-group pull-right">
-                        @Html.Partial("_LoginPartial")
+                <div class="span8">
+                    @RenderSection("featured", required: false)
+                    <div class="row-fluid">
+                        @RenderBody()
                     </div>
-                    @Html.Action("RenderMenu", "NavigationBar")
-                </div>
-            </div>
-        </div>
-        <div class="container-fluid">
-            <div class="container-fluid">
-                <div class="row-fluid">
-                    <div class="span8">
-                        @RenderSection("featured", required: false)
-                        <div class="row-fluid">
-                            @RenderBody()
-                        </div>
-                    </div><!--/span9-->
-                    <div class="span4" id="sidebar">
-                        <div class="well">
-                            <section class="row-fluid">
-                                <h1>When and Where?</h1>
-                                <p>
-                                    @Html.Action("ConferenceDate", "Timeline")
-                                    <br />
-                                    @Html.Action("ConferenceTime", "Timeline")
-                                </p>
-                                <p>
-                                    <a href="http://westroad.org">West Road Concert Hall</a><br />
-                                    11 West Road<br />
-                                    Cambridge<br />
-                                    CB3 9DP
-                                </p>
-                            </section>
+                </div><!--/span9-->
+                <div class="span4" id="sidebar">
+                    <div class="well">
+                        <section class="row-fluid">
+                            <h1>When and Where?</h1>
+                            <p>
+                                @Html.Action("ConferenceDate", "Timeline")
+                                <br />
+                                @Html.Action("ConferenceTime", "Timeline")
+                            </p>
+                            <p>
+                                <a href="http://westroad.org">West Road Concert Hall</a><br />
+                                11 West Road<br />
+                                Cambridge<br />
+                                CB3 9DP
+                            </p>
+                        </section>
 
-                            @Html.Action("Details", "Timeline")
-
-                            @Html.Partial("_Sponsors")
-                        </div>
+                        @Html.Action("Details", "Timeline")
+                        @{
+                            Html.RenderAction("Sidebar", "Sponsor");
+                        }
                     </div>
                 </div>
-
-                @Html.Partial("_Footer")
             </div>
-        </div><!--/.fluid-container-->
-        @Scripts.Render("~/bundles/jquery")
-        @Scripts.Render("~/bundles/bootstrap")
-        @Scripts.Render("~/bundles/gravatar")
-        @Styles.Render("~/Content/Markdown")
-        @RenderSection("scripts", required: false)
 
-        <script language="javascript">
-            $(document).ready(function () {
-                if ($("#notifications-banner").length <= 0) {
-                    return;
-                }
+            @Html.Partial("_Footer")
+        </div>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/gravatar")
+    @Styles.Render("~/Content/Markdown")
+    @RenderSection("scripts", required: false)
 
-                var eventChangeDateStr = $("#notifications-banner").attr("data-expires");
-                var eventChangeDate = new Date(eventChangeDateStr);
-                var setEventChangeDate = new Date($.cookie("notification-dismissed"));
+    <script language="javascript">
+        $(document).ready(function () {
+            if ($("#notifications-banner").length <= 0) {
+                return;
+            }
 
-                if (setEventChangeDate < eventChangeDate) {
-                    @* if the date in the cookie is less than the date on the banner, the user dismissed an older banner *@
-                    $.removeCookie('notification-dismissed');
-                }
+            var eventChangeDateStr = $("#notifications-banner").attr("data-expires");
+            var eventChangeDate = new Date(eventChangeDateStr);
+            var setEventChangeDate = new Date($.cookie("notification-dismissed"));
 
-                var keepHidden = $.cookie('notification-dismissed');
+            if (setEventChangeDate < eventChangeDate) {
+                @* if the date in the cookie is less than the date on the banner, the user dismissed an older banner *@
+                $.removeCookie('notification-dismissed');
+            }
 
-                if (!keepHidden) {
-                    $("#notifications-banner").slideDown("slow");
-                    $(".dismiss").click(function() {
-                        $("#notifications-banner").slideUp("fast");
-                        $.cookie("notification-dismissed", eventChangeDateStr, { expires: 90 });
-                    });
-                }
-            });
-        </script>
-        @{Html.RenderPartial("_GoogleAnalytics");}
-    </body>
+            var keepHidden = $.cookie('notification-dismissed');
+
+            if (!keepHidden) {
+                $("#notifications-banner").slideDown("slow");
+                $(".dismiss").click(function () {
+                    $("#notifications-banner").slideUp("fast");
+                    $.cookie("notification-dismissed", eventChangeDateStr, { expires: 90 });
+                });
+            }
+        });
+    </script>
+    @{Html.RenderPartial("_GoogleAnalytics");}
+</body>
 </html>

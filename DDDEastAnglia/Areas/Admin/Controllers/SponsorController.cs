@@ -5,10 +5,10 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using DDDEastAnglia.Areas.Admin.Models;
 using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.DataAccess.SimpleData.Models;
 using DDDEastAnglia.Helpers;
+using SponsorModel = DDDEastAnglia.Areas.Admin.Models.SponsorModel;
 
 namespace DDDEastAnglia.Areas.Admin.Controllers
 {
@@ -24,9 +24,9 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
                 throw new ArgumentNullException("sponsorRepository");
             }
 
-            if (sponsorRepository == null)
+            if (sponsorSorter == null)
             {
-                throw new ArgumentNullException("sponsorRepository");
+                throw new ArgumentNullException("sponsorSorter");
             }
 
             this.sponsorRepository = sponsorRepository;

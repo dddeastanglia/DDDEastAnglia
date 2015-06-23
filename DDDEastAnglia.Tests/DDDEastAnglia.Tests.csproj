@@ -35,6 +35,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Humanizer">
+      <HintPath>..\packages\Humanizer.1.35.0\lib\portable-win+net40+sl50+wp8+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Humanizer.dll</HintPath>
+    </Reference>
     <Reference Include="NSubstitute, Version=1.6.0.0, Culture=neutral, PublicKeyToken=92dd2e9066daa5ca, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\NSubstitute.1.6.0.0\lib\NET40\NSubstitute.dll</HintPath>
@@ -73,12 +76,15 @@
     <Compile Include="Services\Messengers\Email\Templates\SessionUpdatedMailTemplateFacts.cs" />
     <Compile Include="Services\Messengers\Email\Templates\SessionCreatedMailTemplateFacts.cs" />
     <Compile Include="Builders\VotingControllerBuilder.cs" />
-    <Compile Include="ChartDataConverterBuilder.cs" />
     <Compile Include="DataAccess\DefaultSponsorSorterTests.cs" />
-    <Compile Include="DataProviderBuilder.cs" />
-    <Compile Include="DnsLookupBuilder.cs" />
     <Compile Include="Helpers\ImageResizeExtensionsTests.cs" />
-    <Compile Include="VotingControllerBuilder.cs" />
+    <Compile Include="Sponsors\Query\Context.cs" />
+    <Compile Include="Sponsors\Query\Sponsors_who_havent_paid_yet.cs" />
+    <Compile Include="Sponsors\Query\Sponsors_with_different_paid_amounts.cs" />
+    <Compile Include="Sponsors\Query\Sponsors_with_same_amount_paid.cs" />
+    <Compile Include="InMemoryRepository.cs" />
+    <Compile Include="InMemorySponsorRepository.cs" />
+    <Compile Include="SponsorBuilder.cs" />
     <Compile Include="Admin\VotingControllerTests.cs" />
     <Compile Include="CannedResponseDateTimeOffsetProvider.cs" />
     <Compile Include="ConferenceHelper.cs" />

@@ -2,10 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using DDDEastAnglia.DataAccess.SimpleData.Models;
-using DDDEastAnglia.Models;
 
 namespace DDDEastAnglia.DataAccess
 {
+    public interface ISponsorSorter
+    {
+        IEnumerable<Sponsor> Sort(IEnumerable<Sponsor> sponsors);
+    }
+
     public sealed class DefaultSponsorSorter : ISponsorSorter
     {
         public IEnumerable<Sponsor> Sort(IEnumerable<Sponsor> sponsors)

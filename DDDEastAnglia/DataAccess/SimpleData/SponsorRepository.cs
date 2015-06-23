@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using DDDEastAnglia.DataAccess.SimpleData.Models;
-using DDDEastAnglia.Models;
 using Simple.Data;
 
 namespace DDDEastAnglia.DataAccess.SimpleData

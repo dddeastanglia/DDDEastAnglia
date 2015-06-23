@@ -1,7 +1,6 @@
 ﻿using System;
 using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.DataAccess.SimpleData.Models;
-using DDDEastAnglia.Models;
 using NUnit.Framework;
 
 namespace DDDEastAnglia.Tests.DataAccess
