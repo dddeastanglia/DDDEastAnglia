@@ -302,6 +302,8 @@
       <LastGenOutput>Emails.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="EmailTemplate.html" />
+    <Content Include="Images\sponsors\devexpress.png" />
+    <Content Include="Images\sponsors\redgate.png" />
     <Content Include="Images\team\davecraft.jpg" />
     <Content Include="Images\team\joncanning.jpg" />
     <Content Include="Scripts\flot\jquery.flot.axislabel.js" />
