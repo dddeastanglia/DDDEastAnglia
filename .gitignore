@@ -117,3 +117,6 @@ UpgradeLog*.XML
 
 *.mdf
 *.ldf
+
+# Visual Studio 2015 .vs folder
+.vs/
