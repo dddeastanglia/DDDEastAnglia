@@ -1,7 +1,7 @@
 ﻿using DDDEastAnglia.Helpers;
 using NSubstitute;
 
-namespace DDDEastAnglia.Tests.Builders
+namespace DDDEastAnglia.Tests
 {
     public class DnsLookupBuilder
     {

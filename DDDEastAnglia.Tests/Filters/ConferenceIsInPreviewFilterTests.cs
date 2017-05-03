@@ -1,6 +1,5 @@
 ﻿using System.Web.Mvc;
 using DDDEastAnglia.Filters;
-using DDDEastAnglia.Tests.Builders;
 using NUnit.Framework;
 
 namespace DDDEastAnglia.Tests.Filters
@@ -16,7 +15,7 @@ namespace DDDEastAnglia.Tests.Filters
                                         .Build();
             var filterAttribute = new ConferenceIsInPreviewFilter(conferenceLoader);
             var filterContext = new ActionExecutingContext();
-
+            
             filterAttribute.OnActionExecuting(filterContext);
 
             Assert.That(filterContext.Result.GetRedirectionUrl(), Contains.Substring("Preview"));
@@ -30,7 +29,7 @@ namespace DDDEastAnglia.Tests.Filters
                                         .Build();
             var filterAttribute = new ConferenceIsInPreviewFilter(conferenceLoader);
             var filterContext = new ActionExecutingContext();
-
+            
             filterAttribute.OnActionExecuting(filterContext);
 
             Assert.That(filterContext.Result, Is.Not.InstanceOf<RedirectResult>());
