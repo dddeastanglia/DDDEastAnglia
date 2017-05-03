@@ -1,6 +1,5 @@
-﻿using DDDEastAnglia.Helpers.Email.SendGrid;
+﻿using Ninject.Modules;
 using Ninject.Extensions.Conventions;
-using Ninject.Modules;
 
 namespace DDDEastAnglia.Helpers
 {
@@ -18,7 +17,6 @@ namespace DDDEastAnglia.Helpers
                                     .InNamespaceOf<IControllerInformationProvider>()
                                     .Excluding<AlphabeticalSort>()
                                     .Excluding<RandomSort>()
-                                    .Excluding<HtmlRenderer>()
                                     .BindDefaultInterfaces()
                                     .Configure(binding => binding.InSingletonScope()));
             Kernel.Bind<ISortAlgorithm>()
@@ -29,7 +27,7 @@ namespace DDDEastAnglia.Helpers
                   .To<RandomSort>()
                   .When(request => request.Target.Name.StartsWith("voting"));
 
-            Kernel.Bind<IResetPasswordService>().To<WebSecurityWrapper>();
+            Kernel.Bind<IResetPasswordThingy>().To<WebSecurityWrapper>();
         }
     }
 }

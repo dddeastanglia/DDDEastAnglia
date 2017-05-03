@@ -1,38 +1,38 @@
-﻿using DDDEastAnglia.DataAccess;
-using DDDEastAnglia.Helpers;
-using DDDEastAnglia.Models;
-using DDDEastAnglia.Services.Messenger.Email.Templates;
-using System;
+﻿using System;
 using System.Web.Mvc;
+using DDDEastAnglia.DataAccess;
+using DDDEastAnglia.Helpers;
+using DDDEastAnglia.Helpers.Email;
+using DDDEastAnglia.Models;
 
 namespace DDDEastAnglia.Controllers
 {
     public class ResetPasswordController : Controller
     {
         private readonly IUserProfileRepository userProfileRepository;
-        private readonly IResetPasswordService resetPasswordService;
-        private readonly EmailMessengerFactory emailMessengerFactory;
+        private readonly IResetPasswordThingy resetPasswordThingy;
+        private readonly IResetPasswordEmailSender resetPasswordEmailSender;
 
-        public ResetPasswordController(IUserProfileRepository userProfileRepository, IResetPasswordService resetPasswordService, EmailMessengerFactory emailMessengerFactory)
+        public ResetPasswordController(IUserProfileRepository userProfileRepository, IResetPasswordThingy resetPasswordThingy, IResetPasswordEmailSender resetPasswordEmailSender)
         {
             if (userProfileRepository == null)
             {
                 throw new ArgumentNullException("userProfileRepository");
             }
 
-            if (resetPasswordService == null)
+            if (resetPasswordThingy == null)
             {
-                throw new ArgumentNullException("resetPasswordService");
+                throw new ArgumentNullException("resetPasswordThingy");
             }
-
-            if (emailMessengerFactory == null)
+            
+            if (resetPasswordEmailSender == null)
             {
-                throw new ArgumentNullException("emailMessengerFactory");
+                throw new ArgumentNullException("resetPasswordEmailSender");
             }
 
             this.userProfileRepository = userProfileRepository;
-            this.resetPasswordService = resetPasswordService;
-            this.emailMessengerFactory = emailMessengerFactory;
+            this.resetPasswordThingy = resetPasswordThingy;
+            this.resetPasswordEmailSender = resetPasswordEmailSender;
         }
 
         [HttpGet]
@@ -74,12 +74,12 @@ namespace DDDEastAnglia.Controllers
                 return View("Step2");
             }
 
-            string passwordResetToken = resetPasswordService.GeneratePasswordResetToken(profile.UserName, 120);
-            SendEmailToUser(profile, passwordResetToken);
+            string passwordResetToken = resetPasswordThingy.GeneratePasswordResetToken(profile.UserName, 120);
+            SendEmailToUser(profile.EmailAddress, passwordResetToken);
 
             return View("Step2");
         }
-
+         
         [HttpGet]
         [AllowAnonymous]
         public virtual ActionResult EmailConfirmation(string token)
@@ -96,13 +96,13 @@ namespace DDDEastAnglia.Controllers
                 return View("Step3", model);
             }
 
-            bool passwordWasReset = resetPasswordService.ResetPassword(model.ResetToken, model.Password);
+            bool passwordWasReset = resetPasswordThingy.ResetPassword(model.ResetToken, model.Password);
 
             if (passwordWasReset)
             {
                 return RedirectToAction("Complete", new { Message = "Your password has been changed successfully. Please log in using your new password." });
             }
-
+            
             ModelState.AddModelError("", "There was an error resetting your password.");
             return View("Step3", model);
         }
@@ -115,13 +115,13 @@ namespace DDDEastAnglia.Controllers
             return View("Step4");
         }
 
-        private void SendEmailToUser(UserProfile profile, string passwordResetToken)
+        private void SendEmailToUser(string emailAddress, string passwordResetToken)
         {
             string protocol = Request.Url.Scheme;
             string resetUrl = Url.Action("EmailConfirmation", "ResetPassword", new { token = passwordResetToken }, protocol);
-
-            var mailTemplate = PasswordResetMailTemplate.Create(resetUrl);
-            emailMessengerFactory.CreateEmailMessenger(mailTemplate).Notify(profile);
-        }
+            string htmlTemplatePath = Server.MapPath("~/ForgottenPasswordTemplate.html");
+            string textTemplatePath = Server.MapPath("~/ForgottenPasswordTemplate.txt");
+            resetPasswordEmailSender.SendEmail(htmlTemplatePath, textTemplatePath, emailAddress, resetUrl);
+        }    
     }
 }

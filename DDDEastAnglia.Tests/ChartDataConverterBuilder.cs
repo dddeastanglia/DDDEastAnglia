@@ -4,7 +4,7 @@ using DDDEastAnglia.Helpers;
 using DDDEastAnglia.VotingData.Models;
 using NSubstitute;
 
-namespace DDDEastAnglia.Tests.Builders
+namespace DDDEastAnglia.Tests
 {
     public class ChartDataConverterBuilder
     {

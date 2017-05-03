@@ -64,18 +64,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Admin\AdminHomeControllerTests.cs" />
-    <Compile Include="Builders\ChartDataConverterBuilder.cs" />
-    <Compile Include="Builders\SessionControllerBuilder.cs" />
-    <Compile Include="Builders\DataProviderBuilder.cs" />
+    <Compile Include="ChartDataConverterBuilder.cs" />
+    <Compile Include="DataProviderBuilder.cs" />
     <Compile Include="Admin\SessionControllerTests.cs" />
     <Compile Include="Admin\UserControllerTests.cs" />
-    <Compile Include="Builders\DnsLookupBuilder.cs" />
-    <Compile Include="Helpers\Email\MailMessage.cs" />
-    <Compile Include="Helpers\Email\SendGrid\HtmlRendererFacts.cs" />
-    <Compile Include="Services\Messengers\Email\EmailMessengerFacts.cs" />
-    <Compile Include="Services\Messengers\Email\Templates\SessionUpdatedMailTemplateFacts.cs" />
-    <Compile Include="Services\Messengers\Email\Templates\SessionCreatedMailTemplateFacts.cs" />
-    <Compile Include="Builders\VotingControllerBuilder.cs" />
     <Compile Include="DataAccess\DefaultSponsorSorterTests.cs" />
     <Compile Include="Helpers\ImageResizeExtensionsTests.cs" />
     <Compile Include="Sponsors\Query\Context.cs" />
@@ -85,10 +77,12 @@
     <Compile Include="InMemoryRepository.cs" />
     <Compile Include="InMemorySponsorRepository.cs" />
     <Compile Include="SponsorBuilder.cs" />
+    <Compile Include="DnsLookupBuilder.cs" />
+    <Compile Include="VotingControllerBuilder.cs" />
     <Compile Include="Admin\VotingControllerTests.cs" />
     <Compile Include="CannedResponseDateTimeOffsetProvider.cs" />
     <Compile Include="ConferenceHelper.cs" />
-    <Compile Include="Builders\ConferenceLoaderBuilder.cs" />
+    <Compile Include="ConferenceLoaderBuilder.cs" />
     <Compile Include="ActionResultExtensions.cs" />
     <Compile Include="Controllers\TimelineControllerTests.cs" />
     <Compile Include="Controllers\HomeControllerTests.cs" />
@@ -120,7 +114,9 @@
     <Compile Include="Filters\ConferenceIsClosedFilterTests.cs" />
     <Compile Include="Filters\ConferenceIsInPreviewFilterTests.cs" />
     <Compile Include="Helpers\Given_A_List_Of_Items_RandomShuffle_Should.cs" />
-    <Compile Include="Helpers\Email\SendGrid\SendGridPostman_Should.cs" />
+    <Compile Include="Helpers\Email\ResetPasswordEmailSender_Should.cs" />
+    <Compile Include="Helpers\Email\SendGrid\SendGridMessageWrapper_Should.cs" />
+    <Compile Include="Helpers\Email\SendGrid\SendGridEmailSender_Should.cs" />
     <Compile Include="Helpers\Email\Smtp\SmtpHostSettingsProvider_Should.cs" />
     <Compile Include="Helpers\Email\Smtp\SmtpHostSettings_Should.cs" />
     <Compile Include="Helpers\Given_An_IPV4_Address_MatchIPAddress_Should.cs" />
@@ -158,6 +154,7 @@
       <Name>DDDEastAnglia</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

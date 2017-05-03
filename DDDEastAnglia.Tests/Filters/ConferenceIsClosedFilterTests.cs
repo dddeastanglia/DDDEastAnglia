@@ -1,6 +1,5 @@
 ﻿using System.Web.Mvc;
 using DDDEastAnglia.Filters;
-using DDDEastAnglia.Tests.Builders;
 using NUnit.Framework;
 
 namespace DDDEastAnglia.Tests.Filters

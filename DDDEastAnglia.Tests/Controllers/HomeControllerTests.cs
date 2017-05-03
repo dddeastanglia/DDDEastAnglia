@@ -1,7 +1,6 @@
 ﻿using DDDEastAnglia.Controllers;
 using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.Models;
-using DDDEastAnglia.Tests.Builders;
 using NUnit.Framework;
 
 namespace DDDEastAnglia.Tests.Controllers
