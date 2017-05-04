@@ -1,3 +1,21 @@
+a {
+    color: #013c01;
+}
+
+h2 {
+    font-size: 31.5px;
+}
+
+h1, h2, h3 {
+    line-height: 40px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 10px 0;
+    font-weight: bold;
+    text-rendering: optimizelegibility;
+}
+
 footer span {
     white-space: nowrap;
 }
@@ -21,16 +39,59 @@ footer span {
 
 .masthead img { margin-right: 10px; }
 
-.navbar { margin-bottom: 10px; }
+div.navbar-inner {
+    min-height: 30px;
+    background-color: #008600;
+    background-image: -moz-linear-gradient(top,#00a400,#005800);
+    background-image: -webkit-gradient(linear,0 0,0 100%,from(#00a400),to(#005800));
+    background-image: -webkit-linear-gradient(top,#00a400,#005800);
+    background-image: -o-linear-gradient(top,#00a400,#005800);
+    background-image: linear-gradient(to bottom,#00a400,#005800);
+    background-repeat: repeat-x;
+    margin-bottom: 10px;
+}
+
+.navbar {
+    margin-bottom: 0;
+}
 
 .btn.btn-navbar {
     float: left;
     margin-left: 0;
 }
 
-.navbar .nav > li > a {
-    text-shadow: 0 1px 0 #666666;
+.nav-pills > li.active {
+    background-color: #003f00;
+    -webkit-box-shadow: inset 0 3px 8px rgba(0,0,0,.125);
+    -moz-box-shadow: inset 0 3px 8px rgba(0,0,0,.125);
+    box-shadow: inset 0 3px 8px rgba(0,0,0,.125);
 }
+
+.nav-pills > li.active > a {
+    color: #f8f2e5;
+    text-decoration: none;
+    background: none;
+}
+
+.nav-pills > li > a:focus, .nav-pills > li > a:hover {
+    background-color: #00a400;
+    color: #e7e7e7;
+}
+
+.nav > li > a {
+    text-shadow: 0 1px 0 #666;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+}
+
+.nav > li > a,
+.navbar .btn {
+    padding: 10px 15px 10px;
+    color: #f8f2e5;
+    text-decoration: none;
+}
+
 
 .dddea {
     font-weight: bold;
