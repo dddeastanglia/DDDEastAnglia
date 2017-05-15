@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.Helpers;
@@ -10,27 +11,38 @@ namespace DDDEastAnglia.Controllers
     public class ResetPasswordController : Controller
     {
         private readonly IUserProfileRepository userProfileRepository;
+        private readonly IAccountLoginMethodQuery accountLoginMethodQuery;
         private readonly IResetPasswordThingy resetPasswordThingy;
         private readonly IResetPasswordEmailSender resetPasswordEmailSender;
 
-        public ResetPasswordController(IUserProfileRepository userProfileRepository, IResetPasswordThingy resetPasswordThingy, IResetPasswordEmailSender resetPasswordEmailSender)
+        public ResetPasswordController(IUserProfileRepository userProfileRepository,
+            IAccountLoginMethodQuery accountLoginMethodQuery,
+            IResetPasswordThingy resetPasswordThingy,
+            IResetPasswordEmailSender resetPasswordEmailSender)
+
         {
             if (userProfileRepository == null)
             {
                 throw new ArgumentNullException("userProfileRepository");
             }
 
+            if (accountLoginMethodQuery == null)
+            {
+                throw new ArgumentNullException("accountLoginMethodQuery");
+            }
+
             if (resetPasswordThingy == null)
             {
                 throw new ArgumentNullException("resetPasswordThingy");
             }
-            
+
             if (resetPasswordEmailSender == null)
             {
                 throw new ArgumentNullException("resetPasswordEmailSender");
             }
 
             this.userProfileRepository = userProfileRepository;
+            this.accountLoginMethodQuery = accountLoginMethodQuery;
             this.resetPasswordThingy = resetPasswordThingy;
             this.resetPasswordEmailSender = resetPasswordEmailSender;
         }
@@ -74,12 +86,19 @@ namespace DDDEastAnglia.Controllers
                 return View("Step2");
             }
 
-            string passwordResetToken = resetPasswordThingy.GeneratePasswordResetToken(profile.UserName, 120);
-            SendEmailToUser(profile.EmailAddress, passwordResetToken);
+            var loginMethods = accountLoginMethodQuery.GetLoginMethods(profile.UserId);
+            var dddeaLoginExists = loginMethods.Any(m => m.ProviderName == "dddea");
 
+            if (dddeaLoginExists)
+            {
+                string passwordResetToken = resetPasswordThingy.GeneratePasswordResetToken(profile.UserName, 120);
+                SendEmailToUser(profile.EmailAddress, passwordResetToken);
+            }
+
+            ViewBag.ShowAdditionalHelpMessage = dddeaLoginExists;
             return View("Step2");
         }
-         
+
         [HttpGet]
         [AllowAnonymous]
         public virtual ActionResult EmailConfirmation(string token)
@@ -102,7 +121,7 @@ namespace DDDEastAnglia.Controllers
             {
                 return RedirectToAction("Complete", new { Message = "Your password has been changed successfully. Please log in using your new password." });
             }
-            
+
             ModelState.AddModelError("", "There was an error resetting your password.");
             return View("Step3", model);
         }
@@ -122,6 +141,6 @@ namespace DDDEastAnglia.Controllers
             string htmlTemplatePath = Server.MapPath("~/ForgottenPasswordTemplate.html");
             string textTemplatePath = Server.MapPath("~/ForgottenPasswordTemplate.txt");
             resetPasswordEmailSender.SendEmail(htmlTemplatePath, textTemplatePath, emailAddress, resetUrl);
-        }    
+        }
     }
 }
