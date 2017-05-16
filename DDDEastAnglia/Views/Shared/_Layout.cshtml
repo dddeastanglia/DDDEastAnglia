@@ -19,18 +19,23 @@
             </div>
         </div>
     </div>
-    <div class="navbar navbar-static-top">
+    <div class="navbar navbar-static-top navbar-default">
         <div class="navbar-inner">
-            <div class="container-fluid">
-                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </a>
-                <div class="btn-group pull-right">
-                    @Html.Partial("_LoginPartial")
+            <div class="navbar-header">
+                <div class="container-fluid">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar-collapse" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <div class="btn-group pull-right">
+                        @Html.Partial("_LoginPartial")
+                    </div>
+                    <div class="collapse navbar-collapse" id="bs-navbar-collapse">
+                        @Html.Action("RenderMenu", "NavigationBar")
+                    </div>
                 </div>
-                @Html.Action("RenderMenu", "NavigationBar")
             </div>
         </div>
     </div>
