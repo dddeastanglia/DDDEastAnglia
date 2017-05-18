@@ -19,7 +19,7 @@
     @Html.ValidationSummary(true)
     @Html.HiddenFor(m => m.UserId)
     @Html.HiddenFor(m => m.UserName)
-        
+
     <div class="control-group">
         @Html.LabelFor(m => Model.Name, new { @class = "control-label" })
         <div class="controls">
@@ -67,7 +67,7 @@
             <em>This image is provided by <a href="http://www.gravatar.com" target="_blank">Gravatar</a>, based on your email address.</em>
         </div>
     </div>
-    
+
     <div class="control-group">
         @Html.LabelFor(m => Model.Bio, new { @class = "control-label" })
         <div class="controls">
@@ -85,16 +85,17 @@
             @Html.LabelFor(m => Model.NewSpeaker, new { @class = "checkbox inline" })
         </div>
     </div>
-    
+
     <div class="control-group">
         <div class="controls">
-            <input type="submit" class="btn btn-primary" value="Save profile" />
+            @Html.HiddenFor(m => Model.JoinedAt)
+            <input type="submit" class="btn btn-primary" value="Save profile"/>
         </div>
     </div>
 }
 </section>
 
-@section Scripts 
+@section Scripts
 {
     @Scripts.Render("~/bundles/jqueryval")
 
