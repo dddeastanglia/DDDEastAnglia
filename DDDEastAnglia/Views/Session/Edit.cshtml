@@ -34,12 +34,13 @@
     <div id="wmd-preview"></div>
 
     <div>
-        <input type="submit" class="btn btn-primary" value="Save changes" />
+        @Html.HiddenFor(m => Model.SubmittedAt)
+        <input type="submit" class="btn btn-primary" value="Save changes"/>
         @Html.ActionLink("Cancel", "Index")
     </div>
 }
 
-@section Scripts 
+@section Scripts
 {
     @Scripts.Render("~/bundles/jqueryval")
 
