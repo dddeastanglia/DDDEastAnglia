@@ -12,7 +12,7 @@ namespace DDDEastAnglia.DataAccess
 
     public class ConferenceLoader : IConferenceLoader
     {
-        private const string DefaultEventName = "DDDEA2015";
+        private const string DefaultEventName = "DDDEA2017";
 
         private readonly IConferenceRepository conferenceRepository;
         private readonly ConferenceBuilder conferenceBuilder;
@@ -28,7 +28,7 @@ namespace DDDEastAnglia.DataAccess
             {
                 throw new ArgumentNullException("conferenceBuilder");
             }
-            
+
             this.conferenceRepository = conferenceRepository;
             this.conferenceBuilder = conferenceBuilder;
         }
