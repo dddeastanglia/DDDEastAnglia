@@ -17,12 +17,12 @@ namespace DDDEastAnglia.DataAccess.SimpleData.Queries
             {
                 throw new ArgumentNullException("calendarItemRepository");
             }
-            
+
             if (calendarItemRepository == null)
             {
                 throw new ArgumentNullException("calendarItemRepository");
             }
-            
+
             this.conferenceLoader = conferenceLoader;
             this.calendarItemRepository = calendarItemRepository;
         }
@@ -30,26 +30,26 @@ namespace DDDEastAnglia.DataAccess.SimpleData.Queries
         public BannerModel Get()
         {
             var conference = conferenceLoader.LoadConference();
-                
+
             if (conference == null)
             {
                 return new BannerModel();
             }
-                
+
             DateTimeOffset submissionCloses = DateTimeOffset.Now.AddDays(-1);
             DateTimeOffset votingCloses = DateTimeOffset.Now.AddDays(-1);
 
             var allDates = calendarItemRepository.GetAll().ToDictionary(c => c.EntryType, c => c);
             var submission = allDates[CalendarEntryType.SessionSubmission];
-                    
-            if (submission != null && submission.EndDate.HasValue)
+
+            if (submission?.EndDate != null)
             {
                 submissionCloses = submission.EndDate.Value;
             }
-                    
+
             var voting = allDates[CalendarEntryType.Voting];
 
-            if (voting != null && voting.EndDate.HasValue)
+            if (voting?.EndDate != null)
             {
                 votingCloses = voting.EndDate.Value;
             }
