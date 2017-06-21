@@ -324,8 +324,8 @@ namespace DDDEastAnglia.Controllers
                 ReturnUrl = returnUrl;
             }
 
-            public string Provider { get; private set; }
-            public string ReturnUrl { get; private set; }
+            public string Provider { get; }
+            public string ReturnUrl { get; }
 
             public override void ExecuteResult(ControllerContext context)
             {
