@@ -24,9 +24,9 @@ namespace DDDEastAnglia.Helpers
                 var builder = new StringBuilder();
 
                 // Loop through each byte of the hashed data and format each one as a hexadecimal string
-                for (int i = 0; i < data.Length; i++)
+                foreach (byte b in data)
                 {
-                    builder.Append(data[i].ToString("x2"));
+                    builder.Append(b.ToString("x2"));
                 }
 
                 return string.Format("http://www.gravatar.com/avatar/{0}?s={1}&d={2}&r=pg", builder, size, defaultIconCode);
