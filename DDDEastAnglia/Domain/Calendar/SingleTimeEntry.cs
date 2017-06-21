@@ -6,8 +6,8 @@ namespace DDDEastAnglia.Domain.Calendar
     {
         private readonly DateTimeOffset startDate;
 
-        public SingleTimeEntry(int calendarItemId, CalendarEntryType entryType, string description, bool isPublic, bool isAuthorised, DateTimeOffset startDate)
-            : base(calendarItemId, entryType, description, isPublic, isAuthorised)
+        public SingleTimeEntry(CalendarEntryType entryType, bool isAuthorised, DateTimeOffset startDate)
+            : base(entryType, isAuthorised)
         {
             this.startDate = startDate;
         }

@@ -7,8 +7,8 @@ namespace DDDEastAnglia.Domain.Calendar
         private readonly DateTimeOffset startDate;
         private readonly DateTimeOffset endDate;
 
-        public TimeRangeEntry(int id, CalendarEntryType entryType, string description, bool isPublic, bool isAuthorised, DateTimeOffset startDate, DateTimeOffset endDate)
-            : base(id, entryType, description, isPublic, isAuthorised)
+        public TimeRangeEntry(CalendarEntryType entryType, bool isAuthorised, DateTimeOffset startDate, DateTimeOffset endDate)
+            : base(entryType, isAuthorised)
         {
             this.startDate = startDate;
             this.endDate = endDate;

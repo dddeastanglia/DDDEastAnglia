@@ -51,32 +51,32 @@ namespace DDDEastAnglia.Tests.Domain.Conferences.Calendar
 
         private void Given_An_Authorised_TimeRangeEntry_In_The_Past()
         {
-            _timeRangeEntry = new TimeRangeEntry(1, CalendarEntryType.Conference, "", true, true, DateTimeOffset.Now.AddDays(-2), DateTimeOffset.Now.AddDays(-1));
+            _timeRangeEntry = new TimeRangeEntry(CalendarEntryType.Conference, true, DateTimeOffset.Now.AddDays(-2), DateTimeOffset.Now.AddDays(-1));
         }
 
         private void Given_An_Unauthorised_TimeRangeEntry_In_The_Past()
         {
-            _timeRangeEntry = new TimeRangeEntry(1, CalendarEntryType.Conference, "", true, false, DateTimeOffset.Now.AddDays(-2), DateTimeOffset.Now.AddDays(-1));
+            _timeRangeEntry = new TimeRangeEntry(CalendarEntryType.Conference, false, DateTimeOffset.Now.AddDays(-2), DateTimeOffset.Now.AddDays(-1));
         }
 
         private void Given_An_Unauthorised_TimeRangeEntry_But_Is_In_The_Window()
         {
-            _timeRangeEntry = new TimeRangeEntry(1, CalendarEntryType.Conference, "", true, false, DateTimeOffset.Now.AddDays(-2), DateTimeOffset.Now.AddDays(2));
+            _timeRangeEntry = new TimeRangeEntry(CalendarEntryType.Conference, false, DateTimeOffset.Now.AddDays(-2), DateTimeOffset.Now.AddDays(2));
         }
 
         private void Given_An_Unauthorised_TimeRangeEntry_And_Is_In_The_Future()
         {
-            _timeRangeEntry = new TimeRangeEntry(1, CalendarEntryType.Conference, "", true, false, DateTimeOffset.Now.AddDays(1), DateTimeOffset.Now.AddDays(2));
+            _timeRangeEntry = new TimeRangeEntry(CalendarEntryType.Conference, false, DateTimeOffset.Now.AddDays(1), DateTimeOffset.Now.AddDays(2));
         }
 
         private void Given_An_Authorised_TimeRangeEntry_But_Is_In_The_Window()
         {
-            _timeRangeEntry = new TimeRangeEntry(1, CalendarEntryType.Conference, "", true, true, DateTimeOffset.Now.AddDays(-2), DateTimeOffset.Now.AddDays(2));
+            _timeRangeEntry = new TimeRangeEntry(CalendarEntryType.Conference, true, DateTimeOffset.Now.AddDays(-2), DateTimeOffset.Now.AddDays(2));
         }
 
         private void Given_An_Authorised_TimeRangeEntry_And_Is_In_The_Future()
         {
-            _timeRangeEntry = new TimeRangeEntry(1, CalendarEntryType.Conference, "", true, true, DateTimeOffset.Now.AddDays(1), DateTimeOffset.Now.AddDays(2));
+            _timeRangeEntry = new TimeRangeEntry(CalendarEntryType.Conference, true, DateTimeOffset.Now.AddDays(1), DateTimeOffset.Now.AddDays(2));
         }
 
         private void Then_It_Should_Be_Closed()

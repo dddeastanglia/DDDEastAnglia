@@ -52,17 +52,14 @@ namespace DDDEastAnglia.Tests
 
         private static SingleTimeEntry GetSingleTimeEntry(CalendarEntryType calendarEntryType, DateTimeOffset startTime)
         {
-            return new SingleTimeEntry(1, calendarEntryType, "", true, true, startTime);
+            return new SingleTimeEntry(calendarEntryType, true, startTime);
         }
 
         private static TimeRangeEntry GetTimeRangeEntry(CalendarEntryType calendarEntryType, DateTimeOffset startDate, DateTimeOffset endDate)
         {
-            return new TimeRangeEntry(0, 
-                                      calendarEntryType, 
-                                      "", 
-                                      true, 
-                                      true, 
-                                      startDate, 
+            return new TimeRangeEntry(calendarEntryType,
+                                      true,
+                                      startDate,
                                       endDate);
         }
     }

@@ -17,7 +17,8 @@ namespace DDDEastAnglia.DataAccess.SimpleData.Builders.Calendar
             {
                 return null;
             }
-            return new SingleTimeEntry(item.CalendarItemId, item.EntryType, item.Description, item.IsPublic, item.Authorised, item.StartDate);
+
+            return new SingleTimeEntry(item.EntryType, item.Authorised, item.StartDate);
         }
 
         private CalendarEntry CreateTimeRangeEntry(CalendarItem item)
@@ -26,10 +27,8 @@ namespace DDDEastAnglia.DataAccess.SimpleData.Builders.Calendar
             {
                 return null;
             }
-            return new TimeRangeEntry(item.CalendarItemId,
-                                      item.EntryType,
-                                      item.Description,
-                                      item.IsPublic,
+
+            return new TimeRangeEntry(item.EntryType,
                                       item.Authorised,
                                       item.StartDate,
                                       item.EndDate.Value);

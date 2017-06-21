@@ -37,22 +37,22 @@ namespace DDDEastAnglia.Tests.Domain.Conferences.Calendar
 
         private void Given_An_Authorised_SingleTimeEntry_In_The_Future()
         {
-            _singleTimeEntry = new SingleTimeEntry(1, CalendarEntryType.AgendaPublished, "", true, true, DateTimeOffset.Now.AddDays(1));
+            _singleTimeEntry = new SingleTimeEntry(CalendarEntryType.AgendaPublished, true, DateTimeOffset.Now.AddDays(1));
         }
 
         private void Given_An_Authorised_SingleTimeEntry_In_The_Past()
         {
-            _singleTimeEntry = new SingleTimeEntry(1, CalendarEntryType.AgendaPublished, "", true, true, DateTimeOffset.Now.AddDays(-1));
+            _singleTimeEntry = new SingleTimeEntry(CalendarEntryType.AgendaPublished, true, DateTimeOffset.Now.AddDays(-1));
         }
 
         private void Given_An_Unauthorised_SingleTimeEntry_In_The_Future()
         {
-            _singleTimeEntry = new SingleTimeEntry(1, CalendarEntryType.AgendaPublished, "", true, false, DateTimeOffset.Now.AddDays(1));
+            _singleTimeEntry = new SingleTimeEntry(CalendarEntryType.AgendaPublished, false, DateTimeOffset.Now.AddDays(1));
         }
 
         private void Given_An_Unauthorised_SingleTimeEntry_In_The_Past()
         {
-            _singleTimeEntry = new SingleTimeEntry(1, CalendarEntryType.AgendaPublished, "", true, false, DateTimeOffset.Now.AddDays(-1));
+            _singleTimeEntry = new SingleTimeEntry(CalendarEntryType.AgendaPublished, false, DateTimeOffset.Now.AddDays(-1));
         }
 
         private void Then_It_Is_Closed()

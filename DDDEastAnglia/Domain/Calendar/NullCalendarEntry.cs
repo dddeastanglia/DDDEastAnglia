@@ -3,7 +3,7 @@ namespace DDDEastAnglia.Domain.Calendar
     public class NullCalendarEntry : CalendarEntry
     {
         public NullCalendarEntry()
-            : base(0, CalendarEntryType.Unknown, "", false, false)
+            : base(CalendarEntryType.Unknown, false)
         {}
 
         public override bool IsOpen()
