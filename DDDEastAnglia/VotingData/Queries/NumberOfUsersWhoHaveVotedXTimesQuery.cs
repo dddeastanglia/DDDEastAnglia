@@ -5,31 +5,19 @@ namespace DDDEastAnglia.VotingData.Queries
 {
     public class NumberOfUsersWhoHaveVotedXTimesQuery : IQuery<NumberOfUsersWithVotesModel>
     {
-        public string Sql
-        {
-            get
-            {
-                return @"
+        public string Sql => @"
 WITH CTE AS
 (
-	SELECT COUNT(v.CookieId) AS VoteCount 
-	FROM Votes v
-	GROUP BY v.CookieId
+    SELECT COUNT(v.CookieId) AS VoteCount
+    FROM Votes v
+    GROUP BY v.CookieId
 )
 SELECT VoteCount, COUNT(VoteCount) AS NumberOfUsers
 FROM CTE
 GROUP BY VoteCount
 ORDER BY VoteCount ASC";
-            }
-        }
 
-        public IQueryResultObjectFactory<NumberOfUsersWithVotesModel> ObjectFactory
-        {
-            get
-            {
-                return new NumberOfUsersWithVotesModelFactory();
-            }
-        }
+        public IQueryResultObjectFactory<NumberOfUsersWithVotesModel> ObjectFactory => new NumberOfUsersWithVotesModelFactory();
 
         private class NumberOfUsersWithVotesModelFactory : IQueryResultObjectFactory<NumberOfUsersWithVotesModel>
         {

@@ -5,11 +5,7 @@ namespace DDDEastAnglia.VotingData.Queries
 {
     public class VotersPerIPAddressQuery : IQuery<IPAddressVoterModel>
     {
-        public string Sql
-        {
-            get 
-            {
-                return @"
+        public string Sql => @"
 SELECT CookieVsIPAddress.IPAddress, COUNT(CookieVsIPAddress.CookieId) AS VoterCount
 FROM
 (
@@ -17,17 +13,9 @@ FROM
     GROUP BY IPAddress, CookieId
 ) AS CookieVsIPAddress
 GROUP BY CookieVsIPAddress.IPAddress
-ORDER BY VoterCount DESC";            
-            }
-        }
+ORDER BY VoterCount DESC";
 
-        public IQueryResultObjectFactory<IPAddressVoterModel> ObjectFactory
-        {
-            get
-            {
-                return new IPAddressVoterModelFactory();
-            }
-        }
+        public IQueryResultObjectFactory<IPAddressVoterModel> ObjectFactory => new IPAddressVoterModelFactory();
 
         private class IPAddressVoterModelFactory : IQueryResultObjectFactory<IPAddressVoterModel>
         {

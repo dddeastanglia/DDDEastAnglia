@@ -15,30 +15,18 @@ namespace DDDEastAnglia.VotingData.Queries
             {
                 throw new ArgumentNullException("gravatar");
             }
-            
+
             this.gravatar = gravatar;
         }
 
-        public string Sql
-        {
-            get 
-            {
-                return @"
+        public string Sql => @"
 SELECT v.UserId, p.Name, p.UserName, p.EmailAddress, COUNT(v.UserId) AS VoteCount FROM Votes v
 JOIN UserProfiles p ON v.UserId = p.UserId
 WHERE v.UserId <> 0
 GROUP BY v.UserId, p.Name, p.Username, p.EmailAddress
 ORDER BY VoteCount DESC";
-            }
-        }
 
-        public IQueryResultObjectFactory<KnownUserVoteCountModel> ObjectFactory
-        {
-            get
-            {
-                return new UserVoteCountModelFactory(gravatar);
-            }
-        }
+        public IQueryResultObjectFactory<KnownUserVoteCountModel> ObjectFactory => new UserVoteCountModelFactory(gravatar);
 
         private class UserVoteCountModelFactory : IQueryResultObjectFactory<KnownUserVoteCountModel>
         {
@@ -50,7 +38,7 @@ ORDER BY VoteCount DESC";
                 {
                     throw new ArgumentNullException("gravatar");
                 }
-                
+
                 this.gravatar = gravatar;
             }
 

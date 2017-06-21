@@ -20,7 +20,7 @@ namespace DDDEastAnglia.Helpers.Context
             {
                 throw new ArgumentNullException("votingCookieFactory");
             }
-            
+
             if (userProfileRepository == null)
             {
                 throw new ArgumentNullException("userProfileRepository");
@@ -32,24 +32,18 @@ namespace DDDEastAnglia.Helpers.Context
 
         private static readonly Regex IPV4AddressMatch = new Regex(@"\b(?<IPAddress>((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))\b", RegexOptions.Compiled);
 
-        public string UserAgent { get { return HttpContext.Current.Request.UserAgent; } }
+        public string UserAgent => HttpContext.Current.Request.UserAgent;
 
-        public string Referrer 
-        { 
-            get
-            {
-                return HttpContext.Current.Request.UrlReferrer == null ? null : HttpContext.Current.Request.UrlReferrer.ToString();
-            }
-        }
+        public string Referrer => HttpContext.Current.Request.UrlReferrer == null ? null : HttpContext.Current.Request.UrlReferrer.ToString();
 
-        public string SessionId { get { return HttpContext.Current.Session.SessionID; } }
+        public string SessionId => HttpContext.Current.Session.SessionID;
 
-        public bool IsAjaxRequest { get { return new HttpRequestWrapper(HttpContext.Current.Request).IsAjaxRequest(); } }
+        public bool IsAjaxRequest => new HttpRequestWrapper(HttpContext.Current.Request).IsAjaxRequest();
 
         public string GetIPAddress()
         {
             var request = HttpContext.Current.Request;
-            return MatchIPAddress(request.Headers["HTTP_X_FORWARDED_FOR"]) 
+            return MatchIPAddress(request.Headers["HTTP_X_FORWARDED_FOR"])
                    ?? MatchIPAddress(request.Headers["HTTP_VIA"])
                    ?? MatchIPAddress(request.Headers["HTTP_PROXY_CONNECTION"])
                    ?? MatchIPAddress(request.UserHostAddress);
@@ -65,7 +59,7 @@ namespace DDDEastAnglia.Helpers.Context
             return userProfileRepository.GetAllUserProfiles().FirstOrDefault(profile => profile.UserName == HttpContext.Current.User.Identity.Name);
         }
 
-        public DateTime UtcNow { get { return DateTime.UtcNow; } }
+        public DateTime UtcNow => DateTime.UtcNow;
 
         public VotingCookie GetVotingCookie()
         {

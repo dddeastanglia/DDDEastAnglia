@@ -11,27 +11,14 @@ namespace DDDEastAnglia.VotingData.Queries
             this.userId = userId;
         }
 
-        public string Sql
-        {
-            get
-            {
-                return string.Format(@"
+        public string Sql => $@"
 SELECT s.SessionId AS SessionId, s.Title AS SessionTitle, p.UserId AS SpeakerUserId, p.Name AS SpeakerName
 FROM Votes v, Sessions s, UserProfiles p
 WHERE v.SessionId = s.SessionId
 AND s.SpeakerUserName = p.UserName
-AND v.UserId = {0}
-ORDER BY SpeakerName",
-                   userId);
-            }
-        }
+AND v.UserId = {userId}
+ORDER BY SpeakerName";
 
-        public IQueryResultObjectFactory<VotedSessionModel> ObjectFactory
-        {
-            get
-            {
-                return new VotedSessionModelFactory();
-            }
-        }
+        public IQueryResultObjectFactory<VotedSessionModel> ObjectFactory => new VotedSessionModelFactory();
     }
 }

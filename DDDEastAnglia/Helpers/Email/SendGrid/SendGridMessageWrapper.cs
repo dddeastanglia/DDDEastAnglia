@@ -5,14 +5,13 @@ namespace DDDEastAnglia.Helpers.Email.SendGrid
 {
     public class SendGridMessageWrapper : IMailMessage
     {
-        public SendGridMail.SendGrid SendGrid{get {return sendGrid;}}
-        private readonly SendGridMail.SendGrid sendGrid;
+        public SendGridMail.SendGrid SendGrid { get; }
 
-        public MailAddress From{get {return sendGrid.From;}}
-        public MailAddress[] To{get {return sendGrid.To;}}
-        public string Subject{get {return sendGrid.Subject;}}
-        public string Html{get {return sendGrid.Html;}}
-        public string Text{get {return sendGrid.Text;}}
+        public MailAddress From => SendGrid.From;
+        public MailAddress[] To => SendGrid.To;
+        public string Subject => SendGrid.Subject;
+        public string Html => SendGrid.Html;
+        public string Text => SendGrid.Text;
 
         public SendGridMessageWrapper(SendGridMail.SendGrid sendGrid)
         {
@@ -20,8 +19,8 @@ namespace DDDEastAnglia.Helpers.Email.SendGrid
             {
                 throw new ArgumentNullException("sendGrid");
             }
-            
-            this.sendGrid = sendGrid;
+
+            SendGrid = sendGrid;
         }
     }
 }

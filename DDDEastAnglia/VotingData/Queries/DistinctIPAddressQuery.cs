@@ -5,25 +5,13 @@ namespace DDDEastAnglia.VotingData.Queries
 {
     public class DistinctIPAddressQuery : IQuery<VotesForIPAddressModel>
     {
-        public string Sql
-        {
-            get
-            {
-                return @"
+        public string Sql => @"
 SELECT IPAddress, COUNT(IPAddress) AS VoteCount
 FROM Votes
 GROUP BY IPAddress
 ORDER BY VoteCount DESC";
-            }
-        }
 
-        public IQueryResultObjectFactory<VotesForIPAddressModel> ObjectFactory
-        {
-            get
-            {
-                return new IPAddressModelFactory();
-            }
-        }
+        public IQueryResultObjectFactory<VotesForIPAddressModel> ObjectFactory => new IPAddressModelFactory();
 
         private class IPAddressModelFactory : IQueryResultObjectFactory<VotesForIPAddressModel>
         {

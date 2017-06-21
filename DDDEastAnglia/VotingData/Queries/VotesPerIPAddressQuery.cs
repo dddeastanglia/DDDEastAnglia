@@ -15,28 +15,14 @@ namespace DDDEastAnglia.VotingData.Queries
             this.ipAddress = ipAddress;
         }
 
-        public string Sql
-        {
-            get
-            {
-                const string sql = @"
+        public string Sql => $@"
 SELECT CookieId, COUNT(CookieId) AS VoteCount
 FROM Votes
-WHERE IPAddress LIKE '{0}'
+WHERE IPAddress LIKE '{ipAddress}'
 GROUP BY CookieId
-ORDER BY VoteCount DESC
-";
-                return string.Format(sql, ipAddress);
-            }
-        }
+ORDER BY VoteCount DESC";
 
-        public IQueryResultObjectFactory<CookieVoteModel> ObjectFactory
-        {
-            get
-            {
-                return new CookieVoteModelFactory();
-            }
-        }
+        public IQueryResultObjectFactory<CookieVoteModel> ObjectFactory => new CookieVoteModelFactory();
 
         private class CookieVoteModelFactory : IQueryResultObjectFactory<CookieVoteModel>
         {

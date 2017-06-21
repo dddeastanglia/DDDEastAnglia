@@ -15,31 +15,19 @@ namespace DDDEastAnglia.VotingData.Queries
             {
                 throw new ArgumentNullException("gravatar");
             }
-            
+
             this.gravatar = gravatar;
         }
 
-        public string Sql
-        {
-            get 
-            {
-                return @"
+        public string Sql => @"
 SELECT CookieId, COUNT(CookieId) AS VoteCount 
 FROM Votes
 WHERE UserId IS NULL
 GROUP BY CookieId
 ORDER BY VoteCount DESC
 ";
-            }
-        }
 
-        public IQueryResultObjectFactory<AnonymousUserVoteCountModel> ObjectFactory
-        {
-            get
-            {
-                return new UserVoteCountModelFactory(gravatar);
-            }
-        }
+        public IQueryResultObjectFactory<AnonymousUserVoteCountModel> ObjectFactory => new UserVoteCountModelFactory(gravatar);
 
         private class UserVoteCountModelFactory : IQueryResultObjectFactory<AnonymousUserVoteCountModel>
         {
@@ -51,7 +39,7 @@ ORDER BY VoteCount DESC
                 {
                     throw new ArgumentNullException("gravatar");
                 }
-                
+
                 this.gravatar = gravatar;
             }
 

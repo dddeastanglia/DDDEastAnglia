@@ -4,15 +4,15 @@ namespace DDDEastAnglia.DataAccess.MessageBus
 {
     public interface IMessage
     {
-         
+
     }
 
     public interface ICommand : IMessage
     {
-        
+
     }
 
-    public interface IHandle 
+    public interface IHandle
     {
         Type MessageType { get; }
         void Handle(IMessage message);
@@ -20,7 +20,8 @@ namespace DDDEastAnglia.DataAccess.MessageBus
 
     public abstract class BaseHandler<TMessage> : IHandle where TMessage : class, IMessage
     {
-        public Type MessageType { get { return typeof (TMessage); } }
+        public Type MessageType => typeof (TMessage);
+
         public void Handle(IMessage message)
         {
             var typedMessage = message as TMessage;

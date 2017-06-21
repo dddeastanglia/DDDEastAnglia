@@ -25,8 +25,8 @@ namespace DDDEastAnglia.VotingData.Queries
         }
 
         private const string AllowDuplicateSpeakersSql = @"
-SELECT {0} row_number() OVER (ORDER BY COUNT(v.SessionId) DESC) AS Position, 
-s.SessionId AS SessionId, s.Title AS SessionTitle, u.UserId AS SpeakerUserId, 
+SELECT {0} row_number() OVER (ORDER BY COUNT(v.SessionId) DESC) AS Position,
+s.SessionId AS SessionId, s.Title AS SessionTitle, u.UserId AS SpeakerUserId,
 u.Name AS SpeakerName, COUNT(v.SessionId) AS VoteCount
 FROM Sessions s
 JOIN Votes v ON v.SessionId = s.SessionId
@@ -37,28 +37,22 @@ ORDER BY VoteCount DESC";
         private const string ForbidDuplicateSpeakersSql = @"
 WITH CTE AS
 (
-	SELECT row_number() OVER (PARTITION BY u.UserId ORDER BY COUNT(v.SessionId) DESC) AS Position, 
-	s.SessionId AS SessionId, s.Title AS SessionTitle, u.UserId AS SpeakerUserId, 
-	u.Name AS SpeakerName, COUNT(v.SessionId) AS VoteCount
-	FROM Sessions s
-	JOIN Votes v ON v.SessionId = s.SessionId
-	JOIN UserProfiles u ON u.UserName = s.SpeakerUserName
-	GROUP BY s.SessionId, s.Title, u.UserId, u.Name
+    SELECT row_number() OVER (PARTITION BY u.UserId ORDER BY COUNT(v.SessionId) DESC) AS Position,
+    s.SessionId AS SessionId, s.Title AS SessionTitle, u.UserId AS SpeakerUserId,
+    u.Name AS SpeakerName, COUNT(v.SessionId) AS VoteCount
+    FROM Sessions s
+    JOIN Votes v ON v.SessionId = s.SessionId
+    JOIN UserProfiles u ON u.UserName = s.SpeakerUserName
+    GROUP BY s.SessionId, s.Title, u.UserId, u.Name
 )
-SELECT {0} row_number() OVER (ORDER BY VoteCount DESC) AS Position, 
+SELECT {0} row_number() OVER (ORDER BY VoteCount DESC) AS Position,
 SessionId, SessionTitle, SpeakerUserId, SpeakerName, VoteCount
-FROM CTE 
+FROM CTE
 WHERE Position = 1
 ORDER BY VoteCount DESC
 ";
 
-        public IQueryResultObjectFactory<SessionLeaderBoardEntry> ObjectFactory
-        {
-            get
-            {
-                return new LeaderBoardSessionFactory();
-            }
-        }
+        public IQueryResultObjectFactory<SessionLeaderBoardEntry> ObjectFactory => new LeaderBoardSessionFactory();
 
         private class LeaderBoardSessionFactory : IQueryResultObjectFactory<SessionLeaderBoardEntry>
         {

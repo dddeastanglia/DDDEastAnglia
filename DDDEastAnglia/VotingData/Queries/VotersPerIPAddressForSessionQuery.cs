@@ -12,26 +12,13 @@ namespace DDDEastAnglia.VotingData.Queries
             this.sessionId = sessionId;
         }
 
-        public string Sql
-        {
-            get
-            {
-                return string.Format(@"SELECT V.IPAddress, COUNT(V.IPAddress) VoteCount
-FROM Votes V 
-WHERE V.sessionid = {0}
+        public string Sql => $@"SELECT V.IPAddress, COUNT(V.IPAddress) VoteCount
+FROM Votes V
+WHERE V.sessionid = {sessionId}
 GROUP BY IPAddress
-ORDER BY VoteCount DESC", 
-                    sessionId);
-            }
-        }
+ORDER BY VoteCount DESC";
 
-        public IQueryResultObjectFactory<VotersPerIPAddressForSessionModel> ObjectFactory
-        {
-            get
-            {
-                return new VotersPerIPAddressForSessionModelFactory();
-            }
-        }
+        public IQueryResultObjectFactory<VotersPerIPAddressForSessionModel> ObjectFactory => new VotersPerIPAddressForSessionModelFactory();
 
         private class VotersPerIPAddressForSessionModelFactory : IQueryResultObjectFactory<VotersPerIPAddressForSessionModel>
         {

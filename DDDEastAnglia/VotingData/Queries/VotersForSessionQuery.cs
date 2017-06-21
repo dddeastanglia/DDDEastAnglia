@@ -16,31 +16,18 @@ namespace DDDEastAnglia.VotingData.Queries
             {
                 throw new ArgumentNullException("gravatar");
             }
-            
+
             this.gravatar = gravatar;
             this.sessionId = sessionId;
         }
 
-        public string Sql
-        {
-            get
-            {
-                return string.Format(@"SELECT V.CookieId, U.Name, U.EmailAddress
-FROM Votes V 
+        public string Sql => $@"SELECT V.CookieId, U.Name, U.EmailAddress
+FROM Votes V
 LEFT OUTER JOIN UserProfiles U
 ON V.UserId = U.UserId
-WHERE V.sessionid = {0}",
-                    sessionId);
-            }
-        }
+WHERE V.sessionid = {sessionId}";
 
-        public IQueryResultObjectFactory<SessionVoterModel> ObjectFactory
-        {
-            get
-            {
-                return new SessionVotersModelFactory(gravatar);
-            }
-        }
+        public IQueryResultObjectFactory<SessionVoterModel> ObjectFactory => new SessionVotersModelFactory(gravatar);
 
         private class SessionVotersModelFactory : IQueryResultObjectFactory<SessionVoterModel>
         {
@@ -52,7 +39,7 @@ WHERE V.sessionid = {0}",
                 {
                     throw new ArgumentNullException("gravatar");
                 }
-                
+
                 this.gravatar = gravatar;
             }
 
@@ -65,8 +52,8 @@ WHERE V.sessionid = {0}",
                 string emailAddress = reader.IsDBNull(emailAddressField) ? null : reader.GetString(emailAddressField);
 
                 string userIdentifier = userName ?? cookieId.ToString();
-                string gravatarUrl = emailAddress == null 
-                                        ? gravatar.GetUrl(cookieId.ToString(), useIdenticon: true) 
+                string gravatarUrl = emailAddress == null
+                                        ? gravatar.GetUrl(cookieId.ToString(), useIdenticon: true)
                                         : gravatar.GetUrl(emailAddress);
 
                 return new SessionVoterModel
