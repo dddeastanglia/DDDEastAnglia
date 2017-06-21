@@ -1,7 +1,7 @@
 ﻿@model DDDEastAnglia.Models.Session
 
 @{
-    ViewBag.Title = @Model.Title;
+    ViewBag.Title = Model.Title;
 }
 
 @section header
@@ -13,7 +13,7 @@
 
 <section class="group-box admin-session-details">
     <p>Submitted by: @Model.SpeakerUserName</p>
-    
+
     @if (Model.SubmittedAt.HasValue)
     {
         <p>Submitted on: @Model.SubmittedAt.Value.ToString("f")</p>

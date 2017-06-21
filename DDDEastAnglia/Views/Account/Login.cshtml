@@ -11,7 +11,7 @@
 </section>
 
 <section id="loginForm">
-@using (Html.BeginForm("Login", "Account", new { @ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal" }))
+@using (Html.BeginForm("Login", "Account", new { ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal" }))
 {
     @Html.AntiForgeryToken()
 

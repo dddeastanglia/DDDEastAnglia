@@ -18,11 +18,11 @@
     </thead>
 
     <tbody>
-    @foreach (var item in @Model.IPAddressVoters)
+    @foreach (var item in Model.IPAddressVoters)
     {
         <tr><td>
             @Html.DisplayFor(modelItem => item.IPAddress)
-            
+
             <div>
                 <a id="link@(Html.IpAddressToId(item.IPAddress))" href="#" onclick="javascript:resolveIP('link@(Html.IpAddressToId(item.IPAddress))', '@item.IPAddress', 'resolved@(item.IPAddress.Replace(".", "-"))');return false;" title="Resolve IP address"><i class="icon-search"></i></a>
                 <span id="resolved@(Html.IpAddressToId(item.IPAddress))"></span>

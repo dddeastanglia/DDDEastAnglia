@@ -1,32 +1,32 @@
 ﻿@model DDDEastAnglia.Models.UserProfile
 
 @{
-    ViewBag.Title = @Model.Name;
+    ViewBag.Title = Model.Name;
 }
 
-<h2><img src="@Html.Raw(@Model.GravatarUrl())" alt="@Html.Raw(@Model.Name)" /> @Model.Name</h2>
+<h2><img src="@Html.Raw(Model.GravatarUrl())" alt="@Html.Raw(Model.Name)" /> @Model.Name</h2>
 
 <section class="group-box user-details">
     <p><i class="icon-user"></i> @Model.UserName</p>
     
     <p>Logins @Html.Partial("_LoginMethods", Model.LoginMethods)</p>
 
-    @if (!string.IsNullOrWhiteSpace(@Model.EmailAddress))
+    @if (!string.IsNullOrWhiteSpace(Model.EmailAddress))
     {
         <p><i class="icon-envelope"></i> <a href="mailto:@Model.EmailAddress">@Model.EmailAddress</a></p>
     }
 
-    @if (!string.IsNullOrWhiteSpace(@Model.WebsiteUrl))
+    @if (!string.IsNullOrWhiteSpace(Model.WebsiteUrl))
     {
         <p><i class="icon-globe" style="color:green"></i> <a href="@Model.WebsiteUrl">@Model.WebsiteUrl</a></p>
     }
 
-    @if (!string.IsNullOrWhiteSpace(@Model.TwitterHandle))
+    @if (!string.IsNullOrWhiteSpace(Model.TwitterHandle))
     {
-        <p><i class="icon-twitter" style="color:cornflowerblue"></i> <a href="http://twitter.com/@Model.TwitterHandle">@("@" + @Model.TwitterHandle)</a></p>
+        <p><i class="icon-twitter" style="color:cornflowerblue"></i> <a href="http://twitter.com/@Model.TwitterHandle">@("@" + Model.TwitterHandle)</a></p>
     }
 
-    @if (!string.IsNullOrWhiteSpace(@Model.MobilePhone))
+    @if (!string.IsNullOrWhiteSpace(Model.MobilePhone))
     {
         <p><i class="icon-phone"></i> @Model.MobilePhone</p>
     }
@@ -39,7 +39,7 @@
     }
 </section>
 
-@if (!string.IsNullOrWhiteSpace(@Model.Bio))
+@if (!string.IsNullOrWhiteSpace(Model.Bio))
 {
     <div class="group-box bio">
         @Html.MarkdownFor(model => Model.Bio)

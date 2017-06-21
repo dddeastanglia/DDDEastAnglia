@@ -11,10 +11,10 @@
             <i class="icon-trash"></i> @Html.ActionLink("Delete", "Delete", "Session", new { id = Model.SessionId }, htmlAttributes: null)
         </span>
     }
-        @Html.Action("Status", "Vote", new { id = @Model.SessionId })
+        @Html.Action("Status", "Vote", new { id = Model.SessionId })
     </div>
     <h3>
-        @Model.SessionTitle    
+        @Model.SessionTitle
     </h3>
     <h4>
         <img src="@Model.SpeakerGravatarUrl" width="32" height="32" alt="@Model.SpeakerName">

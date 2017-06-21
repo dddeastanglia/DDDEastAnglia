@@ -15,7 +15,7 @@
     </thead>
 
     <tbody>
-    @foreach (var item in @Model.DistinctVotes)
+    @foreach (var item in Model.DistinctVotes)
     {
         <tr><td>
                 <img src="@(new GravatarUrl().GetUrl(item.CookieId.ToString(), useIdenticon: true))" width="32" height="32" />
