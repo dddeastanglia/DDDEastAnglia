@@ -15,7 +15,7 @@ namespace DDDEastAnglia.Controllers
         private readonly ISessionVoteModelQuery sessionVoteModelQuery;
         private readonly IControllerInformationProvider controllerInformationProvider;
 
-        public VoteController(IMessageBus messageBus, 
+        public VoteController(IMessageBus messageBus,
             ISessionVoteModelQuery sessionVoteModelQuery,
             IControllerInformationProvider controllerInformationProvider)
         {
@@ -73,12 +73,12 @@ namespace DDDEastAnglia.Controllers
             {
                 if (sessionVoteModel.Width != 0 || sessionVoteModel.Height != 0)
                 {
-                    vote.ScreenResolution = string.Format("{0}x{1}", sessionVoteModel.Width, sessionVoteModel.Height);
+                    vote.ScreenResolution = $"{sessionVoteModel.Width}x{sessionVoteModel.Height}";
                 }
 
                 vote.PositionInList = sessionVoteModel.PositionInList;
             }
-            
+
             messageBus.Send(vote);
             controllerInformationProvider.SaveVotingCookie(cookie);
             return RedirectOrReturnPartialView(id);
@@ -95,7 +95,7 @@ namespace DDDEastAnglia.Controllers
                     SessionId = id,
                     CookieId = cookieId
                 });
-            
+
             controllerInformationProvider.SaveVotingCookie(cookie);
             return RedirectOrReturnPartialView(id);
         }

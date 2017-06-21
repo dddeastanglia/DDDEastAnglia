@@ -12,7 +12,7 @@ namespace DDDEastAnglia.Helpers
             if (string.IsNullOrWhiteSpace(userIdentifier))
             {
                 // Deal with missing email addresses
-                return string.Format("http://www.gravatar.com/avatar/0000?s={0}&d={1}&r=pg", size, defaultIconCode);
+                return $"http://www.gravatar.com/avatar/0000?s={size}&d={defaultIconCode}&r=pg";
             }
 
             using (MD5 md5Hasher = MD5.Create())
@@ -29,7 +29,7 @@ namespace DDDEastAnglia.Helpers
                     builder.Append(b.ToString("x2"));
                 }
 
-                return string.Format("http://www.gravatar.com/avatar/{0}?s={1}&d={2}&r=pg", builder, size, defaultIconCode);
+                return $"http://www.gravatar.com/avatar/{builder}?s={size}&d={defaultIconCode}&r=pg";
             }
         }
     }

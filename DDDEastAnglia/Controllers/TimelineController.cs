@@ -30,7 +30,7 @@ namespace DDDEastAnglia.Controllers
             {
                 throw new ArgumentNullException("dateTimePassedEvaluator");
             }
-            
+
             this.calendarItemRepository = calendarItemRepository;
             this.dateTimeFormatter = dateTimeFormatter;
             this.dateTimePassedEvaluator = dateTimePassedEvaluator;
@@ -48,7 +48,7 @@ namespace DDDEastAnglia.Controllers
             var conference = calendarItemRepository.GetFromType(CalendarEntryType.Conference);
             string startTime = dateTimeFormatter.FormatTime(conference.StartDate);
             string endTime = dateTimeFormatter.FormatTime(conference.EndDate.Value);
-            string conferenceTimes = string.Format("{0} to {1}", startTime, endTime);
+            string conferenceTimes = $"{startTime} to {endTime}";
             return new ContentResult {Content = conferenceTimes};
         }
 
@@ -76,19 +76,19 @@ namespace DDDEastAnglia.Controllers
                 PeriodDate = dateTimeFormatter.FormatStartDate(voting.StartDate),
                 PeriodPassed = dateTimePassedEvaluator.HasDatePassed(voting.EndDate.Value)
             };
-            
+
             var votingCloses = new TimelineItemModel
             {
                 PeriodDate = dateTimeFormatter.FormatEndDate(voting.EndDate),
                 PeriodPassed = dateTimePassedEvaluator.HasDatePassed(voting.EndDate.Value)
             };
-            
+
             var agendaAnnounced = new TimelineItemModel
             {
                 PeriodDate = dateTimeFormatter.FormatStartDate(agendaPublished.StartDate),
                 PeriodPassed = dateTimePassedEvaluator.HasDatePassed(registraion.StartDate)
             };
-            
+
             var registrationOpens = new TimelineItemModel
             {
                 PeriodDate = dateTimeFormatter.FormatStartDate(registraion.StartDate),
@@ -104,7 +104,7 @@ namespace DDDEastAnglia.Controllers
                 AgendaAnnounced = agendaAnnounced,
                 RegistrationOpens = registrationOpens
             };
-            
+
             return PartialView("_Timeline", model);
         }
     }

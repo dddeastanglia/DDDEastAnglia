@@ -16,7 +16,7 @@ namespace DDDEastAnglia.Controllers
             {
                 throw new ArgumentNullException("userProfileRepository");
             }
-            
+
             this.userProfileRepository = userProfileRepository;
         }
 
@@ -42,7 +42,7 @@ namespace DDDEastAnglia.Controllers
 
             if (!string.IsNullOrWhiteSpace(profile.WebsiteUrl))
             {
-                if (!Uri.IsWellFormedUriString(string.Format("http://{0}", profile.WebsiteUrl), UriKind.Absolute))
+                if (!Uri.IsWellFormedUriString($"http://{profile.WebsiteUrl}", UriKind.Absolute))
                 {
                     message = "The website url doesn't appear to be a valid URL.";
                     ModelState.AddModelError(key: "WebsiteUrl", errorMessage: message);

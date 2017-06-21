@@ -216,9 +216,7 @@ namespace DDDEastAnglia.Controllers
 
         private SessionTweetLink CreateTweetLink(bool isUsersSession, string sessionTitle, string sessionUrl)
         {
-            var title = string.Format("Check out {0} session for #dddea - {1} {2}",
-                                      isUsersSession ? "my" : "this",
-                                      sessionTitle, sessionUrl);
+            var title = $"Check out {(isUsersSession ? "my" : "this")} session for #dddea - {sessionTitle} {sessionUrl}";
             var tweetLink = new SessionTweetLink
                 {
                     Title = title,

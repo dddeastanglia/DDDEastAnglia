@@ -19,7 +19,7 @@ namespace DDDEastAnglia.DataAccess
             {
                 throw new ArgumentNullException("conferenceLoader");
             }
-            
+
             if (calendarItemRepository == null)
             {
                 throw new ArgumentNullException("calendarItemRepository");
@@ -42,7 +42,7 @@ namespace DDDEastAnglia.DataAccess
         private string GetCookieName()
         {
             var conference = conferenceLoader.LoadConference();
-            return string.Format("{0}.Voting", conference.ShortName);
+            return $"{conference.ShortName}.Voting";
         }
 
         private DateTime GetCookieExpiryDate()

@@ -19,8 +19,7 @@ namespace DDDEastAnglia.Helpers
                 case "google":
                     return new LoginMethodViewModel { Name = "Google", Icon = "icon-google-plus" };
                 default:
-                    string message = string.Format("Unknown login method '{0}'", loginMethod.ProviderName);
-                    throw new NotSupportedException(message);
+                    throw new NotSupportedException($"Unknown login method '{loginMethod.ProviderName}'");
             }
         }
     }
