@@ -44,6 +44,11 @@ namespace DDDEastAnglia.Controllers
             return View();
         }
 
+        public ActionResult CodeOfConduct()
+        {
+            return View();
+        }
+
         public ActionResult Accommodation()
         {
             var conference = conferenceLoader.LoadConference();

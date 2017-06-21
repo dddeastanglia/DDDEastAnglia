@@ -49,6 +49,7 @@ namespace DDDEastAnglia.Controllers
                     CreateLink("Agenda", "Home", "Agenda", conference.CanPublishAgenda),
                     CreateLink("Register", "Home", "Register", conference.CanRegister),
                     CreateLink("New to DDD?", "Home", "About"),
+                    CreateLink("Code of Conduct", "Home", "CodeOfConduct"),
                     CreateLink("Venue", "Home", "Venue"),
                     CreateLink("Accommodation", "Home", "Accommodation", conference.CanRegister),
                     CreateLink("Sponsors", "Home", "Sponsors"),
