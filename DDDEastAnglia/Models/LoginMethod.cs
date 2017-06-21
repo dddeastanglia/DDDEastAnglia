@@ -4,8 +4,7 @@ namespace DDDEastAnglia.Models
 {
     public class LoginMethod
     {
-        public string ProviderName{get {return providerName;}}
-        private readonly string providerName;
+        public string ProviderName { get; }
 
         public LoginMethod(string providerName)
         {
@@ -13,8 +12,8 @@ namespace DDDEastAnglia.Models
             {
                 throw new ArgumentNullException("providerName");
             }
-            
-            this.providerName = providerName;
+
+            ProviderName = providerName;
         }
     }
 }

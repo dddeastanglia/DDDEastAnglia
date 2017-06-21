@@ -6,17 +6,13 @@ namespace DDDEastAnglia.Helpers.Email.Smtp
     {
         public const int DefaultSmtpPort = 25;
 
-        public string Host{get {return smtpHost;}}
-        private readonly string smtpHost;
-        
-        public int Port{get {return smtpPort;}}
-        private readonly int smtpPort;
-        
-        public string Username{get {return smtpUsername;}}
-        private readonly string smtpUsername;
-        
-        public string Password{get {return smtpPassword;}}
-        private readonly string smtpPassword;
+        public string Host { get; }
+
+        public int Port { get; }
+
+        public string Username { get; }
+
+        public string Password { get; }
 
         public SmtpHostSettings(string smtpHost, int smtpPort = 25, string smtpUsername = null, string smtpPassword = null)
         {
@@ -24,11 +20,11 @@ namespace DDDEastAnglia.Helpers.Email.Smtp
             {
                 throw new ArgumentNullException("smtpHost");
             }
-            
-            this.smtpHost = smtpHost;
-            this.smtpPort = smtpPort;
-            this.smtpUsername = smtpUsername;
-            this.smtpPassword = smtpPassword;
+
+            Host = smtpHost;
+            Port = smtpPort;
+            Username = smtpUsername;
+            Password = smtpPassword;
         }
     }
 }

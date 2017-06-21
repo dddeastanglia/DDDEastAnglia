@@ -5,48 +5,28 @@ namespace DDDEastAnglia.Domain
 {
     public class Conference : IConference
     {
-        private readonly int id;
-        private readonly string name;
-        private readonly string shortName;
-        private readonly int numberOfTimeSlots;
-        private readonly int numberOfTracks;
         private readonly Dictionary<CalendarEntryType, CalendarEntry> calendarEntries = new Dictionary<CalendarEntryType, CalendarEntry>();
 
         public Conference(int id, string name, string shortName, int numberOfTimeSlots = 0, int numberOfTracks = 0)
         {
-            this.id = id;
-            this.name = name;
-            this.shortName = shortName;
-            this.numberOfTimeSlots = numberOfTimeSlots;
-            this.numberOfTracks = numberOfTracks;
+            Id = id;
+            Name = name;
+            ShortName = shortName;
+            NumberOfTimeSlots = numberOfTimeSlots;
+            NumberOfTracks = numberOfTracks;
         }
 
-        public int Id
-        {
-            get { return id; }
-        }
+        public int Id { get; }
 
-        public string Name
-        {
-            get { return name; }
-        }
+        public string Name { get; }
 
-        public string ShortName
-        {
-            get { return shortName; }
-        }
+        public string ShortName { get; }
 
-        public int NumberOfTimeSlots
-        {
-            get { return numberOfTimeSlots; }
-        }
+        public int NumberOfTimeSlots { get; }
 
-        public int NumberOfTracks
-        {
-            get { return numberOfTracks; }
-        }
+        public int NumberOfTracks { get; }
 
-        public int TotalNumberOfSessions { get { return NumberOfTimeSlots * NumberOfTracks; } }
+        public int TotalNumberOfSessions => NumberOfTimeSlots * NumberOfTracks;
 
         public bool CanSubmit()
         {
@@ -102,7 +82,7 @@ namespace DDDEastAnglia.Domain
         public void AddToCalendar(CalendarEntry entry)
         {
             var calendarEntryType = entry.GetEntryType();
-            
+
             if (calendarEntryType != CalendarEntryType.Unknown)
             {
                 calendarEntries[calendarEntryType] = entry;

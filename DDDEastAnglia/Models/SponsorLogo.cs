@@ -4,11 +4,9 @@ namespace DDDEastAnglia.Models
 {
     public sealed class SponsorLogo
     {
-        public byte[] Data { get { return data; } }
-        private readonly byte[] data;
+        public byte[] Data { get; }
 
-        public string ContentType { get { return contentType; } }
-        private readonly string contentType;
+        public string ContentType { get; }
 
         public SponsorLogo(byte[] data, string contentType)
         {
@@ -22,8 +20,8 @@ namespace DDDEastAnglia.Models
                 throw new ArgumentNullException("contentType");
             }
 
-            this.data = data;
-            this.contentType = contentType;
+            Data = data;
+            ContentType = contentType;
         }
     }
 }
