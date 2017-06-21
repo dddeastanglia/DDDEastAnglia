@@ -1,6 +1,6 @@
 ﻿namespace DDDEastAnglia.VotingData.Queries
 {
-    public interface IQuery<T>
+    public interface IQuery<out T>
     {
         string Sql{get;}
         IQueryResultObjectFactory<T> ObjectFactory{get;}
