@@ -1,5 +1,4 @@
-﻿using DDDEastAnglia.DataAccess;
-using DDDEastAnglia.DataAccess.MessageBus;
+﻿using DDDEastAnglia.DataAccess.MessageBus;
 using NSubstitute;
 using NUnit.Framework;
 

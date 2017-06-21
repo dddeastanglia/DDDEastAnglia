@@ -1,5 +1,4 @@
-﻿@using Microsoft.Ajax.Utilities
-@model IList<DDDEastAnglia.VotingData.Models.VotersPerIPAddressForSessionModel>
+﻿@model IList<DDDEastAnglia.VotingData.Models.VotersPerIPAddressForSessionModel>
 
 <table class="table table-striped table-hover table-condensed table-bordered">
     <thead>
@@ -14,7 +13,7 @@
     @foreach (var item in Model)
     {
         var id = Html.IpAddressToId(item.IPAddress + "_" + Guid.NewGuid());
-        
+
         <tr><td>
             @item.IPAddress
 

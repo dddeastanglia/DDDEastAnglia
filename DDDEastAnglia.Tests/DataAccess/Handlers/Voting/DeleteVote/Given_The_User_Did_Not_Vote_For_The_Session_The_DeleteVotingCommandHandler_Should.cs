@@ -2,8 +2,6 @@
 using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.DataAccess.Commands.Vote;
 using DDDEastAnglia.DataAccess.Handlers.Voting;
-using DDDEastAnglia.DataAccess.SimpleData.Models;
-using DDDEastAnglia.Domain.Calendar;
 using NSubstitute;
 using NUnit.Framework;
 using Conference = DDDEastAnglia.Domain.Conference;
