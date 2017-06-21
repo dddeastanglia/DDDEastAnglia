@@ -11,9 +11,9 @@ namespace DDDEastAnglia.NavigationMenu
         {
             if (routeData == null)
             {
-                throw new ArgumentNullException("routeData");
+                throw new ArgumentNullException(nameof(routeData));
             }
-            
+
             this.routeData = routeData;
         }
 

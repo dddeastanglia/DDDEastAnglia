@@ -17,7 +17,7 @@ namespace DDDEastAnglia.Helpers.Email.SendGrid
         {
             if (sendGrid == null)
             {
-                throw new ArgumentNullException("sendGrid");
+                throw new ArgumentNullException(nameof(sendGrid));
             }
 
             SendGrid = sendGrid;

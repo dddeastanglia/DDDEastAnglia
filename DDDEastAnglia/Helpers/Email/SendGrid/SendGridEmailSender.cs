@@ -12,7 +12,7 @@ namespace DDDEastAnglia.Helpers.Email.SendGrid
         {
             if (hostSettingsProvider == null)
             {
-                throw new ArgumentNullException("hostSettingsProvider");
+                throw new ArgumentNullException(nameof(hostSettingsProvider));
             }
 
             this.hostSettingsProvider = hostSettingsProvider;
@@ -23,7 +23,7 @@ namespace DDDEastAnglia.Helpers.Email.SendGrid
             var hostSettings = hostSettingsProvider.GetSettings();
             var credentials = new NetworkCredential(hostSettings.Username, hostSettings.Password);
             SMTP instance = SMTP.GetInstance(credentials, hostSettings.Host, hostSettings.Port);
-            
+
             // don't like this, but will do for now
             var sendGridMessageWrapper = (SendGridMessageWrapper) message;
             instance.Deliver(sendGridMessageWrapper.SendGrid);

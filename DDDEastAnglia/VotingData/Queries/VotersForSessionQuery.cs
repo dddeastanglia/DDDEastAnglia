@@ -14,7 +14,7 @@ namespace DDDEastAnglia.VotingData.Queries
         {
             if (gravatar == null)
             {
-                throw new ArgumentNullException("gravatar");
+                throw new ArgumentNullException(nameof(gravatar));
             }
 
             this.gravatar = gravatar;
@@ -37,7 +37,7 @@ WHERE V.sessionid = {sessionId}";
             {
                 if (gravatar == null)
                 {
-                    throw new ArgumentNullException("gravatar");
+                    throw new ArgumentNullException(nameof(gravatar));
                 }
 
                 this.gravatar = gravatar;

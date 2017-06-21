@@ -15,12 +15,12 @@ namespace DDDEastAnglia.Controllers
         {
             if (sponsorsQuery == null)
             {
-                throw new ArgumentNullException("sponsorsQuery");
+                throw new ArgumentNullException(nameof(sponsorsQuery));
             }
 
             if (sponsorLogoService == null)
             {
-                throw new ArgumentNullException("sponsorLogoService");
+                throw new ArgumentNullException(nameof(sponsorLogoService));
             }
 
             this.sponsorsQuery = sponsorsQuery;

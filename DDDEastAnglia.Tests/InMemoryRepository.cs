@@ -13,7 +13,7 @@ namespace DDDEastAnglia.Tests
         {
             if (primaryKeyFinder == null)
             {
-                throw new ArgumentNullException("primaryKeyFinder");
+                throw new ArgumentNullException(nameof(primaryKeyFinder));
             }
 
             this.primaryKeyFinder = primaryKeyFinder;

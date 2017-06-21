@@ -46,19 +46,19 @@ namespace DDDEastAnglia.VotingData
         {
             if (queryRunner == null)
             {
-                throw new ArgumentNullException("queryRunner");
+                throw new ArgumentNullException(nameof(queryRunner));
             }
 
             if (voteRepository == null)
             {
-                throw new ArgumentNullException("voteRepository");
+                throw new ArgumentNullException(nameof(voteRepository));
             }
-            
+
             if (calendarItemRepository == null)
             {
-                throw new ArgumentNullException("calendarItemRepository");
+                throw new ArgumentNullException(nameof(calendarItemRepository));
             }
-            
+
             this.queryRunner = queryRunner;
             this.voteRepository = voteRepository;
             this.calendarItemRepository = calendarItemRepository;
@@ -145,7 +145,7 @@ namespace DDDEastAnglia.VotingData
                 dateToCountDictionary.TryGetValue(day, out count);
                 var model = new DateTimeVoteModel
                     {
-                        Date = day, 
+                        Date = day,
                         VoteCount = count
                     };
                 dateTimeVoteModels.Add(model);
@@ -170,7 +170,7 @@ namespace DDDEastAnglia.VotingData
                 dateToCountDictionary.TryGetValue(day, out count);
                 var model = new DayOfWeekVoteModel
                     {
-                        Day = day, 
+                        Day = day,
                         VoteCount = count
                     };
                 dateTimeVoteModels.Add(model);

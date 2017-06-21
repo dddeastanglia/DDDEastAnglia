@@ -15,9 +15,9 @@ namespace DDDEastAnglia.NavigationMenu
         {
             if (requestContext == null)
             {
-                throw new ArgumentNullException("requestContext");
+                throw new ArgumentNullException(nameof(requestContext));
             }
-            
+
             return new UrlHelper(requestContext);
         }
     }

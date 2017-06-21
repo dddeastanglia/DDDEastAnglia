@@ -24,19 +24,19 @@ namespace DDDEastAnglia.Helpers.Email
         {
             if (emailSender == null)
             {
-                throw new ArgumentNullException("emailSender");
+                throw new ArgumentNullException(nameof(emailSender));
             }
-            
+
             if (messageFactory == null)
             {
-                throw new ArgumentNullException("messageFactory");
+                throw new ArgumentNullException(nameof(messageFactory));
             }
 
             if (fileContentsProvider == null)
             {
-                throw new ArgumentNullException("fileContentsProvider");
+                throw new ArgumentNullException(nameof(fileContentsProvider));
             }
-            
+
             this.emailSender = emailSender;
             this.messageFactory = messageFactory;
             this.fileContentsProvider = fileContentsProvider;

@@ -11,9 +11,9 @@ namespace DDDEastAnglia.DataAccess
         {
             if (votingCookieFactory == null)
             {
-                throw new ArgumentNullException("votingCookieFactory");
+                throw new ArgumentNullException(nameof(votingCookieFactory));
             }
-            
+
             this.votingCookieFactory = votingCookieFactory;
         }
 

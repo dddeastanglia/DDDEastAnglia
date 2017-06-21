@@ -12,7 +12,7 @@ namespace DDDEastAnglia.Filters
         {
             if (conferenceLoader == null)
             {
-                throw new ArgumentNullException("conferenceLoader");
+                throw new ArgumentNullException(nameof(conferenceLoader));
             }
 
             this.conferenceLoader = conferenceLoader;

@@ -23,22 +23,22 @@ namespace DDDEastAnglia.Controllers
         {
             if (userProfileRepository == null)
             {
-                throw new ArgumentNullException("userProfileRepository");
+                throw new ArgumentNullException(nameof(userProfileRepository));
             }
 
             if (accountLoginMethodQuery == null)
             {
-                throw new ArgumentNullException("accountLoginMethodQuery");
+                throw new ArgumentNullException(nameof(accountLoginMethodQuery));
             }
 
             if (resetPasswordThingy == null)
             {
-                throw new ArgumentNullException("resetPasswordThingy");
+                throw new ArgumentNullException(nameof(resetPasswordThingy));
             }
 
             if (resetPasswordEmailSender == null)
             {
-                throw new ArgumentNullException("resetPasswordEmailSender");
+                throw new ArgumentNullException(nameof(resetPasswordEmailSender));
             }
 
             this.userProfileRepository = userProfileRepository;

@@ -19,19 +19,19 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
         {
             if (userProfileRepository == null)
             {
-                throw new ArgumentNullException("userProfileRepository");
+                throw new ArgumentNullException(nameof(userProfileRepository));
             }
 
             if (loginMethodLoader == null)
             {
-                throw new ArgumentNullException("loginMethodLoader");
+                throw new ArgumentNullException(nameof(loginMethodLoader));
             }
 
             if (sessionRepository == null)
             {
-                throw new ArgumentNullException("sessionRepository");
+                throw new ArgumentNullException(nameof(sessionRepository));
             }
-            
+
             this.userProfileRepository = userProfileRepository;
             this.loginMethodLoader = loginMethodLoader;
             this.sessionRepository = sessionRepository;

@@ -14,9 +14,9 @@ namespace DDDEastAnglia.DatabaseMigrations
         {
             if (connectionString == null)
             {
-                throw new ArgumentNullException("connectionString");
+                throw new ArgumentNullException(nameof(connectionString));
             }
-            
+
             this.connectionString = connectionString;
         }
 

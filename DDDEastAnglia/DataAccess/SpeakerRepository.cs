@@ -14,12 +14,12 @@ namespace DDDEastAnglia.DataAccess
         {
             if (sessionRepository == null)
             {
-                throw new ArgumentNullException("sessionRepository");
+                throw new ArgumentNullException(nameof(sessionRepository));
             }
 
             if (userProfileRepository == null)
             {
-                throw new ArgumentNullException("userProfileRepository");
+                throw new ArgumentNullException(nameof(userProfileRepository));
             }
 
             this.sessionRepository = sessionRepository;

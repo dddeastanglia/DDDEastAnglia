@@ -14,7 +14,7 @@ namespace DDDEastAnglia.Controllers
         {
             if (userProfileRepository == null)
             {
-                throw new ArgumentNullException("userProfileRepository");
+                throw new ArgumentNullException(nameof(userProfileRepository));
             }
 
             this.userProfileRepository = userProfileRepository;

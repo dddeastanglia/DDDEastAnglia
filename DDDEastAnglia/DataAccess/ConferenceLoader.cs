@@ -21,12 +21,12 @@ namespace DDDEastAnglia.DataAccess
         {
             if (conferenceRepository == null)
             {
-                throw new ArgumentNullException("conferenceRepository");
+                throw new ArgumentNullException(nameof(conferenceRepository));
             }
 
             if (conferenceBuilder == null)
             {
-                throw new ArgumentNullException("conferenceBuilder");
+                throw new ArgumentNullException(nameof(conferenceBuilder));
             }
 
             this.conferenceRepository = conferenceRepository;

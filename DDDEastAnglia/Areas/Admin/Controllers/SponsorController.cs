@@ -21,12 +21,12 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
         {
             if (sponsorRepository == null)
             {
-                throw new ArgumentNullException("sponsorRepository");
+                throw new ArgumentNullException(nameof(sponsorRepository));
             }
 
             if (sponsorSorter == null)
             {
-                throw new ArgumentNullException("sponsorSorter");
+                throw new ArgumentNullException(nameof(sponsorSorter));
             }
 
             this.sponsorRepository = sponsorRepository;

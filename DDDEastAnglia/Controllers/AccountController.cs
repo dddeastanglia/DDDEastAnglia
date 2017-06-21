@@ -23,12 +23,12 @@ namespace DDDEastAnglia.Controllers
         {
             if (userProfileRepository == null)
             {
-                throw new ArgumentNullException("userProfileRepository");
+                throw new ArgumentNullException(nameof(userProfileRepository));
             }
 
             if (conferenceLoader == null)
             {
-                throw new ArgumentNullException("conferenceLoader");
+                throw new ArgumentNullException(nameof(conferenceLoader));
             }
 
             this.userProfileRepository = userProfileRepository;

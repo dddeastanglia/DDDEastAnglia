@@ -21,17 +21,17 @@ namespace DDDEastAnglia.Controllers
         {
             if (messageBus == null)
             {
-                throw new ArgumentNullException("messageBus");
+                throw new ArgumentNullException(nameof(messageBus));
             }
 
             if (sessionVoteModelQuery == null)
             {
-                throw new ArgumentNullException("sessionVoteModelQuery");
+                throw new ArgumentNullException(nameof(sessionVoteModelQuery));
             }
 
             if (controllerInformationProvider == null)
             {
-                throw new ArgumentNullException("controllerInformationProvider");
+                throw new ArgumentNullException(nameof(controllerInformationProvider));
             }
 
             this.messageBus = messageBus;

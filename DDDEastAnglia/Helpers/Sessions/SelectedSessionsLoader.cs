@@ -14,9 +14,9 @@ namespace DDDEastAnglia.Helpers.Sessions
         {
             if (sessionRepository == null)
             {
-                throw new ArgumentNullException("sessionRepository");
+                throw new ArgumentNullException(nameof(sessionRepository));
             }
-            
+
             this.sessionRepository = sessionRepository;
         }
 
@@ -24,7 +24,7 @@ namespace DDDEastAnglia.Helpers.Sessions
         {
             if (profile == null)
             {
-                throw new ArgumentNullException("profile");
+                throw new ArgumentNullException(nameof(profile));
             }
 
             var sessions = sessionRepository.GetSessionsSubmittedBy(profile.UserName);

@@ -11,9 +11,9 @@ namespace DDDEastAnglia.Controllers
         {
             if (string.IsNullOrWhiteSpace(userNameParameterName))
             {
-                throw new ArgumentException("A parameter name must be specified", "userNameParameterName");
+                throw new ArgumentException("A parameter name must be specified", nameof(userNameParameterName));
             }
-            
+
             this.userNameParameterName = userNameParameterName;
         }
 

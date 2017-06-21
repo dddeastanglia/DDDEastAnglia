@@ -12,9 +12,9 @@ namespace DDDEastAnglia.Controllers
         {
             if (bannerQuery == null)
             {
-                throw new ArgumentNullException("bannerQuery");
+                throw new ArgumentNullException(nameof(bannerQuery));
             }
-            
+
             this.bannerQuery = bannerQuery;
         }
 

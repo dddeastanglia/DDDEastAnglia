@@ -13,7 +13,7 @@ namespace DDDEastAnglia.VotingData
         {
             if (connectionStringProvider == null)
             {
-                throw new ArgumentNullException("connectionStringProvider");
+                throw new ArgumentNullException(nameof(connectionStringProvider));
             }
 
             connectionString = connectionStringProvider.GetConnectionString();

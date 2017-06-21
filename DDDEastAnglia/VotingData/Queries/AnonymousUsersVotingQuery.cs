@@ -13,14 +13,14 @@ namespace DDDEastAnglia.VotingData.Queries
         {
             if (gravatar == null)
             {
-                throw new ArgumentNullException("gravatar");
+                throw new ArgumentNullException(nameof(gravatar));
             }
 
             this.gravatar = gravatar;
         }
 
         public string Sql => @"
-SELECT CookieId, COUNT(CookieId) AS VoteCount 
+SELECT CookieId, COUNT(CookieId) AS VoteCount
 FROM Votes
 WHERE UserId IS NULL
 GROUP BY CookieId
@@ -37,7 +37,7 @@ ORDER BY VoteCount DESC
             {
                 if (gravatar == null)
                 {
-                    throw new ArgumentNullException("gravatar");
+                    throw new ArgumentNullException(nameof(gravatar));
                 }
 
                 this.gravatar = gravatar;

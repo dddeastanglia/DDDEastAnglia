@@ -21,14 +21,14 @@ namespace DDDEastAnglia.Helpers
         {
             if (accountLoginMethodQuery == null)
             {
-                throw new ArgumentNullException("accountLoginMethodQuery");
+                throw new ArgumentNullException(nameof(accountLoginMethodQuery));
             }
-            
+
             if (loginMethodViewModelBuilder == null)
             {
-                throw new ArgumentNullException("loginMethodViewModelBuilder");
+                throw new ArgumentNullException(nameof(loginMethodViewModelBuilder));
             }
-            
+
             this.accountLoginMethodQuery = accountLoginMethodQuery;
             this.loginMethodViewModelBuilder = loginMethodViewModelBuilder;
         }

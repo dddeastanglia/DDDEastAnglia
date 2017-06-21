@@ -18,12 +18,12 @@ namespace DDDEastAnglia.Helpers.Context
         {
             if (votingCookieFactory == null)
             {
-                throw new ArgumentNullException("votingCookieFactory");
+                throw new ArgumentNullException(nameof(votingCookieFactory));
             }
 
             if (userProfileRepository == null)
             {
-                throw new ArgumentNullException("userProfileRepository");
+                throw new ArgumentNullException(nameof(userProfileRepository));
             }
 
             this.votingCookieFactory = votingCookieFactory;

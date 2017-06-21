@@ -16,7 +16,7 @@ namespace DDDEastAnglia.Helpers.Email.Smtp
         {
             if (appSettingsProvider == null)
             {
-                throw new ArgumentNullException("appSettingsProvider");
+                throw new ArgumentNullException(nameof(appSettingsProvider));
             }
 
             string host = appSettingsProvider.GetSetting(SmtpHostKey);

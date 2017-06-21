@@ -17,7 +17,7 @@ namespace DDDEastAnglia.Helpers
         {
             if (sponsorRepository == null)
             {
-                throw new ArgumentNullException("sponsorRepository");
+                throw new ArgumentNullException(nameof(sponsorRepository));
             }
 
             this.sponsorRepository = sponsorRepository;

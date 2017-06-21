@@ -49,10 +49,14 @@ namespace DDDEastAnglia
             : base("github")
         {
             if (string.IsNullOrWhiteSpace(appId))
-                throw new ArgumentNullException("appId");
+            {
+                throw new ArgumentNullException(nameof(appId));
+            }
 
             if (string.IsNullOrWhiteSpace(appSecret))
-                throw new ArgumentNullException("appSecret");
+            {
+                throw new ArgumentNullException(nameof(appSecret));
+            }
 
             _appId = appId;
             _appSecret = appSecret;
@@ -134,6 +138,5 @@ namespace DDDEastAnglia
                 return parsedQueryString["access_token"];
             }
         }
-
     }
 }

@@ -13,7 +13,7 @@ namespace DDDEastAnglia.VotingData.Queries
         {
             if (gravatarUrl == null)
             {
-                throw new ArgumentNullException("gravatarUrl");
+                throw new ArgumentNullException(nameof(gravatarUrl));
             }
 
             this.gravatarUrl = gravatarUrl;
@@ -39,7 +39,7 @@ ORDER BY VoteCount DESC";
             {
                 if (gravatarUrl == null)
                 {
-                    throw new ArgumentNullException("gravatarUrl");
+                    throw new ArgumentNullException(nameof(gravatarUrl));
                 }
 
                 this.gravatarUrl = gravatarUrl;

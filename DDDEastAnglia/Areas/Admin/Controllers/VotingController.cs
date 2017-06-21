@@ -23,22 +23,22 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
         {
             if (conferenceLoader == null)
             {
-                throw new ArgumentNullException("conferenceLoader");
+                throw new ArgumentNullException(nameof(conferenceLoader));
             }
 
             if (dataProvider == null)
             {
-                throw new ArgumentNullException("dataProvider");
+                throw new ArgumentNullException(nameof(dataProvider));
             }
 
             if (dnsLookup == null)
             {
-                throw new ArgumentNullException("dnsLookup");
+                throw new ArgumentNullException(nameof(dnsLookup));
             }
 
             if (chartDataConverter == null)
             {
-                throw new ArgumentNullException("chartDataConverter");
+                throw new ArgumentNullException(nameof(chartDataConverter));
             }
 
             this.conferenceLoader = conferenceLoader;

@@ -10,7 +10,7 @@ namespace DDDEastAnglia.Models
         {
             if (providerName == null)
             {
-                throw new ArgumentNullException("providerName");
+                throw new ArgumentNullException(nameof(providerName));
             }
 
             ProviderName = providerName;

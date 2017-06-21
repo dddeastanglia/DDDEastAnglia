@@ -18,7 +18,7 @@ namespace DDDEastAnglia.Helpers.Email.Smtp
         {
             if (smtpHost == null)
             {
-                throw new ArgumentNullException("smtpHost");
+                throw new ArgumentNullException(nameof(smtpHost));
             }
 
             Host = smtpHost;

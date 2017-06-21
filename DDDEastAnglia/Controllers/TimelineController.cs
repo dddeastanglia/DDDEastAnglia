@@ -18,17 +18,17 @@ namespace DDDEastAnglia.Controllers
         {
             if (calendarItemRepository == null)
             {
-                throw new ArgumentNullException("calendarItemRepository");
+                throw new ArgumentNullException(nameof(calendarItemRepository));
             }
 
             if (dateTimeFormatter == null)
             {
-                throw new ArgumentNullException("dateTimeFormatter");
+                throw new ArgumentNullException(nameof(dateTimeFormatter));
             }
 
             if (dateTimePassedEvaluator == null)
             {
-                throw new ArgumentNullException("dateTimePassedEvaluator");
+                throw new ArgumentNullException(nameof(dateTimePassedEvaluator));
             }
 
             this.calendarItemRepository = calendarItemRepository;

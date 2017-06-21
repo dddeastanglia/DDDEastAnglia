@@ -19,22 +19,22 @@ namespace DDDEastAnglia.Controllers
         {
             if (conferenceLoader == null)
             {
-                throw new ArgumentNullException("conferenceLoader");
-            }            
+                throw new ArgumentNullException(nameof(conferenceLoader));
+            }
 
             if (sessionLoaderFactory == null)
             {
-                throw new ArgumentNullException("sessionLoaderFactory");
+                throw new ArgumentNullException(nameof(sessionLoaderFactory));
             }
 
             if (userProfileRepository == null)
             {
-                throw new ArgumentNullException("userProfileRepository");
+                throw new ArgumentNullException(nameof(userProfileRepository));
             }
 
             if (userProfileFilterFactory == null)
             {
-                throw new ArgumentNullException("userProfileFilterFactory");
+                throw new ArgumentNullException(nameof(userProfileFilterFactory));
             }
 
             this.conferenceLoader = conferenceLoader;

@@ -16,14 +16,14 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
         {
             if (sessionRepository == null)
             {
-                throw new ArgumentNullException("sessionRepository");
+                throw new ArgumentNullException(nameof(sessionRepository));
             }
 
             if (voteRepository == null)
             {
-                throw new ArgumentNullException("voteRepository");
+                throw new ArgumentNullException(nameof(voteRepository));
             }
-            
+
             this.sessionRepository = sessionRepository;
             this.voteRepository = voteRepository;
         }

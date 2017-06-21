@@ -17,12 +17,12 @@ namespace DDDEastAnglia.DataAccess
         {
             if (conferenceLoader == null)
             {
-                throw new ArgumentNullException("conferenceLoader");
+                throw new ArgumentNullException(nameof(conferenceLoader));
             }
 
             if (calendarItemRepository == null)
             {
-                throw new ArgumentNullException("calendarItemRepository");
+                throw new ArgumentNullException(nameof(calendarItemRepository));
             }
 
             this.conferenceLoader = conferenceLoader;

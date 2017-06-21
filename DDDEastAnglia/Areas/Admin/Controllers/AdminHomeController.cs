@@ -14,9 +14,9 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
         {
             if (conferenceLoader == null)
             {
-                throw new ArgumentNullException("conferenceLoader");
+                throw new ArgumentNullException(nameof(conferenceLoader));
             }
-            
+
             this.conferenceLoader = conferenceLoader;
         }
 

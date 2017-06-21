@@ -15,12 +15,12 @@ namespace DDDEastAnglia.DataAccess.SimpleData.Queries
         {
             if (calendarItemRepository == null)
             {
-                throw new ArgumentNullException("calendarItemRepository");
+                throw new ArgumentNullException(nameof(calendarItemRepository));
             }
 
             if (calendarItemRepository == null)
             {
-                throw new ArgumentNullException("calendarItemRepository");
+                throw new ArgumentNullException(nameof(calendarItemRepository));
             }
 
             this.conferenceLoader = conferenceLoader;

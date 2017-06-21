@@ -17,17 +17,17 @@ namespace DDDEastAnglia.Controllers
         {
             if (conferenceLoader == null)
             {
-                throw new ArgumentNullException("conferenceLoader");
+                throw new ArgumentNullException(nameof(conferenceLoader));
             }
 
             if (menuStateFactory == null)
             {
-                throw new ArgumentNullException("menuStateFactory");
+                throw new ArgumentNullException(nameof(menuStateFactory));
             }
 
             if (urlHelperFactory == null)
             {
-                throw new ArgumentNullException("urlHelperFactory");
+                throw new ArgumentNullException(nameof(urlHelperFactory));
             }
 
             this.conferenceLoader = conferenceLoader;

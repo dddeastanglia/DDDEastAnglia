@@ -17,9 +17,9 @@ namespace DDDEastAnglia.Helpers.Sessions
         {
             if (sessionRepository == null)
             {
-                throw new ArgumentNullException("sessionRepository");
+                throw new ArgumentNullException(nameof(sessionRepository));
             }
-            
+
             this.sessionRepository = sessionRepository;
         }
 

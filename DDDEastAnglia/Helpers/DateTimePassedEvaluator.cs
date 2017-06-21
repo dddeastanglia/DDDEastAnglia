@@ -15,9 +15,9 @@ namespace DDDEastAnglia.Helpers
         {
             if (dateTimeOffsetProvider == null)
             {
-                throw new ArgumentNullException("dateTimeOffsetProvider");
+                throw new ArgumentNullException(nameof(dateTimeOffsetProvider));
             }
-            
+
             this.dateTimeOffsetProvider = dateTimeOffsetProvider;
         }
 
