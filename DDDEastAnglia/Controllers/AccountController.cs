@@ -16,15 +16,22 @@ namespace DDDEastAnglia.Controllers
     public class AccountController : Controller
     {
         private readonly IUserProfileRepository userProfileRepository;
+        private readonly IConferenceLoader conferenceLoader;
 
-        public AccountController(IUserProfileRepository userProfileRepository)
+        public AccountController(IUserProfileRepository userProfileRepository, IConferenceLoader conferenceLoader)
         {
             if (userProfileRepository == null)
             {
                 throw new ArgumentNullException("userProfileRepository");
             }
-            
+
+            if (conferenceLoader == null)
+            {
+                throw new ArgumentNullException("conferenceLoader");
+            }
+
             this.userProfileRepository = userProfileRepository;
+            this.conferenceLoader = conferenceLoader;
         }
 
         // GET: /Account/Login
@@ -88,7 +95,13 @@ namespace DDDEastAnglia.Controllers
                     profile.EmailAddress = model.EmailAddress;
                     userProfileRepository.UpdateUserProfile(profile);
 
-                    return View("Registered", model);
+                    var conference = conferenceLoader.LoadConference();
+                    var registeredModel = new RegisteredModel
+                    {
+                        UserName = model.UserName,
+                        CanSubmitSessions = conference.CanSubmit()
+                    };
+                    return View("Registered", registeredModel);
                 }
                 catch (MembershipCreateUserException e)
                 {
