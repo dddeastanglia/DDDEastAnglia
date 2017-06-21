@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using DDDEastAnglia.DataAccess;
@@ -109,6 +110,7 @@ namespace DDDEastAnglia.Controllers
 
             if (ModelState.IsValid)
             {
+                session.SubmittedAt = DateTimeOffset.UtcNow;
                 var addedSession = sessionRepository.AddSession(session);
                 return RedirectToAction("Details", new {id = addedSession.SessionId});
             }
@@ -185,7 +187,7 @@ namespace DDDEastAnglia.Controllers
             {
                 return new HttpUnauthorizedResult();
             }
-            
+
             sessionRepository.DeleteSession(id);
             return RedirectToAction("Index");
         }
