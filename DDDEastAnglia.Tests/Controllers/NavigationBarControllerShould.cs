@@ -243,23 +243,20 @@ namespace DDDEastAnglia.Tests.Controllers
             return link;
         }
 
-        private NavigationBarController CreateController(Action<IConference> conferenceSetupCallback = null, 
-                                                            string[] userRoles = null, 
-                                                            string currentControllerName = "some controller", 
+        private NavigationBarController CreateController(Action<IConference> conferenceSetupCallback = null,
+                                                            string[] userRoles = null,
+                                                            string currentControllerName = "some controller",
                                                             string currentActionName = "some action")
         {
             var conference = Substitute.For<IConference>();
 
-            if (conferenceSetupCallback != null)
-            {
-                conferenceSetupCallback(conference);
-            }
+            conferenceSetupCallback?.Invoke(conference);
 
             var user = new GenericPrincipal(new GenericIdentity("bob"), userRoles ?? new string[0]);
 
             var conferenceLoader = Substitute.For<IConferenceLoader>();
             conferenceLoader.LoadConference().Returns(conference);
-            
+
             var routeData = new RouteData();
             routeData.Values.Add("controller", currentControllerName);
             routeData.Values.Add("action", currentActionName);
