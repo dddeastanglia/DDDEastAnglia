@@ -1,3 +1,11 @@
 ﻿<h2>Check your email</h2>
 
 <p>A link to reset your password has been emailed to you. Please follow the instructions in the email.</p>
+
+@if (ViewBag.ShowAdditionalHelpMessage)
+{
+    <p class="alert alert-info">
+        You may have originally logged in via an external service. If so, please try to log in via that method.
+        If you are still having problems, please @Html.ActionLink("get in touch", "Contact", "Home").
+    </p>
+}
