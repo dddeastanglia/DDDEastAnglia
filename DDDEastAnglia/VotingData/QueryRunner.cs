@@ -16,7 +16,7 @@ namespace DDDEastAnglia.VotingData
                 throw new ArgumentNullException("connectionStringProvider");
             }
 
-            this.connectionString = connectionStringProvider.GetConnectionString();
+            connectionString = connectionStringProvider.GetConnectionString();
         }
 
         public IList<T> RunQuery<T>(IQuery<T> query)
@@ -30,7 +30,7 @@ namespace DDDEastAnglia.VotingData
 
                 var command = connection.CreateCommand();
                 command.CommandText = query.Sql;
-                
+
                 using (var reader = command.ExecuteReader())
                 {
                     while (reader.Read())

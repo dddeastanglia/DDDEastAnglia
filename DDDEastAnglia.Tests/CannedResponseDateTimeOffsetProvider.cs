@@ -8,7 +8,7 @@ namespace DDDEastAnglia.Tests
 
         public void SetCurrentValue(DateTimeOffset dateTimeOffset)
         {
-            this.current = dateTimeOffset;
+            current = dateTimeOffset;
         }
 
         public DateTimeOffset CurrentDateTime()
