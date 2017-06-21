@@ -11,9 +11,7 @@ namespace DDDEastAnglia.Tests.Helpers
     {
         private AlphabeticalSort _alphabeticalAlgorithm;
         private RandomSort _randomAlgorithm;
-
         private SessionSorter _sorter;
-
         private List<SessionDisplayModel> _sessions;
 
         [SetUp]
@@ -21,13 +19,13 @@ namespace DDDEastAnglia.Tests.Helpers
         {
             _alphabeticalAlgorithm = Substitute.For<AlphabeticalSort>();
             _randomAlgorithm = Substitute.For<RandomSort>();
-
             _sorter = new SessionSorter(_alphabeticalAlgorithm, _randomAlgorithm);
-
-            _sessions = new List<SessionDisplayModel>();
-            _sessions.Add(new SessionDisplayModel());
-            _sessions.Add(new SessionDisplayModel());
-            _sessions.Add(new SessionDisplayModel());
+            _sessions = new List<SessionDisplayModel>
+            {
+                new SessionDisplayModel(),
+                new SessionDisplayModel(),
+                new SessionDisplayModel()
+            };
         }
 
         [Test]
