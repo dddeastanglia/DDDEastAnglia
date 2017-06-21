@@ -9,15 +9,15 @@
 @if (ViewBag.Message != null)
 {
     <div class="alert alert-success">@ViewBag.Message</div>
-}    
+}
 
 <section id="externalLogins">
     @Html.Action("RemoveExternalLogins")
 
-    @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
+    @Html.Action("ExternalLoginsList", new { ViewBag.ReturnUrl })
 </section>
 
-@section Scripts 
+@section Scripts
 {
     @Scripts.Render("~/bundles/jqueryval")
 }
