@@ -2,7 +2,7 @@
 
 namespace DDDEastAnglia.VotingData
 {
-    public interface IQueryResultObjectFactory<T>
+    public interface IQueryResultObjectFactory<out T>
     {
         T Create(IDataReader reader);
     }
