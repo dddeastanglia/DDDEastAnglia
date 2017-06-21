@@ -681,6 +681,7 @@
     <Content Include="Views\Timeline\_TimelineItem.cshtml" />
     <Content Include="Views\Home\Closed.cshtml" />
     <Content Include="Views\Home\Sponsors.cshtml" />
+    <Content Include="Views\Home\CodeOfConduct.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -47,6 +47,7 @@ namespace DDDEastAnglia.Tests.Controllers
         [TestCase("Sponsors")]
         [TestCase("Team")]
         [TestCase("Contact")]
+        [TestCase("Code of Conduct")]
         public void IncludeAStandardMenuItemThatIsVisible(string linkText)
         {
             var controller = CreateController();
@@ -68,6 +69,7 @@ namespace DDDEastAnglia.Tests.Controllers
         [TestCase("Sponsors", "Home", "Sponsors")]
         [TestCase("Team", "Home", "Team")]
         [TestCase("Contact", "Home", "Contact")]
+        [TestCase("Code of Conduct", "Home", "CodeOfConduct")]
         [TestCase("Admin", "AdminHome", "Index")]
         public void SetTheLinkThatMatchesTheCurrentOneToActive(string linkText, string controllerName, string actionName)
         {
