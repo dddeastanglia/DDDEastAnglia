@@ -83,6 +83,7 @@ namespace DDDEastAnglia.Controllers
             if (profile == null)
             {
                 // could't find the user, but don't want to give that away
+                ViewBag.ShowAdditionalHelpMessage = false;
                 return View("Step2");
             }
 
@@ -95,7 +96,7 @@ namespace DDDEastAnglia.Controllers
                 SendEmailToUser(profile.EmailAddress, passwordResetToken);
             }
 
-            ViewBag.ShowAdditionalHelpMessage = dddeaLoginExists;
+            ViewBag.ShowAdditionalHelpMessage = !dddeaLoginExists;
             return View("Step2");
         }
 
