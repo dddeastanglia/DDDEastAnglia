@@ -294,8 +294,6 @@
     <Content Include="Images\hotels\university-arms.jpg" />
     <Content Include="Images\hotels\varsity.jpg" />
     <Content Include="Images\itunesappstore.gif" />
-    <Content Include="Images\sponsors\devexpress.png" />
-    <Content Include="Images\sponsors\redgate.png" />
     <Content Include="Images\team\adamsurgenor.jpg" />
     <Content Include="Images\team\davecraft.jpg" />
     <Content Include="Images\team\joncanning.jpg" />
@@ -696,6 +694,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Images\sponsors\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
