@@ -4,74 +4,60 @@ namespace DDDEastAnglia.Helpers.Sessions
 {
     public static class SelectedSessions
     {
-        public static IEnumerable<int> SpeakerIds
+        public static IEnumerable<int> SpeakerIds => new[]
         {
-            get
-            {
-                return new[]
-                    {
-                        11,     // David Simner
-                        303,    // Forbes Lindsay
-                        62,     // Liam Westley
-                        3324,   // Adam Kosinski
-                        4332,   // Tomas Petricek
-                        2312,   // Alessandro Melchiori
-                        293,    // Anthony Brown
-                        3323,   // Peter Mounce
-                        302,    // Chris Canal
-                        1313,   // Pete Smith
-                        23,     // Joel Hammond-Turner
-                        2311,   // Ian Cooper
-                        2316,   // Matt Warren
-                        34,     // Phil Trelford
-                        3320,   // Melinda Seckington
-                        48,     // Mark Rendle
-                        309,    // Mauro Servienti
-                        2314,   // Sam Hogarth
-                        4328,   // Stephen Harrison
-                        30,     // Gary Short
-                        3322,   // Barbara Fusinska
-                        3319,   // Ben Hall
-                        53,     // Ian Russell
-                        5333,   // Bart Read
-                        4331    // Kendall Miller
-                    };
-            }
-        }
+            8701,   // Joe Stead
+            34,     // Phil Trelford
+            8691,   // Joseph Woodward
+            298,    // Colin Angus Mackay
+            28,     // Ceri Shaw
+            8719,   // Galiya Warrier
+            2314,   // Sam Hogarth
+            8693,   // Robin Minto
+            8705,   // Paul McGrath
+            8516,   // Bart Read
+            5337,   // Matt Ellis
+            1,      // Ian Johnson
+            8718,   // Gary Short
+            53,     // Ian Russell
+            2313,   // Nathan Gloyn
+            2311,   // Ian Cooper
+            8703,   // Duncan Jones
+            8715,   // Karo Stoltzenburg
+            8707,   // Viv Richards
+            8717,   // Dylan Beattie
+            8576,   // Chris O'Dell
+            8699,   // Stuart Lang
+            8716,   // Benji Weber
+            6496,   // Steve Spencer
+        };
 
-        public static IEnumerable<int> SessionIds
+        public static IEnumerable<int> SessionIds => new[]
         {
-            get
-            {
-                return new[]
-                    {
-                        4124,   // David Simner
-                        104,    // Forbes Lindsay
-                        1109,   // Liam Westley
-                        2117,   // Adam Kosinski
-                        3132,   // Tomas Petricek
-                        1108,   // Alessandro Melchiori
-                        2107,   // Anthony Brown
-                        2115,   // Peter Mounce
-                        102,    // Chris Canal
-                        1106,   // Pete Smith
-                        3139,   // Joel Hammond-Turner
-                        1107,   // Ian Cooper
-                        3140,   // Matt Warren
-                        1114,   // Phil Trelford
-                        2113,   // Melinda Seckington
-                        3125,   // Mark Rendle
-                        107,    // Mauro Servienti
-                        2109,   // Sam Hogarth
-                        3119,   // Stephen Harrison
-                        3127,   // Gary Short
-                        4133,   // Barbara Fusinska
-                        2111,   // Ben Hall
-                        108,    // Ian Russell
-                        4135,   // Bart Read
-                        3129    // Kendall Miller
-                    };
-            }
-        }
+            2088,   // Joe Stead
+            2086,   // Phil Trelford
+            2072,   // Joseph Woodward
+            2094,   // Colin Angus Mackay
+            2081,   // Ceri Shaw
+            2125,   // Galiya Warrier
+            2092,   // Sam Hogarth
+            2078,   // Robin Minto
+            2095,   // Paul McGrath
+            2128,   // Bart Read
+            2122,   // Matt Ellis
+            2101,   // Ian Johnson
+            2123,   // Gary Short
+            2100,   // Ian Russell
+            2126,   // Nathan Gloyn
+            2085,   // Ian Cooper
+            2089,   // Duncan Jones
+            2115,   // Karo Stoltzenburg
+            2098,   // Viv Richards
+            2114,   // Dylan Beattie
+            2116,   // Chris O'Dell
+            2110,   // Stuart Lang
+            2111,   // Benji Weber
+            2090,   // Steve Spencer
+        };
     }
 }
