@@ -30,6 +30,7 @@ namespace DDDEastAnglia.Helpers.Sessions
             8699,   // Stuart Lang
             8716,   // Benji Weber
             6496,   // Steve Spencer
+            16      // Gary Ewan Park
         };
 
         public static IEnumerable<int> SessionIds => new[]
@@ -58,6 +59,7 @@ namespace DDDEastAnglia.Helpers.Sessions
             2110,   // Stuart Lang
             2111,   // Benji Weber
             2090,   // Steve Spencer
+            2119    // Gary Ewan Park
         };
     }
 }
