@@ -27,6 +27,7 @@
     <RestorePackages>true</RestorePackages>
     <TargetFrameworkProfile />
     <UseGlobalApplicationHostFile />
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -314,7 +315,7 @@
     <Content Include="Images\googleplaystore.gif" />
     <Content Include="Images\itunesappstore.gif" />
     <Content Include="Images\logo-large.png" />
-    <Content Include="Images\venue.jpg" />
+    <Content Include="Images\hillsroad.jpg" />
     <Content Include="Scripts\resolveIPAddress.js" />
     <Compile Include="Areas\Admin\Models\VotesForIpAddressViewModel.cs" />
     <Compile Include="Helpers\DnsLookup.cs" />
