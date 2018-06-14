@@ -564,7 +564,6 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Images\team\adrianbanks.jpg" />
-    <Content Include="Images\team\alastairsmith.jpg" />
     <Content Include="Images\logo-small.png" />
     <Content Include="Images\wmd-buttons.png" />
     <Content Include="Areas\Admin\Views\Web.config" />
