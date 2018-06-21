@@ -13,14 +13,20 @@ namespace DDDEastAnglia.Tests.Helpers.Sessions
         [Test]
         public void ThrowAnException_WhenConstructedWithANullContext()
         {
-            Assert.Throws<ArgumentNullException>(() => new SelectedSessionsLoader(null));
+            Assert.Throws<ArgumentNullException>(() => new SelectedSessionsLoader(null, new int[0]));
+        }
+
+        [Test]
+        public void ThrowAnException_WhenConstructedWithANullListOfSessions()
+        {
+            Assert.Throws<ArgumentNullException>(() => new SelectedSessionsLoader(Substitute.For<ISessionRepository>(), null));
         }
 
         [Test]
         public void ThrowAnException_WhenGivenANullProfile()
         {
             var sessionRepository = Substitute.For<ISessionRepository>();
-            var sessionsLoader = new SelectedSessionsLoader(sessionRepository);
+            var sessionsLoader = new SelectedSessionsLoader(sessionRepository, new int[0]);
             Assert.Throws<ArgumentNullException>(() => sessionsLoader.LoadSessions(null));
         }
 
@@ -28,7 +34,7 @@ namespace DDDEastAnglia.Tests.Helpers.Sessions
         public void OnlyReturnSessionsForTheSpecifiedSpeaker()
         {
             var sessionRepository = Substitute.For<ISessionRepository>();
-            var sessionsLoader = new SelectedSessionsLoader(sessionRepository);
+            var sessionsLoader = new SelectedSessionsLoader(sessionRepository, new int[0]);
 
             sessionsLoader.LoadSessions(new UserProfile {UserName = "bob"});
 
@@ -38,15 +44,19 @@ namespace DDDEastAnglia.Tests.Helpers.Sessions
         [Test]
         public void OnlyReturnSelectedSessionsForTheSpecifiedSpeaker()
         {
+            var session1 = new Session { SpeakerUserName = "bob", SessionId = 1 };
+            var session2 = new Session { SpeakerUserName = "fred", SessionId = 2 };
+            var session3 = new Session { SpeakerUserName = "bob", SessionId = 3 };
+
             var sessionRepository = Substitute.For<ISessionRepository>();
-            var session1 = new Session {SpeakerUserName = "bob", SessionId = 123456};
-            var session3 = new Session {SpeakerUserName = "bob", SessionId = 102};
-            sessionRepository.GetSessionsSubmittedBy("bob").Returns(new[] { session1, new Session { SpeakerUserName = "fred" }, session3 });
-            var sessionsLoader = new SelectedSessionsLoader(sessionRepository);
+            sessionRepository.GetSessionsSubmittedBy("bob").Returns(new[] { session1, session3 });
 
-            var sessions = sessionsLoader.LoadSessions(new UserProfile {UserName = "bob"});
+            var selectedSessionIds = new[] { session1.SessionId, session2.SessionId, session3.SessionId };
+            var sessionsLoader = new SelectedSessionsLoader(sessionRepository, selectedSessionIds);
 
-            Assert.That(sessions, Is.EquivalentTo(new[] {session3}));
+            var sessions = sessionsLoader.LoadSessions(new UserProfile { UserName = "bob" });
+
+            Assert.That(sessions, Is.EquivalentTo(new[] { session1, session3 }));
         }
     }
 }
