@@ -18,8 +18,8 @@
             }
         </li>
     </ul>
-} 
-else 
+}
+else
 {
     <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
         <i class="icon-user"></i> Log In
@@ -33,6 +33,7 @@ else
                 <a href="javascript:document.getElementById('githubLoginform').submit();" id="githubLoginLink"><i class="icon-github"></i> Log in with GitHub</a>
             }
         </li>
+<!--
         <li>
             @using (Html.BeginForm("ExternalLogin", "Account", new { provider = "Twitter", returnUrl = Url.Action("Index", "Home") }, FormMethod.Post, new { id = "twitterLoginForm" }))
             {
@@ -40,6 +41,7 @@ else
                 <a href="javascript:document.getElementById('twitterLoginForm').submit();" id="twitterLoginLink"><i class="icon-twitter"></i> Log in with Twitter</a>
             }
         </li>
+-->
         <li>
             @using (Html.BeginForm("ExternalLogin", "Account", new { provider = "Google", returnUrl = Url.Action("Index", "Home") }, FormMethod.Post, new { id = "googleLoginForm" }))
             {
