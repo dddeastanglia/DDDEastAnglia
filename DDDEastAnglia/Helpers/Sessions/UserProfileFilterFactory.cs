@@ -15,7 +15,12 @@ namespace DDDEastAnglia.Helpers.Sessions
 
         public UserProfileFilterFactory(ISessionRepository sessionRepository)
         {
-            this.sessionRepository = sessionRepository ?? throw new ArgumentNullException(nameof(sessionRepository));
+            if (sessionRepository == null)
+            {
+                throw new ArgumentNullException(nameof(sessionRepository));
+            }
+
+            this.sessionRepository = sessionRepository;
         }
 
         public IUserProfileFilter Create(IConference conference)

@@ -5,13 +5,18 @@ using DDDEastAnglia.Models;
 
 namespace DDDEastAnglia.Helpers.Sessions
 {
-    public class SelectedSpeakerProfileFilter : IUserProfileFilter
+    public sealed class SelectedSpeakerProfileFilter : IUserProfileFilter
     {
         private readonly IEnumerable<int> selectedSpeakerIds;
 
         public SelectedSpeakerProfileFilter(IEnumerable<int> selectedSpeakerIds)
         {
-            this.selectedSpeakerIds = selectedSpeakerIds ?? throw new ArgumentNullException(nameof(selectedSpeakerIds));
+            if (selectedSpeakerIds == null)
+            {
+                throw new ArgumentNullException(nameof(selectedSpeakerIds));
+            }
+
+            this.selectedSpeakerIds = selectedSpeakerIds;
         }
 
         public IEnumerable<UserProfile> FilterProfiles(IEnumerable<UserProfile> profiles)
@@ -20,7 +25,7 @@ namespace DDDEastAnglia.Helpers.Sessions
             {
                 throw new ArgumentNullException(nameof(profiles));
             }
-            
+
             return profiles.Where(p => selectedSpeakerIds.Contains(p.UserId));
         }
     }

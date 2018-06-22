@@ -13,8 +13,18 @@ namespace DDDEastAnglia.Helpers.Sessions
 
         public SelectedSessionsLoader(ISessionRepository sessionRepository, IEnumerable<int> selectedSessionIds)
         {
-            this.sessionRepository = sessionRepository ?? throw new ArgumentNullException(nameof(sessionRepository));
-            this.sessionIds = selectedSessionIds ?? throw new ArgumentNullException(nameof(selectedSessionIds));
+            if (sessionRepository == null)
+            {
+                throw new ArgumentNullException(nameof(sessionRepository));
+            }
+
+            if (selectedSessionIds == null)
+            {
+                throw new ArgumentNullException(nameof(selectedSessionIds));
+            }
+
+            this.sessionRepository = sessionRepository;
+            this.sessionIds = selectedSessionIds;
         }
 
         public IEnumerable<Session> LoadSessions(UserProfile profile)
