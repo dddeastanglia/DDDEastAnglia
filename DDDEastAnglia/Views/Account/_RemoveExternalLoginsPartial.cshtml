@@ -16,6 +16,10 @@
                     @Html.Hidden("providerUserId", externalLogin.ProviderUserId)
                     <input type="submit" class="btn btn-danger" value="Remove" title="Remove this login from your account" />
                 }
+                else
+                {
+                    <text>(<i>You cannot remove your only login</i>)</text>
+                }
             }
         </div>
     }
