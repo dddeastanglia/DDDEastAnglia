@@ -6,12 +6,16 @@
 
 <h2>Please log in to continue</h2>
 
+<div class="alert alert-info">
+    Please note that you only need to log in if you want to submit a session or to manage your account.
+</div>
+
 <section id="socialLoginForm">
     @Html.Action("ExternalLoginsList", new { ViewBag.ReturnUrl })
 </section>
 
 <section id="loginForm">
-@using (Html.BeginForm("Login", "Account", new { ReturnUrl = @ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal" })) 
+@using (Html.BeginForm("Login", "Account", new { ReturnUrl = @ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal" }))
 {
     @Html.AntiForgeryToken()
 
@@ -57,7 +61,7 @@
 }
 </section>
 
-@section Scripts 
+@section Scripts
 {
     @Scripts.Render("~/bundles/jqueryval")
 
