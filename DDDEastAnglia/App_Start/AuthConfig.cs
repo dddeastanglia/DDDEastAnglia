@@ -1,4 +1,5 @@
-﻿using System.Web.Configuration;
+﻿using System.Net;
+using System.Web.Configuration;
 using DotNetOpenAuth.GoogleOAuth2;
 using Microsoft.Web.WebPages.OAuth;
 
@@ -8,6 +9,9 @@ namespace DDDEastAnglia
     {
         public static void RegisterAuth()
         {
+            // GitHub calls require TLS 1.2
+            ServicePointManager.SecurityProtocol = ServicePointManager.SecurityProtocol | SecurityProtocolType.Tls12;
+
             // To let users of this site log in using their accounts from other sites such as Microsoft, Facebook, and Twitter,
             // you must update this site. For more information visit http://go.microsoft.com/fwlink/?LinkID=252166
 
