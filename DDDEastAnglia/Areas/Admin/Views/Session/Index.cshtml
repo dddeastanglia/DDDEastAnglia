@@ -9,7 +9,10 @@
 <h2>@ViewBag.Title</h2>
 
 <div class="pull-right">
-    <strong>@Model.Count() sessions</strong>
+    @{
+        int speakerCount = Model.Select(s => s.SpeakerUserName).Distinct().Count();
+    }
+    <strong>@Model.Count() sessions from @speakerCount speakers</strong>
 </div>
 
 <table id="sessionsTable" class="table table-striped table-hover table-condensed">
