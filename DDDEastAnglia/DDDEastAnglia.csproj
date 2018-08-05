@@ -242,6 +242,9 @@
     <Compile Include="DataAccess\ISpeakerRepository.cs" />
     <Compile Include="DataAccess\ISponsorRepository.cs" />
     <Compile Include="DataAccess\DefaultSponsorSorter.cs" />
+    <Compile Include="Helpers\Agenda\AgendaSessionsLoader.cs" />
+    <Compile Include="Models\Agenda.cs" />
+    <Compile Include="Models\AgendaSession.cs" />
     <Compile Include="Models\RegisteredModel.cs" />
     <Compile Include="Models\SponsorLogo.cs" />
     <Compile Include="Helpers\ImageResizeExtensions.cs" />
