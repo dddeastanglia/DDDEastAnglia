@@ -1,4 +1,6 @@
-﻿@{
+﻿@model DDDEastAnglia.Models.Agenda
+
+@{
     ViewBag.Title = "Agenda";
 }
 
@@ -59,19 +61,18 @@
     <th>Track 2</th>
     <th>Track 3</th>
     <th>Track 4</th>
-    <th>Track 5</th>
 </tr>
 
 <tr class="nonSession">
     <td class="timeCell">08:30</td>
-    <td colspan="5">
+    <td colspan="4">
         Registration
     </td>
 </tr>
 
 <tr class="nonSession">
     <td class="timeCell">09:00</td>
-    <td colspan="5">
+    <td colspan="4">
         Welcome &amp; Housekeeping
     </td>
 </tr>
@@ -79,35 +80,22 @@
 <tr>
     <td class="timeCell">09:15</td>
     <td>
-        @Html.SessionLink(2088, ".NET core in the real world")
-        <br />
-        @Html.SpeakerLink(8701, "Joe Stead")
+        @Model.SessionDetails(Html, 2184)
     </td>
     <td>
-        @Html.SessionLink(2086, "How to be a Rock Star developer")
-        <br />
-        @Html.SpeakerLink(34, "Phil Trelford")
+        @Model.SessionDetails(Html, 2136)
     </td>
     <td>
-        @Html.SessionLink(2072, "Building a better Web API architecture using CQRS")
-        <br />
-        @Html.SpeakerLink(8691, "Joseph Woodward")
+        @Model.SessionDetails(Html, 2174) <span class="speakerName">&amp; Paula Muldoon</span>
     </td>
     <td>
-        @Html.SessionLink(2094, "User Story Mapping for Beginners")
-        <br />
-        @Html.SpeakerLink(298, "Colin Angus Mackay")
-    </td>
-    <td>
-        @Html.SessionLink(2081, "Cultivating Code: 6 Things Gardening has Taught me about Legacy Code")
-        <br />
-        @Html.SpeakerLink(28, "Ceri Shaw")
+        @Model.SessionDetails(Html, 2142)
     </td>
 </tr>
 
 <tr class="nonSession">
     <td class="timeCell">10:15</td>
-    <td colspan="5">
+    <td colspan="4">
         Break
     </td>
 </tr>
@@ -115,35 +103,22 @@
 <tr>
     <td class="timeCell">10:35</td>
     <td>
-        @Html.SessionLink(2125, "Breaking the common myths about artificial intelligence")
-        <br />
-        @Html.SpeakerLink(8719, "Galiya Warrier")
+        @Model.SessionDetails(Html, 2183)
     </td>
     <td>
-        @Html.SessionLink(2092, "An Introduction to GraphQL")
-        <br />
-        @Html.SpeakerLink(2314, "Sam Hogarth")
+        @Model.SessionDetails(Html, 2164)
     </td>
     <td>
-        @Html.SessionLink(2078, "HALT! Who goes there?")
-        <br />
-        @Html.SpeakerLink(8693, "Robin Minto")
+        @Model.SessionDetails(Html, 2153)
     </td>
     <td>
-        @Html.SessionLink(2095, "Speedy Git: Personal Productivity")
-        <br />
-        @Html.SpeakerLink(8705, "Paul McGrath")
-    </td>
-    <td>
-        @Html.SessionLink(2128, "Client-side web performance for back-end developers")
-        <br />
-        @Html.SpeakerLink(8516, "Bart Read")
+        @Model.SessionDetails(Html, 2146)
     </td>
 </tr>
 
 <tr class="nonSession">
     <td class="timeCell">11:35</td>
-    <td colspan="5">
+    <td colspan="4">
         Break
     </td>
 </tr>
@@ -151,35 +126,22 @@
 <tr>
     <td class="timeCell">11:55</td>
     <td>
-        @Html.SessionLink(2122, "How to parse a file")
-        <br />
-        @Html.SpeakerLink(5337, "Matt Ellis")
+        @Model.SessionDetails(Html, 2188)
     </td>
     <td>
-        @Html.SessionLink(2101, "Visual note-taking workshop")
-        <br />
-        @Html.SpeakerLink(1, "Ian Johnson")
+        @Model.SessionDetails(Html, 2187)
     </td>
     <td>
-        @Html.SessionLink(2123, "Applied Machine Learning #1 - Counting Your Chickens")
-        <br />
-        @Html.SpeakerLink(8718, "Gary Short")
+        @Model.SessionDetails(Html, 2152)
     </td>
     <td>
-        @Html.SessionLink(2100, "Strategic Domain-Driven Design")
-        <br />
-        @Html.SpeakerLink(53, "Ian Russell")
-    </td>
-    <td>
-        @Html.SessionLink(2119, "Control your GitHub releases with GitVersion and GitReleaseManager")
-        <br />
-        @Html.SpeakerLink(16, "Gary Ewan Park")
+        @Model.SessionDetails(Html, 2178)
     </td>
 </tr>
 
 <tr class="nonSession">
     <td class="timeCell">12:55</td>
-    <td colspan="5">
+    <td colspan="4">
         Lunch
         <hr/>
         Grok talks
@@ -189,35 +151,22 @@
 <tr>
     <td class="timeCell">14:00</td>
     <td>
-        @Html.SessionLink(2126, "Microservices - what I've learned after a year of building a system")
-        <br />
-        @Html.SpeakerLink(2313, "Nathan Gloyn")
+        @Model.SessionDetails(Html, 2131)
     </td>
     <td>
-        @Html.SessionLink(2085, "Creating A .NET Renaissance")
-        <br />
-        @Html.SpeakerLink(2311, "Ian Cooper")
+        @Model.SessionDetails(Html, 2179)
     </td>
     <td>
-        @Html.SessionLink(2089, "Introduction to Event Sourcing")
-        <br />
-        @Html.SpeakerLink(8703, "Duncan Jones")
+        @Model.SessionDetails(Html, 2135)
     </td>
     <td>
-        @Html.SessionLink(2115, "Testing Demystified")
-        <br />
-        @Html.SpeakerLink(8715, "Karo Stoltzenburg")
-    </td>
-    <td>
-        @Html.SessionLink(2098, "Spot the difference: Automating visual regression testing")
-        <br/>
-        @Html.SpeakerLink(8707, "Viv Richards")
+        @Model.SessionDetails(Html, 2160)
     </td>
 </tr>
 
 <tr class="nonSession">
     <td class="timeCell">15:00</td>
-    <td colspan="5">
+    <td colspan="4">
         Break
     </td>
 </tr>
@@ -225,47 +174,34 @@
 <tr>
     <td class="timeCell">15:20</td>
     <td>
-        @Html.SessionLink(2114, "The Pursuit of APIness: The Secret to Happy Code")
-        <br />
-        @Html.SpeakerLink(8717, "Dylan Beattie")
+        @Model.SessionDetails(Html, 2130)
     </td>
     <td>
-        @Html.SessionLink(2116, "You build it, you run it")
-        <br />
-        @Html.SpeakerLink(8576, "Chris O'Dell")
+        @Model.SessionDetails(Html, 2181)
     </td>
     <td>
-        @Html.SessionLink(2110, "Async in C# - The Good, the Bad and the Ugly")
-        <br />
-        @Html.SpeakerLink(8699, "Stuart Lang")
+        @Model.SessionDetails(Html, 2173)
     </td>
     <td>
-        @Html.SessionLink(2111, "Monitoring-First Development")
-        <br />
-        @Html.SpeakerLink(8716, "Benji Weber")
-    </td>
-    <td>
-        @Html.SessionLink(2090, "Microservices and Containers: How Service Fabric can help build your distributed application")
-        <br/>
-        @Html.SpeakerLink(6496, "Steve Spencer")
+        @Model.SessionDetails(Html, 2169)
     </td>
 </tr>
 
 <tr class="nonSession">
     <td class="timeCell">16:20</td>
-    <td colspan="5">
+    <td colspan="4">
         Break
     </td>
 </tr>
 
 <tr class="nonSession">
     <td class="timeCell">16:30</td>
-    <td colspan="5">Wrap-up</td>
+    <td colspan="4">Wrap-up</td>
 </tr>
 
 <tr class="nonSession">
     <td class="timeCell">17:00</td>
-    <td colspan="5">Close</td>
+    <td colspan="4">Close</td>
 </tr>
 </table>
 

@@ -5,6 +5,7 @@ namespace DDDEastAnglia.Helpers.Sessions
 {
     public interface ISessionLoader
     {
+        IEnumerable<Session> LoadSessions();
         IEnumerable<Session> LoadSessions(UserProfile profile);
     }
 }

@@ -27,6 +27,12 @@ namespace DDDEastAnglia.Helpers.Sessions
             this.sessionIds = selectedSessionIds;
         }
 
+        public IEnumerable<Session> LoadSessions()
+        {
+            var sessions = sessionRepository.GetAllSessions().ToList();
+            return Filter(sessions);
+        }
+
         public IEnumerable<Session> LoadSessions(UserProfile profile)
         {
             if (profile == null)
@@ -35,7 +41,12 @@ namespace DDDEastAnglia.Helpers.Sessions
             }
 
             var sessions = sessionRepository.GetSessionsSubmittedBy(profile.UserName);
-            return sessions.Where(s => sessionIds.Contains(s.SessionId));
+            return Filter(sessions);
+        }
+
+        private IEnumerable<Session> Filter(IEnumerable<Session> sessions)
+        {
+            return sessions.Where(s => sessionIds.Contains(s.SessionId)).ToList();
         }
     }
 }

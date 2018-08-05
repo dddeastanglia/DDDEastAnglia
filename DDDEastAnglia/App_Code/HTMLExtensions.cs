@@ -30,7 +30,7 @@ public static class HTMLExtensions
     public static MvcHtmlString TweetButton(this HtmlHelper htmlHelper, string tweetText, Uri url = null)
     {
         var encodedTweetText = Uri.EscapeDataString(tweetText); // escape anything URI-unfriendly in the tweet body (e.g., hash-tags)
-        
+
         if (url != null)
         {
             encodedTweetText += " " + Uri.EscapeUriString(url.ToString()); // escape the URL
@@ -48,16 +48,6 @@ public static class HTMLExtensions
         return displayCondition ? htmlHelper.ActionLink(linkText, actionName, controllerName) : new MvcHtmlString(linkText);
     }
 
-    public static MvcHtmlString SessionLink(this HtmlHelper htmlHelper, int sessionId, string linkText)
-    {
-        return htmlHelper.ActionLink(linkText, "Details", "Session", new { id = sessionId }, new { @class = "sessionTitle" });
-    }
-
-    public static MvcHtmlString SpeakerLink(this HtmlHelper htmlHelper, int speakerId, string speakerName)
-    {
-        return htmlHelper.ActionLink(speakerName, "Details", "Speaker", new { id = speakerId }, new { @class = "speakerName" });
-    }
-    
     public static string IpAddressToId(this HtmlHelper htmlHelper, string ipAddress)
     {
         return ipAddress.Replace(".", "-");
