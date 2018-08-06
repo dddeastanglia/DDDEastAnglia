@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using DDDEastAnglia.DataAccess;
+using DDDEastAnglia.DataAccess.SimpleData;
 using DDDEastAnglia.Helpers.Sessions;
 using DDDEastAnglia.Models;
 
@@ -20,7 +21,7 @@ namespace DDDEastAnglia.Controllers
             if (conferenceLoader == null)
             {
                 throw new ArgumentNullException("conferenceLoader");
-            }            
+            }
 
             if (sessionLoaderFactory == null)
             {
@@ -82,6 +83,12 @@ namespace DDDEastAnglia.Controllers
             var conference = conferenceLoader.LoadConference();
             var sessionLoader = sessionLoaderFactory.Create(conference);
             var sessions = sessionLoader.LoadSessions(speakerProfile);
+
+            if (id == 8823)
+            {
+                sessions = new[] { new SessionRepository().Get(2174) };
+            }
+
             var displayModel = CreateDisplayModel(speakerProfile, sessions);
             return View(displayModel);
         }
