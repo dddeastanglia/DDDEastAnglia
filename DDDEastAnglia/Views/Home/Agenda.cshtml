@@ -86,7 +86,9 @@
         @Model.SessionDetails(Html, 2136)
     </td>
     <td>
-        @Model.SessionDetails(Html, 2174) <span class="speakerName">&amp; Paula Muldoon</span>
+        @Model.SessionDetails(Html, 2174)
+        <span class="speakerName">&amp;</span>
+        @Html.ActionLink("Paula Muldoon", "Details", "Speaker", new { id = 8823 }, new { @class = "speakerName" })
     </td>
     <td>
         @Model.SessionDetails(Html, 2142)

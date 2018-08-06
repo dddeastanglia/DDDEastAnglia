@@ -36,6 +36,7 @@ namespace DDDEastAnglia.Helpers.Sessions
             8811,   // Stuart Lang
             8814,   // Toby Henderson
             8705,   // Paul McGrath
+            8823,   // Paula Muldoon
             8795,   // Oli Wennell
             8784,   // Russell Seamer
             8786,   // Steve Gordon
