@@ -14,11 +14,11 @@
         @Html.Action("Status", "Vote", new { id = @Model.SessionId })
     </div>
     <h3>
-        @Model.SessionTitle    
+        @Model.SessionTitle
     </h3>
     <h4>
-        <img src="@Model.SpeakerGravatarUrl" width="32" height="32" alt="@Model.SpeakerName">
-        <a href="@Url.Action("Details", "Speaker", new { id = Model.SpeakerId })">@(string.IsNullOrWhiteSpace(Model.SpeakerName) ? Model.SpeakerUserName : Model.SpeakerName)</a>
+        <img src="@Model.Speakers.First().SpeakerGravatarUrl" width="32" height="32" alt="@Model.Speakers.First().SpeakerName">
+        <a href="@Url.Action("Details", "Speaker", new { id = Model.Speakers.First().SpeakerId })">@(string.IsNullOrWhiteSpace(Model.Speakers.First().SpeakerName) ? Model.Speakers.First().SpeakerUserName : Model.Speakers.First().SpeakerName)</a>
     </h4>
     <div class="session-tweet">
         @Html.TweetButton(Model.TweetLink.Title)
