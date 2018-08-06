@@ -7,15 +7,20 @@
 <h2>@Html.DisplayFor(model => model.SessionTitle)</h2>
 
 <div>
-    @if (Model.SpeakerGravatarUrl != null)
+    @foreach (var speaker in Model.Speakers)
     {
-        <img src="@Model.SpeakerGravatarUrl" alt="@Model.SpeakerName"  />
+        <span class="speaker-profile">
+            @if (speaker.SpeakerGravatarUrl != null)
+            {
+                <img src="@speaker.SpeakerGravatarUrl" alt="@speaker.SpeakerName"/>
+            }
+            <a href="@Url.Action("Details", "Speaker", new { id = speaker.SpeakerId })">@(string.IsNullOrWhiteSpace(speaker.SpeakerName) ? speaker.SpeakerUserName : speaker.SpeakerName)</a>
+        </span>
     }
-    <a href="@Url.Action("Details", "Speaker", new { id = Model.SpeakerId })">@(string.IsNullOrWhiteSpace(Model.SpeakerName) ? Model.SpeakerUserName : Model.SpeakerName)</a>
 </div>
 
 <div class="tweet-session">
-    @if (User.Identity.Name == Model.SpeakerUserName)
+    @if (Model.IsUsersSession)
     {
         @Html.TweetButton("Check out my session for #dddea - " + Model.SessionTitle, Request.Url)
     }
@@ -30,7 +35,7 @@
     @Html.MarkdownFor(model => model.SessionAbstract)
 </div>
 
-@if (User.Identity.Name == Model.SpeakerUserName)
+@if (User.Identity.Name == Model.Speakers.First().SpeakerUserName)
 {
     <p>
         @Html.ActionLink("Edit", "Edit", new { id = Model.SessionId })
