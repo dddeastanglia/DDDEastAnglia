@@ -8,7 +8,7 @@ namespace DDDEastAnglia.Helpers.Sessions
         {
             2184,   // Dependency Injection in ASP.NET Core 2. Why and How?
             2130,   // Automating your test infrastructure with Kubernetes
-            2131,   // Web Assembly, Blazor and the Future of Web Development
+            2171,   // #FAIL - Lessons from infosec incidents
             2183,   // Async in C# - The Good, the Bad and the Ugly
             2188,   // HTTP API patterns
             2174,   // Docker for the complete beginner (Hands on workshop)
@@ -32,7 +32,7 @@ namespace DDDEastAnglia.Helpers.Sessions
         {
             8812,   // Don Wibier
             8701,   // Joe Stead
-            8783,   // Joseph Woodward
+            8693,   // Robin Minto
             8811,   // Stuart Lang
             8814,   // Toby Henderson
             8705,   // Paul McGrath
