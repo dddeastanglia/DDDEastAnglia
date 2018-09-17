@@ -300,6 +300,9 @@
     <Content Include="Images\hotels\university-arms.jpg" />
     <Content Include="Images\hotels\varsity.jpg" />
     <Content Include="Images\itunesappstore.gif" />
+    <Content Include="Images\sponsors\bybox.png" />
+    <Content Include="Images\sponsors\endjin.png" />
+    <Content Include="Images\sponsors\ndc-london.png" />
     <Content Include="Images\team\adamsurgenor.jpg" />
     <Content Include="Images\team\davecraft.jpg" />
     <Content Include="Images\team\joncanning.jpg" />
