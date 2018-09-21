@@ -17,7 +17,7 @@ namespace DDDEastAnglia.Helpers.Sessions
             2135,   // Let's talk HTTP
             2164,   // Functional C#
             2187,   // Domain Modelling in F#
-            2173,   // Architecting and coding for agility : a practical guide
+            2165,   // Reaasonable Software
             2142,   // Less server, less code, less hassle an introduction to Serverless
             2169,   // Sports Betting: How I made 500 Quid During Royal Ascot And What That Can Teach You About Machine Learning
             2160,   // Azure In Action - CosmosDB, Functions and ServiceBus in Perfect Harmony
@@ -42,7 +42,7 @@ namespace DDDEastAnglia.Helpers.Sessions
             8786,   // Steve Gordon
             8801,   // Simon Painter
             53,     // Ian Russell
-            8806,   // Domenico Mustro
+            8802,   // Ian Johnson
             8706,   // Adam Surgenor
             30,     // Gary Short
             6506,   // Joel Hammond-Turner
