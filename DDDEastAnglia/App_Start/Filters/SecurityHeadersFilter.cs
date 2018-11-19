@@ -19,6 +19,8 @@ namespace DDDEastAnglia.App_Start.Filters
             NameValueCollection headers = responseBase.Headers;
 
             RemoveASPNETHeaders(headers);
+
+            headers.Add("X-Frame-Origins", "SAMEORIGIN");
         }
 
         private void RemoveASPNETHeaders(NameValueCollection headers)
