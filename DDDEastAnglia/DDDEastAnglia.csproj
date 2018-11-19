@@ -214,6 +214,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\Filters\SecurityHeadersFilter.cs" />
     <Compile Include="Areas\Admin\Controllers\SpeakerController.cs" />
     <Compile Include="App_Start\Filters\AllowedWhenConferenceIsInPreviewAttribute.cs" />
     <Compile Include="App_Start\Filters\AllowedWhenConferenceIsClosedAttribute.cs" />
