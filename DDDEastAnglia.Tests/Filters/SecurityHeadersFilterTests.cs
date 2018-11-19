@@ -12,16 +12,15 @@ using NUnit.Framework;
 
 namespace DDDEastAnglia.Tests.Filters
 {
-
     [TestFixture]
     public class SecurityHeadersFilterTests
     {
-        [Test]
-        public void XPoweredBy_Header_Is_Removed()
+        [TestCase("X-Powered-By", "ASP.NET")]
+        public void ASPNET_Header_Is_Removed(string headerName, string headerValue)
         {
             HttpContextBase contextBase = Substitute.For<HttpContextBase>();
             HttpResponseBase responseBase = Substitute.For<HttpResponseBase>();
-            NameValueCollection headers = new NameValueCollection {{"X-Powered-By", "ASP.NET"}};
+            NameValueCollection headers = new NameValueCollection {{headerName, headerValue}};
             responseBase.Headers.Returns(headers);
             contextBase.Response.Returns(responseBase);
 
@@ -36,7 +35,7 @@ namespace DDDEastAnglia.Tests.Filters
 
             NameValueCollection filteredHeaders = responseBase.Headers;
             
-            Assert.That(filteredHeaders["X-Powered-By"], Is.Null);
+            Assert.That(filteredHeaders[headerName], Is.Null);
         }
     }
 }
