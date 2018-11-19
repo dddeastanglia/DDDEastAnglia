@@ -52,6 +52,7 @@ namespace DDDEastAnglia.Tests.Filters
         }
 
         [TestCase("X-Frame-Origins")]
+        [TestCase("X-XSS-Protection")]
         public void Security_Header_Is_Added(string headerName)
         {
             SecurityHeadersFilter filter = new SecurityHeadersFilter();
@@ -64,6 +65,7 @@ namespace DDDEastAnglia.Tests.Filters
         }
 
         [TestCase("X-Frame-Origins", "SAMEORIGIN")]
+        [TestCase("X-XSS-Protection", "1; mode=block")]
         public void Security_Header_Is_Correct_Value(string headerName, string headerValue)
         {
             SecurityHeadersFilter filter = new SecurityHeadersFilter();
