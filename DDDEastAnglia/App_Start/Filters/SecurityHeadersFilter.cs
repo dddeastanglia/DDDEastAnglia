@@ -22,6 +22,7 @@ namespace DDDEastAnglia.App_Start.Filters
 
             headers.Add("X-Frame-Origins", "SAMEORIGIN");
             headers.Add("X-XSS-Protection", "1; mode=block");
+            headers.Add("X-Content-Type-Options","nosniff");
         }
 
         private void RemoveASPNETHeaders(NameValueCollection headers)
