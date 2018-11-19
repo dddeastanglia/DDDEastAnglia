@@ -1,12 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Net;
+﻿using System.Collections.Specialized;
 using System.Web;
 using System.Web.Mvc;
-using DDDEastAnglia.App_Start.Filters;
-using DDDEastAnglia.Areas.Admin.Models;
-using DDDEastAnglia.Controllers;
-using DDDEastAnglia.DataAccess;
+using DDDEastAnglia.Filters;
 using NSubstitute;
 using NUnit.Framework;
 
@@ -18,7 +13,7 @@ namespace DDDEastAnglia.Tests.Filters
         private HttpContextBase contextBase;
         private HttpResponseBase responseBase;
         private NameValueCollection headers;
-        private ResultExecutingContext context;
+        private ResultExecutedContext context;
 
         [SetUp]
         public void Setup()
@@ -29,7 +24,7 @@ namespace DDDEastAnglia.Tests.Filters
             responseBase.Headers.Returns(headers);
             contextBase.Response.Returns(responseBase);
 
-            context = new ResultExecutingContext
+            context = new ResultExecutedContext
             {
                 HttpContext = contextBase
             };
@@ -44,7 +39,7 @@ namespace DDDEastAnglia.Tests.Filters
 
             SecurityHeadersFilter filter = new SecurityHeadersFilter();
 
-            filter.OnResultExecuting(context);
+            filter.OnResultExecuted(context);
 
             NameValueCollection filteredHeaders = responseBase.Headers;
             
@@ -59,7 +54,7 @@ namespace DDDEastAnglia.Tests.Filters
         {
             SecurityHeadersFilter filter = new SecurityHeadersFilter();
 
-            filter.OnResultExecuting(context);
+            filter.OnResultExecuted(context);
 
             NameValueCollection filteredHeaders = responseBase.Headers;
 
@@ -74,7 +69,7 @@ namespace DDDEastAnglia.Tests.Filters
         {
             SecurityHeadersFilter filter = new SecurityHeadersFilter();
 
-            filter.OnResultExecuting(context);
+            filter.OnResultExecuted(context);
 
             NameValueCollection filteredHeaders = responseBase.Headers;
 
