@@ -15,8 +15,8 @@ namespace DDDEastAnglia.Tests.Filters
     [TestFixture]
     public class SecurityHeadersFilterTests
     {
-        [TestCase("X-Powered-By", "ASP.NET")]
-        [TestCase("X-ASPNet-Version", "4.0.30319")]
+        [TestCase("x-powered-by", "ASP.NET")]
+        [TestCase("x-aspnet-version", "4.0.30319")]
         [TestCase("x-aspnetmvc-version", "4.0")]
         public void ASPNET_Header_Is_Removed(string headerName, string headerValue)
         {
