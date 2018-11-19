@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Specialized;
+﻿using System.Collections.Specialized;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace DDDEastAnglia.App_Start.Filters
+namespace DDDEastAnglia.Filters
 {
     public class SecurityHeadersFilter : IResultFilter
     {
         public void OnResultExecuted(ResultExecutedContext filterContext)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void OnResultExecuting(ResultExecutingContext filterContext)
         {
             HttpContextBase contextBase = filterContext.HttpContext;
             HttpResponseBase responseBase = contextBase.Response;
@@ -23,12 +18,20 @@ namespace DDDEastAnglia.App_Start.Filters
             AddSecurityHeaders(headers);
         }
 
-        private static void AddSecurityHeaders(NameValueCollection headers)
+        private void AddSecurityHeaders(NameValueCollection headers)
         {
-            headers.Add("X-Frame-Origins", "SAMEORIGIN");
-            headers.Add("X-XSS-Protection", "1; mode=block");
-            headers.Add("X-Content-Type-Options", "nosniff");
-            headers.Add("Strict-Transport-Security", "max-age=31536000; includeSubDomains");
+            AddHeader(headers, "X-Frame-Origins", "SAMEORIGIN");
+            AddHeader(headers, "X-XSS-Protection", "1; mode=block");
+            AddHeader(headers, "X-Content-Type-Options", "nosniff");
+            AddHeader(headers, "Strict-Transport-Security", "max-age=31536000; includeSubDomains");
+        }
+
+        private void AddHeader(NameValueCollection headers, string headerName, string headerValue)
+        {
+            if (!headers.AllKeys.Contains(headerName))
+            {
+                headers.Add(headerName, headerValue);
+            }
         }
 
         private void RemoveASPNETHeaders(NameValueCollection headers)
@@ -36,6 +39,10 @@ namespace DDDEastAnglia.App_Start.Filters
             headers.Remove("x-powered-by");
             headers.Remove("x-aspnet-version");
             headers.Remove("x-aspnetmvc-version");
+        }
+
+        public void OnResultExecuting(ResultExecutingContext filterContext)
+        {
         }
     }
 }
