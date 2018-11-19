@@ -51,8 +51,8 @@ namespace DDDEastAnglia.Tests.Filters
             Assert.That(filteredHeaders[headerName], Is.Null);
         }
 
-        [Test]
-        public void Security_Header_Is_Added()
+        [TestCase("X-Frame-Origins")]
+        public void Security_Header_Is_Added(string headerName)
         {
             SecurityHeadersFilter filter = new SecurityHeadersFilter();
 
@@ -60,11 +60,11 @@ namespace DDDEastAnglia.Tests.Filters
 
             NameValueCollection filteredHeaders = responseBase.Headers;
 
-            Assert.That(filteredHeaders["X-Frame-Origins"], Is.Not.Null);
+            Assert.That(filteredHeaders[headerName], Is.Not.Null);
         }
 
-        [Test]
-        public void Security_Header_Is_Correct_Value()
+        [TestCase("X-Frame-Origins", "SAMEORIGIN")]
+        public void Security_Header_Is_Correct_Value(string headerName, string headerValue)
         {
             SecurityHeadersFilter filter = new SecurityHeadersFilter();
 
@@ -72,7 +72,7 @@ namespace DDDEastAnglia.Tests.Filters
 
             NameValueCollection filteredHeaders = responseBase.Headers;
 
-            Assert.That(filteredHeaders["X-Frame-Origins"], Is.EqualTo("SAMEORIGIN"));
+            Assert.That(filteredHeaders[headerName], Is.EqualTo(headerValue));
         }
     }
 }
