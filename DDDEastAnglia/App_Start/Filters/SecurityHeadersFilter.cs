@@ -17,7 +17,7 @@ namespace DDDEastAnglia.App_Start.Filters
             HttpContextBase contextBase = filterContext.HttpContext;
             HttpResponseBase responseBase = contextBase.Response;
             NameValueCollection headers = responseBase.Headers;
-            headers.Remove("X-Powered-By");
+            headers.Remove("x-powered-by");
             headers.Remove("x-aspnet-version");
             headers.Remove("x-aspnetmvc-version");
         }
