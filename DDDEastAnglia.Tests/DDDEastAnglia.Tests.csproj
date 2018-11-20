@@ -69,6 +69,7 @@
     <Compile Include="Admin\SessionControllerTests.cs" />
     <Compile Include="Admin\UserControllerTests.cs" />
     <Compile Include="DataAccess\DefaultSponsorSorterTests.cs" />
+    <Compile Include="Filters\SecurityHeadersFilterTests.cs" />
     <Compile Include="Helpers\ImageResizeExtensionsTests.cs" />
     <Compile Include="Sponsors\Query\Context.cs" />
     <Compile Include="Sponsors\Query\Sponsors_who_havent_paid_yet.cs" />

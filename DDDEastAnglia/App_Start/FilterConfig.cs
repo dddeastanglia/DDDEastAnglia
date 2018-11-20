@@ -11,6 +11,8 @@ namespace DDDEastAnglia
 
             FilterProviders.Providers.Add(new PreviewFilterProvider());
             FilterProviders.Providers.Add(new ClosedFilterProvider());
+
+            filters.Add(new SecurityHeadersFilter());
         }
     }
 }
