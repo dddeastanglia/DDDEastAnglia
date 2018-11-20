@@ -1,6 +1,9 @@
 ﻿using DDDEastAnglia.Controllers;
 using DDDEastAnglia.DataAccess;
+using DDDEastAnglia.Helpers.Agenda;
+using DDDEastAnglia.Helpers.Sessions;
 using DDDEastAnglia.Models;
+using NSubstitute;
 using NUnit.Framework;
 
 namespace DDDEastAnglia.Tests.Controllers
@@ -102,7 +105,7 @@ namespace DDDEastAnglia.Tests.Controllers
         private HomeController CreateHomeController(IConferenceLoader conferenceLoader)
         {
             var sponsorModelQuery = new AllPublicSponsors(new InMemorySponsorRepository(), new DefaultSponsorSorter());
-            return new HomeController(conferenceLoader, sponsorModelQuery);
+            return new HomeController(conferenceLoader, sponsorModelQuery, new AgendaSessionsLoader(Substitute.For<ISessionLoader>(), Substitute.For<ISpeakerRepository>()));
         }
     }
 }
