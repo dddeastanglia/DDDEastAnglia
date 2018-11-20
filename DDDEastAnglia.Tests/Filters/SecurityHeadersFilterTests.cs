@@ -30,22 +30,6 @@ namespace DDDEastAnglia.Tests.Filters
             };
         }
 
-        [TestCase("x-powered-by", "ASP.NET")]
-        [TestCase("x-aspnet-version", "4.0.30319")]
-        [TestCase("x-aspnetmvc-version", "4.0")]
-        public void ASPNET_Header_Is_Removed(string headerName, string headerValue)
-        {
-            headers.Add(headerName,headerValue);
-
-            SecurityHeadersFilter filter = new SecurityHeadersFilter();
-
-            filter.OnResultExecuted(context);
-
-            NameValueCollection filteredHeaders = responseBase.Headers;
-            
-            Assert.That(filteredHeaders[headerName], Is.Null);
-        }
-
         [TestCase("X-Frame-Origins")]
         [TestCase("X-XSS-Protection")]
         [TestCase("X-Content-Type-Options")]

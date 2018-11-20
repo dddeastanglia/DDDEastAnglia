@@ -13,8 +13,6 @@ namespace DDDEastAnglia.Filters
             HttpResponseBase responseBase = contextBase.Response;
             NameValueCollection headers = responseBase.Headers;
 
-            RemoveASPNETHeaders(headers);
-
             AddSecurityHeaders(headers);
         }
 
@@ -32,13 +30,6 @@ namespace DDDEastAnglia.Filters
             {
                 headers.Add(headerName, headerValue);
             }
-        }
-
-        private void RemoveASPNETHeaders(NameValueCollection headers)
-        {
-            headers.Remove("x-powered-by");
-            headers.Remove("x-aspnet-version");
-            headers.Remove("x-aspnetmvc-version");
         }
 
         public void OnResultExecuting(ResultExecutingContext filterContext)
