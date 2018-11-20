@@ -18,7 +18,7 @@ namespace DDDEastAnglia.Filters
 
         private void AddSecurityHeaders(NameValueCollection headers)
         {
-            AddHeader(headers, "X-Frame-Origins", "SAMEORIGIN");
+            AddHeader(headers, "X-Frame-Options", "SAMEORIGIN");
             AddHeader(headers, "X-XSS-Protection", "1; mode=block");
             AddHeader(headers, "X-Content-Type-Options", "nosniff");
             AddHeader(headers, "Strict-Transport-Security", "max-age=31536000; includeSubDomains");

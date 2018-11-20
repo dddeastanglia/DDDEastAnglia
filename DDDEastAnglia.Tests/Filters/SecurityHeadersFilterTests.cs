@@ -30,7 +30,7 @@ namespace DDDEastAnglia.Tests.Filters
             };
         }
 
-        [TestCase("X-Frame-Origins")]
+        [TestCase("X-Frame-Options")]
         [TestCase("X-XSS-Protection")]
         [TestCase("X-Content-Type-Options")]
         [TestCase("Strict-Transport-Security")]
@@ -45,7 +45,7 @@ namespace DDDEastAnglia.Tests.Filters
             Assert.That(filteredHeaders[headerName], Is.Not.Null);
         }
 
-        [TestCase("X-Frame-Origins", "SAMEORIGIN")]
+        [TestCase("X-Frame-Options", "SAMEORIGIN")]
         [TestCase("X-XSS-Protection", "1; mode=block")]
         [TestCase("X-Content-Type-Options", "nosniff")]
         [TestCase("Strict-Transport-Security", "max-age=31536000; includeSubDomains")]
