@@ -22,6 +22,8 @@ namespace DDDEastAnglia
             AuthConfig.RegisterAuth();
 
             InitialiseDatabase();
+
+            MvcHandler.DisableMvcResponseHeader = true;
         }
 
         private static void InitialiseDatabase()
