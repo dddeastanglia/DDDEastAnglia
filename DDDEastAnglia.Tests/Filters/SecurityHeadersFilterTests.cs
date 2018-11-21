@@ -33,7 +33,6 @@ namespace DDDEastAnglia.Tests.Filters
         [TestCase("X-Frame-Options")]
         [TestCase("X-XSS-Protection")]
         [TestCase("X-Content-Type-Options")]
-        [TestCase("Strict-Transport-Security")]
         public void Security_Header_Is_Added(string headerName)
         {
             SecurityHeadersFilter filter = new SecurityHeadersFilter();
@@ -48,7 +47,6 @@ namespace DDDEastAnglia.Tests.Filters
         [TestCase("X-Frame-Options", "SAMEORIGIN")]
         [TestCase("X-XSS-Protection", "1; mode=block")]
         [TestCase("X-Content-Type-Options", "nosniff")]
-        [TestCase("Strict-Transport-Security", "max-age=31536000; includeSubDomains")]
         public void Security_Header_Is_Correct_Value(string headerName, string headerValue)
         {
             SecurityHeadersFilter filter = new SecurityHeadersFilter();
@@ -58,6 +56,32 @@ namespace DDDEastAnglia.Tests.Filters
             NameValueCollection filteredHeaders = responseBase.Headers;
 
             Assert.That(filteredHeaders[headerName], Is.EqualTo(headerValue));
+        }
+
+        [TestCase(true)]
+        [TestCase(false)]
+        public void STS_Header_Is_Only_Added_Over_https(bool secureConnection)
+        {
+            HttpContextBase httpContextBase = Substitute.For<HttpContextBase>();
+            HttpRequestBase httpRequestBase = Substitute.For<HttpRequestBase>();
+            httpRequestBase.IsSecureConnection.Returns(secureConnection);
+            httpContextBase.Request.Returns(httpRequestBase);
+            HttpResponseBase httpResponseBase = Substitute.For<HttpResponseBase>();
+            NameValueCollection secureHeaders = new NameValueCollection();
+            httpResponseBase.Headers.Returns(secureHeaders);
+            httpContextBase.Response.Returns(httpResponseBase);
+            ResultExecutedContext secureContext = new ResultExecutedContext
+            {
+                HttpContext = httpContextBase
+            };
+
+            SecurityHeadersFilter filter = new SecurityHeadersFilter();
+
+            filter.OnResultExecuted(secureContext);
+
+            NameValueCollection filteredHeaders = httpResponseBase.Headers;
+
+            Assert.That(filteredHeaders["Strict-Transport-Security"] != null, Is.EqualTo(secureConnection));
         }
     }
 }
