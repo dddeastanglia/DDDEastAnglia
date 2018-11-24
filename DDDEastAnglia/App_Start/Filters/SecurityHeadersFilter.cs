@@ -1,4 +1,5 @@
-﻿using System.Collections.Specialized;
+﻿using System;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -14,6 +15,16 @@ namespace DDDEastAnglia.Filters
             NameValueCollection headers = responseBase.Headers;
 
             AddSecurityHeaders(headers);
+
+            AddReferrerPolicy(headers);
+        }
+
+        private void AddReferrerPolicy(NameValueCollection headers)
+        {
+            if (!headers.AllKeys.Contains("Referrer-Policy"))
+            {
+                headers.Add("Referrer-Policy", "strict-origin-when-cross-origin");
+            }
         }
 
         private void AddSecurityHeaders(NameValueCollection headers)

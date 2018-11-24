@@ -34,6 +34,7 @@ namespace DDDEastAnglia.Tests.Filters
         [TestCase("X-XSS-Protection")]
         [TestCase("X-Content-Type-Options")]
         [TestCase("Strict-Transport-Security")]
+        [TestCase("Referrer-Policy")]
         public void Security_Header_Is_Added(string headerName)
         {
             SecurityHeadersFilter filter = new SecurityHeadersFilter();
@@ -49,6 +50,7 @@ namespace DDDEastAnglia.Tests.Filters
         [TestCase("X-XSS-Protection", "1; mode=block")]
         [TestCase("X-Content-Type-Options", "nosniff")]
         [TestCase("Strict-Transport-Security", "max-age=31536000; includeSubDomains")]
+        [TestCase("Referrer-Policy", "strict-origin-when-cross-origin")]
         public void Security_Header_Is_Correct_Value(string headerName, string headerValue)
         {
             SecurityHeadersFilter filter = new SecurityHeadersFilter();
