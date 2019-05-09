@@ -305,8 +305,10 @@
     <Content Include="Images\sponsors\endjin.png" />
     <Content Include="Images\sponsors\ndc-london.png" />
     <Content Include="Images\team\adamsurgenor.jpg" />
+    <Content Include="Images\team\davecook.jpg" />
     <Content Include="Images\team\davecraft.jpg" />
-    <Content Include="Images\team\joncanning.jpg" />
+    <Content Include="Images\team\emilysas.jpg" />
+    <Content Include="Images\team\nokuthulandlovu.jpg" />
     <Content Include="Images\team\philpursglove.jpg" />
     <Content Include="Scripts\flot\jquery.flot.axislabel.js" />
     <Content Include="Scripts\gravatar.js" />
