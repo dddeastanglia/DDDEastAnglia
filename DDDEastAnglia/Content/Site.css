@@ -69,6 +69,8 @@ footer span {
     overflow: hidden;
     padding: 15px;
     margin-bottom: 10px;
+    display: inline-block;
+    width: 350px;
 }
 
 .teammember img {
