@@ -71,25 +71,6 @@ namespace DDDEastAnglia.Controllers
             var userProfile = userProfileRepository.GetUserProfileByUserName(session.SpeakerUserName);
             var displayModel = CreateDisplayModel(session, userProfile);
 
-            if (session.SessionId == 2174)
-            {
-                var additionalProfile = userProfileRepository.GetUserProfileById(8823);
-
-                var additionalSpeaker = new SessionSpeakerModel
-                {
-                    SpeakerId = additionalProfile.UserId,
-                    SpeakerName = additionalProfile.Name,
-                    SpeakerUserName = additionalProfile.UserName,
-                    SpeakerGravatarUrl = additionalProfile.GravatarUrl(),
-                };
-                displayModel.Speakers.Add(additionalSpeaker);
-
-                if (Request.IsAuthenticated && User.Identity.Name == additionalProfile.UserName)
-                {
-                    displayModel.IsUsersSession = true;
-                }
-            }
-
             return View(displayModel);
         }
 
