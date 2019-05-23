@@ -40,6 +40,7 @@
     <Compile Include="Migrations\0-InitialDatabase.cs" />
     <Compile Include="Migrations\2-AddTrackInformationToConferencesTable.cs" />
     <Compile Include="Migrations\3-AddSponsorsTable.cs" />
+    <Compile Include="Migrations\4-AddAnonymousSessionsSetting.cs" />
     <Compile Include="Migrator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
