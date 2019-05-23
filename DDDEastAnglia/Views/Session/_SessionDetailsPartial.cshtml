@@ -16,10 +16,13 @@
     <h3>
         @Model.SessionTitle
     </h3>
-    <h4>
-        <img src="@Model.Speakers.First().SpeakerGravatarUrl" width="32" height="32" alt="@Model.Speakers.First().SpeakerName">
-        <a href="@Url.Action("Details", "Speaker", new { id = Model.Speakers.First().SpeakerId })">@(string.IsNullOrWhiteSpace(Model.Speakers.First().SpeakerName) ? Model.Speakers.First().SpeakerUserName : Model.Speakers.First().SpeakerName)</a>
-    </h4>
+    @if (Model.ShowSpeaker)
+    {
+        <h4>
+            <img src="@Model.Speakers.First().SpeakerGravatarUrl" width="32" height="32" alt="@Model.Speakers.First().SpeakerName">
+            <a href="@Url.Action("Details", "Speaker", new {id = Model.Speakers.First().SpeakerId})">@(string.IsNullOrWhiteSpace(Model.Speakers.First().SpeakerName) ? Model.Speakers.First().SpeakerUserName : Model.Speakers.First().SpeakerName)</a>
+        </h4>
+    }
     <div class="session-abstract">
         @Html.MarkdownFor(s => Model.SessionAbstract)
     </div>
