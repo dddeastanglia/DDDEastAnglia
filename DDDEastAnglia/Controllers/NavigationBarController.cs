@@ -39,13 +39,21 @@ namespace DDDEastAnglia.Controllers
         public ActionResult RenderMenu()
         {
             var conference = conferenceLoader.LoadConference();
-            bool showLinksForSubmittedSessions = !conference.CanPublishAgenda() && (conference.CanSubmit() || conference.CanVote());
+            bool showLinksForSubmittedSessions;
+            if (conference.AnonymousSessions())
+            {
+                showLinksForSubmittedSessions = conference.CanShowSessions();
+            }
+            else
+            {
+                showLinksForSubmittedSessions = !conference.CanPublishAgenda() && (conference.CanSubmit() || conference.CanVote());
+            }
 
             var links = new List<NavigationMenuLinkViewModel>
                 {
                     CreateLink("Home", "Home", "Index"), 
                     CreateLink("Sessions", "Session", "Index", () => showLinksForSubmittedSessions),
-                    CreateLink("Speakers", "Speaker", "Index", () => showLinksForSubmittedSessions),
+                    CreateLink("Speakers", "Speaker", "Index", () => conference.CanShowSpeakers()),
                     CreateLink("Agenda", "Home", "Agenda", conference.CanPublishAgenda),
                     CreateLink("Register", "Home", "Register", conference.CanRegister),
                     CreateLink("New to DDD?", "Home", "About"),
