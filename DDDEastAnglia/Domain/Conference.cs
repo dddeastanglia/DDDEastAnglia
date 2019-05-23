@@ -135,7 +135,7 @@ namespace DDDEastAnglia.Domain
 
         public bool AnonymousSessions()
         {
-            return this.AnonymousSessions();
+            return this.anonymousSessions;
         }
     }
 }
