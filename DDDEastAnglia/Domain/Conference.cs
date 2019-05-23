@@ -78,12 +78,26 @@ namespace DDDEastAnglia.Domain
 
         public bool CanShowSessions()
         {
-            return CanShowSpeakers();
+            if (anonymousSessions)
+            {
+                return true;
+            }
+            else
+            {
+                return CanShowSpeakers();
+            }
         }
 
         public bool CanShowSpeakers()
         {
-            return ConferenceTimelineIsActive() && (CanSubmit() || CanVote() || CanPublishAgenda() || CanRegister());
+            if (anonymousSessions)
+            {
+                return ConferenceTimelineIsActive() && (CanPublishAgenda() || CanRegister());
+            }
+            else
+            {
+                return ConferenceTimelineIsActive() && (CanSubmit() || CanVote() || CanPublishAgenda() || CanRegister());
+            }
         }
 
         public bool IsPreview()
