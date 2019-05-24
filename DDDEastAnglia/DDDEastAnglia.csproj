@@ -634,6 +634,7 @@
     <Content Include="Scripts\Markdown.Editor.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Views\Home\Environmental.cshtml" />
     <Content Include="Views\Home\Preview.cshtml">
       <SubType>Code</SubType>
     </Content>

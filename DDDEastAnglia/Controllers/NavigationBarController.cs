@@ -54,6 +54,7 @@ namespace DDDEastAnglia.Controllers
                     CreateLink("Accommodation", "Home", "Accommodation", conference.CanRegister),
                     CreateLink("Sponsors", "Home", "Sponsors"),
                     CreateLink("Team", "Home", "Team"),
+                    CreateLink("Environmental Policy", "Home", "Environmental"),
                     CreateLink("Contact", "Home", "Contact"),
                     CreateLink("Admin", "AdminHome", "Index", () => User.IsInRole("Administrator"), new { area = "Admin" }),
                 };
