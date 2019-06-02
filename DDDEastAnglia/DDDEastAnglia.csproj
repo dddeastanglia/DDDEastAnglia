@@ -459,7 +459,6 @@
     <Compile Include="Models\ResetPasswordStepThreeModel.cs" />
     <Compile Include="Models\SessionDisplayModel.cs" />
     <Compile Include="Models\SessionIndexModel.cs" />
-    <Compile Include="Models\SessionTweetLink.cs" />
     <Compile Include="Models\SessionVoteModel.cs" />
     <Compile Include="Models\SpeakerDisplayModel.cs" />
     <Content Include="ForgottenPasswordTemplate.txt" />

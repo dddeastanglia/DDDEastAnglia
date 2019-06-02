@@ -201,9 +201,6 @@ namespace DDDEastAnglia.Controllers
         private SessionDisplayModel CreateDisplayModel(Session session, UserProfile profile, bool showSpeaker)
         {
             var isUsersSession = Request.IsAuthenticated && session.SpeakerUserName == User.Identity.Name;
-            var tweetLink = CreateTweetLink(isUsersSession, session.Title,
-                                            Url.Action("Details", "Session", new {id = session.SessionId},
-                                                       Request.Url.Scheme));
 
             var displayModel = new SessionDisplayModel
                 {
@@ -222,24 +219,10 @@ namespace DDDEastAnglia.Controllers
                         }
                     },
 
-                    TweetLink = tweetLink,
                     IsUsersSession = isUsersSession,
                     ShowSpeaker = showSpeaker
                 };
             return displayModel;
-        }
-
-        private SessionTweetLink CreateTweetLink(bool isUsersSession, string sessionTitle, string sessionUrl)
-        {
-            var title = string.Format("Check out {0} session for #dddea - {1} {2}",
-                                      isUsersSession ? "my" : "this",
-                                      sessionTitle, sessionUrl);
-            var tweetLink = new SessionTweetLink
-                {
-                    Title = title,
-                    Url = sessionUrl
-                };
-            return tweetLink;
         }
 
         private bool UserDoesNotOwnSession(string userName, Session session)

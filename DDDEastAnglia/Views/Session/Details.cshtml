@@ -19,18 +19,6 @@
     }
 </div>
 
-<div class="tweet-session">
-    @if (Model.IsUsersSession)
-    {
-        @Html.TweetButton("Check out my session for #dddea - " + Model.SessionTitle, Request.Url)
-    }
-    else
-    {
-        @Html.TweetButton("Check out this session for #dddea - " + Model.SessionTitle, Request.Url)
-    }
-
-</div>
-
 <div class="abstract">
     @Html.MarkdownFor(model => model.SessionAbstract)
 </div>
