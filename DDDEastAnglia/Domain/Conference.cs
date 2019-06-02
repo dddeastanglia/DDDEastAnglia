@@ -78,19 +78,12 @@ namespace DDDEastAnglia.Domain
 
         public bool CanShowSessions()
         {
-            return CanShowSpeakers();
+            return CanSubmit() || CanVote() || CanPublishAgenda() || CanRegister();
         }
 
         public bool CanShowSpeakers()
         {
-            if (anonymousSessions)
-            {
-                return ConferenceTimelineIsActive() && (CanPublishAgenda() || CanRegister());
-            }
-            else
-            {
-                return ConferenceTimelineIsActive() && (CanSubmit() || CanVote() || CanPublishAgenda() || CanRegister());
-            }
+            return !anonymousSessions && CanShowSessions();
         }
 
         public bool IsPreview()
@@ -124,11 +117,6 @@ namespace DDDEastAnglia.Domain
             return calendarEntries.TryGetValue(calendarEntryType, out calendarEntry)
                 ? calendarEntry
                 : new NullCalendarEntry();
-        }
-
-        public bool AnonymousSessions()
-        {
-            return this.anonymousSessions;
         }
     }
 }
