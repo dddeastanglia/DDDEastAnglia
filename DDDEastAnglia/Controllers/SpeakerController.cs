@@ -72,6 +72,13 @@ namespace DDDEastAnglia.Controllers
 
         public ActionResult Details(int id = 0)
         {
+            var conference = conferenceLoader.LoadConference();
+
+            if (!conference.CanShowSpeakers())
+            {
+                return HttpNotFound();
+            }
+
             var speakerProfile = userProfileRepository.GetUserProfileById(id);
 
             if (speakerProfile == null)
@@ -79,7 +86,6 @@ namespace DDDEastAnglia.Controllers
                 return HttpNotFound();
             }
 
-            var conference = conferenceLoader.LoadConference();
             var sessionLoader = sessionLoaderFactory.Create(conference);
             var sessions = sessionLoader.LoadSessions(speakerProfile);
 
