@@ -78,14 +78,7 @@ namespace DDDEastAnglia.Domain
 
         public bool CanShowSessions()
         {
-            if (anonymousSessions)
-            {
-                return true;
-            }
-            else
-            {
-                return CanShowSpeakers();
-            }
+            return CanShowSpeakers();
         }
 
         public bool CanShowSpeakers()
@@ -118,7 +111,7 @@ namespace DDDEastAnglia.Domain
         public void AddToCalendar(CalendarEntry entry)
         {
             var calendarEntryType = entry.GetEntryType();
-            
+
             if (calendarEntryType != CalendarEntryType.Unknown)
             {
                 calendarEntries[calendarEntryType] = entry;
