@@ -48,16 +48,87 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="FluentMigrator">
-      <HintPath>..\packages\FluentMigrator.1.1.2.1\lib\40\FluentMigrator.dll</HintPath>
+    <Reference Include="FluentMigrator, Version=2.0.7.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05">
+      <HintPath>..\packages\FluentMigrator.2.0.7\lib\net45\FluentMigrator.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="FluentMigrator.Runner">
-      <HintPath>..\packages\FluentMigrator.Tools.1.1.2.1\tools\AnyCPU\40\FluentMigrator.Runner.dll</HintPath>
+    <Reference Include="FluentMigrator.Abstractions, Version=2.0.7.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05">
+      <HintPath>..\packages\FluentMigrator.Abstractions.2.0.7\lib\net45\FluentMigrator.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FluentMigrator.Extensions.SqlAnywhere, Version=2.0.7.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05">
+      <HintPath>..\packages\FluentMigrator.Extensions.SqlAnywhere.2.0.7\lib\net45\FluentMigrator.Extensions.SqlAnywhere.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FluentMigrator.Extensions.SqlServer, Version=2.0.7.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05">
+      <HintPath>..\packages\FluentMigrator.Extensions.SqlServer.2.0.7\lib\net45\FluentMigrator.Extensions.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FluentMigrator.Runner, Version=2.0.7.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05">
+      <HintPath>..\packages\FluentMigrator.Runner.2.0.7\lib\net45\FluentMigrator.Runner.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FluentMigrator.Runner.Core, Version=2.0.7.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05">
+      <HintPath>..\packages\FluentMigrator.Runner.Core.2.0.7\lib\net45\FluentMigrator.Runner.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FluentMigrator.Runner.Db2, Version=2.0.7.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05">
+      <HintPath>..\packages\FluentMigrator.Runner.Db2.2.0.7\lib\net45\FluentMigrator.Runner.Db2.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FluentMigrator.Runner.Firebird, Version=2.0.7.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05">
+      <HintPath>..\packages\FluentMigrator.Runner.Firebird.2.0.7\lib\net45\FluentMigrator.Runner.Firebird.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FluentMigrator.Runner.Hana, Version=2.0.7.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05">
+      <HintPath>..\packages\FluentMigrator.Runner.Hana.2.0.7\lib\net45\FluentMigrator.Runner.Hana.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FluentMigrator.Runner.Jet, Version=2.0.7.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05">
+      <HintPath>..\packages\FluentMigrator.Runner.Jet.2.0.7\lib\net45\FluentMigrator.Runner.Jet.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FluentMigrator.Runner.MySql, Version=2.0.7.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05">
+      <HintPath>..\packages\FluentMigrator.Runner.MySql.2.0.7\lib\net45\FluentMigrator.Runner.MySql.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FluentMigrator.Runner.Oracle, Version=2.0.7.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05">
+      <HintPath>..\packages\FluentMigrator.Runner.Oracle.2.0.7\lib\net45\FluentMigrator.Runner.Oracle.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FluentMigrator.Runner.Postgres, Version=2.0.7.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05">
+      <HintPath>..\packages\FluentMigrator.Runner.Postgres.2.0.7\lib\net45\FluentMigrator.Runner.Postgres.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FluentMigrator.Runner.Redshift, Version=2.0.7.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05">
+      <HintPath>..\packages\FluentMigrator.Runner.Redshift.2.0.7\lib\net45\FluentMigrator.Runner.Redshift.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FluentMigrator.Runner.SqlAnywhere, Version=2.0.7.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05">
+      <HintPath>..\packages\FluentMigrator.Runner.SqlAnywhere.2.0.7\lib\net45\FluentMigrator.Runner.SqlAnywhere.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FluentMigrator.Runner.SQLite, Version=2.0.7.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05">
+      <HintPath>..\packages\FluentMigrator.Runner.SQLite.2.0.7\lib\net45\FluentMigrator.Runner.SQLite.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FluentMigrator.Runner.SqlServer, Version=2.0.7.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05">
+      <HintPath>..\packages\FluentMigrator.Runner.SqlServer.2.0.7\lib\net45\FluentMigrator.Runner.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FluentMigrator.Runner.SqlServerCe, Version=2.0.7.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05">
+      <HintPath>..\packages\FluentMigrator.Runner.SqlServerCe.2.0.7\lib\net45\FluentMigrator.Runner.SqlServerCe.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System">
       <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.1\System.dll</HintPath>
     </Reference>
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">
+      <HintPath>..\packages\Microsoft.SqlServer.Compact.4.0.8876.1\lib\net40\System.Data.SqlServerCe.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
