@@ -1,4 +1,4 @@
-using FluentMigrator;
+﻿using FluentMigrator;
 
 namespace DDDEastAnglia.DatabaseMigrations.Migrations
 {
@@ -8,7 +8,7 @@ namespace DDDEastAnglia.DatabaseMigrations.Migrations
         public override void Up()
         {
             Alter.Table("Conferences")
-                .AddColumn("AnonymousSessions").AsBoolean().Nullable();
+                .AddColumn("AnonymousSessions").AsBoolean().NotNullable().SetExistingRowsTo(false);
         }
 
         public override void Down()
