@@ -6,30 +6,21 @@
 
 <h2>@Html.DisplayFor(model => model.SessionTitle)</h2>
 
-<div>
-    @foreach (var speaker in Model.Speakers)
-    {
-        <span class="speaker-profile">
-            @if (speaker.SpeakerGravatarUrl != null)
-            {
-                <img src="@speaker.SpeakerGravatarUrl" alt="@speaker.SpeakerName"/>
-            }
-            <a href="@Url.Action("Details", "Speaker", new { id = speaker.SpeakerId })">@(string.IsNullOrWhiteSpace(speaker.SpeakerName) ? speaker.SpeakerUserName : speaker.SpeakerName)</a>
-        </span>
-    }
-</div>
-
-<div class="tweet-session">
-    @if (Model.IsUsersSession)
-    {
-        @Html.TweetButton("Check out my session for #dddea - " + Model.SessionTitle, Request.Url)
-    }
-    else
-    {
-        @Html.TweetButton("Check out this session for #dddea - " + Model.SessionTitle, Request.Url)
-    }
-
-</div>
+@if (Model.ShowSpeaker)
+{
+    <div>
+        @foreach (var speaker in Model.Speakers)
+        {
+            <span class="speaker-profile">
+                @if (speaker.SpeakerGravatarUrl != null)
+                {
+                    <img src="@speaker.SpeakerGravatarUrl" alt="@speaker.SpeakerName"/>
+                }
+                <a href="@Url.Action("Details", "Speaker", new { id = speaker.SpeakerId })">@(string.IsNullOrWhiteSpace(speaker.SpeakerName) ? speaker.SpeakerUserName : speaker.SpeakerName)</a>
+            </span>
+        }
+    </div>
+}
 
 <div class="abstract">
     @Html.MarkdownFor(model => model.SessionAbstract)
