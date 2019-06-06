@@ -17,11 +17,6 @@ namespace DDDEastAnglia.DataAccess.SimpleData.Builders
 
         public Domain.Conference Build(Conference item)
         {
-            if (item == null)
-            {
-                return null;
-            }
-            
             var conference = new Domain.Conference(item.ConferenceId, item.Name, item.ShortName, item.NumberOfTimeSlots, item.NumberOfTracks, item.AnonymousSessions);
             var calendarItems = calendarItemRepository.GetAll();
 
