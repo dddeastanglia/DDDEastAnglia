@@ -43,6 +43,11 @@ namespace DDDEastAnglia.Controllers
             this.userProfileFilterFactory = userProfileFilterFactory;
         }
 
+        public ActionResult Resources()
+        {
+            return View();
+        }
+
         public ActionResult Index()
         {
             var conference = conferenceLoader.LoadConference();

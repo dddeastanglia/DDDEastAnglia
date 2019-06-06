@@ -703,6 +703,7 @@
     <Content Include="Views\Home\Closed.cshtml" />
     <Content Include="Views\Home\Sponsors.cshtml" />
     <Content Include="Views\Home\CodeOfConduct.cshtml" />
+    <Content Include="Views\Speaker\Resources.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
