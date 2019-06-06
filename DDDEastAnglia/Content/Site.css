@@ -88,11 +88,6 @@ footer span {
     padding-bottom: 10px;
 }
 
-.tweet-session {
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
 .inline-large-icon {
     display: inline-block;
     width: 20px;
@@ -161,8 +156,7 @@ footer span {
     border-bottom: 0;
 }
 
-#delete-session .session-actions,
-#delete-session .session-tweet {
+#delete-session .session-actions {
     display: none;
 }
 

@@ -39,13 +39,15 @@ namespace DDDEastAnglia.Controllers
         public ActionResult RenderMenu()
         {
             var conference = conferenceLoader.LoadConference();
-            bool showLinksForSubmittedSessions = !conference.CanPublishAgenda() && (conference.CanSubmit() || conference.CanVote());
-
             var links = new List<NavigationMenuLinkViewModel>
                 {
-                    CreateLink("Home", "Home", "Index"), 
-                    CreateLink("Sessions", "Session", "Index", () => showLinksForSubmittedSessions),
-                    CreateLink("Speakers", "Speaker", "Index", () => showLinksForSubmittedSessions),
+                    CreateLink("Home", "Home", "Index"),
+                    CreateLink("Sessions", "Session", "Index", () =>
+                    {
+                        var canShowSessions = conference.CanShowSessions();
+                        return canShowSessions;
+                    }),
+                    CreateLink("Speakers", "Speaker", "Index", conference.CanShowSpeakers),
                     CreateLink("Agenda", "Home", "Agenda", conference.CanPublishAgenda),
                     CreateLink("Register", "Home", "Register", conference.CanRegister),
                     CreateLink("New to DDD?", "Home", "About"),
@@ -62,7 +64,7 @@ namespace DDDEastAnglia.Controllers
             return PartialView(model);
         }
 
-        private NavigationMenuLinkViewModel CreateLink(string linkText, string controllerName, string actionName, 
+        private NavigationMenuLinkViewModel CreateLink(string linkText, string controllerName, string actionName,
                                                         Func<bool> isVisible = null, object routeValues = null)
         {
             var urlHelper = urlHelperFactory.Create(ControllerContext.RequestContext);

@@ -10,9 +10,9 @@ namespace DDDEastAnglia.Models
 
         public IList<SessionSpeakerModel> Speakers { get; set; }
 
-        public SessionTweetLink TweetLink { get; set; }
         public bool IsUsersSession { get; set; }
         public bool HasAlreadyBeenVotedFor { get; set; }
+        public bool ShowSpeaker { get; set; }
     }
 
     public class SessionSpeakerModel
