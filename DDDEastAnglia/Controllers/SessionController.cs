@@ -40,8 +40,7 @@ namespace DDDEastAnglia.Controllers
             var sessions = sessionRepository.GetAllSessions();
 
             var allSessions = new List<SessionDisplayModel>();
-
-            bool showSpeaker = conference.CanShowSpeakers();
+            var showSpeaker = conference.CanShowSpeakers();
 
             foreach (var session in sessions)
             {
@@ -73,7 +72,7 @@ namespace DDDEastAnglia.Controllers
             var userProfile = userProfileRepository.GetUserProfileByUserName(session.SpeakerUserName);
 
             var conference = conferenceLoader.LoadConference();
-            bool showSpeaker = conference.CanShowSpeakers();
+            var showSpeaker = conference.CanShowSpeakers();
 
             var displayModel = CreateDisplayModel(session, userProfile, showSpeaker);
 
@@ -165,7 +164,7 @@ namespace DDDEastAnglia.Controllers
         [UserNameFilter("userName")]
         public ActionResult Delete(string userName, int id = 0)
         {
-            Session session = sessionRepository.Get(id);
+            var session = sessionRepository.Get(id);
 
             if (session == null)
             {
@@ -177,8 +176,11 @@ namespace DDDEastAnglia.Controllers
                 return new HttpUnauthorizedResult();
             }
 
+            var conference = conferenceLoader.LoadConference();
+            var showSpeaker = conference.CanShowSpeakers();
+
             var userProfile = userProfileRepository.GetUserProfileByUserName(session.SpeakerUserName);
-            var displayModel = CreateDisplayModel(session, userProfile, true);
+            var displayModel = CreateDisplayModel(session, userProfile, showSpeaker);
             return View(displayModel);
         }
 
