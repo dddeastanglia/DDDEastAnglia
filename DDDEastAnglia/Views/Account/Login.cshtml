@@ -10,18 +10,12 @@
     Please note that you only need to log in if you want to submit a session or to manage your account.
 </div>
 
-<section id="socialLoginForm">
-    @Html.Action("ExternalLoginsList", new { ViewBag.ReturnUrl })
-</section>
-
 <section id="loginForm">
 @using (Html.BeginForm("Login", "Account", new { ReturnUrl = @ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal" }))
 {
     @Html.AntiForgeryToken()
 
     <fieldset>
-        <legend>Use a local account to log in</legend>
-
         @Html.ValidationSummary(true)
 
         <div class="control-group">
