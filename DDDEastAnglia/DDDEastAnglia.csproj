@@ -208,7 +208,6 @@
     <Compile Include="Controllers\UserNameFilterAttribute.cs" />
     <Compile Include="DataAccess\CachingVotingCookieFactory.cs" />
     <Compile Include="DataAccess\ConferenceLoader.cs" />
-    <Compile Include="DataAccess\IAccountLoginMethodQuery.cs" />
     <Compile Include="DataAccess\ISpeakerRepository.cs" />
     <Compile Include="DataAccess\ISponsorRepository.cs" />
     <Compile Include="DataAccess\DefaultSponsorSorter.cs" />
@@ -220,12 +219,8 @@
     <Compile Include="Helpers\ImageResizeExtensions.cs" />
     <Compile Include="DataAccess\SimpleData\Models\Sponsor.cs" />
     <Compile Include="DataAccess\SimpleData\SponsorRepository.cs" />
-    <Compile Include="Helpers\LoginMethodLoader.cs" />
-    <Compile Include="Helpers\LoginMethodViewModelBuilder.cs" />
     <Compile Include="Helpers\Sessions\SelectedSessions.cs" />
     <Compile Include="Helpers\SponsorLogoService.cs" />
-    <Compile Include="Models\LoginMethod.cs" />
-    <Compile Include="DataAccess\SimpleData\Queries\AccountLoginMethodQuery.cs" />
     <Compile Include="DataAccess\SpeakerRepository.cs" />
     <Compile Include="DataAccess\SimpleData\CalendarItemRepository.cs" />
     <Compile Include="DataAccess\SimpleData\UserProfileRepository.cs" />
@@ -247,7 +242,6 @@
     <Compile Include="IDateTimeOffsetProvider.cs" />
     <Compile Include="LocalDateTimeOffsetProvider.cs" />
     <Compile Include="Models\AboutViewModel.cs" />
-    <Compile Include="Models\LoginMethodViewModel.cs" />
     <Compile Include="Models\TimelineItemModel.cs" />
     <Compile Include="Models\TimelineModel.cs" />
     <Compile Include="Models\SpeakerProfile.cs" />
@@ -567,7 +561,6 @@
     <Content Include="Areas\Admin\Views\User\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\User\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Speaker\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\User\_LoginMethods.cshtml" />
     <Content Include="Areas\Admin\Views\Voting\VotesPerDay.cshtml" />
     <Content Include="Scripts\flot\hoverTooltip.js">
       <SubType>Code</SubType>

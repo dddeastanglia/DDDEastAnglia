@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Web.Mvc;
 using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.Helpers;
@@ -11,12 +10,10 @@ namespace DDDEastAnglia.Controllers
     public class ResetPasswordController : Controller
     {
         private readonly IUserProfileRepository userProfileRepository;
-        private readonly IAccountLoginMethodQuery accountLoginMethodQuery;
         private readonly IResetPasswordThingy resetPasswordThingy;
         private readonly IResetPasswordEmailSender resetPasswordEmailSender;
 
         public ResetPasswordController(IUserProfileRepository userProfileRepository,
-            IAccountLoginMethodQuery accountLoginMethodQuery,
             IResetPasswordThingy resetPasswordThingy,
             IResetPasswordEmailSender resetPasswordEmailSender)
 
@@ -24,11 +21,6 @@ namespace DDDEastAnglia.Controllers
             if (userProfileRepository == null)
             {
                 throw new ArgumentNullException("userProfileRepository");
-            }
-
-            if (accountLoginMethodQuery == null)
-            {
-                throw new ArgumentNullException("accountLoginMethodQuery");
             }
 
             if (resetPasswordThingy == null)
@@ -42,7 +34,6 @@ namespace DDDEastAnglia.Controllers
             }
 
             this.userProfileRepository = userProfileRepository;
-            this.accountLoginMethodQuery = accountLoginMethodQuery;
             this.resetPasswordThingy = resetPasswordThingy;
             this.resetPasswordEmailSender = resetPasswordEmailSender;
         }
@@ -82,21 +73,13 @@ namespace DDDEastAnglia.Controllers
 
             if (profile == null)
             {
-                // could't find the user, but don't want to give that away
-                ViewBag.ShowAdditionalHelpMessage = false;
+                // couldn't find the user, but don't want to give that away
                 return View("Step2");
             }
 
-            var loginMethods = accountLoginMethodQuery.GetLoginMethods(profile.UserId);
-            var dddeaLoginExists = loginMethods.Any(m => m.ProviderName == "dddea");
+            var passwordResetToken = resetPasswordThingy.GeneratePasswordResetToken(profile.UserName, 120);
+            SendEmailToUser(profile.EmailAddress, passwordResetToken);
 
-            if (dddeaLoginExists)
-            {
-                string passwordResetToken = resetPasswordThingy.GeneratePasswordResetToken(profile.UserName, 120);
-                SendEmailToUser(profile.EmailAddress, passwordResetToken);
-            }
-
-            ViewBag.ShowAdditionalHelpMessage = !dddeaLoginExists;
             return View("Step2");
         }
 

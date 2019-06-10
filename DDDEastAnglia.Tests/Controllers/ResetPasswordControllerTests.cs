@@ -16,19 +16,17 @@ namespace DDDEastAnglia.Tests.Controllers
         [Test]
         public void TestThat_Ctor_ThrowsAnException_WhenTheSuppliedContextIsNull()
         {
-            var accountLoginMethodQuery = Substitute.For<IAccountLoginMethodQuery>();
             var resetPasswordThingy = Substitute.For<IResetPasswordThingy>();
             var resetPasswordEmailSender = Substitute.For<IResetPasswordEmailSender>();
-            Assert.Throws<ArgumentNullException>(() => new ResetPasswordController(null, accountLoginMethodQuery, resetPasswordThingy, resetPasswordEmailSender));
+            Assert.Throws<ArgumentNullException>(() => new ResetPasswordController(null, resetPasswordThingy, resetPasswordEmailSender));
         }
 
         [Test]
         public void TestThat_Ctor_ThrowsAnException_WhenTheSuppliedAccountLoginMethodQuerysNull()
         {
             var userProfileRepository = Substitute.For<IUserProfileRepository>();
-            var accountLoginMethodQuery = Substitute.For<IAccountLoginMethodQuery>();
             var resetPasswordEmailSender = Substitute.For<IResetPasswordEmailSender>();
-            Assert.Throws<ArgumentNullException>(() => new ResetPasswordController(userProfileRepository, accountLoginMethodQuery, null, resetPasswordEmailSender));
+            Assert.Throws<ArgumentNullException>(() => new ResetPasswordController(userProfileRepository, null, resetPasswordEmailSender));
         }
 
         [Test]
@@ -37,22 +35,21 @@ namespace DDDEastAnglia.Tests.Controllers
             var userProfileRepository = Substitute.For<IUserProfileRepository>();
             var resetPasswordThingy = Substitute.For<IResetPasswordThingy>();
             var resetPasswordEmailSender = Substitute.For<IResetPasswordEmailSender>();
-            Assert.Throws<ArgumentNullException>(() => new ResetPasswordController(userProfileRepository, null, resetPasswordThingy, resetPasswordEmailSender));
+            Assert.Throws<ArgumentNullException>(() => new ResetPasswordController(userProfileRepository, resetPasswordThingy, resetPasswordEmailSender));
         }
 
         [Test]
         public void TestThat_Ctor_ThrowsAnException_WhenTheSuppliedResetPasswordEmailSenderIsNull()
         {
             var userProfileRepository = Substitute.For<IUserProfileRepository>();
-            var accountLoginMethodQuery = Substitute.For<IAccountLoginMethodQuery>();
             var resetPasswordThingy = Substitute.For<IResetPasswordThingy>();
-            Assert.Throws<ArgumentNullException>(() => new ResetPasswordController(userProfileRepository, accountLoginMethodQuery, resetPasswordThingy, null));
+            Assert.Throws<ArgumentNullException>(() => new ResetPasswordController(userProfileRepository, resetPasswordThingy, null));
         }
 
         [Test]
         public void TestThat_Start_BeginsAtStepOne()
         {
-            var controller = new ResetPasswordController(Substitute.For<IUserProfileRepository>(), Substitute.For<IAccountLoginMethodQuery>(), Substitute.For<IResetPasswordThingy>(), Substitute.For<IResetPasswordEmailSender>());
+            var controller = new ResetPasswordController(Substitute.For<IUserProfileRepository>(), Substitute.For<IResetPasswordThingy>(), Substitute.For<IResetPasswordEmailSender>());
 
             var result = (ViewResult) controller.Start();
 
@@ -62,7 +59,7 @@ namespace DDDEastAnglia.Tests.Controllers
         [Test]
         public void TestThat_ResetPassword_RedirectsBackToStepOne_WhenTheModelIsInvalid()
         {
-            var controller = new ResetPasswordController(Substitute.For<IUserProfileRepository>(), Substitute.For<IAccountLoginMethodQuery>(), Substitute.For<IResetPasswordThingy>(), Substitute.For<IResetPasswordEmailSender>());
+            var controller = new ResetPasswordController(Substitute.For<IUserProfileRepository>(), Substitute.For<IResetPasswordThingy>(), Substitute.For<IResetPasswordEmailSender>());
             controller.ModelState.AddModelError("", "invalid");
 
             var model = new ResetPasswordStepOneModel();
@@ -74,7 +71,7 @@ namespace DDDEastAnglia.Tests.Controllers
         [Test]
         public void TestThat_ResetPassword_AddsAValidationError_WhenTheModelHasAnInvalidUserNameAndEmailAddress()
         {
-            var controller = new ResetPasswordController(Substitute.For<IUserProfileRepository>(), Substitute.For<IAccountLoginMethodQuery>(), Substitute.For<IResetPasswordThingy>(), Substitute.For<IResetPasswordEmailSender>());
+            var controller = new ResetPasswordController(Substitute.For<IUserProfileRepository>(), Substitute.For<IResetPasswordThingy>(), Substitute.For<IResetPasswordEmailSender>());
 
             var model = new ResetPasswordStepOneModel {UserName = null, EmailAddress = null};
             controller.ResetPassword(model);
@@ -85,7 +82,7 @@ namespace DDDEastAnglia.Tests.Controllers
         [Test]
         public void TestThat_ResetPassword_RedirectsBackToStepOne_WhenTheModelHasAnInvalidUserNameAndEmailAddress()
         {
-            var controller = new ResetPasswordController(Substitute.For<IUserProfileRepository>(), Substitute.For<IAccountLoginMethodQuery>(), Substitute.For<IResetPasswordThingy>(), Substitute.For<IResetPasswordEmailSender>());
+            var controller = new ResetPasswordController(Substitute.For<IUserProfileRepository>(), Substitute.For<IResetPasswordThingy>(), Substitute.For<IResetPasswordEmailSender>());
 
             var model = new ResetPasswordStepOneModel {UserName = null, EmailAddress = null};
             var result = (ViewResult) controller.ResetPassword(model);
@@ -96,7 +93,7 @@ namespace DDDEastAnglia.Tests.Controllers
         [Test]
         public void TestThat_ResetPassword_RedirectsToStepTwo_WhenTheModelHasAValidUserName_ButTheUserProfileCouldNotBeFound()
         {
-            var controller = new ResetPasswordController(Substitute.For<IUserProfileRepository>(), Substitute.For<IAccountLoginMethodQuery>(), Substitute.For<IResetPasswordThingy>(), Substitute.For<IResetPasswordEmailSender>());
+            var controller = new ResetPasswordController(Substitute.For<IUserProfileRepository>(), Substitute.For<IResetPasswordThingy>(), Substitute.For<IResetPasswordEmailSender>());
 
             var model = new ResetPasswordStepOneModel {UserName = "bob"};
             var result = (ViewResult) controller.ResetPassword(model);
@@ -107,7 +104,7 @@ namespace DDDEastAnglia.Tests.Controllers
         [Test]
         public void TestThat_ResetPassword_RedirectsToStepTwo_WhenTheModelHasAValidEmailAddress_ButTheUserProfileCouldNotBeFound()
         {
-            var controller = new ResetPasswordController(Substitute.For<IUserProfileRepository>(), Substitute.For<IAccountLoginMethodQuery>(), Substitute.For<IResetPasswordThingy>(), Substitute.For<IResetPasswordEmailSender>());
+            var controller = new ResetPasswordController(Substitute.For<IUserProfileRepository>(), Substitute.For<IResetPasswordThingy>(), Substitute.For<IResetPasswordEmailSender>());
 
             var model = new ResetPasswordStepOneModel {EmailAddress = "bob@example.com"};
             var result = (ViewResult) controller.ResetPassword(model);
@@ -120,10 +117,8 @@ namespace DDDEastAnglia.Tests.Controllers
         {
             var userProfileRepository = Substitute.For<IUserProfileRepository>();
             userProfileRepository.GetUserProfileByUserName("bob").Returns(new UserProfile {UserName = "bob", EmailAddress = "bob@example.com"});
-            var accountLoginMethodQuery = Substitute.For<IAccountLoginMethodQuery>();
-            accountLoginMethodQuery.GetLoginMethods(Arg.Any<int>()).Returns(new[] { new LoginMethod("dddea") });
             var resetPasswordThingy = Substitute.For<IResetPasswordThingy>();
-            var controller = new ResetPasswordController(userProfileRepository, accountLoginMethodQuery, resetPasswordThingy, Substitute.For<IResetPasswordEmailSender>());
+            var controller = new ResetPasswordController(userProfileRepository, resetPasswordThingy, Substitute.For<IResetPasswordEmailSender>());
             controller.SetupWithHttpContextAndUrlHelper();
 
             var model = new ResetPasswordStepOneModel {UserName = "bob"};
@@ -137,10 +132,8 @@ namespace DDDEastAnglia.Tests.Controllers
         {
             var userProfileRepository = Substitute.For<IUserProfileRepository>();
             userProfileRepository.GetUserProfileByEmailAddress("bob@example.com").Returns(new UserProfile {UserName = "bob", EmailAddress = "bob@example.com"});
-            var accountLoginMethodQuery = Substitute.For<IAccountLoginMethodQuery>();
-            accountLoginMethodQuery.GetLoginMethods(Arg.Any<int>()).Returns(new[] { new LoginMethod("dddea") });
             var resetPasswordThingy = Substitute.For<IResetPasswordThingy>();
-            var controller = new ResetPasswordController(userProfileRepository, accountLoginMethodQuery, resetPasswordThingy, Substitute.For<IResetPasswordEmailSender>());
+            var controller = new ResetPasswordController(userProfileRepository, resetPasswordThingy, Substitute.For<IResetPasswordEmailSender>());
             controller.SetupWithHttpContextAndUrlHelper();
 
             var model = new ResetPasswordStepOneModel {EmailAddress = "bob@example.com"};
@@ -154,10 +147,8 @@ namespace DDDEastAnglia.Tests.Controllers
         {
             var userProfileRepository = Substitute.For<IUserProfileRepository>();
             userProfileRepository.GetUserProfileByUserName("bob").Returns(new UserProfile {UserName = "bob", EmailAddress = "bob@example.com"});
-            var accountLoginMethodQuery = Substitute.For<IAccountLoginMethodQuery>();
-            accountLoginMethodQuery.GetLoginMethods(Arg.Any<int>()).Returns(new[] { new LoginMethod("dddea") });
             var resetPasswordEmailSender = Substitute.For<IResetPasswordEmailSender>();
-            var controller = new ResetPasswordController(userProfileRepository, accountLoginMethodQuery, Substitute.For<IResetPasswordThingy>(), resetPasswordEmailSender);
+            var controller = new ResetPasswordController(userProfileRepository, Substitute.For<IResetPasswordThingy>(), resetPasswordEmailSender);
             controller.SetupWithHttpContextAndUrlHelper();
 
             var model = new ResetPasswordStepOneModel {UserName = "bob"};
@@ -171,10 +162,8 @@ namespace DDDEastAnglia.Tests.Controllers
         {
             var userProfileRepository = Substitute.For<IUserProfileRepository>();
             userProfileRepository.GetUserProfileByEmailAddress("bob@example.com").Returns(new UserProfile {UserName = "bob", EmailAddress = "bob@example.com"});
-            var accountLoginMethodQuery = Substitute.For<IAccountLoginMethodQuery>();
-            accountLoginMethodQuery.GetLoginMethods(Arg.Any<int>()).Returns(new[] { new LoginMethod("dddea") });
             var resetPasswordEmailSender = Substitute.For<IResetPasswordEmailSender>();
-            var controller = new ResetPasswordController(userProfileRepository, accountLoginMethodQuery, Substitute.For<IResetPasswordThingy>(), resetPasswordEmailSender);
+            var controller = new ResetPasswordController(userProfileRepository, Substitute.For<IResetPasswordThingy>(), resetPasswordEmailSender);
             controller.SetupWithHttpContextAndUrlHelper();
 
             var model = new ResetPasswordStepOneModel {EmailAddress = "bob@example.com"};
@@ -186,7 +175,7 @@ namespace DDDEastAnglia.Tests.Controllers
         [Test]
         public void TestThat_EmailConfirmation_RedirectsToTheCorrectView()
         {
-            var controller = new ResetPasswordController(Substitute.For<IUserProfileRepository>(), Substitute.For<IAccountLoginMethodQuery>(), Substitute.For<IResetPasswordThingy>(), Substitute.For<IResetPasswordEmailSender>());
+            var controller = new ResetPasswordController(Substitute.For<IUserProfileRepository>(), Substitute.For<IResetPasswordThingy>(), Substitute.For<IResetPasswordEmailSender>());
 
             var result = (ViewResult) controller.EmailConfirmation("token");
 
@@ -196,7 +185,7 @@ namespace DDDEastAnglia.Tests.Controllers
         [Test]
         public void TestThat_EmailConfirmation_PassesTheSuppliedToken_ToTheView()
         {
-            var controller = new ResetPasswordController(Substitute.For<IUserProfileRepository>(), Substitute.For<IAccountLoginMethodQuery>(), Substitute.For<IResetPasswordThingy>(), Substitute.For<IResetPasswordEmailSender>());
+            var controller = new ResetPasswordController(Substitute.For<IUserProfileRepository>(), Substitute.For<IResetPasswordThingy>(), Substitute.For<IResetPasswordEmailSender>());
 
             var result = (ViewResult) controller.EmailConfirmation("token");
 
@@ -207,7 +196,7 @@ namespace DDDEastAnglia.Tests.Controllers
         [Test]
         public void TestThat_Complete_SetsTheSuppliedMessageOnTheView()
         {
-            var controller = new ResetPasswordController(Substitute.For<IUserProfileRepository>(), Substitute.For<IAccountLoginMethodQuery>(), Substitute.For<IResetPasswordThingy>(), Substitute.For<IResetPasswordEmailSender>());
+            var controller = new ResetPasswordController(Substitute.For<IUserProfileRepository>(), Substitute.For<IResetPasswordThingy>(), Substitute.For<IResetPasswordEmailSender>());
 
             var result = (ViewResult) controller.Complete("a message");
 
@@ -217,7 +206,7 @@ namespace DDDEastAnglia.Tests.Controllers
         [Test]
         public void TestThat_SaveNewPassword_RedirectsToStepThree_WhenTheModelIsInvalid()
         {
-            var controller = new ResetPasswordController(Substitute.For<IUserProfileRepository>(), Substitute.For<IAccountLoginMethodQuery>(), Substitute.For<IResetPasswordThingy>(), Substitute.For<IResetPasswordEmailSender>());
+            var controller = new ResetPasswordController(Substitute.For<IUserProfileRepository>(), Substitute.For<IResetPasswordThingy>(), Substitute.For<IResetPasswordEmailSender>());
             controller.ModelState.AddModelError("", "invalid");
 
             var result = (ViewResult) controller.SaveNewPassword(new ResetPasswordStepThreeModel());
@@ -230,7 +219,7 @@ namespace DDDEastAnglia.Tests.Controllers
         {
             var resetPasswordThingy = Substitute.For<IResetPasswordThingy>();
             resetPasswordThingy.ResetPassword(Arg.Any<string>(), Arg.Any<string>()).Returns(false);
-            var controller = new ResetPasswordController(Substitute.For<IUserProfileRepository>(), Substitute.For<IAccountLoginMethodQuery>(), resetPasswordThingy, Substitute.For<IResetPasswordEmailSender>());
+            var controller = new ResetPasswordController(Substitute.For<IUserProfileRepository>(), resetPasswordThingy, Substitute.For<IResetPasswordEmailSender>());
 
             controller.SaveNewPassword(new ResetPasswordStepThreeModel());
 
@@ -242,7 +231,7 @@ namespace DDDEastAnglia.Tests.Controllers
         {
             var resetPasswordThingy = Substitute.For<IResetPasswordThingy>();
             resetPasswordThingy.ResetPassword(Arg.Any<string>(), Arg.Any<string>()).Returns(false);
-            var controller = new ResetPasswordController(Substitute.For<IUserProfileRepository>(), Substitute.For<IAccountLoginMethodQuery>(), resetPasswordThingy, Substitute.For<IResetPasswordEmailSender>());
+            var controller = new ResetPasswordController(Substitute.For<IUserProfileRepository>(), resetPasswordThingy, Substitute.For<IResetPasswordEmailSender>());
 
             var result = (ViewResult) controller.SaveNewPassword(new ResetPasswordStepThreeModel());
 
@@ -254,7 +243,7 @@ namespace DDDEastAnglia.Tests.Controllers
         {
             var resetPasswordThingy = Substitute.For<IResetPasswordThingy>();
             resetPasswordThingy.ResetPassword(Arg.Any<string>(), Arg.Any<string>()).Returns(true);
-            var controller = new ResetPasswordController(Substitute.For<IUserProfileRepository>(), Substitute.For<IAccountLoginMethodQuery>(), resetPasswordThingy, Substitute.For<IResetPasswordEmailSender>());
+            var controller = new ResetPasswordController(Substitute.For<IUserProfileRepository>(), resetPasswordThingy, Substitute.For<IResetPasswordEmailSender>());
 
             var result = (RedirectToRouteResult) controller.SaveNewPassword(new ResetPasswordStepThreeModel());
 

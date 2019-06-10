@@ -139,15 +139,6 @@ namespace DDDEastAnglia.Controllers
             return View(model);
         }
 
-        [HttpGet]
-        public ActionResult ManageLogins(string message = null)
-        {
-            ViewBag.Message = message;
-            ViewBag.ReturnUrl = Url.Action("ManageLogins");
-            return View("ManageLogins");
-        }
-
-
         #region Helpers
         private ActionResult RedirectToLocal(string returnUrl)
         {
