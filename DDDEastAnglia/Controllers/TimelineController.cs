@@ -30,7 +30,7 @@ namespace DDDEastAnglia.Controllers
             {
                 throw new ArgumentNullException("dateTimePassedEvaluator");
             }
-            
+
             this.calendarItemRepository = calendarItemRepository;
             this.dateTimeFormatter = dateTimeFormatter;
             this.dateTimePassedEvaluator = dateTimePassedEvaluator;
@@ -50,6 +50,15 @@ namespace DDDEastAnglia.Controllers
             string endTime = dateTimeFormatter.FormatTime(conference.EndDate.Value);
             string conferenceTimes = string.Format("{0} to {1}", startTime, endTime);
             return new ContentResult {Content = conferenceTimes};
+        }
+
+        public ActionResult Registration()
+        {
+            var registration = calendarItemRepository.GetFromType(CalendarEntryType.Registration);
+            string date = dateTimeFormatter.FormatDate(registration.StartDate);
+            string time = dateTimeFormatter.FormatTime(registration.StartDate);
+            string registrationTime = string.Format("{0} at {1}", date, time);
+            return new ContentResult {Content = registrationTime};
         }
 
         public ActionResult Details()
@@ -76,19 +85,19 @@ namespace DDDEastAnglia.Controllers
                 PeriodDate = dateTimeFormatter.FormatStartDate(voting.StartDate),
                 PeriodPassed = dateTimePassedEvaluator.HasDatePassed(voting.EndDate.Value)
             };
-            
+
             var votingCloses = new TimelineItemModel
             {
                 PeriodDate = dateTimeFormatter.FormatEndDate(voting.EndDate),
                 PeriodPassed = dateTimePassedEvaluator.HasDatePassed(voting.EndDate.Value)
             };
-            
+
             var agendaAnnounced = new TimelineItemModel
             {
                 PeriodDate = dateTimeFormatter.FormatStartDate(agendaPublished.StartDate),
                 PeriodPassed = dateTimePassedEvaluator.HasDatePassed(registraion.StartDate)
             };
-            
+
             var registrationOpens = new TimelineItemModel
             {
                 PeriodDate = dateTimeFormatter.FormatStartDate(registraion.StartDate),
@@ -104,7 +113,7 @@ namespace DDDEastAnglia.Controllers
                 AgendaAnnounced = agendaAnnounced,
                 RegistrationOpens = registrationOpens
             };
-            
+
             return PartialView("_Timeline", model);
         }
     }

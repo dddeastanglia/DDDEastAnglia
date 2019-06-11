@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using DDDEastAnglia.Areas.Admin.Models;
 using DDDEastAnglia.DataAccess;
 using DDDEastAnglia.Filters;
+using DDDEastAnglia.Helpers.Agenda;
 using DDDEastAnglia.Models;
 
 namespace DDDEastAnglia.Controllers
@@ -12,8 +13,9 @@ namespace DDDEastAnglia.Controllers
     {
         private readonly IConferenceLoader conferenceLoader;
         private readonly IViewModelQuery<IEnumerable<SponsorModel>> sponsorsQuery;
+        private readonly AgendaSessionsLoader agendaSessionsLoader;
 
-        public HomeController(IConferenceLoader conferenceLoader, IViewModelQuery<IEnumerable<SponsorModel>> sponsorsQuery)
+        public HomeController(IConferenceLoader conferenceLoader, IViewModelQuery<IEnumerable<SponsorModel>> sponsorsQuery, AgendaSessionsLoader agendaSessionsLoader)
         {
             if (conferenceLoader == null)
             {
@@ -25,8 +27,14 @@ namespace DDDEastAnglia.Controllers
                 throw new ArgumentNullException("sponsorsQuery");
             }
 
+            if (agendaSessionsLoader == null)
+            {
+                throw new ArgumentNullException("agendaSessionsLoader");
+            }
+
             this.conferenceLoader = conferenceLoader;
             this.sponsorsQuery = sponsorsQuery;
+            this.agendaSessionsLoader = agendaSessionsLoader;
         }
 
         public ActionResult Index()
@@ -43,6 +51,16 @@ namespace DDDEastAnglia.Controllers
         {
             return View();
         }
+
+        public ActionResult CodeOfConduct()
+        {
+            return View();
+        }
+        
+//        public ActionResult Environmental()
+//        {
+//            return View();
+//        }
 
         public ActionResult Accommodation()
         {
@@ -94,7 +112,9 @@ namespace DDDEastAnglia.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View();
+            var sessions = agendaSessionsLoader.GetSelectedSessions();
+            var agenda = new Agenda(sessions);
+            return View(agenda);
         }
 
         [AllowedWhenConferenceIsInPreview]

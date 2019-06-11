@@ -15,8 +15,13 @@ namespace DDDEastAnglia.Helpers.Sessions
             {
                 throw new ArgumentNullException("sessionRepository");
             }
-            
+
             this.sessionRepository = sessionRepository;
+        }
+
+        public IEnumerable<Session> LoadSessions()
+        {
+            return sessionRepository.GetAllSessions();
         }
 
         public IEnumerable<Session> LoadSessions(UserProfile profile)
@@ -25,7 +30,7 @@ namespace DDDEastAnglia.Helpers.Sessions
             {
                 throw new ArgumentNullException("profile");
             }
-            
+
             return sessionRepository.GetSessionsSubmittedBy(profile.UserName);
         }
     }

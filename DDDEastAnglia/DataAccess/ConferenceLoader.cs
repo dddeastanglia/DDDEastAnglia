@@ -1,6 +1,7 @@
 ﻿using System;
 using DDDEastAnglia.DataAccess.SimpleData.Builders;
 using DDDEastAnglia.Domain;
+using Conference = DDDEastAnglia.DataAccess.SimpleData.Models.Conference;
 
 namespace DDDEastAnglia.DataAccess
 {
@@ -12,7 +13,7 @@ namespace DDDEastAnglia.DataAccess
 
     public class ConferenceLoader : IConferenceLoader
     {
-        private const string DefaultEventName = "DDDEA2015";
+        private const string DefaultEventName = "DDDEA";
 
         private readonly IConferenceRepository conferenceRepository;
         private readonly ConferenceBuilder conferenceBuilder;
@@ -28,7 +29,7 @@ namespace DDDEastAnglia.DataAccess
             {
                 throw new ArgumentNullException("conferenceBuilder");
             }
-            
+
             this.conferenceRepository = conferenceRepository;
             this.conferenceBuilder = conferenceBuilder;
         }
@@ -36,13 +37,23 @@ namespace DDDEastAnglia.DataAccess
         public IConference LoadConference()
         {
             var dataConference = conferenceRepository.GetByEventShortName(DefaultEventName);
-            return conferenceBuilder.Build(dataConference);
+            return BuildConference(dataConference);
         }
 
         public IConference LoadConference(int sessionId)
         {
             var dataConference = conferenceRepository.ForSession(sessionId);
-            return conferenceBuilder.Build(dataConference);
+            return BuildConference(dataConference);
+        }
+
+        private IConference BuildConference(Conference conference)
+        {
+            if (conference == null)
+            {
+                throw new ArgumentNullException(nameof(conference), "Cannot find current conference");
+            }
+
+            return conferenceBuilder.Build(conference);
         }
     }
 }

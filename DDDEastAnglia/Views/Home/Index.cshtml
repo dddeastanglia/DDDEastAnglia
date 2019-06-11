@@ -6,59 +6,14 @@
     <div class="span12">
         <h1>Welcome to DDD East Anglia!</h1>
 
-        <div class="well">
-            <h3>@Html.DDDEastAnglia() is over for 2015</h3>
-            <p>
-                Thanks to all of the speakers, sponsors, helpers and attendees for their help
-                and support in making @Html.DDDEastAnglia() a successful and enjoyable day.
-                Photos from the event can be found on our <a href="http://www.flickr.com/dddeastanglia">Flickr page</a>.
-            </p>
-
-            <p>
-                <strong>We'll be back in 2016!</strong> Keep an eye on this site, or <a href="http://twitter.com/DDDEastAnglia">follow us on Twitter</a>
-                for more information as it becomes available.
-            </p>
-
-            <h4>Reviews</h4>
-            <p>
-                You can read some reviews of @Html.DDDEastAnglia() 2015 in the following blog posts:
-                <ul>
-                    <li><a href="https://gist.github.com/AnthonySteele/d127c0e470042ee6fc27">Anthony Steele - Agile Values</a> (a discussion on <a href="http://www.dddeastanglia.com/Session/Details/11">Nathan Gloyn's talk</a>)</li>
-                    <li><a href="http://naeemsarfraz.net/post/2015/10/01/Sketchnotes-from-DDDEA-2015">Naeem Sarfraz - Sketchnotes from DDDEA 2105</a></li>
-                </ul>
-            </p>
-
-            <h4>Slides/Code</h4>
-            <p>
-                Slides and/or code for some of the talks can be found at the following links:
-                <ul>
-                    <li><a href="http://www.slideshare.net/bruinbrown/reactive-applications-with-akkanet-ddd-east-anglia-2015">Reactive Applications with Akka.net (Anthony Brown)</a></li>
-                    <li><a href="https://github.com/nbarnwell/OrderManagementSystem">DDD, CQRS aand Event Sourcing... How do I actually DO it? (Neil Barnwell)</a></li>
-                    <li><a href="http://www.slideshare.net/boyney123/web-developers-are-now-mobile-developers">Web Developers Are Now Mobile App Developers (David Boyne)</a></li>
-                    <li><a href="https://github.com/ninjaferret/ninjaferret.github.com/raw/master/downloads/2015-09-26-DDDEA-Microservices-to-Monoliths.pptx">Monoliths to Microservices (Ian Johnson)</a></li>
-                    <li><a href="http://www.slideshare.net/mauroservienti/on-working-in-particular">How we daily manage and work in a dispersed company: Particular Software (Mauro Servienti)</a></li>
-                    <li><a href="https://onedrive.live.com/redir.aspx?cid=4f49eba58e1d0c02&resid=4F49EBA58E1D0C02!352352&parId=4F49EBA58E1D0C02!127&authkey=!AGMBKbMOFsSwETg&ithint=file%2cpptx">How my life changed when I met Git (it wasn't love at first sight) (Matteo Emili)</a></li>
-                    <li><a href="http://www.slideshare.net/theburningmonk/f-in-the-real-world">F# In The Real World (Yan Cui)</a></li>
-                    <li><a href="http://www.slideshare.net/AliKheyrollahi/5-antipatterns-in-api-design-ddd-east-anglia-2015">5 Anti-Patterns in designing APIs (Ali Kheyrollahi)</a></li>
-                    <li><a href="http://bit.ly/ten-pitfalls-of-ioc">Ten Pitfalls of IOC (Derek Fowler)</a></li>
-                    <li><a href="http://www.slideshare.net/Nathangl/you-keep-using-the-word-agile-i-do-not-think-it-means-what-you-think-it-means">You keep using the word agile, I do not think it means what you think it means (Nathan Gloyn)</a></li>
-                    <li><a href="https://github.com/richardadalton/ActivePatterns">F# Pattern Matching and Active Patterns (Richard Dalton)</a></li>
-                    <li><a href="http://colinmackay.scot/2015/09/26/continuous-delivery-ddd-east-anglia/">Continuous Delivery (Colin Angus Mackay)</a></li>
-                    <li><a href="https://github.com/sdspencer-mvp/RaspberryPi2-UnlockTheDoor">A Raspberry Pi2, Azure ML and Project Oxford to unlock that door! (Steve Spencer)</a></li>
-                    
-                </ul>
-            </p>
-        </div>
-
         <p>
-            @Html.DDDEastAnglia() will be returning for its third year. The event will take place in Cambridge on
-            @Html.Action("ConferenceDate", "Timeline") at Cambridge University's West Road Concert Hall.
+            @Html.DDDEastAnglia() will be returning for another year. It will take place in Cambridge on
+            @Html.Action("ConferenceDate", "Timeline") at @Html.ActionLink("Hills Road Sixth Form College", "Venue", "Home").
             Like all <abbr title="Developer! Developer! Developer!">DDD</abbr> community events, @Html.DDDEastAnglia() is free
             to attend, funded entirely through the generosity of our sponsors.
         </p>
         <p>
-            Take a look around the site to whet your appetite for what will be a fantastic event!
-            Why not <a href="http://www.twitter.com/dddeastanglia">follow us on Twitter</a> to get all the latest news and updates?
+            <a href="https://twitter.com/intent/follow?screen_name=dddeastanglia">Follow us on Twitter</a> to get all the latest news and updates.
         </p>
     </div>
 </div>
@@ -74,6 +29,7 @@
             <li data-target="#photos" data-slide-to="5"></li>
             <li data-target="#photos" data-slide-to="6"></li>
             <li data-target="#photos" data-slide-to="7"></li>
+            <li data-target="#photos" data-slide-to="8"></li>
         </ol>
         <!-- Carousel items -->
         <div class="carousel-inner">
@@ -81,45 +37,51 @@
                 <img src="@Url.Content("~/Images/carousel/1.jpg")" alt="DDD East Anglia logo" />
             </div>
             <div class="item">
-                <img src="@Url.Content("~/Images/carousel/2.jpg")" alt="Liam Westley presenting" />
+                <img src="@Url.Content("~/Images/carousel/2.jpg")" alt="Closing Session 2018" />
                 <div class="carousel-caption">
-                    <p>Liam Westley presenting his 'An Actor's Life For Me' talk at DDDEA 2014.</p>
+                    <p>A packed closing session at DDD East Anglia 2018.</p>
+                </div>
+            </div>
+            <div class="item">
+                <img src="@Url.Content("~/Images/carousel/4.jpg")" alt="Don Wibier presenting" />
+                <div class="carousel-caption">
+                    <p>Don Wibier talks 'Dependency Injection in ASP.NET Core 2. Why and How?' at DDD East Anglia 2018.</p>
+                </div>
+            </div>
+            <div class="item">
+                <img src="@Url.Content("~/Images/carousel/6.jpg")" alt="Emily Sas presenting" />
+                <div class="carousel-caption">
+                    <p>Emily Sas giving a lightnight talk on 'Pair Programming - the Marmite of Engineering' at DDD East Anglia 2018.</p>
+                </div>
+            </div>
+            <div class="item">
+                <img src="@Url.Content("~/Images/carousel/8.jpg")" alt="Hands-on Docker Workshop" />
+                <div class="carousel-caption">
+                    <p>Paula Muldoon & Paul McGrath deliver their 'Docker for the complete beginner' workshop at DDD East Anglia 2018.</p>
+                </div>
+            </div>
+            <div class="item">
+                <img src="@Url.Content("~/Images/carousel/9.jpg")" alt="Chris O'Dell" />
+                <div class="carousel-caption">
+                    <p>Chris O'Dell presenting 'You build it, you run it!' at DDD East Anglia 2017.</p>
                 </div>
             </div>
             <div class="item">
                 <img src="@Url.Content("~/Images/carousel/3.jpg")" alt="Attendees mingling" />
                 <div class="carousel-caption">
-                    <p>Attendees mingle during one of the refreshment breaks at DDDEA 2014.</p>
-                </div>
-            </div>
-            <div class="item">
-                <img src="@Url.Content("~/Images/carousel/4.jpg")" alt="Mark Rendle presenting" />
-                <div class="carousel-caption">
-                    <p>Mark Rendle presenting his 'The vNext Big Thing' talk at DDDEA 2014.</p>
+                    <p>Attendees mingle during one of the refreshment breaks at DDD East Anglia 2014.</p>
                 </div>
             </div>
             <div class="item">
                 <img src="@Url.Content("~/Images/carousel/5.jpg")" alt="Iris Classon presenting to an audience" />
                 <div class="carousel-caption">
-                    <p>Iris Classon presenting her lunchtime 'Grok' talk at DDDEA 2014.</p>
-                </div>
-            </div>
-            <div class="item">
-                <img src="@Url.Content("~/Images/carousel/6.jpg")" alt="Ben Hall presenting" />
-                <div class="carousel-caption">
-                    <p>Ben Hall presenting his 'What Developers Need To Know About Visual Design' talk at DDDEA 2014.</p>
+                    <p>Iris Classon presenting her lunchtime 'Grok' talk at DDD East Anglia 2014.</p>
                 </div>
             </div>
             <div class="item">
                 <img src="@Url.Content("~/Images/carousel/7.jpg")" alt="Barbara Fusinska presenting" />
                 <div class="carousel-caption">
-                    <p>Barbara Fusinska presenting her 'Architecture - why so serious?' talk at DDDEA 2014.</p>
-                </div>
-            </div>
-            <div class="item">
-                <img src="@Url.Content("~/Images/carousel/8.jpg")" alt="Several people on a stage" />
-                <div class="carousel-caption">
-                    <p>Attendees of DDDEA 2014 receiving prizes during the end of day wrap-up.</p>
+                    <p>Barbara Fusinska presenting her 'Architecture - why so serious?' talk at DDD East Anglia 2014.</p>
                 </div>
             </div>
         </div>

@@ -27,6 +27,7 @@
     <RestorePackages>true</RestorePackages>
     <TargetFrameworkProfile />
     <UseGlobalApplicationHostFile />
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -92,10 +93,17 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Extensions">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Extensions.dll</HintPath>
+    </Reference>
     <Reference Include="System.Net.Http.Formatting, Version=5.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.1.1\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
+    <Reference Include="System.Net.Http.Primitives">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -161,37 +169,9 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.Data.2.0.20710.0\lib\net40\WebMatrix.Data.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Web.WebPages.OAuth, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.OAuth.2.0.20710.0\lib\net40\Microsoft.Web.WebPages.OAuth.dll</HintPath>
-    </Reference>
     <Reference Include="WebMatrix.WebData, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.WebData.2.0.20710.0\lib\net40\WebMatrix.WebData.dll</HintPath>
-    </Reference>
-    <Reference Include="DotNetOpenAuth.AspNet, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\DotNetOpenAuth.AspNet.4.0.3.12153\lib\net40-full\DotNetOpenAuth.AspNet.dll</HintPath>
-    </Reference>
-    <Reference Include="DotNetOpenAuth.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\DotNetOpenAuth.Core.4.0.3.12153\lib\net40-full\DotNetOpenAuth.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="DotNetOpenAuth.OAuth.Consumer, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\DotNetOpenAuth.OAuth.Consumer.4.0.3.12153\lib\net40-full\DotNetOpenAuth.OAuth.Consumer.dll</HintPath>
-    </Reference>
-    <Reference Include="DotNetOpenAuth.OAuth, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\DotNetOpenAuth.OAuth.Core.4.0.3.12153\lib\net40-full\DotNetOpenAuth.OAuth.dll</HintPath>
-    </Reference>
-    <Reference Include="DotNetOpenAuth.OpenId, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\DotNetOpenAuth.OpenId.Core.4.0.3.12153\lib\net40-full\DotNetOpenAuth.OpenId.dll</HintPath>
-    </Reference>
-    <Reference Include="DotNetOpenAuth.OpenId.RelyingParty, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\DotNetOpenAuth.OpenId.RelyingParty.4.0.3.12153\lib\net40-full\DotNetOpenAuth.OpenId.RelyingParty.dll</HintPath>
     </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
@@ -203,6 +183,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\Filters\SecurityHeadersFilter.cs" />
     <Compile Include="Areas\Admin\Controllers\SpeakerController.cs" />
     <Compile Include="App_Start\Filters\AllowedWhenConferenceIsInPreviewAttribute.cs" />
     <Compile Include="App_Start\Filters\AllowedWhenConferenceIsClosedAttribute.cs" />
@@ -219,7 +200,6 @@
     <Compile Include="Areas\Admin\Models\VotesPerDateViewModel.cs" />
     <Content Include="Content\common.css" />
     <Compile Include="Areas\Admin\Models\VotesPerDayViewModel.cs" />
-    <Compile Include="Controllers\EmailMessengerFactory.cs" />
     <Compile Include="Controllers\GravatarController.cs" />
     <Compile Include="Controllers\IViewModelQuery.cs" />
     <Compile Include="Controllers\SponsorController.cs" />
@@ -228,34 +208,19 @@
     <Compile Include="Controllers\UserNameFilterAttribute.cs" />
     <Compile Include="DataAccess\CachingVotingCookieFactory.cs" />
     <Compile Include="DataAccess\ConferenceLoader.cs" />
-    <Compile Include="DataAccess\IAccountLoginMethodQuery.cs" />
     <Compile Include="DataAccess\ISpeakerRepository.cs" />
-    <Compile Include="Emails.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Emails.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Helpers\Email\SendGrid\IRenderer.cs" />
-    <Compile Include="Helpers\Email\SendGrid\HtmlRenderer.cs" />
-    <Compile Include="Helpers\IMailTemplate.cs" />
-    <Compile Include="Services\Messenger\Email\Templates\PasswordResetMailTemplate.cs" />
-    <Compile Include="Services\Messenger\Email\Templates\SessionUpdatedMailTemplate.cs" />
-    <Compile Include="Services\Messenger\IMessenger.cs" />
     <Compile Include="DataAccess\ISponsorRepository.cs" />
     <Compile Include="DataAccess\DefaultSponsorSorter.cs" />
+    <Compile Include="Helpers\Agenda\AgendaSessionsLoader.cs" />
+    <Compile Include="Models\Agenda.cs" />
+    <Compile Include="Models\AgendaSession.cs" />
+    <Compile Include="Models\RegisteredModel.cs" />
     <Compile Include="Models\SponsorLogo.cs" />
     <Compile Include="Helpers\ImageResizeExtensions.cs" />
     <Compile Include="DataAccess\SimpleData\Models\Sponsor.cs" />
     <Compile Include="DataAccess\SimpleData\SponsorRepository.cs" />
-    <Compile Include="Helpers\LoginMethodLoader.cs" />
-    <Compile Include="Helpers\LoginMethodViewModelBuilder.cs" />
     <Compile Include="Helpers\Sessions\SelectedSessions.cs" />
-    <Compile Include="Services\Messenger\Email\Templates\SessionCreatedMailTemplate.cs" />
-    <Compile Include="Services\Messenger\Email\EmailMessenger.cs" />
-    <Compile Include="Helpers\TokenSubstitutingMailTemplate.cs" />
     <Compile Include="Helpers\SponsorLogoService.cs" />
-    <Compile Include="Models\LoginMethod.cs" />
-    <Compile Include="DataAccess\SimpleData\Queries\AccountLoginMethodQuery.cs" />
     <Compile Include="DataAccess\SpeakerRepository.cs" />
     <Compile Include="DataAccess\SimpleData\CalendarItemRepository.cs" />
     <Compile Include="DataAccess\SimpleData\UserProfileRepository.cs" />
@@ -277,7 +242,6 @@
     <Compile Include="IDateTimeOffsetProvider.cs" />
     <Compile Include="LocalDateTimeOffsetProvider.cs" />
     <Compile Include="Models\AboutViewModel.cs" />
-    <Compile Include="Models\LoginMethodViewModel.cs" />
     <Compile Include="Models\TimelineItemModel.cs" />
     <Compile Include="Models\TimelineModel.cs" />
     <Compile Include="Models\SpeakerProfile.cs" />
@@ -287,26 +251,28 @@
     <Content Include="emails\SessionFeedbackForm.png" />
     <Content Include="emails\SpeakerEmail.html" />
     <Content Include="Images\carousel\8.jpg" />
+    <Content Include="Images\carousel\9.jpg" />
     <Content Include="Images\googleplaystore.gif" />
     <Content Include="Images\hotels\doubletree-hilton.jpg" />
+    <Content Include="Images\hotels\hotel-ibis-cambridge-central-station.jpg" />
     <Content Include="Images\hotels\premierinn-a14-j32.jpg" />
     <Content Include="Images\hotels\premierinn-cambridge-city-east.jpg" />
     <Content Include="Images\hotels\premierinn-cambridge-north.jpg" />
+    <Content Include="Images\hotels\tamburlaine.jpg" />
     <Content Include="Images\hotels\travelodge-cambridge-central.jpg" />
     <Content Include="Images\hotels\travelodge-newmarket-road.jpg" />
     <Content Include="Images\hotels\travelodge-orchard-park.jpg" />
     <Content Include="Images\hotels\university-arms.jpg" />
     <Content Include="Images\hotels\varsity.jpg" />
     <Content Include="Images\itunesappstore.gif" />
-    <EmbeddedResource Include="Emails.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Emails.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="EmailTemplate.html" />
-    <Content Include="Images\sponsors\devexpress.png" />
-    <Content Include="Images\sponsors\redgate.png" />
+    <Content Include="Images\sponsors\bybox.png" />
+    <Content Include="Images\sponsors\endjin.png" />
+    <Content Include="Images\sponsors\ndc-london.png" />
+    <Content Include="Images\team\adamsurgenor.jpg" />
+    <Content Include="Images\team\davecook.jpg" />
     <Content Include="Images\team\davecraft.jpg" />
-    <Content Include="Images\team\joncanning.jpg" />
+    <Content Include="Images\team\emilysas.jpg" />
+    <Content Include="Images\team\nokuthulandlovu.jpg" />
     <Content Include="Images\team\philpursglove.jpg" />
     <Content Include="Scripts\flot\jquery.flot.axislabel.js" />
     <Content Include="Scripts\gravatar.js" />
@@ -324,7 +290,7 @@
     <Content Include="Images\googleplaystore.gif" />
     <Content Include="Images\itunesappstore.gif" />
     <Content Include="Images\logo-large.png" />
-    <Content Include="Images\venue.jpg" />
+    <Content Include="Images\hillsroad.jpg" />
     <Content Include="Scripts\resolveIPAddress.js" />
     <Compile Include="Areas\Admin\Models\VotesForIpAddressViewModel.cs" />
     <Compile Include="Helpers\DnsLookup.cs" />
@@ -402,10 +368,8 @@
     <Compile Include="DataAccess\MessageBus\IMessage.cs" />
     <Compile Include="DataAccess\MessageBus\IMessageBus.cs" />
     <Compile Include="DataAccess\MessageBus\SimpleMessageBus.cs" />
-    <Compile Include="App_Code\GitHubOAuthClient.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminHomeController.cs" />
-    <Compile Include="Areas\Admin\Controllers\RoleController.cs" />
     <Compile Include="Areas\Admin\Controllers\SessionController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
     <Compile Include="Controllers\SpeakerController.cs" />
@@ -418,16 +382,22 @@
     <Compile Include="Domain\IConference.cs" />
     <Compile Include="Helpers\AlphabeticalSort.cs" />
     <Compile Include="Helpers\Context\HttpContextControllerInformationProvider.cs" />
-    <Compile Include="Helpers\IResetPasswordService.cs" />
+    <Compile Include="Helpers\IResetPasswordThingy.cs" />
     <Compile Include="Helpers\ISessionSorter.cs" />
     <Compile Include="Helpers\ISortAlgorithm.cs" />
     <Compile Include="Helpers\ListExtensions.cs" />
     <Compile Include="Helpers\AppSettings\IAppSettingsProvider.cs" />
-    <Compile Include="Services\Messenger\Email\IPostman.cs" />
+    <Compile Include="Helpers\File\FileContentsProvider.cs" />
+    <Compile Include="Helpers\Email\IEmailSender.cs" />
+    <Compile Include="Helpers\File\IFileContentsProvider.cs" />
     <Compile Include="Helpers\Email\IMailHostSettingsProvider.cs" />
+    <Compile Include="Helpers\Email\IMailMessage.cs" />
+    <Compile Include="Helpers\Email\IMessageFactory.cs" />
+    <Compile Include="Helpers\Email\SendGrid\SendGridMessageFactory.cs" />
     <Compile Include="Helpers\Email\Smtp\SmtpHostSettingsProvider.cs" />
-    <Compile Include="Helpers\Email\SendGrid\SendGridPostman.cs" />
-    <Compile Include="Services\Messenger\Email\MailMessage.cs" />
+    <Compile Include="Helpers\Email\ResetPasswordEmailSender.cs" />
+    <Compile Include="Helpers\Email\SendGrid\SendGridEmailSender.cs" />
+    <Compile Include="Helpers\Email\SendGrid\SendGridMessageWrapper.cs" />
     <Compile Include="Helpers\AppSettings\WebConfigurationAppSettingsProvider.cs" />
     <Compile Include="Helpers\IControllerInformationProvider.cs" />
     <Compile Include="Helpers\Email\IMailHostSettings.cs" />
@@ -438,7 +408,6 @@
     <Compile Include="Helpers\MvcHelperModule.cs" />
     <Compile Include="Models\BannerViewModel.cs" />
     <Compile Include="Models\BannerModel.cs" />
-    <Compile Include="Models\ExternalLogin.cs" />
     <Compile Include="Models\GrokTalk.cs" />
     <Compile Include="Models\LocalPasswordModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
@@ -451,9 +420,10 @@
     <Compile Include="Models\ResetPasswordStepThreeModel.cs" />
     <Compile Include="Models\SessionDisplayModel.cs" />
     <Compile Include="Models\SessionIndexModel.cs" />
-    <Compile Include="Models\SessionTweetLink.cs" />
     <Compile Include="Models\SessionVoteModel.cs" />
     <Compile Include="Models\SpeakerDisplayModel.cs" />
+    <Content Include="ForgottenPasswordTemplate.txt" />
+    <Content Include="ForgottenPasswordTemplate.html" />
     <Content Include="Content\font-awesome-ie7.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Images\logo-icon-114.png" />
@@ -473,7 +443,6 @@
     <Compile Include="VotingCookie.cs" />
     <Content Include="Scripts\searchfilter.js" />
     <Content Include="App_Code\HTMLExtensions.cs" />
-    <Compile Include="App_Start\AuthConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -563,7 +532,6 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Images\team\adrianbanks.jpg" />
-    <Content Include="Images\team\alastairsmith.jpg" />
     <Content Include="Images\logo-small.png" />
     <Content Include="Images\wmd-buttons.png" />
     <Content Include="Areas\Admin\Views\Web.config" />
@@ -593,7 +561,6 @@
     <Content Include="Areas\Admin\Views\User\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\User\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Speaker\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\User\_LoginMethods.cshtml" />
     <Content Include="Areas\Admin\Views\Voting\VotesPerDay.cshtml" />
     <Content Include="Scripts\flot\hoverTooltip.js">
       <SubType>Code</SubType>
@@ -625,6 +592,7 @@
     <Content Include="Scripts\Markdown.Editor.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Views\Home\Environmental.cshtml" />
     <Content Include="Views\Home\Preview.cshtml">
       <SubType>Code</SubType>
     </Content>
@@ -646,13 +614,8 @@
     <Content Include="Content\Site.css" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
-    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
-    <Content Include="Views\Account\_RemoveExternalLoginsPartial.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Account\ManageLogins.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
-    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
-    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
@@ -692,9 +655,8 @@
     <Content Include="Views\Timeline\_TimelineItem.cshtml" />
     <Content Include="Views\Home\Closed.cshtml" />
     <Content Include="Views\Home\Sponsors.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Content Include="Views\Home\CodeOfConduct.cshtml" />
+    <Content Include="Views\Speaker\Resources.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

@@ -10,15 +10,17 @@ namespace DDDEastAnglia.Domain
         private readonly string shortName;
         private readonly int numberOfTimeSlots;
         private readonly int numberOfTracks;
+        private readonly bool anonymousSessions;
         private readonly Dictionary<CalendarEntryType, CalendarEntry> calendarEntries = new Dictionary<CalendarEntryType, CalendarEntry>();
 
-        public Conference(int id, string name, string shortName, int numberOfTimeSlots = 0, int numberOfTracks = 0)
+        public Conference(int id, string name, string shortName, int numberOfTimeSlots = 0, int numberOfTracks = 0, bool anonymousSessions = false)
         {
             this.id = id;
             this.name = name;
             this.shortName = shortName;
             this.numberOfTimeSlots = numberOfTimeSlots;
             this.numberOfTracks = numberOfTracks;
+            this.anonymousSessions = anonymousSessions;
         }
 
         public int Id
@@ -76,12 +78,12 @@ namespace DDDEastAnglia.Domain
 
         public bool CanShowSessions()
         {
-            return CanShowSpeakers();
+            return CanSubmit() || CanVote() || CanPublishAgenda() || CanRegister();
         }
 
         public bool CanShowSpeakers()
         {
-            return ConferenceTimelineIsActive() && (CanSubmit() || CanVote() || CanPublishAgenda() || CanRegister());
+            return !anonymousSessions && CanShowSessions();
         }
 
         public bool IsPreview()
@@ -102,7 +104,7 @@ namespace DDDEastAnglia.Domain
         public void AddToCalendar(CalendarEntry entry)
         {
             var calendarEntryType = entry.GetEntryType();
-            
+
             if (calendarEntryType != CalendarEntryType.Unknown)
             {
                 calendarEntries[calendarEntryType] = entry;

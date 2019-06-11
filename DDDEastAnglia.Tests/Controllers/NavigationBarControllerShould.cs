@@ -47,6 +47,7 @@ namespace DDDEastAnglia.Tests.Controllers
         [TestCase("Sponsors")]
         [TestCase("Team")]
         [TestCase("Contact")]
+        [TestCase("Code of Conduct")]
         public void IncludeAStandardMenuItemThatIsVisible(string linkText)
         {
             var controller = CreateController();
@@ -68,6 +69,7 @@ namespace DDDEastAnglia.Tests.Controllers
         [TestCase("Sponsors", "Home", "Sponsors")]
         [TestCase("Team", "Home", "Team")]
         [TestCase("Contact", "Home", "Contact")]
+        [TestCase("Code of Conduct", "Home", "CodeOfConduct")]
         [TestCase("Admin", "AdminHome", "Index")]
         public void SetTheLinkThatMatchesTheCurrentOneToActive(string linkText, string controllerName, string actionName)
         {
@@ -86,8 +88,8 @@ namespace DDDEastAnglia.Tests.Controllers
 
             var result = controller.RenderMenu();
 
-            var adminLink = FindLink(result, "Admin");
-            Assert.IsFalse(adminLink.IsVisible);
+            var link = FindLink(result, "Admin");
+            Assert.IsFalse(link.IsVisible);
         }
 
         [Test]
@@ -97,8 +99,8 @@ namespace DDDEastAnglia.Tests.Controllers
 
             var result = controller.RenderMenu();
 
-            var adminLink = FindLink(result, "Admin");
-            Assert.IsTrue(adminLink.IsVisible);
+            var link = FindLink(result, "Admin");
+            Assert.IsTrue(link.IsVisible);
         }
 
         [Test]
@@ -108,8 +110,8 @@ namespace DDDEastAnglia.Tests.Controllers
 
             var result = controller.RenderMenu();
 
-            var registrationLink = FindLink(result, "Register");
-            Assert.IsFalse(registrationLink.IsVisible);
+            var link = FindLink(result, "Register");
+            Assert.IsFalse(link.IsVisible);
         }
 
         [Test]
@@ -119,8 +121,8 @@ namespace DDDEastAnglia.Tests.Controllers
 
             var result = controller.RenderMenu();
 
-            var registrationLink = FindLink(result, "Register");
-            Assert.IsTrue(registrationLink.IsVisible);
+            var link = FindLink(result, "Register");
+            Assert.IsTrue(link.IsVisible);
         }
 
         [Test]
@@ -130,8 +132,8 @@ namespace DDDEastAnglia.Tests.Controllers
 
             var result = controller.RenderMenu();
 
-            var registrationLink = FindLink(result, "Accommodation");
-            Assert.IsFalse(registrationLink.IsVisible);
+            var link = FindLink(result, "Accommodation");
+            Assert.IsFalse(link.IsVisible);
         }
 
         [Test]
@@ -141,8 +143,8 @@ namespace DDDEastAnglia.Tests.Controllers
 
             var result = controller.RenderMenu();
 
-            var registrationLink = FindLink(result, "Accommodation");
-            Assert.IsTrue(registrationLink.IsVisible);
+            var link = FindLink(result, "Accommodation");
+            Assert.IsTrue(link.IsVisible);
         }
 
         [Test]
@@ -152,74 +154,8 @@ namespace DDDEastAnglia.Tests.Controllers
 
             var result = controller.RenderMenu();
 
-            var agendaLink = FindLink(result, "Agenda");
-            Assert.IsFalse(agendaLink.IsVisible);
-        }
-
-        [Test]
-        public void SetTheSpeakersLinkToVisible_WhenTheEventReportsThatSessionVotingIsOpen()
-        {
-            var controller = CreateController(conference => conference.CanVote().Returns(true));
-
-            var result = controller.RenderMenu();
-
-            var agendaLink = FindLink(result, "Speakers");
-            Assert.IsTrue(agendaLink.IsVisible);
-        }
-
-        [Test]
-        public void SetTheSpeakersLinkToVisible_WhenTheEventReportsThatSessionSubmissionIsOpen()
-        {
-            var controller = CreateController(conference => conference.CanSubmit().Returns(true));
-
-            var result = controller.RenderMenu();
-
-            var agendaLink = FindLink(result, "Speakers");
-            Assert.IsTrue(agendaLink.IsVisible);
-        }
-
-        [Test]
-        public void SetTheSpeakersLinkToNotVisible_WhenTheEventReportsThatTheAgendaIsPublished()
-        {
-            var controller = CreateController(conference => conference.CanPublishAgenda().Returns(true));
-
-            var result = controller.RenderMenu();
-
-            var agendaLink = FindLink(result, "Speakers");
-            Assert.IsFalse(agendaLink.IsVisible);
-        }
-
-        [Test]
-        public void SetTheSessionsLinkToVisible_WhenTheEventReportsThatSessionSubmissionIsOpen()
-        {
-            var controller = CreateController(conference => conference.CanSubmit().Returns(true));
-
-            var result = controller.RenderMenu();
-
-            var agendaLink = FindLink(result, "Sessions");
-            Assert.IsTrue(agendaLink.IsVisible);
-        }
-
-        [Test]
-        public void SetTheSessionsLinkToVisible_WhenTheEventReportsThatSessionVotingIsOpen()
-        {
-            var controller = CreateController(conference => conference.CanVote().Returns(true));
-
-            var result = controller.RenderMenu();
-
-            var agendaLink = FindLink(result, "Sessions");
-            Assert.IsTrue(agendaLink.IsVisible);
-        }
-
-        [Test]
-        public void SetTheSessionsLinkToNotVisible_WhenTheEventReportsThatTheAgendaIsPublished()
-        {
-            var controller = CreateController(conference => conference.CanPublishAgenda().Returns(true));
-
-            var result = controller.RenderMenu();
-
-            var agendaLink = FindLink(result, "Sessions");
-            Assert.IsFalse(agendaLink.IsVisible);
+            var link = FindLink(result, "Agenda");
+            Assert.IsFalse(link.IsVisible);
         }
 
         [Test]
@@ -229,8 +165,52 @@ namespace DDDEastAnglia.Tests.Controllers
 
             var result = controller.RenderMenu();
 
-            var agendaLink = FindLink(result, "Agenda");
-            Assert.IsTrue(agendaLink.IsVisible);
+            var link = FindLink(result, "Agenda");
+            Assert.IsTrue(link.IsVisible);
+        }
+
+        [Test]
+        public void SetTheSpeakersLinkToVisible_WhenTheEventReportsThatSpeakersCanBeShown()
+        {
+            var controller = CreateController(conference => conference.CanShowSpeakers().Returns(true));
+
+            var result = controller.RenderMenu();
+
+            var link = FindLink(result, "Speakers");
+            Assert.IsTrue(link.IsVisible);
+        }
+
+        [Test]
+        public void SetTheSpeakersLinkToVisible_WhenTheEventReportsThatSpeakersCannotBeShown()
+        {
+            var controller = CreateController(conference => conference.CanShowSpeakers().Returns(false));
+
+            var result = controller.RenderMenu();
+
+            var link = FindLink(result, "Speakers");
+            Assert.IsFalse(link.IsVisible);
+        }
+
+        [Test]
+        public void SetTheSessionsLinkToVisible_WhenTheEventReportsThatSessionsCanBeShown()
+        {
+            var controller = CreateController(conference => conference.CanShowSessions().Returns(true));
+
+            var result = controller.RenderMenu();
+
+            var link = FindLink(result, "Sessions");
+            Assert.IsTrue(link.IsVisible);
+        }
+
+        [Test]
+        public void SetTheSessionsLinkToNotVisible_WhenTheEventReportsThatSessionsCannotBeShown()
+        {
+            var controller = CreateController(conference => conference.CanShowSessions().Returns(false));
+
+            var result = controller.RenderMenu();
+
+            var link = FindLink(result, "Sessions");
+            Assert.IsFalse(link.IsVisible);
         }
 
         private NavigationMenuLinkViewModel FindLink(ActionResult result, string linkText)
@@ -241,9 +221,9 @@ namespace DDDEastAnglia.Tests.Controllers
             return link;
         }
 
-        private NavigationBarController CreateController(Action<IConference> conferenceSetupCallback = null, 
-                                                            string[] userRoles = null, 
-                                                            string currentControllerName = "some controller", 
+        private NavigationBarController CreateController(Action<IConference> conferenceSetupCallback = null,
+                                                            string[] userRoles = null,
+                                                            string currentControllerName = "some controller",
                                                             string currentActionName = "some action")
         {
             var conference = Substitute.For<IConference>();
@@ -257,7 +237,7 @@ namespace DDDEastAnglia.Tests.Controllers
 
             var conferenceLoader = Substitute.For<IConferenceLoader>();
             conferenceLoader.LoadConference().Returns(conference);
-            
+
             var routeData = new RouteData();
             routeData.Values.Add("controller", currentControllerName);
             routeData.Values.Add("action", currentActionName);

@@ -1,14 +1,15 @@
 using System;
 using System.Web;
-using DDDEastAnglia.App_Start;
+using DDDEastAnglia.DataAccess;
+using DDDEastAnglia.Helpers.Sessions;
 using DDDEastAnglia.VotingData;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using Ninject;
+using Ninject.Activation;
 using Ninject.Web.Common;
-using WebActivatorEx;
 
-[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
-[assembly: ApplicationShutdownMethod(typeof(NinjectWebCommon), "Stop")]
+[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(DDDEastAnglia.App_Start.NinjectWebCommon), "Start")]
+[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(DDDEastAnglia.App_Start.NinjectWebCommon), "Stop")]
 
 namespace DDDEastAnglia.App_Start
 {
@@ -35,6 +36,7 @@ namespace DDDEastAnglia.App_Start
             kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
             kernel.Bind<IDateTimeOffsetProvider>().To<LocalDateTimeOffsetProvider>();
             kernel.Bind<IDataProvider>().To<DataProvider>();
+            kernel.Bind<ISessionLoader>().ToMethod(CreateSessionLoader);
 
             RegisterServices(kernel);
             return kernel;
@@ -44,5 +46,15 @@ namespace DDDEastAnglia.App_Start
         {
             kernel.Load(typeof(NinjectWebCommon).Assembly);
         }
+
+        private static ISessionLoader CreateSessionLoader(IContext context)
+        {
+            var conferenceLoader = context.Kernel.Get<IConferenceLoader>();
+            var conference = conferenceLoader.LoadConference();
+
+            var sessionRepository = context.Kernel.Get<ISessionRepository>();
+
+            var factory = new SessionLoaderFactory(sessionRepository);
+            return factory.Create(conference);        }
     }
 }

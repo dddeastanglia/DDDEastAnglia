@@ -1,4 +1,4 @@
-﻿@model DDDEastAnglia.Models.RegisterModel
+﻿@model DDDEastAnglia.Models.RegisteredModel
 @{
     ViewBag.Title = "Register";
 }
@@ -7,7 +7,10 @@
 
 <p>You have successfully created an account. Please take some time to @Html.ActionLink("update your profile", "Edit", "Profile").</p>
 
-<p>You can now @Html.ActionLink("submit a session", "Create", "Session", null, new { @class = "submit-session" }).</p>
+@if (Model.CanSubmitSessions)
+{
+    <p>You can now @Html.ActionLink("submit a session", "Create", "Session", null, new { @class = "submit-session" }).</p>
+}
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

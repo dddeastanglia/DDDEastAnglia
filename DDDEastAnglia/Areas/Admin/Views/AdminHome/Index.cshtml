@@ -9,10 +9,9 @@
 <ul>
     <li>@Html.ActionLink("Sponsors", "Index", "Sponsor")</li>
     <li>@Html.ActionLink("Users", "Index", "User")</li>
-    <li>@Html.ActionLink("Roles", "Index", "Role")</li>
     <li>@Html.ActionLink("Speakers", "Index", "Speaker")</li>
     <li>@Html.ActionLink("Sessions", "Index", "Session")</li>
-    
+
     @if (Model.ShowVotingStatsLink)
     {
         <li>@Html.ActionLink("Voting", "Index", "Voting")</li>

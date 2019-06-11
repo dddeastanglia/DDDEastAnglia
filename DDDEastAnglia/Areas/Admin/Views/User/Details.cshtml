@@ -8,8 +8,6 @@
 
 <section class="group-box user-details">
     <p><i class="icon-user"></i> @Model.UserName</p>
-    
-    <p>Logins @Html.Partial("_LoginMethods", Model.LoginMethods)</p>
 
     @if (!string.IsNullOrWhiteSpace(@Model.EmailAddress))
     {
@@ -30,9 +28,9 @@
     {
         <p><i class="icon-phone"></i> @Model.MobilePhone</p>
     }
-    
+
     <p>New Speaker <i class="@(Model.NewSpeaker ? "icon-ok" : "icon-remove")"></i></p>
-    
+
     @if (Model.JoinedAt.HasValue)
     {
         <p>Joined on: @Model.JoinedAt.Value.ToString("f")</p>
@@ -47,7 +45,7 @@
 }
 
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.UserId }) 
+    @Html.ActionLink("Edit", "Edit", new { id = Model.UserId })
     |
     @Html.ActionLink("Delete", "Delete", new { id = Model.UserId })
     |

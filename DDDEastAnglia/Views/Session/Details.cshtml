@@ -6,31 +6,27 @@
 
 <h2>@Html.DisplayFor(model => model.SessionTitle)</h2>
 
-<div>
-    @if (Model.SpeakerGravatarUrl != null)
-    {
-        <img src="@Model.SpeakerGravatarUrl" alt="@Model.SpeakerName"  />
-    }
-    <a href="@Url.Action("Details", "Speaker", new { id = Model.SpeakerId })">@(string.IsNullOrWhiteSpace(Model.SpeakerName) ? Model.SpeakerUserName : Model.SpeakerName)</a>
-</div>
-
-<div class="tweet-session">
-    @if (User.Identity.Name == Model.SpeakerUserName)
-    {
-        @Html.TweetButton("Check out my session for #dddea - " + Model.SessionTitle, Request.Url)
-    }
-    else
-    {
-        @Html.TweetButton("Check out this session for #dddea - " + Model.SessionTitle, Request.Url)
-    }
-
-</div>
+@if (Model.ShowSpeaker)
+{
+    <div>
+        @foreach (var speaker in Model.Speakers)
+        {
+            <span class="speaker-profile">
+                @if (speaker.SpeakerGravatarUrl != null)
+                {
+                    <img src="@speaker.SpeakerGravatarUrl" alt="@speaker.SpeakerName"/>
+                }
+                <a href="@Url.Action("Details", "Speaker", new { id = speaker.SpeakerId })">@(string.IsNullOrWhiteSpace(speaker.SpeakerName) ? speaker.SpeakerUserName : speaker.SpeakerName)</a>
+            </span>
+        }
+    </div>
+}
 
 <div class="abstract">
     @Html.MarkdownFor(model => model.SessionAbstract)
 </div>
 
-@if (User.Identity.Name == Model.SpeakerUserName)
+@if (User.Identity.Name == Model.Speakers.First().SpeakerUserName)
 {
     <p>
         @Html.ActionLink("Edit", "Edit", new { id = Model.SessionId })

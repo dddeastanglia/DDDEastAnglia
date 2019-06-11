@@ -9,7 +9,7 @@ namespace DDDEastAnglia.Helpers.Sessions
         IUserProfileFilter Create(IConference conference);
     }
 
-    public class UserProfileFilterFactory : IUserProfileFilterFactory
+    public sealed class UserProfileFilterFactory : IUserProfileFilterFactory
     {
         private readonly ISessionRepository sessionRepository;
 
@@ -17,9 +17,9 @@ namespace DDDEastAnglia.Helpers.Sessions
         {
             if (sessionRepository == null)
             {
-                throw new ArgumentNullException("sessionRepository");
+                throw new ArgumentNullException(nameof(sessionRepository));
             }
-            
+
             this.sessionRepository = sessionRepository;
         }
 
@@ -29,7 +29,7 @@ namespace DDDEastAnglia.Helpers.Sessions
 
             if (conference.CanPublishAgenda())
             {
-                userProfileFilter = new SelectedSpeakerProfileFilter();
+                userProfileFilter = new SelectedSpeakerProfileFilter(SelectedSessions.SpeakerIds);
             }
             else
             {

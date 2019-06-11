@@ -69,6 +69,8 @@ footer span {
     overflow: hidden;
     padding: 15px;
     margin-bottom: 10px;
+    display: inline-block;
+    width: 350px;
 }
 
 .teammember img {
@@ -86,11 +88,6 @@ footer span {
     padding-bottom: 10px;
 }
 
-.tweet-session {
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
 .inline-large-icon {
     display: inline-block;
     width: 20px;
@@ -104,7 +101,7 @@ footer span {
 
 .validation-summary-errors {
     background-color: #f2dede;
-    border-color: #eed3d7;    
+    border-color: #eed3d7;
     padding: 8px 14px;
     margin-bottom: 20px;
     text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
@@ -159,8 +156,7 @@ footer span {
     border-bottom: 0;
 }
 
-#delete-session .session-actions,
-#delete-session .session-tweet {
+#delete-session .session-actions {
     display: none;
 }
 
@@ -231,7 +227,7 @@ footer span {
 .hotel-details.primary-hotel {
     border-color: #008600;
 }
- 
+
 .hotel-details table {
     width: auto;
 }
@@ -258,4 +254,8 @@ footer span {
 .passedTimelinePeriod {
     text-decoration: line-through;
     color: #a9a9a9;
+}
+
+.speaker-profile {
+    margin-right: 10px;
 }

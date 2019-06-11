@@ -9,7 +9,7 @@ namespace DDDEastAnglia.Helpers.Sessions
         ISessionLoader Create(IConference conference);
     }
 
-    public class SessionLoaderFactory : ISessionLoaderFactory
+    public sealed class SessionLoaderFactory : ISessionLoaderFactory
     {
         private readonly ISessionRepository sessionRepository;
 
@@ -17,9 +17,9 @@ namespace DDDEastAnglia.Helpers.Sessions
         {
             if (sessionRepository == null)
             {
-                throw new ArgumentNullException("sessionRepository");
+                throw new ArgumentNullException(nameof(sessionRepository));
             }
-            
+
             this.sessionRepository = sessionRepository;
         }
 
@@ -29,7 +29,7 @@ namespace DDDEastAnglia.Helpers.Sessions
 
             if (conference.CanPublishAgenda())
             {
-                sessionLoader = new SelectedSessionsLoader(sessionRepository);
+                sessionLoader = new SelectedSessionsLoader(sessionRepository, SelectedSessions.SessionIds);
             }
             else
             {
