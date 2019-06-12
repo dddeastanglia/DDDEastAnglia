@@ -1,6 +1,12 @@
 ﻿body {
-    padding-top: 0;
+    padding-top: 30px;
     padding-bottom: 40px;
+    font-family: Avenir, Calibri, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    letter-spacing: .06em;
+}
+
+h1, h2, h3, h4{
+    letter-spacing: .1em;
 }
 
 dd {
