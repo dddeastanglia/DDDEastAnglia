@@ -2,6 +2,10 @@ footer span {
     white-space: nowrap;
 }
 
+.container-fluid{
+    padding: 0 50px;
+}
+
 .dropdown-menu a, a.carousel-control { text-decoration: none; }
 
 .carousel-caption a { color: white; }
@@ -11,25 +15,49 @@ footer span {
 .sidebar-nav { padding: 9px 0; }
 
 .masthead {
-    margin: 10px 20px;
+    margin: 10px 0 0 0;
     min-height: 115px;
 }
 
 .masthead h2 {
     padding-top: 10px;
+    color: #6d7175;
 }
 
-.masthead img { margin-right: 10px; }
+.masthead img { 
+    margin-bottom: 40px; 
+    float: right;
+}
 
-.navbar { margin-bottom: 10px; }
-
+.navbar { margin-bottom: 20px; }
+.navbar-static-top .navbar-inner{
+    box-shadow: initial;
+}
+.navbar-inner {
+    background: none;
+    border: none;
+    padding: 0;
+}
 .btn.btn-navbar {
     float: left;
     margin-left: 0;
 }
 
 .navbar .nav > li > a {
-    text-shadow: 0 1px 0 #666666;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #6d7175;
+    text-shadow: initial;
+    padding: .9em 1.6em;
+}
+
+.navbar .nav > .active > a {
+    background-image: linear-gradient(to top right, #C54669, #574293);
+}
+
+.navbar .nav > li > a:hover {
+    color: #fff;
+    background: #6d7175;
 }
 
 .dddea {
@@ -37,10 +65,46 @@ footer span {
     color: #013c01;
 }
 
-#sidebar { max-width: 250px; }
+#sidebar{
+    margin: 20px 0 20px 20px;
+    background: #6d7175;
 
-#sidebar h1 { font-size: 18px; }
+}
+#sidebar section+section{
+    margin-top: 20px;
+}
+#sidebar .well{
+    background: none;
+    border: none;
+}
+#sidebar .well, #sidebar a { color: #fff}
+#sidebar h1 { 
+    font-size: 18px;
+    line-height: 30px;
+    margin: 0;
+    color: #483286; /*#C54669, #574293*/
+}
 #sidebar h1:first-of-type { margin-top: 0; }
+#sidebar ul, #sidebar dt  {
+    margin-left: 10px;
+}
+#sidebar dl {
+    margin: 0;
+}
+#sidebar dt {
+    margin-top: 10px;
+}
+#sidebar dt:first-of-type{
+    margin-top: 0;
+}
+#sidebar dd {
+    margin-left: 10%;
+    font-size: .8em;
+    line-height: .8em;
+}
+#sidebar ul{
+    list-style-type: none;
+}
 
 .sponsor { margin-bottom: 20px; }
 

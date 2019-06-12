@@ -1,5 +1,5 @@
 ﻿@model DDDEastAnglia.Models.TimelineItemModel
 
-<dt class="@(Model.PeriodPassed ? "passedTimelinePeriod" : "")"><strong>@Model.PeriodDate:</strong></dt>
-<dd class="@(Model.PeriodPassed ? "passedTimelinePeriod" : "")">@ViewData["Label"]</dd>
+<dt class="@(Model.PeriodPassed ? "passedTimelinePeriod" : "")">@ViewData["Label"]</dt>
+<dd class="@(Model.PeriodPassed ? "passedTimelinePeriod" : "")">@Model.PeriodDate</dd>
 
