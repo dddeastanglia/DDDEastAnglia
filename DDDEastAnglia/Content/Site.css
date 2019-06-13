@@ -8,11 +8,35 @@ footer span {
 
 .dropdown-menu a, a.carousel-control { text-decoration: none; }
 
-.carousel-caption a { color: white; }
+.carousel-caption {
+    border-top: 3px solid #fff;
+    color: #fff;
+    background: #6d7175;
+    text-align: right;
+}
 
 #photos { max-width: 850px; }
 
 .sidebar-nav { padding: 9px 0; }
+
+h1, h2, h3, h4{
+    color: #6d7175;
+    text-transform: uppercase;
+}
+
+a {
+    color: #574293;
+}
+
+p{
+    margin-block-start: 1.5em;
+    margin-block-end: 1.5em;
+}
+
+hr{
+    border-top: 3px solid #6d7175;
+    border-bottom: 1px solid #ffffff;
+}
 
 .masthead {
     margin: 10px 0 0 0;
@@ -21,7 +45,6 @@ footer span {
 
 .masthead h2 {
     padding-top: 10px;
-    color: #6d7175;
 }
 
 .masthead img { 
@@ -29,7 +52,7 @@ footer span {
     float: right;
 }
 
-.navbar { margin-bottom: 20px; }
+.navbar { margin-bottom: 40px; }
 .navbar-static-top .navbar-inner{
     box-shadow: initial;
 }
@@ -38,10 +61,7 @@ footer span {
     border: none;
     padding: 0;
 }
-.btn.btn-navbar {
-    float: left;
-    margin-left: 0;
-}
+
 
 .navbar .nav > li > a {
     font-size: 1.2em;
@@ -51,7 +71,7 @@ footer span {
     padding: .9em 1.6em;
 }
 
-.navbar .nav > .active > a {
+.navbar .nav > .active > a, .navbar .nav > .active > a:hover, .navbar .nav > .active > a:focus {
     background-image: linear-gradient(to top right, #C54669, #574293);
 }
 
@@ -60,36 +80,55 @@ footer span {
     background: #6d7175;
 }
 
-.dddea {
-    font-weight: bold;
-    color: #013c01;
+.navbar .btn-navbar, .btn, .btn-group .btn, .btn-group .btn:first-child, .btn-group .btn:last-child{
+    background-image: linear-gradient(to top right, #C54669, #574293);
+    border-radius: initial;
+    border: none;
+    color: #fff;
+    padding: .9em 1.6em;
+}
+
+.navbar .btn-navbar:hover, .btn:hover {
+    background: #6d7175;
+}
+
+.btn .caret{
+    color: #fff;
+    border-top-color: #fff;
 }
 
 #sidebar{
-    margin: 20px 0 20px 20px;
-    background: #6d7175;
+    margin: 60px 0 20px 30px;
 
 }
 #sidebar section+section{
     margin-top: 20px;
 }
+
 #sidebar .well{
-    background: none;
-    border: none;
+    margin-left: 20px;
 }
+
+#sidebar .well, .alert-info{
+    background: #6d7175;
+    border: none;
+    border-radius: initial;
+    color: #fff;
+}
+
 #sidebar .well, #sidebar a { color: #fff}
 #sidebar h1 { 
     font-size: 18px;
     line-height: 30px;
     margin: 0;
-    color: #483286; /*#C54669, #574293*/
+    color: #483286;
 }
 #sidebar h1:first-of-type { margin-top: 0; }
 #sidebar ul, #sidebar dt  {
     margin-left: 10px;
 }
 #sidebar dl {
-    margin: 0;
+    margin: 0 0 20px 0;
 }
 #sidebar dt {
     margin-top: 10px;
