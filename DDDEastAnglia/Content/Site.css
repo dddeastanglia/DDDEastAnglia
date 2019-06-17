@@ -39,7 +39,7 @@ hr{
 }
 
 .masthead {
-    margin: 10px 0 0 0;
+    margin: 40px 0 0 0;
     min-height: 115px;
 }
 
@@ -52,7 +52,10 @@ hr{
     float: right;
 }
 
-.navbar { margin-bottom: 40px; }
+.navbar { 
+    margin-bottom: 40px; 
+    background: #e8e5f0;
+}
 .navbar-static-top .navbar-inner{
     box-shadow: initial;
 }
@@ -75,7 +78,7 @@ hr{
     background-image: linear-gradient(to top right, #C54669, #574293);
 }
 
-.navbar .nav > li > a:hover {
+.navbar .nav > li > a:hover, .navbar .nav > li > a:focus {
     color: #fff;
     background: #6d7175;
 }
@@ -88,7 +91,7 @@ hr{
     padding: .9em 1.6em;
 }
 
-.navbar .btn-navbar:hover, .btn:hover {
+.navbar .btn-navbar:hover, .navbar .btn-navbar:focus, .btn:hover, .btn:focus {
     background: #6d7175;
 }
 
@@ -121,8 +124,10 @@ hr{
     font-size: 18px;
     line-height: 30px;
     margin: 0;
-    color: #483286;
+    color: #2f1a6b;
+    text-shadow: 0 1px 0 #7f483286;
 }
+
 #sidebar h1:first-of-type { margin-top: 0; }
 #sidebar ul, #sidebar dt  {
     margin-left: 10px;
@@ -138,8 +143,8 @@ hr{
 }
 #sidebar dd {
     margin-left: 10%;
-    font-size: .8em;
-    line-height: .8em;
+    font-size: .9em;
+    line-height: .9em;
 }
 #sidebar ul{
     list-style-type: none;
@@ -269,7 +274,7 @@ hr{
 
 #notifications-banner {
     color: white;
-    background-color: #008600;
+    background-color: #574293;
     text-shadow: 0 1px 1px black;
     padding: 10px 20px 10px 20px;
     margin: 0;
@@ -277,6 +282,9 @@ hr{
     border-bottom: 1px solid #777777;
 }
 
+    /*
+    C54669, #574293
+   */
 #notifications-banner p {
     margin: 0;
 }
@@ -361,4 +369,8 @@ hr{
 
 .speaker-profile {
     margin-right: 10px;
+}
+
+.alert{
+    text-shadow: none;
 }

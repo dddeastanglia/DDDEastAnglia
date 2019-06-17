@@ -1,5 +1,4 @@
 ﻿body {
-    padding-top: 30px;
     padding-bottom: 40px;
     font-family: Avenir, Calibri, "Helvetica Neue", Helvetica, Arial, sans-serif;
     letter-spacing: .06em;
@@ -57,12 +56,24 @@ fieldset {
     margin-bottom: 0;
 }
 
+.dropdown-menu > li > a, .dropdown-menu > li > form {
+    padding: 3px 20px;
+}
+
 .dropdown-menu > li > a:hover,
-.dropdown-menu > li > a:focus {
-    text-decoration: none;
-    color: #ffffff;
+.dropdown-menu > li > a:focus,
+.dropdown-menu > li > form:hover,
+.dropdown-menu > li > form:focus{
     background-image: linear-gradient(to top right, #C54669, #574293);
     background-repeat: repeat-x;
+}
+
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus,
+.dropdown-menu > li > form:hover > a,
+.dropdown-menu > li > form:focus > a{
+    text-decoration: none;
+    color: #ffffff;
 }
 
 .group-box {
