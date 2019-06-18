@@ -1,6 +1,11 @@
 ﻿body {
-    padding-top: 0;
     padding-bottom: 40px;
+    font-family: Avenir, Calibri, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    letter-spacing: .06em;
+}
+
+h1, h2, h3, h4{
+    letter-spacing: .1em;
 }
 
 dd {
@@ -51,28 +56,24 @@ fieldset {
     margin-bottom: 0;
 }
 
-.dropdown-menu > li > form > a {
-    display: block;
+.dropdown-menu > li > a, .dropdown-menu > li > form {
     padding: 3px 20px;
-    clear: both;
-    font-weight: normal;
-    line-height: 20px;
-    color: #333333;
-    white-space: nowrap;
 }
 
-.dropdown-menu > li > form > a:hover,
-.dropdown-menu > li > form > a:focus {
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus,
+.dropdown-menu > li > form:hover,
+.dropdown-menu > li > form:focus{
+    background-image: linear-gradient(to top right, #C54669, #574293);
+    background-repeat: repeat-x;
+}
+
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus,
+.dropdown-menu > li > form:hover > a,
+.dropdown-menu > li > form:focus > a{
     text-decoration: none;
     color: #ffffff;
-    background-color: #013201;
-    background-image: -moz-linear-gradient(top, #013c01, #012301);
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#013c01), to(#012301));
-    background-image: -webkit-linear-gradient(top, #013c01, #012301);
-    background-image: -o-linear-gradient(top, #013c01, #012301);
-    background-image: linear-gradient(to bottom, #013c01, #012301);
-    background-repeat: repeat-x;
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff013c01', endColorstr='#ff012301', GradientType=0);
 }
 
 .group-box {
