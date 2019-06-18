@@ -252,6 +252,7 @@
     <Content Include="emails\SpeakerEmail.html" />
     <Content Include="Images\carousel\8.jpg" />
     <Content Include="Images\carousel\9.jpg" />
+    <Content Include="Images\DDDLogo.png" />
     <Content Include="Images\googleplaystore.gif" />
     <Content Include="Images\hotels\doubletree-hilton.jpg" />
     <Content Include="Images\hotels\hotel-ibis-cambridge-central-station.jpg" />
@@ -529,7 +530,7 @@
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tooltip.min.css" />
-    <Content Include="favicon.ico" />
+    <Content Include="favicon.png" />
     <Content Include="Global.asax" />
     <Content Include="Images\team\adrianbanks.jpg" />
     <Content Include="Images\logo-small.png" />
