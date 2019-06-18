@@ -10,11 +10,13 @@
         <div class="row-fluid">
             <div class="masthead">
                 <a href="@Url.Action("Index", "Home")"><img src="@Url.Content("~/Images/DDDLogo.png")" alt="Developer! Developer! Developer! East Anglia" /></a>
-                <h2>DDD East Anglia</h2>
-                <p>
-                    @Html.Action("ConferenceDate", "Timeline")<br />
-                    Cambridge, UK
-                </p>
+                <div id="event-details">
+                    <h2 class="hidden-phone">DDD East Anglia</h2>
+                    <p>
+                        @Html.Action("ConferenceDate", "Timeline")<br />
+                        Cambridge, UK
+                    </p>
+                </div>
             </div>
         </div>
     </div>
@@ -34,34 +36,32 @@
         </div>
     </div>
     <div class="container-fluid">
-        <div class="row-fluid">
-            <div class="span8">
+        <div class="row-fluid" id="content-area">
+            <div id="page-body">
                 @RenderSection("featured", required: false)
                 <div class="row-fluid">
                     @RenderBody()
                 </div>
             </div><!--/span9-->
-            <div class="span4" id="sidebar">
-                <div class="well">
-                    <section class="row-fluid">
-                        <h1>When and Where?</h1>
-                        <ul>
-                            <li>@Html.Action("ConferenceDate", "Timeline")</li>
-                            <li>@Html.Action("ConferenceTime", "Timeline")</li> 
-                        </ul>
-                        <ul>
-                            <li>@Html.ActionLink("Hills Road Sixth Form College", "Venue", "Home")</li>
-                            <li>Hills Road</li>
-                            <li>Cambridge</li>
-                            <li>CB2 8PE</li>
-                        </ul>
-                    </section>
+            <div id="page-sidebar">
+                <section class="row-fluid">
+                    <h1>When and Where?</h1>
+                    <ul>
+                        <li>@Html.Action("ConferenceDate", "Timeline")</li>
+                        <li>@Html.Action("ConferenceTime", "Timeline")</li> 
+                    </ul>
+                    <ul>
+                        <li>@Html.ActionLink("Hills Road Sixth Form College", "Venue", "Home")</li>
+                        <li>Hills Road</li>
+                        <li>Cambridge</li>
+                        <li>CB2 8PE</li>
+                    </ul>
+                </section>
 
-                    @Html.Action("Details", "Timeline")
-                    @{
-                        Html.RenderAction("Sidebar", "Sponsor");
-                    }
-                </div>
+                @Html.Action("Details", "Timeline")
+                @{
+                    Html.RenderAction("Sidebar", "Sponsor");
+                }
             </div>
         </div>
 

@@ -23,7 +23,7 @@ namespace DDDEastAnglia.DatabaseMigrations
         public void MigrateToLatestSchema()
         {
             var todaysDate = DateTime.Today.ToString("yyyyMMdd");
-            var todaysSchemaVersion = long.Parse(todaysDate);
+            var todaysSchemaVersion = long.Parse(DateTime.Today.ToString("yyyyMMdd"));
             MigrateTo(todaysSchemaVersion);
         }
 
