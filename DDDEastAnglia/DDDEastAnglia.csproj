@@ -530,7 +530,7 @@
     <Content Include="favicon.png" />
     <Content Include="Global.asax" />
     <Content Include="Images\team\adrianbanks.jpg" />
-    <Content Include="Images\logo-small.png" />
+    <Content Include="Images\logo.png" />
     <Content Include="Images\wmd-buttons.png" />
     <Content Include="Areas\Admin\Views\Web.config" />
     <Content Include="Areas\Admin\Views\AdminHome\Index.cshtml" />
