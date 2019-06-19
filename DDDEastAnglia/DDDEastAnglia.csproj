@@ -252,7 +252,6 @@
     <Content Include="emails\SpeakerEmail.html" />
     <Content Include="Images\carousel\8.jpg" />
     <Content Include="Images\carousel\9.jpg" />
-    <Content Include="Images\DDDLogo.png" />
     <Content Include="Images\hotels\doubletree-hilton.jpg" />
     <Content Include="Images\hotels\hotel-ibis-cambridge-central-station.jpg" />
     <Content Include="Images\hotels\premierinn-a14-j32.jpg" />
