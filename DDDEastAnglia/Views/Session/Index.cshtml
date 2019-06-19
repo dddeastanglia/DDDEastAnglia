@@ -12,6 +12,10 @@
 @if (Model.IsOpenForSubmission)
 {
     <p>Session submission is now open. If you would like to speak at @Html.DDDEastAnglia(), please @Html.ActionLink("submit a session", "Create", "Session", null, new { @class = "submit-session" }).</p>
+
+    @Html.Partial("_SpeakerGuidance")
+
+    <p>The sessions that have currently been submitted are listed below.</p>
 }
 
 @if (Model.IsOpenForVoting)

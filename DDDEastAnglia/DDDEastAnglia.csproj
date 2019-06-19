@@ -594,6 +594,7 @@
     <Content Include="Views\Home\Preview.cshtml">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="Views\Session\_SpeakerGuidance.cshtml" />
     <Content Include="Views\Shared\_Footer.cshtml">
       <SubType>Code</SubType>
     </Content>
