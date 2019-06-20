@@ -252,8 +252,6 @@
     <Content Include="emails\SpeakerEmail.html" />
     <Content Include="Images\carousel\8.jpg" />
     <Content Include="Images\carousel\9.jpg" />
-    <Content Include="Images\DDDLogo.png" />
-    <Content Include="Images\googleplaystore.gif" />
     <Content Include="Images\hotels\doubletree-hilton.jpg" />
     <Content Include="Images\hotels\hotel-ibis-cambridge-central-station.jpg" />
     <Content Include="Images\hotels\premierinn-a14-j32.jpg" />
@@ -265,7 +263,6 @@
     <Content Include="Images\hotels\travelodge-orchard-park.jpg" />
     <Content Include="Images\hotels\university-arms.jpg" />
     <Content Include="Images\hotels\varsity.jpg" />
-    <Content Include="Images\itunesappstore.gif" />
     <Content Include="Images\sponsors\bybox.png" />
     <Content Include="Images\sponsors\endjin.png" />
     <Content Include="Images\sponsors\ndc-london.png" />
@@ -533,7 +530,7 @@
     <Content Include="favicon.png" />
     <Content Include="Global.asax" />
     <Content Include="Images\team\adrianbanks.jpg" />
-    <Content Include="Images\logo-small.png" />
+    <Content Include="Images\logo.png" />
     <Content Include="Images\wmd-buttons.png" />
     <Content Include="Areas\Admin\Views\Web.config" />
     <Content Include="Areas\Admin\Views\AdminHome\Index.cshtml" />
@@ -597,6 +594,7 @@
     <Content Include="Views\Home\Preview.cshtml">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="Views\Session\_SpeakerGuidance.cshtml" />
     <Content Include="Views\Shared\_Footer.cshtml">
       <SubType>Code</SubType>
     </Content>
