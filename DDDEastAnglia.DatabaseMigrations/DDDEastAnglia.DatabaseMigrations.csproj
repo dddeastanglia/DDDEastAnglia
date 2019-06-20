@@ -42,6 +42,7 @@
     <Compile Include="Migrations\3-AddSponsorsTable.cs" />
     <Compile Include="Migrations\4-AddAnonymousSessionsSetting.cs" />
     <Compile Include="Migrations\5-RemoveExternalLogins.cs" />
+    <Compile Include="Migrations\6-AddSessionDuration.cs" />
     <Compile Include="Migrator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

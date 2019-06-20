@@ -33,6 +33,16 @@
     </div>
     <div id="wmd-preview"></div>
 
+    <div class="editor-label">
+        @Html.LabelFor(model => model.DurationInMinutes)
+    </div>
+    <div class="editor-field">
+        @Html.RadioButtonFor(model => model.DurationInMinutes, 30) half an hour
+    </div>
+    <div class="editor-field">
+        @Html.RadioButtonFor(model => model.DurationInMinutes, 60) a full hour
+    </div>
+
     <div>
         @Html.HiddenFor(m => Model.SubmittedAt)
         <input type="submit" class="btn btn-primary" value="Save changes"/>

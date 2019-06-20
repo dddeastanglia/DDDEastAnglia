@@ -100,7 +100,7 @@ namespace DDDEastAnglia.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View(new Session {SpeakerUserName = userProfile.UserName, ConferenceId = conference.Id});
+            return View(new Session {SpeakerUserName = userProfile.UserName, ConferenceId = conference.Id, DurationInMinutes = 60});
         }
 
         [HttpPost]
