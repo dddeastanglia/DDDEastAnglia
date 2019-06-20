@@ -24,5 +24,8 @@ namespace DDDEastAnglia.Models
         public int ConferenceId { get; set; }
 
         public DateTimeOffset? SubmittedAt { get; set; }
+        
+        [Display(Name = "how long will your session last?")]
+        public int DurationInMinutes { get; set; }
     }
 }
