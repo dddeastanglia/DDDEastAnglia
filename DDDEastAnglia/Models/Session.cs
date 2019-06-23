@@ -11,7 +11,7 @@ namespace DDDEastAnglia.Models
         [Required]
         [Display(Name = "title")]
         public string Title { get; set; }
-        
+
         [Required]
         [Display(Name = "abstract")]
         public string Abstract { get; set; }
@@ -24,8 +24,8 @@ namespace DDDEastAnglia.Models
         public int ConferenceId { get; set; }
 
         public DateTimeOffset? SubmittedAt { get; set; }
-        
-        [Display(Name = "how long will your session last?")]
+
+        [Display(Name = "how long is your session?")]
         public int DurationInMinutes { get; set; }
     }
 }
