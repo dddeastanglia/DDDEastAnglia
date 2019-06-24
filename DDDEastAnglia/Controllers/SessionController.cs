@@ -40,11 +40,12 @@ namespace DDDEastAnglia.Controllers
             var sessions = sessionRepository.GetAllSessions();
 
             var allSessions = new List<SessionDisplayModel>();
+            var showSpeaker = conference.CanShowSpeakers();
 
             foreach (var session in sessions)
             {
                 var profile = speakersLookup[session.SpeakerUserName];
-                var displayModel = CreateDisplayModel(session, profile);
+                var displayModel = CreateDisplayModel(session, profile, showSpeaker);
                 allSessions.Add(displayModel);
             }
 
@@ -69,26 +70,11 @@ namespace DDDEastAnglia.Controllers
             }
 
             var userProfile = userProfileRepository.GetUserProfileByUserName(session.SpeakerUserName);
-            var displayModel = CreateDisplayModel(session, userProfile);
 
-            if (session.SessionId == 2174)
-            {
-                var additionalProfile = userProfileRepository.GetUserProfileById(8823);
+            var conference = conferenceLoader.LoadConference();
+            var showSpeaker = conference.CanShowSpeakers();
 
-                var additionalSpeaker = new SessionSpeakerModel
-                {
-                    SpeakerId = additionalProfile.UserId,
-                    SpeakerName = additionalProfile.Name,
-                    SpeakerUserName = additionalProfile.UserName,
-                    SpeakerGravatarUrl = additionalProfile.GravatarUrl(),
-                };
-                displayModel.Speakers.Add(additionalSpeaker);
-
-                if (Request.IsAuthenticated && User.Identity.Name == additionalProfile.UserName)
-                {
-                    displayModel.IsUsersSession = true;
-                }
-            }
+            var displayModel = CreateDisplayModel(session, userProfile, showSpeaker);
 
             return View(displayModel);
         }
@@ -114,7 +100,7 @@ namespace DDDEastAnglia.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View(new Session {SpeakerUserName = userProfile.UserName, ConferenceId = conference.Id});
+            return View(new Session {SpeakerUserName = userProfile.UserName, ConferenceId = conference.Id, DurationInMinutes = 60});
         }
 
         [HttpPost]
@@ -178,7 +164,7 @@ namespace DDDEastAnglia.Controllers
         [UserNameFilter("userName")]
         public ActionResult Delete(string userName, int id = 0)
         {
-            Session session = sessionRepository.Get(id);
+            var session = sessionRepository.Get(id);
 
             if (session == null)
             {
@@ -190,8 +176,11 @@ namespace DDDEastAnglia.Controllers
                 return new HttpUnauthorizedResult();
             }
 
+            var conference = conferenceLoader.LoadConference();
+            var showSpeaker = conference.CanShowSpeakers();
+
             var userProfile = userProfileRepository.GetUserProfileByUserName(session.SpeakerUserName);
-            var displayModel = CreateDisplayModel(session, userProfile);
+            var displayModel = CreateDisplayModel(session, userProfile, showSpeaker);
             return View(displayModel);
         }
 
@@ -211,12 +200,9 @@ namespace DDDEastAnglia.Controllers
             return RedirectToAction("Index");
         }
 
-        private SessionDisplayModel CreateDisplayModel(Session session, UserProfile profile)
+        private SessionDisplayModel CreateDisplayModel(Session session, UserProfile profile, bool showSpeaker)
         {
             var isUsersSession = Request.IsAuthenticated && session.SpeakerUserName == User.Identity.Name;
-            var tweetLink = CreateTweetLink(isUsersSession, session.Title,
-                                            Url.Action("Details", "Session", new {id = session.SessionId},
-                                                       Request.Url.Scheme));
 
             var displayModel = new SessionDisplayModel
                 {
@@ -235,23 +221,10 @@ namespace DDDEastAnglia.Controllers
                         }
                     },
 
-                    TweetLink = tweetLink,
-                    IsUsersSession = isUsersSession
+                    IsUsersSession = isUsersSession,
+                    ShowSpeaker = showSpeaker
                 };
             return displayModel;
-        }
-
-        private SessionTweetLink CreateTweetLink(bool isUsersSession, string sessionTitle, string sessionUrl)
-        {
-            var title = string.Format("Check out {0} session for #dddea - {1} {2}",
-                                      isUsersSession ? "my" : "this",
-                                      sessionTitle, sessionUrl);
-            var tweetLink = new SessionTweetLink
-                {
-                    Title = title,
-                    Url = sessionUrl
-                };
-            return tweetLink;
         }
 
         private bool UserDoesNotOwnSession(string userName, Session session)

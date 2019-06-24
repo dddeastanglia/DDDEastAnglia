@@ -16,5 +16,7 @@ namespace DDDEastAnglia.DataAccess.SimpleData.Models
         public int NumberOfTimeSlots { get; set; }
 
         public List<CalendarItem> CalendarItems { get; set; }
+
+        public bool AnonymousSessions { get; set; }
     }
 }

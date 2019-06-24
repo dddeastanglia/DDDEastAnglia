@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using DDDEastAnglia.DataAccess;
@@ -39,13 +39,11 @@ namespace DDDEastAnglia.Controllers
         public ActionResult RenderMenu()
         {
             var conference = conferenceLoader.LoadConference();
-            bool showLinksForSubmittedSessions = !conference.CanPublishAgenda() && (conference.CanSubmit() || conference.CanVote());
-
             var links = new List<NavigationMenuLinkViewModel>
                 {
-                    CreateLink("Home", "Home", "Index"), 
-                    CreateLink("Sessions", "Session", "Index", () => showLinksForSubmittedSessions),
-                    CreateLink("Speakers", "Speaker", "Index", () => showLinksForSubmittedSessions),
+                    CreateLink("Home", "Home", "Index"),
+                    CreateLink("Sessions", "Session", "Index", conference.CanShowSessions),
+                    CreateLink("Speakers", "Speaker", "Index", conference.CanShowSpeakers),
                     CreateLink("Agenda", "Home", "Agenda", conference.CanPublishAgenda),
                     CreateLink("Register", "Home", "Register", conference.CanRegister),
                     CreateLink("New to DDD?", "Home", "About"),
@@ -54,6 +52,7 @@ namespace DDDEastAnglia.Controllers
                     CreateLink("Accommodation", "Home", "Accommodation", conference.CanRegister),
                     CreateLink("Sponsors", "Home", "Sponsors"),
                     CreateLink("Team", "Home", "Team"),
+//                    CreateLink("Environmental Policy", "Home", "Environmental"),
                     CreateLink("Contact", "Home", "Contact"),
                     CreateLink("Admin", "AdminHome", "Index", () => User.IsInRole("Administrator"), new { area = "Admin" }),
                 };
@@ -62,7 +61,7 @@ namespace DDDEastAnglia.Controllers
             return PartialView(model);
         }
 
-        private NavigationMenuLinkViewModel CreateLink(string linkText, string controllerName, string actionName, 
+        private NavigationMenuLinkViewModel CreateLink(string linkText, string controllerName, string actionName,
                                                         Func<bool> isVisible = null, object routeValues = null)
         {
             var urlHelper = urlHelperFactory.Create(ControllerContext.RequestContext);

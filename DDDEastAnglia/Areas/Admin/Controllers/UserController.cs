@@ -3,7 +3,6 @@ using System.Linq;
 using System.Web.Mvc;
 using DDDEastAnglia.Areas.Admin.Models;
 using DDDEastAnglia.DataAccess;
-using DDDEastAnglia.Helpers;
 using DDDEastAnglia.Models;
 
 namespace DDDEastAnglia.Areas.Admin.Controllers
@@ -12,28 +11,21 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
     public class UserController : Controller
     {
         private readonly IUserProfileRepository userProfileRepository;
-        private readonly ILoginMethodLoader loginMethodLoader;
         private readonly ISessionRepository sessionRepository;
 
-        public UserController(IUserProfileRepository userProfileRepository, ILoginMethodLoader loginMethodLoader, ISessionRepository sessionRepository)
+        public UserController(IUserProfileRepository userProfileRepository, ISessionRepository sessionRepository)
         {
             if (userProfileRepository == null)
             {
                 throw new ArgumentNullException("userProfileRepository");
             }
 
-            if (loginMethodLoader == null)
-            {
-                throw new ArgumentNullException("loginMethodLoader");
-            }
-
             if (sessionRepository == null)
             {
                 throw new ArgumentNullException("sessionRepository");
             }
-            
+
             this.userProfileRepository = userProfileRepository;
-            this.loginMethodLoader = loginMethodLoader;
             this.sessionRepository = sessionRepository;
         }
 
@@ -66,7 +58,6 @@ namespace DDDEastAnglia.Areas.Admin.Controllers
                 return HttpNotFound();
             }
 
-            userProfile.LoginMethods = loginMethodLoader.GetLoginMethods(id);
             return View(userProfile);
         }
 

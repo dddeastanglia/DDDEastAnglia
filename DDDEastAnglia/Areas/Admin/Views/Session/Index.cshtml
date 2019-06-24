@@ -30,11 +30,13 @@
             &nbsp;
         </th></tr>
     </thead>
-    
+
     <tbody>
-    @foreach (var item in Model) 
+    @foreach (var item in Model)
     {
         <tr><td>
+            <i class="@(item.DurationInMinutes == 60 ? "icon-circle" : "icon-adjust")"
+               title="@item.DurationInMinutes minute session"></i>
             @Html.DisplayFor(modelItem => item.Title)
         </td><td>
             @item.SpeakerUserName
@@ -42,7 +44,7 @@
             @Html.DisplayFor(modelItem => item.Votes)
         </td><td class="controls">
             <span><i class="icon-list-alt"></i> @Html.ActionLink("Details", "Details", new { id = item.SessionId })</span>
-            |     
+            |
             <span><i class="icon-edit"></i> @Html.ActionLink("Edit", "Edit", new { id = item.SessionId })</span>
             |
             <span><i class="icon-trash"></i> @Html.ActionLink("Delete", "Delete", new { id = item.SessionId })</span>

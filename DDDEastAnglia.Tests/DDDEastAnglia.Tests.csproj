@@ -70,6 +70,8 @@
     <Compile Include="Admin\UserControllerTests.cs" />
     <Compile Include="DataAccess\DefaultSponsorSorterTests.cs" />
     <Compile Include="Filters\SecurityHeadersFilterTests.cs" />
+    <Compile Include="Domain\Conferences\Given_Anonymous_Submissions_IsEnabled_The_Conference_Should.cs" />
+    <Compile Include="Filters\SecurityHeadersFilterTests.cs" />
     <Compile Include="Helpers\ImageResizeExtensionsTests.cs" />
     <Compile Include="Sponsors\Query\Context.cs" />
     <Compile Include="Sponsors\Query\Sponsors_who_havent_paid_yet.cs" />

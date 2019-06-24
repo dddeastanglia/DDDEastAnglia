@@ -1,7 +1,6 @@
 ﻿using System.Net;
 using DDDEastAnglia.Areas.Admin.Controllers;
 using DDDEastAnglia.DataAccess;
-using DDDEastAnglia.Helpers;
 using DDDEastAnglia.Models;
 using NSubstitute;
 using NUnit.Framework;
@@ -42,7 +41,7 @@ namespace DDDEastAnglia.Tests.Admin
 
             controller.Edit(userId);
 
-            userProfileRepository.Received().GetUserProfileById(userId); 
+            userProfileRepository.Received().GetUserProfileById(userId);
         }
 
         [Test]
@@ -111,9 +110,8 @@ namespace DDDEastAnglia.Tests.Admin
         private UserController CreateController()
         {
             userProfileRepository = Substitute.For<IUserProfileRepository>();
-            var loginMethodLoader = Substitute.For<ILoginMethodLoader>();
             var sessionRepository = Substitute.For<ISessionRepository>();
-            return new UserController(userProfileRepository, loginMethodLoader, sessionRepository);
+            return new UserController(userProfileRepository, sessionRepository);
         }
     }
 }

@@ -3,48 +3,17 @@
 }
 
 <div class="row-fluid">
-    <div class="span12">
-        <h1>Welcome to DDD East Anglia!</h1>
+    <h1>Welcome to DDD East Anglia!</h1>
 
-        <div class="well">
-            <h3><strong class="dddea">DDD East Anglia</strong> is over for 2018</h3>
-            <p>
-                Thanks to all of the speakers, sponsors, helpers and attendees for their help
-                and support in making <strong class="dddea">DDD East Anglia</strong> a successful and enjoyable day.
-                Photos from the event can be found on our <a href="https://www.flickr.com/photos/dddea/albums">Flickr</a> page.
-            </p>
-
-            <h4>Slides/Code</h4>
-            <p>
-                Slides and/or code for some of the talks can be found at the following links:
-                <ul>
-                    <li><a href="https://oliwennell.github.io/talks/mutation-testing-csharp2/index.html">Who Will Test The Tests? (Oli Wennell)</a> [<a href="https://github.com/oliwennell/talks/tree/master/mutation-testing/example-app">Code</a>]</li>
-                    <li><a href="https://github.com/reyno/dddeastanglia">MediatR - bridging the gap between your SPA and your backend (Russell Seamer)</a></li>
-                    <li><a href="https://www.dropbox.com/s/87is0lq2q184htl/Functional%20C-Sharp%20-%202018-09.pptx?dl=0">Functional C# (Simon Painter)</a></li>
-                    <li><a href="https://blog.ninjaferret.co.uk/downloads/2018-09-22-Reasonable-Software/ReasonableSoftware.pptx">Reasonable Software (Ian Johnson)</a> [<a href="http://blog.ninjaferret.co.uk/downloads/2018-09-22-Reasonable-Software/ParsedExpression.cs">Code</a>]</li>
-                </ul>
-            </p>
-
-            <h4>Reviews</h4>
-            <p>
-                You can read some write-ups of <strong class="dddea">DDD East Anglia</strong> 2018 in the following blog posts:
-                <ul>
-                    <li><a href="https://blog.csmac.nz/my-first-ddd-event-and-how-i-made-the-decision-to-work-a-16-hour-day/">Mark Clearwater - My first DDD Event and how I made the decision to work a 16 hour Saturday</a></li>
-                    <li><a href="https://blog.craigtp.co.uk/Post/2018/09/28/DDD_East_Anglia_2018_In_Review">Craig Phillips - DDD East Anglia 2018 in review</a></li>
-                </ul>
-            </p>
-        </div>
-
-        <p>
-            @Html.DDDEastAnglia() will be returning for another year. It will take place in Cambridge on
-            @Html.Action("ConferenceDate", "Timeline") at @Html.ActionLink("Hills Road Sixth Form College", "Venue", "Home").
-            Like all <abbr title="Developer! Developer! Developer!">DDD</abbr> community events, @Html.DDDEastAnglia() is free
-            to attend, funded entirely through the generosity of our sponsors.
-        </p>
-        <p>
-            <a href="https://twitter.com/intent/follow?screen_name=dddeastanglia">Follow us on Twitter</a> to get all the latest news and updates.
-        </p>
-    </div>
+    <p>
+        @Html.DDDEastAnglia() will be returning for another year. It will take place in Cambridge on
+        @Html.Action("ConferenceDate", "Timeline") at @Html.ActionLink("Hills Road Sixth Form College", "Venue", "Home").
+        Like all <abbr title="Developer! Developer! Developer!">DDD</abbr> community events, @Html.DDDEastAnglia() is free
+        to attend, funded entirely through the generosity of our sponsors.
+    </p>
+    <p>
+        <a href="https://twitter.com/intent/follow?screen_name=dddeastanglia">Follow us on Twitter</a> to get all the latest news and updates.
+    </p>
 </div>
 
 <div class="row-fluid">
@@ -62,48 +31,51 @@
         <!-- Carousel items -->
         <div class="carousel-inner">
             <div class="active item">
-                <img src="@Url.Content("~/Images/carousel/1.jpg")" alt="DDD East Anglia logo" />
+                <img src="@Url.Content("~/Images/carousel/2.jpg")" alt="Closing Session 2018" />
+                <div class="carousel-caption">
+                    A packed closing session at DDD East Anglia 2018.
+                </div>
             </div>
             <div class="item">
-                <img src="@Url.Content("~/Images/carousel/2.jpg")" alt="Liam Westley presenting" />
+                <img src="@Url.Content("~/Images/carousel/4.jpg")" alt="Don Wibier presenting" />
                 <div class="carousel-caption">
-                    <p>Liam Westley presenting his 'An Actor's Life For Me' talk at DDDEA 2014.</p>
+                    Don Wibier talks 'Dependency Injection in ASP.NET Core 2. Why and How?' at DDD East Anglia 2018.
+                </div>
+            </div>
+            <div class="item">
+                <img src="@Url.Content("~/Images/carousel/6.jpg")" alt="Emily Sas presenting" />
+                <div class="carousel-caption">
+                    Emily Sas giving a lightnight talk on 'Pair Programming - the Marmite of Engineering' at DDD East Anglia 2018.
+                </div>
+            </div>
+            <div class="item">
+                <img src="@Url.Content("~/Images/carousel/8.jpg")" alt="Hands-on Docker Workshop" />
+                <div class="carousel-caption">
+                    Paula Muldoon & Paul McGrath deliver their 'Docker for the complete beginner' workshop at DDD East Anglia 2018.
+                </div>
+            </div>
+            <div class="item">
+                <img src="@Url.Content("~/Images/carousel/9.jpg")" alt="Chris O'Dell" />
+                <div class="carousel-caption">
+                    Chris O'Dell presenting 'You build it, you run it!' at DDD East Anglia 2017.
                 </div>
             </div>
             <div class="item">
                 <img src="@Url.Content("~/Images/carousel/3.jpg")" alt="Attendees mingling" />
                 <div class="carousel-caption">
-                    <p>Attendees mingle during one of the refreshment breaks at DDDEA 2014.</p>
-                </div>
-            </div>
-            <div class="item">
-                <img src="@Url.Content("~/Images/carousel/4.jpg")" alt="Mark Rendle presenting" />
-                <div class="carousel-caption">
-                    <p>Mark Rendle presenting his 'The vNext Big Thing' talk at DDDEA 2014.</p>
+                    Attendees mingle during one of the refreshment breaks at DDD East Anglia 2014.
                 </div>
             </div>
             <div class="item">
                 <img src="@Url.Content("~/Images/carousel/5.jpg")" alt="Iris Classon presenting to an audience" />
                 <div class="carousel-caption">
-                    <p>Iris Classon presenting her lunchtime 'Grok' talk at DDDEA 2014.</p>
-                </div>
-            </div>
-            <div class="item">
-                <img src="@Url.Content("~/Images/carousel/6.jpg")" alt="Ben Hall presenting" />
-                <div class="carousel-caption">
-                    <p>Ben Hall presenting his 'What Developers Need To Know About Visual Design' talk at DDDEA 2014.</p>
+                    Iris Classon presenting her lunchtime 'Grok' talk at DDD East Anglia 2014.
                 </div>
             </div>
             <div class="item">
                 <img src="@Url.Content("~/Images/carousel/7.jpg")" alt="Barbara Fusinska presenting" />
                 <div class="carousel-caption">
-                    <p>Barbara Fusinska presenting her 'Architecture - why so serious?' talk at DDDEA 2014.</p>
-                </div>
-            </div>
-            <div class="item">
-                <img src="@Url.Content("~/Images/carousel/8.jpg")" alt="Several people on a stage" />
-                <div class="carousel-caption">
-                    <p>Attendees of DDDEA 2014 receiving prizes during the end of day wrap-up.</p>
+                    Barbara Fusinska presenting her 'Architecture - why so serious?' talk at DDD East Anglia 2014.
                 </div>
             </div>
         </div>

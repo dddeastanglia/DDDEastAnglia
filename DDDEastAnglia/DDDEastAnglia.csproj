@@ -49,33 +49,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DotNetOpenAuth.AspNet, Version=4.2.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\DotNetOpenAuth.AspNet.4.2.2.13055\lib\net45-full\DotNetOpenAuth.AspNet.dll</HintPath>
-    </Reference>
-    <Reference Include="DotNetOpenAuth.Core, Version=4.2.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\DotNetOpenAuth.Core.4.2.2.13055\lib\net45-full\DotNetOpenAuth.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="DotNetOpenAuth.GoogleOAuth2">
-      <HintPath>..\packages\DotNetOpenAuth.GoogleOAuth2.1.1.2\lib\net40\DotNetOpenAuth.GoogleOAuth2.dll</HintPath>
-    </Reference>
-    <Reference Include="DotNetOpenAuth.OAuth, Version=4.2.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\DotNetOpenAuth.OAuth.Core.4.2.2.13055\lib\net45-full\DotNetOpenAuth.OAuth.dll</HintPath>
-    </Reference>
-    <Reference Include="DotNetOpenAuth.OAuth.Consumer, Version=4.2.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\DotNetOpenAuth.OAuth.Consumer.4.2.2.13055\lib\net45-full\DotNetOpenAuth.OAuth.Consumer.dll</HintPath>
-    </Reference>
-    <Reference Include="DotNetOpenAuth.OpenId, Version=4.2.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\DotNetOpenAuth.OpenId.Core.4.2.2.13055\lib\net45-full\DotNetOpenAuth.OpenId.dll</HintPath>
-    </Reference>
-    <Reference Include="DotNetOpenAuth.OpenId.RelyingParty, Version=4.2.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\DotNetOpenAuth.OpenId.RelyingParty.4.2.2.13055\lib\net45-full\DotNetOpenAuth.OpenId.RelyingParty.dll</HintPath>
-    </Reference>
     <Reference Include="MarkdownSharp">
       <HintPath>..\packages\MarkdownSharp.1.13.0.0\lib\35\MarkdownSharp.dll</HintPath>
     </Reference>
@@ -196,10 +169,6 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.Data.2.0.20710.0\lib\net40\WebMatrix.Data.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Web.WebPages.OAuth, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.OAuth.2.0.20710.0\lib\net40\Microsoft.Web.WebPages.OAuth.dll</HintPath>
-    </Reference>
     <Reference Include="WebMatrix.WebData, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.WebData.2.0.20710.0\lib\net40\WebMatrix.WebData.dll</HintPath>
@@ -239,7 +208,6 @@
     <Compile Include="Controllers\UserNameFilterAttribute.cs" />
     <Compile Include="DataAccess\CachingVotingCookieFactory.cs" />
     <Compile Include="DataAccess\ConferenceLoader.cs" />
-    <Compile Include="DataAccess\IAccountLoginMethodQuery.cs" />
     <Compile Include="DataAccess\ISpeakerRepository.cs" />
     <Compile Include="DataAccess\ISponsorRepository.cs" />
     <Compile Include="DataAccess\DefaultSponsorSorter.cs" />
@@ -251,12 +219,8 @@
     <Compile Include="Helpers\ImageResizeExtensions.cs" />
     <Compile Include="DataAccess\SimpleData\Models\Sponsor.cs" />
     <Compile Include="DataAccess\SimpleData\SponsorRepository.cs" />
-    <Compile Include="Helpers\LoginMethodLoader.cs" />
-    <Compile Include="Helpers\LoginMethodViewModelBuilder.cs" />
     <Compile Include="Helpers\Sessions\SelectedSessions.cs" />
     <Compile Include="Helpers\SponsorLogoService.cs" />
-    <Compile Include="Models\LoginMethod.cs" />
-    <Compile Include="DataAccess\SimpleData\Queries\AccountLoginMethodQuery.cs" />
     <Compile Include="DataAccess\SpeakerRepository.cs" />
     <Compile Include="DataAccess\SimpleData\CalendarItemRepository.cs" />
     <Compile Include="DataAccess\SimpleData\UserProfileRepository.cs" />
@@ -278,7 +242,6 @@
     <Compile Include="IDateTimeOffsetProvider.cs" />
     <Compile Include="LocalDateTimeOffsetProvider.cs" />
     <Compile Include="Models\AboutViewModel.cs" />
-    <Compile Include="Models\LoginMethodViewModel.cs" />
     <Compile Include="Models\TimelineItemModel.cs" />
     <Compile Include="Models\TimelineModel.cs" />
     <Compile Include="Models\SpeakerProfile.cs" />
@@ -288,7 +251,7 @@
     <Content Include="emails\SessionFeedbackForm.png" />
     <Content Include="emails\SpeakerEmail.html" />
     <Content Include="Images\carousel\8.jpg" />
-    <Content Include="Images\googleplaystore.gif" />
+    <Content Include="Images\carousel\9.jpg" />
     <Content Include="Images\hotels\doubletree-hilton.jpg" />
     <Content Include="Images\hotels\hotel-ibis-cambridge-central-station.jpg" />
     <Content Include="Images\hotels\premierinn-a14-j32.jpg" />
@@ -300,13 +263,14 @@
     <Content Include="Images\hotels\travelodge-orchard-park.jpg" />
     <Content Include="Images\hotels\university-arms.jpg" />
     <Content Include="Images\hotels\varsity.jpg" />
-    <Content Include="Images\itunesappstore.gif" />
     <Content Include="Images\sponsors\bybox.png" />
     <Content Include="Images\sponsors\endjin.png" />
     <Content Include="Images\sponsors\ndc-london.png" />
     <Content Include="Images\team\adamsurgenor.jpg" />
+    <Content Include="Images\team\davecook.jpg" />
     <Content Include="Images\team\davecraft.jpg" />
-    <Content Include="Images\team\joncanning.jpg" />
+    <Content Include="Images\team\emilysas.jpg" />
+    <Content Include="Images\team\nokuthulandlovu.jpg" />
     <Content Include="Images\team\philpursglove.jpg" />
     <Content Include="Scripts\flot\jquery.flot.axislabel.js" />
     <Content Include="Scripts\gravatar.js" />
@@ -402,10 +366,8 @@
     <Compile Include="DataAccess\MessageBus\IMessage.cs" />
     <Compile Include="DataAccess\MessageBus\IMessageBus.cs" />
     <Compile Include="DataAccess\MessageBus\SimpleMessageBus.cs" />
-    <Compile Include="App_Code\GitHubOAuthClient.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminHomeController.cs" />
-    <Compile Include="Areas\Admin\Controllers\RoleController.cs" />
     <Compile Include="Areas\Admin\Controllers\SessionController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
     <Compile Include="Controllers\SpeakerController.cs" />
@@ -444,7 +406,6 @@
     <Compile Include="Helpers\MvcHelperModule.cs" />
     <Compile Include="Models\BannerViewModel.cs" />
     <Compile Include="Models\BannerModel.cs" />
-    <Compile Include="Models\ExternalLogin.cs" />
     <Compile Include="Models\GrokTalk.cs" />
     <Compile Include="Models\LocalPasswordModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
@@ -457,7 +418,6 @@
     <Compile Include="Models\ResetPasswordStepThreeModel.cs" />
     <Compile Include="Models\SessionDisplayModel.cs" />
     <Compile Include="Models\SessionIndexModel.cs" />
-    <Compile Include="Models\SessionTweetLink.cs" />
     <Compile Include="Models\SessionVoteModel.cs" />
     <Compile Include="Models\SpeakerDisplayModel.cs" />
     <Content Include="ForgottenPasswordTemplate.txt" />
@@ -481,7 +441,6 @@
     <Compile Include="VotingCookie.cs" />
     <Content Include="Scripts\searchfilter.js" />
     <Content Include="App_Code\HTMLExtensions.cs" />
-    <Compile Include="App_Start\AuthConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -568,10 +527,10 @@
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tooltip.min.css" />
-    <Content Include="favicon.ico" />
+    <Content Include="favicon.png" />
     <Content Include="Global.asax" />
     <Content Include="Images\team\adrianbanks.jpg" />
-    <Content Include="Images\logo-small.png" />
+    <Content Include="Images\logo.png" />
     <Content Include="Images\wmd-buttons.png" />
     <Content Include="Areas\Admin\Views\Web.config" />
     <Content Include="Areas\Admin\Views\AdminHome\Index.cshtml" />
@@ -600,7 +559,6 @@
     <Content Include="Areas\Admin\Views\User\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\User\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Speaker\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\User\_LoginMethods.cshtml" />
     <Content Include="Areas\Admin\Views\Voting\VotesPerDay.cshtml" />
     <Content Include="Scripts\flot\hoverTooltip.js">
       <SubType>Code</SubType>
@@ -632,9 +590,11 @@
     <Content Include="Scripts\Markdown.Editor.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Views\Home\Environmental.cshtml" />
     <Content Include="Views\Home\Preview.cshtml">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="Views\Session\_SpeakerGuidance.cshtml" />
     <Content Include="Views\Shared\_Footer.cshtml">
       <SubType>Code</SubType>
     </Content>
@@ -653,13 +613,8 @@
     <Content Include="Content\Site.css" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
-    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
-    <Content Include="Views\Account\_RemoveExternalLoginsPartial.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Account\ManageLogins.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
-    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
-    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
@@ -700,9 +655,7 @@
     <Content Include="Views\Home\Closed.cshtml" />
     <Content Include="Views\Home\Sponsors.cshtml" />
     <Content Include="Views\Home\CodeOfConduct.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Content Include="Views\Speaker\Resources.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
