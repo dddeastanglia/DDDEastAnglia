@@ -8,5 +8,7 @@
         public int SpeakerUserId{get;set;}
         public string SpeakerName{get;set;}
         public int NumberOfVotes{get;set;}
+
+        public int DurationInMinutes { get; set; }
     }
 }
