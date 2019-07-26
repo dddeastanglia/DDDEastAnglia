@@ -23,8 +23,11 @@
         <tr><td>
             @Html.DisplayFor(modelItem => item.Position)
         </td><td>
-            <a href="@Url.Action("Details", "Session", new { id = item.SessionId })">@item.SessionTitle</a>
-        </td><td>
+            <i class="@(item.DurationInMinutes == 60 ? "icon-circle" : "icon-adjust")"
+               title="@item.DurationInMinutes minute session"></i>
+
+            <a href="@Url.Action("Details", "Session", new {id = item.SessionId})">@item.SessionTitle</a>
+</td><td>
             <a href="@Url.Action("Details", "User", new { id = item.SpeakerUserId })">@item.SpeakerName</a>
         </td><td>
             <div id="progressbar@(item.SessionId)" data-value-max="@Model.HighestVoteCount" data-value-current="@item.NumberOfVotes"></div>
