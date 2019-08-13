@@ -1,63 +1,52 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace DDDEastAnglia.Helpers.Sessions
 {
     public static class SelectedSessions
     {
-        public static IEnumerable<int> SessionIds => new int[]
+        private static readonly List<Tuple<int, int>> SelectedSessionsData = new List<Tuple<int, int>>
         {
-            2189,
-                2190,
-                2194,
-                2199,
-                2201,
-                2206,
-                2207,
-                2219,
-                2220,
-                2228,
-                2230,
-                2232,
-                2240,
-                2242,
-                2246,
-                2247,
-                2254,
-                2256,
-                2257,
-                2258,
-                2264,
-                2267,
-                2273,
-                2269
+            // session 1
+            Tuple.Create(2264, 80),
+            Tuple.Create(2247, 33),
+            Tuple.Create(2246, 8895),
+            Tuple.Create(2206, 8870),
+
+            // session 2
+            Tuple.Create(2230, 8885),
+            Tuple.Create(2269, 8796),
+            Tuple.Create(2228, 8872),
+            Tuple.Create(2232, 8887),
+
+            // session 3
+            Tuple.Create(2220, 30),
+            Tuple.Create(2273, 297),
+            Tuple.Create(2256, 8901),
+            Tuple.Create(2201, 8786),
+
+            // session 4
+            Tuple.Create(2267, 53),
+            Tuple.Create(2189, 133),
+            Tuple.Create(2190, 6506),
+            //TBC
+
+            // session 5
+            Tuple.Create(2207, 2314),
+            Tuple.Create(2257, 8902),
+            Tuple.Create(2240, 8891),
+            Tuple.Create(2258, 8864),
+
+            // session 6
+            Tuple.Create(2219, 8876),
+            Tuple.Create(2254, 8693),
+            Tuple.Create(2194, 8801),
+            Tuple.Create(2199, 8869)
         };
 
-        public static IEnumerable<int> SpeakerIds => new int[]
-        {
-            8893,
-                33,
-                30,
-                8901,
-                8796,
-                53,
-                8872,
-                80,
-                8887,
-                8891,
-                297,
-                6506,
-                8693,
-                8869,
-                2314,
-                8786,
-                133,
-                8801,
-                8885,
-                8870,
-                8895,
-                8876,
-                8864,
-                8902
-        };
+        public static IEnumerable<int> SessionIds => SelectedSessionsData.Select(s => s.Item1);
+
+        public static IEnumerable<int> SpeakerIds => SelectedSessionsData.Select(s => s.Item2);
     }
 }
