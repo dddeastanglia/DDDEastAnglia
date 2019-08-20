@@ -79,7 +79,7 @@ namespace DDDEastAnglia.Controllers
         {
             var conference = conferenceLoader.LoadConference();
 
-            if (!conference.CanShowSpeakers())
+            if (!conference.CanShowSpeakers() && !conference.CanPublishAgenda())
             {
                 return HttpNotFound();
             }

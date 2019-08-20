@@ -72,7 +72,7 @@ namespace DDDEastAnglia.Controllers
             var userProfile = userProfileRepository.GetUserProfileByUserName(session.SpeakerUserName);
 
             var conference = conferenceLoader.LoadConference();
-            var showSpeaker = conference.CanShowSpeakers();
+            var showSpeaker = conference.CanShowSpeakers() || conference.CanPublishAgenda();
 
             var displayModel = CreateDisplayModel(session, userProfile, showSpeaker);
 
@@ -100,7 +100,7 @@ namespace DDDEastAnglia.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View(new Session {SpeakerUserName = userProfile.UserName, ConferenceId = conference.Id});
+            return View(new Session {SpeakerUserName = userProfile.UserName, ConferenceId = conference.Id, DurationInMinutes = 60});
         }
 
         [HttpPost]
