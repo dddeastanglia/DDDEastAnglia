@@ -76,7 +76,7 @@ hr{
     font-weight: bold;
     color: #6d7175;
     text-shadow: initial;
-    padding: .9em 1.6em;
+    padding: .9em 1.05em;
 }
 
 .navbar .nav > .active > a, .navbar .nav > .active > a:hover, .navbar .nav > .active > a:focus {
@@ -170,7 +170,7 @@ hr{
 #sponsors .sponsor {
     display: inline-block;
     overflow: hidden;
-    max-width: 210px;
+    width: 100%;
 }
 
 .sponsor a img {
