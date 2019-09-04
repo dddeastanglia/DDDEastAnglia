@@ -42,8 +42,8 @@ namespace DDDEastAnglia.Controllers
             var links = new List<NavigationMenuLinkViewModel>
                 {
                     CreateLink("Home", "Home", "Index"),
-                    CreateLink("Sessions", "Session", "Index", conference.CanShowSessions),
-                    CreateLink("Speakers", "Speaker", "Index", conference.CanShowSpeakers),
+                    CreateLink("Sessions", "Session", "Index", () => conference.CanShowSessions() && !conference.CanPublishAgenda()),
+                    CreateLink("Speakers", "Speaker", "Index", () => conference.CanShowSpeakers() && !conference.CanPublishAgenda()),
                     CreateLink("Agenda", "Home", "Agenda", conference.CanPublishAgenda),
                     CreateLink("Register", "Home", "Register", conference.CanRegister),
                     CreateLink("New to DDD?", "Home", "About"),

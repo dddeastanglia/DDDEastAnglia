@@ -78,7 +78,7 @@ namespace DDDEastAnglia.Domain
 
         public bool CanShowSessions()
         {
-            return CanSubmit() || CanVote() || CanPublishAgenda() || CanRegister();
+            return CanSubmit() || CanVote();
         }
 
         public bool CanShowSpeakers()

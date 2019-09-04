@@ -70,13 +70,12 @@ hr{
     padding: 0;
 }
 
-
 .navbar .nav > li > a {
     font-size: 1.2em;
     font-weight: bold;
     color: #6d7175;
     text-shadow: initial;
-    padding: .9em 1.6em;
+    padding: 1em;
 }
 
 .navbar .nav > .active > a, .navbar .nav > .active > a:hover, .navbar .nav > .active > a:focus {
@@ -93,11 +92,19 @@ hr{
     border-radius: initial;
     border: none;
     color: #fff;
-    padding: .9em 1.6em;
+    padding: 1em;
 }
 
 .navbar .btn-navbar:hover, .navbar .btn-navbar:focus, .btn:hover, .btn:focus {
     background: #6d7175;
+}
+
+.navbar .btn, .navbar .btn-group {
+    margin-top: 0;
+}
+
+a.btn.dropdown-toggle {
+    line-height: 25px;
 }
 
 .btn .caret{
@@ -129,7 +136,7 @@ hr{
     font-size: 18px;
     line-height: 30px;
     margin: 0;
-    color: #2f1a6b;
+    color: white;
     text-shadow: 0 1px 0 #7f483286;
 }
 
@@ -170,7 +177,7 @@ hr{
 #sponsors .sponsor {
     display: inline-block;
     overflow: hidden;
-    max-width: 210px;
+    width: 100%;
 }
 
 .sponsor a img {
