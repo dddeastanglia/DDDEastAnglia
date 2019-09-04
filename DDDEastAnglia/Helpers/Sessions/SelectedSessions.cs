@@ -22,7 +22,7 @@ namespace DDDEastAnglia.Helpers.Sessions
 
             // session 3
             Tuple.Create(2220, 30),
-            //Tuple.Create(2273, 297),
+            Tuple.Create(2196, 8867),
             Tuple.Create(2256, 8901),
             Tuple.Create(2201, 8786),
 
