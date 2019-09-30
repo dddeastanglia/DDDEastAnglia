@@ -248,7 +248,7 @@
     <Compile Include="NavigationMenu\NavigationMenuModule.cs" />
     <Compile Include="Helpers\Email\EmailModule.cs" />
     <Content Include="emails\ReserveEmail.html" />
-    <Content Include="emails\SessionFeedbackForm.png" />
+    <Content Include="emails\SessionFeedback.pdf" />
     <Content Include="emails\SpeakerEmail.html" />
     <Content Include="Images\carousel\8.jpg" />
     <Content Include="Images\carousel\9.jpg" />
